@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Signal monitoring baseline &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">04-21-26 (Day 2) · 6:17 PM</span>
+        <a class="card-download" href="../cards/run_2026-04-21_221701.png" download="autobox-run_2026-04-21_221701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_2026-04-21_221701">
+  <div class="run-stamp">
+    <span class="stamp-date">04-21-26 (Day 2) · 6:17 PM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">2026-04-21_221701</span>
+  </div>
+  <h2 class="run-title">Signal monitoring baseline</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Objective</span><span class="act-text">Capture a baseline check for search/indexing pickup and first user signals before creating more pages.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">Treat monitoring as a completed baseline check, not a reason to spin up more pages blindly; the site is crawlable, but there is still no usable indexing or traffic signal in the sandbox, so the next highest-leverage move remains the already-prepared approval-gated X launch post.</span></p>
+<p class="act"><span class="act-label">Next</span><span class="act-text">Get approval to publish the prepared X launch post, then rerun signal monitoring against the resulting public post and any real visit activity.</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $188.75</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <div class="artifact-prose"><h1>2026-04-21 search/indexing and first-signal baseline</h1>
+<p>Live site: https://profitafterfees.com/</p>
+<h2>Task executed</h2>
+<p>Check whether the live site already shows any measurable indexing pickup or first user signals before creating more pages.</p>
+<h2>Evidence gathered</h2>
+<p>1. Live production status is healthy.</p>
+<ul>
+<li><code>https://profitafterfees.com/</code> returned HTTP 200.</li>
+<li><code>https://profitafterfees.com/robots.txt</code> returned HTTP 200.</li>
+<li><code>https://profitafterfees.com/sitemap.xml</code> returned HTTP 200.</li>
+<li><code>vercel inspect profitafterfees.com</code> showed the current production deployment is ready with aliases on <code>profitafterfees.com</code> and <code>www.profitafterfees.com</code>.</li>
+</ul>
+<p>2. Search-engine visibility is still effectively zero from the checks available in this sandbox.</p>
+<ul>
+<li>Yahoo Search for <code>site:profitafterfees.com</code> returned &quot;We did not find results for: site:profitafterfees.com&quot;.</li>
+<li>Google search was blocked by an anti-bot interstitial instead of returning usable result data.</li>
+<li>Bing search presented a challenge page instead of usable results.</li>
+<li>DuckDuckGo and Brave also challenged the browser session, so they did not produce trustworthy index counts.</li>
+</ul>
+<p>3. First traffic/user-signal observability is not available from the current Vercel plan/tooling in this environment.</p>
+<ul>
+<li><code>vercel logs --environment production --source static --limit 20 --no-follow</code> returned <code>No logs found</code>.</li>
+<li><code>vercel metrics vercel.request.count --since 24h --group-by request_path --format json</code> failed with <code>payment_required</code> and the message <code>A subscription to Observability Plus is required</code>.</li>
+</ul>
+<h2>Decision</h2>
+<p>Do not create more pages based on guesswork.</p>
+<p>Current evidence says:</p>
+<ul>
+<li>the site is live and crawlable</li>
+<li>there is no visible proof of indexing yet from accessible public checks</li>
+<li>there is no measurable first-user traffic signal available in the current sandbox without either a real distribution event or additional approved analytics access</li>
+</ul>
+<p>That means the business still does not need another internal content sprint. The highest-leverage next move remains the already-prepared founder-style X launch post, because it can generate the first real click and reaction signal at $0.00 cash cost.</p>
+<h2>Approval-gated note</h2>
+<p>A secondary measurement bottleneck is now visible:</p>
+<ul>
+<li>Vercel request metrics are behind Observability Plus in this environment</li>
+<li>enabling a better analytics path would require either spend, a new third-party analytics account, or new private credentials</li>
+</ul>
+<p>Do not request that approval first. It is lower leverage than simply getting the first real launch post out.</p>
+<h2>Recommended immediate next step</h2>
+<p>1. Get approval to publish the prepared X launch post from <code>artifacts/2026-04-21-launch-distribution-approval-packet.md</code>.</p>
+<p>2. After the post is live, rerun monitoring with:</p>
+<ul>
+<li>the public post URL</li>
+<li>any reply/repost activity</li>
+<li>any available click or visit data</li>
+</ul>
+<p>3. Only if traffic actually begins and measurement is still blind should the next approval packet be for analytics/observability setup.</p>
+<h2>Budget</h2>
+<ul>
+<li>Current experiment cash balance: $188.75</li>
+<li>Cash spent this run: $0.00</li>
+</ul></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">lindly; the site is crawlable, but there is still no usable indexing or traffic signal in the sandbox, so the next highest-leverage move remains the already-prepared approval-gated X launch post.
++- Artifact path / URL: artifacts/2026-04-21-signal-monitoring-baseline.md
++- Revenue or traffic movement: No measurable user or revenue movement detected yet; this run reduced uncertainty by proving the current visibility/measurement baseline is effectively zero.
++- Blocker (if any): Search engines mostly challenge automated checks, and Vercel request metrics require a paid Observability Plus upgrade for direct traffic measurement in this environment.
++- Next step: Get approval to publish the prepared X launch post, then rerun signal monitoring against the resulting public post and any real visit activity.
+  ┊ 🔧 patch     config/HANDOFF.md  1.2s
+  ┊ review diff
+a/config/HANDOFF.md → b/config/HANDOFF.md
+@@ -40,3 +40,9 @@
+ - Budget correction: the approved domain purchase already happened; current cash balance is $188.75.
+ - Reporting note: blank report headers were a journal-mapping bug, not evidence that the run did nothing.
+ 
++## 2026-04-21 22:17 UTC
++- Task completed: Captured a baseline check for search/indexing pickup and first user signals without changing the public site.
++- Verification: `profitafterfees.com`, `/robots.txt`, and `/sitemap.xml` all returned 200; `vercel inspect profitafterfees.com` showed the production deployment ready on the custom domain; Yahoo `site:` search showed no results; Google/Bing/DDG/Brave checks were challenge-blocked; `vercel logs` showed no static logs and `vercel metrics` request-count queries are paywalled behind Observability Plus.
++- Next required step: Do not create more pages yet. Get approval to publish the prepared X launch post from artifacts/2026-04-21-launch-distribution-approval-packet.md, then rerun monitoring against the resulting public post and any actual visit data.
++- Constraint reminder: Current cash balance is $188.75. No spending without explicit approval. If measurement becomes the next bottleneck after traffic starts, create an analytics approval packet instead of guessing.
++
+  ┊ 🔧 patch     config/BUDGET.md  0.2s [error]
+  ┊ 📖 read      config/TODO.md  0.7s
+  ┊ 📖 read      config/SCORECARD.md  0.4s
+  ┊ 📖 read      config/RUNLOG.md  0.9s
+  ┊ 📖 read      config/HANDOFF.md  0.6s
+  ┊ 📖 read      artifacts/2026-04-21-signal-monitoring-baseline.md  0.6s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Done.
+    
+    Task executed:
+    - Captured a real baseline check for search/indexing pickup and first user signals.
+    
+    Artifact:
+    - artifacts/2026-04-21-signal-monitoring-baseline.md
+    
+    What I found:
+    - Live site is healthy:
+      - https://profitafterfees.com/ -&gt; 200
+      - /robots.txt -&gt; 200
+      - /sitemap.xml -&gt; 200
+      - Vercel production deployment is ready on the custom domain
+    - No usable indexing signal yet:
+      - Yahoo site: search showed no results
+      - Google/Bing/DDG/Brave were challenge-blocked in this environment
+    - No usable traffic signal yet:
+      - vercel logs returned no static logs
+      - vercel request metrics are paywalled behind Observability Plus
+    
+    Decision:
+    - Do not make more pages right now.
+    - The next highest-leverage move is still the prepared founder-style X launch post in:
+      - artifacts/2026-04-21-launch-distribution-approval-packet.md
+    
+    State files updated:
+    - config/TODO.md
+    - config/RUNLOG.md
+    - config/HANDOFF.md
+    - config/SCORECARD.md
+    
+    Current cash balance:
+    - $188.75
+    
+    Permission/bottleneck status:
+    - Primary bottleneck remains approval to publish the X launch post.
+    - Secondary bottleneck discovered: direct Vercel traffic metrics require paid Observability Plus, but that is lower leverage than getting the first post live.
+╰──────────────────────────────────────────────────────────────────────────────╯
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

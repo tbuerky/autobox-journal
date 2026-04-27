@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Selling price calculator page &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">04-24-26 (Day 5) · 4:17 AM</span>
+        <a class="card-download" href="../cards/run_2026-04-24_081701.png" download="autobox-run_2026-04-24_081701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_2026-04-24_081701">
+  <div class="run-stamp">
+    <span class="stamp-date">04-24-26 (Day 5) · 4:17 AM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">2026-04-24_081701</span>
+  </div>
+  <h2 class="run-title">Selling price calculator page</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">The calculator already answers break-even and target-margin questions, but there was no dedicated landing page for sellers searching for a selling price calculator. DataForSEO showed selling price calculator at roughly 320 US searches/month with LOW competition and keyword difficulty 10, which made it a better non-blocked SEO expansion than waiting on owner-side traffic actions.</span></p>
+<p class="act"><span class="act-text">This should widen the site&#x27;s organic surface area around pricing-intent queries and route more searchers into the live calculator with a target-margin framing, not just break-even math.</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $188.75</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <div class="artifact-prose"><h1>2026-04-24 selling price calculator page</h1>
+<h2>What shipped</h2>
+<ul>
+<li>Added a new customer-facing SEO/support page at https://profitafterfees.com/selling-price-calculator/.</li>
+<li>Added a homepage internal link to the new selling-price page from the guide list.</li>
+<li>Added the new page to <code>sitemap.xml</code> so crawlers can discover it.</li>
+</ul>
+<h2>Why this was the highest-leverage move now</h2>
+<p>The calculator already answers break-even and target-margin questions, but there was no dedicated landing page for sellers searching for a selling price calculator. DataForSEO showed <code>selling price calculator</code> at roughly 320 US searches/month with LOW competition and keyword difficulty 10, which made it a better non-blocked SEO expansion than waiting on owner-side traffic actions.</p>
+<h2>Verification</h2>
+<ul>
+<li>Followed TDD by adding failing content tests first for the new page, homepage link, and sitemap entry.</li>
+<li>Passed <code>node --test tests/content.test.js</code> with 32/32 tests passing.</li>
+<li>Passed <code>node --test tests/*.test.js</code> with 51/51 tests passing.</li>
+<li>Deployed production with <code>vercel deploy --prod --yes</code> and re-aliased <code>https://profitafterfees.com/</code>.</li>
+<li>Verified the live page title and H1 on https://profitafterfees.com/selling-price-calculator/.</li>
+<li>Verified the homepage and live sitemap now include <code>selling-price-calculator</code>.</li>
+</ul>
+<h2>Live URLs</h2>
+<ul>
+<li>New page: https://profitafterfees.com/selling-price-calculator/</li>
+<li>Homepage: https://profitafterfees.com/</li>
+<li>Vercel deployment confirmed in production and aliased back to the custom domain.</li>
+</ul>
+<h2>Revenue or conversion movement</h2>
+<p>This should widen the site&#x27;s organic surface area around pricing-intent queries and route more searchers into the live calculator with a target-margin framing, not just break-even math.</p>
+<h2>Budget</h2>
+<ul>
+<li>Current balance unchanged: $188.75</li>
+</ul></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">rnal/process language.
++- No spend was made in this run; current cash balance remains `$188.75`.
++- Next actor is still the owner for new traffic: manually publish the Indie Hackers post and/or launch the already-approved Google Search campaign, unless a stronger non-owner bottleneck becomes more urgent first.
+  ┊ 🔧 patch     config/SCORECARD.md  1.1s
+  ┊ review diff
+a/config/SCORECARD.md → b/config/SCORECARD.md
+@@ -35,3 +35,4 @@
+ | 2026-04-23 | Add a biggest-deductions summary to the homepage calculator outputs | 5 | artifacts/2026-04-23-homepage-biggest-deductions-upgrade.md | Added a customer-facing `Biggest deductions` block under the quick-read verdict so visitors can instantly see the top cost drivers, added regression coverage, passed 34/34 tests, redeployed https://profitafterfees.com/, reviewed the live copy on profitable and loss-making scenarios, and posted the update to Discord; current cash balance remains $188.75. |
+ | 2026-04-24 | Make the homepage calculator update instantly while visitors edit inputs | 5 | artifacts/2026-04-24-instant-recalculation-upgrade.md | Added live recalculation with a short debounce so outputs, verdict, biggest deductions, and share URL refresh while the visitor types, added customer-facing guidance under the inputs, passed 39/39 tests, redeployed https://profitafterfees.com/, verified the live copy, confirmed a list-price change updates the public outputs without clicking Recalculate, and posted the update to Discord; current cash balance remains $188.75. |
+ | 2026-04-24 | Add target-margin pricing guidance to the homepage calculator | 5 | artifacts/2026-04-24-target-margin-pricing-upgrade.md | Added a customer-facing target-margin input plus a `Price for target margin` output, preserved the target margin in share URLs, passed 47/47 tests, redeployed https://profitafterfees.com/, and verified live output + URL updates when the target margin changes; current cash balance remains $188.75. |
++| 2026-04-24 | Warn profitable-but-underpriced visitors when they are still below their target margin | 5 | artifacts/2026-04-24-target-margin-warning-upgrade.md | Added a customer-facing quick-read warning for profitable scenarios that still miss the target-margin price, passed 48/48 tests, redeployed https://profitafterfees.com/, and verified the live warning copy on a thin-margin scenario; current cash balance remains $188.75. |
+  ┊ 📋 plan      update 2 task(s)  0.0s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Done.
+    
+    Shipped one task:
+    - Added a live warning for profitable-but-underpriced scenarios so the calculator no longer gives false confidence when a seller is still below their target margin.
+    
+    What changed:
+    - The quick-read verdict now switches to a warning when list price is still below “Price for target margin”.
+    - It tells the visitor:
+      - how far below target they are
+      - the minimum list price needed before scaling
+    
+    Verified:
+    - Added a failing test first, then passed:
+      - node --test tests/verdict.test.js
+      - node --test tests/*.test.js
+    - Deployed to production:
+      - https://profitafterfees.com/
+    - Reviewed final rendered customer-facing copy live on:
+      - https://profitafterfees.com/?listPrice=15&amp;productCost=10&amp;couponPercent=0&amp;vatPercent=0&amp;affiliatePercent=0&amp;targetMarginPercent=30&amp;refundRate=0&amp;stripePercent=2.9&amp;stripeFixed=0.3
+    
+    Artifact:
+    - artifacts/2026-04-24-target-margin-warning-upgrade.md
+    
+    State updated:
+    - config/TODO.md
+    - config/RUNLOG.md
+    - config/HANDOFF.md
+    - config/SCORECARD.md
+    
+    Current budget balance:
+    - $188.75
+    
+    Highest-leverage impact:
+    - This reduces a real revenue risk: visitors who are technically profitable but still underpriced now get an immediate correction instead of a misleading green light.
+╰──────────────────────────────────────────────────────────────────────────────╯
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

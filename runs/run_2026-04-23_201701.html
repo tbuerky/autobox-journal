@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Run dispatch &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">04-23-26 (Day 4) · 4:17 PM</span>
+        <a class="card-download" href="../cards/run_2026-04-23_201701.png" download="autobox-run_2026-04-23_201701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_2026-04-23_201701">
+  <div class="run-stamp">
+    <span class="stamp-date">04-23-26 (Day 4) · 4:17 PM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">2026-04-23_201701</span>
+  </div>
+  <h2 class="run-title">Run dispatch</h2>
+  <div class="run-acts"><p class="act"><span class="act-label">Note</span><span class="act-text">Run completed without a runlog entry. No artifact captured.</span></p></div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $188.75</span></div>
+  </div>
+</article>  </div>
+
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">xt visitor can tell immediately whether a scenario works, instead of forcing them to parse raw line items first.
++- Artifact path / URL: artifacts/2026-04-23-homepage-scenario-verdict-upgrade.md ; https://profitafterfees.com/ ; https://profitafterfees.com/?listPrice=10&amp;productCost=20&amp;couponPercent=0&amp;vatPercent=0&amp;affiliatePercent=0&amp;refundRate=0&amp;stripePercent=2.9&amp;stripeFixed=0.3
++- Revenue or traffic movement: No new traffic was created in this run, but the live landing experience now explains profit or loss in plain language and gives a clearer break-even action for the next visitor.
++- Blocker (if any): None for this task.
++- Next step: Keep waiting on owner-side traffic execution for the approved Google Ads launch or Indie Hackers post, unless a stronger non-owner bottleneck appears first. Current cash balance: $188.75.
+  ┊ 🔧 patch     ../../config/HANDOFF.md  1.3s
+  ┊ review diff
+a/../../config/HANDOFF.md → b/../../config/HANDOFF.md
+@@ -241,3 +241,15 @@
+ - Sent the checklist summary plus `Suggested post copy:` into the Discord control thread; delivery evidence: message IDs `1496938818266464306` and `1496938820124409986`.
+ - No spend was made in this run; current cash balance remains `$188.75`.
+ - Next actor is the owner: if only one thing gets done tonight, publish the Indie Hackers post first and return the public URL; if there is enough time for setup, launch the approved Google Search test and return the campaign screenshots.
++
++---
++
++## 2026-04-23 20:24 UTC — homepage quick-read verdict shipped live
++This run respected the owner&#x27;s request to stop hovering for immediate manual actions and used the cycle on a non-blocked conversion improvement instead.
++
++- Created `artifacts/2026-04-23-homepage-scenario-verdict-upgrade.md`.
++- Added a customer-facing `Quick read` verdict block at the top of the calculator outputs so profitable scenarios show a plain-language win statement and loss-making scenarios show a clear warning plus break-even direction.
++- Added new coverage in `tests/verdict.test.js` and `tests/content.test.js`, then passed `node --test tests/*.test.js` with 31/31 tests passing.
++- Deployed production with `vercel deploy --prod --yes` and verified the live site on both a profitable scenario and a loss-making scenario.
++- No spend was made in this run; current cash balance remains `$188.75`.
++- Next actor is still the owner for new traffic: manually publish the Indie Hackers post and/or launch the already-approved Google Search campaign, unless a stronger non-owner bottleneck becomes more urgent first.
+  ┊ 📋 plan      update 2 task(s)  0.0s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Done.
+    
+    I chose one non-owner-dependent, revenue-adjacent task:
+    add a plain-language quick-read verdict to the live calculator so the next visitor can instantly tell whether a scenario is profitable or losing money.
+    
+    What shipped
+    - Live on https://profitafterfees.com/
+    - New customer-facing “Quick read” block above outputs
+    - Profitable scenarios now say things like:
+      “You keep $40.84 from this sale.”
+    - Loss scenarios now say things like:
+      “This setup loses $10.59 per sale.”
+      plus a break-even direction
+    
+    Verification
+    - Added tests in:
+      - tests/verdict.test.js
+      - tests/content.test.js
+    - Passed:
+      node --test tests/*.test.js
+    - Deployed production:
+      https://stripe-profit-calculator-jubse4oaj-travis-4599s-projects.vercel.app
+    - Verified live rendered copy on both:
+      - profitable scenario
+      - loss-making scenario
+    
+    Artifact
+    - artifacts/2026-04-23-homepage-scenario-verdict-upgrade.md
+    
+    State files updated
+    - config/TODO.md
+    - config/RUNLOG.md
+    - config/HANDOFF.md
+    - config/SCORECARD.md
+    
+    Budget
+    - No spend this run
+    - Current cash balance: $188.75
+╰──────────────────────────────────────────────────────────────────────────────╯
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

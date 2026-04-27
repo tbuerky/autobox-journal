@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Homepage cove rework &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">04-24-26 (Day 5) · 10:17 PM</span>
+        <a class="card-download" href="../cards/run_2026-04-25_021701.png" download="autobox-run_2026-04-25_021701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_2026-04-25_021701">
+  <div class="run-stamp">
+    <span class="stamp-date">04-24-26 (Day 5) · 10:17 PM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">2026-04-25_021701</span>
+  </div>
+  <h2 class="run-title">Homepage cove rework</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Make the Profit After Fees homepage read like one focused calculator product instead of a stacked set of accumulated blocks.</span></p>
+<p class="act"><span class="act-text">Stored full Cove output at workspace/cove_homepage_rework.md.</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $188.75</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <div class="artifact-prose"><h1>Homepage Cove rework</h1>
+<h2>Objective</h2>
+<p>Make the Profit After Fees homepage read like one focused calculator product instead of a stacked set of accumulated blocks.</p>
+<h2>Cove diagnosis</h2>
+<p>Stored full Cove output at <code>workspace/cove_homepage_rework.md</code>.</p>
+<p>Cove&#x27;s one-sentence diagnosis:</p>
+<p>&gt; The calculator — the entire reason this site exists — is buried beneath three stacked intro blocks (hero, four-card path grid, preset grid) and then buffered by four near-identical link-list blocks underneath, so the page currently reads as a directory of tools rather than as one tool with supporting context.</p>
+<h2>Changes shipped</h2>
+<ul>
+<li>Moved the calculator directly under the hero.</li>
+<li>Removed the secondary hero CTA so the top of page has one primary action: <code>Run the calculator</code>.</li>
+<li>Moved sample scenarios into the calculator as compact preset chips.</li>
+<li>Removed the <code>Choose the fastest path</code> card grid.</li>
+<li>Removed the filler <code>What this calculator helps you check</code> block.</li>
+<li>Merged pricing cushion and target-margin guardrails into one results block: <code>Cushion vs target margin</code>.</li>
+<li>Collapsed the calculation walkthrough and full fee breakdown into details blocks to reduce result-card height.</li>
+<li>Converted the FAQ into collapsed details rows.</li>
+<li>Merged calculators, platform comparisons, and guides into a visually subordinate <code>More pricing tools and guides</code> section.</li>
+<li>Added narrow-mobile styling so the fee breakdown switches to one column below 480px.</li>
+</ul>
+<h2>Verification</h2>
+<ul>
+<li><code>node --test tests/*.test.js</code> passed with 83/83 tests.</li>
+<li>Deployed to production with <code>vercel deploy --prod --yes</code>.</li>
+<li>Production alias is live at <code>https://profitafterfees.com/</code>.</li>
+<li>Live browser check confirmed:</li>
+<li>calculator is the first section after the hero</li>
+<li>old choose-your-path block is gone</li>
+<li>share URL uses <code>https://profitafterfees.com/</code></li>
+<li>5 details blocks exist for collapsed supporting content</li>
+<li>no console JavaScript errors</li>
+<li>no internal/process labels detected in the rendered page text</li>
+</ul>
+<h2>Revenue or traffic movement</h2>
+<p>This did not create new traffic directly, but it improves conversion readiness for the next paid, social, or organic visitor by making the calculator visible immediately and demoting supporting links beneath the core product interaction.</p>
+<h2>Budget</h2>
+<p>No spend. Current cash balance remains <code>$188.75</code>.</p></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">uch as `app/app.js` and `app/verdict.js`
++4. Ask Cove for:
++   - one-sentence design diagnosis
++   - explicit block-level actions: merge, demote, hide behind progressive disclosure, or delete
++   - target visual hierarchy with calculator + verdict near the top
++   - mobile-specific checks
++   - implementation checklist
++5. Store Cove output at `workspace/cove_homepage_rework.md`.
++6. Apply the recommendations yourself; do not just paste Cove output into an artifact.
++7. Prefer consolidation moves:
++   - calculator immediately after hero
++   - sample scenarios inside calculator as compact chips
++   - redundant routing/link blocks removed or demoted
++   - secondary/supporting explanations collapsed behind `&lt;details&gt;`
++   - FAQ collapsed
++   - related calculators/guides merged into one quiet bottom section
++8. Update tests to protect the new hierarchy and prevent reintroducing deleted clutter.
++9. Run `node --test tests/*.test.js` from `workspace/stripe-profit-calculator`.
++10. Deploy with `vercel deploy --prod --yes` from `workspace/stripe-profit-calculator`.
++11. Verify production with browser tools:
++   - calculator is first after hero
++   - old clutter block is gone
++   - share URL uses production domain
++   - no internal/process labels in rendered text
++   - browser console has no JavaScript errors
++12. Create a run artifact under root `artifacts/` and update `config/TODO.md`, `config/RUNLOG.md`, `config/HANDOFF.md`, and `config/SCORECARD.md`.
++
++# Guardrails
++- Do not add a new block to fix clutter caused by old blocks.
++- Do not ship internal labels, experiment language, SEO/process scaffolding, or notes-to-self.
++- Do not re-open traffic packets unless owner-side traffic evidence lands; this workflow is for a non-blocked conversion/readiness pass.
++- If the next TODO says Luke copy pass follows Cove, preserve the calculator-first structure for that next pass.
++
++# Verification
++- Cove output exists at `workspace/cove_homepage_rework.md`.
++- Root run artifact exists under `artifacts/`.
++- Full tests pass.
++- Production is live and checked in browser.
++- State files reference the artifact, test result, deploy, and current cash balance.
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Completed one task: homepage Cove coherence rework.
+    
+    What shipped:
+    - Ran Cove via Claude Code for the public-facing design pass.
+    - Stored Cove output at:
+      - workspace/cove_homepage_rework.md
+    - Applied the rework to the live homepage:
+      - Calculator now sits directly under the hero.
+      - Sample scenarios moved into compact chips inside the form.
+      - Old choose-your-path card grid removed.
+      - Redundant filler block removed.
+      - Pricing cushion + target-margin guardrails merged.
+      - Calculation walkthrough, fee breakdown, and FAQ collapsed behind details.
+      - Related tools/guides demoted to one quiet bottom section.
+    - Deployed production:
+      - https://profitafterfees.com/
+    
+    Verification:
+    - Tests passed: 83/83 with `node --test tests/*.test.js`
+    - Live browser check confirmed:
+      - calculator is first after the hero
+      - old choose-your-path block is gone
+      - share URL uses `https://profitafterfees.com/`
+      - no rendered internal/process labels detected
+      - no browser console JavaScript errors
+    
+    Artifacts/state updated:
+    - artifacts/2026-04-25-homepage-cove-rework.md
+    - config/TODO.md
+    - config/RUNLOG.md
+    - config/HANDOFF.md
+    - config/SCORECARD.md
+    - Budget unchanged in config/BUDGET.md
+    
+    Current cash balance: $188.75
+    
+    Next highest-priority move: run the Luke copy pass on the post-Cove homepage without re-expanding the page.
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+Resume this session with:
+  hermes --resume 20260425_021706_baac90
+
+Session:        20260425_021706_baac90
+Duration:       15m 9s
+Messages:       122 (1 user, 120 tool calls)
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

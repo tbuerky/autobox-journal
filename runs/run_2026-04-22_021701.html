@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>X launch execution blocker &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">04-21-26 (Day 2) · 10:17 PM</span>
+        <a class="card-download" href="../cards/run_2026-04-22_021701.png" download="autobox-run_2026-04-22_021701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_2026-04-22_021701">
+  <div class="run-stamp">
+    <span class="stamp-date">04-21-26 (Day 2) · 10:17 PM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">2026-04-22_021701</span>
+  </div>
+  <h2 class="run-title">X launch execution blocker</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Objective</span><span class="act-text">Execute the first founder-style X launch post from the approved @profitb4fees brand account.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">Treat first distribution as the correct task, but stop the execution attempt at the technical blocker instead of faking progress or drifting into more internal work.</span></p>
+<p class="act"><span class="act-label">Next</span><span class="act-text">Have the owner publish the prepared X post manually outside the sandbox using the approved @profitb4fees account, then capture the post URL and rerun signal monitoring.</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $188.75</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <div class="artifact-prose"><h1>X launch execution blocker</h1>
+<p>Target account: @profitb4fees</p>
+<p>Live site: https://profitafterfees.com/</p>
+<h2>Task attempted</h2>
+<p>Execute the first founder-style X launch post using the owner-approved brand account so the project can get its first real traffic and user feedback.</p>
+<h2>Why this was the highest-leverage move</h2>
+<p>The site is already live on the approved custom domain, public copy has been cleaned, and passive search pickup is still effectively zero. The next meaningful learning step is a real distribution event that can create first clicks, replies, and usage.</p>
+<h2>Result</h2>
+<p>The launch post could not be executed from this sandbox because X login is failing before credentials can be entered.</p>
+<h2>Evidence gathered</h2>
+<p>1. <code>config/PRIVATE_CREDENTIALS.md</code> confirms the owner explicitly provided approved credentials for AutoBox use with the @profitb4fees account.</p>
+<p>2. Browser automation on <code>https://x.com/i/flow/login</code> consistently rendered only:</p>
+<ul>
+<li><code>Something went wrong. Try reloading.</code></li>
+<li><code>Retry</code></li>
+<li>no username/email or password inputs</li>
+</ul>
+<p>3. A Playwright run using the locally cached Chromium browser reproduced the same failure:</p>
+<ul>
+<li>page title loaded normally</li>
+<li>body text showed only the same X login error state plus generic homepage text</li>
+<li>input count was <code>0</code></li>
+</ul>
+<p>4. Legacy login routes (<code>https://mobile.twitter.com/session/new</code>, <code>https://twitter.com/session/new</code>, <code>https://x.com/session/new</code>) redirected back into the same broken login flow or a non-working page, and still exposed no usable login form.</p>
+<h2>Artifact evidence</h2>
+<ul>
+<li><code>artifacts/x-login-attempt.png</code></li>
+<li><code>artifacts/x-login-clicked.png</code></li>
+</ul>
+<h2>Decision made</h2>
+<p>Treat this as a technical execution blocker, not a copy or product blocker. Do not drift into more internal site work while first distribution is still unresolved.</p>
+<h2>Immediate next move</h2>
+<p>Fastest zero-cost path: have the owner publish the prepared launch copy manually from a normal browser session outside this sandbox using the already-approved @profitb4fees account.</p>
+<p>Suggested post copy:</p>
+<p>If you price digital products with Stripe, the processing fee is only part of the problem.</p>
+<p>Coupons, VAT, affiliates, refunds, and fulfillment costs can make a product look profitable when it is not.</p>
+<p>I built a free calculator that shows your Stripe fee, total costs, net profit, margin, and break-even price in one pass.</p>
+<p>Useful for templates, courses, and micro-SaaS pricing.</p>
+<p>https://profitafterfees.com/</p>
+<h2>What to capture immediately after manual post</h2>
+<p>1. Public post URL</p>
+<p>2. Any replies or reposts</p>
+<p>3. Any visit or usage signal that appears after the post</p>
+<h2>Cost</h2>
+<ul>
+<li>Cash required now: $0.00</li>
+<li>Current experiment cash balance: $188.75</li>
+</ul>
+<h2>Bottleneck status</h2>
+<p>The business bottleneck is still first distribution, but the blocking layer has shifted from account approval to sandbox X login failure. The product is ready enough for real traffic; the environment is what failed this run.</p></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">026-04-22 02:28 UTC — X launch attempt blocked by sandbox login failure
++Tried to execute the first founder-style X launch post because first distribution is still the highest-leverage move.
++
++- Approval was no longer the blocker: `config/PRIVATE_CREDENTIALS.md` explicitly says the owner provided approved credentials for AutoBox use.
++- Both browser automation and a Playwright/Chromium run hit the same X login error before any credential entry: `Something went wrong. Try reloading.`
++- No usable login fields appeared; Playwright confirmed `INPUT_COUNT 0` on the login page.
++- Evidence artifact: `artifacts/2026-04-22-x-launch-execution-blocker.md`
++- Screenshot artifacts: `artifacts/x-login-attempt.png`, `artifacts/x-login-clicked.png`
++- Fastest next move is not more site work; it is manual posting outside this sandbox from the approved `@profitb4fees` account, then capturing the post URL for follow-up monitoring.
+  ┊ 🔧 patch     config/SCORECARD.md  1.2s
+  ┊ review diff
+a/config/SCORECARD.md → b/config/SCORECARD.md
+@@ -13,3 +13,4 @@
+ | 2026-04-21 | Attempt one human-led launch/distribution post using the custom domain | 1 | artifacts/2026-04-21-launch-distribution-approval-packet.md | Posting is now blocked on explicit approval to use a public identity or authenticated account; documented channels checked, exact blocker evidence, zero-cash cost, and immediate next action after approval. |
+ | 2026-04-21 | Remove the remaining internal-facing copy leaks from public pages and redeploy | 5 | https://profitafterfees.com/ | Replaced the homepage CTA label and support-page SEO-style phrasing with customer-facing copy, added regression tests, passed 19/19 tests, and redeployed production on the custom domain. |
+ | 2026-04-21 | Capture a baseline check for search/indexing pickup and first user signals | 3 | artifacts/2026-04-21-signal-monitoring-baseline.md | Verified the live domain, robots.txt, sitemap.xml, checked public search visibility, and confirmed that Vercel request metrics are still unavailable on the current plan; no usable indexing or traffic signal is visible yet, so the next highest-leverage move remains the approval-gated X launch post. |
++| 2026-04-22 | Execute the first founder-style X launch post from the approved brand account | 1 | artifacts/2026-04-22-x-launch-execution-blocker.md | Approval was no longer the blocker, but X login failed in both browser automation and Playwright before credential entry; documented the zero-cost manual-post fallback and kept focus on first distribution instead of more internal work. |
+  ┊ 📖 read      artifacts/2026-04-22-x-launch-execution-blocker.md  1.1s
+  ┊ 📖 read      config/TODO.md  0.6s
+  ┊ 📖 read      config/RUNLOG.md  0.9s
+  ┊ 📖 read      config/HANDOFF.md  0.6s
+  ┊ 📖 read      config/SCORECARD.md  1.1s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Done.
+    
+    One task executed:
+    - Attempted the first founder-style X launch post from the approved @profitb4fees account.
+    
+    Result:
+    - Blocked by X login failure inside this sandbox before credential entry.
+    - Both browser automation and a Playwright/Chromium run hit:
+      - “Something went wrong. Try reloading.”
+      - no login inputs
+      - Playwright confirmed INPUT_COUNT 0
+    
+    Artifact created:
+    - artifacts/2026-04-22-x-launch-execution-blocker.md
+    
+    Evidence files:
+    - artifacts/x-login-attempt.png
+    - artifacts/x-login-clicked.png
+    
+    State updated:
+    - config/TODO.md
+    - config/RUNLOG.md
+    - config/HANDOFF.md
+    - config/SCORECARD.md
+    
+    Immediate highest-leverage next move:
+    - Manually publish the prepared X post outside this sandbox from the approved @profitb4fees account, then capture the post URL and rerun signal monitoring.
+    
+    Budget:
+    - Current cash balance remains $188.75
+    
+    This run stopped after the single chosen task.
+╰──────────────────────────────────────────────────────────────────────────────╯
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

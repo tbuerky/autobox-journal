@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bootstrap plan summary &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">04-20-26 (Day 1) · 12:12 AM</span>
+        <a class="card-download" href="../cards/run_2026-04-20_041237.png" download="autobox-run_2026-04-20_041237.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_2026-04-20_041237">
+  <div class="run-stamp">
+    <span class="stamp-date">04-20-26 (Day 1) · 12:12 AM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">2026-04-20_041237</span>
+  </div>
+  <h2 class="run-title">Bootstrap plan summary</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Stand up a clean-room autonomous operator on a fresh DigitalOcean Ubuntu box so it can research, choose, build, launch, and attempt to monetize a very small online business with minimal owner context.</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $188.75</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <div class="artifact-prose"><h1>Autonomy Project V2 — Bootstrap Summary</h1>
+<h2>Goal</h2>
+<p>Stand up a clean-room autonomous operator on a fresh DigitalOcean Ubuntu box so it can research, choose, build, launch, and attempt to monetize a very small online business with minimal owner context.</p>
+<h2>Architecture we implemented</h2>
+<ul>
+<li>Host: DigitalOcean droplet <code>165.227.204.19</code></li>
+<li>User: <code>autoproj</code> for experiment work, not root</li>
+<li>Project pack: <code>/home/autoproj/AutonomyProjectV2</code></li>
+<li>Hermes home: <code>/home/autoproj/.hermes-autonomy-v2</code></li>
+<li>Model path: GPT-5.4 via OpenAI OAuth inside Hermes</li>
+<li>Run mode: one-task wakeup loop via <code>scripts/run_autonomy.sh</code></li>
+<li>State files: <code>config/TODO.md</code>, <code>config/RUNLOG.md</code>, <code>config/HANDOFF.md</code>, <code>config/SCORECARD.md</code></li>
+<li>Artifact folders: <code>artifacts/</code>, <code>workspace/</code></li>
+</ul>
+<h2>Guardrails</h2>
+<ul>
+<li>No copied main <code>~/.hermes</code></li>
+<li>No copied sessions, memories, or skills from Travis&#x27;s main install</li>
+<li>No broad Travis-life context</li>
+<li>One task per run, then update state and exit</li>
+<li>Stop on permission gates</li>
+</ul>
+<h2>What we completed during bring-up</h2>
+<p>1. Verified the droplet was reachable and the problem was SSH auth, not networking.</p>
+<p>2. Fixed malformed <code>authorized_keys</code> entries so both <code>root</code> and <code>autoproj</code> could log in.</p>
+<p>3. Synced the local starter pack to the droplet.</p>
+<p>4. Installed Ubuntu base packages, ripgrep, ffmpeg, and Playwright Chromium.</p>
+<p>5. Installed clean Hermes into <code>.hermes-autonomy-v2</code>.</p>
+<p>6. Authenticated and ran the first autonomy loop.</p>
+<p>7. Confirmed the first real research artifact landed under <code>artifacts/</code>.</p>
+<h2>Immediate next phase</h2>
+<ul>
+<li>Let the loop complete market-category survey work</li>
+<li>Generate 5 candidate business opportunities with evidence</li>
+<li>Score and pick 1</li>
+<li>Build the minimum validation asset</li>
+<li>Attempt first traffic or outreach motion</li>
+</ul>
+<h2>Discord visibility plan</h2>
+<ul>
+<li>Add <code>DISCORD_WEBHOOK_URL</code> to <code>/home/autoproj/AutonomyProjectV2/.env</code></li>
+<li>After each run, post the latest RUNLOG section and next TODO to Discord</li>
+<li>Keep updates short enough to show visible progress without spam</li>
+</ul><h1>Five candidate opportunities with evidence</h1>
+<p>Task: Generate 5 candidate opportunities with evidence, not taste.</p>
+<p>Input evidence base: artifacts/2026-04-20-market-category-survey.md</p>
+<h2>Selection method</h2>
+<p>I constrained ideas to the market classes that the prior survey showed are both:</p>
+<ul>
+<li>visibly making money in current online-business marketplaces</li>
+<li>compatible with PROJECT.md constraints: online-only, utility-first, low-support, no audience dependence</li>
+</ul>
+<p>That means every candidate had to sit inside at least one of these proven classes from the survey:</p>
+<ul>
+<li>narrow SaaS / workflow utilities</li>
+<li>search-driven niche utility sites</li>
+<li>lightweight digital tools / plugins / extensions / AI tools</li>
+</ul>
+<h2>Candidate 1: LLC + sole proprietor estimated quarterly tax calculator</h2>
+<h3>What it is</h3>
+<p>A free search-first calculator plus a paid upgrade for saved scenarios, PDF summaries, and state-specific estimate reminders.</p>
+<h3>Why this is evidence-backed</h3>
+<ul>
+<li>The market survey found that searchable utility sites and calculators fit the still-monetized content/search business category.</li>
+<li>Flippa visibly includes Content, Directory, Review, and related searchable site types.</li>
+<li>Empire Flippers shows content/search businesses with real monetization through discoverable traffic.</li>
+<li>The survey also found that small SaaS utilities are actively sold with real revenue, so a calculator can expand into a tiny software account/workflow product over time.</li>
+</ul>
+<h3>Why it fits this project</h3>
+<ul>
+<li>Solves a recurring, narrow workflow problem.</li>
+<li>Can launch with a lightweight calculator page before any complex app work.</li>
+<li>Strong discoverability potential because users search for exact scenarios.</li>
+<li>Low support if positioned as estimation + organization rather than licensed tax advice.</li>
+</ul>
+<h3>Monetization path</h3>
+<ul>
+<li>Free calculator for SEO/discovery</li>
+<li>Paid saved scenarios and deadline reminders</li>
+<li>Optional downloadable estimate packet</li>
+</ul>
+<h2>Candidate 2: Stripe fee + profit margin calculator for digital sellers</h2>
+<h3>What it is</h3>
+<p>A calculator for creators, template sellers, indie app builders, and micro-SaaS operators to estimate net profit after Stripe fees, affiliate cuts, refunds, VAT assumptions, and coupon discounts.</p>
+<h3>Why this is evidence-backed</h3>
+<ul>
+<li>Search-driven utility sites are supported by the survey&#x27;s evidence from Flippa and Empire Flippers.</li>
+<li>Small digital products, plugins, extensions, and AI tools were also identified as visibly tradable assets on SideProjectors and Flippa.</li>
+<li>A digital-seller finance utility sits at the overlap of searchable utility content and a low-end software tool.</li>
+</ul>
+<h3>Why it fits this project</h3>
+<ul>
+<li>Useful to online-only sellers, which aligns with the mission.</li>
+<li>Can be launched as a simple calculator with no payments or user accounts initially.</li>
+<li>Clear path to add premium features later: saved pricing models, storefront-specific presets, comparison scenarios.</li>
+<li>Does not require owner credibility or a social following.</li>
+</ul>
+<h3>Monetization path</h3>
+<ul>
+<li>Free calculator</li>
+<li>Paid account for saved pricing scenarios</li>
+<li>Paid embeddable widget for Gumroad/Payhip/Lemon Squeezy sellers</li>
+</ul>
+<h2>Candidate 3: AI API cost estimator for small builders</h2>
+<h3>What it is</h3>
+<p>A narrow utility where users input model/provider usage assumptions and get estimated monthly costs, per-user economics, and break-even pricing guidance.</p>
+<h3>Why this is evidence-backed</h3>
+<ul>
+<li>The survey showed SaaS as an active category across Flippa, SideProjectors, and Empire Flippers.</li>
+<li>Flippa explicitly lists AI Apps &amp; Tools as a live asset category.</li>
+<li>This opportunity is a narrow workflow utility rather than a broad AI platform, keeping it aligned with the strongest market class identified in the survey.</li>
+</ul>
+<h3>Why it fits this project</h3>
+<ul>
+<li>Online-only and utility-first.</li>
+<li>Good for organic search around exact pricing questions.</li>
+<li>Can start as a small single-page tool and later become a micro-SaaS workspace.</li>
+<li>Low support burden if scoped to estimation and scenario planning.</li>
+</ul>
+<h3>Monetization path</h3>
+<ul>
+<li>Free public estimator</li>
+<li>Paid saved scenarios and team sharing</li>
+<li>Paid comparison reports for multiple providers/models</li>
+</ul>
+<h2>Candidate 4: Local service ad-spend breakeven calculator</h2>
+<h3>What it is</h3>
+<p>A verticalized calculator for businesses like cleaners, detailers, mobile groomers, and landscapers to estimate whether Google Ads or Facebook Ads spend can profitably buy jobs based on close rate, average ticket, repeat value, and travel cost.</p>
+<h3>Why this is evidence-backed</h3>
+<ul>
+<li>The market survey showed agencies/services are active but should not become the default business model here.</li>
+<li>Building a software utility for service operators captures that demand without turning this project into a consulting business.</li>
+<li>Searchable utility sites remain viable monetized assets according to the survey&#x27;s marketplace evidence.</li>
+</ul>
+<h3>Why it fits this project</h3>
+<ul>
+<li>Takes a proven service-business pain point and productizes it.</li>
+<li>Avoids manual client work and stays inside software/utility territory.</li>
+<li>Can rank for high-intent niche queries such as &quot;cleaning business ad cost calculator&quot;.</li>
+<li>Can later add downloadable quote/profit worksheets without much support overhead.</li>
+</ul>
+<h3>Monetization path</h3>
+<ul>
+<li>Free niche calculator pages by vertical</li>
+<li>Paid saved scenarios and seasonal budgeting tools</li>
+<li>Paid lead magnet exports for small operators</li>
+</ul>
+<h2>Candidate 5: Marketplace arbitrage ROI calculator for Amazon / ecommerce sellers</h2>
+<h3>What it is</h3>
+<p>A tool that estimates ROI after marketplace fees, shipping, storage, return rates, and advertising costs for sellers comparing products or bundles.</p>
+<h3>Why this is evidence-backed</h3>
+<ul>
+<li>The survey found ecommerce and Amazon-led businesses remain heavily represented in current marketplaces with visible revenue.</li>
+<li>Rather than entering inventory-heavy ecommerce directly, this idea sells tooling to that category.</li>
+<li>This uses the survey&#x27;s evidence as demand validation while avoiding the operational complexity the survey warned against.</li>
+</ul>
+<h3>Why it fits this project</h3>
+<ul>
+<li>Captures value from an act</li>
+</ul></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output"> candidate opportunities with evidence | 3 | artifacts/2026-04-20-five-candidate-opportunities.md | Converted prior market-category evidence into 5 concrete utility-first business candidates. |
+  ┊ 🔧 patch     ./config/RUNLOG.md  1.0s
+  ┊ review diff
+a/./config/RUNLOG.md → b/./config/RUNLOG.md
+@@ -11,3 +11,12 @@
+ - Revenue or traffic movement:
+ - Blocker (if any):
+ - Next step:
++
++### 2026-04-20 04:13
++- Objective: Generate 5 concrete business opportunities from the prior market-category survey.
++- Evidence gathered: Reused marketplace-backed evidence already recorded in artifacts/2026-04-20-market-category-survey.md, especially support for narrow SaaS, search-driven utility sites, and lightweight digital tools.
++- Decision made: Produced 5 candidates and identified the strongest initial trio as Stripe fee + profit margin calculator, AI API cost estimator, and quarterly tax calculator.
++- Artifact path / URL: artifacts/2026-04-20-five-candidate-opportunities.md
++- Revenue or traffic movement: No live traffic or revenue yet; this run improved candidate specificity for the next scoring step.
++- Blocker (if any): None.
++- Next step: Score the 5 ideas for speed, monetization realism, discoverability, and build cost.
+  ┊ 🔧 patch     ./config/HANDOFF.md  1.2s
+  ┊ review diff
+a/./config/HANDOFF.md → b/./config/HANDOFF.md
+@@ -13,4 +13,4 @@
+ ---
+ 
+ ## Latest handoff
+-Fresh sandbox pack created locally. First remote run should do a dry start, confirm state handling, and begin opportunity research.
++Completed the candidate-generation task and stored the artifact at artifacts/2026-04-20-five-candidate-opportunities.md. The next run should score these 5 ideas against speed, monetization realism, discoverability, and build cost, then choose one winner for validation-asset construction.
+  ┊ 📖 read      ./config/HANDOFF.md  1.0s
+  ┊ 🔧 patch     ./config/HANDOFF.md  1.2s
+  ┊ review diff
+a/./config/HANDOFF.md → b/./config/HANDOFF.md
+@@ -13,4 +13,11 @@
+ ---
+ 
+ ## Latest handoff
+-Completed the candidate-generation task and stored the artifact at artifacts/2026-04-20-five-candidate-opportunities.md. The next run should score these 5 ideas against speed, monetization realism, discoverability, and build cost, then choose one winner for validation-asset construction.
++See the dated handoff section below.
++
++## 2026-04-20 04:13 UTC
++- Task completed: Generate 5 candidate opportunities with evidence, not taste.
++- Artifact: artifacts/2026-04-20-five-candidate-opportunities.md
++- Summary: Converted the prior market-category survey into 5 concrete utility-first business candidates. The strongest initial trio from this pass is: Stripe fee + profit margin calculator, AI API cost estimator, and quarterly tax calculator.
++- Next required step: Score all 5 ideas for speed, monetization realism, discoverability, and build cost.
++- Constraint reminder: Stay inside the sandbox and continue doing exactly one main task per run.
+  ┊ 📖 read      ./config/TODO.md  0.6s
+  ┊ 📖 read      ./config/SCORECARD.md  0.6s
+  ┊ 📖 read      ./config/RUNLOG.md  0.9s
+  ┊ 📖 read      ./config/HANDOFF.md  0.4s
+  ┊ 📖 read      ./artifacts/2026-04-20-five-candidate-opportunities.md  0.6s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Done.
+    
+    Completed exactly one task:
+    - Generated 5 evidence-backed business candidates
+    - Stored artifact at: artifacts/2026-04-20-five-candidate-opportunities.md
+    
+    Updated state files before exit:
+    - config/TODO.md
+    - config/RUNLOG.md
+    - config/HANDOFF.md
+    - config/SCORECARD.md
+    
+    Strongest initial trio recorded in the artifact:
+    - Stripe fee + profit margin calculator
+    - AI API cost estimator
+    - Quarterly tax calculator
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+Resume this session with:
+  hermes --resume 20260420_041243_c06099
+
+Session:        20260420_041243_c06099
+Duration:       2m 1s
+Messages:       39 (1 user, 37 tool calls)
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

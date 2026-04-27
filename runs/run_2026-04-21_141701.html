@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Third support page &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">04-21-26 (Day 2) · 10:17 AM</span>
+        <a class="card-download" href="../cards/run_2026-04-21_141701.png" download="autobox-run_2026-04-21_141701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_2026-04-21_141701">
+  <div class="run-stamp">
+    <span class="stamp-date">04-21-26 (Day 2) · 10:17 AM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">2026-04-21_141701</span>
+  </div>
+  <h2 class="run-title">Third support page</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Task: Build the third search-targeted support page for the Stripe profit calculator inside the current workspace only.</span></p>
+<p class="act"><span class="act-text">https://stripe-profit-calculator.vercel.app/?listPrice=149&amp;productCost=8&amp;couponPercent=15&amp;vatPercent=0&amp;affiliatePercent=0&amp;refundRate=3&amp;stripePercent=2.9&amp;stripeFixed=0.3</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $188.75</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <div class="artifact-prose"><h1>Third support page build result</h1>
+<p>Task: Build the third search-targeted support page for the Stripe profit calculator inside the current workspace only.</p>
+<h2>What changed</h2>
+<ul>
+<li>Added a new support page at <code>workspace/stripe-profit-calculator/stripe-fees-for-micro-saas/index.html</code>.</li>
+<li>Added a homepage internal link to <code>./stripe-fees-for-micro-saas/</code> labeled <code>Micro-SaaS pricing guide</code>.</li>
+<li>Extended <code>workspace/stripe-profit-calculator/tests/content.test.js</code> with failing-first coverage for the homepage link and the new article.</li>
+</ul>
+<h2>Search angle used</h2>
+<ul>
+<li>Query theme: <code>stripe fees for micro-saas</code></li>
+<li>Preset used: the existing micro-SaaS annual-plan scenario from the launch packet.</li>
+<li>Live calculator URL referenced by the new page:</li>
+</ul>
+<p><code>https://stripe-profit-calculator.vercel.app/?listPrice=149&amp;productCost=8&amp;couponPercent=15&amp;vatPercent=0&amp;affiliatePercent=0&amp;refundRate=3&amp;stripePercent=2.9&amp;stripeFixed=0.3</code></p>
+<h2>Verification</h2>
+<p>1. Wrote failing tests first for:</p>
+<ul>
+<li>homepage link to the micro-SaaS guide</li>
+<li>micro-SaaS article title, keyword phrase, preset URL, and homepage CTA</li>
+</ul>
+<p>2. Confirmed RED state with <code>node --test tests/content.test.js</code>.</p>
+<p>3. Implemented the minimal homepage link and new article.</p>
+<p>4. Confirmed GREEN state with:</p>
+<ul>
+<li><code>node --test tests/content.test.js</code></li>
+<li><code>node --test tests/*.test.js</code></li>
+</ul>
+<h2>Constraint honored</h2>
+<p>No deploy was attempted in this run because the user explicitly required work inside the current workspace only.</p>
+<h2>Result</h2>
+<p>The site now has a third workspace-local search support page aimed at micro-SaaS pricing questions, and the homepage links to all three niche guides.</p></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">w micro-SaaS guide goes live.
++- Constraint reminder: Stay inside the sandbox and continue doing exactly one main task per run. Current cash balance: $200.00.
+  ┊ 🔧 patch     /home/autoproj/AutonomyProjectV2/config/SCORECARD.md  1.2s
+  ┊ review diff
+a//home/autoproj/AutonomyProjectV2/config/SCORECARD.md → b//home/autoproj/AutonomyProjectV2/config/SCORECARD.md
+@@ -18,3 +18,4 @@
+ | 2026-04-21 | Publish the calculator with the approved TSS GitHub/Vercel accounts and replace BASE_URL in the launch packet with the live URL | 5 | https://stripe-profit-calculator.vercel.app ; https://github.com/the-shepherd-stack/stripe-profit-calculator ; artifacts/2026-04-21-publish-result.md | Published the static calculator to Vercel, connected the GitHub repo, verified the live site in the browser, and updated the launch packet with working production links. |
+ | 2026-04-21 | Attempt one live distribution motion using the published URL and one preset scenario link | 5 | https://stripe-profit-calculator.vercel.app/stripe-fees-for-notion-templates/ ; artifacts/2026-04-21-live-distribution.md | Shipped a live search-targeted support page for Notion template pricing, linked it from the homepage, pointed it at a ready-loaded preset URL, and verified the public deploy in the browser. |
+ | 2026-04-21 | Build and publish the second search-targeted support page from the launch packet and link it from the homepage | 5 | https://stripe-profit-calculator.vercel.app/stripe-fees-for-online-courses/ ; artifacts/2026-04-21-second-support-page.md | Added a second live search-entry page for the cohort-course preset, linked it from the homepage, verified it with failing-then-passing content tests, and re-deployed production successfully. |
++| 2026-04-21 | Build the third search-targeted support page in the current workspace and link it from the homepage | 5 | workspace/stripe-profit-calculator/stripe-fees-for-micro-saas/ ; artifacts/2026-04-21-third-support-page.md | Added a third workspace-ready search support page for the micro-SaaS preset, linked it from the homepage, verified it with strict TDD, and intentionally stopped short of deploy because this run was limited to the current workspace only. |
+  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/config/TODO.md  1.0s
+  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/config/RUNLOG.md  1.0s
+  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/config/HANDOFF.md  1.0s
+  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/config/SCORECARD.md  1.0s
+  ┊ 💻 $         git -C /home/autoproj/AutonomyProjectV2/workspace/stripe-profit-calculator status --short &amp;&amp; test -f /home/autoproj/AutonomyProjectV2/artifacts/2026-04-21-third-support-page.md &amp;&amp; echo artifact_ok  0.5s
+  ┊ 📋 plan      update 2 task(s)  0.0s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Completed one task inside the current workspace only.
+    
+    Task completed
+    - Built the third search-targeted support page for the Stripe calculator:
+      - workspace/stripe-profit-calculator/stripe-fees-for-micro-saas/index.html
+    - Linked it from the homepage:
+      - workspace/stripe-profit-calculator/index.html
+    - Added strict TDD coverage first:
+      - workspace/stripe-profit-calculator/tests/content.test.js
+    - Wrote the run artifact:
+      - artifacts/2026-04-21-third-support-page.md
+    
+    Verification
+    - RED confirmed first with:
+      - node --test tests/content.test.js
+    - GREEN confirmed with:
+      - node --test tests/content.test.js
+      - node --test tests/*.test.js
+    
+    Config state updated
+    - config/TODO.md
+    - config/RUNLOG.md
+    - config/HANDOFF.md
+    - config/SCORECARD.md
+    - config/BUDGET.md unchanged because balance did not change
+    
+    Constraint honored
+    - No deploy was attempted because you required work inside the current workspace only.
+    
+    Current budget balance
+    - $200.00
+╰──────────────────────────────────────────────────────────────────────────────╯
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

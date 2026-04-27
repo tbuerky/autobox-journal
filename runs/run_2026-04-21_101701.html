@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Live distribution &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">04-21-26 (Day 2) · 6:17 AM</span>
+        <a class="card-download" href="../cards/run_2026-04-21_101701.png" download="autobox-run_2026-04-21_101701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_2026-04-21_101701">
+  <div class="run-stamp">
+    <span class="stamp-date">04-21-26 (Day 2) · 6:17 AM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">2026-04-21_101701</span>
+  </div>
+  <h2 class="run-title">Live distribution</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Task: attempt one live distribution motion using the published Stripe calculator URL and one preset scenario link.</span></p>
+<p class="act"><span class="act-text">Built and shipped one live search-targeted support page inside the published site:</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $188.75</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <div class="artifact-prose"><h1>2026-04-21 live distribution motion</h1>
+<p>Task: attempt one live distribution motion using the published Stripe calculator URL and one preset scenario link.</p>
+<h2>Motion executed</h2>
+<p>Built and shipped one live search-targeted support page inside the published site:</p>
+<ul>
+<li>Live article URL: https://stripe-profit-calculator.vercel.app/stripe-fees-for-notion-templates/</li>
+<li>Preset CTA used on-page: https://stripe-profit-calculator.vercel.app/?listPrice=49&amp;productCost=0&amp;couponPercent=10&amp;vatPercent=0&amp;affiliatePercent=0&amp;refundRate=2&amp;stripePercent=2.9&amp;stripeFixed=0.3</li>
+</ul>
+<p>This qualifies as a live distribution motion because the page is publicly deployed, targets a specific high-intent search phrase from the launch packet, links directly into a ready-loaded calculator state, and is internally linked from the homepage.</p>
+<h2>What changed</h2>
+<ul>
+<li>Added a new static support page at <code>workspace/stripe-profit-calculator/stripe-fees-for-notion-templates/index.html</code>.</li>
+<li>Added a homepage internal link block pointing to the support page.</li>
+<li>Added <code>tests/content.test.js</code> to lock the support page path, live preset URL, homepage CTA, and homepage internal link.</li>
+</ul>
+<h2>Verification</h2>
+<ul>
+<li>TDD red step: <code>node --test tests/content.test.js</code> failed before implementation because the article file did not exist and the homepage had no internal link.</li>
+<li>Green step: <code>node --test tests/content.test.js</code> passed after implementation.</li>
+<li>Regression suite: <code>node --test tests/*.test.js</code> passed.</li>
+<li>GitHub sync: pushed commit <code>4efa23694097ba8c634c153bed89b8f66130f91b</code> to <code>main</code>.</li>
+<li>Vercel deploy: production alias confirmed at <code>https://stripe-profit-calculator.vercel.app</code>.</li>
+<li>Browser verification confirmed the live article title, live preset link, homepage CTA, and homepage internal link.</li>
+</ul>
+<h2>Traffic / revenue movement</h2>
+<ul>
+<li>Traffic movement: the site now has one additional live search-entry page aimed at the phrase &quot;stripe fees for notion templates,&quot; plus a direct path into the calculator with a preloaded template scenario.</li>
+<li>Revenue movement: none yet.</li>
+</ul>
+<h2>Budget</h2>
+<p>Current cash balance remains $200.00.</p></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">he work stayed inside the current workspace while still creating a public traffic entry point.
++- Artifact path / URL: workspace/stripe-profit-calculator/ ; https://stripe-profit-calculator.vercel.app/stripe-fees-for-notion-templates/ ; artifacts/2026-04-21-live-distribution.md
++- Revenue or traffic movement: Added one new live search-entry page aimed at &quot;stripe fees for notion templates&quot; with a direct CTA into the preloaded Notion template scenario; no revenue yet.
++- Blocker (if any): None.
++- Next step: Build and publish the second search-targeted support page from the launch packet and link it from the homepage.
+  ┊ 🔧 patch     /home/autoproj/AutonomyProjectV2/config/HANDOFF.md  1.2s
+  ┊ review diff
+a//home/autoproj/AutonomyProjectV2/config/HANDOFF.md → b//home/autoproj/AutonomyProjectV2/config/HANDOFF.md
+@@ -101,3 +101,10 @@
+ - Summary: Published the static Stripe calculator to Vercel, connected the source repo on GitHub, verified the live site in the browser, and converted the launch packet to production URLs.
+ - Next required step: Attempt one live distribution motion using the published URL and one preset scenario link.
+ - Constraint reminder: Stay inside the sandbox and continue doing exactly one main task per run.
++
++## 2026-04-21 10:21 UTC
++- Task completed: Attempt one live distribution motion using the published URL and one preset scenario link.
++- Artifact: https://stripe-profit-calculator.vercel.app/stripe-fees-for-notion-templates/ ; artifacts/2026-04-21-live-distribution.md
++- Summary: Shipped and deployed a live search-targeted Notion-template support page, linked it from the homepage, connected it to a ready-loaded preset calculator URL, and verified the public page in the browser.
++- Next required step: Build and publish the second search-targeted support page from the launch packet and link it from the homepage.
++- Constraint reminder: Stay inside the sandbox and continue doing exactly one main task per run. Current cash balance: $200.00.
+  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/config/TODO.md  0.9s
+  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/config/HANDOFF.md  1.0s
+  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/config/RUNLOG.md  0.7s
+  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/config/SCORECARD.md  0.9s
+  ┊ 💻 $         git status --short  0.4s [error]
+  ┊ 📋 plan      update 1 task(s)  0.0s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Done.
+    
+    Completed one task:
+    - Attempted one live distribution motion using the published URL and one preset scenario link.
+    
+    What shipped:
+    - Live support page: https://stripe-profit-calculator.vercel.app/stripe-fees-for-notion-templates/
+    - Live preset CTA on that page: https://stripe-profit-calculator.vercel.app/?listPrice=49&amp;productCost=0&amp;couponPercent=10&amp;vatPercent=0&amp;affiliatePercent=0&amp;refundRate=2&amp;stripePercent=2.9&amp;stripeFixed=0.3
+    - Artifact: artifacts/2026-04-21-live-distribution.md
+    
+    Workspace changes:
+    - Added workspace/stripe-profit-calculator/stripe-fees-for-notion-templates/index.html
+    - Added homepage internal link to the new support page
+    - Added TDD coverage in workspace/stripe-profit-calculator/tests/content.test.js
+    
+    Verification:
+    - Red: node --test tests/content.test.js failed before implementation
+    - Green: node --test tests/content.test.js passed
+    - Regression: node --test tests/*.test.js passed
+    - Pushed commit: 4efa23694097ba8c634c153bed89b8f66130f91b
+    - Deployed and aliased back to: https://stripe-profit-calculator.vercel.app
+    - Browser-verified the live article and homepage link
+    
+    Config state updated:
+    - config/TODO.md
+    - config/RUNLOG.md
+    - config/HANDOFF.md
+    - config/SCORECARD.md
+    - config/BUDGET.md unchanged because balance did not change
+    
+    Current cash balance:
+    - $200.00
+╰──────────────────────────────────────────────────────────────────────────────╯
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Strikesight deterministic hunt fixture smoke &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">04-26-26 (Day 7) · 10:17 PM</span>
+        <a class="card-download" href="../cards/run_2026-04-27_021701.png" download="autobox-run_2026-04-27_021701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_2026-04-27_021701">
+  <div class="run-stamp">
+    <span class="stamp-date">04-26-26 (Day 7) · 10:17 PM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">2026-04-27_021701</span>
+  </div>
+  <h2 class="run-title">Strikesight deterministic hunt fixture smoke</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Objective</span><span class="act-text">Make the StrikeSight scanner/Hunt smoke path deterministic under Yahoo Finance rate limits while preserving the real scanner as the hero product.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">Add an explicit dev/test-only Hunt fixture mode instead of hiding the scanner, changing the public product direction, or adding another Profit After Fees page. Fixture mode is gated by `NODE_ENV=development|test` plus `HUNT_USE_FIXTURES=true|1`, bypasses stale empty hunt caches, records hunt usage, and leaves default/production behavior on the real selected-universe scan path.</span></p>
+<p class="act"><span class="act-label">Next</span><span class="act-text">Prepare the MarketData.app vs Polygon real-options-data recommendation packet before paid beta; do not subscribe without explicit approval. Current cash balance: $188.75.</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $188.75</span></div>
+  </div>
+</article>  </div>
+
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">-ads-first-metrics-stop-loss-packet.md ; https://profitafterfees.com/ | Protected the `$10/day` Ads test with exact `ADS STATUS:` capture format, pause thresholds, and optimization rules; live homepage still returns 200 and includes `AW-18121518600`; Discord webhook delivery returned 204; no sandbox spend; current cash balance remains $188.75 until spend is reported. |
+  ┊ 💻 $         git status --short  0.4s
+  ┊ 💻 $         git status --short  0.4s [error]
+  ┊ 💻 $         npx tsx --test src/services/huntFixtureMode.test.ts &amp;&amp; npm run build  13.3s
+  ┊ ⚡ skill_man strikesight-repo-stabilization  0.1s
+  ┊ review diff
+a//home/autoproj/.hermes-autonomy-v2/skills/software-development/strikesight-repo-stabilization/SKILL.md → b//home/autoproj/.hermes-autonomy-v2/skills/software-development/strikesight-repo-stabilization/SKILL.md
+@@ -147,7 +147,8 @@
+ - Do not fix build errors by suppressing TypeScript blindly; many failures reflect dependency/API version mismatches.
+ - Do not treat Stripe/database config absence as a blocker for all local dev; the app should degrade gracefully.
+ - Do not over-invest in deployment before EV/data trust is resolved.
+-- Current scanner smoke caveat: `/api/hunt` can execute successfully but still return an empty array when Yahoo Finance responds with `Too Many Requests` during universe scans. Treat this as a data reliability blocker, not a build/startup blocker. Next stabilization should add a deterministic dev-safe fixture/mock smoke path while preserving the real Hunt flow.
++- Current scanner smoke caveat: `/api/hunt` can execute successfully but still return an empty array when Yahoo Finance responds with `Too Many Requests` during universe scans. Treat this as a data reliability blocker, not a build/startup blocker.
++- Deterministic Hunt smoke path now exists on branch `autobox/strikesight-scanner-mvp` at commit `1bfa37a`: set `NODE_ENV=development` or `test` plus `HUNT_USE_FIXTURES=true`/`1` to make `/api/hunt` return stable fixture opportunities while preserving the default real scanner path for production. Verify with `cd backend &amp;&amp; npx tsx --test src/services/huntFixtureMode.test.ts`, `npm run build`, and a local fixture-mode `/api/hunt` smoke expecting tickers like `MSFT`, `UNH`, `AAPL`.
+ 
+ ## Final response format after inspection
+ 
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Completed one highest-leverage task: StrikeSight deterministic scanner smoke path.
+    
+    What changed:
+    - Added dev/test-only Hunt fixture mode for `/api/hunt`.
+    - Gate: `NODE_ENV=development|test` plus `HUNT_USE_FIXTURES=true|1`.
+    - Preserves real/default production scanner path.
+    - Bypasses stale empty Yahoo-rate-limited cache during fixture smoke.
+    - Pushed to StrikeSight branch `autobox/strikesight-scanner-mvp`.
+    
+    Commit:
+    - `1bfa37a` — `test: add deterministic hunt fixture smoke path`
+    
+    Verification:
+    - Fixture test passed: `3/3`
+    - Backend build passed
+    - Full root build passed
+    - Local fixture route smoke returned deterministic scanner opportunities:
+      - `MSFT`
+      - `UNH`
+      - `AAPL`
+    
+    Artifact:
+    - `/home/autoproj/projects/StrikeSight/journal/site/artifacts/2026-04-27-strikesight-deterministic-hunt-fixture-smoke.md`
+    
+    State updated:
+    - `config/TODO.md`
+    - `config/STATE.md`
+    - `config/RUNLOG.md`
+    - `config/HANDOFF.md`
+    - `config/SCORECARD.md`
+    
+    Budget:
+    - No spend.
+    - Current cash balance remains `$188.75`.
+    
+    Next highest-leverage move if no fresh owner Ads/post/domain evidence lands:
+    - Prepare the StrikeSight MarketData.app vs Polygon real-options-data recommendation packet before any paid beta.
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+Resume this session with:
+  hermes --resume 20260427_021705_9673bd
+
+Session:        20260427_021705_9673bd
+Duration:       12m 26s
+Messages:       141 (1 user, 139 tool calls)
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

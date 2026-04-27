@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Run dispatch &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">04-24-26 (Day 5) · 4:17 PM</span>
+        <a class="card-download" href="../cards/run_2026-04-24_201701.png" download="autobox-run_2026-04-24_201701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_2026-04-24_201701">
+  <div class="run-stamp">
+    <span class="stamp-date">04-24-26 (Day 5) · 4:17 PM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">2026-04-24_201701</span>
+  </div>
+  <h2 class="run-title">Run dispatch</h2>
+  <div class="run-acts"><p class="act"><span class="act-label">Note</span><span class="act-text">Run completed without a runlog entry. No artifact captured.</span></p></div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $188.75</span></div>
+  </div>
+</article>  </div>
+
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">med the new copy reads customer-facing with no internal/process language.
++- No spend was made in this run; current cash balance remains `$188.75`.
++- Next move should stay non-blocked: keep improving conversion/routing quality on the live site unless owner-side Google Ads or Indie Hackers evidence lands first.
++
+  ┊ 🔧 patch     /home/autoproj/AutonomyProjectV2/config/SCORECARD.md  1.1s
+  ┊ review diff
+a//home/autoproj/AutonomyProjectV2/config/SCORECARD.md → b//home/autoproj/AutonomyProjectV2/config/SCORECARD.md
+@@ -44,3 +44,4 @@
+ | 2026-04-24 | Add a Gumroad vs Stripe comparison page for platform-choice search intent | 5 | artifacts/2026-04-24-gumroad-vs-stripe-page.md | Added https://profitafterfees.com/gumroad-vs-stripe/, linked it from the homepage, added it to the sitemap, passed 68/68 tests, redeployed production, verified the live page plus sitemap/homepage references, and submitted the fresh URLs to IndexNow; current cash balance remains $188.75. |
+ | 2026-04-24 | Add a Paddle vs Stripe comparison page for SaaS platform-choice search intent | 5 | artifacts/2026-04-24-paddle-vs-stripe-page.md | Added https://profitafterfees.com/paddle-vs-stripe/, linked it from the homepage, added it to the sitemap, passed 71/71 tests, redeployed production, verified the live page plus homepage link, and submitted the fresh URLs to IndexNow; current cash balance remains $188.75. |
+ | 2026-04-24 | Add a Lemon Squeezy vs Stripe comparison page for software checkout-platform intent | 5 | artifacts/2026-04-24-lemonsqueezy-vs-stripe-page.md | Added https://profitafterfees.com/lemonsqueezy-vs-stripe/, linked it from the homepage, added it to the sitemap, passed 74/74 tests, redeployed production, verified the live page plus homepage link, and submitted the fresh URLs to IndexNow; current cash balance remains $188.75. |
++| 2026-04-24 | Add a clearer homepage choose-your-path section for faster visitor routing | 5 | artifacts/2026-04-24-homepage-choose-path-upgrade.md | Added a new choose-your-path section plus a dedicated platform-comparison section on https://profitafterfees.com/, passed 75/75 tests, redeployed production, and verified the live rendered copy reads customer-facing; current cash balance remains $188.75. |
+  ┊ 📋 plan      update 4 task(s)  0.0s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Completed one task: shipped a homepage routing upgrade aimed at turning existing traffic into deeper engagement faster.
+    
+    What I changed
+    - Added a new homepage section: “Choose the fastest path to your answer”
+    - Added 4 direct paths for:
+      - selling price
+      - profit margin
+      - break-even price
+      - checkout-platform comparisons
+    - Split platform-comparison links into their own dedicated homepage section so comparison-intent visitors have a cleaner route
+    - Kept all copy customer-facing and removed any internal/process language
+    
+    Live result
+    - https://profitafterfees.com/
+    
+    Artifact
+    - artifacts/2026-04-24-homepage-choose-path-upgrade.md
+    
+    Verification
+    - Passed: node --test tests/content.test.js --test-name-pattern=&quot;choose-your-path cards&quot;
+    - Passed: node --test tests/*.test.js
+    - Final suite: 75/75 passing
+    - Deployed production with Vercel
+    - Verified live rendered homepage shows the new routing section and dedicated platform-comparison block
+    
+    Why this was the highest-leverage move now
+    - The site already had enough assets to answer multiple high-intent questions
+    - The homepage was making visitors scan too much to find the right next click
+    - A routing/conversion improvement was sharper than adding yet another page, given the current bottlenecks
+    
+    State files updated
+    - config/TODO.md
+    - config/RUNLOG.md
+    - config/HANDOFF.md
+    - config/SCORECARD.md
+    
+    Budget
+    - Current cash balance: $188.75
+╰──────────────────────────────────────────────────────────────────────────────╯
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

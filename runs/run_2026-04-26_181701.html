@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Google ads tag install &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">04-26-26 (Day 7) · 2:17 PM</span>
+        <a class="card-download" href="../cards/run_2026-04-26_181701.png" download="autobox-run_2026-04-26_181701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_2026-04-26_181701">
+  <div class="run-stamp">
+    <span class="stamp-date">04-26-26 (Day 7) · 2:17 PM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">2026-04-26_181701</span>
+  </div>
+  <h2 class="run-title">Google ads tag install</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Objective</span><span class="act-text">Install the Google Ads tracking tag for the direct Profit After Fees Google Ads account.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">Add the tag across all writable static HTML pages and deploy immediately so Google Ads can verify tracking while Travis finishes campaign setup.</span></p>
+<p class="act"><span class="act-label">Next</span><span class="act-text">Finish campaign setup, launch at `$10/day`, and capture campaign enabled status, first impressions/clicks, CPC, CTR, spend, search terms, and any disapproval messages. Current cash balance: $188.75.</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $188.75</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <div class="artifact-prose"><h1>Google Ads tag installation</h1>
+<h2>Context</h2>
+<p>Travis created the direct Google Ads account for Profit After Fees and supplied the Google Ads tracking tag:</p>
+<pre><code>&lt;!-- Google tag (gtag.js) --&gt;
+&lt;script async src=&quot;https://www.googletagmanager.com/gtag/js?id=AW-18121518600&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag(&#x27;js&#x27;, new Date());
+
+  gtag(&#x27;config&#x27;, &#x27;AW-18121518600&#x27;);
+&lt;/script&gt;
+</code></pre>
+<p>He also noted Google Ads allowed <code>$10/day</code> but did not provide a total campaign cap, so the campaign must be manually stopped before or at <code>$50</code> spend.</p>
+<h2>What changed</h2>
+<p>Inserted the Google Ads tag immediately after the opening <code>&lt;head&gt;</code> tag on every writable HTML page in the Profit After Fees static site tree.</p>
+<p>Added regression coverage in <code>tests/content.test.js</code> to verify:</p>
+<ul>
+<li>every scanned HTML page contains the Google Ads tag exactly once inside <code>&lt;head&gt;</code></li>
+<li>every scanned HTML page contains the tag exactly once on the page</li>
+<li>the tag appears immediately after <code>&lt;head&gt;</code> as requested</li>
+</ul>
+<p><code>break-even-price-calculator.bak/index.html</code> remains excluded because it is a root-owned backup file and not an active sitemap URL.</p>
+<h2>Verification</h2>
+<ul>
+<li>RED check: <code>node --test tests/content.test.js</code> failed before implementation because the Google Ads tag was missing.</li>
+<li>Focused content tests after implementation: <code>node --test tests/content.test.js</code> passed <code>83/83</code>.</li>
+<li>Full suite: <code>node --test tests/*.test.js</code> passed <code>115/115</code>.</li>
+<li>Production deploy completed and re-aliased <code>https://profitafterfees.com</code>.</li>
+<li>Live verification checked the homepage plus all sitemap URLs: <code>22</code> URLs checked, no missing tags, no duplicate tags, no placement issues.</li>
+</ul>
+<h2>Production</h2>
+<p>Live site: https://profitafterfees.com/</p>
+<p>Vercel production deployment: https://stripe-profit-calculator-m60kea4ed-travis-4599s-projects.vercel.app</p>
+<p>Vercel inspect: https://vercel.com/travis-4599s-projects/stripe-profit-calculator/3g4Tkh8U9gFuDFmPwz9ZdKcZGzDb</p>
+<h2>Spend guardrail</h2>
+<p>Google Ads budget is <code>$10/day</code> with no platform-side total cap available in this setup. Manually pause/stop the campaign before or at <code>$50</code> total spend.</p>
+<p>No spend occurred inside the sandbox. Current cash balance remains <code>$188.75</code>.</p></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">ible, and replies/corrections. Current cash balance: $188.75.
+ 
+ ### 2026-04-26 18:03
+  ┊ 🔧 patch     config/HANDOFF.md  1.2s
+  ┊ review diff
+a/config/HANDOFF.md → b/config/HANDOFF.md
+@@ -17,7 +17,7 @@
+ ---
+ 
+ ## Latest handoff
+-Attempted the highest-leverage non-build traffic move: direct sandbox publication of the already Luke-reviewed AI Feature Cost Calculator feedback post. Artifact: `artifacts/2026-04-26-ai-calculator-x-publication-blocker.md`. Loaded the `xurl` workflow and checked the CLI; `xurl` was not installed. The documented install attempt was blocked by the execution environment with `BLOCKED: User denied. Do NOT retry.` No post was made, no X credentials/token files were read, and no spend occurred.
++Attempted the highest-leverage non-build traffic move: direct sandbox publication of the already Luke-reviewed AI Feature Cost Calculator feedback post. Artifact: `artifacts/2026-04-26-ai-calculator-x-publication-blocker.md`. Loaded the `xurl` workflow and checked the CLI; `xurl` was not installed. The documented install attempt was blocked by the execution environment with `BLOCKED: User denied. Do NOT retry.` No post was made, no X credentials/token files were read, and no spend occurred. Attempted Discord owner delivery through the configured webhook and bot channel/thread paths, but both returned HTTP 403, so this handoff and artifact are the durable update.
+ 
+ The fastest path to traffic/feedback is now manual owner posting of the exact `Suggested post copy:` in the artifact, then returning the public post URL plus clicks/impressions/replies if visible. If Travis launches Google Ads, approves `APPROVED: BUY AIFEATURECOST.COM, MAX $15`, or posts the AI calculator/index elsewhere, prioritize that evidence before more site work.
+ 
+  ┊ 💻 $         git status --short &amp;&amp; git diff -- config/TODO.md config/STATE.md config/RUNLOG.md config/HANDOFF.md config/SCORECARD.md artifacts/2026-04-26-ai-calculator-x-publication-blocker.md | head -200  0.5s [error]
+  ┊ 📖 read      artifacts/2026-04-26-ai-calculator-x-publication-blocker.md  0.9s
+  ┊ 📖 read      config/RUNLOG.md  1.1s
+  ┊ 📖 read      config/HANDOFF.md  0.9s
+  ┊ 📖 read      config/SCORECARD.md  1.1s
+  ┊ 📖 read      config/STATE.md  0.9s
+  ┊ 📖 read      config/TODO.md  1.2s
+  ┊ ⚡ skill_man xurl  0.2s [error]
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Completed one operator task from the wakeup prompt.
+    
+    Objective:
+    Attempt the highest-leverage non-build move: publish the already Luke-reviewed AI Feature Cost Calculator feedback post directly from the sandbox, instead of doing more internal site work.
+    
+    Result:
+    Blocked. `xurl` is not installed, and the documented install attempt was denied by the execution environment:
+    
+    `BLOCKED: User denied. Do NOT retry.`
+    
+    No X post was made.
+    No X credentials or token files were read.
+    No money was spent.
+    
+    Artifact:
+    artifacts/2026-04-26-ai-calculator-x-publication-blocker.md
+    
+    State files updated:
+    config/TODO.md
+    config/STATE.md
+    config/RUNLOG.md
+    config/HANDOFF.md
+    config/SCORECARD.md
+    
+    Also attempted owner delivery through the configured Discord webhook and bot channel/thread paths, but both returned HTTP 403, so the artifact and state files are the durable handoff.
+    
+    Suggested post copy for Travis to publish manually:
+    
+    Free calculator to sanity-check AI feature margins before token costs surprise you.
+    
+    Enter model rates, tokens, usage, and price. See cost per user, gross margin, break-even, and target-margin price.
+    
+    https://profitafterfees.com/ai-feature-cost-calculator/
+    
+    Current cash balance:
+    $188.75
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+Resume this session with:
+  hermes --resume 20260426_181709_f5bb05
+
+Session:        20260426_181709_f5bb05
+Duration:       4m 37s
+Messages:       67 (1 user, 65 tool calls)
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

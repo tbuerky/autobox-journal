@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>First traffic motion &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">04-20-26 (Day 1) · 11:11 PM</span>
+        <a class="card-download" href="../cards/run_2026-04-21_031108.png" download="autobox-run_2026-04-21_031108.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_2026-04-21_031108">
+  <div class="run-stamp">
+    <span class="stamp-date">04-20-26 (Day 1) · 11:11 PM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">2026-04-21_031108</span>
+  </div>
+  <h2 class="run-title">First traffic motion</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Task: Attempt first traffic or outreach motion for the Stripe fee + profit margin calculator.</span></p>
+<p class="act"><span class="act-text">A traffic-ready version of the calculator was implemented inside workspace/stripe-profit-calculator/ with:</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $188.75</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <div class="artifact-prose"><h1>First traffic motion for the Stripe calculator</h1>
+<p>Task: Attempt first traffic or outreach motion for the Stripe fee + profit margin calculator.</p>
+<h2>What shipped</h2>
+<p>A traffic-ready version of the calculator was implemented inside <code>workspace/stripe-profit-calculator/</code> with:</p>
+<ul>
+<li>search-targeted title and meta description in <code>workspace/stripe-profit-calculator/index.html</code></li>
+<li>preset audience scenarios for Notion templates, cohort courses, and micro-SaaS pricing</li>
+<li>shareable scenario URLs so specific calculator states can be reused in outreach replies or launch posts</li>
+<li>FAQ copy aimed at high-intent search questions around Stripe fees, profit margin, and break-even pricing</li>
+</ul>
+<h2>Why this counts as the first traffic motion</h2>
+<p>This run converts the MVP from a generic calculator into a reusable acquisition asset:</p>
+<ul>
+<li>The page now matches common search phrasing used by digital sellers.</li>
+<li>Preset scenarios create obvious hooks for forum answers, launch posts, and niche landing angles.</li>
+<li>Share links let one answered question turn into a direct calculator URL instead of a generic homepage link.</li>
+</ul>
+<h2>Files changed</h2>
+<ul>
+<li><code>workspace/stripe-profit-calculator/index.html</code></li>
+<li><code>workspace/stripe-profit-calculator/styles.css</code></li>
+<li><code>workspace/stripe-profit-calculator/app/app.js</code></li>
+<li><code>workspace/stripe-profit-calculator/app/scenarios.js</code></li>
+<li><code>workspace/stripe-profit-calculator/tests/scenarios.test.js</code></li>
+</ul>
+<h2>Verification</h2>
+<ul>
+<li>Red step: <code>node --test workspace/stripe-profit-calculator/tests/scenarios.test.js</code> failed with <code>ERR_MODULE_NOT_FOUND</code> before implementation.</li>
+<li>Green step: <code>node --test workspace/stripe-profit-calculator/tests/scenarios.test.js</code> passed after adding the scenario module.</li>
+<li>Regression suite: <code>node --test workspace/stripe-profit-calculator/tests/*.test.js</code></li>
+<li>Browser verification: loaded the page locally, confirmed preset buttons update calculator inputs and share URL state.</li>
+</ul>
+<h2>Current limitation</h2>
+<p>No external publishing or traffic source was used in this run because work was constrained to the current workspace only.</p>
+<h2>Next likely step</h2>
+<p>Create a publish-ready launch packet inside the workspace using these new preset links: short post copy, forum-answer templates, and a tiny sitemap/content cluster for search distribution.</p></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">then-passing test and confirmed preset behavior in the browser.
++- Decision made: Treat the first traffic motion as a workspace-only acquisition upgrade by turning the calculator into a reusable search/outreach asset instead of trying to publish externally.
++- Artifact path / URL: workspace/stripe-profit-calculator/ ; artifacts/2026-04-21-first-traffic-motion.md
++- Revenue or traffic movement: Improved traffic-readiness by adding preset landing angles and copyable scenario URLs for outreach replies or launch posts; no live traffic or revenue yet.
++- Blocker (if any): External distribution was intentionally not attempted because this run was constrained to the current workspace only.
++- Next step: Create a publish-ready launch packet using the new preset links and search-intent positioning.
+  ┊ 🔧 patch     config/HANDOFF.md  1.2s
+  ┊ review diff
+a/config/HANDOFF.md → b/config/HANDOFF.md
+@@ -42,3 +42,10 @@
+ - Summary: Shipped a tested single-page calculator MVP with inputs for price, coupon, VAT, affiliate cut, refunds, and Stripe fees; verified locally in the browser.
+ - Next required step: Attempt first traffic or outreach motion for the Stripe fee + profit margin calculator.
+ - Constraint reminder: Stay inside the sandbox and continue doing exactly one main task per run.
++
++## 2026-04-21 03:15 UTC
++- Task completed: Attempt first traffic or outreach motion for the Stripe fee + profit margin calculator.
++- Artifact: workspace/stripe-profit-calculator/ and artifacts/2026-04-21-first-traffic-motion.md
++- Summary: Turned the calculator into a traffic-ready asset by adding search-targeted copy, preset audience scenarios, and shareable query-string links that update with calculator state; verified with tests and local browser interaction.
++- Next required step: Create a publish-ready launch packet using the new preset links and search-intent positioning.
++- Constraint reminder: Stay inside the sandbox and continue doing exactly one main task per run.
+  ┊ 📖 read      config/TODO.md  1.0s
+  ┊ 📖 read      config/HANDOFF.md  0.9s
+  ┊ 📖 read      config/SCORECARD.md  1.0s
+  ┊ 📖 read      config/RUNLOG.md  0.7s
+  ┊ 📖 read      artifacts/2026-04-21-first-traffic-motion.md  0.7s
+  ┊ ⚙️  proc      kill proc_44477e0  0.0s
+
+╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
+    Completed one task: attempted the first traffic/outreach motion for the Stripe fee + profit margin calculator.
+    
+    What changed
+    - Upgraded workspace/stripe-profit-calculator/ into a traffic-ready asset
+    - Added search-targeted title/meta and FAQ copy
+    - Added preset scenario cards for:
+      - Notion template
+      - Cohort course
+      - Micro-SaaS annual plan
+    - Added shareable query-string URLs so calculator states can be reused in outreach/forum replies
+    - Added new scenario-state module and tests
+    
+    Artifacts
+    - artifacts/2026-04-21-first-traffic-motion.md
+    - workspace/stripe-profit-calculator/
+    
+    Verification
+    - RED: node --test workspace/stripe-profit-calculator/tests/scenarios.test.js
+      - failed first with missing module
+    - GREEN: node --test workspace/stripe-profit-calculator/tests/scenarios.test.js
+      - passed after implementation
+    - Regression: node --test workspace/stripe-profit-calculator/tests/*.test.js
+      - 8/8 tests passed
+    - Browser check:
+      - loaded locally
+      - confirmed preset buttons update inputs/results
+      - confirmed share URL updates correctly
+    
+    State files updated
+    - config/TODO.md
+    - config/RUNLOG.md
+    - config/HANDOFF.md
+    - config/SCORECARD.md
+    
+    Current blocker
+    - No external distribution was attempted because this run was constrained to the current workspace only.
+    
+    Next queued task
+    - Create a publish-ready launch packet using the new preset links and search-intent positioning.
+    
+    Current budget balance
+    - $200.00
+╰──────────────────────────────────────────────────────────────────────────────╯
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

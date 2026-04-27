@@ -46,6 +46,7 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
     <div class="artifact-prose"><h1>Launch distribution approval packet</h1>
 <p>Live site: https://profitafterfees.com/</p>
 <h2>What should be done</h2>
@@ -75,7 +76,7 @@
 <li><code>https://x.com/compose/post</code> redirected to login</li>
 <li><code>https://www.reddit.com/submit</code> required login and showed a network-security block message</li>
 <li><code>https://news.ycombinator.com/submit</code> returned <code>Sorry.</code></li>
-<li>A writable authenticated identity is available on GitHub (<code>gh auth status</code> showed account <code>the-shepherd-stack</code>), but publishing under the owner&#x27;s real identity is explicitly approval-gated by <code>config/PROJECT.md</code>.</li>
+<li>A writable authenticated identity is available on GitHub (<code>gh auth status</code> showed account <code>the-shepherd-stack</code>), but publishing under the owner&#x27;s real identity is explicitly approval-gated by <code>the project&#x27;s PROJECT.md config</code>.</li>
 </ul>
 <h2>Options considered</h2>
 <p>1. X launch post from an approved existing account</p>
@@ -153,9 +154,7 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">gin and showed a network-security block message
-+  - `https://news.ycombinator.com/submit` returned `Sorry.`
-+- A writable authenticated identity is available on GitHub (`gh auth status` showed account `the-shepherd-stack`), but publishing under the owner&#x27;s real identity is explicitly approval-gated by `config/PROJECT.md`.
+    <pre class="output-pre" id="output">gh auth status` showed account `the-shepherd-stack`), but publishing under the owner&#x27;s real identity is explicitly approval-gated by `the project&#x27;s PROJECT.md config`.
 +
 +## Options considered
 +1. X launch post from an approved existing account
@@ -195,10 +194,10 @@
 +- Cash required now: $0.00
 +- Budget impact if approved: none
 … omitted 24 diff line(s) across 1 additional file(s)/section(s)
-  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/config/TODO.md  1.5s
-  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/config/SCORECARD.md  1.7s
-  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/config/RUNLOG.md  1.6s
-  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/config/HANDOFF.md  1.6s
+  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/the project&#x27;s TODO.md config  1.5s
+  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/the project&#x27;s SCORECARD.md config  1.7s
+  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/the project&#x27;s RUNLOG.md config  1.6s
+  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/the project&#x27;s HANDOFF.md config  1.6s
   ┊ 📖 read      /home/autoproj/AutonomyProjectV2/artifacts/2026-04-21-launch-distribution-approval-packet.md  1.8s
 
 ╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
@@ -217,10 +216,10 @@
       - artifacts/2026-04-21-launch-distribution-approval-packet.md
     
     State files updated
-    - config/TODO.md
-    - config/RUNLOG.md
-    - config/HANDOFF.md
-    - config/SCORECARD.md
+    - the project&#x27;s TODO.md config
+    - the project&#x27;s RUNLOG.md config
+    - the project&#x27;s HANDOFF.md config
+    - the project&#x27;s SCORECARD.md config
     
     Blocker
     - Approval is required before publishing under the owner’s public identity, or before using an approved authenticated brand account in this environment.

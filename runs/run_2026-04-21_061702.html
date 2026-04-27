@@ -37,7 +37,7 @@
   <div class="run-acts">
 <p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
 <p class="act"><span class="act-text">Task: Create a publish-ready launch packet using the new preset links and search-intent positioning.</span></p>
-<p class="act"><span class="act-text">A workspace-local launch packet was created under workspace/stripe-profit-calculator/launch/ with:</span></p>
+<p class="act"><span class="act-text">A workspace-local launch packet was created under the calculator site with:</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $188.75</span></div>
@@ -46,10 +46,11 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
     <div class="artifact-prose"><h1>Publish-ready launch packet for the Stripe calculator</h1>
 <p>Task: Create a publish-ready launch packet using the new preset links and search-intent positioning.</p>
 <h2>What shipped</h2>
-<p>A workspace-local launch packet was created under <code>workspace/stripe-profit-calculator/launch/</code> with:</p>
+<p>A workspace-local launch packet was created under <code>the calculator site</code> with:</p>
 <ul>
 <li><code>launch-packet.md</code> containing positioning, preset links, three launch post variants, CTA copy, and a day-one distribution checklist</li>
 <li><code>forum-answers.md</code> containing reusable reply templates for common pricing questions</li>
@@ -64,15 +65,15 @@
 </ul>
 <h2>Files created</h2>
 <ul>
-<li><code>workspace/stripe-profit-calculator/launch/launch-packet.md</code></li>
-<li><code>workspace/stripe-profit-calculator/launch/forum-answers.md</code></li>
-<li><code>workspace/stripe-profit-calculator/launch/search-cluster.md</code></li>
+<li><code>the calculator site</code></li>
+<li><code>the calculator site</code></li>
+<li><code>the calculator site</code></li>
 </ul>
 <h2>Verification</h2>
 <ul>
-<li>Confirmed preset query strings directly from <code>workspace/stripe-profit-calculator/app/scenarios.js</code> using a Node command.</li>
+<li>Confirmed preset query strings directly from <code>the calculator site</code> using a Node command.</li>
 <li>Verified all launch packet files were written inside the current workspace and artifacts directories only.</li>
-<li>Checked that the packet content matches the current page positioning in <code>workspace/stripe-profit-calculator/index.html</code>.</li>
+<li>Checked that the packet content matches the current page positioning in <code>the calculator site</code>.</li>
 </ul>
 <h2>Current limitation</h2>
 <p>No external publish or traffic step was attempted in this run. The packet is prepared for a later launch once a live URL is chosen.</p>
@@ -83,21 +84,21 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">s and copyable scenario URLs for outreach replies or launch posts; no live traffic or revenue yet.
+    <pre class="output-pre" id="output">URLs for outreach replies or launch posts; no live traffic or revenue yet.
  - Blocker (if any): External distribution was intentionally not attempted because this run was constrained to the current workspace only.
  - Next step: Create a publish-ready launch packet using the new preset links and search-intent positioning.
 +
 +### 2026-04-21 06:18
 +- Objective: Create a publish-ready launch packet using the new preset links and search-intent positioning.
-+- Evidence gathered: Reused the shipped homepage positioning in workspace/stripe-profit-calculator/index.html and pulled the exact preset query strings from workspace/stripe-profit-calculator/app/scenarios.js.
++- Evidence gathered: Reused the shipped homepage positioning in the calculator site and pulled the exact preset query strings from the calculator site
 +- Decision made: Package the next launch step as a workspace-local bundle with launch copy, forum reply templates, and a tight search cluster rather than attempting an external publish in the same run.
-+- Artifact path / URL: workspace/stripe-profit-calculator/launch/ ; artifacts/2026-04-21-launch-packet.md
++- Artifact path / URL: the calculator site ; artifacts/2026-04-21-launch-packet.md
 +- Revenue or traffic movement: Increased launch readiness by turning the calculator into a copy-and-link packet that can be published quickly once a live URL exists; no live traffic or revenue yet.
 +- Blocker (if any): None.
 +- Next step: Publish the calculator with the approved TSS GitHub/Vercel accounts and replace BASE_URL in the launch packet with the live URL.
-  ┊ 🔧 patch     config/HANDOFF.md  0.8s
+  ┊ 🔧 patch     the project&#x27;s HANDOFF.md config  0.8s
   ┊ review diff
-a/config/HANDOFF.md → b/config/HANDOFF.md
+a/the project&#x27;s HANDOFF.md config → b/the project&#x27;s HANDOFF.md config
 @@ -87,3 +87,10 @@
  - AutoBox is now explicitly authorized to use the already-authenticated TSS GitHub/Vercel accounts for tiny public experiment deploys from this sandbox.
  - Allowed: repo create/push, Vercel link/deploy, and simple public launch steps for the current microsite experiment.
@@ -105,31 +106,31 @@ a/config/HANDOFF.md → b/config/HANDOFF.md
 +
 +## 2026-04-21 06:18 UTC
 +- Task completed: Create a publish-ready launch packet using the new preset links and search-intent positioning.
-+- Artifact: workspace/stripe-profit-calculator/launch/ and artifacts/2026-04-21-launch-packet.md
++- Artifact: the calculator site and artifacts/2026-04-21-launch-packet.md
 +- Summary: Built a workspace-local launch packet with ready-to-post launch copy, reusable forum answers, preset scenario URLs, and a tightly scoped search cluster tied directly to the shipped calculator.
 +- Next required step: Publish the calculator with the approved TSS GitHub/Vercel accounts and replace BASE_URL in the launch packet with the live URL.
 +- Constraint reminder: Stay inside the sandbox and continue doing exactly one main task per run.
-  ┊ 📖 read      config/TODO.md  0.8s
-  ┊ 📖 read      config/SCORECARD.md  0.8s
-  ┊ 📖 read      config/RUNLOG.md  1.0s
-  ┊ 📖 read      config/HANDOFF.md  1.0s
-  ┊ 📖 read      config/BUDGET.md  0.0s
+  ┊ 📖 read      the project&#x27;s TODO.md config  0.8s
+  ┊ 📖 read      the project&#x27;s SCORECARD.md config  0.8s
+  ┊ 📖 read      the project&#x27;s RUNLOG.md config  1.0s
+  ┊ 📖 read      the project&#x27;s HANDOFF.md config  1.0s
+  ┊ 📖 read      the project&#x27;s BUDGET.md config  0.0s
 
 ╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
     Completed one task: created the publish-ready launch packet for the Stripe calculator.
     
     Artifacts created
     - artifacts/2026-04-21-launch-packet.md
-    - workspace/stripe-profit-calculator/launch/launch-packet.md
-    - workspace/stripe-profit-calculator/launch/forum-answers.md
-    - workspace/stripe-profit-calculator/launch/search-cluster.md
+    - the calculator site
+    - the calculator site
+    - the calculator site
     
     State files updated
-    - config/TODO.md
-    - config/RUNLOG.md
-    - config/HANDOFF.md
-    - config/SCORECARD.md
-    - config/BUDGET.md unchanged because no spend/revenue change
+    - the project&#x27;s TODO.md config
+    - the project&#x27;s RUNLOG.md config
+    - the project&#x27;s HANDOFF.md config
+    - the project&#x27;s SCORECARD.md config
+    - the project&#x27;s BUDGET.md config unchanged because no spend/revenue change
     
     Result
     - The launch packet now includes preset scenario URLs, launch post copy, forum/reply templates, and a tightly scoped search-content cluster.

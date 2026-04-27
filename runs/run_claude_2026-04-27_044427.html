@@ -46,6 +46,7 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
     <div class="artifact-prose"><h1>2026-04-27 — Remove the false &quot;no tracking&quot; claim from profitafterfees.com</h1>
 <h2>Why this run</h2>
 <p>The wake-up prompt directed me away from another internal doc or another SEO page and toward sharper conversion / quality-control work. While auditing the live site I found a customer-trust contradiction worth fixing immediately:</p>
@@ -59,11 +60,11 @@
 <p>Routed through Luke (per RULES.md &quot;public-facing copy&quot;) for the replacement strings and verified there are no other third-party scripts, no email forms, no newsletter widgets, and no account/contact forms before adopting his lines.</p>
 <p>Files updated:</p>
 <ul>
-<li><code>workspace/stripe-profit-calculator/index.html</code> — hero list <code>&lt;li&gt;</code> and footer <code>&lt;p&gt;</code>.</li>
-<li><code>workspace/stripe-profit-calculator/ai-feature-cost-calculator/index.html</code> — footer <code>&lt;p&gt;</code>.</li>
-<li><code>workspace/stripe-profit-calculator/ai-model-pricing-index/index.html</code> — footer <code>&lt;p&gt;</code>.</li>
-<li><code>workspace/stripe-profit-calculator/llm-cost-calculator/index.html</code> — footer <code>&lt;p&gt;</code>.</li>
-<li><code>workspace/stripe-profit-calculator/tests/content.test.js</code> — replaced the assertion of the old hero copy and added a regression test that asserts no HTML page anywhere on the site contains the phrase <code>no tracking</code>.</li>
+<li><code>the calculator site</code> — hero list <code>&lt;li&gt;</code> and footer <code>&lt;p&gt;</code>.</li>
+<li><code>the calculator site</code> — footer <code>&lt;p&gt;</code>.</li>
+<li><code>the calculator site</code> — footer <code>&lt;p&gt;</code>.</li>
+<li><code>the calculator site</code> — footer <code>&lt;p&gt;</code>.</li>
+<li><code>the calculator&#x27;s test suite</code> — replaced the assertion of the old hero copy and added a regression test that asserts no HTML page anywhere on the site contains the phrase <code>no tracking</code>.</li>
 </ul>
 <p>Final customer-facing copy:</p>
 <ul>

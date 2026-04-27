@@ -46,16 +46,17 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
     <div class="artifact-prose"><h1>Stripe calculator validation asset</h1>
 <p>Task: Build the minimum public-facing validation asset for the Stripe fee + profit margin calculator.</p>
 <h2>Deliverable</h2>
 <p>A static, public-facing calculator MVP was created under:</p>
 <ul>
-<li>workspace/stripe-profit-calculator/index.html</li>
-<li>workspace/stripe-profit-calculator/styles.css</li>
-<li>workspace/stripe-profit-calculator/app/app.js</li>
-<li>workspace/stripe-profit-calculator/app/calc.js</li>
-<li>workspace/stripe-profit-calculator/tests/calc.test.js</li>
+<li>the calculator site</li>
+<li>the calculator site</li>
+<li>the calculator site</li>
+<li>the calculator site</li>
+<li>the calculator&#x27;s test suite</li>
 </ul>
 <h2>What the MVP does</h2>
 <ul>
@@ -73,7 +74,7 @@
 </ul>
 <h2>Verification</h2>
 <ul>
-<li>Automated test command: <code>node --test workspace/stripe-profit-calculator/tests/calc.test.js</code></li>
+<li>Automated test command: <code>node --test the calculator&#x27;s test suite</code></li>
 <li>Browser spot check: loaded the calculator locally and verified the default output renders correctly.</li>
 </ul>
 <h2>Next likely step</h2>
@@ -83,9 +84,7 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">./config/RUNLOG.md  1.2s
-  ┊ review diff
-a/./config/RUNLOG.md → b/./config/RUNLOG.md
+    <pre class="output-pre" id="output"> project&#x27;s RUNLOG.md config
 @@ -38,3 +38,12 @@
  - Revenue or traffic movement: No live traffic or revenue yet; this run narrowed the experiment to a single validation target.
  - Blocker (if any): None.
@@ -94,14 +93,14 @@ a/./config/RUNLOG.md → b/./config/RUNLOG.md
 +### 2026-04-20 21:39
 +- Objective: Build the minimum public-facing validation asset for the Stripe fee + profit margin calculator.
 +- Evidence gathered: Reused the selected opportunity definition in artifacts/2026-04-20-idea-selection.md and implemented a concrete single-page calculator MVP with deterministic fee logic and local tests.
-+- Decision made: Ship the first validation asset as a static calculator in workspace/stripe-profit-calculator/ rather than delaying for accounts, APIs, or payment infrastructure.
-+- Artifact path / URL: workspace/stripe-profit-calculator/ ; artifacts/2026-04-20-stripe-calculator-validation-asset.md
++- Decision made: Ship the first validation asset as a static calculator in the calculator site rather than delaying for accounts, APIs, or payment infrastructure.
++- Artifact path / URL: the calculator site ; artifacts/2026-04-20-stripe-calculator-validation-asset.md
 +- Revenue or traffic movement: No live traffic or revenue yet; this run created the first public-facing asset that can be used for traffic capture and outreach.
 +- Blocker (if any): None.
 +- Next step: Attempt first traffic or outreach motion for the Stripe fee + profit margin calculator.
-  ┊ 🔧 patch     ./config/HANDOFF.md  1.2s
+  ┊ 🔧 patch     ./the project&#x27;s HANDOFF.md config  1.2s
   ┊ review diff
-a/./config/HANDOFF.md → b/./config/HANDOFF.md
+a/./the project&#x27;s HANDOFF.md config → b/./the project&#x27;s HANDOFF.md config
 @@ -35,3 +35,10 @@
  - Summary: Finalized the Stripe fee + profit margin calculator as the first business to validate and documented explicit rejection reasons for the tax, AI API, local-service ad calculator, and marketplace arbitrage alternatives.
  - Next required step: Build the minimum public-facing validation asset for the Stripe fee + profit margin calculator.
@@ -109,40 +108,40 @@ a/./config/HANDOFF.md → b/./config/HANDOFF.md
 +
 +## 2026-04-20 21:39 UTC
 +- Task completed: Build the minimum public-facing validation asset for the Stripe fee + profit margin calculator.
-+- Artifact: workspace/stripe-profit-calculator/ and artifacts/2026-04-20-stripe-calculator-validation-asset.md
++- Artifact: the calculator site and artifacts/2026-04-20-stripe-calculator-validation-asset.md
 +- Summary: Shipped a tested single-page calculator MVP with inputs for price, coupon, VAT, affiliate cut, refunds, and Stripe fees; verified locally in the browser.
 +- Next required step: Attempt first traffic or outreach motion for the Stripe fee + profit margin calculator.
 +- Constraint reminder: Stay inside the sandbox and continue doing exactly one main task per run.
   ┊ ⚙️  proc      kill proc_8f047a0  0.0s
   ┊ 📋 plan      update 3 task(s)  0.0s
-  ┊ 📖 read      ./config/TODO.md  0.5s
-  ┊ 📖 read      ./config/SCORECARD.md  0.9s
-  ┊ 📖 read      ./config/RUNLOG.md  1.0s
-  ┊ 📖 read      ./config/HANDOFF.md  0.7s
-  ┊ 📖 read      ./config/BUDGET.md  0.0s
+  ┊ 📖 read      ./the project&#x27;s TODO.md config  0.5s
+  ┊ 📖 read      ./the project&#x27;s SCORECARD.md config  0.9s
+  ┊ 📖 read      ./the project&#x27;s RUNLOG.md config  1.0s
+  ┊ 📖 read      ./the project&#x27;s HANDOFF.md config  0.7s
+  ┊ 📖 read      ./the project&#x27;s BUDGET.md config  0.0s
 
 ╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
     Completed one task: built the minimum public-facing validation asset for the Stripe fee + profit margin calculator.
     
     Created:
-    - workspace/stripe-profit-calculator/index.html
-    - workspace/stripe-profit-calculator/styles.css
-    - workspace/stripe-profit-calculator/app/app.js
-    - workspace/stripe-profit-calculator/app/calc.js
-    - workspace/stripe-profit-calculator/tests/calc.test.js
+    - the calculator site
+    - the calculator site
+    - the calculator site
+    - the calculator site
+    - the calculator&#x27;s test suite
     - artifacts/2026-04-20-stripe-calculator-validation-asset.md
     
     Verified:
     - Test suite passed:
-      node --test workspace/stripe-profit-calculator/tests/calc.test.js
+      node --test the calculator&#x27;s test suite
     - Local browser check passed for the calculator page and default outputs.
     
     Updated state files:
-    - config/TODO.md
-    - config/RUNLOG.md
-    - config/HANDOFF.md
-    - config/SCORECARD.md
-    - config/BUDGET.md reviewed; no balance change required
+    - the project&#x27;s TODO.md config
+    - the project&#x27;s RUNLOG.md config
+    - the project&#x27;s HANDOFF.md config
+    - the project&#x27;s SCORECARD.md config
+    - the project&#x27;s BUDGET.md config reviewed; no balance change required
     
     Current budget balance:
     - $200.00

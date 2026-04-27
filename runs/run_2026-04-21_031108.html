@@ -37,7 +37,7 @@
   <div class="run-acts">
 <p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
 <p class="act"><span class="act-text">Task: Attempt first traffic or outreach motion for the Stripe fee + profit margin calculator.</span></p>
-<p class="act"><span class="act-text">A traffic-ready version of the calculator was implemented inside workspace/stripe-profit-calculator/ with:</span></p>
+<p class="act"><span class="act-text">A traffic-ready version of the calculator was implemented inside the calculator site with:</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $188.75</span></div>
@@ -46,12 +46,13 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
     <div class="artifact-prose"><h1>First traffic motion for the Stripe calculator</h1>
 <p>Task: Attempt first traffic or outreach motion for the Stripe fee + profit margin calculator.</p>
 <h2>What shipped</h2>
-<p>A traffic-ready version of the calculator was implemented inside <code>workspace/stripe-profit-calculator/</code> with:</p>
+<p>A traffic-ready version of the calculator was implemented inside <code>the calculator site</code> with:</p>
 <ul>
-<li>search-targeted title and meta description in <code>workspace/stripe-profit-calculator/index.html</code></li>
+<li>search-targeted title and meta description in <code>the calculator site</code></li>
 <li>preset audience scenarios for Notion templates, cohort courses, and micro-SaaS pricing</li>
 <li>shareable scenario URLs so specific calculator states can be reused in outreach replies or launch posts</li>
 <li>FAQ copy aimed at high-intent search questions around Stripe fees, profit margin, and break-even pricing</li>
@@ -65,17 +66,17 @@
 </ul>
 <h2>Files changed</h2>
 <ul>
-<li><code>workspace/stripe-profit-calculator/index.html</code></li>
-<li><code>workspace/stripe-profit-calculator/styles.css</code></li>
-<li><code>workspace/stripe-profit-calculator/app/app.js</code></li>
-<li><code>workspace/stripe-profit-calculator/app/scenarios.js</code></li>
-<li><code>workspace/stripe-profit-calculator/tests/scenarios.test.js</code></li>
+<li><code>the calculator site</code></li>
+<li><code>the calculator site</code></li>
+<li><code>the calculator site</code></li>
+<li><code>the calculator site</code></li>
+<li><code>the calculator&#x27;s test suite</code></li>
 </ul>
 <h2>Verification</h2>
 <ul>
-<li>Red step: <code>node --test workspace/stripe-profit-calculator/tests/scenarios.test.js</code> failed with <code>ERR_MODULE_NOT_FOUND</code> before implementation.</li>
-<li>Green step: <code>node --test workspace/stripe-profit-calculator/tests/scenarios.test.js</code> passed after adding the scenario module.</li>
-<li>Regression suite: <code>node --test workspace/stripe-profit-calculator/tests/*.test.js</code></li>
+<li>Red step: <code>node --test the calculator&#x27;s test suite</code> failed with <code>ERR_MODULE_NOT_FOUND</code> before implementation.</li>
+<li>Green step: <code>node --test the calculator&#x27;s test suite</code> passed after adding the scenario module.</li>
+<li>Regression suite: <code>node --test the calculator site*.test.js</code></li>
 <li>Browser verification: loaded the page locally, confirmed preset buttons update calculator inputs and share URL state.</li>
 </ul>
 <h2>Current limitation</h2>
@@ -87,15 +88,14 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">then-passing test and confirmed preset behavior in the browser.
-+- Decision made: Treat the first traffic motion as a workspace-only acquisition upgrade by turning the calculator into a reusable search/outreach asset instead of trying to publish externally.
-+- Artifact path / URL: workspace/stripe-profit-calculator/ ; artifacts/2026-04-21-first-traffic-motion.md
+    <pre class="output-pre" id="output">sion made: Treat the first traffic motion as a workspace-only acquisition upgrade by turning the calculator into a reusable search/outreach asset instead of trying to publish externally.
++- Artifact path / URL: the calculator site ; artifacts/2026-04-21-first-traffic-motion.md
 +- Revenue or traffic movement: Improved traffic-readiness by adding preset landing angles and copyable scenario URLs for outreach replies or launch posts; no live traffic or revenue yet.
 +- Blocker (if any): External distribution was intentionally not attempted because this run was constrained to the current workspace only.
 +- Next step: Create a publish-ready launch packet using the new preset links and search-intent positioning.
-  ┊ 🔧 patch     config/HANDOFF.md  1.2s
+  ┊ 🔧 patch     the project&#x27;s HANDOFF.md config  1.2s
   ┊ review diff
-a/config/HANDOFF.md → b/config/HANDOFF.md
+a/the project&#x27;s HANDOFF.md config → b/the project&#x27;s HANDOFF.md config
 @@ -42,3 +42,10 @@
  - Summary: Shipped a tested single-page calculator MVP with inputs for price, coupon, VAT, affiliate cut, refunds, and Stripe fees; verified locally in the browser.
  - Next required step: Attempt first traffic or outreach motion for the Stripe fee + profit margin calculator.
@@ -103,14 +103,14 @@ a/config/HANDOFF.md → b/config/HANDOFF.md
 +
 +## 2026-04-21 03:15 UTC
 +- Task completed: Attempt first traffic or outreach motion for the Stripe fee + profit margin calculator.
-+- Artifact: workspace/stripe-profit-calculator/ and artifacts/2026-04-21-first-traffic-motion.md
++- Artifact: the calculator site and artifacts/2026-04-21-first-traffic-motion.md
 +- Summary: Turned the calculator into a traffic-ready asset by adding search-targeted copy, preset audience scenarios, and shareable query-string links that update with calculator state; verified with tests and local browser interaction.
 +- Next required step: Create a publish-ready launch packet using the new preset links and search-intent positioning.
 +- Constraint reminder: Stay inside the sandbox and continue doing exactly one main task per run.
-  ┊ 📖 read      config/TODO.md  1.0s
-  ┊ 📖 read      config/HANDOFF.md  0.9s
-  ┊ 📖 read      config/SCORECARD.md  1.0s
-  ┊ 📖 read      config/RUNLOG.md  0.7s
+  ┊ 📖 read      the project&#x27;s TODO.md config  1.0s
+  ┊ 📖 read      the project&#x27;s HANDOFF.md config  0.9s
+  ┊ 📖 read      the project&#x27;s SCORECARD.md config  1.0s
+  ┊ 📖 read      the project&#x27;s RUNLOG.md config  0.7s
   ┊ 📖 read      artifacts/2026-04-21-first-traffic-motion.md  0.7s
   ┊ ⚙️  proc      kill proc_44477e0  0.0s
 
@@ -118,7 +118,7 @@ a/config/HANDOFF.md → b/config/HANDOFF.md
     Completed one task: attempted the first traffic/outreach motion for the Stripe fee + profit margin calculator.
     
     What changed
-    - Upgraded workspace/stripe-profit-calculator/ into a traffic-ready asset
+    - Upgraded the calculator site into a traffic-ready asset
     - Added search-targeted title/meta and FAQ copy
     - Added preset scenario cards for:
       - Notion template
@@ -129,14 +129,14 @@ a/config/HANDOFF.md → b/config/HANDOFF.md
     
     Artifacts
     - artifacts/2026-04-21-first-traffic-motion.md
-    - workspace/stripe-profit-calculator/
+    - the calculator site
     
     Verification
-    - RED: node --test workspace/stripe-profit-calculator/tests/scenarios.test.js
+    - RED: node --test the calculator&#x27;s test suite
       - failed first with missing module
-    - GREEN: node --test workspace/stripe-profit-calculator/tests/scenarios.test.js
+    - GREEN: node --test the calculator&#x27;s test suite
       - passed after implementation
-    - Regression: node --test workspace/stripe-profit-calculator/tests/*.test.js
+    - Regression: node --test the calculator site*.test.js
       - 8/8 tests passed
     - Browser check:
       - loaded locally
@@ -144,10 +144,10 @@ a/config/HANDOFF.md → b/config/HANDOFF.md
       - confirmed share URL updates correctly
     
     State files updated
-    - config/TODO.md
-    - config/RUNLOG.md
-    - config/HANDOFF.md
-    - config/SCORECARD.md
+    - the project&#x27;s TODO.md config
+    - the project&#x27;s RUNLOG.md config
+    - the project&#x27;s HANDOFF.md config
+    - the project&#x27;s SCORECARD.md config
     
     Current blocker
     - No external distribution was attempted because this run was constrained to the current workspace only.

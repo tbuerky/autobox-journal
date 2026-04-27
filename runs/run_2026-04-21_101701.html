@@ -46,6 +46,7 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
     <div class="artifact-prose"><h1>2026-04-21 live distribution motion</h1>
 <p>Task: attempt one live distribution motion using the published Stripe calculator URL and one preset scenario link.</p>
 <h2>Motion executed</h2>
@@ -57,7 +58,7 @@
 <p>This qualifies as a live distribution motion because the page is publicly deployed, targets a specific high-intent search phrase from the launch packet, links directly into a ready-loaded calculator state, and is internally linked from the homepage.</p>
 <h2>What changed</h2>
 <ul>
-<li>Added a new static support page at <code>workspace/stripe-profit-calculator/stripe-fees-for-notion-templates/index.html</code>.</li>
+<li>Added a new static support page at <code>the calculator site</code>.</li>
 <li>Added a homepage internal link block pointing to the support page.</li>
 <li>Added <code>tests/content.test.js</code> to lock the support page path, live preset URL, homepage CTA, and homepage internal link.</li>
 </ul>
@@ -82,14 +83,13 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">he work stayed inside the current workspace while still creating a public traffic entry point.
-+- Artifact path / URL: workspace/stripe-profit-calculator/ ; https://stripe-profit-calculator.vercel.app/stripe-fees-for-notion-templates/ ; artifacts/2026-04-21-live-distribution.md
+    <pre class="output-pre" id="output">ator site ; https://stripe-profit-calculator.vercel.app/stripe-fees-for-notion-templates/ ; artifacts/2026-04-21-live-distribution.md
 +- Revenue or traffic movement: Added one new live search-entry page aimed at &quot;stripe fees for notion templates&quot; with a direct CTA into the preloaded Notion template scenario; no revenue yet.
 +- Blocker (if any): None.
 +- Next step: Build and publish the second search-targeted support page from the launch packet and link it from the homepage.
-  ┊ 🔧 patch     /home/autoproj/AutonomyProjectV2/config/HANDOFF.md  1.2s
+  ┊ 🔧 patch     /home/autoproj/AutonomyProjectV2/the project&#x27;s HANDOFF.md config  1.2s
   ┊ review diff
-a//home/autoproj/AutonomyProjectV2/config/HANDOFF.md → b//home/autoproj/AutonomyProjectV2/config/HANDOFF.md
+a//home/autoproj/AutonomyProjectV2/the project&#x27;s HANDOFF.md config → b//home/autoproj/AutonomyProjectV2/the project&#x27;s HANDOFF.md config
 @@ -101,3 +101,10 @@
  - Summary: Published the static Stripe calculator to Vercel, connected the source repo on GitHub, verified the live site in the browser, and converted the launch packet to production URLs.
  - Next required step: Attempt one live distribution motion using the published URL and one preset scenario link.
@@ -101,10 +101,10 @@ a//home/autoproj/AutonomyProjectV2/config/HANDOFF.md → b//home/autoproj/Autono
 +- Summary: Shipped and deployed a live search-targeted Notion-template support page, linked it from the homepage, connected it to a ready-loaded preset calculator URL, and verified the public page in the browser.
 +- Next required step: Build and publish the second search-targeted support page from the launch packet and link it from the homepage.
 +- Constraint reminder: Stay inside the sandbox and continue doing exactly one main task per run. Current cash balance: $200.00.
-  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/config/TODO.md  0.9s
-  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/config/HANDOFF.md  1.0s
-  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/config/RUNLOG.md  0.7s
-  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/config/SCORECARD.md  0.9s
+  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/the project&#x27;s TODO.md config  0.9s
+  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/the project&#x27;s HANDOFF.md config  1.0s
+  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/the project&#x27;s RUNLOG.md config  0.7s
+  ┊ 📖 read      /home/autoproj/AutonomyProjectV2/the project&#x27;s SCORECARD.md config  0.9s
   ┊ 💻 $         git status --short  0.4s [error]
   ┊ 📋 plan      update 1 task(s)  0.0s
 
@@ -120,9 +120,9 @@ a//home/autoproj/AutonomyProjectV2/config/HANDOFF.md → b//home/autoproj/Autono
     - Artifact: artifacts/2026-04-21-live-distribution.md
     
     Workspace changes:
-    - Added workspace/stripe-profit-calculator/stripe-fees-for-notion-templates/index.html
+    - Added the calculator site
     - Added homepage internal link to the new support page
-    - Added TDD coverage in workspace/stripe-profit-calculator/tests/content.test.js
+    - Added TDD coverage in the calculator&#x27;s test suite
     
     Verification:
     - Red: node --test tests/content.test.js failed before implementation
@@ -133,11 +133,11 @@ a//home/autoproj/AutonomyProjectV2/config/HANDOFF.md → b//home/autoproj/Autono
     - Browser-verified the live article and homepage link
     
     Config state updated:
-    - config/TODO.md
-    - config/RUNLOG.md
-    - config/HANDOFF.md
-    - config/SCORECARD.md
-    - config/BUDGET.md unchanged because balance did not change
+    - the project&#x27;s TODO.md config
+    - the project&#x27;s RUNLOG.md config
+    - the project&#x27;s HANDOFF.md config
+    - the project&#x27;s SCORECARD.md config
+    - the project&#x27;s BUDGET.md config unchanged because balance did not change
     
     Current cash balance:
     - $200.00

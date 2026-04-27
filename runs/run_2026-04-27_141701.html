@@ -84,18 +84,18 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">scord output loop | 5 | artifacts/2026-04-27-run-journal-discord-stale-output-fix.md | Handled fresh owner report that Atonix/AutoBox repeatedly sent the same 2:17 pm report; found stale `journal/site/data.json` caused by `build_run_journal.py` crashes on `run_claude_...` and artifact directories; patched builder filters/copy behavior/RUNLOG heading parsing; added Discord last-run dedupe; verified compile, rebuild, and skip check; no spend; current cash balance remains $188.75. |
+    <pre class="output-pre" id="output">that Atonix/AutoBox repeatedly sent the same 2:17 pm report; found stale `journal/site/data.json` caused by `build_run_journal.py` crashes on `run_claude_...` and artifact directories; patched builder filters/copy behavior/RUNLOG heading parsing; added Discord last-run dedupe; verified compile, rebuild, and skip check; no spend; current cash balance remains $188.75. |
  | 2026-04-27 | Package AI Feature Margin Check feedback loop | 3 | artifacts/2026-04-27-ai-feature-margin-check-feedback-loop.md | Created a zero-spend AI utility scenario-submission loop with Luke-reviewed public copy, chose `AI Feature Margin Check` over roast/graveyard framing, verified the short post at 264 characters including URL and line breaks, and documented scenario capture + follow-up rules; Discord webhook returned HTTP 403; no spend; current cash balance remains $188.75. |
  | 2026-04-27 | Create StrikeSight credential-rotation beta-readiness packet | 3 | artifacts/2026-04-27-strikesight-credential-rotation-beta-readiness-packet.md | Confirmed StrikeSight branch `autobox/strikesight-scanner-mvp` now tracks only example env-ish files, converted the remaining old-secret rotation blocker into exact owner reply options, and documented that deploy/paid provider keys/payments/beta traffic should wait for `ROTATED: STRIKESIGHT KEYS READY`; Discord webhook returned HTTP 403; no spend; current cash balance remains $188.75. |
   ┊ 💻 $         .venv-discord/bin/python -m py_compile scripts/discord_bot.py &amp;&amp; .venv-discord/bin/python - &lt;&lt;&#x27;PY&#x27;
 from pathlib import Path
 checks = {
-    &#x27;owner no unread&#x27;: &#x27;- status: unread&#x27; not in Path(&#x27;config/OWNER_MESSAGES.md&#x27;).read_text(),
-    &#x27;todo updated&#x27;: &#x27;Discord bot so AutoBox only reacts to direct bot mentions&#x27; in Path(&#x27;config/TODO.md&#x27;).read_text(),
-    &#x27;runlog updated&#x27;: &#x27;Discord direct-mention gate fix&#x27; in Path(&#x27;config/RUNLOG.md&#x27;).read_text(),
-    &#x27;handoff updated&#x27;: &#x27;Discord direct-mention gate fix&#x27; in Path(&#x27;config/HANDOFF.md&#x27;).read_text(),
-    &#x27;scorecard updated&#x27;: &#x27;Fix Discord direct-mention gate&#x27; in Path(&#x27;config/SCORECARD.md&#x27;).read_text(),
-    &#x27;state updated&#x27;: &#x27;Discord owner-input gating was repaired&#x27; in Path(&#x27;config/STATE.md&#x27;).read_text(),
+    &#x27;owner no unread&#x27;: &#x27;- status: unread&#x27; not in Path(&#x27;the project&#x27;s OWNER_MESSAGES.md config&#x27;).read_text(),
+    &#x27;todo updated&#x27;: &#x27;Discord bot so AutoBox only reacts to direct bot mentions&#x27; in Path(&#x27;the project&#x27;s TODO.md config&#x27;).read_text(),
+    &#x27;runlog updated&#x27;: &#x27;Discord direct-mention gate fix&#x27; in Path(&#x27;the project&#x27;s RUNLOG.md config&#x27;).read_text(),
+    &#x27;handoff updated&#x27;: &#x27;Discord direct-mention gate fix&#x27; in Path(&#x27;the project&#x27;s HANDOFF.md config&#x27;).read_text(),
+    &#x27;scorecard updated&#x27;: &#x27;Fix Discord direct-mention gate&#x27; in Path(&#x27;the project&#x27;s SCORECARD.md config&#x27;).read_text(),
+    &#x27;state updated&#x27;: &#x27;Discord owner-input gating was repaired&#x27; in Path(&#x27;the project&#x27;s STATE.md config&#x27;).read_text(),
     &#x27;artifact exists&#x27;: Path(&#x27;artifacts/2026-04-27-discord-direct-mention-gate-fix.md&#x27;).exists(),
 }
 for name, ok in checks.items():

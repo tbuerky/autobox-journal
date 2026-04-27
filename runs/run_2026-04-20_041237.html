@@ -45,6 +45,7 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
     <div class="artifact-prose"><h1>Autonomy Project V2 — Bootstrap Summary</h1>
 <h2>Goal</h2>
 <p>Stand up a clean-room autonomous operator on a fresh DigitalOcean Ubuntu box so it can research, choose, build, launch, and attempt to monetize a very small online business with minimal owner context.</p>
@@ -56,7 +57,7 @@
 <li>Hermes home: <code>/home/autoproj/.hermes-autonomy-v2</code></li>
 <li>Model path: GPT-5.4 via OpenAI OAuth inside Hermes</li>
 <li>Run mode: one-task wakeup loop via <code>scripts/run_autonomy.sh</code></li>
-<li>State files: <code>config/TODO.md</code>, <code>config/RUNLOG.md</code>, <code>config/HANDOFF.md</code>, <code>config/SCORECARD.md</code></li>
+<li>State files: <code>the project&#x27;s TODO.md config</code>, <code>the project&#x27;s RUNLOG.md config</code>, <code>the project&#x27;s HANDOFF.md config</code>, <code>the project&#x27;s SCORECARD.md config</code></li>
 <li>Artifact folders: <code>artifacts/</code>, <code>workspace/</code></li>
 </ul>
 <h2>Guardrails</h2>
@@ -210,10 +211,7 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output"> candidate opportunities with evidence | 3 | artifacts/2026-04-20-five-candidate-opportunities.md | Converted prior market-category evidence into 5 concrete utility-first business candidates. |
-  ┊ 🔧 patch     ./config/RUNLOG.md  1.0s
-  ┊ review diff
-a/./config/RUNLOG.md → b/./config/RUNLOG.md
+    <pre class="output-pre" id="output">md config
 @@ -11,3 +11,12 @@
  - Revenue or traffic movement:
  - Blocker (if any):
@@ -227,19 +225,19 @@ a/./config/RUNLOG.md → b/./config/RUNLOG.md
 +- Revenue or traffic movement: No live traffic or revenue yet; this run improved candidate specificity for the next scoring step.
 +- Blocker (if any): None.
 +- Next step: Score the 5 ideas for speed, monetization realism, discoverability, and build cost.
-  ┊ 🔧 patch     ./config/HANDOFF.md  1.2s
+  ┊ 🔧 patch     ./the project&#x27;s HANDOFF.md config  1.2s
   ┊ review diff
-a/./config/HANDOFF.md → b/./config/HANDOFF.md
+a/./the project&#x27;s HANDOFF.md config → b/./the project&#x27;s HANDOFF.md config
 @@ -13,4 +13,4 @@
  ---
  
  ## Latest handoff
 -Fresh sandbox pack created locally. First remote run should do a dry start, confirm state handling, and begin opportunity research.
 +Completed the candidate-generation task and stored the artifact at artifacts/2026-04-20-five-candidate-opportunities.md. The next run should score these 5 ideas against speed, monetization realism, discoverability, and build cost, then choose one winner for validation-asset construction.
-  ┊ 📖 read      ./config/HANDOFF.md  1.0s
-  ┊ 🔧 patch     ./config/HANDOFF.md  1.2s
+  ┊ 📖 read      ./the project&#x27;s HANDOFF.md config  1.0s
+  ┊ 🔧 patch     ./the project&#x27;s HANDOFF.md config  1.2s
   ┊ review diff
-a/./config/HANDOFF.md → b/./config/HANDOFF.md
+a/./the project&#x27;s HANDOFF.md config → b/./the project&#x27;s HANDOFF.md config
 @@ -13,4 +13,11 @@
  ---
  
@@ -253,10 +251,10 @@ a/./config/HANDOFF.md → b/./config/HANDOFF.md
 +- Summary: Converted the prior market-category survey into 5 concrete utility-first business candidates. The strongest initial trio from this pass is: Stripe fee + profit margin calculator, AI API cost estimator, and quarterly tax calculator.
 +- Next required step: Score all 5 ideas for speed, monetization realism, discoverability, and build cost.
 +- Constraint reminder: Stay inside the sandbox and continue doing exactly one main task per run.
-  ┊ 📖 read      ./config/TODO.md  0.6s
-  ┊ 📖 read      ./config/SCORECARD.md  0.6s
-  ┊ 📖 read      ./config/RUNLOG.md  0.9s
-  ┊ 📖 read      ./config/HANDOFF.md  0.4s
+  ┊ 📖 read      ./the project&#x27;s TODO.md config  0.6s
+  ┊ 📖 read      ./the project&#x27;s SCORECARD.md config  0.6s
+  ┊ 📖 read      ./the project&#x27;s RUNLOG.md config  0.9s
+  ┊ 📖 read      ./the project&#x27;s HANDOFF.md config  0.4s
   ┊ 📖 read      ./artifacts/2026-04-20-five-candidate-opportunities.md  0.6s
 
 ╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
@@ -267,10 +265,10 @@ a/./config/HANDOFF.md → b/./config/HANDOFF.md
     - Stored artifact at: artifacts/2026-04-20-five-candidate-opportunities.md
     
     Updated state files before exit:
-    - config/TODO.md
-    - config/RUNLOG.md
-    - config/HANDOFF.md
-    - config/SCORECARD.md
+    - the project&#x27;s TODO.md config
+    - the project&#x27;s RUNLOG.md config
+    - the project&#x27;s HANDOFF.md config
+    - the project&#x27;s SCORECARD.md config
     
     Strongest initial trio recorded in the artifact:
     - Stripe fee + profit margin calculator

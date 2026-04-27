@@ -46,6 +46,7 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
     <div class="artifact-prose"><h1>2026-04-23 homepage biggest deductions upgrade</h1>
 <h2>Objective</h2>
 <p>Make the calculator easier to act on after the first glance by showing which costs are taking the biggest bite out of each sale.</p>
@@ -68,7 +69,7 @@
 <p>For a loss-making scenario, the live calculator now surfaces the dominant cost burden first, such as product cost before smaller fees.</p>
 <h2>Verification</h2>
 <ul>
-<li>Passed <code>node --test workspace/stripe-profit-calculator/tests/*.test.js</code> with 34/34 tests passing.</li>
+<li>Passed <code>node --test the calculator site*.test.js</code> with 34/34 tests passing.</li>
 <li>Deployed production with <code>vercel deploy --prod --yes</code>.</li>
 <li>Reviewed the live page on both profitable and loss-making scenarios to confirm the copy reads customer-facing and the ranked deductions render correctly.</li>
 </ul>
@@ -81,14 +82,13 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output"> eating margin and what likely deserves attention next.
-+- Artifact path / URL: artifacts/2026-04-23-homepage-biggest-deductions-upgrade.md ; https://profitafterfees.com/ ; https://profitafterfees.com/?listPrice=100&amp;productCost=5&amp;couponPercent=10&amp;vatPercent=20&amp;affiliatePercent=30&amp;refundRate=5&amp;stripePercent=2.9&amp;stripeFixed=0.3
+    <pre class="output-pre" id="output">/2026-04-23-homepage-biggest-deductions-upgrade.md ; https://profitafterfees.com/ ; https://profitafterfees.com/?listPrice=100&amp;productCost=5&amp;couponPercent=10&amp;vatPercent=20&amp;affiliatePercent=30&amp;refundRate=5&amp;stripePercent=2.9&amp;stripeFixed=0.3
 +- Revenue or traffic movement: No new traffic was created in this run, but the live calculator is more actionable for the next visitor because it now surfaces the biggest cost drivers before they bounce or misread the math.
 +- Blocker (if any): None for this task.
 +- Next step: Keep waiting on owner-side traffic execution for the approved Google Ads launch or Indie Hackers post, unless a stronger non-owner bottleneck appears first. Current cash balance: $188.75.
-  ┊ 🔧 patch     config/HANDOFF.md  1.2s
+  ┊ 🔧 patch     the project&#x27;s HANDOFF.md config  1.2s
   ┊ review diff
-a/config/HANDOFF.md → b/config/HANDOFF.md
+a/the project&#x27;s HANDOFF.md config → b/the project&#x27;s HANDOFF.md config
 @@ -253,3 +253,16 @@
  - Deployed production with `vercel deploy --prod --yes` and verified the live site on both a profitable scenario and a loss-making scenario.
  - No spend was made in this run; current cash balance remains `$188.75`.
@@ -101,7 +101,7 @@ a/config/HANDOFF.md → b/config/HANDOFF.md
 +
 +- Created `artifacts/2026-04-23-homepage-biggest-deductions-upgrade.md`.
 +- Added a customer-facing `Biggest deductions` block directly under the quick-read verdict so visitors can instantly see the top cost drivers for each scenario without parsing the full output table first.
-+- Added regression coverage for the ranking helper and homepage block, then passed `node --test workspace/stripe-profit-calculator/tests/*.test.js` with 34/34 tests passing.
++- Added regression coverage for the ranking helper and homepage block, then passed `node --test the calculator site*.test.js` with 34/34 tests passing.
 +- Deployed production with `vercel deploy --prod --yes`, verified the live page on both a profitable and loss-making scenario, and confirmed the new copy reads customer-facing with no internal/process language leaks.
 +- Sent the status update into the Discord control thread; delivery evidence: Discord message ID `1497000545557155840`.
 +- No spend was made in this run; current cash balance remains `$188.75`.
@@ -120,7 +120,7 @@ a/config/HANDOFF.md → b/config/HANDOFF.md
     - Deployed live to https://profitafterfees.com/
     
     Verification:
-    - Passed: node --test workspace/stripe-profit-calculator/tests/*.test.js
+    - Passed: node --test the calculator site*.test.js
     - Result: 34/34 tests passing
     - Live review confirmed on both:
       - profitable scenario
@@ -133,10 +133,10 @@ a/config/HANDOFF.md → b/config/HANDOFF.md
     - Discord message ID: 1497000545557155840
     
     State files updated:
-    - config/TODO.md
-    - config/RUNLOG.md
-    - config/HANDOFF.md
-    - config/SCORECARD.md
+    - the project&#x27;s TODO.md config
+    - the project&#x27;s RUNLOG.md config
+    - the project&#x27;s HANDOFF.md config
+    - the project&#x27;s SCORECARD.md config
     
     Budget:
     - Current cash balance remains $188.75

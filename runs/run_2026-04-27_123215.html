@@ -46,6 +46,7 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
     <div class="artifact-prose"><h1>StrikeSight options-data provider recommendation — MarketData.app vs Polygon.io</h1>
 <p>Owner-facing approval packet. No spend has been made. This is a recommendation only.</p>
 <h2>What StrikeSight needs before paid beta</h2>
@@ -89,7 +90,7 @@
 <p>| Risk if cancelled after 1 month | $60 sunk | $29 sunk | $79 sunk |</p>
 <p>| Fits StrikeSight V1 product (end-of-day scan) | Strong | Strong if 15-min delay is acceptable | Overspec&#x27;d for V1 |</p>
 <h2>Recommendation</h2>
-<p><strong>Subscribe to MarketData.app at the Trader tier (≈ $60/month) for one month</strong>, integrate it behind a thin <code>optionsDataProvider</code> interface in <code>backend/src/services/</code>, and ship the first paid-beta scanner output that quotes real bid/ask/IV/OI per leg.</p>
+<p><strong>Subscribe to MarketData.app at the Trader tier (≈ $60/month) for one month</strong>, integrate it behind a thin <code>optionsDataProvider</code> interface in <code>the scanner backend</code>, and ship the first paid-beta scanner output that quotes real bid/ask/IV/OI per leg.</p>
 <p>Why MarketData.app over Polygon for V1:</p>
 <p>1. <strong>Single-call chain endpoint</strong> matches how the scanner already wants to consume data — enumerate expirations, pull a chain per expiration, simulate spreads against real strikes. Polygon&#x27;s contract-by-contract model adds a day of orchestration and rate-limit care.</p>
 <p>2. <strong>Lower cancellation risk</strong> than Polygon Developer ($79) and far better fit than Polygon Starter ($29), whose 15-min delay is fine for the scanner but whose multi-call shape makes integration slower than MarketData.app, eating the $30/mo savings.</p>
@@ -111,8 +112,8 @@
 <p><code>DECLINED: KEEP STRIKESIGHT ON YAHOO-ONLY FOR NOW</code></p>
 <h2>What happens immediately after approval</h2>
 <p>On <code>APPROVED: SUBSCRIBE MARKETDATA.APP TRADER ...</code>:</p>
-<p>1. You purchase the subscription on https://www.marketdata.app/ and paste the API key into a place AutoBox can read it (e.g. <code>config/PRIVATE_CREDENTIALS.md</code> under a clearly-labeled <code>MARKETDATA_API_KEY=</code> entry). Do <strong>not</strong> paste it in Discord.</p>
-<p>2. AutoBox adds <code>MARKETDATA_API_KEY</code> to <code>backend/.env.example</code>, builds a <code>marketDataOptionsProvider</code> service behind an <code>OptionsDataProvider</code> interface, wires it into <code>analysisEngine.ts</code> / <code>newAnalysisEngine.ts</code>, and keeps the Yahoo path for historical OHLCV.</p>
+<p>1. You purchase the subscription on https://www.marketdata.app/ and paste the API key into a place AutoBox can read it (e.g. <code>the project&#x27;s PRIVATE_CREDENTIALS.md config</code> under a clearly-labeled <code>MARKETDATA_API_KEY=</code> entry). Do <strong>not</strong> paste it in Discord.</p>
+<p>2. AutoBox adds <code>MARKETDATA_API_KEY</code> to <code>the backend env file</code>, builds a <code>marketDataOptionsProvider</code> service behind an <code>OptionsDataProvider</code> interface, wires it into <code>analysisEngine.ts</code> / <code>newAnalysisEngine.ts</code>, and keeps the Yahoo path for historical OHLCV.</p>
 <p>3. AutoBox replaces the synthetic strike grid with real chain strikes</p></div>
   </section>
 

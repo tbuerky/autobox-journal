@@ -46,6 +46,7 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
     <div class="artifact-prose"><h1>StrikeSight credential-rotation + beta-readiness packet</h1>
 <p>Created: 2026-04-27 10:18 UTC</p>
 <h2>Current bottleneck</h2>
@@ -62,12 +63,12 @@
 <li><code>1bfa37a test: add deterministic hunt fixture smoke path</code></li>
 <li><code>15a18b6 fix: stabilize scanner MVP startup and build</code></li>
 <li>Current tracked env-ish files are examples only:</li>
-<li><code>backend/.env.example</code></li>
-<li><code>backend/.env.supabase.example</code></li>
-<li><code>frontend/.env.example</code></li>
+<li><code>the backend env file</code></li>
+<li><code>the backend env file</code></li>
+<li><code>the frontend env file</code></li>
 <li>Previously tracked real/production-looking files included:</li>
-<li><code>backend/.env.production</code></li>
-<li><code>frontend/.env.production</code></li>
+<li><code>the backend env file</code></li>
+<li><code>the frontend env file</code></li>
 <li><code>credentials.txt</code></li>
 <li>Actual secret values were not printed into this artifact.</li>
 </ul>
@@ -110,16 +111,13 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output"> -f artifacts/2026-04-27-strikesight-credential-rotation-beta-readiness-packet.md &amp;&amp; echo ARTIFACT_OK  0.4s [error]
-  ┊ 📖 read      config/TODO.md  0.8s
-  ┊ 📖 read      config/RUNLOG.md  0.6s
-  ┊ 📖 read      config/HANDOFF.md  0.6s
-  ┊ 📖 read      config/SCORECARD.md  0.8s
+    <pre class="output-pre" id="output">md config  0.6s
+  ┊ 📖 read      the project&#x27;s SCORECARD.md config  0.8s
   ┊ 📖 read      artifacts/2026-04-27-strikesight-credential-rotation-beta-readiness-packet.md  1.0s
-  ┊ 📖 read      config/STATE.md  0.9s
-  ┊ 🔧 patch     config/STATE.md  1.2s
+  ┊ 📖 read      the project&#x27;s STATE.md config  0.9s
+  ┊ 🔧 patch     the project&#x27;s STATE.md config  1.2s
   ┊ review diff
-a/config/STATE.md → b/config/STATE.md
+a/the project&#x27;s STATE.md config → b/the project&#x27;s STATE.md config
 @@ -20,7 +20,9 @@
  - Core value: scanner/Hunt flow scans S&amp;P tickers over a selected historical period and returns exact strikes/expirations that were consistently profitable. Preserve this as hero product.
  - Verified 2026-04-26 22:20 UTC: `npm run build` passes; backend starts with Stripe/Xata/Sentry/scheduler env unset; health returns 200; scheduler status is not warming; frontend Hunt page renders; `/api/hunt` route executes.
@@ -131,9 +129,9 @@ a/config/STATE.md → b/config/STATE.md
  - Options-data approval packet is shipped; do not subscribe without explicit approval.
  - Domain/name packet is shipped; recommendation is to keep StrikeSight and buy `getstrikesight.com` only if Travis replies `APPROVED: BUY GETSTRIKESIGHT.COM, MAX $15`.
  - Public/content thesis: weekly scan results and trade roasts.
-  ┊ 🔧 patch     config/STATE.md  1.2s
+  ┊ 🔧 patch     the project&#x27;s STATE.md config  1.2s
   ┊ review diff
-a/config/STATE.md → b/config/STATE.md
+a/the project&#x27;s STATE.md config → b/the project&#x27;s STATE.md config
 @@ -39,7 +39,8 @@
  - Use AI utility for quick no-spend distribution/content moves when StrikeSight is blocked.
  
@@ -141,7 +139,7 @@ a/config/STATE.md → b/config/STATE.md
 -- StrikeSight domain/name shortlist: `artifacts/2026-04-27-strikesight-domain-name-shortlist.md`
 +- StrikeSight credential-rotation beta-readiness packet: `artifacts/2026-04-27-strikesight-credential-rotation-beta-readiness-packet.md`
 +- Prior StrikeSight domain/name shortlist: `artifacts/2026-04-27-strikesight-domain-name-shortlist.md`
- - Prior StrikeSight deterministic Hunt fixture smoke path: `journal/site/artifacts/2026-04-27-strikesight-deterministic-hunt-fixture-smoke.md`
+ - Prior StrikeSight deterministic Hunt fixture smoke path: `2026-04-27-strikesight-deterministic-hunt-fixture-smoke.md`
  
  ## Budget
 
@@ -151,11 +149,11 @@ a/config/STATE.md → b/config/STATE.md
     Result:
     - Created `artifacts/2026-04-27-strikesight-credential-rotation-beta-readiness-packet.md`
     - Updated:
-      - `config/TODO.md`
-      - `config/RUNLOG.md`
-      - `config/HANDOFF.md`
-      - `config/SCORECARD.md`
-      - `config/STATE.md`
+      - `the project&#x27;s TODO.md config`
+      - `the project&#x27;s RUNLOG.md config`
+      - `the project&#x27;s HANDOFF.md config`
+      - `the project&#x27;s SCORECARD.md config`
+      - `the project&#x27;s STATE.md config`
     
     Why this task:
     - StrikeSight is now past basic stabilization.

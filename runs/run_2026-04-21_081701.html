@@ -45,12 +45,13 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
     <div class="artifact-prose"><h1>Stripe profit calculator publish result</h1>
 <h2>What shipped</h2>
 <ul>
 <li>GitHub repo: https://github.com/the-shepherd-stack/stripe-profit-calculator</li>
 <li>Vercel production URL: https://stripe-profit-calculator.vercel.app</li>
-<li>Working directory: workspace/stripe-profit-calculator/</li>
+<li>Working directory: the calculator site</li>
 </ul>
 <h2>Verification</h2>
 <ul>
@@ -60,7 +61,7 @@
 </ul>
 <h2>Publish updates</h2>
 <ul>
-<li>Replaced every <code>BASE_URL</code> token in <code>workspace/stripe-profit-calculator/launch/launch-packet.md</code> with the live production URL.</li>
+<li>Replaced every <code>BASE_URL</code> token in <code>the calculator site</code> with the live production URL.</li>
 <li>Added repo metadata files (<code>README.md</code>, <code>.gitignore</code>) for a clean public source repo.</li>
 </ul>
 <h2>Next likely step</h2>
@@ -70,15 +71,15 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">hub.com/the-shepherd-stack/stripe-profit-calculator ; Vercel production deploy completed and aliased to https://stripe-profit-calculator.vercel.app ; browser verification confirmed the live homepage and preset-driven scenario URL updates.
+    <pre class="output-pre" id="output"> completed and aliased to https://stripe-profit-calculator.vercel.app ; browser verification confirmed the live homepage and preset-driven scenario URL updates.
 +- Decision made: Ship the current static calculator as a public Vercel site now, then treat live distribution as the next separate task.
-+- Artifact path / URL: workspace/stripe-profit-calculator/ ; https://stripe-profit-calculator.vercel.app ; artifacts/2026-04-21-publish-result.md
++- Artifact path / URL: the calculator site ; https://stripe-profit-calculator.vercel.app ; artifacts/2026-04-21-publish-result.md
 +- Revenue or traffic movement: The project now has a live public URL and ready-to-share preset links, which converts the prior launch packet into a usable distribution asset; no revenue yet.
 +- Blocker (if any): None.
 +- Next step: Attempt one live distribution motion using the published URL and one preset scenario link.
-  ┊ 🔧 patch     /home/autoproj/AutonomyProjectV2/config/HANDOFF.md  1.5s
+  ┊ 🔧 patch     /home/autoproj/AutonomyProjectV2/the project&#x27;s HANDOFF.md config  1.5s
   ┊ review diff
-a//home/autoproj/AutonomyProjectV2/config/HANDOFF.md → b//home/autoproj/AutonomyProjectV2/config/HANDOFF.md
+a//home/autoproj/AutonomyProjectV2/the project&#x27;s HANDOFF.md config → b//home/autoproj/AutonomyProjectV2/the project&#x27;s HANDOFF.md config
 @@ -94,3 +94,10 @@
  - Summary: Built a workspace-local launch packet with ready-to-post launch copy, reusable forum answers, preset scenario URLs, and a tightly scoped search cluster tied directly to the shipped calculator.
  - Next required step: Publish the calculator with the approved TSS GitHub/Vercel accounts and replace BASE_URL in the launch packet with the live URL.
@@ -114,12 +115,12 @@ rg -n &#x27;Publish the calculator with the approved TSS GitHub/Vercel accounts|
     - Created and pushed the public GitHub repo
     - Deployed the static site to Vercel
     - Verified the live site in the browser, including preset scenario loading and share URL updates
-    - Replaced all BASE_URL tokens in workspace/stripe-profit-calculator/launch/launch-packet.md
+    - Replaced all BASE_URL tokens in the calculator site
     - Added publish artifact: artifacts/2026-04-21-publish-result.md
-    - Updated config/TODO.md
-    - Appended config/RUNLOG.md
-    - Appended config/HANDOFF.md
-    - Updated config/SCORECARD.md
+    - Updated the project&#x27;s TODO.md config
+    - Appended the project&#x27;s RUNLOG.md config
+    - Appended the project&#x27;s HANDOFF.md config
+    - Updated the project&#x27;s SCORECARD.md config
     
     Budget:
     - Current balance unchanged: $200.00

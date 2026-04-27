@@ -835,10 +835,14 @@ a:hover { color: var(--copper); }
   .index-title {
     text-align: left;
     max-width: 100%;
+    width: 100%;
     white-space: normal;
     text-overflow: clip;
     overflow: visible;
+    overflow-wrap: anywhere;
+    word-break: break-word;
     font-size: clamp(19px, 5vw, 24px);
+    background: none;
   }
   .detail-actions { width: 100%; justify-content: space-between; }
 }

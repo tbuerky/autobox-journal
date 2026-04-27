@@ -830,6 +830,8 @@ a:hover { color: var(--copper); }
     align-items: flex-start;
     gap: 6px;
     padding-block: 14px;
+    padding-inline: 0;
+    margin-inline: 0;
   }
   .index-leader { display: none; }
   .index-title {

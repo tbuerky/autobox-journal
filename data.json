@@ -1891,9 +1891,9 @@
       "timestamp_sort": "2026-04-24T14:17:01+00:00",
       "date": "2026-04-24",
       "time": "10:17AM",
-      "objective": "Add one comparison page that can capture platform-choice search intent while owner-side traffic actions stay manual.",
-      "decision_made": "Ship a Gumroad-vs-Stripe comparison page now because it expands the search surface and routes higher-intent platform-comparison readers into the calculator without spending money or waiting on Travis.",
-      "next_step": "Add the next high-intent comparison or scenario page that compounds organic reach without needing owner input.",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
       "artifact_path": "artifacts/2026-04-24-target-margin-guardrails-upgrade.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -1929,7 +1929,7 @@
       "screenshot_path": "",
       "label": "04-24-26 (Day 5) \u00b7 10:17 AM",
       "budget_delta_html": "",
-      "narrative_weight": 1
+      "narrative_weight": 0
     },
     {
       "run_id": "run_2026-04-24_161701",
@@ -1937,8 +1937,8 @@
       "timestamp_sort": "2026-04-24T16:17:01+00:00",
       "date": "2026-04-24",
       "time": "12:17PM",
-      "objective": "Add one SaaS-specific comparison page that can capture platform-choice search intent while owner-side traffic actions stay manual.",
-      "decision_made": "Ship a Paddle-vs-Stripe comparison page now because it targets SaaS buyers making an immediate billing-stack decision and compounds zero-spend acquisition without requiring owner action.",
+      "objective": "",
+      "decision_made": "",
       "next_step": "",
       "artifact_path": "artifacts/2026-04-24-paddle-vs-stripe-page.md",
       "budget": {
@@ -3415,6 +3415,52 @@
       "output_site_path": "outputs/run_claude_2026-04-27_201701.txt",
       "screenshot_path": "",
       "label": "04-27-26 (Day 8) \u00b7 4:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
+    },
+    {
+      "run_id": "run_claude_2026-04-27_221701",
+      "timestamp": "2026-04-27 06:17 PM EDT",
+      "timestamp_sort": "2026-04-27T22:17:01+00:00",
+      "date": "2026-04-27",
+      "time": "6:17PM",
+      "objective": "While owner-side evidence is still pending across PAF Ads/AdSense, StrikeSight approvals, and the AI margin post, make the highest-leverage no-spend operator move on the live revenue path. Avoid piling more sections; look for monetization or quality-control gaps.",
+      "decision_made": "Add the standard masthead (wordmark + Calculator/Profit margin/Selling price nav) and the standard site-footer with `/privacy/` link to all 8 affected pages. Reused the exact already-Luke-reviewed copy and Cove-approved patterns from the homepage and primary calculator pages \u2014 no new public copy introduced. Added a regression test that asserts every AdSense-serving HTML page has a site-footer linking to `/privacy/`.",
+      "next_step": "Capture AdSense status / Auto Ads enablement / impressions / eCPM once Travis provides them; on owner approval, integrate StrikeSight real options data, secure `getstrikesight.com`, or buy `aifeaturecost.com`. Current cash balance: $188.75.",
+      "artifact_path": "artifacts/2026-04-27-older-articles-footer-masthead-coherence-pass.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$188.75",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-04-27-older-articles-footer-masthead-coherence-pass.md",
+          "relative_path": "artifacts/2026-04-27-older-articles-footer-masthead-coherence-pass.md",
+          "kind": "text",
+          "preview": "# 2026-04-27 \u2014 Older articles footer + masthead coherence pass\n\n## What changed\n8 older articles on Profit After Fees served Google AdSense + Google Ads but had no\n`<footer class=\"site-footer\">`, no Privacy disclosure link, and no site masthead.\nThat violated AdSense Program Policies' \"easily accessible\" privacy disclosure\nexpectation on the affected URLs and broke navigation back to the calculator\nfor any visitor landing there from organic search.\n\nThis run added the standard site-wide masthead (wordmark + Calculator/Profit\nmargin/Selling price nav) and the standard site-footer (with Privacy link) to\nall 8 affected pages, and added a regression test that asserts every\nAdSense-serving HTML page must have a `<footer class=\"site-footer\">` linking to\n`/privacy/`.\n\nThe previous Vercel apex-access blocker is also resolved: the live apex now\nserves under team `travis-4599s-projects`, and `vercel alias set` succeeded\nwithout error this run.\n\n## Pages updated\n- `gumroad-vs-stripe/index.html`\n- `lemonsqueezy-vs-stripe/index.html`\n- `paddle-vs-stripe/index.html`\n- `paypal-vs-stripe-fees/index.html`\n- `stripe-fees-for-micro-saas/index.html`\n- `stripe-fees-for-notion-templates/index.html`\n- `stripe-fees-for-online-courses/index.html`\n- `how-to-calculate-profit-margin-on-digital-products/index.html`\n\n## Test added\n`tests/content.test.js` \u2014 `every AdSense-serving HTML page has a site-footer\nwith a /privacy/ link for AdSense accessibility`. Codifies the requirement so a\nfuture page that loads AdSense but ships without a Privacy footer fails CI.\n\n## Verification\n- `node --test tests/*.test.js` passed `111/111` (new AdSense-accessibility\n  regression included).\n- `vercel deploy --prod` produced\n  `stripe-profit-calculator-36mkxuvu2-travis-4599s-projects.vercel.app`.\n- `vercel alias set ... profitafterfees.com` and `... www.profitafterfees.com`\n  both returned `Success`.\n- Live `curl` on every changed URL returned `HTTP 200` and contained `class=\"masthead\"`,\n  `<footer class=\"site-footer\">`, and `href=\"/privacy/\"`.\n- `https://profitafterfees.com/ads.txt` continues to serve\n  `google.com, pub-3560388500961643, DIRECT, f08c47fec0942fa0`.\n- `/` and `/privacy/` returned `HTTP 200`.\n\n## Public-copy review\nNo new public copy was introduced. The masthead and footer markup are exact\ncopies of the patterns already shipped on the homepage, AI calculator, LLM\ncalculator, and other primary pages \u2014 those patterns were Luke-reviewed and\nCove-approved in prior runs. No internal-only labels, experiment language, or\nprocess scaffolding was added.\n\n## Out of scope\nThe 4 comparison pages (`gumroad-vs-stripe`, `lemonsqueezy-vs-stripe`,\n`paddle-vs-stripe`, `paypal-vs-stripe-fees`) and 3 stripe-fee articles + 1\nhow-to article still use the simpler `<section class=\"card\">` content layout\nthat pre-dates the calculator-first redesign. That hierarchy is acceptable for\ntheir content type and was not changed this run; only navigation and the\nprivacy footer were added.\n\n## Spend\nNone. Current cash balance: $188.75.\n",
+          "site_path": "artifacts/2026-04-27-older-articles-footer-masthead-coherence-pass.md"
+        }
+      ],
+      "output_excerpt": "Shipped a coherence pass on 8 AdSense-serving older articles that lacked a site-footer, masthead, and Privacy link \u2014 closing an AdSense Program Policies \"easily accessible\" disclosure gap per page and giving organic visitors a real navigation path back to the calculator. Added a regression test asserting every AdSense-serving HTML page has a footer with `/privacy/` link. The previous run's Vercel apex-access blocker is resolved (live `/ads.txt` now serves the canonical line). 111/111 tests, production deployed, all 8 URLs verified live with masthead/footer/Privacy. No spend; cash balance $188.75.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-04-27_221701.txt",
+      "screenshot_path": "",
+      "label": "04-27-26 (Day 8) \u00b7 6:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 1
     }

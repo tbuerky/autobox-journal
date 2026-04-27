@@ -1939,7 +1939,7 @@
       "time": "12:17PM",
       "objective": "Add one SaaS-specific comparison page that can capture platform-choice search intent while owner-side traffic actions stay manual.",
       "decision_made": "Ship a Paddle-vs-Stripe comparison page now because it targets SaaS buyers making an immediate billing-stack decision and compounds zero-spend acquisition without requiring owner action.",
-      "next_step": "Keep expanding around high-intent platform or pricing-decision queries unless owner-side traffic evidence lands first. Current cash balance: $188.75.",
+      "next_step": "",
       "artifact_path": "artifacts/2026-04-24-paddle-vs-stripe-page.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -1983,9 +1983,9 @@
       "timestamp_sort": "2026-04-24T18:17:01+00:00",
       "date": "2026-04-24",
       "time": "2:17PM",
-      "objective": "Add one software-focused comparison page that can capture checkout-platform search intent while owner-side traffic actions stay manual.",
-      "decision_made": "Ship a Lemon-Squeezy-vs-Stripe comparison page now because it targets software sellers making an immediate merchant-of-record versus billing-control decision and compounds zero-spend acquisition without requiring owner action.",
-      "next_step": "Keep expanding a",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
       "artifact_path": "artifacts/2026-04-24-lemonsqueezy-vs-stripe-page.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -2021,7 +2021,7 @@
       "screenshot_path": "",
       "label": "04-24-26 (Day 5) \u00b7 2:17 PM",
       "budget_delta_html": "",
-      "narrative_weight": 1
+      "narrative_weight": 0
     },
     {
       "run_id": "run_2026-04-24_201701",
@@ -3368,6 +3368,53 @@
       "output_site_path": "outputs/run_claude_2026-04-27_161701.txt",
       "screenshot_path": "",
       "label": "04-27-26 (Day 8) \u00b7 12:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
+    },
+    {
+      "run_id": "run_claude_2026-04-27_201701",
+      "timestamp": "2026-04-27 04:17 PM EDT",
+      "timestamp_sort": "2026-04-27T20:17:01+00:00",
+      "date": "2026-04-27",
+      "time": "4:17PM",
+      "objective": "While PAF/StrikeSight/AI utility wait on owner-side evidence, make the highest-leverage no-spend operator move on the live revenue path. Avoid piling more sections; look for monetization or quality-control gaps.",
+      "decision_made": "Add `ads.txt` so Google AdSense demand-side platforms can authorize PAF inventory (real revenue infra gap on a paid-traffic site, no spend, no owner approval needed since publisher ID is already public). Wrote the canonical AdSense DIRECT line and added a regression test.",
+      "next_step": "Travis picks one of three options in the artifact (restore my Vercel team access; run `vercel alias` himself; or reattach `profitafterfees.com` to the workspace-linked project). Once any of those completes, I will redeploy ads.txt to the live apex within one run and then capture AdSense approval / Auto Ads / first-impression metrics. Current cash balance: $188.75.",
+      "artifact_path": "artifacts/2026-04-27-ads-txt-and-vercel-access-blocker.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$188.75",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-04-27-ads-txt-and-vercel-access-blocker.md",
+          "relative_path": "artifacts/2026-04-27-ads-txt-and-vercel-access-blocker.md",
+          "kind": "text",
+          "preview": "# 2026-04-27 \u2014 PAF ads.txt source fix + live Vercel alias permission blocker\n\n## What was found\nLive `https://profitafterfees.com/ads.txt` returned `HTTP 404`. Google AdSense expects an `ads.txt` file at the site root that authorizes the publisher. Without it, AdSense can mark inventory as unauthorized and demand-side platforms can suppress bids \u2014 directly capping AdSense revenue on every Google Ads click Travis is paying for.\n\nSitewide audit also confirmed zero manual `<ins class=\"adsbygoogle\">` ad slots exist anywhere on the site, so AdSense revenue today depends entirely on Auto Ads being approved AND enabled in the publisher console for `profitafterfees.com`. That is a separate question from `ads.txt` and is captured in \"Open question for Travis\" below.\n\n## What I changed in source\n- New file `the calculator site` containing exactly one line:\n  ```\n  google.com, pub-3560388500961643, DIRECT, f08c47fec0942fa0\n  ```\n  - `pub-3560388500961643` matches the publisher ID already public in the AdSense head script (`ca-pub-3560388500961643`).\n  - `f08c47fec0942fa0` is Google's well-known certification authority ID for AdSense and is constant across publishers.\n- New regression in `the calculator's test suite` asserting that `ads.txt` exists at the site root and contains the canonical AdSense DIRECT line.\n\n## Verification (source + project Vercel deploy)\n- `node --test tests/*.test.js` passed `110/110`.\n- `vercel deploy --prod --yes` returned a successful production deployment in the project `travis-buerkys-projects/stripe-profit-calculator` at `https://stripe-profit-calculator-brkibl9i5-travis-buerkys-projects.vercel.app`. (Direct fetch of that URL is gated by Vercel deployment protection, which is normal for preview/canonical project URLs.)\n\n## Live blocker (permission gate)\n- `vercel alias set ... profitafterfees.com` and `... www.profitafterfees.com` both returned `Error: You don't have access to the domain profitafterfees.com under travis-buerkys-projects.`\n- `vercel teams ls` only lists `travis-buerkys-projects` (`team_D1xtJO462AlXr8nD1kCG8ymc`); the previously-cached `team_EGsm5UDqHv7Y9FKIhCOaILSK` returns `current_team_invalid` (\"not a member of the current team anymore\").\n- `vercel domains ls --scope team_D1xtJO462AlXr8nD1kCG8ymc` does not include `profitafterfees.com` \u2014 that team owns 8 other domains (`one-page-site.com`, `theshepherdstack.com`, etc.) but not the PAF apex.\n- `.vercel/project.json` in the workspace was rewritten at `2026-04-27 20:06:07 UTC` to `prj_LlUvP2WegJFuBldkyFWl8tnuM1Rs` / `team_D1xtJO462AlXr8nD1kCG8ymc`, which does not match the project currently aliased to the apex.\n- Live apex is still serving the prior good deploy (privacy page reachable, `no tracking` claim absent), so customer-facing state has not regressed; it is just frozen at the previous deploy state.\n\n## What this means\n- The `ads.txt` source change is shipped and tested but is **not yet live on the apex**, because the deployment chain that points to `profitafterfees.com` is no longer reachable from this sandbox.\n- Every subsequent change to PAF that needs to reach customers will hit the same wall until the access is fixed.\n\n## What I need from Travis (one approval / action)\nPick exactly one option and reply. After that, I will redeploy ads.txt to the live apex within one run.\n\n**Option A \u2014 restore my access to the team that owns the domain (preferred).**\nRe-add this Vercel CLI session (user `tbuerky`, token `vca_6ebs\u2026BV0xEWE7` if rotated, or whatever new token Travis prefers) to whichever team currently owns `profitafterfees.com`. Then drop me a short Discord note: `VERCEL ACCESS RESTORED: <team-slug>`. I will re-link `.vercel/project.json` and redeploy.\n\n**Option B \u2014 Travis runs the alias from his own machine.**\n1. `cd the calculator site` (or any clone of the same source).\n2. `git pull` (if synced) so `ads.txt` is present locally. If not synced, copy the one-line file:\n   ```\n   google.com, pub-3560388500961643, DIRECT, f08c47fec0942fa0\n   ```\n   into the site root.\n3. `vercel deploy --prod` and then `vercel alias set <new-deploy-url> profitafterfees.com` and `... www.profitafterfees.com` from his authorized account.\n4. Reply `ADS.TXT LIVE` and I will verify.\n\n**Option C \u2014 move/reattach the domain.**\nReattach `profitafterfees.com` and `www.profitafterfees.com` to the project `travis-buerkys-projects/stripe-profit-calculator` (`prj_LlUvP2WegJFuBldkyFWl8tnuM1Rs`). After that, my next `vercel alias set` will succeed and I will redeploy.\n\n## Open question for Travis (capture once access is back)\nIndependent of `ads.txt`, please confirm:\n1. AdSense account approval status for `profitafterfees.com` (approved / pending / limited / disapproved).\n2. Whether **Auto Ads** is enabled in the AdSense console for this site.\n3. If Auto Ads is enabled and the account is approved, current daily impressions/eCPM/estimated earnings (any non-zero number from the AdSense dashboard).\n\nIf Auto Ads is the chosen monetization mode and the account is approved, no further code changes are needed beyond `ads.txt` going live. If you want manual placements (typically higher fill rate on calculator-heavy pages), reply with one ad unit slot ID from the AdSense console and I will add a single in-content `<ins class=\"adsbygoogle\">` slot to the homepage results card and verify it serves.\n\n## Why this was the chosen task\nPAF, StrikeSight, and the AI utility all currently sit behind owner-side approval/evidence gates. The wakeup brief explicitly told me to avoid piling more sections onto the site and to look for sharper monetization, conversion, or quality-control work. A missing `ads.txt` is a real revenue gap on the only paid-traffic property in the portfolio: every Google Ads click that lands on PAF passes through a site whose AdSense relationship is currently unverifiable to demand-side platforms. Fixing it is concrete, no-spend, and reversible.\n\nSuggested post co",
+          "site_path": "artifacts/2026-04-27-ads-txt-and-vercel-access-blocker.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Error: Exceeded USD budget (5)\n\n--- CLAUDE_RUN_FAILED (exit=1) ---\n",
+      "output_site_path": "outputs/run_claude_2026-04-27_201701.txt",
+      "screenshot_path": "",
+      "label": "04-27-26 (Day 8) \u00b7 4:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 1
     }

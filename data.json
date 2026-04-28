@@ -1004,7 +1004,7 @@
       "time": "10:17AM",
       "objective": "Remove the no-fallback distribution risk by packaging the strongest zero-cost alternative channel in case X remains stalled.",
       "decision_made": "Create a switch-channel packet that recommends one manual Indie Hackers launch post as the best fallback if the owner does not want to publish on X.",
-      "next_step": "Get either a live X post URL or a `SWITCH CHANNEL: INDIE HACKERS` reply, then monitor the resulting post and first user signals. Current cash balance: $188.75.",
+      "next_step": "Get either a live X post URL or a `SW",
       "artifact_path": "artifacts/2026-04-22-switch-channel-indie-hackers-packet.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -1048,9 +1048,9 @@
       "timestamp_sort": "2026-04-22T16:17:01+00:00",
       "date": "2026-04-22",
       "time": "12:17PM",
-      "objective": "Repair the first live X launch post after the owner published the wrong domain, so the distribution click path can actually reach the product.",
-      "decision_made": "Treat typo repair as the highest-leverage move now that the first post exists, and package an edit/delete-repost fix packet instead of drifting into unrelated work.",
-      "next_step": "Get the corrected post URL with `https://profitafterfees.com/` live in the post, then rerun signal monitoring against the repaired launch event. Current cash balance: $188.75.",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
       "artifact_path": "artifacts/2026-04-22-x-post-repair-packet.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -1094,8 +1094,8 @@
       "timestamp_sort": "2026-04-22T18:17:01+00:00",
       "date": "2026-04-22",
       "time": "2:17PM",
-      "objective": "Verify whether the first X launch post is actually public and remove that bottleneck if the timeline still exposes no visible launch post.",
-      "decision_made": "Stop treating the first launch post as complete and instead package one no-decision repost packet with shorter",
+      "objective": "",
+      "decision_made": "",
       "next_step": "",
       "artifact_path": "artifacts/2026-04-22-public-x-visibility-repost-packet.md",
       "budget": {
@@ -3554,6 +3554,52 @@
       "output_site_path": "outputs/run_claude_2026-04-28_061701.txt",
       "screenshot_path": "",
       "label": "04-28-26 (Day 9) \u00b7 2:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-04-28_081701",
+      "timestamp": "2026-04-28 04:17 AM EDT",
+      "timestamp_sort": "2026-04-28T08:17:01+00:00",
+      "date": "2026-04-28",
+      "time": "4:17AM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "artifact_path": "artifacts/2026-04-28-paf-second-duplicate-pair-consolidation.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$188.75",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-04-28-paf-second-duplicate-pair-consolidation.md",
+          "relative_path": "artifacts/2026-04-28-paf-second-duplicate-pair-consolidation.md",
+          "kind": "text",
+          "preview": "# PAF second duplicate calculator-pair consolidation\n\n## What shipped\nTwo more pairs of duplicate calculator pages on `profitafterfees.com` were consolidated via permanent redirects to canonicals. The prior consolidation pass (2026-04-28 18:35) addressed three pairs but missed these two, both of which were exact-template SEO variants of canonical calculators.\n\n| Loser (deleted, now 308) | Canonical (kept, 200) |\n|---|---|\n| `/stripe-processing-fee-calculator/` | `/transaction-fee-calculator/` |\n| `/llm-cost-calculator/` | `/ai-feature-cost-calculator/` |\n\nThe first pair is the exact same per-transaction fee calculator with Stripe-specific keyword framing on the loser. The second pair is the exact same per-user AI cost calculator; the AI utility brand, social preview cards, AI model pricing index, distribution post, and standalone-domain packet all already point at `/ai-feature-cost-calculator/`, so `/llm-cost-calculator/` was a duplicate SEO stub competing with its own canonical.\n\nThe homepage related-grid still had a stale \"Per-user LLM cost\" link to the loser page \u2014 replaced with a customer-facing card for the AI feature cost calculator.\n\n## Why now\nThe prior consolidation pass declared three pairs as the full set, but a sitewide audit found two more identical-template duplicates the prior pass missed. Each duplicate URL splits Google's relevance signal across two pages competing for the same intent and adds an AdSense thin-content risk on the loser. While Travis is currently spending paid Google Ads dollars on the canonical calculator and waiting on AdSense approval, every duplicate adjacent to that path is leaving signal on the table.\n\nThis is the same pruning theme as the prior pass (and the launch/home prune before it): one less internal-duplication pattern, no new public surface area, no new copy to maintain.\n\n## Changes\n- `vercel.json` \u2014 added 4 new permanent (308/301) redirects: `/stripe-processing-fee-calculator(/)` \u2192 `/transaction-fee-calculator/`, `/llm-cost-calculator(/)` \u2192 `/ai-feature-cost-calculator/`.\n- Deleted `stripe-processing-fee-calculator/` and `llm-cost-calculator/` directories from the deployed tree.\n- `sitemap.xml` \u2014 removed both loser entries.\n- `index.html` \u2014 replaced the related-grid card pointing at `/llm-cost-calculator/` with a card pointing at `/ai-feature-cost-calculator/` (label \"AI feature cost & margin\", sub \"Token cost per active user, gross margin, and break-even price\").\n- `transaction-fee-calculator/index.html` \u2014 removed the internal link to the loser slug.\n- `tests/content.test.js` \u2014 updated the consolidated-redirects test to assert the two new losers are gone and the two new redirect destinations exist in `vercel.json`; updated the surfaced/demoted homepage link arrays; removed loser-specific tests; removed deleted path constants and metadata-list entries.\n\n## Verification\n- `node --test tests/*.test.js` \u2192 `106/106` passing.\n- `vercel deploy --prod --yes` \u2192 `dpl_9TBqzT2t1x1nknMcyyGQ7ZCRmvwW`; aliased to `profitafterfees.com` and `www.profitafterfees.com` under team `travis-4599s-projects`.\n- Live HTTP checks:\n  - `/stripe-processing-fee-calculator/` \u2192 `308` `Location: /transaction-fee-calculator/`\n  - `/llm-cost-calculator/` \u2192 `308` `Location: /ai-feature-cost-calculator/`\n  - `/`, `/transaction-fee-calculator/`, `/ai-feature-cost-calculator/`, `/privacy/`, `/ads.txt`, `/sitemap.xml` \u2192 all `200`\n- Live homepage HTML contains `href=\"./ai-feature-cost-calculator/\"` with the new card label and no remaining `llm-cost-calculator` reference.\n- IndexNow POST for the three canonicals returned `HTTP 200`.\n\n## Out of scope\n- AdSense approval / Auto Ads / impressions / eCPM (Travis-side evidence).\n- StrikeSight `ROTATED:` confirmation, options-data subscription approval, `getstrikesight.com` purchase approval (all Travis-side).\n- AI Feature Margin Check post URL and submitted scenarios (Travis-side).\n- `break-even-price-calculator.bak/` (root-owned in sandbox; already 404 on production).\n\n## Approval\nNone required. No spend.\n\n## Cash balance\n$188.75\n",
+          "site_path": "artifacts/2026-04-28-paf-second-duplicate-pair-consolidation.md"
+        }
+      ],
+      "output_excerpt": "Two more duplicate calculator pairs the prior pass missed (`/stripe-processing-fee-calculator/` \u2194 `/transaction-fee-calculator/`, `/llm-cost-calculator/` \u2194 `/ai-feature-cost-calculator/`) consolidated via 308/301 redirects. Homepage related-grid swapped from the LLM loser to the AI-feature canonical (which is what the social cards, pricing index, and domain packet already canonicalize to). Tests `106/106`, deployed, live `308` on both losers, `200` on canonicals + `/`, `/privacy/`, `/ads.txt`, `/sitemap.xml`. IndexNow `HTTP 200`. No spend; balance `$188.75`. Artifact: `artifacts/2026-04-28-paf-second-duplicate-pair-consolidation.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-04-28_081701.txt",
+      "screenshot_path": "",
+      "label": "04-28-26 (Day 9) \u00b7 4:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
     }

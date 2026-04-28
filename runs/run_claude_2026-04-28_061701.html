@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>PAF duplicate calculator consolidation &middot; AutoBox</title>
+<title>PAF older articles meta language rewrite &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,11 +33,11 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-04-28_061701</span>
   </div>
-  <h2 class="run-title">PAF duplicate calculator consolidation</h2>
+  <h2 class="run-title">PAF older articles meta language rewrite</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
-<p class="act"><span class="act-text">The remaining live PAF revenue gates are owner-side (AdSense status, StrikeSight rotation/provider/domain approvals, AI Feature Margin Check post URL). The wakeup brief was explicit that pruning, grouping, and hierarchy beats more pages or another internal doc. Three pairs of overlapping calculator pages were still cannibalizing each other in Google&#x27;s index, all three pairs targeting the same calculator product with slightly different keyword framings. The TODO had this cued as the next pruning pass.</span></p>
-<p class="act"><span class="act-text">| Pair | Canonical (kept) | 301&#x27;d (deleted) | Rationale | |------|------------------|-----------------|-----------| | Course pricing | /online-course-pricing-calculator/ | /course-pricing/ | Calculator-first slug aligns with the actual product; matches the long-tail buyer intent &quot;online course pricing calculator&quot;. | | Software/SaaS pricing | /saas-pricing-calculator/ | /software-pricing-calculator/ | Already linked from the homepage; SaaS is the narrower, higher-intent buyer audience for this brand. | | Transaction fee | /transaction-fee-calculator/ | /stripe-fee-per-transaction/ | Already linked from the homepage; broader slug can rank for both the generic and Stripe-specific queries while /stripe-processing-fee-calculator/ keeps the Stripe-specific lane. |</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">With the conversion-tracking fix already shipped earlier today, the next sharp move was a public-copy quality-control pass on whatever those bidding-corrected paid visitors land on. Wakeup brief explicitly favored stronger product copy / quality control over more pages or another internal doc.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">Rewrite the meta sections on all four pages. Routed customer-facing replacement copy through Luke per `RULES.md` public-copy rule. Caught and corrected one factual issue in Luke&#x27;s draft — Luke&#x27;s specimen prices ($199/$19/$240) did not match the actual preset deep-link values ($299/$49/$149); substituted the real preset prices into Luke&#x27;s copy before applying so the page text and the calculator agree. Preserved H1, &quot;What this preset models&quot; bullets, second/third FAQs, &quot;Break-even pricing reminder&quot; cards, calculator deep-links, masthead, footer, and AdSense/gtag scripts on every page. Added a regression that walks every HTML page and asserts no `page instead of a generic`, `How to use this example`, or `This page (starts|opens|narrows|focuses|sends)` patterns can drift back.</span></p>
+<p class="act"><span class="act-label">Next</span><span class="act-text">When Travis provides AdSense status / Auto Ads / impressions / eCPM, capture them and add a manual `&lt;ins class=&quot;adsbygoogle&quot;&gt;` slot on the homepage results card if a slot ID is supplied. When Smart Bidding strategy + spend report arrives, decide whether to ship a learning-reset packet. Owner-side StrikeSight and AI utility gates unchanged. Current cash balance: $188.75.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $188.75</span></div>
@@ -46,54 +46,42 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <div class="artifact-prose"><h1>PAF duplicate calculator-pair consolidation (301 redirects)</h1>
-<h2>Why now</h2>
-<p>The remaining live PAF revenue gates are owner-side (AdSense status, StrikeSight rotation/provider/domain approvals, AI Feature Margin Check post URL). The wakeup brief was explicit that pruning, grouping, and hierarchy beats more pages or another internal doc. Three pairs of overlapping calculator pages were still cannibalizing each other in Google&#x27;s index, all three pairs targeting the same calculator product with slightly different keyword framings. The TODO had this cued as the next pruning pass.</p>
-<h2>Decisions</h2>
-<p>| Pair | Canonical (kept) | 301&#x27;d (deleted) | Rationale |</p>
-<p>|------|------------------|-----------------|-----------|</p>
-<p>| Course pricing | <code>/online-course-pricing-calculator/</code> | <code>/course-pricing/</code> | Calculator-first slug aligns with the actual product; matches the long-tail buyer intent &quot;online course pricing calculator&quot;. |</p>
-<p>| Software/SaaS pricing | <code>/saas-pricing-calculator/</code> | <code>/software-pricing-calculator/</code> | Already linked from the homepage; SaaS is the narrower, higher-intent buyer audience for this brand. |</p>
-<p>| Transaction fee | <code>/transaction-fee-calculator/</code> | <code>/stripe-fee-per-transaction/</code> | Already linked from the homepage; broader slug can rank for both the generic and Stripe-specific queries while <code>/stripe-processing-fee-calculator/</code> keeps the Stripe-specific lane. |</p>
-<h2>Changes</h2>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>PAF older articles — meta-language rewrite</h1>
+<h2>Why</h2>
+<p>The wakeup brief said: avoid more pruning passes / new pages / internal docs; favor sharper conversion, copy, and quality moves. The conversion-tracking fix shipped earlier today restores Smart Bidding signal, so the next sharp move was an audit of what those bidding-corrected paid visitors actually land on. Three live AdSense-serving older articles still carried meta self-justification copy that read like SEO-scaffolding notes-to-self, in direct violation of <code>RULES.md</code> rule 14:</p>
 <ul>
-<li>Created <code>vercel.json</code> with six permanent redirects (with and without trailing slash) for the three loser slugs.</li>
-<li>Deleted <code>course-pricing/</code>, <code>software-pricing-calculator/</code>, and <code>stripe-fee-per-transaction/</code> from the deployed tree.</li>
-<li>Removed the three loser URLs from <code>sitemap.xml</code>.</li>
-<li>Removed internal links to the loser slugs from <code>saas-pricing-calculator/index.html</code>, <code>stripe-processing-fee-calculator/index.html</code>, <code>transaction-fee-calculator/index.html</code>, and <code>online-course-pricing-calculator/index.html</code>.</li>
-<li>Removed loser-slug-specific tests in <code>tests/content.test.js</code> (three page-content tests, three sitemap-includes tests, the three share-metadata entries, and the LLM/transaction social-card test reference).</li>
-<li>Added a regression in <code>tests/content.test.js</code> asserting the three loser directories do NOT exist in the source tree AND that <code>vercel.json</code> contains the three permanent redirects to the correct destinations.</li>
+<li><code>stripe-fees-for-online-courses</code> — &quot;How to use this example&quot; H2; first FAQ headlined &quot;Why use a Stripe fees for online courses page instead of a generic fee calculator?&quot;; subhead and FAQ answers framed in &quot;This page starts/opens/narrows...&quot; language.</li>
+<li><code>stripe-fees-for-notion-templates</code> — same three patterns.</li>
+<li><code>stripe-fees-for-micro-saas</code> — same three patterns.</li>
+<li><code>how-to-calculate-profit-margin-on-digital-products</code> — one stray &quot;This page starts with a realistic scenario...&quot; sentence in the hero subhead; the rest was already customer-facing.</li>
 </ul>
+<p>A real visitor landing on these pages from a Google search for fees on their specific product type is not asking &quot;why does this page exist instead of a generic one?&quot; — they are trying to figure out whether their planned price clears Stripe + the rest of the deductions before they go live. The meta-language burned credibility on every paid Google Ads or AdSense impression that lands on these pages.</p>
+<h2>What changed</h2>
+<p>Routed customer-facing copy through Luke per <code>RULES.md</code> public-copy rule. Applied Luke&#x27;s revised hero subheads, section H2s, and first-FAQ H3 + answer to all four pages. Corrected Luke&#x27;s specimen prices to match the existing preset deep-link values exactly so the copy and the calculator agree:</p>
+<ul>
+<li><code>stripe-fees-for-online-courses</code> — $299 course (matches <code>?listPrice=299</code>)</li>
+<li><code>stripe-fees-for-notion-templates</code> — $49 template (matches <code>?listPrice=49</code>)</li>
+<li><code>stripe-fees-for-micro-saas</code> — $149 annual plan (matches <code>?listPrice=149</code>)</li>
+</ul>
+<p>Files changed:</p>
+<ul>
+<li><code>the calculator site</code> (4 files)</li>
+<li><code>the calculator&#x27;s test suite</code> — added regression that walks every HTML page and asserts no <code>page instead of a generic</code>, <code>How to use this example</code>, or <code>This page (starts|opens|narrows|focuses|sends)</code> patterns can drift back</li>
+</ul>
+<p>Did not change: H1, &quot;What this preset models&quot; bullets, second/third FAQs, &quot;Break-even pricing reminder&quot; cards, calculator deep-link query strings, masthead, footer, AdSense/gtag scripts.</p>
 <h2>Verification</h2>
 <ul>
-<li><code>node --test tests/*.test.js</code> — <code>110/110</code> passed.</li>
-<li><code>vercel deploy --prod --yes</code> — <code>dpl_HoTw4AFM5bkgfNhYfNhd6N9rBCJn</code> deployed successfully under team <code>travis-4599s-projects</code>.</li>
-<li><code>vercel alias set ... profitafterfees.com</code> and <code>... www.profitafterfees.com</code> — both succeeded.</li>
-<li>Live HTTP checks (Vercel&#x27;s <code>permanent: true</code> issues 308, which Google treats as a permanent canonicalization signal equivalent to 301):</li>
-<li><code>/course-pricing/</code> → <code>308</code> → <code>https://profitafterfees.com/online-course-pricing-calculator/</code></li>
-<li><code>/software-pricing-calculator/</code> → <code>308</code> → <code>https://profitafterfees.com/saas-pricing-calculator/</code></li>
-<li><code>/stripe-fee-per-transaction/</code> → <code>308</code> → <code>https://profitafterfees.com/transaction-fee-calculator/</code></li>
-<li><code>/online-course-pricing-calculator/</code> → <code>200</code></li>
-<li><code>/saas-pricing-calculator/</code> → <code>200</code></li>
-<li><code>/transaction-fee-calculator/</code> → <code>200</code></li>
-<li><code>/</code> → <code>200</code>, <code>/privacy/</code> → <code>200</code>, <code>/ads.txt</code> → <code>200</code></li>
-<li>IndexNow POST for the three canonical URLs returned <code>HTTP 200</code>.</li>
+<li><code>node --test tests/*.test.js</code> passed <code>108/108</code> (was <code>107</code> — net <code>+1</code> from the new regression).</li>
+<li><code>vercel deploy --prod --yes</code> produced <code>dpl_FzW22kuG6qojqe8ZGTCTioLR5Zrc</code>.</li>
+<li><code>vercel alias set ... profitafterfees.com</code> and <code>... www.profitafterfees.com</code> both succeeded under team <code>travis-4599s-projects</code>.</li>
+<li>Live HTTP checks (HTTP 200): all four changed URLs, plus <code>/</code>, <code>/privacy/</code>, <code>/ads.txt</code>.</li>
+<li>Live grep on each changed URL: <code>0</code> occurrences of <code>page instead of a generic</code>, <code>How to use this example</code>, or <code>This page starts</code>.</li>
+<li>Live grep on each changed URL: confirmed presence of the new &quot;What a $X actually pays out&quot; H2 and &quot;Does this give me a different answer than a generic fee calculator&quot; H3.</li>
+<li>IndexNow POST for the four changed URLs returned <code>HTTP 200</code>.</li>
 </ul>
-<h2>What this changes</h2>
-<ul>
-<li>Search engines see one canonical page per buyer intent for these three intent clusters. No more competing duplicates inside the same domain.</li>
-<li>Existing inbound link equity to the three loser URLs is preserved via the 308/301 redirect (Google passes ranking signals through permanent redirects).</li>
-<li>The site footer/related-page lists no longer point readers at pages that immediately bounce them through a redirect.</li>
-</ul>
-<h2>Out of scope</h2>
-<ul>
-<li>The <code>break-even-price-calculator.bak/</code> directory remains in source (sandbox <code>sudo</code> is password-gated). Already 404 on production and excluded from the test walker; no public exposure.</li>
-<li><code>/stripe-processing-fee-calculator/</code> was kept untouched. The TODO only flagged the three pairs above; this third Stripe-specific page targets a distinct query pattern (&quot;processing fee&quot; vs. &quot;transaction fee&quot; vs. &quot;fee per transaction&quot;) and is not duplicate content.</li>
-</ul>
-<h2>Next operator move (if no fresh owner evidence lands)</h2>
-<p>Capture AdSense status / Auto Ads / impressions / eCPM once Travis provides them; integrate StrikeSight real options data on <code>APPROVED:</code>; secure <code>getstrikesight.com</code> on approval; or buy <code>aifeaturecost.com</code> on approval. If continuing the prune theme, audit <code>/digital-product-pricing-calculator/</code> for overlap with <code>/profit-margin-calculator/</code> and <code>/selling-price-calculator/</code> — but only after a fresh content read.</p>
-<h2>Approval</h2>
-<p>None required. No spend. Current cash balance: <code>$188.75</code>.</p></div>
+<h2>Outcome</h2>
+<p>On every paid Google Ads click and every AdSense impression that lands on these four pages, the visitor now reads copy that names their actual decision (what this stack of deductions does to take-home on their specific product type) rather than copy that reads like SEO scaffolding explaining why the page exists. Same calculator, same deep-link, sharper customer surface. No spend.</p></div>
   </section>
 
   <section class="detail-section">

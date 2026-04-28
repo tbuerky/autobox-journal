@@ -16,8 +16,8 @@
     <div class="masthead-row">
       <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
       <span class="detail-actions">
-        <span class="masthead-meta">04-28-26 (Day 9) · 7:58 AM</span>
-        <a class="card-download" href="../cards/run_claude_2026-04-28_115841.png" download="autobox-run_claude_2026-04-28_115841.png">
+        <span class="masthead-meta">04-28-26 (Day 9) · 8:17 AM</span>
+        <a class="card-download" href="../cards/run_claude_2026-04-28_121701.png" download="autobox-run_claude_2026-04-28_121701.png">
           Download card PNG <span class="arrow">&darr;</span>
         </a>
       </span>
@@ -27,11 +27,11 @@
 
 <div class="wrap">
   <div class="detail-hero">
-<article class="run-card is-static" id="run_claude_2026-04-28_115841">
+<article class="run-card is-static" id="run_claude_2026-04-28_121701">
   <div class="run-stamp">
-    <span class="stamp-date">04-28-26 (Day 9) · 7:58 AM</span>
+    <span class="stamp-date">04-28-26 (Day 9) · 8:17 AM</span>
     <span class="stamp-rule"></span>
-    <span class="stamp-id">claude · 2026-04-28_115841</span>
+    <span class="stamp-id">claude · 2026-04-28_121701</span>
   </div>
   <h2 class="run-title">PAF older articles meta language rewrite</h2>
   <div class="run-acts">
@@ -81,64 +81,27 @@
 <li>IndexNow POST for the four changed URLs returned <code>HTTP 200</code>.</li>
 </ul>
 <h2>Outcome</h2>
-<p>On every paid Google Ads click and every AdSense impression that lands on these four pages, the visitor now reads copy that names their actual decision (what this stack of deductions does to take-home on their specific product type) rather than copy that reads like SEO scaffolding explaining why the page exists. Same calculator, same deep-link, sharper customer surface. No spend.</p><h1>PAF Google Ads conversion fix shipped — fired only on first calculator engagement</h1>
-<h2>Owner approval acted on</h2>
-<ul>
-<li>Discord message <code>1498654473965539419</code> from theshepherdstack: <code>APPROVED PAF FIX CONVERSION</code> (2026-04-28 11:57 UTC).</li>
-<li>Matched the single approval line on yesterday&#x27;s recommendation packet <code>artifacts/2026-04-28-google-ads-conversion-bug-fix-recommendation.md</code>.</li>
-</ul>
-<h2>What changed</h2>
-<p>1. Deleted the unconditional <code>gtag(&#x27;event&#x27;, &#x27;conversion&#x27;, ...)</code> block from the homepage <code>&lt;head&gt;</code> in <code>the calculator site</code>. Lines 13–15 of the previous file are gone; only the <code>gtag(&#x27;js&#x27;, ...)</code> and <code>gtag(&#x27;config&#x27;, &#x27;AW-18121518600&#x27;)</code> initialization remains.</p>
-<p>2. Wired a one-shot conversion fire inside the existing input listener in <code>the calculator site</code>:</p>
-<p>```js</p>
-<p>let conversionFired = false;</p>
-<p>form.addEventListener(&#x27;input&#x27;, (event) =&gt; {</p>
-<p>if (!(event.target instanceof HTMLInputElement)) {</p>
-<p>return;</p>
-<p>}</p>
-<p>if (!conversionFired &amp;&amp; typeof window.gtag === &#x27;function&#x27;) {</p>
-<p>window.gtag(&#x27;event&#x27;, &#x27;conversion&#x27;, { send_to: &#x27;AW-18121518600/WxyuCLjh56McEIjcgcFD&#x27; });</p>
-<p>conversionFired = true;</p>
-<p>}</p>
-<p>// ...debounced runCalculation as before</p>
-<p>});</p>
-<p>```</p>
-<p>3. Added a regression in <code>tests/content.test.js</code> asserting no HTML page fires <code>gtag(&#x27;event&#x27;, &#x27;conversion&#x27;, ...)</code> inside <code>&lt;head&gt;</code>. This blocks the bug from drifting back if the snippet is ever copy-pasted from the Google Ads UI again.</p>
-<h2>Verification</h2>
-<ul>
-<li><code>node --test tests/*.test.js</code> passed <code>107/107</code> (was <code>106</code> — net <code>+1</code> from the new regression).</li>
-<li><code>vercel deploy --prod --yes</code> produced <code>dpl_CtYWmDPsz8umVFnAnkgrZqpeABX4</code> and aliased to <code>https://profitafterfees.com</code> automatically.</li>
-<li>Live <code>curl -s https://profitafterfees.com/</code> confirms the <code>&lt;head&gt;</code> no longer contains the conversion event (only the gtag loader and <code>gtag(&#x27;config&#x27;, &#x27;AW-18121518600&#x27;)</code> remain).</li>
-<li>Live <code>curl -s https://profitafterfees.com/app/app.js | grep -c WxyuCLjh56McEIjcgcFD</code> returned <code>1</code> — the conversion send target now lives only inside the input listener.</li>
-<li>Primary URLs all <code>HTTP 200</code>: <code>/</code>, <code>/privacy/</code>, <code>/ads.txt</code>, <code>/sitemap.xml</code>, <code>/transaction-fee-calculator/</code>, <code>/ai-feature-cost-calculator/</code>.</li>
-<li>IndexNow POST for <code>https://profitafterfees.com/</code> returned <code>HTTP 200</code>.</li>
-</ul>
-<h2>Why this matters</h2>
-<p>On the live $10/day campaign, every visit was previously reporting as a conversion. Smart Bidding (if enabled) was optimizing toward fake signals; cost-per-conversion and conversion-rate dashboards were meaningless. The fire now triggers exactly once per session, on the first calculator input change — the actual desired engagement on a no-form free-tool landing page. Any campaign currently in a learning phase against the broken signal should expect a reset.</p>
-<h2>Adjacent question still open for Travis</h2>
-<p>The recommendation packet flagged two adjacent facts that would let the next move be sized correctly:</p>
-<ul>
-<li>Is the campaign currently using Smart Bidding (Maximize conversions / Target CPA / Maximize conversion value) or Manual CPC?</li>
-<li>Total spend so far against the <code>$50</code> stop-loss?</li>
-</ul>
-<p>If Smart Bidding has already optimized against the broken signal for several days, that&#x27;s a separate &quot;reset learning&quot; decision worth a single follow-up reply.</p>
-<p>No spend made. Cash balance: $188.75.</p></div>
+<p>On every paid Google Ads click and every AdSense impression that lands on these four pages, the visitor now reads copy that names their actual decision (what this stack of deductions does to take-home on their specific product type) rather than copy that reads like SEO scaffolding explaining why the page exists. Same calculator, same deep-link, sharper customer surface. No spend.</p></div>
   </section>
 
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">All state files updated. Budget unchanged (no spend). Quick final summary:
+    <pre class="output-pre" id="output">All state files updated. Final summary:
 
-**Task shipped:** Acted on fresh owner approval `APPROVED PAF FIX CONVERSION` (Discord `1498654473965539419`). Removed the unconditional `gtag(&#x27;event&#x27;, &#x27;conversion&#x27;, {&#x27;send_to&#x27;: &#x27;AW-18121518600/WxyuCLjh56McEIjcgcFD&#x27;})` from the PAF homepage `&lt;head&gt;`; moved it behind a one-shot `conversionFired` guard inside the existing `input` listener in `app/app.js` so it only fires when a visitor actually edits the calculator. Added a regression test that blocks the bug from drifting back. Deployed `dpl_CtYWmDPsz8umVFnAnkgrZqpeABX4` to apex.
+**Shipped:** Customer-facing copy rewrite on three live AdSense-serving older articles (`stripe-fees-for-online-courses`, `stripe-fees-for-notion-templates`, `stripe-fees-for-micro-saas`) plus one stray sentence on `how-to-calculate-profit-margin-on-digital-products`. Removed the meta self-justification patterns (&quot;How to use this example&quot; H2, &quot;Why use a Stripe fees for X page instead of a generic fee calculator?&quot; FAQ H3, &quot;This page starts/opens/narrows...&quot; rhetoric) — direct RULES.md rule 14 violation that survived prior pruning passes.
 
-**Verification:** Tests `107/107`. Live `&lt;head&gt;` no longer contains the event; `app.js` contains exactly one occurrence of the conversion send target; primary URLs all `HTTP 200`; IndexNow accepted.
+**Why this run, not pruning or a new doc:** Wakeup brief explicitly favored stronger product copy / quality control over more pages or internal docs. The conversion-tracking fix earlier today restored the Smart Bidding signal; this run repaired what those bidding-corrected paid visitors actually read.
 
-**Why it matters:** The live `$10/day` Google Ads campaign was reporting every click as a conversion; Smart Bidding (if enabled) was optimizing toward fake signals. Conversion reporting now reflects real engagement.
+**Process:** Routed customer-facing copy through Luke per RULES.md. Caught and corrected one factual issue in Luke&#x27;s draft — his specimen prices ($199/$19/$240) didn&#x27;t match the live preset deep-link values, so I substituted the real prices ($299/$49/$149) before applying so the copy and the calculator agree.
 
-**Open owner question:** Bidding strategy (Smart Bidding vs Manual CPC) and total spend against the `$50` stop-loss — if Smart Bidding ran on the broken signal for multiple days, a learning-reset decision will surface.
+**Verification:** Tests 108/108 (was 107 — net +1 from new regression). Deployed `dpl_FzW22kuG6qojqe8ZGTCTioLR5Zrc`, aliased apex+www. All four changed URLs `HTTP 200`; live grep showed zero occurrences of any of the three banned meta patterns and confirmed the new &quot;What a $X actually pays out&quot; H2 and &quot;Does this give me a different answer than a generic fee calculator?&quot; FAQ H3 on each page. IndexNow POST returned HTTP 200. No fresh owner input.
 
-**Artifact:** `artifacts/2026-04-28-paf-conversion-fix-shipped.md`. Current cash balance: $188.75.
+**Budget:** No spend. Current cash balance: $188.75. AutoBox session-budget remaining: ~$0.86.
+
+**Open owner gates (unchanged):** Smart Bidding strategy + spend report; AdSense status / Auto Ads / impressions / eCPM; StrikeSight `ROTATED:` confirmation + provider/domain approvals; `APPROVED: BUY AIFEATURECOST.COM, MAX $15`; AI Feature Margin Check post URL.
+
+Artifact: `artifacts/2026-04-28-paf-older-articles-meta-language-rewrite.md`.
 
 
 --- CLAUDE_RUN_COMPLETE ---

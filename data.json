@@ -905,7 +905,7 @@
       "time": "6:17AM",
       "objective": "Push the owner-ready X launch prompt into the primary Discord control channel so the manual distribution bottleneck is directly in front of the owner.",
       "decision_made": "Treat owner notification as the highest-leverage task still available inside the sandbox because the remaining bottleneck is manual execution, not more site work.",
-      "next_step": "Wait for the live X post URL and first reactions, then rerun signal monitoring against actual traffic.",
+      "next_step": "Wait for the live X post URL and first reac",
       "artifact_path": "artifacts/2026-04-22-owner-discord-launch-nudge.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -956,9 +956,9 @@
       "timestamp_sort": "2026-04-22T12:17:01+00:00",
       "date": "2026-04-22",
       "time": "8:17AM",
-      "objective": "Break the stalled launch loop by confirming whether the owner had actually posted and then forcing a binary next-step decision in the control channel.",
-      "decision_made": "Treat launch escalation as the highest-leverage move because first distribution is still the core bottleneck and repeated passive reminders were not enough; packaged a shorter decision artifact and pushed a reply-format prompt to Discord.",
-      "next_step": "Wait for the owner reply or public post URL; if `SWITCH CHANNEL` arrives, package the strongest alternative manual distribution move immediately. Current cash balance: $188.75.",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
       "artifact_path": "artifacts/2026-04-22-launch-decision-escalation.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -994,7 +994,7 @@
       "screenshot_path": "",
       "label": "04-22-26 (Day 3) \u00b7 8:17 AM",
       "budget_delta_html": "",
-      "narrative_weight": 2
+      "narrative_weight": 0
     },
     {
       "run_id": "run_2026-04-22_141701",
@@ -1002,9 +1002,9 @@
       "timestamp_sort": "2026-04-22T14:17:01+00:00",
       "date": "2026-04-22",
       "time": "10:17AM",
-      "objective": "Remove the no-fallback distribution risk by packaging the strongest zero-cost alternative channel in case X remains stalled.",
-      "decision_made": "Create a switch-channel packet that recommends one manual Indie Hackers launch post as the best fallback if the owner does not want to publish on X.",
-      "next_step": "Get either a live X post URL or a `SW",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
       "artifact_path": "artifacts/2026-04-22-switch-channel-indie-hackers-packet.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -3602,6 +3602,53 @@
       "label": "04-28-26 (Day 9) \u00b7 4:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-04-28_101701",
+      "timestamp": "2026-04-28 06:17 AM EDT",
+      "timestamp_sort": "2026-04-28T10:17:01+00:00",
+      "date": "2026-04-28",
+      "time": "6:17AM",
+      "objective": "While owner-side gates are open across PAF AdSense, StrikeSight, and AI margin post, the wakeup brief said: avoid more pruning passes when a sharper revenue/quality move exists. Audited the live homepage as the actual paid-traffic landing page rather than adding more on-site surface.",
+      "decision_made": "This is a real revenue bug, but it touches owner-installed analytics, so the right move is a concrete recommendation packet (per `PROJECT.md` approval-gated action policy) rather than silently editing live ad-tracking code. Single primary recommendation: move the conversion event from page load to a one-shot fire on first calculator input change. Ready-to-ship implementation plan included so the next run can deploy on a single Discord reply.",
+      "next_step": "On approval, ship the fix per the implementation plan (delete inline `<head>` event, add one-shot fire inside the existing input listener, regression test, deploy, IndexNow). Otherwise return to AdSense capture, StrikeSight rotation/provider/domain, or AI margin post URL once owner evidence lands. Current cash balance: $188.75.",
+      "artifact_path": "artifacts/2026-04-28-google-ads-conversion-bug-fix-recommendation.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$188.75",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-04-28-google-ads-conversion-bug-fix-recommendation.md",
+          "relative_path": "artifacts/2026-04-28-google-ads-conversion-bug-fix-recommendation.md",
+          "kind": "text",
+          "preview": "# Profit After Fees: Google Ads conversion event fires on every page load \u2014 fix recommendation\n\nDate: 2026-04-28 10:30 UTC\nCurrent cash balance: $188.75\n\n## What I found\n\nThe live homepage at `https://profitafterfees.com/` fires a Google Ads conversion event unconditionally inside the `<head>`, on every page load:\n\n```html\n<script>\n  gtag('event', 'conversion', {'send_to': 'AW-18121518600/WxyuCLjh56McEIjcgcFD'});\n</script>\n```\n\nSource: `the calculator site` lines 13\u201315. Verified live by `curl -s https://profitafterfees.com/`. The conversion ID matches your Google Ads account `AW-18121518600`.\n\nThis snippet is not in any AutoBox artifact. The original tag-install run only added `gtag('config', ...)`. The conversion event was added later, manually \u2014 most likely copy-pasted directly from the Google Ads \"conversion action\" setup screen, which generates that exact text.\n\n## Why this matters now\n\nGoogle's UI literally labels that snippet as the \"event snippet\" and instructs the user to fire it on the action they want to count. Putting it in `<head>` makes it fire on every visit. Effects on a paid-traffic site:\n\n1. **100% conversion rate is reported.** Every Google Ads click registers as a conversion in the Ads UI.\n2. **Smart Bidding is poisoned.** If the campaign uses any auto-bid strategy (\"Maximize conversions\", \"Target CPA\", \"Maximize conversion value\"), Google is optimizing toward \"every click = a conversion\", which steers spend toward whichever ads/keywords/audiences get the most clicks regardless of quality.\n3. **Cost-per-conversion math is meaningless.** The $50 stop-loss can be hit while the dashboard shows wins; you cannot tell which keywords actually performed.\n4. **No real engagement signal is tracked.** The thing a free calculator landing page would actually want to count \u2014 the visitor *using* the calculator \u2014 is not being measured anywhere.\n\n## Primary recommendation\n\nMove the conversion event off page load and fire it exactly once when the visitor performs a real engagement: the first time any calculator input changes.\n\nThe existing app code already has the right hook. `the calculator site` line 170 already attaches an `input` listener to `#calculator-form`. The fix is to add a single one-shot conversion call inside that listener:\n\n```js\nlet _gadsConversionFired = false;\nform.addEventListener('input', (event) => {\n  // ...existing handling...\n  if (!_gadsConversionFired && typeof window.gtag === 'function') {\n    window.gtag('event', 'conversion', { send_to: 'AW-18121518600/WxyuCLjh56McEIjcgcFD' });\n    _gadsConversionFired = true;\n  }\n});\n```\n\nAnd the unconditional `<script>` block in the homepage `<head>` is removed.\n\nThis counts the actual desired action on a free-tool landing page \u2014 the visitor engaging with the calculator \u2014 once per session, instead of once per page load. It is the standard recommended placement for a Google Ads conversion action on a no-form landing page.\n\n**Approval line:** `APPROVED: PAF FIX CONVERSION TO CALCULATOR ENGAGEMENT`\n\nOn that reply, in the next AutoBox run I will:\n1. Delete lines 13\u201315 of `the calculator site`.\n2. Add the one-shot conversion fire inside the existing `input` listener in `app/app.js`.\n3. Add a regression test that asserts no HTML page contains `gtag('event', 'conversion'` inside `<head>`.\n4. Run the full `node --test tests/*.test.js` suite (currently `106/106`).\n5. `vercel deploy --prod`, verify live HTML, and submit IndexNow for the homepage.\n6. Note in BUDGET.md that no spend occurred for this fix.\n\n## Alternatives considered (context only \u2014 not parallel approval lines)\n\n- **Remove the conversion event entirely** and rely on GA4 engagement metrics. Cleaner, but you lose the ability to feed Google Ads any conversion signal and it would force a campaign-side switch off Smart Bidding.\n- **Fire on the `Recalculate` button submit only.** Narrower coverage; misses the more common path where defaults are adjusted live and the user never clicks the button. The existing `input` listener is a strictly larger, more accurate signal.\n- **Leave as-is.** Continues to corrupt Smart Bidding and conversion reporting on a campaign already burning $10/day. Not recommended.\n\n## Adjacent question worth a separate reply (no approval needed today)\n\nWhichever direction you take on the conversion fix, two facts about the campaign would let me size the next move:\n\n- Is the campaign currently using Smart Bidding (Maximize conversions, Target CPA, etc.) or Manual CPC?\n- Total spend so far against the $50 stop-loss?\n\nIf Smart Bidding has already been running on the broken signal for several days, that is a separate \"reset learning\" decision worth surfacing once we know the spend number.\n\n## Verification done in this run\n\n- `curl -s https://profitafterfees.com/` returned HTTP 200 and contains the unconditional conversion event in `<head>`.\n- `grep` for `gtag('event', 'conversion'` and `WxyuCLjh56McEIjcgcFD` shows the only occurrence is `the calculator site` (no other page is affected).\n- `app/app.js` already exposes a `form.addEventListener('input', ...)` handler at line 170, so the fix has a clean attachment point.\n- Site sitemap and primary URLs (`/`, `/privacy/`, `/ads.txt`, `/sitemap.xml`) still return HTTP 200.\n\n## Owner-side gate\n\n**Approval needed:** `APPROVED: PAF FIX CONVERSION TO CALCULATOR ENGAGEMENT`\n\nNo spend. Cash balance: $188.75.\n\n## Suggested post copy:\n\nPAF Google Ads is firing a conversion on every page load (currently in homepage `<head>`). Smart Bidding is being optimized toward fake signals while the $10/day campaign runs.\n\nReply `APPROVED: PAF FIX CONVERSION TO CALCULATOR ENGAGEMENT` and I will move the event to the first calculator input change, ship a regression, and deploy live next run.\n\nIf easy: also share whether the campaign is on Smart Bidding (Maximize conversions / Target CPA) or Manual CPC, and total spend so far.\n\nDetail:",
+          "site_path": "artifacts/2026-04-28-google-ads-conversion-bug-fix-recommendation.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Task complete. Found a real revenue-affecting bug on the live PAF homepage that 5 consecutive pruning passes had missed: the Google Ads conversion event fires unconditionally in `<head>`, so every visit on the $10/day paid campaign registers as a conversion \u2014 corrupting Smart Bidding and cost-per-conversion math.\n\nBecause the snippet was added manually by Travis (not by AutoBox) and touches owner-installed analytics on a live revenue-affecting page, I shipped a single-recommendation approval packet rather than silently editing it. The packet has the exact code change (move the fire into the existing `form.addEventListener('input', ...)` in `app/app.js:170`, gated by a one-shot boolean), the regression test, the deploy plan, and one approval line: `APPROVED: PAF FIX CONVERSION TO CALCULATOR ENGAGEMENT`. Adjacent question for Travis: bidding strategy and total spend so far against the $50 stop-loss.\n\nArtifact: `artifacts/2026-04-28-google-ads-conversion-bug-fix-recommendation.md`. State files updated; no code or live HTML changed; no spend. Current cash balance: $188.75.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-04-28_101701.txt",
+      "screenshot_path": "",
+      "label": "04-28-26 (Day 9) \u00b7 6:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 2
     }
   ]
 }

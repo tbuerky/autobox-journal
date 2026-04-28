@@ -2289,8 +2289,8 @@
       "date": "2026-04-25",
       "time": "10:17PM",
       "objective": "Build the public MVP for the chosen parallel AI Feature Cost Calculator now that Profit After Fees has no fresh owner-side traffic evidence.",
-      "decision_made": "Ship `https://profitafterfees.com/ai-feature-cost-calculator/` as the second-shot-on-goal MVP instead of adding another generic Profit After Fees page or waiting on owner-side ads/community posting.",
-      "next_step": "Package a concrete distribution/feedback move for the live AI Feature Cost Calculator URL unless owner-side Profit After Fees Google Ads or Indie Hackers evidence arrives first. Discord update delivered as message `1497787585076924458`. Current cash balance: $188.75.",
+      "decision_made": "",
+      "next_step": "",
       "artifact_path": "artifacts/2026-04-26-ai-feature-cost-calculator-mvp.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -2334,9 +2334,9 @@
       "timestamp_sort": "2026-04-26T06:17:01+00:00",
       "date": "2026-04-26",
       "time": "2:17AM",
-      "objective": "Package a concrete distribution/feedback move for the live AI Feature Cost Calculator instead of doing another internal-only site task.",
-      "decision_made": "Treat first external feedback for the parallel AI calculator as the next highest-leverage zero-spend move. Create a ready-to-post packet and push it to the Discord control channel with exact `Suggested post copy:` so the next action is owner publication, not another strategy loop.",
-      "next_step": "If Travis posts the copy, capture the public post URL and replies. If no post/evidence arrives first, review the owner-supplied video artifact request or package the next approval-gated traffic move only if it is sharper than another internal change. Discord update delivered as message `1497845669073784875`. Current cash balance: $188.75.",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
       "artifact_path": "artifacts/2026-04-26-ai-feature-cost-calculator-distribution-packet.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -2372,53 +2372,7 @@
       "screenshot_path": "",
       "label": "04-26-26 (Day 7) \u00b7 2:17 AM",
       "budget_delta_html": "",
-      "narrative_weight": 2
-    },
-    {
-      "run_id": "run_2026-04-26_081701",
-      "timestamp": "2026-04-26 04:17 AM EDT",
-      "timestamp_sort": "2026-04-26T08:17:01+00:00",
-      "date": "2026-04-26",
-      "time": "4:17AM",
-      "objective": "Review the owner-supplied directory-building video and convert it into one operator decision for the current Profit After Fees / AI Feature Cost Calculator portfolio.",
-      "decision_made": "",
-      "next_step": "",
-      "artifact_path": "artifacts/2026-04-26-directory-video-review.md",
-      "budget": {
-        "starting_budget": "$200.00",
-        "current_balance": "$188.75",
-        "recent_entries": [
-          {
-            "date": "2026-04-20",
-            "type": "starting_budget",
-            "amount": "+$200.00",
-            "balance_after": "$200.00",
-            "note": "Initial AutoBox experiment budget"
-          },
-          {
-            "date": "2026-04-21",
-            "type": "expense",
-            "amount": "-$11.25",
-            "balance_after": "$188.75",
-            "note": "Domain purchase"
-          }
-        ]
-      },
-      "artifacts": [
-        {
-          "name": "2026-04-26-directory-video-review.md",
-          "relative_path": "artifacts/2026-04-26-directory-video-review.md",
-          "kind": "text",
-          "preview": "# Owner video review \u2014 Claude Code built me a $273/day online directory\n\nVideo reviewed: https://youtu.be/I_wbc5ND79o?si=BQYC0z7v6wjdxZDU\nDate: 2026-04-26 08:19 UTC\n\n## Source evidence available\n\n- YouTube page was reachable in browser, but playback/transcript access was blocked by YouTube bot-sign-in protection.\n- `youtube-transcript-api` was installed in a local venv and retried, but YouTube blocked transcript retrieval from this cloud IP.\n- The video description and chapter list were visible and enough to evaluate the operating lessons.\n- Visible description says Greg Isenberg interviews Frey Chu about using Claude Code to build AI-coded directories and, especially, how to get valuable data.\n- The described live walkthrough: a luxury restroom trailer directory built in four days for under $250.\n- Visible key points: data is the moat; directories help users save time, save money, or make money; monetization can be lead generation, vertical SaaS, agency services, ads, debit cards, affiliate, or marketplace models; directories still work when users are in decision mode.\n\n## What is useful for Autonomy Project V2\n\n1. The data moat point is the strongest takeaway.\n   A directory only becomes useful when it has information users cannot get quickly from a generic search result. For this project, that means the next useful asset should not be another generic article. It should package decision data: costs, prices, comparisons, thresholds, and scenario links.\n\n2. The boring-niche thesis fits the current direction.\n   Profit After Fees and the AI Feature Cost Calculator are both boring utility plays. That is good. The video supports staying in narrow, practical, decision-support utilities rather than chasing broad creator/audience plays.\n\n3. The directory format is useful only if paired with a narrow commercial decision.\n   The relevant pattern is not \"build a directory because directories are hot.\" The relevant pattern is \"collect structured data around a buying/pricing decision and turn it into pages/tools that help a user choose.\"\n\n4. The AI Feature Cost Calculator has a natural data-asset extension.\n   A model/API pricing index would make the calculator more trustworthy and more discoverable: model name, provider, input token cost, output token cost, cached-token cost where available, notes, last checked date, and a prefilled calculator scenario link.\n\n5. Distribution improves if the asset contains data people can cite.\n   A post that says \"free calculator\" is weaker than a post that says \"I built a calculator plus a current model-pricing table so builders can compare GPT/Claude/Gemini costs before shipping an AI feature.\"\n\n## What is not applicable now\n\n1. Do not pivot into a broad local-business directory.\n   Funeral homes, senior living, gas prices, and restroom trailers may be valid examples, but starting a separate scraped local directory would require niche selection, scraping spend, data QA, legal caution, and a new monetization path. That is too much surface area before the current live assets have first user evidence.\n\n2. Do not spend on Outscraper or data vendors yet.\n   The video example spent under $250, but this project has $188.75 cash remaining and no evidence yet that a paid data directory would outperform the already-live utilities. Any paid scrape would require explicit approval and a tighter business case.\n\n3. Do not treat the $273/day headline as proof.\n   The useful lesson is the process: narrow data, cleaning, enrichment, verification, and monetization path. The headline revenue claim should not drive spend or a pivot without independent validation.\n\n4. Do not build a big searchable directory before proving demand.\n   The current highest-leverage version is a small, manually curated data asset attached to an existing calculator, not a multi-week database product.\n\n## Concrete next action recommended\n\nBuild a no-spend `AI model pricing index` companion asset for the live AI Feature Cost Calculator.\n\nRecommended scope for the next run:\n\n- Create a small manually curated table for 8-12 common AI models/providers.\n- Include input token price, output token price, provider link/source, last checked date, and a direct \"calculate this model\" link into `/ai-feature-cost-calculator/`.\n- Add one short customer-facing intro: \"Compare model costs before you ship an AI feature.\"\n- Link it from the AI calculator page, not the main Profit After Fees homepage unless it becomes a stronger standalone asset.\n- Keep it free and no-login.\n- Do not scrape, buy data, or use paid APIs.\n\nWhy this is the best next move:\n\n- It applies the video's strongest lesson \u2014 data is the moat \u2014 without pivoting into an unrelated directory business.\n- It improves the parallel AI calculator's usefulness before asking Travis to post again.\n- It creates a more citeable public asset for AI/SaaS builders, which can make the existing distribution packet stronger.\n- It avoids spending money and avoids legal/quality risk from scraping local-business data.\n- It is small enough to ship and verify in one run.\n\n## Approval gates\n\nNo approval is needed for a manually curated, source-linked pricing table.\n\nApproval would be needed later if:\n\n- Travis wants to buy a standalone domain for the AI calculator/index.\n- The project wants to use paid scraping/data vendors.\n- The project wants to create payment infrastructure.\n- The project wants to publish under Travis's real identity.\n\n## Recommendation summary\n\nDo not copy the video by starting a new broad directory. Copy the operating principle: build a narrow data moat around a decision users already need to make. For Autonomy right now, that means turning the AI Feature Cost Calculator into a small data-backed AI model pricing utility before another owner-side distribution ask.\n\nCurrent cash balance: $188.75.\n",
-          "site_path": "artifacts/2026-04-26-directory-video-review.md"
-        }
-      ],
-      "output_excerpt": "spend was made; current cash balance remains `$188.75`. Next move: if no owner-side traffic evidence arrives first, build that AI model pricing index instead of another generic page or another owner reminder.\n+Reviewed the owner-supplied directory-building video and produced `artifacts/2026-04-26-directory-video-review.md`. YouTube blocked transcript/playback access in the sandbox, but the public page exposed enough description, chapter, and key-point evidence to extract the operating lesson: do not pivot into a broad scraped directory; apply the data-moat principle narrowly. Recommended next non-owner move is a no-spend AI model pricing index companion asset for `https://profitafterfees.com/ai-feature-cost-calculator/`, with source-linked model pricing rows and calculator scenario links. Discord update delivered as message `1497875135900684318`. No spend was made; current cash balance remains `$188.75`. Next move: if no owner-side traffic evidence arrives first, build that AI model pricing index instead of another generic page or another owner reminder.\n \n ## 2026-04-26 08:19 UTC \u2014 owner directory video reviewed\n This run converted the owner-supplied video request into an operator decision for the current portfolio.\n  \u250a \ud83d\udd27 patch     the project's HANDOFF.md config  1.1s\n  \u250a review diff\na/the project's HANDOFF.md config \u2192 b/the project's HANDOFF.md config\n@@ -24,6 +24,7 @@\n - Main conclusion: directories are only useful here insofar as they create a narrow data moat around a pricing/buying decision; starting a broad local-business directory now would be a distracting pivot.\n - Concrete next action: build a no-spend AI model pricing index for the AI Feature Cost Calculator with source-linked rates and direct scenario links.\n - No spend was made; current cash balance remains `$188.75`.\n+- Discord update delivered as message `1497875135900684318`.\n - Next move: if Travis posts the AI calculator copy, capture URL/replies first; otherwise build the AI model pricing index companion asset.\n \n ---\n  \u250a \ud83d\udd27 patch     the project's STATE.md config  1.1s\n  \u250a review diff\na/the project's STATE.md config \u2192 b/the project's STATE.md config\n@@ -35,7 +35,7 @@\n - Live MVP: `https://profitafterfees.com/ai-feature-cost-calculator/`.\n - MVP artifact: `artifacts/2026-04-26-ai-feature-cost-calculator-mvp.md`.\n - Distribution/feedback packet: `artifacts/2026-04-26-ai-feature-cost-calculator-distribution-packet.md`; Discord delivery message `1497845669073784875`; exact short public post copy is ready under `Suggested post copy:`.\n-- Owner-video review artifact: `artifacts/2026-04-26-directory-video-review.md`; conclusion was to apply the video's data-moat lesson narrowly by building a no-spend AI model pricing index companion asset, not to pivot into a broad scraped directory.\n+- Owner-video review artifact: `artifacts/2026-04-26-directory-video-review.md`; conclusion was to apply the video's data-moat lesson narrowly by building a no-spend AI model pricing index companion asset, not to pivot into a broad scraped directory. Discord update: `1497875135900684318`.\n - Current MVP scope: one-page utility for AI/SaaS builders estimating API cost per call, AI cost per user, total monthly AI cost, fixed cost per user, gross margin, break-even monthly price, target-margin price, and shareable scenarios.\n - Future permission gate: if Travis wants a standalone domain, request explicit approval for `APPROVED: CHECK AND BUY ONE AI COST CALCULATOR DOMAIN, MAX $15`; do not buy a domain without approval.\n \n  \u250a \ud83d\udcbb $         git diff -- the project's TODO.md config the project's RUNLOG.md config the project's HANDOFF.md config the project's SCORECARD.md config the project's STATE.md config artifacts/2026-04-26-directory-video-review.md | head -200  0.4s\n  \u250a \ud83d\udcd6 read      artifacts/2026-04-26-directory-video-review.md  0.5s\n  \u250a \ud83d\udcd6 read      the project's TODO.md config  0.7s\n  \u250a \ud83d\udcd6 read      the project's HANDOFF.md config  0.5s\n  \u250a \ud83d\udcd6 read      the project's STATE.md config  0.7s\n\n\u256d\u2500 \u2695 Hermes \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256e\n    Completed one operator task from the wakeup prompt.\n    \n    Result:\n    - Reviewed the owner-supplied video request.\n    - YouTube blocked transcript/playback access in the sandbox, but the visible title, description, chapters, and key points were available and sufficient for the decision artifact.\n    - Created artifact: `artifacts/2026-04-26-directory-video-review.md`\n    \n    Main operator conclusion:\n    - Do not pivot into a broad scraped directory.\n    - Apply the useful lesson narrowly: build a small data moat around the live AI Feature Cost Calculator.\n    - Recommended next non-owner move: build a no-spend AI model pricing index companion asset with source-linked model rates and direct calculator scenario links.\n    \n    State updates completed:\n    - `the project's TODO.md config`\n    - `the project's RUNLOG.md config`\n    - `the project's HANDOFF.md config`\n    - `the project's SCORECARD.md config`\n    - `the project's STATE.md config`\n    \n    Discord update delivered:\n    - Message ID: `1497875135900684318`\n    \n    No spend made.\n    Current cash balance: `$188.75`\n\u2570\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256f\n",
-      "output_site_path": "outputs/run_2026-04-26_081701.txt",
-      "screenshot_path": "",
-      "label": "04-26-26 (Day 7) \u00b7 4:17 AM",
-      "budget_delta_html": "",
-      "narrative_weight": 0
+      "narrative_weight": 1
     },
     {
       "run_id": "run_2026-04-26_101701",
@@ -3752,6 +3706,52 @@
       "label": "04-28-26 (Day 9) \u00b7 12:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-04-28_181701",
+      "timestamp": "2026-04-28 02:17 PM EDT",
+      "timestamp_sort": "2026-04-28T18:17:01+00:00",
+      "date": "2026-04-28",
+      "time": "2:17PM",
+      "objective": "Owner-side gates still pending across PAF AdSense, StrikeSight approvals, and AI margin post. Wakeup brief said pruning/grouping/hierarchy beats more pages or another internal doc; the three flagged duplicate calculator pairs were the next concrete prune.",
+      "decision_made": "301-consolidate the three pairs. Canonicals: `/online-course-pricing-calculator/` (calculator-first matches product), `/saas-pricing-calculator/` (homepage-linked + narrower buyer fit), `/transaction-fee-calculator/` (homepage-linked + broader query coverage). Created `vercel.json` with six permanent redirects (with and without trailing slash); deleted the three loser directories; removed loser URLs from `sitemap.xml`; removed internal links to losers from related calculator pages; removed loser-specific tests from `tests/content.test.js`; added a new regression asserting the loser dirs do not exist AND that `vercel.json` contains the three permanent redirects to the correct destinations.",
+      "next_step": "Capture AdSense status / Auto Ads / impressions / eCPM once Travis provides them; on owner approval, integrate StrikeSight real options data, secure `getstrikesight.com`, or buy `aifeaturecost.com`. Current cash balance: $188.75.",
+      "artifact_path": "artifacts/2026-04-28-paf-duplicate-calculator-consolidation.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$188.75",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-04-28-paf-duplicate-calculator-consolidation.md",
+          "relative_path": "artifacts/2026-04-28-paf-duplicate-calculator-consolidation.md",
+          "kind": "text",
+          "preview": "# PAF duplicate calculator-pair consolidation (301 redirects)\n\n## Why now\nThe remaining live PAF revenue gates are owner-side (AdSense status, StrikeSight rotation/provider/domain approvals, AI Feature Margin Check post URL). The wakeup brief was explicit that pruning, grouping, and hierarchy beats more pages or another internal doc. Three pairs of overlapping calculator pages were still cannibalizing each other in Google's index, all three pairs targeting the same calculator product with slightly different keyword framings. The TODO had this cued as the next pruning pass.\n\n## Decisions\n| Pair | Canonical (kept) | 301'd (deleted) | Rationale |\n|------|------------------|-----------------|-----------|\n| Course pricing | `/online-course-pricing-calculator/` | `/course-pricing/` | Calculator-first slug aligns with the actual product; matches the long-tail buyer intent \"online course pricing calculator\". |\n| Software/SaaS pricing | `/saas-pricing-calculator/` | `/software-pricing-calculator/` | Already linked from the homepage; SaaS is the narrower, higher-intent buyer audience for this brand. |\n| Transaction fee | `/transaction-fee-calculator/` | `/stripe-fee-per-transaction/` | Already linked from the homepage; broader slug can rank for both the generic and Stripe-specific queries while `/stripe-processing-fee-calculator/` keeps the Stripe-specific lane. |\n\n## Changes\n- Created `vercel.json` with six permanent redirects (with and without trailing slash) for the three loser slugs.\n- Deleted `course-pricing/`, `software-pricing-calculator/`, and `stripe-fee-per-transaction/` from the deployed tree.\n- Removed the three loser URLs from `sitemap.xml`.\n- Removed internal links to the loser slugs from `saas-pricing-calculator/index.html`, `stripe-processing-fee-calculator/index.html`, `transaction-fee-calculator/index.html`, and `online-course-pricing-calculator/index.html`.\n- Removed loser-slug-specific tests in `tests/content.test.js` (three page-content tests, three sitemap-includes tests, the three share-metadata entries, and the LLM/transaction social-card test reference).\n- Added a regression in `tests/content.test.js` asserting the three loser directories do NOT exist in the source tree AND that `vercel.json` contains the three permanent redirects to the correct destinations.\n\n## Verification\n- `node --test tests/*.test.js` \u2014 `110/110` passed.\n- `vercel deploy --prod --yes` \u2014 `dpl_HoTw4AFM5bkgfNhYfNhd6N9rBCJn` deployed successfully under team `travis-4599s-projects`.\n- `vercel alias set ... profitafterfees.com` and `... www.profitafterfees.com` \u2014 both succeeded.\n- Live HTTP checks (Vercel's `permanent: true` issues 308, which Google treats as a permanent canonicalization signal equivalent to 301):\n  - `/course-pricing/` \u2192 `308` \u2192 `https://profitafterfees.com/online-course-pricing-calculator/`\n  - `/software-pricing-calculator/` \u2192 `308` \u2192 `https://profitafterfees.com/saas-pricing-calculator/`\n  - `/stripe-fee-per-transaction/` \u2192 `308` \u2192 `https://profitafterfees.com/transaction-fee-calculator/`\n  - `/online-course-pricing-calculator/` \u2192 `200`\n  - `/saas-pricing-calculator/` \u2192 `200`\n  - `/transaction-fee-calculator/` \u2192 `200`\n  - `/` \u2192 `200`, `/privacy/` \u2192 `200`, `/ads.txt` \u2192 `200`\n- IndexNow POST for the three canonical URLs returned `HTTP 200`.\n\n## What this changes\n- Search engines see one canonical page per buyer intent for these three intent clusters. No more competing duplicates inside the same domain.\n- Existing inbound link equity to the three loser URLs is preserved via the 308/301 redirect (Google passes ranking signals through permanent redirects).\n- The site footer/related-page lists no longer point readers at pages that immediately bounce them through a redirect.\n\n## Out of scope\n- The `break-even-price-calculator.bak/` directory remains in source (sandbox `sudo` is password-gated). Already 404 on production and excluded from the test walker; no public exposure.\n- `/stripe-processing-fee-calculator/` was kept untouched. The TODO only flagged the three pairs above; this third Stripe-specific page targets a distinct query pattern (\"processing fee\" vs. \"transaction fee\" vs. \"fee per transaction\") and is not duplicate content.\n\n## Next operator move (if no fresh owner evidence lands)\nCapture AdSense status / Auto Ads / impressions / eCPM once Travis provides them; integrate StrikeSight real options data on `APPROVED:`; secure `getstrikesight.com` on approval; or buy `aifeaturecost.com` on approval. If continuing the prune theme, audit `/digital-product-pricing-calculator/` for overlap with `/profit-margin-calculator/` and `/selling-price-calculator/` \u2014 but only after a fresh content read.\n\n## Approval\nNone required. No spend. Current cash balance: `$188.75`.\n",
+          "site_path": "artifacts/2026-04-28-paf-duplicate-calculator-consolidation.md"
+        }
+      ],
+      "output_excerpt": "All state files updated. Final summary:\n\n**Shipped this run:** StrikeSight Xata SDK purge \u2014 repointed `index.ts` and 5 consumer services directly at `SupabaseDatabaseService.getInstance()`, added `getFromStorage`/`setInStorage`/`removeFromStorage` to the Supabase service (in-process Map; preserves exact prior behavior), deleted three legacy Xata files, dropped `@xata.io/client` from `backend/package.json`, replaced `XATA_*` keys with `SUPABASE_*` in `.env.example`, removed tracked `.xata/` codegen directories. Net diff `-541` lines.\n\n**Verification:** Root `npm run build` passes (backend tsc + frontend `tsc -b && vite build`, frontend bundle 445.78 kB). Backend boots cleanly on port 3099 with **only** `SUPABASE_URL` + `SUPABASE_SECRET_KEY` set (no `XATA_*`, no other optional vars). Fixture tests pass `3/3`. Zero `xata` references remain in `backend/src/`. Commit `ffdc8ba` pushed to `autobox/strikesight-scanner-mvp`.\n\n**Why this:** The HANDOFF explicitly listed this audit as the first follow-up after the Supabase migration and before production deploy. It's pure cleanup with measurable surface-area reduction and unblocks the deploy README step that comes next.\n\n**No new approval gate from this run.** Open owner-side gates unchanged: `ROTATED: STRIKESIGHT KEYS READY`, `APPROVED: SUBSCRIBE MARKETDATA.APP TRADER ...`, `APPROVED: BUY STRIKEREWIND.COM, MAX $15`. PAF-side: Smart Bidding strategy + spend against $50 stop-loss.\n\n**Cash balance:** `$188.75`. No spend.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-04-28_181701.txt",
+      "screenshot_path": "",
+      "label": "04-28-26 (Day 9) \u00b7 2:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

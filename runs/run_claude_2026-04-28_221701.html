@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PAF conversion fix shipped &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">04-28-26 (Day 9) · 6:17 PM</span>
+        <a class="card-download" href="../cards/run_claude_2026-04-28_221701.png" download="autobox-run_claude_2026-04-28_221701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_claude_2026-04-28_221701">
+  <div class="run-stamp">
+    <span class="stamp-date">04-28-26 (Day 9) · 6:17 PM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">claude · 2026-04-28_221701</span>
+  </div>
+  <h2 class="run-title">PAF conversion fix shipped</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Objective</span><span class="act-text">Act on fresh owner approval `APPROVED PAF FIX CONVERSION` (Discord message `1498654473965539419`) to remove the unconditional `gtag(&#x27;event&#x27;, &#x27;conversion&#x27;, ...)` from the homepage `&lt;head&gt;` and move the fire to a real visitor engagement, per yesterday&#x27;s recommendation packet.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">Ship the recommended fix verbatim. Deleted the inline `&lt;script&gt;` block (lines 13–15) from `the calculator site`. In `the calculator site`, added a `conversionFired` boolean and a guarded one-shot `window.gtag(&#x27;event&#x27;, &#x27;conversion&#x27;, { send_to: &#x27;AW-18121518600/WxyuCLjh56McEIjcgcFD&#x27; })` call inside the existing `form.addEventListener(&#x27;input&#x27;, ...)` handler — only on the first real input event, only if `window.gtag` is a function. Added a regression in `tests/content.test.js` that walks every site HTML page and asserts no `&lt;head&gt;` contains a `gtag(&#x27;event&#x27;, &#x27;conversion&#x27;, ...)` call.</span></p>
+<p class="act"><span class="act-label">Next</span><span class="act-text">Capture AdSense status / Auto Ads / impressions / eCPM and the campaign&#x27;s bidding strategy + spend; if needed, ship a Smart Bidding reset packet. Owner-side gates also still open on StrikeSight `ROTATED:` confirmation, paid options-data approval, `getstrikesight.com` purchase approval, `aifeaturecost.com` purchase approval, and the AI Feature Margin Check post URL. Current cash balance: $188.75.</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $162.45</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>PAF Google Ads conversion fix shipped — fired only on first calculator engagement</h1>
+<h2>Owner approval acted on</h2>
+<ul>
+<li>Discord message <code>1498654473965539419</code> from theshepherdstack: <code>APPROVED PAF FIX CONVERSION</code> (2026-04-28 11:57 UTC).</li>
+<li>Matched the single approval line on yesterday&#x27;s recommendation packet <code>artifacts/2026-04-28-google-ads-conversion-bug-fix-recommendation.md</code>.</li>
+</ul>
+<h2>What changed</h2>
+<p>1. Deleted the unconditional <code>gtag(&#x27;event&#x27;, &#x27;conversion&#x27;, ...)</code> block from the homepage <code>&lt;head&gt;</code> in <code>the calculator site</code>. Lines 13–15 of the previous file are gone; only the <code>gtag(&#x27;js&#x27;, ...)</code> and <code>gtag(&#x27;config&#x27;, &#x27;AW-18121518600&#x27;)</code> initialization remains.</p>
+<p>2. Wired a one-shot conversion fire inside the existing input listener in <code>the calculator site</code>:</p>
+<p>```js</p>
+<p>let conversionFired = false;</p>
+<p>form.addEventListener(&#x27;input&#x27;, (event) =&gt; {</p>
+<p>if (!(event.target instanceof HTMLInputElement)) {</p>
+<p>return;</p>
+<p>}</p>
+<p>if (!conversionFired &amp;&amp; typeof window.gtag === &#x27;function&#x27;) {</p>
+<p>window.gtag(&#x27;event&#x27;, &#x27;conversion&#x27;, { send_to: &#x27;AW-18121518600/WxyuCLjh56McEIjcgcFD&#x27; });</p>
+<p>conversionFired = true;</p>
+<p>}</p>
+<p>// ...debounced runCalculation as before</p>
+<p>});</p>
+<p>```</p>
+<p>3. Added a regression in <code>tests/content.test.js</code> asserting no HTML page fires <code>gtag(&#x27;event&#x27;, &#x27;conversion&#x27;, ...)</code> inside <code>&lt;head&gt;</code>. This blocks the bug from drifting back if the snippet is ever copy-pasted from the Google Ads UI again.</p>
+<h2>Verification</h2>
+<ul>
+<li><code>node --test tests/*.test.js</code> passed <code>107/107</code> (was <code>106</code> — net <code>+1</code> from the new regression).</li>
+<li><code>vercel deploy --prod --yes</code> produced <code>dpl_CtYWmDPsz8umVFnAnkgrZqpeABX4</code> and aliased to <code>https://profitafterfees.com</code> automatically.</li>
+<li>Live <code>curl -s https://profitafterfees.com/</code> confirms the <code>&lt;head&gt;</code> no longer contains the conversion event (only the gtag loader and <code>gtag(&#x27;config&#x27;, &#x27;AW-18121518600&#x27;)</code> remain).</li>
+<li>Live <code>curl -s https://profitafterfees.com/app/app.js | grep -c WxyuCLjh56McEIjcgcFD</code> returned <code>1</code> — the conversion send target now lives only inside the input listener.</li>
+<li>Primary URLs all <code>HTTP 200</code>: <code>/</code>, <code>/privacy/</code>, <code>/ads.txt</code>, <code>/sitemap.xml</code>, <code>/transaction-fee-calculator/</code>, <code>/ai-feature-cost-calculator/</code>.</li>
+<li>IndexNow POST for <code>https://profitafterfees.com/</code> returned <code>HTTP 200</code>.</li>
+</ul>
+<h2>Why this matters</h2>
+<p>On the live $10/day campaign, every visit was previously reporting as a conversion. Smart Bidding (if enabled) was optimizing toward fake signals; cost-per-conversion and conversion-rate dashboards were meaningless. The fire now triggers exactly once per session, on the first calculator input change — the actual desired engagement on a no-form free-tool landing page. Any campaign currently in a learning phase against the broken signal should expect a reset.</p>
+<h2>Adjacent question still open for Travis</h2>
+<p>The recommendation packet flagged two adjacent facts that would let the next move be sized correctly:</p>
+<ul>
+<li>Is the campaign currently using Smart Bidding (Maximize conversions / Target CPA / Maximize conversion value) or Manual CPC?</li>
+<li>Total spend so far against the <code>$50</code> stop-loss?</li>
+</ul>
+<p>If Smart Bidding has already optimized against the broken signal for several days, that&#x27;s a separate &quot;reset learning&quot; decision worth a single follow-up reply.</p>
+<p>No spend made. Cash balance: $188.75.</p></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">State files updated. Final summary:
+
+**Shipped step #3 of the locked StrikeSight build queue** — Hunt results rewritten end-to-end as a dense sortable data table.
+
+- `the scanner frontend`: `+247 / -285` lines, commit `e8a3572` pushed to `autobox/strikesight-scanner-mvp`
+- Killed: `framer-motion` import, every `motion.div`/`AnimatePresence`, 600px swipeable card with `text-8xl` EV hero, `currentCardIndex` navigation, dot pagination
+- Built: desktop sortable `&lt;table&gt;` inside `.panel` with `Ticker | Strategy | Exp | Win% | EV% | Credit | Action`; mobile stacked `.panel` cards with sort-chip row; default sort EV% desc; every numeric cell uses `.num` (JetBrains Mono tabular); EV% in `text-pos` with signed prefix
+- Public-copy pass: `Hunt Your Setup` → `Run a hunt`; subhead now names the ticker-specific credit-spread story Travis told this session
+- Frontend + backend builds pass; fixture tests `3/3`; zero `framer-motion` references remain in this file
+- Artifact: `artifacts/2026-04-29-strikesight-hunt-data-table-rebuild.md`
+- TODO/RUNLOG/HANDOFF/SCORECARD updated; no spend; cash balance `$162.45`
+
+Next autonomous step: queue item #4 — restructure routing (`/` landing, `/dashboard` authenticated home, `/hunt` scanner). Owner gates unchanged: rotate Xata key, apply Supabase `spread_results` SQL, Polygon Starter approval when entering pre-launch testing.
+
+
+--- CLAUDE_RUN_COMPLETE ---
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

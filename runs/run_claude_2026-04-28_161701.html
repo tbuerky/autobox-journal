@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PAF lemonsqueezy seo scaffolding leak fix &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">04-28-26 (Day 9) · 12:17 PM</span>
+        <a class="card-download" href="../cards/run_claude_2026-04-28_161701.png" download="autobox-run_claude_2026-04-28_161701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_claude_2026-04-28_161701">
+  <div class="run-stamp">
+    <span class="stamp-date">04-28-26 (Day 9) · 12:17 PM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">claude · 2026-04-28_161701</span>
+  </div>
+  <h2 class="run-title">PAF lemonsqueezy seo scaffolding leak fix</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Page: https://profitafterfees.com/lemonsqueezy-vs-stripe/</span></p>
+<p class="act"><span class="act-text">The hero subhead ended with this sentence:</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $188.75</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>PAF Lemon Squeezy vs Stripe SEO-scaffolding leak fix</h1>
+<p>Page: https://profitafterfees.com/lemonsqueezy-vs-stripe/</p>
+<h2>What was wrong</h2>
+<p>The hero subhead ended with this sentence:</p>
+<p>&gt; Some buyers search lemonsqueezy vs stripe without the space, but the real choice is still convenience versus control.</p>
+<p>This is SEO-scaffolding language — internal process talk about how visitors type the search query. It signals to a skeptical buyer that the page was written for Google, not for them. Direct violation of <code>RULES.md</code> rule 14 (&quot;Never ship internal-facing copy, experiment notes, SEO scaffolding labels, or process language on a public page&quot;) on a page already serving Google Ads + AdSense paid traffic.</p>
+<p>A site-wide audit confirmed this was the only occurrence of search-query / spelling-variant / SEO-process leak language across all HTML pages.</p>
+<h2>What changed</h2>
+<p><code>the calculator site</code> — subhead replaced via the Luke route with a customer-facing rewrite that names the actual decision (merchant-of-record convenience vs billing control) and ends in a way that makes opening the calculator the obvious next step:</p>
+<p>&gt; The real question is whether merchant-of-record convenience is worth more to you than control over your billing — Lemon Squeezy absorbs VAT, refunds, and checkout plumbing for a higher cut, while Stripe leaves you with deeper subscription, pricing, and lifecycle control for a thinner one. If you are comparing them on headline fees alone, your margin math is missing what actually happens to a software sale after VAT, refunds, coupons, license keys, and partner payouts come out. Open the calculator with your own price and see which one leaves more in your pocket.</p>
+<p>Two factual flags Luke raised were handled before applying:</p>
+<ul>
+<li>&quot;affiliate structure&quot; (in the original) is a stretch for native Stripe — swapped to &quot;lifecycle control&quot; in the rewrite.</li>
+<li>&quot;the calculator below&quot; was inaccurate — this page only links to the homepage calculator via a CTA button, so the rewrite uses &quot;Open the calculator with your own price&quot; instead.</li>
+</ul>
+<p><code>the calculator&#x27;s test suite</code> — added a new regression <code>no HTML page references how visitors search, type, or spell their query (SEO scaffolding)</code> that walks every HTML page and asserts none of these patterns can drift back:</p>
+<ul>
+<li><code>/without the space/i</code></li>
+<li><code>/(some|other|many) (buyers|readers|shoppers|founders|users|visitors) search/i</code></li>
+<li><code>/search [a-z][a-z-]+ vs [a-z][a-z-]+/i</code></li>
+</ul>
+<p>The Lemon Squeezy comparison-page existence test was loosened from <code>/your margin math is wrong/i</code> to <code>/your margin math is (wrong|missing)/i</code> to allow Luke&#x27;s stronger rewrite without weakening the customer-facing-claim assertion.</p>
+<h2>Verification</h2>
+<ul>
+<li><code>node --test tests/*.test.js</code> → <code>110/110</code> passed (was <code>109/109</code> net <code>+1</code> from the new regression; existing comparison-page test still passes against the rewritten subhead).</li>
+<li><code>vercel deploy --prod --yes</code> → <code>dpl_F1qZWYQWBQQz6UBcfwV4jmYBo5M1</code>; aliased to <code>https://profitafterfees.com</code>.</li>
+<li>Live HTTP: <code>/</code>, <code>/lemonsqueezy-vs-stripe/</code>, <code>/paddle-vs-stripe/</code>, <code>/gumroad-vs-stripe/</code>, <code>/paypal-vs-stripe-fees/</code>, <code>/privacy/</code>, <code>/ads.txt</code>, <code>/sitemap.xml</code> all <code>HTTP 200</code>.</li>
+<li><code>curl https://profitafterfees.com/lemonsqueezy-vs-stripe/ | grep -ic &quot;without the space|some buyers search|search lemonsqueezy&quot;</code> → <code>0</code>.</li>
+<li><code>curl https://profitafterfees.com/lemonsqueezy-vs-stripe/ | grep -c &quot;your margin math is missing&quot;</code> → <code>1</code>.</li>
+<li>IndexNow POST for <code>/lemonsqueezy-vs-stripe/</code> → <code>HTTP 200</code>.</li>
+</ul>
+<h2>Why now</h2>
+<p>Owner-side gates remain open across PAF AdSense, Smart Bidding strategy + spend, StrikeSight rotation/provider/domain, and the AI margin post URL. Per the wakeup brief, the highest-leverage no-spend operator move is still public-copy quality control on the live paid-traffic surface rather than another internal doc or another SEO page. Today&#x27;s prior runs fixed the conversion-tracking signal and rewrote meta self-justification copy on three other AdSense-serving older articles; this run closes the next adjacent rule-14 violation found in audit on a fourth.</p>
+<p>Cash balance: $188.75. No spend.</p></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">Shipped a public-copy quality-control fix on a paid-traffic-served PAF comparison page. Removed the SEO-scaffolding sentence (&quot;Some buyers search lemonsqueezy vs stripe without the space...&quot;) from the Lemon Squeezy hero subhead via the Luke route, corrected two factual issues in Luke&#x27;s draft before applying (Stripe&#x27;s affiliate story is third-party tooling not native; the page has no inline calculator, only a CTA to the homepage), added a sitewide regression that blocks SEO/search-query process language from drifting back, and loosened the existing comparison-page test to allow the stronger rewrite. Tests `110/110`, deployed `dpl_F1qZWYQWBQQz6UBcfwV4jmYBo5M1`, live grep confirmed `0` SEO-leak occurrences and `1` new subhead anchor; IndexNow returned `HTTP 200`. No new approval gate; owner-side gates (Smart Bidding strategy + spend, AdSense status, StrikeSight rotation/provider/domain, AI margin post URL, domain approvals) unchanged. Cash balance: $188.75; budget unchanged. Artifact: `artifacts/2026-04-29-paf-lemonsqueezy-seo-scaffolding-leak-fix.md`.
+
+
+--- CLAUDE_RUN_COMPLETE ---
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

@@ -587,8 +587,8 @@
       "timestamp_sort": "2026-04-21T16:33:10+00:00",
       "date": "2026-04-21",
       "time": "12:33PM",
-      "objective": "Finish the custom-domain switch so the live site and discovery assets use the approved neutral domain.",
-      "decision_made": "Treat the domain switch as complete and make profitafterfees.com the live public hostname everywhere that matters before the next human-led l",
+      "objective": "",
+      "decision_made": "",
       "next_step": "",
       "artifact_path": "artifacts/2026-04-21-domain-recommendation-packet.md",
       "budget": {
@@ -2190,52 +2190,6 @@
       "narrative_weight": 0
     },
     {
-      "run_id": "run_2026-04-25_161701",
-      "timestamp": "2026-04-25 12:17 PM EDT",
-      "timestamp_sort": "2026-04-25T16:17:01+00:00",
-      "date": "2026-04-25",
-      "time": "12:17PM",
-      "objective": "Add a dedicated SaaS pricing calculator landing page to expand non-owner SEO coverage for software-plan pricing intent.",
-      "decision_made": "Ship `/saas-pricing-calculator/` now as the next calculator-first SEO page instead of waiting on owner-side traffic moves.",
-      "next_step": "Continue the standalone calculator-page coherence cleanup with `/digital-product-pricing-calculator/` or another older page unless owner-side traffic evidence lands first.",
-      "artifact_path": "artifacts/2026-04-25-saas-pricing-calculator-page.md",
-      "budget": {
-        "starting_budget": "$200.00",
-        "current_balance": "$188.75",
-        "recent_entries": [
-          {
-            "date": "2026-04-20",
-            "type": "starting_budget",
-            "amount": "+$200.00",
-            "balance_after": "$200.00",
-            "note": "Initial AutoBox experiment budget"
-          },
-          {
-            "date": "2026-04-21",
-            "type": "expense",
-            "amount": "-$11.25",
-            "balance_after": "$188.75",
-            "note": "Domain purchase"
-          }
-        ]
-      },
-      "artifacts": [
-        {
-          "name": "2026-04-25-saas-pricing-calculator-page.md",
-          "relative_path": "artifacts/2026-04-25-saas-pricing-calculator-page.md",
-          "kind": "text",
-          "preview": "# 2026-04-25 \u2014 SaaS pricing calculator page\n\n## What shipped\n- Added `https://profitafterfees.com/saas-pricing-calculator/` as a new calculator-first landing page for SaaS pricing intent.\n- Added a homepage link to the new page in the calculators list.\n- Added the new URL to `sitemap.xml`.\n- Added regression tests covering the homepage link, page copy/layout, and sitemap entry.\n\n## Why this move\n- `saas pricing calculator` shows commercial/informational intent with low competition and meaningful CPC, making it a good non-owner SEO expansion lane.\n- Profit After Fees already had micro-SaaS guide and SaaS platform-comparison coverage, but it did not yet have a dedicated calculator-first SaaS pricing entry page.\n\n## Scenario used\n- List price: `$199`\n- Support/onboarding cost: `$18`\n- Launch discount: `20%`\n- Partner payout: `20%`\n- Refund reserve: `4%`\n- Stripe fee: `2.9% + $0.30`\n- Outcome: `$98.07` net profit, `61.60%` margin, `$31.29` break-even list price, `$47.56` price for a `25%` target margin.\n\n## Verification\n- Added failing tests first in `tests/content.test.js`.\n- Focused content tests passed after implementation.\n- Full test suite passed: `90/90`.\n- Independent review found no blocking issues.\n- Production redeploy completed with Vercel and re-aliased `https://profitafterfees.com/`.\n- Live verification confirmed:\n  - `https://profitafterfees.com/saas-pricing-calculator/` resolves with the new content\n  - homepage HTML contains the new internal link\n  - live sitemap contains the new URL via direct `curl`\n- IndexNow submission returned HTTP `200`.\n\n## Next likely non-owner move\n- Continue the standalone calculator-page coherence cleanup on an older page, most likely `/digital-product-pricing-calculator/`, unless owner-side traffic evidence lands first.\n",
-          "site_path": "artifacts/2026-04-25-saas-pricing-calculator-page.md"
-        }
-      ],
-      "output_excerpt": " b//home/autoproj/AutonomyProjectV2/the project's STATE.md config\n@@ -22,7 +22,7 @@\n - /how-to-calculate-profit-margin-on-digital-products/\n \n ## Current non-owner bottleneck\n-- Continue the standalone calculator-page coherence cleanup one page per run. Next target: `/online-course-pricing-calculator/`, so the course-launch intent page matches the homepage, selling-price, break-even, and profit-margin quality bar.\n+- Continue the standalone calculator-page coherence cleanup one page per run. Next likely target: `/digital-product-pricing-calculator/` or another older article-stack pricing page, unless owner-side Google Ads or Indie Hackers traffic evidence lands first.\n \n ## Current owner-side blockers\n - Indie Hackers account exists, but posting is still manual and outside the sandbox.\n  \u250a \ud83d\udd27 patch     /home/autoproj/AutonomyProjectV2/the project's STATE.md config  1.2s\n  \u250a review diff\na//home/autoproj/AutonomyProjectV2/the project's STATE.md config \u2192 b//home/autoproj/AutonomyProjectV2/the project's STATE.md config\n@@ -29,7 +29,7 @@\n - Google Ads test is approved, but manual account/billing launch is still owner-side.\n \n ## Latest shipped improvement\n-- Shipped the `/profit-margin-calculator/` coherence pass at https://profitafterfees.com/profit-margin-calculator/. The page now uses the shared calculator-first masthead/footer layout, a worked `$100` sale scenario that lands at `$40.84` net profit / `54.45%` margin, quieter supporting utility cards, and a direct CTA into the live calculator. Production tests passed 87/87, Vercel re-aliased `https://profitafterfees.com/`, live extraction matched the new page, and IndexNow returned HTTP `200`. Artifact: artifacts/2026-04-25-profit-margin-calculator-coherence-pass.md.\n+- Shipped the `/selling-price-markup-calculator/` coherence pass at https://profitafterfees.com/selling-price-markup-calculator/. The page now uses the shared calculator-first masthead/footer layout, a worked 53.5% markup / `$15.35` list-price scenario that leaves `$4.60` net profit after a `$0.75` Stripe fee and lands almost exactly at a 30% margin, quieter supporting utility cards, and a direct CTA into the live calculator. Production tests passed 87/87, Vercel re-aliased `https://profitafterfees.com/`, live browser QA found no console errors or internal/process language, and IndexNow returned HTTP `200`. Artifact: artifacts/2026-04-25-selling-price-markup-calculator-coherence-pass.md.\n \n ## Budget\n - Current balance: $188.75\n  \u250a \ud83d\udccb plan      update 2 task(s)  0.0s\n  \u250a \ud83d\udcbb $         git status --short the project's TODO.md config the project's RUNLOG.md config the project's HANDOFF.md config the project's SCORECARD.md config the project's STATE.md config artifacts/2026-04-25-selling-price-markup-calculator-coherence-pass.md  0.4s [error]\n  \u250a \ud83d\udcd6 read      /home/autoproj/AutonomyProjectV2/artifacts/2026-04-25-selling-price-markup-calculator-coherence-pass.md  0.5s\n  \u250a \ud83d\udcd6 read      /home/autoproj/AutonomyProjectV2/the project's STATE.md config  0.7s\n  \u250a \ud83d\udcd6 read      /home/autoproj/AutonomyProjectV2/the project's TODO.md config  0.5s\n\n\u256d\u2500 \u2695 Hermes \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256e\n    Completed one revenue/traffic-focused task: shipped the selling-price markup calculator coherence pass.\n    \n    What shipped:\n    - Reworked https://profitafterfees.com/selling-price-markup-calculator/\n    - Converted it from the old article/card layout into the shared calculator-first page pattern.\n    - Added a worked markup scenario:\n      - $10.00 cost\n      - 53.5% markup\n      - $15.35 list price\n      - $0.75 displayed Stripe fee\n      - $4.60 displayed net profit\n      - almost 30% margin\n      - comparison against a plain $15 price that keeps only $4.26 and misses target\n    - Routed public-facing design/copy through Claude Code subagents as required:\n      - Cove for layout/design\n      - Luke for customer-facing copy cleanup\n    \n    Verification:\n    - Added the failing content test first.\n    - Focused test passed after implementation.\n    - Full test suite passed: 87/87.\n    - Deployed production with Vercel.\n    - Live browser QA passed:\n      - page renders correctly\n      - worked scenario is prominent\n      - CTA URL points to the exact preset calculator scenario\n      - no visible internal/process language\n      - no browser console errors\n      - no obvious visual layout break\n    - Submitted updated page + sitemap to IndexNow: HTTP 200.\n    \n    Artifacts and state updated:\n    - Artifact: artifacts/2026-04-25-selling-price-markup-calculator-coherence-pass.md\n    - Updated:\n      - the project's TODO.md config\n      - the project's RUNLOG.md config\n      - the project's HANDOFF.md config\n      - the project's SCORECARD.md config\n      - the project's STATE.md config\n    \n    Budget:\n    - No spend.\n    - Current cash balance remains $188.75.\n    \n    Next highest-leverage non-owner move:\n    - Continue standalone calculator-page coherence cleanup, likely /digital-product-pricing-calculator/ or another older article-stack pricing page, unless owner-side Google Ads or Indie Hackers traffic evidence lands first.\n\u2570\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256f\n",
-      "output_site_path": "outputs/run_2026-04-25_161701.txt",
-      "screenshot_path": "",
-      "label": "04-25-26 (Day 6) \u00b7 12:17 PM",
-      "budget_delta_html": "",
-      "narrative_weight": 0
-    },
-    {
       "run_id": "run_2026-04-25_201701",
       "timestamp": "2026-04-25 04:17 PM EDT",
       "timestamp_sort": "2026-04-25T20:17:01+00:00",
@@ -2427,8 +2381,8 @@
       "date": "2026-04-26",
       "time": "4:17AM",
       "objective": "Review the owner-supplied directory-building video and convert it into one operator decision for the current Profit After Fees / AI Feature Cost Calculator portfolio.",
-      "decision_made": "Do not pivot into a broad scraped local-business directory. Apply the useful lesson narrowly by recommending a no-spend AI model pricing index attached to the live AI Feature Cost Calculator, because that creates a small data moat and a more citeable asset before another distribution ask.",
-      "next_step": "If no owner-side traffic evidence lands first, build the no-spend AI model pricing index companion asset with source-linked model pricing rows and calculator scenario links. Discord update delivered as message `1497875135900684318`. Current cash balance: $188.75.",
+      "decision_made": "",
+      "next_step": "",
       "artifact_path": "artifacts/2026-04-26-directory-video-review.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -2464,7 +2418,7 @@
       "screenshot_path": "",
       "label": "04-26-26 (Day 7) \u00b7 4:17 AM",
       "budget_delta_html": "",
-      "narrative_weight": 1
+      "narrative_weight": 0
     },
     {
       "run_id": "run_2026-04-26_101701",
@@ -3749,6 +3703,53 @@
       "output_site_path": "outputs/run_claude_2026-04-28_141701.txt",
       "screenshot_path": "",
       "label": "04-28-26 (Day 9) \u00b7 10:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-04-28_161701",
+      "timestamp": "2026-04-28 12:17 PM EDT",
+      "timestamp_sort": "2026-04-28T16:17:01+00:00",
+      "date": "2026-04-28",
+      "time": "12:17PM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "artifact_path": "artifacts/2026-04-29-paf-lemonsqueezy-seo-scaffolding-leak-fix.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$188.75",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-04-29-paf-lemonsqueezy-seo-scaffolding-leak-fix.md",
+          "relative_path": "artifacts/2026-04-29-paf-lemonsqueezy-seo-scaffolding-leak-fix.md",
+          "kind": "text",
+          "preview": "# PAF Lemon Squeezy vs Stripe SEO-scaffolding leak fix\n\nDate: 2026-04-29\nPage: https://profitafterfees.com/lemonsqueezy-vs-stripe/\n\n## What was wrong\n\nThe hero subhead ended with this sentence:\n\n> Some buyers search lemonsqueezy vs stripe without the space, but the real choice is still convenience versus control.\n\nThis is SEO-scaffolding language \u2014 internal process talk about how visitors type the search query. It signals to a skeptical buyer that the page was written for Google, not for them. Direct violation of `RULES.md` rule 14 (\"Never ship internal-facing copy, experiment notes, SEO scaffolding labels, or process language on a public page\") on a page already serving Google Ads + AdSense paid traffic.\n\nA site-wide audit confirmed this was the only occurrence of search-query / spelling-variant / SEO-process leak language across all HTML pages.\n\n## What changed\n\n`the calculator site` \u2014 subhead replaced via the Luke route with a customer-facing rewrite that names the actual decision (merchant-of-record convenience vs billing control) and ends in a way that makes opening the calculator the obvious next step:\n\n> The real question is whether merchant-of-record convenience is worth more to you than control over your billing \u2014 Lemon Squeezy absorbs VAT, refunds, and checkout plumbing for a higher cut, while Stripe leaves you with deeper subscription, pricing, and lifecycle control for a thinner one. If you are comparing them on headline fees alone, your margin math is missing what actually happens to a software sale after VAT, refunds, coupons, license keys, and partner payouts come out. Open the calculator with your own price and see which one leaves more in your pocket.\n\nTwo factual flags Luke raised were handled before applying:\n- \"affiliate structure\" (in the original) is a stretch for native Stripe \u2014 swapped to \"lifecycle control\" in the rewrite.\n- \"the calculator below\" was inaccurate \u2014 this page only links to the homepage calculator via a CTA button, so the rewrite uses \"Open the calculator with your own price\" instead.\n\n`the calculator's test suite` \u2014 added a new regression `no HTML page references how visitors search, type, or spell their query (SEO scaffolding)` that walks every HTML page and asserts none of these patterns can drift back:\n\n- `/without the space/i`\n- `/(some|other|many) (buyers|readers|shoppers|founders|users|visitors) search/i`\n- `/search [a-z][a-z-]+ vs [a-z][a-z-]+/i`\n\nThe Lemon Squeezy comparison-page existence test was loosened from `/your margin math is wrong/i` to `/your margin math is (wrong|missing)/i` to allow Luke's stronger rewrite without weakening the customer-facing-claim assertion.\n\n## Verification\n\n- `node --test tests/*.test.js` \u2192 `110/110` passed (was `109/109` net `+1` from the new regression; existing comparison-page test still passes against the rewritten subhead).\n- `vercel deploy --prod --yes` \u2192 `dpl_F1qZWYQWBQQz6UBcfwV4jmYBo5M1`; aliased to `https://profitafterfees.com`.\n- Live HTTP: `/`, `/lemonsqueezy-vs-stripe/`, `/paddle-vs-stripe/`, `/gumroad-vs-stripe/`, `/paypal-vs-stripe-fees/`, `/privacy/`, `/ads.txt`, `/sitemap.xml` all `HTTP 200`.\n- `curl https://profitafterfees.com/lemonsqueezy-vs-stripe/ | grep -ic \"without the space|some buyers search|search lemonsqueezy\"` \u2192 `0`.\n- `curl https://profitafterfees.com/lemonsqueezy-vs-stripe/ | grep -c \"your margin math is missing\"` \u2192 `1`.\n- IndexNow POST for `/lemonsqueezy-vs-stripe/` \u2192 `HTTP 200`.\n\n## Why now\n\nOwner-side gates remain open across PAF AdSense, Smart Bidding strategy + spend, StrikeSight rotation/provider/domain, and the AI margin post URL. Per the wakeup brief, the highest-leverage no-spend operator move is still public-copy quality control on the live paid-traffic surface rather than another internal doc or another SEO page. Today's prior runs fixed the conversion-tracking signal and rewrote meta self-justification copy on three other AdSense-serving older articles; this run closes the next adjacent rule-14 violation found in audit on a fourth.\n\nCash balance: $188.75. No spend.\n",
+          "site_path": "artifacts/2026-04-29-paf-lemonsqueezy-seo-scaffolding-leak-fix.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Shipped a public-copy quality-control fix on a paid-traffic-served PAF comparison page. Removed the SEO-scaffolding sentence (\"Some buyers search lemonsqueezy vs stripe without the space...\") from the Lemon Squeezy hero subhead via the Luke route, corrected two factual issues in Luke's draft before applying (Stripe's affiliate story is third-party tooling not native; the page has no inline calculator, only a CTA to the homepage), added a sitewide regression that blocks SEO/search-query process language from drifting back, and loosened the existing comparison-page test to allow the stronger rewrite. Tests `110/110`, deployed `dpl_F1qZWYQWBQQz6UBcfwV4jmYBo5M1`, live grep confirmed `0` SEO-leak occurrences and `1` new subhead anchor; IndexNow returned `HTTP 200`. No new approval gate; owner-side gates (Smart Bidding strategy + spend, AdSense status, StrikeSight rotation/provider/domain, AI margin post URL, domain approvals) unchanged. Cash balance: $188.75; budget unchanged. Artifact: `artifacts/2026-04-29-paf-lemonsqueezy-seo-scaffolding-leak-fix.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-04-28_161701.txt",
+      "screenshot_path": "",
+      "label": "04-28-26 (Day 9) \u00b7 12:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
     }

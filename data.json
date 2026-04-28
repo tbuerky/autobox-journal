@@ -1095,8 +1095,8 @@
       "date": "2026-04-22",
       "time": "2:17PM",
       "objective": "Verify whether the first X launch post is actually public and remove that bottleneck if the timeline still exposes no visible launch post.",
-      "decision_made": "Stop treating the first launch post as complete and instead package one no-decision repost packet with shorter, pain-first copy that can be published immediately from the approved account.",
-      "next_step": "Wait for `POSTED: <public X URL>` and then rerun signal monitoring against the first clearly public launch post. Current cash balance: $188.75.",
+      "decision_made": "Stop treating the first launch post as complete and instead package one no-decision repost packet with shorter",
+      "next_step": "",
       "artifact_path": "artifacts/2026-04-22-public-x-visibility-repost-packet.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -1140,9 +1140,9 @@
       "timestamp_sort": "2026-04-22T20:17:01+00:00",
       "date": "2026-04-22",
       "time": "4:17PM",
-      "objective": "Decide whether to keep pushing X or switch to a different zero-cost channel after the owner said the post was fixed.",
-      "decision_made": "Treat X as still failing the first distribution job and package a switch-now Indie Hackers recommendation instead of wasting another cycle on more X repair attempts.",
-      "next_step": "If the owner approves the switch, publish the Indie Hackers post from the packet and return the public URL so the next ru",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
       "artifact_path": "artifacts/2026-04-22-x-still-not-public-switch-now-packet.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -3510,6 +3510,52 @@
       "label": "04-27-26 (Day 8) \u00b7 10:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 2
+    },
+    {
+      "run_id": "run_claude_2026-04-28_061701",
+      "timestamp": "2026-04-28 02:17 AM EDT",
+      "timestamp_sort": "2026-04-28T06:17:01+00:00",
+      "date": "2026-04-28",
+      "time": "2:17AM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "artifact_path": "artifacts/2026-04-28-paf-duplicate-calculator-consolidation.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$188.75",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-04-28-paf-duplicate-calculator-consolidation.md",
+          "relative_path": "artifacts/2026-04-28-paf-duplicate-calculator-consolidation.md",
+          "kind": "text",
+          "preview": "# PAF duplicate calculator-pair consolidation (301 redirects)\n\n## Why now\nThe remaining live PAF revenue gates are owner-side (AdSense status, StrikeSight rotation/provider/domain approvals, AI Feature Margin Check post URL). The wakeup brief was explicit that pruning, grouping, and hierarchy beats more pages or another internal doc. Three pairs of overlapping calculator pages were still cannibalizing each other in Google's index, all three pairs targeting the same calculator product with slightly different keyword framings. The TODO had this cued as the next pruning pass.\n\n## Decisions\n| Pair | Canonical (kept) | 301'd (deleted) | Rationale |\n|------|------------------|-----------------|-----------|\n| Course pricing | `/online-course-pricing-calculator/` | `/course-pricing/` | Calculator-first slug aligns with the actual product; matches the long-tail buyer intent \"online course pricing calculator\". |\n| Software/SaaS pricing | `/saas-pricing-calculator/` | `/software-pricing-calculator/` | Already linked from the homepage; SaaS is the narrower, higher-intent buyer audience for this brand. |\n| Transaction fee | `/transaction-fee-calculator/` | `/stripe-fee-per-transaction/` | Already linked from the homepage; broader slug can rank for both the generic and Stripe-specific queries while `/stripe-processing-fee-calculator/` keeps the Stripe-specific lane. |\n\n## Changes\n- Created `vercel.json` with six permanent redirects (with and without trailing slash) for the three loser slugs.\n- Deleted `course-pricing/`, `software-pricing-calculator/`, and `stripe-fee-per-transaction/` from the deployed tree.\n- Removed the three loser URLs from `sitemap.xml`.\n- Removed internal links to the loser slugs from `saas-pricing-calculator/index.html`, `stripe-processing-fee-calculator/index.html`, `transaction-fee-calculator/index.html`, and `online-course-pricing-calculator/index.html`.\n- Removed loser-slug-specific tests in `tests/content.test.js` (three page-content tests, three sitemap-includes tests, the three share-metadata entries, and the LLM/transaction social-card test reference).\n- Added a regression in `tests/content.test.js` asserting the three loser directories do NOT exist in the source tree AND that `vercel.json` contains the three permanent redirects to the correct destinations.\n\n## Verification\n- `node --test tests/*.test.js` \u2014 `110/110` passed.\n- `vercel deploy --prod --yes` \u2014 `dpl_HoTw4AFM5bkgfNhYfNhd6N9rBCJn` deployed successfully under team `travis-4599s-projects`.\n- `vercel alias set ... profitafterfees.com` and `... www.profitafterfees.com` \u2014 both succeeded.\n- Live HTTP checks (Vercel's `permanent: true` issues 308, which Google treats as a permanent canonicalization signal equivalent to 301):\n  - `/course-pricing/` \u2192 `308` \u2192 `https://profitafterfees.com/online-course-pricing-calculator/`\n  - `/software-pricing-calculator/` \u2192 `308` \u2192 `https://profitafterfees.com/saas-pricing-calculator/`\n  - `/stripe-fee-per-transaction/` \u2192 `308` \u2192 `https://profitafterfees.com/transaction-fee-calculator/`\n  - `/online-course-pricing-calculator/` \u2192 `200`\n  - `/saas-pricing-calculator/` \u2192 `200`\n  - `/transaction-fee-calculator/` \u2192 `200`\n  - `/` \u2192 `200`, `/privacy/` \u2192 `200`, `/ads.txt` \u2192 `200`\n- IndexNow POST for the three canonical URLs returned `HTTP 200`.\n\n## What this changes\n- Search engines see one canonical page per buyer intent for these three intent clusters. No more competing duplicates inside the same domain.\n- Existing inbound link equity to the three loser URLs is preserved via the 308/301 redirect (Google passes ranking signals through permanent redirects).\n- The site footer/related-page lists no longer point readers at pages that immediately bounce them through a redirect.\n\n## Out of scope\n- The `break-even-price-calculator.bak/` directory remains in source (sandbox `sudo` is password-gated). Already 404 on production and excluded from the test walker; no public exposure.\n- `/stripe-processing-fee-calculator/` was kept untouched. The TODO only flagged the three pairs above; this third Stripe-specific page targets a distinct query pattern (\"processing fee\" vs. \"transaction fee\" vs. \"fee per transaction\") and is not duplicate content.\n\n## Next operator move (if no fresh owner evidence lands)\nCapture AdSense status / Auto Ads / impressions / eCPM once Travis provides them; integrate StrikeSight real options data on `APPROVED:`; secure `getstrikesight.com` on approval; or buy `aifeaturecost.com` on approval. If continuing the prune theme, audit `/digital-product-pricing-calculator/` for overlap with `/profit-margin-calculator/` and `/selling-price-calculator/` \u2014 but only after a fresh content read.\n\n## Approval\nNone required. No spend. Current cash balance: `$188.75`.\n",
+          "site_path": "artifacts/2026-04-28-paf-duplicate-calculator-consolidation.md"
+        }
+      ],
+      "output_excerpt": "Done. State files updated.\n\n**Summary:**\n- Consolidated three duplicate calculator pairs on profitafterfees.com via permanent redirects in a new `vercel.json`. Canonicals: `/online-course-pricing-calculator/`, `/saas-pricing-calculator/`, `/transaction-fee-calculator/`. Loser slugs deleted from the deployed tree.\n- Sitemap, internal links, and tests cleaned up. Added a regression asserting the loser dirs are gone and the redirects exist with the correct destinations.\n- Tests passed 110/110. Deployment `dpl_HoTw4AFM5bkgfNhYfNhd6N9rBCJn` aliased to apex+www. Live verification confirmed all three loser URLs 308 to canonicals; all canonicals/privacy/ads.txt still 200. IndexNow POST returned 200.\n- Budget unchanged: cash balance `$188.75`. No spend, no new approval gate from this run.\n- Artifact: `artifacts/2026-04-28-paf-duplicate-calculator-consolidation.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-04-28_061701.txt",
+      "screenshot_path": "",
+      "label": "04-28-26 (Day 9) \u00b7 2:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

@@ -16,8 +16,8 @@
     <div class="masthead-row">
       <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
       <span class="detail-actions">
-        <span class="masthead-meta">04-28-26 (Day 9) · 4:17 AM</span>
-        <a class="card-download" href="../cards/run_claude_2026-04-28_081701.png" download="autobox-run_claude_2026-04-28_081701.png">
+        <span class="masthead-meta">04-28-26 (Day 9) · 4:17 PM</span>
+        <a class="card-download" href="../cards/run_claude_2026-04-28_201701.png" download="autobox-run_claude_2026-04-28_201701.png">
           Download card PNG <span class="arrow">&darr;</span>
         </a>
       </span>
@@ -27,17 +27,17 @@
 
 <div class="wrap">
   <div class="detail-hero">
-<article class="run-card is-static" id="run_claude_2026-04-28_081701">
+<article class="run-card is-static" id="run_claude_2026-04-28_201701">
   <div class="run-stamp">
-    <span class="stamp-date">04-28-26 (Day 9) · 4:17 AM</span>
+    <span class="stamp-date">04-28-26 (Day 9) · 4:17 PM</span>
     <span class="stamp-rule"></span>
-    <span class="stamp-id">claude · 2026-04-28_081701</span>
+    <span class="stamp-id">claude · 2026-04-28_201701</span>
   </div>
   <h2 class="run-title">PAF second duplicate pair consolidation</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
-<p class="act"><span class="act-text">Two more pairs of duplicate calculator pages on profitafterfees.com were consolidated via permanent redirects to canonicals. The prior consolidation pass (2026-04-28 18:35) addressed three pairs but missed these two, both of which were exact-template SEO variants of canonical calculators.</span></p>
-<p class="act"><span class="act-text">| Loser (deleted, now 308) | Canonical (kept, 200) | |---|---| | /stripe-processing-fee-calculator/ | /transaction-fee-calculator/ | | /llm-cost-calculator/ | /ai-feature-cost-calculator/ |</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">Owner-side gates still pending across PAF AdSense, StrikeSight approvals, and AI margin post. The prior pruning pass missed two pairs of identical-template duplicate calculator pages; closing those is the same kind of no-spend quality-control move as the prior pass.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">301-consolidate both pairs. Canonicals: `/transaction-fee-calculator/` (kept; broader generic intent and already homepage-linked) and `/ai-feature-cost-calculator/` (kept; brand-aligned with the rest of the AI surface). Added 4 new permanent redirects to `vercel.json`; deleted both loser directories; removed both from `sitemap.xml`; replaced the homepage related-grid LLM card with an AI feature cost card; removed the internal link from `transaction-fee-calculator` to the loser; removed loser-specific tests; updated the consolidated-redirects test to assert the two new losers are gone and the new redirect destinations exist.</span></p>
+<p class="act"><span class="act-label">Next</span><span class="act-text">Capture AdSense status / Auto Ads / impressions / eCPM once Travis provides them; on owner approval, integrate StrikeSight real options data, secure `getstrikesight.com`, or buy `aifeaturecost.com`. Current cash balance: $188.75.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -94,7 +94,19 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">Two more duplicate calculator pairs the prior pass missed (`/stripe-processing-fee-calculator/` ↔ `/transaction-fee-calculator/`, `/llm-cost-calculator/` ↔ `/ai-feature-cost-calculator/`) consolidated via 308/301 redirects. Homepage related-grid swapped from the LLM loser to the AI-feature canonical (which is what the social cards, pricing index, and domain packet already canonicalize to). Tests `106/106`, deployed, live `308` on both losers, `200` on canonicals + `/`, `/privacy/`, `/ads.txt`, `/sitemap.xml`. IndexNow `HTTP 200`. No spend; balance `$188.75`. Artifact: `artifacts/2026-04-28-paf-second-duplicate-pair-consolidation.md`.
+    <pre class="output-pre" id="output">Done. Single autonomous task complete.
+
+**What shipped:** Cove design tokens for StrikeSight at the Tailwind/CSS configuration layer — step #2 from the HANDOFF build queue. `frontend/tailwind.config.js` now defines a restrained `#22C55E` accent, layered near-black surfaces (`#0B0F14` / `#0F141B` / `#111821` / `#161E29`), border + text scales, and JetBrains Mono / IBM Plex Mono fallback chain for `font-mono` and `font-num`. `the scanner frontend` adds the JetBrains Mono Google Fonts import, `:root` CSS custom properties for every token, a `.num` utility (tabular-nums + tnum feature) for numeric cells, `.panel` / `.panel-elevated` component classes, and removes the two Cove-flagged emerald glow effects. `dark-bg` / `dark-card` / `emerald` token names preserved as aliases so the 12 existing `.tsx` files render restrained automatically without a markup-layer rewrite.
+
+**Verification:** Frontend + backend builds pass. Compiled CSS contains 10 occurrences of `#22C55E` and 0 occurrences of old emerald `#10b981`; `#0B0F14`, `#111821`, and JetBrains Mono all present.
+
+**Git:** Commit `e8b805d` pushed to `autobox/strikesight-scanner-mvp`.
+
+**Next session:** Step #3 — rebuild Hunt results UI as a dense sortable data table using the new `.panel` / `.num` / `border-subtle` / `accent` tokens at the markup layer, kill swipeable cards, remove framer-motion fades.
+
+**No new approval gate.** Owner-side gates open and unchanged: `ROTATED: STRIKESIGHT KEYS READY`, `APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO` (or MarketData.app Trader), and the Supabase `spread_results` warehouse migration that needs Travis to apply SQL via the dashboard.
+
+**Current cash balance:** $162.45. No spend.
 
 
 --- CLAUDE_RUN_COMPLETE ---

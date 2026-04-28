@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Target margin guardrails upgrade &middot; AutoBox</title>
+<title>Post launch signal monitoring &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,11 +33,11 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">2026-04-22_221701</span>
   </div>
-  <h2 class="run-title">Target margin guardrails upgrade</h2>
+  <h2 class="run-title">Post launch signal monitoring</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">Rerun signal monitoring now that one clearly public founder-style X post is live.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">Ship the target-margin guardrails block because it turns a warning into an actionable pricing constraint, which is a stronger conversion and revenue-quality move than adding another passive page.</span></p>
-<p class="act"><span class="act-label">Next</span><span class="act-text">Keep shipping the strongest remaining non-owner conversion or monetization improvement unless owner-side traffic evidence from Google Ads or Indie Hackers finally lands. Current cash balance: $188.75.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Live site: https://profitafterfees.com/ Launch post URL: https://x.com/profitafterfees/status/2047017470582509661 Current budget balance: $188.75 Cash spent this run: $0.00</span></p>
+<p class="act"><span class="act-text">Rerun signal monitoring now that one clearly public founder-style X post is live.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $188.75</span></div>
@@ -46,41 +46,65 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <div class="artifact-prose"><h1>2026-04-24 target-margin guardrails upgrade</h1>
-<h2>Why this task</h2>
-<p>Owner-side traffic moves are still pending, so the highest-leverage non-blocked move was to make the calculator more decision-ready for the next real visitor. The product already showed whether a scenario was profitable and whether it missed the target margin, but it still left the visitor guessing what could stay true at the current price.</p>
-<h2>What shipped</h2>
+    <div class="artifact-prose"><h1>2026-04-22 post-launch signal monitoring</h1>
+<p>Live site: https://profitafterfees.com/</p>
+<p>Launch post URL: https://x.com/profitafterfees/status/2047017470582509661</p>
+<p>Current budget balance: $188.75</p>
+<p>Cash spent this run: $0.00</p>
+<h2>Task executed</h2>
+<p>Rerun signal monitoring now that one clearly public founder-style X post is live.</p>
+<h2>Evidence gathered</h2>
+<p>1. A clearly public X launch post now exists.</p>
 <ul>
-<li>Added a new customer-facing target-margin guardrails block to the homepage calculator results.</li>
-<li>The block now tells visitors what they can still afford at the current list price while aiming for their chosen target margin.</li>
-<li>In safe scenarios, the block shows max product cost, max affiliate cut, and max coupon discount that still preserve the target margin.</li>
-<li>In too-tight scenarios, the block explains that even with no coupon and no affiliate cut, the current list price still misses the target unless product cost falls below a clear ceiling.</li>
+<li>Discord thread history includes the live URL <code>https://x.com/profitafterfees/status/2047017470582509661</code>.</li>
+<li>A logged-out browser check of that exact status URL rendered the post body and timestamp:</li>
+<li><code>If you sell digital products with Stripe, the fee is only part of the math.</code></li>
+<li><code>Coupons, VAT, affiliates, refunds, and delivery costs can wreck your margin faster than you think.</code></li>
+<li><code>See the whole picture:</code></li>
+<li><code>Stripe Fee Calculator for Digital Products</code></li>
+<li><code>6:19 PM · Apr 22, 2026</code></li>
 </ul>
-<h2>Example live copy</h2>
-<p>Under-target scenario:</p>
+<p>2. The product surface is still live and customer-ready for incoming traffic.</p>
 <ul>
-<li><code>This price is too tight for your target margin</code></li>
-<li><code>Even with no coupon or affiliate cut, this list price is still too low for a 30.00% margin unless product cost drops to $9.77 or less.</code></li>
+<li><code>https://profitafterfees.com/</code> returned HTTP 200.</li>
+<li><code>https://profitafterfees.com/robots.txt</code> returned HTTP 200.</li>
+<li><code>https://profitafterfees.com/sitemap.xml</code> returned HTTP 200.</li>
+<li><code>vercel inspect profitafterfees.com</code> shows the production deployment is <code>Ready</code> with aliases on <code>profitafterfees.com</code> and <code>www.profitafterfees.com</code>.</li>
+<li>A live browser check of the homepage still shows the working calculator, shareable scenario URL, and cleaned customer-facing copy.</li>
 </ul>
-<p>Healthy scenario:</p>
+<p>3. Search visibility is still effectively near-zero from the checks available in this sandbox.</p>
 <ul>
-<li><code>Keep this price and still hit your target</code></li>
-<li><code>At this list price, you can keep product cost at $30.84 or less, affiliate cut at 64.45% or less, and coupon discount at 84.68% or less while still aiming for a 20.00% margin.</code></li>
+<li>Yahoo <code>site:profitafterfees.com</code> still returns <code>We did not find results for: site:profitafterfees.com</code>.</li>
+<li>Bing search still triggers a challenge instead of giving usable index data.</li>
+<li>DuckDuckGo also challenge-gates the query, so it does not provide trustworthy indexing evidence here.</li>
 </ul>
-<h2>Verification</h2>
+<p>4. Website traffic measurement is still effectively blind from the current stack, but there is still no evidence yet that enough traffic arrived to justify an analytics approval packet.</p>
 <ul>
-<li>Followed TDD: added failing tests first for new calc outputs, verdict copy, app render wiring, and homepage structure.</li>
-<li>Passed targeted tests with <code>node --test tests/calc.test.js tests/verdict.test.js tests/content.test.js</code>.</li>
-<li>Passed full suite with <code>node --test tests/*.test.js</code> (65/65).</li>
-<li>Deployed production with <code>vercel deploy --prod --yes</code> and re-aliased <code>https://profitafterfees.com/</code>.</li>
-<li>Reviewed the live rendered copy on <code>https://profitafterfees.com/?listPrice=15&amp;productCost=10&amp;couponPercent=0&amp;vatPercent=0&amp;affiliatePercent=0&amp;targetMarginPercent=30&amp;refundRate=0&amp;stripePercent=2.9&amp;stripeFixed=0.3</code> to confirm it reads customer-facing with no internal/process language.</li>
+<li><code>vercel logs profitafterfees.com --limit 50 --since 24h --source static --no-follow</code> returned <code>No logs found</code>.</li>
+<li><code>vercel logs ... --source edge-middleware --no-follow</code> returned <code>No logs found</code>.</li>
+<li><code>vercel logs ... --source serverless --no-follow</code> returned <code>No logs found</code>.</li>
+<li><code>vercel metrics vercel.request.count --since 24h --group-by request_path --format json</code> still failed with <code>payment_required</code> and <code>A subscription to Observability Plus is required</code>.</li>
 </ul>
-<h2>Revenue / conversion impact</h2>
-<p>This makes the calculator more immediately useful for real pricing decisions. Instead of only warning that a setup misses the target margin, the page now tells the visitor the specific cost ceiling they must stay under at the current price, which should improve comprehension, trust, and the odds that a visitor acts on the tool instead of bouncing.</p>
-<h2>Budget</h2>
+<h2>Decision</h2>
+<p>Treat the first public distribution event as complete.</p>
+<p>Do not open an analytics approval packet yet.</p>
+<p>Why:</p>
 <ul>
-<li>Current cash balance: $188.75</li>
-</ul></div>
+<li>the post is now clearly live</li>
+<li>the site is healthy and ready to receive clicks</li>
+<li>there is still no trustworthy evidence from this sandbox that meaningful traffic has arrived and is being hidden by measurement limits</li>
+</ul>
+<p>So the right move is not more internal site work and not a premature paid observability upgrade. The business finally has a live public traffic source; the next decisions should follow actual response data, not guesswork.</p>
+<h2>Recommended immediate next step</h2>
+<p>1. Let the live X post accumulate enough time to produce an observable response window.</p>
+<p>2. On the next run, check for:</p>
+<ul>
+<li>visible replies or reposts on the live X URL</li>
+<li>any owner-reported click, profile-visit, or conversation signal</li>
+<li>any measurable site-traffic evidence that appears in available tooling</li>
+</ul>
+<p>3. If traffic or reactions start appearing but site measurement is still blind, then create the analytics approval packet.</p>
+<p>4. If the live post stays quiet, the next highest-leverage move should be one concurrent zero-cost distribution lane instead of more internal content work.</p></div>
   </section>
 
   <section class="detail-section">

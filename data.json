@@ -588,8 +588,8 @@
       "date": "2026-04-21",
       "time": "12:33PM",
       "objective": "Finish the custom-domain switch so the live site and discovery assets use the approved neutral domain.",
-      "decision_made": "Treat the domain switch as complete and make profitafterfees.com the live public hostname everywhere that matters before the next human-led launch move.",
-      "next_step": "Execute one human-led launch/distribution motion using the custom domain.",
+      "decision_made": "Treat the domain switch as complete and make profitafterfees.com the live public hostname everywhere that matters before the next human-led l",
+      "next_step": "",
       "artifact_path": "artifacts/2026-04-21-domain-recommendation-packet.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -633,10 +633,10 @@
       "timestamp_sort": "2026-04-21T18:17:01+00:00",
       "date": "2026-04-21",
       "time": "2:17PM",
-      "objective": "Execute one real human-led launch/distribution post for https://profitafterfees.com/.",
-      "decision_made": "Stop at the permission gate and convert the blocked launch task into a concrete approval packet rather than faking progress or drifting into more internal work.",
-      "next_step": "Get approval for one public account/channel, then publish the prepared launch post and capture the resulting post URL.",
-      "artifact_path": "artifacts/2026-04-21-launch-distribution-approval-packet.md",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "artifact_path": "",
       "budget": {
         "starting_budget": "$200.00",
         "current_balance": "$188.75",
@@ -657,22 +657,13 @@
           }
         ]
       },
-      "artifacts": [
-        {
-          "name": "2026-04-21-launch-distribution-approval-packet.md",
-          "relative_path": "artifacts/2026-04-21-launch-distribution-approval-packet.md",
-          "kind": "text",
-          "preview": "# Launch distribution approval packet\n\nDate: 2026-04-21 18:18 UTC\nProject: Profit After Fees\nLive site: https://profitafterfees.com/\n\n## What should be done\nApprove one real human-led founder-style X launch post from an account the owner is willing to use publicly, then publish the prepared launch copy that points to https://profitafterfees.com/.\n\nRecommended first move:\n- publish one founder-style launch post on X using the custom domain\n- use the short practical copy below\n- after posting, save the public post URL and monitor click/user signals before making more pages\n\nSuggested post copy:\n\nIf you price digital products with Stripe, the processing fee is only part of the problem.\n\nCoupons, VAT, affiliates, refunds, and fulfillment costs can make a product look profitable when it is not.\n\nI built a free calculator that shows your Stripe fee, total costs, net profit, margin, and break-even price in one pass.\n\nUseful for templates, courses, and micro-SaaS pricing.\nhttps://profitafterfees.com/\n\n## Why it matters now\nThe site is already live on the approved neutral domain. Search/discovery files are in place. The current bottleneck is not product readiness or domain setup anymore; it is the lack of any real human-led distribution event that can generate first users, first click data, and first qualitative reactions.\n\nWithout one real post, the project risks drifting back into internal work without learning whether strangers will click, understand the promise, and use the calculator.\n\n## Evidence gathered this run\n- X API posting path is not currently usable in the sandbox:\n  - `xurl` was not installed at start\n  - after installation, `xurl auth status` returned `No apps registered`\n  - `xurl whoami` returned `401 Unauthorized`\n- Browser access showed no logged-in session available for common launch venues:\n  - `https://x.com/compose/post` redirected to login\n  - `https://www.reddit.com/submit` required login and showed a network-security block message\n  - `https://news.ycombinator.com/submit` returned `Sorry.`\n- A writable authenticated identity is available on GitHub (`gh auth status` showed account `the-shepherd-stack`), but publishing under the owner's real identity is explicitly approval-gated by `the project's PROJECT.md config`.\n\n## Options considered\n1. X launch post from an approved existing account\n- Speed: highest\n- Direct cash cost now: $0 if posted via browser by the owner or with an already-approved authenticated session\n- Upside: fastest path to first clicks and reactions\n- Risk: uses a public identity, so approval is required\n\n2. Indie Hackers launch post from an approved existing account\n- Speed: high if account access already exists\n- Direct cash cost now: $0\n- Upside: more relevant founder audience for this tool\n- Risk: still identity-linked and may need login access not currently available in the sandbox\n\n3. Show HN / Hacker News post\n- Speed: medium\n- Direct cash cost now: $0\n- Upside: strong upside if it lands\n- Risk: requires a logged-in account and usually a stronger novelty bar; current browser session is not authenticated\n\n4. Keep waiting for passive search pickup\n- Speed: low\n- Direct cash cost now: $0\n- Upside: no identity decision needed\n- Risk: lowest learning rate; delays first user evidence unnecessarily\n\n## Recommendation\nApprove option 1: one founder-style launch post from an account the owner is comfortable using publicly.\n\nWhy this option wins now:\n- zero direct spend\n- fastest path to first strangers visiting the site\n- easiest way to validate whether the homepage promise is compelling\n- gives immediate signal before more SEO/content expansion\n\n## Exact estimated cost\n- Cash required now: $0.00\n- Budget impact if approved: none\n- Current experiment cash balance: $188.75\n\n## Specific approval needed\nPlease approve one of these:\n- Approval to publish one launch/distribution post under the owner's chosen public account, or\n- Approval to provide/log in to one non-real-name brand account inside the environment for the same purpose\n\nIf the owner wants agent execution instead of manual posting, the additional approval needed is:\n- permission to use that account's authenticated session or credentials in this sandbox\n\n## What happens immediately after approval\n1. Publish the approved launch post using the prepared copy and https://profitafterfees.com/.\n2. Save the post URL in an artifact.\n3. Check for first user signals:\n   - clicks/visits\n   - any replies or questions\n   - which preset/scenario gets referenced\n4. Use those signals to decide the next highest-leverage move:\n   - one follow-up reply in the same thread\n   - one niche forum answer using a preset URL\n   - or homepage/conversion copy adjustment based on real feedback\n\n## Blocker status\nThis run is blocked on an approval gate, not on implementation. The highest-leverage next move is ready, but publishing it would cross the project's explicit rule against posting under the owner's real identity without approval.",
-          "site_path": "artifacts/2026-04-21-launch-distribution-approval-packet.md",
-          "has_redactions": true
-        }
-      ],
+      "artifacts": [],
       "output_excerpt": "courses, and micro-SaaS pricing.\n+https://profitafterfees.com/\n+\n+## Why it matters now\n+The site is already live on the approved neutral domain. Search/discovery files are in place. The current bottleneck is not product readiness or domain setup anymore; it is the lack of any real human-led distribution event that can generate first users, first click data, and first qualitative reactions.\n+\n+Without one real post, the project risks drifting back into internal work without learning whether strangers will click, understand the promise, and use the calculator.\n+\n+## Evidence gathered this run\n+- X API posting path is not currently usable in the sandbox:\n+  - `xurl` was not installed at start\n+  - after installation, `xurl auth status` returned `No apps registered`\n+  - `xurl whoami` returned `401 Unauthorized`\n+- Browser access showed no logged-in session available for common launch venues:\n+  - `https://x.com/compose/post` redirected to login\n+  - `https://www.reddit.com/submit` required login and showed a network-security block message\n+  - `https://news.ycombinator.com/submit` returned `Sorry.`\n+- A writable authenticated identity is available on GitHub (`gh auth status` showed account `the-shepherd-stack`), but publishing under the owner's real identity is explicitly approval-gated by `the project's PROJECT.md config`.\n+\n+## Options considered\n+1. X launch post from an approved existing account\n+- Speed: highest\n+- Direct cash cost now: $0 if posted via browser by the owner or with an already-approved authenticated session\n+- Upside: fastest path to first clicks and reactions\n+- Risk: uses a public identity, so approval is required\n+\n+2. Indie Hackers launch post from an approved existing account\n+- Speed: high if account access already exists\n+- Direct cash cost now: $0\n+- Upside: more relevant founder audience for this tool\n+- Risk: still identity-linked and may need login access not currently available in the sandbox\n+\n+3. Show HN / Hacker News post\n+- Speed: medium\n+- Direct cash cost now: $0\n+- Upside: strong upside if it lands\n+- Risk: requires a logged-in account and usually a stronger novelty bar; current browser session is not authenticated\n+\n+4. Keep waiting for passive search pickup\n+- Speed: low\n+- Direct cash cost now: $0\n+- Upside: no identity decision needed\n+- Risk: lowest learning rate; delays first user evidence unnecessarily\n+\n+## Recommendation\n+Approve option 1: one founder-style launch post from an account the owner is comfortable using publicly.\n+\n+Why this option wins now:\n+- zero direct spend\n+- fastest path to first strangers visiting the site\n+- easiest way to validate whether the homepage promise is compelling\n+- gives immediate signal before more SEO/content expansion\n+\n+## Exact estimated cost\n+- Cash required now: $0.00\n+- Budget impact if approved: none\n\u2026 omitted 24 diff line(s) across 1 additional file(s)/section(s)\n  \u250a \ud83d\udcd6 read      /home/autoproj/AutonomyProjectV2/the project's TODO.md config  1.5s\n  \u250a \ud83d\udcd6 read      /home/autoproj/AutonomyProjectV2/the project's SCORECARD.md config  1.7s\n  \u250a \ud83d\udcd6 read      /home/autoproj/AutonomyProjectV2/the project's RUNLOG.md config  1.6s\n  \u250a \ud83d\udcd6 read      /home/autoproj/AutonomyProjectV2/the project's HANDOFF.md config  1.6s\n  \u250a \ud83d\udcd6 read      /home/autoproj/AutonomyProjectV2/artifacts/2026-04-21-launch-distribution-approval-packet.md  1.8s\n\n\u256d\u2500 \u2695 Hermes \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256e\n    Completed one task: I attempted the first human-led launch/distribution move and stopped at the permission gate as required.\n    \n    What I did\n    - Read the wake-up prompt and all required config files.\n    - Chose exactly one task: execute one human-led launch/distribution post using the custom domain.\n    - Checked viable posting paths:\n      - X web: login required\n      - X API/xurl: unavailable without auth (`No apps registered`, `401 Unauthorized`)\n      - Reddit submit: login required / blocked by network security\n      - Hacker News submit: not authenticated (`Sorry.`)\n      - GitHub auth exists, but using it publicly would still cross the \u201cowner identity approval\u201d gate\n    - Created a concrete approval packet:\n      - artifacts/2026-04-21-launch-distribution-approval-packet.md\n    \n    State files updated\n    - the project's TODO.md config\n    - the project's RUNLOG.md config\n    - the project's HANDOFF.md config\n    - the project's SCORECARD.md config\n    \n    Blocker\n    - Approval is required before publishing under the owner\u2019s public identity, or before using an approved authenticated brand account in this environment.\n    \n    Exact approval needed\n    - Approve one public account/channel for the launch post, or\n    - Provide/log in to one approved non-real-name brand account for agent execution\n    \n    Budget\n    - Current cash balance: $200.00\n    - Cash required for the recommended next move: $0.00\n    \n    If you approve a channel/account, the next run should immediately publish the prepared launch post and capture the resulting public post URL.\n\u2570\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256f\n",
       "output_site_path": "outputs/run_2026-04-21_181701.txt",
       "screenshot_path": "",
       "label": "04-21-26 (Day 2) \u00b7 2:17 PM",
       "budget_delta_html": "",
-      "narrative_weight": 2
+      "narrative_weight": 1
     },
     {
       "run_id": "run_2026-04-21_201701",
@@ -680,10 +671,10 @@
       "timestamp_sort": "2026-04-21T20:17:01+00:00",
       "date": "2026-04-21",
       "time": "4:17PM",
-      "objective": "Remove the remaining internal-facing copy leaks from the public site so the live domain reads fully customer-facing before more traffic arrives.",
-      "decision_made": "Treat this as a public quality-control fix worth shipping immediately because trust and clarity matter more than adding more pages while launch distribution is waiting on approval.",
-      "next_step": "Obtain approval to execute the prepared launch/distribution post, then monitor search/indexing pickup and first user signals.",
-      "artifact_path": "https://profitafterfees.com/ ; https://profitafterfees.com/stripe-fees-for-online-courses/",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "artifact_path": "",
       "budget": {
         "starting_budget": "$200.00",
         "current_balance": "$188.75",
@@ -718,7 +709,7 @@
       "timestamp_sort": "2026-04-21T22:17:01+00:00",
       "date": "2026-04-21",
       "time": "6:17PM",
-      "objective": "Capture a baseline check for search/indexing pickup and first user signals before creating more pages.",
+      "objective": "",
       "decision_made": "",
       "next_step": "",
       "artifact_path": "artifacts/2026-04-21-signal-monitoring-baseline.md",
@@ -3711,6 +3702,53 @@
       "output_site_path": "outputs/run_claude_2026-04-28_121701.txt",
       "screenshot_path": "",
       "label": "04-28-26 (Day 9) \u00b7 8:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-04-28_141701",
+      "timestamp": "2026-04-28 10:17 AM EDT",
+      "timestamp_sort": "2026-04-28T14:17:01+00:00",
+      "date": "2026-04-28",
+      "time": "10:17AM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "artifact_path": "artifacts/2026-04-28-paf-conversion-fix-engagement-paths-followup.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$188.75",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-04-28-paf-conversion-fix-engagement-paths-followup.md",
+          "relative_path": "artifacts/2026-04-28-paf-conversion-fix-engagement-paths-followup.md",
+          "kind": "text",
+          "preview": "# PAF conversion fix follow-up \u2014 fire on every form-of-engagement Smart Bidding should optimize for\n\n## Context\nEarlier today's run shipped the owner-approved conversion-tracking fix (`APPROVED PAF FIX CONVERSION`): moved the `gtag('event', 'conversion', ...)` call out of the unconditional `<head>` block and into the existing `form.addEventListener('input', ...)` handler in `app/app.js`, gated by a single `conversionFired` boolean.\n\nA post-deploy audit of `app/app.js` showed the fix only fired on raw `input` events on `<input>` elements \u2014 every other path that visibly engages the calculator was silently missing the conversion fire:\n\n- Clicking a preset chip (\"Cohort course\", \"Annual SaaS plan\", etc.) calls `applyValuesToForm(...)` which sets `field.value = String(...)` programmatically. Programmatic value assignments do NOT dispatch `input` events. So picking a preset \u2192 fully rendered calculator result \u2192 no conversion recorded.\n- Submitting the form (clicking the `Recalculate` button) re-runs the calculation but never touched the conversion fire.\n- (Not changed this run) Copying the share link is downstream of the above paths, so the conversion has already fired by the time someone copies a share URL.\n\nEffect on Smart Bidding: any visitor whose first action is a preset click \u2014 the lowest-friction, highest-intent calculator engagement on the page \u2014 failed to count as a conversion. The \"engagement\" signal we just fixed was still under-counting the cleanest engagements.\n\n## What changed\n- `the calculator site`:\n  - Extracted a single `fireConversionOnce()` helper at module scope. It exits early if `conversionFired` is true or `window.gtag` is not a function; otherwise it sends `gtag('event', 'conversion', { send_to: 'AW-18121518600/WxyuCLjh56McEIjcgcFD' })` and flips `conversionFired = true`.\n  - Calls `fireConversionOnce()` from three places: the existing input handler (preserved), the preset button click handler (new), and the form submit handler (new).\n  - The conversion `send_to` target now appears exactly once in `app.js` \u2014 inside the helper. No other code path can fire the wrong event by accident.\n- `the calculator's test suite`:\n  - New regression `app.js fires the Google Ads conversion event on every form-of-engagement Smart Bidding should optimize for` asserts:\n    1. `app.js` defines a single `fireConversionOnce` function.\n    2. The conversion send_to target appears exactly once in `app.js` (inside the helper, not duplicated at call sites).\n    3. The preset button click handler calls `fireConversionOnce()`.\n    4. The form submit handler calls `fireConversionOnce()`.\n    5. The form input handler calls `fireConversionOnce()`.\n  - Existing \"no conversion event in `<head>`\" regression still passes.\n\n## Verification\n- `node --test tests/*.test.js` passed `109/109` (was `108` \u2014 net `+1` from the new regression).\n- `vercel deploy --prod --yes` produced `dpl_HZBQwWWtW1MMuA9pyoKdd2hrcGEm`; aliased to `https://profitafterfees.com` and `https://www.profitafterfees.com` under team `travis-4599s-projects`.\n- `curl https://profitafterfees.com/app/app.js | grep -c fireConversionOnce` \u2192 `4` (1 definition + 3 call sites).\n- `curl https://profitafterfees.com/app/app.js | grep -c WxyuCLjh56McEIjcgcFD` \u2192 `1` (only inside the helper).\n- `curl https://profitafterfees.com/ | grep -c WxyuCLjh56McEIjcgcFD` \u2192 `0` (homepage `<head>` stays clean).\n- Primary URLs all `HTTP 200`: `/`, `/privacy/`, `/ads.txt`, `/sitemap.xml`, `/transaction-fee-calculator/`, `/ai-feature-cost-calculator/`, `/saas-pricing-calculator/`.\n\n## Approval status\nThis is a follow-up to the existing `APPROVED PAF FIX CONVERSION` \u2014 same intent (move the fire from page load to first calculator engagement), just covering all three engagement paths the visitor sees instead of one. Not a new approval gate.\n\n## Next-actor question for Travis (still open from prior runs)\n- Bidding strategy (Smart Bidding vs Manual CPC) and total spend so far against the `$50` stop-loss. With the fire now correctly attached to every visible engagement path, any campaign that was in a learning phase against the broken signal can be assessed for whether a learning reset is needed.\n- AdSense approval status / Auto Ads enablement / impressions / eCPM.\n\n## Cash balance\n`$188.75`. No spend.\n",
+          "site_path": "artifacts/2026-04-28-paf-conversion-fix-engagement-paths-followup.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Shipped a follow-up to today's earlier conversion fix \u2014 covering every visible calculator engagement path, not just raw `<input>` events.\n\n**What was wrong:** The earlier-today fix wired `gtag('event', 'conversion', ...)` into `form.addEventListener('input', ...)`. But preset chip clicks set values programmatically via `field.value = String(...)` \u2014 programmatic assignments do NOT dispatch `input` events. So picking \"Cohort course\" / \"Annual SaaS plan\" / \"Template\" \u2192 fully rendered calculator result \u2192 no conversion recorded. Form submit (Recalculate) was also skipping the fire. Smart Bidding was still under-counting the cleanest, lowest-friction engagements on a campaign already spending real money.\n\n**Fix:** Refactored `app/app.js` to a single `fireConversionOnce()` helper at module scope (early-returns if already fired or `window.gtag` is not a function), called from input + preset click + submit handlers. The `send_to` target now appears exactly once in `app.js`, inside the helper.\n\n**Verification:** `node --test tests/*.test.js` \u2192 `109/109` (was 108, +1 regression). Deployed `dpl_HZBQwWWtW1MMuA9pyoKdd2hrcGEm`, aliased apex+www under `travis-4599s-projects`. Live: `fireConversionOnce` appears 4\u00d7 in `/app/app.js` (1 def + 3 sites), `WxyuCLjh56McEIjcgcFD` exactly 1\u00d7 there and 0\u00d7 in homepage HTML, primary URLs all `HTTP 200`.\n\nSame intent as existing `APPROVED PAF FIX CONVERSION` \u2014 not a new approval gate.\n\nState files updated: `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md`. No spend; cash balance remains `$188.75`. Artifact: `artifacts/2026-04-28-paf-conversion-fix-engagement-paths-followup.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-04-28_141701.txt",
+      "screenshot_path": "",
+      "label": "04-28-26 (Day 9) \u00b7 10:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
     }

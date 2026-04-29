@@ -4912,6 +4912,67 @@
       "label": "04-29-26 (Day 10) \u00b7 8:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_claude_2026-04-29_141701",
+      "timestamp": "2026-04-29 10:17 AM EDT",
+      "timestamp_sort": "2026-04-29T14:17:01+00:00",
+      "date": "2026-04-29",
+      "time": "10:17AM",
+      "objective": "Travis priority shift puts StrikeSight at ~90% bandwidth on a build \u2192 polish \u2192 deploy \u2192 market path. The HANDOFF locks the build order; step #2 is \"implement Cove design tokens in `index.css` and Tailwind config (color system, typography, spacing)\". Step #1 (Supabase `spread_results` warehouse table) needs Travis to apply SQL via the dashboard. Step #2 is fully autonomous and is a prerequisite for the Hunt-as-data-table rebuild (#3) and the Luke landing page rewrite (#5) \u2014 so doing #2 now means both can reference one anchor instead of drifting apart. Wakeup brief explicitly favors design-system foundation and stronger product copy over more pages or another internal doc.",
+      "decision_made": "Land tokens at the configuration layer only \u2014 no `.tsx` markup edits in this run (markup-layer passes belong with the page-by-page rebuilds that come next). `tailwind.config.js`: `emerald` color value swapped `#10b981` \u2192 `#22C55E`; new `accent` / `accent-soft` / `pos` / `neg` / `warn` semantic tokens; layered near-black surfaces (`bg-base #0B0F14`, `bg-surface #0F141B`, `bg-panel #111821`, `bg-elevated #161E29`); `dark-bg` / `dark-card` aliased to the new values for backwards compat; border scale (`border-subtle #1C2430`, `border-strong #27313F`); text scale (`fg-primary #E6EAF0`, `fg-secondary #A4ADBA`, `fg-muted #6C7685`); `font-mono` and `font-num` map to JetBrains Mono \u2192 IBM Plex Mono \u2192 ui-monospace fallback chain; `borderRadius.DEFAULT` reduced to `0.375rem` (`rounded-md`). `index.css`: JetBrains Mono Google Fonts import; `:root` CSS custom properties expose every token; `.num` utility (`font-variant-numeric: tabular-nums` + `font-feature-settings: \"tnum\" 1`) for numeric content (win rate / EV% / strikes / credits); `.panel` and `.panel-elevated` component classes encapsulate panel surface + subtle border at `rounded-md`; emerald box-shadow glow on the main container removed (Cove explicit); emerald glow on slider hover thumb removed (Cove explicit); slider thumb border switched from `#000` to `var(--bg-base)`.",
+      "next_step": "Step #3 in the HANDOFF queue \u2014 rebuild Hunt results UI as a dense sortable data table (`Ticker | Strike | Exp | Win% | EV% | Credit | Action`) using the new tokens at the markup layer (`.panel`, `.num`, `border-subtle`, `accent`), kill the swipeable card UI, remove framer-motion page fades. Then step #4 routing restructure (`/` \u2192 landing, `/dashboard` \u2192 authenticated home), then step #5 Luke landing page copy. Owner-side StrikeSight and AI utility gates unchanged. Current cash balance: $162.45.",
+      "artifact_path": "artifacts/2026-04-29-strikesight-cove-design-tokens.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-04-29-strikesight-cove-design-tokens.md",
+          "relative_path": "artifacts/2026-04-29-strikesight-cove-design-tokens.md",
+          "kind": "text",
+          "preview": "# StrikeSight: Cove design tokens shipped\n\n## What this is\nStep #2 from the StrikeSight build queue locked into `HANDOFF.md` on 2026-04-28: **foundational design tokens** in `frontend/tailwind.config.js` and `the scanner frontend` so the upcoming Hunt-as-data-table rebuild and landing page copy rewrite reference one consistent system. Without this layer, every subsequent UI change would have to re-derive colors, type, and surface decisions ad hoc.\n\nThis is fully implementable in code \u2014 no Travis approval needed, no spend.\n\n## Why this is the right run\nTravis priority shift (interactive 2026-04-28) puts StrikeSight on ~90% bandwidth on a \"build \u2192 polish \u2192 deploy \u2192 market\" path. The HANDOFF locked the build order: (1) Supabase `spread_results` warehouse table, (2) **Cove design tokens**, (3) Hunt as dense data table, (4) routing restructure, (5) Luke landing copy.\n\nItem #1 needs Travis to deploy SQL via the Supabase dashboard. Item #2 is fully autonomous. It is also a **prerequisite** for items #3 and #5 \u2014 the dense Hunt data table and the landing page need the new color/type system in place before either is built. Doing #2 first means #3 and #5 can both reference one anchor and don't drift apart.\n\nThe wakeup brief explicitly favors stronger design + product copy over more pages or more internal docs. This run is design-system foundation, not a page expansion or another SEO doc.\n\n## Cove design direction this run lands\nFrom the 2026-04-28 Cove design audit (recorded in `STATE.md` and `HANDOFF.md`):\n- Institutional fintech aesthetic: `#0B0F14` background, layered near-black surfaces, `#111821` panels.\n- JetBrains Mono or IBM Plex Mono for ALL numeric content.\n- Replace Tailwind emerald everywhere with restrained `#22C55E` used sparingly.\n- `rounded-md` not `rounded-2xl`.\n- Remove emerald glow effects.\n\nThis run lands every one of those at the token layer. Subsequent passes apply them at the markup layer page by page.\n\n## What changed\n\n### `frontend/tailwind.config.js`\n- `emerald` color value swapped from `#10b981` \u2192 `#22C55E`. Backwards-compat: existing references in 12 `.tsx` files (`Layout`, `SuccessRateIndicator`, `TickerInput`, `Home`, `Hunt`, `Analysis`, `Watchlist`, `Account`, `Scanner`, `Privacy`, `Terms`, plus `index.css`) now render restrained green without any markup change.\n- New semantic tokens: `accent`, `accent-soft` (12% green wash for hover/active states), `pos`, `neg`, `warn`.\n- Layered surfaces: `bg-base`, `bg-surface`, `bg-panel`, `bg-elevated`. `dark-bg` aliased to `#0B0F14`, `dark-card` aliased to `#111821` (backwards-compat).\n- Border scale: `border-subtle` `#1C2430`, `border-strong` `#27313F`.\n- Text scale: `fg-primary` `#E6EAF0`, `fg-secondary` `#A4ADBA`, `fg-muted` `#6C7685`.\n- `fontFamily`: `mono` and `num` both map to `JetBrains Mono \u2192 IBM Plex Mono \u2192 ui-monospace \u2192 SFMono-Regular \u2192 Menlo \u2192 monospace`.\n- `borderRadius.DEFAULT` reduced to `0.375rem` (`rounded-md`).\n\n### `the scanner frontend`\n- Added Google Fonts import for JetBrains Mono `400/500/600/700`.\n- New `:root` CSS custom properties expose every token (`--bg-base`, `--bg-panel`, `--accent`, `--pos`, `--neg`, `--fg-primary`, etc.) so non-Tailwind components and inline `style={}` references can use the same anchors.\n- `html, body` now resolve to `var(--bg-base)` / `var(--fg-primary)` \u2014 replaces the literal `#000000` background.\n- New `.num` utility class: applies `font-num` plus `font-variant-numeric: tabular-nums` plus `font-feature-settings: \"tnum\" 1` so every numeric cell (win rate, EV%, strikes, credits) anchors on a single rule.\n- New `.panel` and `.panel-elevated` component classes encapsulate the standard panel surface + subtle border at `rounded-md`. Subsequent Hunt-as-data-table pass can use `.panel` for the criteria rail and the results frame without re-deriving.\n- Removed the emerald `box-shadow: 0 0 60px rgba(16, 185, 129, 0.05)` glow on the main container at `lg+` breakpoint (Cove explicit removal).\n- Removed the emerald glow on `.slider:hover` thumb states (Cove explicit removal).\n- Slider thumb border switched from hardcoded `#000` to `var(--bg-base)` so the thumb reads as cut out of the new institutional background, not floating on a different one.\n\n### What did NOT change this run (deliberate scoping)\n- No `.tsx` files were edited. Every existing `text-emerald` / `bg-emerald` / `border-emerald` / `bg-dark-bg` / `bg-dark-card` reference in 12 files now renders against the new tokens automatically. This is the correct scope for one autonomous run \u2014 markup-level passes are page-by-page work that belongs in the Hunt-data-table rebuild and landing page rewrite.\n- The Tailwind keyframe animations `fade-in` and `slide-up` were preserved. Cove's \"remove framer-motion page fades\" is a separate markup-layer concern (framer-motion is its own library, unrelated to Tailwind's `animate-*` classes). When the routing restructure runs, the framer-motion `motion.div` page transitions can be removed in that pass.\n\n## Verification\n- `cd /home/autoproj/projects/StrikeSight/frontend && npm run build` \u2192 passes; bundle `dist/assets/index-lA3V66Oj.js 445.78 kB` (gzip 139.72 kB), CSS `dist/assets/index-CDrXkVds.css 24.33 kB`.\n- `cd /home/autoproj/projects/StrikeSight/backend && npm run build` (tsc) \u2192 passes.\n- Compiled CSS bundle:\n  - `#22C55E` (new restrained accent): 10 occurrences (every `text-/bg-/border-/ring-emerald` rule and hover variant resolved correctly).\n  - `#10b981` (old Tailwind emerald): 0 occurrences (token swap complete at the rendered level).\n  - `#0B0F14` (institutional bg): present.\n  - `#111821` (panel): present.\n  - `JetBrains Mono`: present in `@font-face` rule.\n\nVisual rendering review under a real browser is queued for the next session that has a browser; an autonomous run cannot perform a screenshot-grade design check.\n\n## Git\n- Commit: `e8b805d` on `autobox/strikesight-scanner-mvp`.\n- Pushed to `https://github.com/tbuerky/StrikeSight`.\n- Diff: `2 files changed, 85 insertions(+), 31 de",
+          "site_path": "artifacts/2026-04-29-strikesight-cove-design-tokens.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "All state files updated. OPEN_GATES.md has no entries under `## Gates` (Travis-cleared); this run raised no new owner-blocking gate, so no edit needed.\n\n**Done \u2014 Analysis.tsx Tailwind utility correctness sweep**\n\nReplaced 8 raw `border-subtle` / `border-strong` references with the working `border-border-subtle` / `border-border-strong` forms in `the scanner frontend`. The Tailwind config names the colors with the hyphen (`'border-subtle': '#1C2430'`), so utilities follow `{prefix}-{color-name}` shape \u2014 the unprefixed forms silently no-op. The `.panel` component class set `border-color` directly via CSS custom properties so panel-bordered surfaces still rendered, but raw utility usage on the spread summary card, ticker masthead rule, watchlist toggle, two parameter selects, best-strategy tile, and top-strategies table head + body rows was rendering with `border-color: currentColor` (foreground text color) instead of subtle slate. The dashboard `Confirm on {ticker}` CTA terminates on this page, so this was a visible credibility leak in the activation flow.\n\nVerified: frontend + backend builds pass; fixture tests `3/3`; compiled CSS contains the working utilities and not the broken forms; project-wide grep across `frontend/src` returns zero remaining bad refs. Commit `117e11f` pushed to `autobox/strikesight-scanner-mvp`.\n\nState files updated: TODO marked done, RUNLOG appended, HANDOFF latest-handoff section rotated, SCORECARD appended (score 5), artifact at `artifacts/2026-04-29-strikesight-analysis-tailwind-correctness-sweep.md`. No spend; cash balance `$162.45`. No new owner-blocking gate; OPEN_GATES.md unchanged.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-04-29_141701.txt",
+      "screenshot_path": "",
+      "label": "04-29-26 (Day 10) \u00b7 10:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

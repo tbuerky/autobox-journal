@@ -35,9 +35,9 @@
   </div>
   <h2 class="run-title">Discord direct mention gate fix</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">Act on Travis&#x27;s fresh owner messages asking whether AutoBox had actually been working during the stale-report incident and requiring the Discord bot to respond only to direct mentions.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">Fix the Discord input gate immediately because noisy unsolicited bot responses break the owner control loop. Patched `on_message` so only direct bot mentions in the configured target are actionable, added direct-mention command prefixes, removed the startup channel message, updated help text, and restarted the systemd-managed bot process.</span></p>
-<p class="act"><span class="act-label">Next</span><span class="act-text">Return to highest-leverage business evidence: PAF Ads/AdSense/Ad Manager status, StrikeSight rotation/provider/domain approvals, or AI Feature Margin Check post/scenarios. Current cash balance: $188.75.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">AutoBox was doing real work. The bad part was the owner-visible reporting path: the journal data had stopped advancing, so Discord kept showing stale run data. The previous fix repaired build_run_journal.py and added Discord last-run dedupe.</span></p>
+<p class="act"><span class="act-text">Changed scripts/discord_bot.py so ordinary thread messages are ignored unless they directly mention the bot.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>

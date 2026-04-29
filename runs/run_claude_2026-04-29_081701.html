@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikesight dashboard rebuild &middot; AutoBox</title>
+<title>Strikesight analysis page cove coherence pass &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,11 +33,11 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-04-29_081701</span>
   </div>
-  <h2 class="run-title">Strikesight dashboard rebuild</h2>
+  <h2 class="run-title">Strikesight analysis page cove coherence pass</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">With step #5 (Luke landing-copy polish, `eddc21f`) shipped earlier today, the landing page now promises a &quot;scan the whole S&amp;P, ranked by win rate and EV per ticker&quot; workflow — but `/dashboard`, the post-signup landing surface, was still the legacy `Home.tsx` ticker-analysis launcher (popular ticker buttons + High IV stocks modal + recent analyses list). A user clicking `Start free` from the landing page was being dumped onto a screen that did not match what the landing page sold them. HANDOFF locks the spec for the rebuild: &quot;today&#x27;s top signal + watchlist quick-view + Run Hunt CTA&quot;. This is the post-signup activation surface, the second-most-important screen after `/hunt`. Step #6 (Ticker Analysis matrix) is bigger and still autonomously-runnable; the dashboard rebuild is more contained, fixes the immediate landing-vs-dashboard mismatch, and is the surface the landing page&#x27;s `Start free` CTA terminates on.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">Rewrite `the scanner frontend` end-to-end. Read the existing `huntResults` localStorage cache for &quot;top signal&quot; — same cache `Hunt.tsx` already maintains, so no extra API call from dashboard mount, no rate-limit risk, no heavy scan trigger. Top signal panel surfaces the highest-EV result with ticker (`font-mono`), company name, strategy display, three labeled stat columns (Win rate / EV / Credit) with `.num` everywhere and `text-pos` on EV, primary `Confirm on {ticker}` CTA → `/analysis/{ticker}` (the Hunt → Analysis workflow tie-in Luke shipped into the landing page), secondary `See all results` → `/hunt`, &quot;Refreshed N min ago&quot; stamp clickable to re-read localStorage. Empty state has clean `Run a hunt` CTA. Watchlist quick-view calls `getWatchlist()` once on mount for tiers where `canSaveWatchlist` is true, shows up to 5 tickers as rows with star icon (`text-accent`), ticker (`font-mono`), price (`.num`), success rate (`.num`), optimal weeks; empty state explains the workflow + nudges to Hunt; free-tier state explains the paid gating with digest-only language (&quot;a daily heads-up when a new spread clears your filters&quot;) matching what Luke shipped on the landing page (no realtime alert claim — none implemented). Run Hunt CTA card closes the page. Killed `framer-motion` import + `motion.div` / `AnimatePresence` from this page. Adopts Cove tokens throughout (`bg-bg-base`, `panel`, `panel-elevated`, `accent`, `text-pos`, `.num`, `font-mono`).</span></p>
-<p class="act"><span class="act-label">Next</span><span class="act-text">Either step #6 in the HANDOFF queue (Ticker Analysis full delta × DTE matrix page — the page the dashboard&#x27;s `Confirm on {ticker}` CTA already routes to), or the Watchlist page Cove pass (currently still on legacy emerald + framer-motion), or the `DEPLOYMENT.md` / `HTTPS_DEPLOYMENT_GUIDE.md` Supabase rewrites before any production deploy. Owner-side StrikeSight and PAF gates unchanged. Current cash balance: $162.45.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">With dashboard rebuild (`8c43089`) shipped earlier today closing the landing → activation surface mismatch, the dashboard&#x27;s primary CTA `Confirm on {ticker}` terminates on `/analysis/{ticker}` — and that page (`Analysis.tsx`) was the only authenticated screen still on legacy emerald + framer-motion + `text-8xl font-black` hero + gradient quality cards. Hunt and Dashboard already on Cove tokens; LandingPage post-Luke. A polished landing → polished dashboard → 2024-era Tinder-grade activation page would have undone the credibility built upstream. Distinct from build-queue step #6 (full delta × DTE matrix); that spec needs backend changes — `newAnalysisEngine.ts:462` truncates to `topStrategies.slice(0, 5)`, full grid is 9 OTM × 8 DTE × 2 spread types = 144 combinations and would need a non-truncated payload field. This run is a pure deploy-prep visual coherence pass on the existing top-5 framing.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">Cove design coherence pass on the existing `Analysis.tsx`, preserving all hooks / data fetches / watchlist toggle / parameter change / reanalyze logic exactly. Did *not* bundle the step #6 backend-grid rebuild — that&#x27;s a separate, bigger run with backend + frontend changes. Did *not* bundle the Watchlist Cove pass — separate surface, separate run. End-to-end rewrite: stripped `import { motion } from &#x27;framer-motion&#x27;` and every `motion.div` page-fade wrapper (4 sections + reanalyze overlay); reduced `text-8xl font-black` hero → `text-6xl font-semibold` with `font-mono` + `.num`; replaced gradient quality cards (`bg-gradient-to-br from-emerald/10 to-emerald/5`, `from-yellow/10`, `from-red/10`) with `panel-elevated` + small status badge (`Strong` / `Marginal` / `Weak` + annualized EV%); replaced color-wash warning blocks (`bg-yellow-500/10 border-yellow-500/20`, `bg-amber-500/10`, `bg-blue-500/10`) with single `border-l-2 border-l-warn pl-3` strip pattern; tokenized everywhere (`panel`, `panel-elevated`, `border-subtle`, `border-strong`, `accent`, `accent-soft`, `text-pos`, `text-neg`, `text-fg-primary`, `text-fg-secondary`, `text-fg-muted`, `bg-bg-base`, `bg-bg-surface`, `bg-bg-panel`, `font-mono`, `.num`, `rounded-md`); workflow tie-in subhead added under header (`Confirm a Hunt result before you put it on. Top strategies below are ranked by historical EV at the chosen window.`) — directly mirrors Luke&#x27;s landing page copy so the workflow vocabulary is consistent across landing → dashboard → analysis; tightened authenticated-UI labels (UNLIMITED tier badge removed; &quot;Historically Best Performing Strategy&quot; → &quot;Top historical strategy&quot;; &quot;Strategy Implementation - How this would look in today&#x27;s market&quot; → &quot;Today&#x27;s mapped spread&quot;; &quot;Analysis Summary&quot; → &quot;What it means&quot;; &quot;Reanalyze&quot; → &quot;Recalculate&quot;; &quot;Reanalyzing...&quot; → &quot;Recalculating...&quot;; &quot;Trade Structure&quot; → &quot;Spread&quot;; &quot;Entry Details&quot; → &quot;Entry&quot;; &quot;Risk &amp; Reward&quot; → &quot;Risk / reward&quot;; &quot;Top 5 Strategies by Expected Value&quot; → &quot;Top strategies by EV&quot;). Watchlist toggle: `rounded-md`, panel-bordered, `bg-accent-soft text-accent border-accent` when active vs `bg-bg-panel text-fg-muted border-subtle hover:text-fg-primary hover:border-strong` when inactive, with `aria-label`.</span></p>
+<p class="act"><span class="act-label">Next</span><span class="act-text">Either Watchlist Cove pass (174 lines, retention-side, same legacy shape — after which Layout&#x27;s nav-indicator `motion.div` is the sole remaining `framer-motion` site and the import can be evaluated for removal entirely from `package.json`), or step #6 from the build queue (full delta × DTE matrix, requires backend grid payload — `allStrategies: SpreadAnalysis[]` field added to `AnalysisResult`), or `DEPLOYMENT.md` / `HTTPS_DEPLOYMENT_GUIDE.md` Supabase rewrites before any production deploy. Owner-side StrikeSight and PAF gates unchanged. Current cash balance: $162.45.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -47,60 +47,84 @@
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
     <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeSight <code>/dashboard</code> rebuild — top signal + watchlist quick-view + Run Hunt CTA</h1>
-<p><strong>Date</strong>: 2026-04-29</p>
-<p><strong>Branch</strong>: <code>autobox/strikesight-scanner-mvp</code></p>
-<p><strong>Commit</strong>: <code>8c43089</code></p>
-<p><strong>Repo</strong>: https://github.com/tbuerky/StrikeSight</p>
+    <div class="artifact-prose"><h1>StrikeSight — Analysis page Cove design coherence pass</h1>
+<p><strong>Date:</strong> 2026-04-29</p>
+<p><strong>Branch:</strong> <code>autobox/strikesight-scanner-mvp</code></p>
+<p><strong>Commit:</strong> <code>59ea5cb</code> on <code>https://github.com/tbuerky/StrikeSight</code></p>
+<p><strong>Files changed:</strong> <code>the scanner frontend</code> (only) — <code>+210 / -283</code>, net <code>-73</code></p>
+<p><strong>Cash impact:</strong> none. Balance remains <code>$162.45</code>.</p>
 <h2>Why this run</h2>
-<p>Step #4 (routing restructure + LandingPage shell) and step #5 (Luke landing-copy polish) shipped on 2026-04-29. After step #5, <code>/</code> now reads as a polished public landing page that promises a &quot;scan whole S&amp;P, ranked by win rate and EV per ticker&quot; workflow — but <code>/dashboard</code>, the post-signup landing for that flow, was still the legacy <code>Home.tsx</code> ticker-analysis launcher (popular ticker buttons + High IV stocks modal + recent analyses list). A user who clicked <code>Start free</code> from the landing page was being dumped onto a screen that didn&#x27;t match what they were sold.</p>
-<p>HANDOFF locks the spec for the rebuild: &quot;today&#x27;s top signal + watchlist quick-view + Run Hunt CTA&quot;. This is the post-signup activation surface — the second-most-important screen after <code>/hunt</code>. Per Travis priority shift quote, the conversion lever is &quot;telling the story&quot; (scans whole S&amp;P, returns tickers/strikes/exps that have been consistently profitable). The dashboard has to deliver on that story the moment a fresh signup hits it, otherwise the polished landing page is doing all the work alone.</p>
-<h2>What shipped</h2>
-<p><code>the scanner frontend</code> rewritten end-to-end (<code>+295 / -266</code>).</p>
-<p><strong>Header</strong>: small <code>Dashboard</code> eyebrow + H1 <code>What the scan found, and what you&#x27;re watching.</code> Tier badge in the corner styled with Cove tokens (no more emerald glow chips).</p>
-<p><strong>Top signal panel</strong> (<code>.panel-elevated</code>):</p>
+<p>Earlier today the dashboard rebuild (<code>8c43089</code>) closed the landing → activation mismatch. The dashboard&#x27;s primary CTA is <code>Confirm on {ticker}</code> → <code>/analysis/{ticker}</code>. That destination — <code>Analysis.tsx</code> — was the only authenticated page still on legacy emerald + framer-motion + <code>text-8xl</code> hero + gradient quality cards. Hunt and Dashboard are already on Cove tokens; LandingPage is post-Luke; Analysis was the visual outlier. A polished landing page that converts a stranger to a signup, a polished dashboard that gets them to &quot;Confirm on AAPL&quot;, and then a 2024-era Tinder-grade activation page would have undone the credibility built upstream.</p>
+<p>Distinct from build-queue step #6 (full delta × DTE matrix). That spec requires backend changes — the engine currently truncates to <code>topStrategies = spreadAnalyses.slice(0, 5)</code> (see <code>newAnalysisEngine.ts:462</code>); the full grid is 9 OTM levels × 8 DTE levels × 2 spread types = 144 combinations, which would need a non-truncated payload field. That&#x27;s its own bigger run with backend + frontend changes. This run is a pure deploy-prep visual coherence pass on the existing top-5 framing.</p>
+<h2>What changed</h2>
+<p>End-to-end rewrite of <code>the scanner frontend</code>. All hooks, data fetches, watchlist toggle, parameter change, and reanalyze logic preserved exactly. Visual layer + copy only.</p>
+<p><strong>Stripped:</strong></p>
 <ul>
-<li>Reads <code>localStorage.getItem(&#x27;huntResults&#x27;)</code> — the same cache <code>Hunt.tsx</code> already writes (1-hour TTL) — and surfaces the highest-EV result. No new API call from the dashboard, no heavy scan on dashboard mount, no rate-limit risk.</li>
-<li>Shows ticker (JetBrains Mono via <code>font-mono</code>) + company name (from <code>getCompanyName</code>), strategy display via <code>formatStrategyDisplay</code>, three labeled stat columns (Win rate / EV / Credit) with <code>.num</code> everywhere and <code>text-pos</code> on EV.</li>
-<li>Primary CTA <code>Confirm on {ticker}</code> → <code>/analysis/{ticker}</code> (this is the Hunt → Analysis workflow tie-in Luke wrote into the landing page; the dashboard now embodies it).</li>
-<li>Secondary <code>See all results</code> → <code>/hunt</code>.</li>
-<li>&quot;Refreshed N min ago&quot; stamp computed from cache timestamp; clicking it re-reads localStorage so a fresh hunt run in another tab updates here.</li>
-<li>Empty state (no cache): <code>Run a hunt to see the spread that scored highest on win rate and expected value across the S&amp;P 500.</code> + <code>Run a hunt</code> CTA.</li>
+<li><code>import { motion } from &#x27;framer-motion&#x27;</code></li>
+<li>Every <code>motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}</code> page-fade wrapper (4 sections)</li>
+<li>The reanalyzing overlay&#x27;s <code>motion.div initial={{ opacity: 0, scale: 0.9 }}</code></li>
+<li><code>text-8xl font-black</code> hero scale → <code>text-6xl font-semibold</code></li>
+<li>Gradient quality cards (<code>bg-gradient-to-br from-emerald/10 to-emerald/5</code>, <code>from-yellow/10</code>, <code>from-red/10</code>) → single <code>panel-elevated</code> with a small status badge (<code>Strong</code> / <code>Marginal</code> / <code>Weak</code> + annualized EV %)</li>
+<li>Color-wash warning blocks (<code>bg-yellow-500/10 border-yellow-500/20</code>, <code>bg-amber-500/10 border-amber-500/20</code>, <code>bg-blue-500/10 border-blue-500/20</code>) → single <code>border-l-2 border-l-warn pl-3</code> strip pattern</li>
+<li>Emerald loader spinner (<code>border-emerald</code>) → neutral <code>border-fg-muted</code> for initial load, <code>border-accent</code> for the reanalyze overlay (where motion is genuinely happening)</li>
 </ul>
-<p><strong>Watchlist quick-view</strong> (<code>.panel</code>):</p>
+<p><strong>Token swap (zero residual legacy refs — verified <code>grep -c emerald|dark-card|dark-bg|gray-800|gray-700|gray-400|gray-500|gray-300</code> returns <code>0</code>):</strong></p>
 <ul>
-<li>Calls <code>getWatchlist()</code> once on mount for tiers where <code>limits.canSaveWatchlist</code> is true.</li>
-<li>Shows up to 5 tickers, each row: star icon (<code>text-accent</code>), ticker (<code>font-mono</code>), price (<code>.num</code>), success rate (<code>.num</code>), optimal weeks, arrow.</li>
-<li>Empty state: <code>Star a ticker from any analysis page to follow it here. Each morning you&#x27;ll see the top current setup for every name on your list.</code> + <code>Find candidates in Hunt</code> CTA.</li>
-<li>Free-tier state: <code>Watchlist is part of the paid tier. Upgrade to follow specific tickers and get a daily heads-up when a new spread clears your filters.</code> + <code>See plans</code> link to <code>/account</code>. Honest framing — matches the digest-only language Luke shipped on the landing page (no realtime alert claim, no notification system, since none is implemented in <code>the scanner backend</code>).</li>
-<li>Cleanup-handles cancellation if the component unmounts mid-fetch.</li>
+<li><code>bg-dark-card border border-gray-800 rounded-xl</code> → <code>panel</code> / <code>panel-elevated</code></li>
+<li><code>border-gray-800</code> / <code>border-gray-700</code> → <code>border-subtle</code> / <code>border-strong</code></li>
+<li><code>text-emerald</code> / <code>text-green-400</code> → <code>text-accent</code> / <code>text-pos</code></li>
+<li><code>text-red-400</code> → <code>text-neg</code></li>
+<li><code>text-gray-400</code> → <code>text-fg-secondary</code></li>
+<li><code>text-gray-500</code> / <code>text-gray-600</code> → <code>text-fg-muted</code></li>
+<li><code>text-white</code> → <code>text-fg-primary</code></li>
+<li><code>bg-emerald text-black</code> (CTA) → <code>bg-accent text-bg-base</code></li>
+<li><code>bg-emerald/20 text-emerald</code> (active watchlist toggle) → <code>bg-accent-soft text-accent border-accent</code></li>
+<li><code>bg-black/30</code> / <code>bg-black/50</code> → <code>bg-bg-surface</code></li>
+<li><code>rounded-xl</code> / <code>rounded-lg</code> → <code>rounded-md</code> (default)</li>
 </ul>
-<p><strong>Run Hunt CTA</strong> (<code>.panel</code>): plain card, name + one-line description + primary <code>Open Hunt</code> button. Picks up the tail-end of the dashboard for the user who just refilled context and wants to run a fresh scan.</p>
-<p>Both <code>framer-motion</code> import and the <code>&lt;motion.div&gt;</code> / <code>AnimatePresence</code> blocks (the legacy popular-ticker fade-in and the High IV modal animation) are gone. Dashboard renders without any animation library — consistent with the Cove direction and with <code>Hunt.tsx</code> (already framer-motion-free) and <code>LandingPage.tsx</code> (built without framer-motion).</p>
-<h2>What was deliberately not bundled</h2>
+<p><strong>Numerics:</strong></p>
 <ul>
-<li>Polygon options data wiring (gated on <code>APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO</code> — separate step).</li>
-<li>Supabase <code>spread_results</code> warehouse table (gated on Travis applying SQL via the dashboard — separate step).</li>
-<li>Ticker Analysis full delta × DTE matrix rebuild (step #6 — separate task).</li>
-<li>Luke pass on the dashboard copy. Dashboard is post-signup authenticated UI, not public-facing copy in the SEO sense; copy strings are short headers + empty-state explanations, written cleanly per Luke&#x27;s voice (no internal labels, no SEO scaffolding, no AI-smell). When StrikeSight goes public, a Luke pass on every authenticated screen is its own deploy-prep run.</li>
-<li>Any markup-layer changes to legacy components on other routes (Watchlist, Account, Analysis, etc.). Those each need their own Cove + Luke passes; outside the scope of &quot;rebuild /dashboard.&quot;</li>
-<li>Auth wall (<code>UserContext</code> defaults everyone to PRO tier in dev — both Sign in and Start free CTAs route to <code>/dashboard</code> which is fine pre-auth; Stripe + auth wall is its own deploy step).</li>
+<li>Header price + percent change → <code>.num</code> with <code>font-mono</code> ticker</li>
+<li>Hero EV% → <code>text-6xl font-semibold text-pos num</code></li>
+<li>Three-column stat row (Win rate / Per $1 spread / Timeframe) → <code>text-2xl font-semibold num</code></li>
+<li>Top strategies table → every numeric cell <code>.num</code>, EV column <code>text-pos</code> with signed prefix</li>
+<li>Today&#x27;s mapped spread → every dollar/strike/expiration/days/credit/risk value <code>.num</code></li>
 </ul>
-<h2>Verification</h2>
+<p><strong>Copy tightened (authenticated UI; not customer-facing in the SEO sense, but tightened to match Luke&#x27;s voice on the public surfaces):</strong></p>
 <ul>
-<li><code>cd frontend &amp;&amp; npm run build</code> passes. Bundle <code>dist/assets/index-C76eA7X-.js 450.75 kB</code> (down <code>-4.08 kB</code> from last run; fewer framer-motion subscriptions on this page) / CSS <code>26.32 kB</code>.</li>
-<li><code>cd backend &amp;&amp; npm run build</code> (tsc) passes.</li>
-<li><code>SUPABASE_URL=http://localhost:0 SUPABASE_SECRET_KEY=dev HUNT_USE_FIXTURES=1 npx tsx --test src/services/huntFixtureMode.test.ts</code> passes <code>3/3</code>.</li>
-<li><code>git diff --stat HEAD~1</code> confirms only <code>the scanner frontend</code> changed: <code>295 insertions(+), 266 deletions(-)</code>.</li>
-<li>Public-copy hygiene: no internal labels, no SEO/process scaffolding, no notes-to-self; numeric cells use <code>.num</code>, ticker uses <code>font-mono</code>, EV uses <code>text-pos</code>, surfaces use <code>.panel</code> / <code>.panel-elevated</code>.</li>
-<li><code>framer-motion</code> no longer imported anywhere in <code>Home.tsx</code>.</li>
+<li>Header subhead added: <code>Confirm a Hunt result before you put it on. Top strategies below are ranked by historical EV at the chosen window.</code> — directly mirrors Luke&#x27;s landing page line &quot;Use it to confirm a Hunt result before you put it on&quot; so the workflow vocabulary is consistent across landing → dashboard → analysis</li>
+<li>&quot;Analysis Parameters&quot; → &quot;Window&quot;</li>
+<li>&quot;UNLIMITED&quot; tier badge — removed (internal-label artifact)</li>
+<li>&quot;Historical Data&quot; → &quot;Historical data&quot;</li>
+<li>&quot;Max Expiration&quot; → &quot;Max expiration&quot;</li>
+<li>&quot;Parameters changed - X year(s) of data, max Yw expiration&quot; → &quot;Pending recalculation — X yr, max Yw&quot;</li>
+<li>&quot;Reanalyze&quot; → &quot;Recalculate&quot;</li>
+<li>&quot;Reanalyzing...&quot; → &quot;Recalculating...&quot;</li>
+<li>&quot;Reanalyzing {ticker}&quot; overlay → &quot;Recalculating {ticker}&quot; with monospace ticker</li>
+<li>&quot;Historically Best Performing Strategy&quot; → &quot;Top historical strategy&quot;</li>
+<li>&quot;Average Historical Return&quot; → &quot;Average historical return&quot; (uppercase tracking-wide, smaller)</li>
+<li>&quot;Trade Structure&quot; → &quot;Spread&quot;</li>
+<li>&quot;PUT CREDIT SPREAD&quot; → &quot;{TYPE} credit spread&quot; lowercase</li>
+<li>&quot;Sell {ticker} {a}/{b} Put Spread&quot; → &quot;Sell {ticker} {a}/{b} put spread&quot;</li>
+<li>&quot;Entry Details&quot; → &quot;Entry&quot;</li>
+<li>&quot;Risk &amp; Reward&quot; → &quot;Risk / reward&quot;</li>
+<li>&quot;Current Price:&quot; → &quot;Current&quot;</li>
+<li>&quot;Short Strike:&quot; → &quot;Short strike&quot;</li>
+<li>&quot;Long Strike:&quot; → &quot;Long strike&quot;</li>
+<li>&quot;Minimum Credit:&quot; → &quot;Min credit&quot;</li>
+<li>&quot;Max Risk:&quot; → &quot;Max risk&quot;</li>
+<li>&quot;Win Rate:&quot; → &quot;Win rate&quot;</li>
+<li>&quot;Expected Value:&quot; → &quot;EV&quot;</li>
+<li>&quot;Top 5 Strategies by Expected Value&quot; → &quot;Top strategies by EV&quot;</li>
+<li>Strategy cell <code>PUT 5%</code> cell now styled with <code>font-medium</code> type, mid-dot separator, <code>.num</code> strike</li>
+<li>&quot;Strategy Implementation&quot; → &quot;Today&#x27;s mapped spread&quot;</li>
+<li>&quot;How this would look in today&#x27;s market&quot; → &quot;Roughly how this top strategy maps onto the current price.&quot;</li>
+<li>&quot;Based on historical data&quot; badge → &quot;Strong / Marginal / Weak (X% annualized)&quot; badge in <code>text-accent</code> / <code>text-warn</code> / <code>text-neg</code></li>
+<li>&quot;Analysis Summary&quot; → &quot;What it means&quot;</li>
+<li>&quot;Note:&quot; inside spread caveat → tightened, no inline <code>&lt;strong&gt;</code> wraps</li>
+<li>&quot;Disclaimer:&quot; → &quot;Disclaimer.&quot; with <code>text-warn</code></li>
 </ul>
-<h2>Build queue status</h2>
-<ul>
-<li>[DONE] #2 Cove design tokens (<code>e8b805d</code>)</li>
-<li>[DONE] #3 Hunt as data table (<code>e8a3572</code>)</li>
-<li>[DONE</li>
-</ul></div>
+<p><strong>Watchlist toggle:</strong> rounded-md, panel-bordered, <code>bg-accent-soft text-accent border-accent</code> when active vs `bg-bg-panel text</p></div>
   </section>
 
   <section class="detail-section">

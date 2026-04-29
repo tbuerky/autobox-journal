@@ -2987,8 +2987,8 @@
       "timestamp_sort": "2026-04-26T10:17:01+00:00",
       "date": "2026-04-26",
       "time": "6:17AM",
-      "objective": "Build the no-spend AI model pricing index companion for the live AI Feature Cost Calculator instead of adding another generic Profit After Fees page or waiting on owner-side traffic.",
-      "decision_made": "Ship `https://profitafterfees.com/ai-model-pricing-index/` as a source-linked data companion that makes the AI calculator more useful and shareable for AI/SaaS builders.",
+      "objective": "",
+      "decision_made": "",
       "next_step": "",
       "artifact_path": "artifacts/2026-04-26-ai-model-pricing-index.md",
       "budget": {
@@ -3043,74 +3043,14 @@
       "narrative_weight": 0
     },
     {
-      "run_id": "run_2026-04-26_120943",
-      "timestamp": "2026-04-26 08:09 AM EDT",
-      "timestamp_sort": "2026-04-26T12:09:43+00:00",
-      "date": "2026-04-26",
-      "time": "8:09AM",
-      "objective": "Decide the next highest-leverage non-owner move for the AI Feature Cost Calculator + AI Model Pricing Index bundle without defaulting to more internal page expansion.",
-      "decision_made": "Create a standalone-domain approval packet recommending `aifeaturecost.com` because the AI utility now has a calculator plus pricing-index companion, but the Profit After Fees host/domain creates a positioning mismatch for AI/SaaS builder distribution.",
-      "next_step": "If approved, buy only `aifeaturecost.com` at `$15` or less, connect it to Vercel, route the AI calculator/index under it, update canonical/sitemap/share metadata, deploy, and submit IndexNow. If not approved, use the existing zero-spend AI calculator distribution packet and capture builder feedback. Discord update delivered as message `1497933792558710924`. Current cash balance: $188.75.",
-      "artifact_path": "artifacts/2026-04-26-ai-utility-standalone-domain-approval-packet.md",
-      "budget": {
-        "starting_budget": "$200.00",
-        "current_balance": "$162.45",
-        "recent_entries": [
-          {
-            "date": "2026-04-20",
-            "type": "starting_budget",
-            "amount": "+$200.00",
-            "balance_after": "$200.00",
-            "note": "Initial AutoBox experiment budget"
-          },
-          {
-            "date": "2026-04-21",
-            "type": "expense",
-            "amount": "-$11.25",
-            "balance_after": "$188.75",
-            "note": "Domain purchase"
-          },
-          {
-            "date": "2026-04-28",
-            "type": "expense",
-            "amount": "-$11.25",
-            "balance_after": "$177.50",
-            "note": "StrikeRewind.com domain purchase"
-          },
-          {
-            "date": "2026-04-28",
-            "type": "expense",
-            "amount": "-$15.05",
-            "balance_after": "$162.45",
-            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
-          }
-        ]
-      },
-      "artifacts": [
-        {
-          "name": "2026-04-26-ai-utility-standalone-domain-approval-packet.md",
-          "relative_path": "artifacts/2026-04-26-ai-utility-standalone-domain-approval-packet.md",
-          "kind": "text",
-          "preview": "# AI utility standalone-domain approval packet\n\n## Recommendation\nBuy one neutral `.com` for the AI Feature Cost Calculator bundle, then move or mirror the AI calculator + AI model pricing index under that brand.\n\nRecommended domain: `aifeaturecost.com`\n\nApproval needed: `APPROVED: BUY AIFEATURECOST.COM, MAX $15`\n\nDo not buy anything until Travis explicitly approves that line or names a different approved domain and budget cap.\n\n## Why this matters now\nThe project now has two live AI-builder assets:\n\n- `https://profitafterfees.com/ai-feature-cost-calculator/`\n- `https://profitafterfees.com/ai-model-pricing-index/`\n\nThey are useful, source-linked, and shareable, but they are still hosted under `profitafterfees.com`, which reads like a Stripe/digital-product fee calculator. That mismatch weakens trust when asking AI/SaaS builders to click, share, or give feedback.\n\nThe sharper revenue/traffic move is not another generic page. It is making the AI utility feel like a standalone tool before the next distribution push, so the offer is easier to understand in one glance.\n\n## Options checked\nVerisign RDAP was checked on 2026-04-26 UTC. `404` means no `.com` registration record was returned by RDAP at check time.\n\n| Domain | RDAP result | Assessment |\n|---|---:|---|\n| `aifeaturecost.com` | 404 | Best fit. Clear, descriptive, directly matches the live calculator's job. |\n| `apimargins.com` | 404 | Shorter and broader, but less immediately obvious to a non-technical buyer. |\n| `aigrossmargin.com` | 404 | Good business framing, but narrower than the pricing-index companion asset. |\n| `aicostplanner.com` | 404 | Clear enough, but softer than \u201ccalculator\u201d and less tied to current page copy. |\n| `tokencostplanner.com` | 404 | Specific, but token-cost language may age as AI pricing models change. |\n| `usagecostcalculator.com` | 404 | Descriptive, but too broad and less AI-specific. |\n| `aifeecalc.com` | 404 | Short, but \u201ccalc\u201d feels less polished. |\n| `tokencostcalculator.com` | 200 | Already registered. Do not pursue. |\n| `modelcostcalculator.com` | 200 | Already registered. Do not pursue. |\n| `aicostcheck.com` | 200 | Already registered. Do not pursue. |\n\n## Pricing estimate\nPublic registrar price source checked: Porkbun domain pricing page (`https://porkbun.com/products/domains`) on 2026-04-26 UTC.\n\nPorkbun displayed `.com` registration, renewal, and transfer at `$11.08`, with page copy stating prices are in USD for non-premium single-year registrations and include ICANN and other fees.\n\nBudget math if approved and purchased at `$11.08`:\n\n- Current cash balance: `$188.75`\n- Estimated domain purchase: `-$11.08`\n- Estimated balance after purchase: `$177.67`\n\nUse max approval cap `$15` because final checkout can vary by registrar, taxes, premium detection, or availability changes.\n\n## What happens immediately after approval\n1. Buy `aifeaturecost.com` only if checkout total is `$15` or less.\n2. Add the domain to the existing Vercel project.\n3. Route the AI utility pages under the new domain:\n   - `/` \u2192 AI Feature Cost Calculator\n   - `/pricing-index/` or `/ai-model-pricing-index/` \u2192 model pricing index\n4. Keep `profitafterfees.com` live for the Stripe/digital-product calculator business.\n5. Update canonical URLs, sitemap, robots, homepage cross-links, and share metadata.\n6. Submit the new URLs through IndexNow.\n7. Package a new distribution post using the cleaner domain.\n\n## Why not wait for more pages first\nThe AI utility already has enough surface to share: a calculator plus a pricing index. More on-site expansion under the wrong brand risks polishing around a positioning problem. A standalone domain is a small, approval-gated trust and memorability move that should happen before another external AI-builder distribution ask if Travis wants to keep pursuing this parallel business.\n\n## No-spend fallback if approval is declined\nKeep the AI tools under Profit After Fees for now and use the existing zero-spend distribution packet:\n\n`artifacts/2026-04-26-ai-feature-cost-calculator-distribution-packet.md`\n\nIf that post gets concrete builder feedback, revisit the standalone domain with stronger evidence.\n\n## Budget\nNo spend made in this run. Current cash balance remains `$188.75`.\n",
-          "site_path": "artifacts/2026-04-26-ai-utility-standalone-domain-approval-packet.md"
-        }
-      ],
-      "output_excerpt": "it to Vercel, route the AI calculator/index under it, update canonical/sitemap/share metadata, deploy, and submit IndexNow. If not approved, use the existing zero-spend AI calculator distribution packet and capture builder feedback. Current cash balance: $188.75.\n+- Next step: If approved, buy only `aifeaturecost.com` at `$15` or less, connect it to Vercel, route the AI calculator/index under it, update canonical/sitemap/share metadata, deploy, and submit IndexNow. If not approved, use the existing zero-spend AI calculator distribution packet and capture builder feedback. Discord update delivered as message `1497933792558710924`. Current cash balance: $188.75.\n \n ### 2026-04-26 10:29\n - Objective: Build the no-spend AI model pricing index companion for the live AI Feature Cost Calculator instead of adding another generic Profit After Fees page or waiting on owner-side traffic.\n  \u250a \ud83d\udd27 patch     the project's STATE.md config  1.2s\n  \u250a review diff\na/the project's STATE.md config \u2192 b/the project's STATE.md config\n@@ -37,7 +37,7 @@\n - MVP artifact: `artifacts/2026-04-26-ai-feature-cost-calculator-mvp.md`.\n - Distribution/feedback packet: `artifacts/2026-04-26-ai-feature-cost-calculator-distribution-packet.md`; Discord delivery message `1497845669073784875`; exact short public post copy is ready under `Suggested post copy:`.\n - AI Model Pricing Index companion: `https://profitafterfees.com/ai-model-pricing-index/`; source-linked Anthropic/Google token pricing rows with direct calculator scenario links. Artifact: `artifacts/2026-04-26-ai-model-pricing-index.md`. Cove/Luke output: `the calculator site`.\n-- Standalone-domain approval packet: `artifacts/2026-04-26-ai-utility-standalone-domain-approval-packet.md`. Recommendation: buy `aifeaturecost.com` only if Travis replies `APPROVED: BUY AIFEATURECOST.COM, MAX $15`. RDAP check showed `aifeaturecost.com` returned 404 on 2026-04-26 UTC; Porkbun `.com` public price was recorded as `$11.08`; estimated post-purchase balance would be `$177.67` if bought at that price.\n+- Standalone-domain approval packet: `artifacts/2026-04-26-ai-utility-standalone-domain-approval-packet.md`. Discord update: `1497933792558710924`. Recommendation: buy `aifeaturecost.com` only if Travis replies `APPROVED: BUY AIFEATURECOST.COM, MAX $15`. RDAP check showed `aifeaturecost.com` returned 404 on 2026-04-26 UTC; Porkbun `.com` public price was recorded as `$11.08`; estimated post-purchase balance would be `$177.67` if bought at that price.\n - Owner-video review artifact: `artifacts/2026-04-26-directory-video-review.md`; conclusion was to apply the video's data-moat lesson narrowly by building a no-spend AI model pricing index companion asset, not to pivot into a broad scraped directory. Discord update: `1497875135900684318`.\n - Current MVP scope: one-page utility for AI/SaaS builders estimating API cost per call, AI cost per user, total monthly AI cost, fixed cost per user, gross margin, break-even monthly price, target-margin price, and shareable scenarios.\n - Current permission gate: buy `aifeaturecost.com` only if Travis replies `APPROVED: BUY AIFEATURECOST.COM, MAX $15`; do not buy any domain without approval.\n  \u250a \ud83d\udcd6 read      artifacts/2026-04-26-ai-utility-standalone-domain-approval-packet.md  0.5s\n  \u250a \ud83d\udcd6 read      the project's RUNLOG.md config  0.7s\n  \u250a \ud83d\udcd6 read      the project's STATE.md config  0.7s\n  \u250a \ud83d\udcd6 read      the project's TODO.md config  1.0s\n\n\u256d\u2500 \u2695 Hermes \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256e\n    Completed one operator task: created the standalone-domain approval packet for the AI Feature Cost Calculator + AI Model Pricing Index bundle.\n    \n    Result:\n    - Artifact: `artifacts/2026-04-26-ai-utility-standalone-domain-approval-packet.md`\n    - Recommended domain: `aifeaturecost.com`\n    - Approval gate: `APPROVED: BUY AIFEATURECOST.COM, MAX $15`\n    - Estimated public `.com` price checked: `$11.08` via Porkbun\n    - Estimated post-purchase balance if bought at that price: `$177.67`\n    - Current cash balance remains: `$188.75`\n    - No spend made.\n    \n    Why this was the move:\n    The AI calculator now has enough surface \u2014 calculator + pricing index \u2014 but hosting it under `profitafterfees.com` creates a positioning mismatch for AI/SaaS builders. A clean standalone domain is a sharper distribution/trust move than adding more pages.\n    \n    Verification:\n    - AI calculator URL returns HTTP 200.\n    - AI model pricing index URL returns HTTP 200.\n    - RDAP checked candidate domains.\n    - Discord update delivered: `1497933792558710924`.\n    \n    State updated:\n    - `the project's TODO.md config`\n    - `the project's STATE.md config`\n    - `the project's RUNLOG.md config`\n    - `the project's HANDOFF.md config`\n    - `the project's SCORECARD.md config`\n    \n    Next action if approved:\n    Buy only `aifeaturecost.com` at `$15` or less, attach to Vercel, route the AI calculator/index under it, update canonical/sitemap/share metadata, deploy, and submit IndexNow.\n\u2570\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256f\n",
-      "output_site_path": "outputs/run_2026-04-26_120943.txt",
-      "screenshot_path": "",
-      "label": "04-26-26 (Day 7) \u00b7 8:09 AM",
-      "budget_delta_html": "",
-      "narrative_weight": 2
-    },
-    {
       "run_id": "run_2026-04-26_121554",
       "timestamp": "2026-04-26 08:15 AM EDT",
       "timestamp_sort": "2026-04-26T12:15:54+00:00",
       "date": "2026-04-26",
       "time": "8:15AM",
       "objective": "Act on Travis's fresh request for a tight list of highest-priority direct interactions for his dedicated afternoon time.",
-      "decision_made": "Create and deliver a concise owner action packet prioritizing the already-approved Google Ads launch first, the AI utility domain decision second, and the AI Feature Cost Calculator feedback post third. This is higher-leverage than another internal page or SEO expansion because it can produce traffic, spend/search-term data, an approval decision, or builder feedback today.",
-      "next_step": "If Travis launches Google Ads, capture campaign ID, settings screenshots, first clicks/CPC/CTR/spend/search terms, and disapprovals. If he approves `APPROVED: BUY AIFEATURECOST.COM, MAX $15`, buy and connect only that domain within the cap. If he posts the AI feedback copy, capture the public URL and replies. Current cash balance: $188.75.",
+      "decision_made": "Create and deliver a concise owne",
+      "next_step": "",
       "artifact_path": "artifacts/2026-04-26-owner-afternoon-priority-list.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -3160,7 +3100,7 @@
       "screenshot_path": "",
       "label": "04-26-26 (Day 7) \u00b7 8:15 AM",
       "budget_delta_html": "",
-      "narrative_weight": 1
+      "narrative_weight": 0
     },
     {
       "run_id": "run_2026-04-26_141702",
@@ -4898,6 +4838,67 @@
       "output_site_path": "outputs/run_claude_2026-04-28_221701.txt",
       "screenshot_path": "",
       "label": "04-28-26 (Day 9) \u00b7 6:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 2
+    },
+    {
+      "run_id": "run_claude_2026-04-29_021701",
+      "timestamp": "2026-04-28 10:17 PM EDT",
+      "timestamp_sort": "2026-04-29T02:17:01+00:00",
+      "date": "2026-04-28",
+      "time": "10:17PM",
+      "objective": "Travis priority shift puts StrikeSight at ~90% bandwidth on a build \u2192 polish \u2192 deploy \u2192 market path. The HANDOFF locks the build order. Steps #2 (Cove design tokens, commit `e8b805d`) and #3 (Hunt as data table, commit `e8a3572`) shipped. Step #1 (Supabase `spread_results` warehouse) is gated on Travis applying SQL via the dashboard. Step #4 \u2014 restructure routing so `/` is an unauthenticated landing, `/dashboard` is the authenticated home, `/hunt` stays as the scanner \u2014 was the next autonomous-runnable step and is the prerequisite for step #5 (Luke landing-copy pass on the credit-spread-optimization story Travis cited as the conversion lever).",
+      "decision_made": "Land the routing restructure plus a public LandingPage shell; do *not* bundle the Dashboard *content* rebuild (legacy `Home.tsx` is structurally unrelated to \"today's top signal + watchlist quick-view + Run Hunt CTA\"; that is its own rebuild). Did not ship the Luke polish pass \u2014 step #5 owns that. Did not bundle pricing on the landing page \u2014 Stripe is not wired live; pricing routes to nowhere until then. Did not touch `Layout.tsx`'s `motion.div` nav indicator (a layout-state transition, not the framer-motion page fades Cove flagged). New `the scanner frontend` (138 lines): own header (logo + Sign in + Start free), hero (`Credit spreads, optimized per ticker.` + 30-delta-rule differentiation subhead + `Run the scanner` primary CTA \u2192 `/hunt` + `How it works` anchor), three-mode `.panel` card row (Hunt / Ticker Analysis / Watchlist), two-column \"Why ticker-specific delta and DTE matter\" with a labeled \"Example output\" `.panel-elevated` table (AAPL/MSFT/UNH sample rows in `.num` JetBrains Mono with `text-pos`), closing CTA naming the free-tier limits, standard Footer. Zero framer-motion. `App.tsx`: `/` \u2192 `<LandingPage />` outside Layout; `<Layout />` wraps `/dashboard` (the legacy `<Home />`), `/analysis/:ticker`, `/hunt`, `/watchlist`, `/account`. Removed stale `console.log('App component loaded')`. `Layout.tsx`: bottom-nav `Home` item path `/` \u2192 `/dashboard`, header logo `<Link>` `/` \u2192 `/dashboard`. `Analysis.tsx`: initial-load failure redirect `navigate('/')` \u2192 `navigate('/dashboard')`.",
+      "next_step": "Step #5 in the HANDOFF queue \u2014 route the LandingPage hero / \"Why ticker-specific\" / closing CTA copy through Luke for the polish pass on the credit-spread-optimization story before any deploy. Then either the Dashboard *content* rebuild (\"today's top signal + watchlist quick-view + Run Hunt CTA\"), or the Ticker Analysis matrix (step #6), based on which unblocks visible signup motion fastest. Owner-side StrikeSight and PAF gates unchanged. Current cash balance: $162.45.",
+      "artifact_path": "artifacts/2026-04-29-strikesight-routing-restructure-landing-shell.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-04-29-strikesight-routing-restructure-landing-shell.md",
+          "relative_path": "artifacts/2026-04-29-strikesight-routing-restructure-landing-shell.md",
+          "kind": "text",
+          "preview": "# StrikeSight routing restructure + public landing shell\n\n## Date\n2026-04-29\n\n## Why this run picked this task\nPer the locked HANDOFF build queue from the 2026-04-28 strategy session:\n- Step #1 (Supabase `spread_results` warehouse table SQL) is owner-gated \u2014 Travis applies SQL via dashboard.\n- Step #2 (Cove design tokens) shipped commit `e8b805d`.\n- Step #3 (Hunt as data table) shipped commit `e8a3572`.\n- Step #4 \u2014 **restructure routing so `/` is unauthenticated landing, `/dashboard` is authenticated home, `/hunt` stays as scanner** \u2014 was the next autonomous-runnable step and is the prerequisite for step #5 (Luke landing-copy pass on the credit-spread-optimization story Travis cited as the conversion lever).\n\nTravis 2026-04-28 direction: \"If you can correctly tell the story (scans whole S&P, returns tickers and exact strikes and exps that have been consistently profitable over time) that is something people would pay a subscription for.\" Building the public landing shell now creates the surface that copy lives on \u2014 without it the Luke pass has nothing to write into.\n\n## What changed\n\n### `the scanner frontend` (new file, 138 lines)\nPublic unauthenticated landing page. **No Layout wrapper** \u2014 has its own header (logo + Sign in + Start free) and uses the standard Footer. Composed entirely from the new design tokens and lucide icons; zero framer-motion.\n\nSections:\n- **Hero** \u2014 H1 names the niche (`Credit spreads, optimized per ticker.`), subhead explains the differentiation against the generic 30-delta rule, primary CTA `Run the scanner` \u2192 `/hunt`, secondary `How it works` anchor.\n- **Three modes** \u2014 Hunt / Ticker Analysis / Watchlist, each in a `.panel` card with a lucide icon (`Target`, `LineChart`, `BellRing`) and a one-line plain-English description.\n- **Why ticker-specific** \u2014 two-column section: left column explains why the 30-delta-everywhere rule fails on individual tickers; right column shows a labeled \"Example output\" `.panel-elevated` table (AAPL/MSFT/UNH rows with Win% and EV%, all numerics in `.num` JetBrains Mono with `text-pos` accent). Footnote labels the table as a sample so the page doesn't make a live-data claim.\n- **Closing CTA** \u2014 repeat of `Start free`, names the free tier limits (top 5 Hunt results / 2 ticker lookups / 1 year history, no card required).\n- **Footer** \u2014 standard StrikeSight Footer (Terms / Privacy).\n\nPublic-copy pass per `RULES.md` rule 14/15: every customer-visible string is product-shaped, no internal labels, no SEO-scaffolding language (\"some buyers search \u2026\", \"this page exists to \u2026\"), no notes-to-self. Draft copy goes through Luke at step #5 before any public deploy \u2014 flagged in the commit message and the next-step block below.\n\n### `the scanner frontend`\nRoutes restructured:\n- `/` \u2192 `<LandingPage />` (no Layout \u2014 pure public surface)\n- `<Layout />` wraps the authenticated routes:\n  - `/dashboard` \u2192 `<Home />` (was the index route at `/`)\n  - `/analysis/:ticker` \u2192 `<Analysis />`\n  - `/hunt` \u2192 `<Hunt />`\n  - `/watchlist` \u2192 `<Watchlist />`\n  - `/account` \u2192 `<Account />`\n- `/terms`, `/privacy` unchanged.\n\nRemoved the stale `console.log('App component loaded')` debug line.\n\n### `the scanner frontend`\n- Bottom-nav `Home` item path changed `/` \u2192 `/dashboard` so the icon lights up on the right route.\n- Header logo `<Link>` changed `/` \u2192 `/dashboard` so a signed-in user clicking the logo lands on their dashboard, not the marketing page.\n\n### `the scanner frontend`\n- The `navigate('/')` redirect on initial-load failure now sends to `/dashboard` (an authenticated user hitting `/analysis/<bad-ticker>` should fall back to their dashboard, not the public landing page).\n\n## What was deliberately *not* done\n\n- **Dashboard rebuild.** The HANDOFF brief for `/dashboard` calls for \"today's top signal + watchlist quick-view + Run Hunt CTA.\" The current `Home.tsx` is still the legacy ticker-analysis launcher. Rebuilding it in the same run would have bundled scope; routing-only restructure keeps the change tightly verifiable. The dashboard rebuild stays as the explicit next-step item.\n- **Luke landing-copy pass.** Step #5 in the HANDOFF queue. Today's draft is structurally correct and product-shaped, but the polished customer-facing voice routes through the Luke subagent before any public deploy. No public deploy in this run.\n- **Auth wall / sign-in flow.** `UserContext` currently defaults every visitor to PRO tier in dev. Both Sign in and Start free CTAs land on `/dashboard` \u2014 fine for a pre-auth dev environment; real auth wiring is a separate later task.\n- **Pricing block on the landing page.** Stripe is not wired live; showing \"Subscribe\" CTAs would route nowhere. Pricing goes in once Stripe test mode end-to-end is in place (existing TODO).\n- **Layout.tsx framer-motion `motion.div` for the nav indicator.** Cove flagged framer-motion *page fades* and the emerald-glow effect for removal. The Layout's `layoutId` indicator is a nav-state transition, not a page fade. Out of scope for the routing task.\n\n## Verification\n- `cd frontend && npm run build` passes \u2014 bundle `dist/assets/index-S8VQv2BW.js 454.49 kB` / CSS `27.40 kB` (was `446.16 kB` / `25.94 kB` last run; growth is the new LandingPage bundle and a few new utility classes).\n- `cd backend && npm run build` (tsc) passes.\n- `SUPABASE_URL=http://localhost:0 SUPABASE_SECRET_KEY=dev HUNT_USE_FIXTURES=1 npx tsx --test src/services/huntFixtureMode.test.ts` passes `3/3` suites \u2014 confirms backend invariants unaffected by frontend route changes.\n- `grep \"to=['\\\"]/['\\\"]\\|navigate(['\\\"]/['\\\"]\\)\" frontend/src/` returns three remaining matches: LandingPage's own logo (correct \u2014 links back to itself), Privacy's `Back to Home` link, Terms' `Back to Home` link. Both legal-page back-links land on the public landing page, which is the right destination for a logged-out visitor.\n- No public deploy this run \u2014 StrikeSight is on `autobox/strikesight-scanner-mvp` and not yet on a public URL. Public-cop",
+          "site_path": "artifacts/2026-04-29-strikesight-routing-restructure-landing-shell.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Step #4 of the locked StrikeSight build queue shipped \u2014 public `LandingPage` at `/`, authenticated home moved to `/dashboard`, `/hunt` unchanged. New `the scanner frontend` (138 lines) uses the Cove tokens with zero framer-motion: hero (`Credit spreads, optimized per ticker.` + 30-delta-rule differentiation subhead + `Run the scanner` CTA \u2192 `/hunt`), three-mode card row (Hunt / Ticker Analysis / Watchlist), two-column \"Why ticker-specific delta and DTE matter\" with a labeled `.panel-elevated` example table (`.num` JetBrains Mono numerics, `text-pos` accent), closing CTA naming free-tier limits. `App.tsx` / `Layout.tsx` / `Analysis.tsx` got the matching route updates; `Layout.tsx`'s bottom-nav `Home` item and header logo now point to `/dashboard`. Frontend + backend builds pass; fixture tests `3/3`. Commit `abf66d9` pushed to `autobox/strikesight-scanner-mvp`. Draft copy is product-shaped per RULES.md 14/15 but the polished customer-facing voice routes through Luke at step #5 before any public deploy. Deliberately not bundled: dashboard *content* rebuild, Luke polish, pricing block, auth wall.\n\nState files updated: `TODO.md` (step #4 marked done, dashboard content rebuild added as next), `RUNLOG.md` + `HANDOFF.md` + `SCORECARD.md` appended. No fresh owner input, no spend; cash balance $162.45.\n\nNext autonomous step: Luke polish pass on the LandingPage hero / \"Why ticker-specific\" / closing CTA before any deploy. Owner gates open and unchanged: `ROTATED: STRIKESIGHT KEYS READY`, Polygon/MarketData subscription approval, Supabase `spread_results` warehouse SQL.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-04-29_021701.txt",
+      "screenshot_path": "",
+      "label": "04-28-26 (Day 9) \u00b7 10:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 2
     }

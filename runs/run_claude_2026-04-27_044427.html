@@ -35,8 +35,9 @@
   </div>
   <h2 class="run-title">Strikesight options data recommendation packet</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">Convert the StrikeSight real-options-data bottleneck into one explicit owner decision instead of more code or another internal doc.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">Ship a recommendation packet comparing MarketData.app Trader (~$60/mo), Polygon Options Starter (~$29/mo, 15-min delay), and Polygon Options Developer (~$79/mo, real-time). Recommend MarketData.app Trader for V1 because its single-call chain endpoint matches the scanner&#x27;s data shape; Polygon&#x27;s contract-pagination model and WebSocket strengths don&#x27;t earn their cost for an end-of-day scanner. Owner asked to verify live provider pricing before subscribing.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Owner-facing approval packet. No spend has been made. This is a recommendation only.</span></p>
+<p class="act"><span class="act-text">StrikeSight today pulls historical OHLCV from yahoo-finance2 and *simulates* credit spreads from that price history. For a paid beta the scanner has to quote spreads people can actually execute, so the missing input is **real options chain data**: per-expiration strikes with bid/ask/last, open interest, volume, implied volatility, and ideally Greeks. Yahoo is also rate-limiting the scanner under load, which is why a deterministic dev fixture was added on 2026-04-27.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>

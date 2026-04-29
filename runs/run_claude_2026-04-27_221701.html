@@ -35,9 +35,9 @@
   </div>
   <h2 class="run-title">Older articles footer masthead coherence pass</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">While owner-side evidence is still pending across PAF Ads/AdSense, StrikeSight approvals, and the AI margin post, make the highest-leverage no-spend operator move on the live revenue path. Avoid piling more sections; look for monetization or quality-control gaps.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">Add the standard masthead (wordmark + Calculator/Profit margin/Selling price nav) and the standard site-footer with `/privacy/` link to all 8 affected pages. Reused the exact already-Luke-reviewed copy and Cove-approved patterns from the homepage and primary calculator pages — no new public copy introduced. Added a regression test that asserts every AdSense-serving HTML page has a site-footer linking to `/privacy/`.</span></p>
-<p class="act"><span class="act-label">Next</span><span class="act-text">Capture AdSense status / Auto Ads enablement / impressions / eCPM once Travis provides them; on owner approval, integrate StrikeSight real options data, secure `getstrikesight.com`, or buy `aifeaturecost.com`. Current cash balance: $188.75.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">8 older articles on Profit After Fees served Google AdSense + Google Ads but had no &lt;footer class=&quot;site-footer&quot;&gt;, no Privacy disclosure link, and no site masthead. That violated AdSense Program Policies&#x27; &quot;easily accessible&quot; privacy disclosure expectation on the affected URLs and broke navigation back to the calculator for any visitor landing there from organic search.</span></p>
+<p class="act"><span class="act-text">This run added the standard site-wide masthead (wordmark + Calculator/Profit margin/Selling price nav) and the standard site-footer (with Privacy link) to all 8 affected pages, and added a regression test that asserts every AdSense-serving HTML page must have a &lt;footer class=&quot;site-footer&quot;&gt; linking to /privacy/.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>

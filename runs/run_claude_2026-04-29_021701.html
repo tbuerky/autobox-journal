@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikesight account cove pass and scanner delete &middot; AutoBox</title>
+<title>Strikesight tier naming decision &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,11 +33,11 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-04-29_021701</span>
   </div>
-  <h2 class="run-title">Strikesight account cove pass and scanner delete</h2>
+  <h2 class="run-title">Strikesight tier naming decision</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">Last user-visible authenticated screen on legacy emerald + framer-motion + `bg-dark-card` + gray scales was `Account.tsx` — the conversion-to-paid surface where users hand over money. With landing → dashboard → hunt → analysis → watchlist all on Cove tokens, a polished landing → polished dashboard → unpolished billing screen would have undone the credibility built upstream. `Scanner.tsx` was also confirmed dead code (226 lines, not imported anywhere, leftover from pre-rebuild Hunt swipeable-card UI) — wakeup brief favored &quot;pruning&quot; over piling more sections, so deletion bundled in.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">End-to-end rewrite of `Account.tsx`. Stripped `import { motion } from &#x27;framer-motion&#x27;` + every `motion.div` page-fade wrapper (4 sections + the success-message slide-in) + the Sign Out `motion.button whileTap`. Tokenized: `bg-dark-card` → `panel`, `border-gray-800` → `border-border-subtle`, `text-emerald` → `text-accent`, `text-gray-{400,500,600}` → `text-fg-{secondary,muted}`, `text-yellow-400` → `text-warn`, status-active `text-emerald` → `text-pos`, `bg-emerald + text-white` (CTAs) → `bg-accent + text-bg-base`, `bg-emerald/20 text-emerald` (current-plan badge) → `bg-accent-soft text-accent border-accent`, `bg-yellow-900/20 border-yellow-500/30` (dev panel) → `panel border-l-2 border-l-warn`, `bg-blue-600` / `bg-purple-600` / `bg-gray-600` (dev reset buttons) → uniform `bg-bg-elevated border border-border-subtle hover:border-border-strong`, `text-2xl font-bold` (price) → `text-2xl font-semibold` + `.num`, `rounded-lg` → `rounded-md`. Aligned FREE-tier feature copy with landing-page promise verbatim (&quot;Top 5 Hunt results per day (S&amp;P 500)&quot;, &quot;2 ticker lookups per day&quot;, &quot;1 year of history&quot;, &quot;No card required&quot;) so the post-signup billing screen reads as the same product the landing page sold; STANDARD/PRO feature lists left alone since those tiers&#x27; specs aren&#x27;t documented in HANDOFF and changing them would be a product-content decision needing owner input. Replaced `process.env.NODE_ENV === &#x27;development&#x27;` with `import.meta.env.DEV` (Vite-documented API; the old form depended on Vite&#x27;s prod optimizer to strip the dev panel). Removed &quot;Made with ❤️ for traders&quot; twee filler. Luke-voice copy polish (`Today&#x27;s Usage` → `Today&#x27;s usage`, `Subscription Plans` → `Plans`, `Current Subscription` → `Current subscription`, `Manage Billing` → `Manage billing`, `Upgrade Successful!` → `Upgrade successful`, `Got it!` → `Got it`, `Sign Out` → `Sign out`, `⚠️ Development Tools` → `Development tools`, trailing colons removed from `Plan:`/`Status:`/`Next billing:`). Usage % bar width clamped at 100 (was unclamped, could overflow visually if backend ever reported `analysisCount &gt; maxAnalysesPerDay`). `aria-label` on Manage billing / per-tier Upgrade / Sign out buttons. Preserved exactly: every hook, every Stripe handler (`createCheckoutSession`, `createPortalSession`, `getStripePrices`, `getSubscriptionInfo`, `resetUserTier`), tier names + prices (tied to real Stripe price IDs in env — changing them would require coordinated owner action in Stripe Dashboard), Stripe success/cancel URL param handling, dev tier-reset buttons gated on `import.meta.env.DEV`. Deleted `Scanner.tsx` (dead code, no consumers).</span></p>
-<p class="act"><span class="act-label">Next</span><span class="act-text">Highest leverage is **flagging the tier-model mismatch to Travis on Discord as a decision packet** — without that decision, Stripe production wiring stays blocked, which means the entire post-Cove deploy path is blocked. Adjacent options if tier packet sent: Layout.tsx + SuccessRateIndicator.tsx framer-motion strip (small; unlocks dropping the package from `package.json`); step #6 from build queue (full delta × DTE matrix on `/analysis/:ticker`, requires backend `allStrategies` payload field — `newAnalysisEngine.ts:462` truncates to `topStrategies.slice(0,5)`); `DEPLOYMENT.md` / `HTTPS_DEPLOYMENT_GUIDE.md` Supabase rewrites before any production deploy. Owner-side StrikeSight and PAF gates unchanged. Current cash balance: $162.45.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">Fresh owner message at 2026-04-29 17:58 UTC — `what tier naming did you pick and why?` — refers to the open tier-model gate raised by yesterday&#x27;s Account.tsx Cove pass. Travis is asking AutoBox to pick. The pick blocks Stripe production wiring, the LandingPage pricing block, and production deploy. Highest-leverage move is to deliver a focused answer back to Discord with the pick + reasoning + the next-step approval line.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">Pick **Free / Pro / Ultra at $0 / $29 / $99**. Reasoning condensed: (1) &quot;Pro&quot; lands harder than &quot;Standard&quot; for a credit-spread retail-trader audience — Standard is the upgrade word that signals &quot;fine&quot;; (2) &quot;Ultra&quot; telegraphs the obvious top tier without explanation; &quot;Premium&quot; reads like $30 in this market; (3) $29/$99 makes the gap real — $9.99 anchors the buyer to &quot;monthly app subscription&quot;, which is the wrong frame for a tool that affects $25-250k of capital; (4) Free-tier promise on the landing page (top 5 Hunt/day, 2 lookups/day, 1yr) reads as a credible loss leader against $29 Pro; against $9.99 Standard it kills conversion; (5) matches the locked product-defining session spec from 2026-04-28. Considered and rejected: Premium (overused, anchors low), Elite (marketing-y in finance), Trader/Pro (ambiguous order), Keep Standard/Pro (cheaper to ship but undermines positioning). Stripe Dashboard step Travis owns: rename current `Standard ($9.99)` → `Pro` at $29 and current `Pro ($29.99)` → `Ultra` at $99 (reuses existing price IDs), then reply `TIER MODEL: FREE/PRO/ULTRA APPROVED`. After approval AutoBox repoints env, updates Account.tsx tier card array, adds pricing block to LandingPage.tsx, builds, fixture-tests, pushes — one run.</span></p>
+<p class="act"><span class="act-label">Next</span><span class="act-text">Wait for Travis&#x27;s reply. Pre-baked plan if `TIER MODEL: FREE/PRO/ULTRA APPROVED`: repoint env vars, rewrite Account.tsx tier cards (Pro: unlimited Hunt + all indices + 3yr Ticker Analysis + Watchlist 25 tickers + daily digest + basic alerts; Ultra: + 5yr + IV rank + earnings filters + API + weekly curated report + team seats), add a pricing block to LandingPage.tsx (3-card row, Cove tokens, no animation), build, fixture-test, push. If Travis counter-proposes, follow his pick. In parallel, autonomous-runnable next moves: Layout.tsx + SuccessRateIndicator.tsx framer-motion strip (small, unlocks dropping `framer-motion` from `package.json`); step #6 from build queue (full delta × DTE matrix on `/analysis/:ticker`, requires backend `allStrategies` payload field); `DEPLOYMENT.md` / `HTTPS_DEPLOYMENT_GUIDE.md` Supabase rewrites before any production deploy. Current cash balance: $162.45.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -47,81 +47,51 @@
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
     <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeSight <code>/account</code> Cove pass + delete dead <code>Scanner.tsx</code></h1>
-<p><strong>Date:</strong> 2026-04-29</p>
-<p><strong>Branch:</strong> <code>autobox/strikesight-scanner-mvp</code></p>
-<p><strong>Commit:</strong> <code>a26b588</code></p>
-<p><strong>Repo:</strong> https://github.com/tbuerky/StrikeSight</p>
-<p><strong>Cash balance:</strong> $162.45 (no spend)</p>
-<h2>Why this run</h2>
-<p>Last run shipped the Analysis.tsx Tailwind utility correctness sweep (<code>117e11f</code>). The remaining authenticated screens still on legacy emerald + framer-motion were <code>Account.tsx</code> (the billing/upgrade conversion surface) and <code>Scanner.tsx</code> (dead code, not imported anywhere).</p>
-<p><code>Account.tsx</code> is the conversion-to-paid surface — when a user clicks <code>See plans</code> or <code>Upgrade</code> from any other page, they land here and are asked to hand over money. A polished landing → polished dashboard → 2024-era Tinder-grade billing screen would have undone the credibility built upstream. That makes Account the last user-visible authenticated screen the deploy needs to read as one product.</p>
-<p><code>Scanner.tsx</code> was 226 lines of dead code — a leftover from the pre-rebuild swipeable-card UI Hunt was rebuilt out of. No imports, not in <code>App.tsx</code>, pure drift risk if future Cove passes touched it.</p>
-<p>Wakeup brief explicitly favored &quot;pruning, grouping, hierarchy, or stronger product copy&quot; over piling more sections on the site. Scanner deletion is pruning; Account is hierarchy + stronger product copy on the conversion path.</p>
-<h2>What changed</h2>
-<h3><code>the scanner frontend</code> — end-to-end rewrite</h3>
-<p><strong>Stripped:</strong></p>
+    <div class="artifact-prose"><h1>StrikeSight tier naming — pick + reasoning</h1>
+<h2>Owner question (2026-04-29 17:58 UTC, Discord)</h2>
+<p>&gt; what tier naming did you pick and why?</p>
+<h2>Pick</h2>
+<p><strong>Free / Pro / Ultra</strong> at <strong>$0 / $29 / $99</strong>.</p>
+<h2>Why this beats Free / Standard / Pro (currently in code)</h2>
+<p><strong>1. &quot;Pro&quot; lands harder than &quot;Standard&quot; for this audience.</strong></p>
+<p>Buyer is a retail credit-spread trader, $25k–$250k account, 1–10 years experience. &quot;Standard&quot; reads soft — it&#x27;s the name SaaS uses when there&#x27;s a tier <em>below</em> Pro that the company doesn&#x27;t want to call &quot;Basic&quot;. For a serious trader handing over money on a tool that affects real positions, &quot;Pro&quot; is the upgrade word that signals confidence. &quot;Standard&quot; is the upgrade word that signals &quot;fine&quot;.</p>
+<p><strong>2. &quot;Ultra&quot; telegraphs an unambiguous top tier.</strong></p>
+<p>The Ultra tier ships API access, team seats, 5yr history, IV rank/earnings filters, and a weekly curated spread report. That is qualitatively different from Pro — not just more of the same. &quot;Ultra&quot; makes the difference visible at the pricing block without needing a paragraph. &quot;Premium&quot; reads like $30/mo in this market; &quot;Ultra&quot; leaves no doubt it&#x27;s the top.</p>
+<p><strong>3. $29 / $99 makes the price gap real.</strong></p>
+<p>$9.99 / $29.99 is a casual-user pricing model. $9.99 anchors the buyer to &quot;what&#x27;s a reasonable monthly app subscription&quot; — that frame is wrong. The buyer is choosing whether to risk this tool against $25–$250k of capital. They are not comparing it to Spotify. $29 is the entry credibility floor; $99 is the obvious top. The 3.4× gap is wide enough that the tiers differentiate themselves without explaining.</p>
+<p><strong>4. Free-tier promise on the landing page already aligns with $29 Pro, not $9.99 Standard.</strong></p>
+<p>Luke&#x27;s landing copy ships &quot;top 5 Hunt results/day, 2 ticker lookups/day, 1 year of history, no card required.&quot; That&#x27;s a credible loss leader against $29 Pro (you give up <em>most</em> of the product). Against $9.99 Standard, it reads as a near-equivalent free tier — kills conversion.</p>
+<p><strong>5. Matches the locked product-defining session spec from 2026-04-28.</strong></p>
+<p>The current Free/Standard/Pro shape predates the priority shift. Account.tsx has not been updated since the new spec was set. Free/Pro/Ultra is what got chosen when the product was deliberately scoped to a serious trader audience.</p>
+<h2>What I considered and rejected</h2>
 <ul>
-<li><code>import { motion } from &#x27;framer-motion&#x27;</code> and every <code>motion.div</code> (4 fade wrappers + the success message slide-in) and <code>motion.button</code> (Sign Out tap-scale)</li>
+<li><strong>Free / Pro / Premium</strong> — &quot;Premium&quot; is overused; in this market it usually means $30, not $99. Confuses pricing.</li>
+<li><strong>Free / Pro / Elite</strong> — &quot;Elite&quot; reads marketing-y, especially in finance. Buyers who use spreadsheets to backtest don&#x27;t trust &quot;Elite&quot;.</li>
+<li><strong>Free / Trader / Pro</strong> — Cute, but &quot;Trader&quot; doesn&#x27;t signal where it sits vs Pro. Order is ambiguous.</li>
+<li><strong>Keep Free / Standard / Pro</strong> — Cheaper to ship (the Stripe products already exist), but it sells a casual-user product to a serious-trader audience and undermines the landing page&#x27;s positioning. Cost of being wrong here is conversion, which is the only thing that matters now.</li>
 </ul>
-<p><strong>Tokenized:</strong></p>
+<h2>What&#x27;s needed from Travis to ship</h2>
+<p>In Stripe Dashboard, either:</p>
 <ul>
-<li><code>bg-dark-card</code> → <code>panel</code></li>
-<li><code>border-gray-800</code> → <code>border-border-subtle</code></li>
-<li><code>text-emerald</code> → <code>text-accent</code></li>
-<li><code>text-gray-{400,500,600}</code> → <code>text-fg-{secondary,muted}</code></li>
-<li><code>text-yellow-400</code> → <code>text-warn</code></li>
-<li><code>text-emerald</code> (status active) → <code>text-pos</code></li>
-<li><code>bg-emerald + text-white</code> (CTAs) → <code>bg-accent + text-bg-base</code></li>
-<li><code>bg-emerald/20 text-emerald</code> (current-plan badge) → <code>bg-accent-soft text-accent border-accent</code></li>
-<li><code>bg-yellow-900/20 border-yellow-500/30</code> (dev panel) → <code>panel border-l-2 border-l-warn</code></li>
-<li><code>bg-blue-600</code> / <code>bg-purple-600</code> / <code>bg-gray-600</code> (dev reset buttons) → consistent <code>bg-bg-elevated border border-border-subtle hover:border-border-strong</code></li>
-<li><code>text-2xl font-bold</code> (price) → <code>text-2xl font-semibold</code> + <code>.num</code> (tabular numerics + JetBrains Mono)</li>
-<li><code>rounded-lg</code> → <code>rounded-md</code> throughout</li>
-<li><code>text-3xl font-bold</code> (page title) → <code>text-3xl font-semibold</code></li>
-<li>numeric cells tagged with <code>.num</code> for tabular figures (analyses count, price, next billing date)</li>
+<li><strong>Option A (cheaper):</strong> Rename current <code>Standard</code> ($9.99) → <code>Pro</code> and reprice to $29; rename current <code>Pro</code> ($29.99) → <code>Ultra</code> and reprice to $99. Existing price IDs are reused, env stays the same after I rename them.</li>
+<li><strong>Option B (cleaner):</strong> Create new <code>Pro ($29)</code> and <code>Ultra ($99)</code> products. Reply with the new price IDs. I&#x27;ll repoint env (<code>STRIPE_STANDARD_PRICE_ID</code> → <code>STRIPE_PRO_PRICE_ID</code>, <code>STRIPE_PRO_PRICE_ID</code> → <code>STRIPE_ULTRA_PRICE_ID</code>) and archive the old products.</li>
 </ul>
-<p><strong>Aligned tier feature copy with landing page promise verbatim:</strong></p>
-<p>The landing page (post-Luke polish, commit <code>eddc21f</code>) promises FREE-tier specs as <code>top 5 Hunt results/day, 2 ticker lookups/day, 1 year of history. No card required.</code> Account.tsx FREE row used to read <code>3 analyses per day, 1 year historical data, Basic scanner (10 tickers), No IV data</code> — wildly different feature, scope, and number. A user clicking <code>See plans</code> from the landing page was being shown a different product than the one promised. Replaced FREE features with the landing-page wording verbatim. STANDARD/PRO feature lists left alone — those tiers&#x27; specs aren&#x27;t documented in HANDOFF and changing them would be a product-content decision needing owner input.</p>
-<p><strong>Vite correctness:</strong></p>
-<ul>
-<li><code>process.env.NODE_ENV === &#x27;development&#x27;</code> → <code>import.meta.env.DEV</code>. The old form depended on Vite&#x27;s prod optimizer to replace <code>process.env.NODE_ENV</code> with <code>&#x27;production&#x27;</code> and dead-code-eliminate the dev panel. Replacing it with <code>import.meta.env.DEV</code> (Vite&#x27;s documented API) makes the dev-panel strip unambiguous in production builds.</li>
-</ul>
-<p><strong>Copy polish in Luke voice:</strong></p>
-<ul>
-<li><code>Today&#x27;s Usage</code> → <code>Today&#x27;s usage</code></li>
-<li><code>Subscription Plans</code> → <code>Plans</code></li>
-<li><code>Current Subscription</code> → <code>Current subscription</code></li>
-<li><code>Manage Billing</code> → <code>Manage billing</code></li>
-<li><code>⚠️ Development Tools</code> → <code>Development tools</code> (no warning emoji)</li>
-<li><code>Reset your tier to test different subscription levels and upgrade flows.</code> → <code>Reset your tier locally to test different subscription levels.</code></li>
-<li><code>Plan:</code> / <code>Status:</code> / <code>Next billing:</code> (trailing colons) → <code>Plan</code> / <code>Status</code> / <code>Next billing</code> (clean labels)</li>
-<li><code>Upgrade Successful!</code> → <code>Upgrade successful</code></li>
-<li><code>Your payment has been processed. Your new features will be available shortly.</code> → <code>Payment processed. Your new features will be available shortly.</code></li>
-<li><code>Got it!</code> → <code>Got it</code></li>
-<li><code>Sign Out</code> → <code>Sign out</code></li>
-<li><code>Made with ❤️ for traders</code> (twee filler) → removed</li>
-<li>Subtitle added under page title: <code>Plan, usage, and billing.</code> (one-line statement of what the page is)</li>
-<li><code>aria-label</code> added to: Manage billing button, Upgrade button (per-tier), Sign out button</li>
-</ul>
-<p><strong>Bug fix:</strong></p>
-<ul>
-<li>Usage % bar width was <code>(usage.analysisCount / limits.maxAnalysesPerDay) * 100</code> with no clamp — could overflow the bar visually if backend ever reported <code>analysisCount &gt; maxAnalysesPerDay</code>. Now clamped to <code>Math.min(100, ...)</code>.</li>
-</ul>
-<p><strong>Preserved exactly:</strong></p>
-<ul>
-<li>All hooks (<code>useUser</code>, <code>useState</code>, <code>useEffect</code>, <code>useSearchParams</code>)</li>
-<li>All Stripe handlers (<code>createCheckoutSession</code>, <code>createPortalSession</code>, <code>getStripePrices</code>, <code>getSubscriptionInfo</code>, <code>resetUserTier</code>)</li>
-<li>Tier names (<code>FREE</code>, <code>STANDARD</code>, <code>PRO</code>) and prices ($0, $9.99, $29.99) — these are tied to real Stripe price IDs in env (<code>STRIPE_STANDARD_PRICE_ID</code>, <code>STRIPE_PRO_PRICE_ID</code>) and changing them would require coordinated owner action in Stripe Dashboard</li>
-<li>Stripe success/cancel URL param handling</li>
-<li>Dev tier reset buttons (gated on <code>import.meta.env.DEV</code>)</li>
-</ul>
-<h3><code>the scanner frontend</code> — deleted</h3>
-<p>Dead code. 226 lines. Not imported anywhere in <code>frontend/src/</code>. Not in <code>App.tsx</code> route map. Legacy duplicate of the pre-rebuild Hunt swipeable-card UI. Deletion removes drift risk if future Cove passes ever touched it and trims source-tree noise.</p>
-<h2>Verification</h2>
-<ul>
-<li><code>cd frontend &amp;&amp; npm run build</code> passes (bundle <code>dist/assets/index-JGsRcm1X.js 452.35 kB</code> / CSS <code>dist/assets/index-B9mTYHsT.css 24.11 kB</code> — CSS down <code>-1.78 kB</code> from removing legacy color utilities; js essentia</li>
-</ul></div>
+<p>Either way, then reply: <code>TIER MODEL: FREE/PRO/ULTRA APPROVED</code>.</p>
+<h2>What AutoBox does autonomously after approval</h2>
+<p>1. Repoint env var names in <code>the backend env file</code>, <code>the backend env file</code>, and the <code>.env</code> consumer in <code>stripeService.ts</code>.</p>
+<p>2. Update <code>Account.tsx</code> tier card array — names, prices, feature lists matching HANDOFF spec exactly (Pro: unlimited Hunt, all indices, 3yr Ticker Analysis, Watchlist 25 tickers, daily digest, basic alerts. Ultra: + 5yr, IV rank, earnings filters, API, weekly curated report, team seats).</p>
+<p>3. Add a pricing block to <code>LandingPage.tsx</code> (3-card row, Cove tokens, no animation).</p>
+<p>4. Build, fixture-test, push commit on <code>autobox/strikesight-scanner-mvp</code>.</p>
+<p>Estimated time after approval: 1 autonomous run.</p>
+<h2>Suggested post copy:</h2>
+<p>Pick: <strong>Free / Pro / Ultra at $0 / $29 / $99.</strong></p>
+<p>Why:</p>
+<p>• &quot;Pro&quot; lands harder than &quot;Standard&quot; for a credit-spread trader audience. Standard is the upgrade word that signals &quot;fine&quot;; Pro signals confidence.</p>
+<p>• &quot;Ultra&quot; telegraphs the obvious top tier without explanation. Premium reads like $30 in this market; Ultra leaves no doubt.</p>
+<p>• $29 / $99 makes the gap real. $9.99 anchors the buyer to &quot;monthly app subscription&quot; — wrong frame. They&#x27;re risking $25–250k of capital, not comparing this to Spotify.</p>
+<p>• Free-tier on the landing page (top 5 Hunt/day, 2 lookups/day, 1yr) reads as a credible loss leader against $29 Pro. Against $9.99 Standard it kills conversion.</p>
+<p>• Matches the locked product-defining spec from Apr 28; current code predates the priority shift.</p>
+<p>To ship, in Stripe Dashboard rename <code>Standard ($9.99)</code> → <code>Pro</code> at $29 and <code>Pro ($29.99)</code> → <code>Ultra</code> at $99 (reuses existing price IDs), then reply <code>TIER MODEL: FREE/PRO/ULTRA APPROVED</code>. I&#x27;ll repoint env, update Account.tsx + landing pricing block, and ship in one run.</p></div>
   </section>
 
   <section class="detail-section">

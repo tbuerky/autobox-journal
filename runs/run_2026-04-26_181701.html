@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Google ads tag install &middot; AutoBox</title>
+<title>AI calculator x publication blocker &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,11 +33,11 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">2026-04-26_181701</span>
   </div>
-  <h2 class="run-title">Google ads tag install</h2>
+  <h2 class="run-title">AI calculator x publication blocker</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">Install the Google Ads tracking tag for the direct Profit After Fees Google Ads account.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">Add the tag across all writable static HTML pages and deploy immediately so Google Ads can verify tracking while Travis finishes campaign setup.</span></p>
-<p class="act"><span class="act-label">Next</span><span class="act-text">Finish campaign setup, launch at `$10/day`, and capture campaign enabled status, first impressions/clicks, CPC, CTR, spend, search terms, and any disapproval messages. Current cash balance: $188.75.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Try the highest-leverage non-build move available from the sandbox: publish the already Luke-reviewed AI Feature Cost Calculator feedback post from the approved project X lane, or prove why AutoBox still cannot do it directly.</span></p>
+<p class="act"><span class="act-text">The AI Feature Cost Calculator and AI Model Pricing Index are live and have polished share metadata. More internal site work is now lower leverage than getting the calculator in front of AI/SaaS builders who can click it, use it, or correct the model.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -46,44 +46,50 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <div class="artifact-prose"><h1>Google Ads tag installation</h1>
-<h2>Context</h2>
-<p>Travis created the direct Google Ads account for Profit After Fees and supplied the Google Ads tracking tag:</p>
-<pre><code>&lt;!-- Google tag (gtag.js) --&gt;
-&lt;script async src=&quot;https://www.googletagmanager.com/gtag/js?id=AW-18121518600&quot;&gt;&lt;/script&gt;
-&lt;script&gt;
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag(&#x27;js&#x27;, new Date());
-
-  gtag(&#x27;config&#x27;, &#x27;AW-18121518600&#x27;);
-&lt;/script&gt;
-</code></pre>
-<p>He also noted Google Ads allowed <code>$10/day</code> but did not provide a total campaign cap, so the campaign must be manually stopped before or at <code>$50</code> spend.</p>
-<h2>What changed</h2>
-<p>Inserted the Google Ads tag immediately after the opening <code>&lt;head&gt;</code> tag on every writable HTML page in the Profit After Fees static site tree.</p>
-<p>Added regression coverage in <code>tests/content.test.js</code> to verify:</p>
+    <div class="artifact-prose"><h1>AI Feature Cost Calculator X publication attempt blocker</h1>
+<h2>Objective</h2>
+<p>Try the highest-leverage non-build move available from the sandbox: publish the already Luke-reviewed AI Feature Cost Calculator feedback post from the approved project X lane, or prove why AutoBox still cannot do it directly.</p>
+<h2>Why this was the right next move</h2>
+<p>The AI Feature Cost Calculator and AI Model Pricing Index are live and have polished share metadata. More internal site work is now lower leverage than getting the calculator in front of AI/SaaS builders who can click it, use it, or correct the model.</p>
+<p>Existing public copy was already reviewed in <code>artifacts/2026-04-26-ai-feature-cost-calculator-distribution-packet.md</code>, so the next operator move was execution, not another copy packet.</p>
+<h2>Attempted action</h2>
+<p>1. Loaded the <code>xurl</code> social-media workflow skill.</p>
+<p>2. Verified the existing suggested X post copy from the distribution packet.</p>
+<p>3. Checked whether the X CLI was available with <code>xurl --help</code> and <code>xurl auth status</code>.</p>
+<p>4. Tried to install the official <code>xurl</code> CLI using the documented installer so the post could be attempted from the sandbox.</p>
+<h2>Evidence</h2>
 <ul>
-<li>every scanned HTML page contains the Google Ads tag exactly once inside <code>&lt;head&gt;</code></li>
-<li>every scanned HTML page contains the tag exactly once on the page</li>
-<li>the tag appears immediately after <code>&lt;head&gt;</code> as requested</li>
+<li><code>xurl --help</code> failed with: <code>xurl: command not found</code>.</li>
+<li>The install attempt was blocked by the execution environment with: <code>BLOCKED: User denied. Do NOT retry.</code></li>
+<li>No X post was made.</li>
+<li>No credentials, token files, or private X config were read.</li>
+<li>No money was spent.</li>
 </ul>
-<p><code>break-even-price-calculator.bak/index.html</code> remains excluded because it is a root-owned backup file and not an active sitemap URL.</p>
-<h2>Verification</h2>
+<h2>Blocker</h2>
+<p>AutoBox cannot publish the AI calculator feedback post through X from this sandbox right now because the official X CLI is missing and the install step was denied.</p>
+<h2>Suggested post copy:</h2>
+<p>Free calculator to sanity-check AI feature margins before token costs surprise you.</p>
+<p>Enter model rates, tokens, usage, and price. See cost per user, gross margin, break-even, and target-margin price.</p>
+<p>https://profitafterfees.com/ai-feature-cost-calculator/</p>
+<h2>Required owner action</h2>
+<p>Publish the copy above manually from the preferred public X/LinkedIn account, then send back:</p>
 <ul>
-<li>RED check: <code>node --test tests/content.test.js</code> failed before implementation because the Google Ads tag was missing.</li>
-<li>Focused content tests after implementation: <code>node --test tests/content.test.js</code> passed <code>83/83</code>.</li>
-<li>Full suite: <code>node --test tests/*.test.js</code> passed <code>115/115</code>.</li>
-<li>Production deploy completed and re-aliased <code>https://profitafterfees.com</code>.</li>
-<li>Live verification checked the homepage plus all sitemap URLs: <code>22</code> URLs checked, no missing tags, no duplicate tags, no placement issues.</li>
+<li>public post URL,</li>
+<li>account/channel used,</li>
+<li>any clicks or impressions visible after posting,</li>
+<li>replies or concrete corrections from builders.</li>
 </ul>
-<h2>Production</h2>
-<p>Live site: https://profitafterfees.com/</p>
-<p>Vercel production deployment: https://stripe-profit-calculator-m60kea4ed-travis-4599s-projects.vercel.app</p>
-<p>Vercel inspect: https://vercel.com/travis-4599s-projects/stripe-profit-calculator/3g4Tkh8U9gFuDFmPwz9ZdKcZGzDb</p>
-<h2>Spend guardrail</h2>
-<p>Google Ads budget is <code>$10/day</code> with no platform-side total cap available in this setup. Manually pause/stop the campaign before or at <code>$50</code> total spend.</p>
-<p>No spend occurred inside the sandbox. Current cash balance remains <code>$188.75</code>.</p></div>
+<h2>What AutoBox should do immediately after that</h2>
+<p>Capture the public URL and first reactions. If at least one builder gives concrete feedback, ship the smallest calculator/model correction next. If there is no feedback, do not keep expanding pages blindly; use the already-prepared domain/Google Ads decisions or create a narrowly scoped direct-feedback approval packet.</p>
+<h2>Budget</h2>
+<p>No spend made. Current cash balance remains <code>$188.75</code>.</p>
+<h2>Owner delivery attempt</h2>
+<p>AutoBox also attempted to send a concise completion/update message through both configured Discord paths after creating this artifact:</p>
+<ul>
+<li>webhook path returned <code>HTTP 403: Forbidden</code>,</li>
+<li>bot channel/thread path returned <code>HTTP 403: Forbidden</code>.</li>
+</ul>
+<p>So the artifact/state files are the durable handoff for this run.</p></div>
   </section>
 
   <section class="detail-section">

@@ -89,13 +89,13 @@
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
     <pre class="output-pre" id="output">All state files updated. Final summary:
 
-**Shipped:** Customer-facing copy rewrite on three live AdSense-serving older articles (`stripe-fees-for-online-courses`, `stripe-fees-for-notion-templates`, `stripe-fees-for-micro-saas`) plus one stray sentence on `how-to-calculate-profit-margin-on-digital-products`. Removed the meta self-justification patterns (&quot;How to use this example&quot; H2, &quot;Why use a Stripe fees for X page instead of a generic fee calculator?&quot; FAQ H3, &quot;This page starts/opens/narrows...&quot; rhetoric) — direct RULES.md rule 14 violation that survived prior pruning passes.
+**Shipped:** Customer-facing copy rewrite on three live AdSense-serving older articles (`stripe-fees-for-online-courses`, `stripe-fees-for-notion-templates`, `stripe-fees-for-micro-saas`) plus one stray sentence on `how-to-calculate-profit-margin-on-digital-products`. Removed the meta self-justification patterns (&amp;quot;How to use this example&amp;quot; H2, &amp;quot;Why use a Stripe fees for X page instead of a generic fee calculator?&amp;quot; FAQ H3, &amp;quot;This page starts/opens/narrows...&amp;quot; rhetoric) — direct RULES.md rule 14 violation that survived prior pruning passes.
 
 **Why this run, not pruning or a new doc:** Wakeup brief explicitly favored stronger product copy / quality control over more pages or internal docs. The conversion-tracking fix earlier today restored the Smart Bidding signal; this run repaired what those bidding-corrected paid visitors actually read.
 
-**Process:** Routed customer-facing copy through Luke per RULES.md. Caught and corrected one factual issue in Luke&#x27;s draft — his specimen prices ($199/$19/$240) didn&#x27;t match the live preset deep-link values, so I substituted the real prices ($299/$49/$149) before applying so the copy and the calculator agree.
+**Process:** Routed customer-facing copy through Luke per RULES.md. Caught and corrected one factual issue in Luke&amp;#x27;s draft — his specimen prices ($199/$19/$240) didn&amp;#x27;t match the live preset deep-link values, so I substituted the real prices ($299/$49/$149) before applying so the copy and the calculator agree.
 
-**Verification:** Tests 108/108 (was 107 — net +1 from new regression). Deployed `dpl_FzW22kuG6qojqe8ZGTCTioLR5Zrc`, aliased apex+www. All four changed URLs `HTTP 200`; live grep showed zero occurrences of any of the three banned meta patterns and confirmed the new &quot;What a $X actually pays out&quot; H2 and &quot;Does this give me a different answer than a generic fee calculator?&quot; FAQ H3 on each page. IndexNow POST returned HTTP 200. No fresh owner input.
+**Verification:** Tests 108/108 (was 107 — net +1 from new regression). Deployed `dpl_FzW22kuG6qojqe8ZGTCTioLR5Zrc`, aliased apex+www. All four changed URLs `HTTP 200`; live grep showed zero occurrences of any of the three banned meta patterns and confirmed the new &amp;quot;What a $X actually pays out&amp;quot; H2 and &amp;quot;Does this give me a different answer than a generic fee calculator?&amp;quot; FAQ H3 on each page. IndexNow POST returned HTTP 200. No fresh owner input.
 
 **Budget:** No spend. Current cash balance: $188.75. AutoBox session-budget remaining: ~$0.86.
 

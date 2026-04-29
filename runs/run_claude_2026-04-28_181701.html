@@ -103,9 +103,9 @@
 
 **Shipped this run:** StrikeSight Xata SDK purge — repointed `index.ts` and 5 consumer services directly at `SupabaseDatabaseService.getInstance()`, added `getFromStorage`/`setInStorage`/`removeFromStorage` to the Supabase service (in-process Map; preserves exact prior behavior), deleted three legacy Xata files, dropped `@xata.io/client` from `backend/package.json`, replaced `XATA_*` keys with `SUPABASE_*` in `.env.example`, removed tracked `.xata/` codegen directories. Net diff `-541` lines.
 
-**Verification:** Root `npm run build` passes (backend tsc + frontend `tsc -b &amp;&amp; vite build`, frontend bundle 445.78 kB). Backend boots cleanly on port 3099 with **only** `SUPABASE_URL` + `SUPABASE_SECRET_KEY` set (no `XATA_*`, no other optional vars). Fixture tests pass `3/3`. Zero `xata` references remain in `backend/src/`. Commit `ffdc8ba` pushed to `autobox/strikesight-scanner-mvp`.
+**Verification:** Root `npm run build` passes (backend tsc + frontend `tsc -b &amp;amp;&amp;amp; vite build`, frontend bundle 445.78 kB). Backend boots cleanly on port 3099 with **only** `SUPABASE_URL` + `SUPABASE_SECRET_KEY` set (no `XATA_*`, no other optional vars). Fixture tests pass `3/3`. Zero `xata` references remain in `backend/src/`. Commit `ffdc8ba` pushed to `autobox/strikesight-scanner-mvp`.
 
-**Why this:** The HANDOFF explicitly listed this audit as the first follow-up after the Supabase migration and before production deploy. It&#x27;s pure cleanup with measurable surface-area reduction and unblocks the deploy README step that comes next.
+**Why this:** The HANDOFF explicitly listed this audit as the first follow-up after the Supabase migration and before production deploy. It&amp;#x27;s pure cleanup with measurable surface-area reduction and unblocks the deploy README step that comes next.
 
 **No new approval gate from this run.** Open owner-side gates unchanged: `ROTATED: STRIKESIGHT KEYS READY`, `APPROVED: SUBSCRIBE MARKETDATA.APP TRADER ...`, `APPROVED: BUY STRIKEREWIND.COM, MAX $15`. PAF-side: Smart Bidding strategy + spend against $50 stop-loss.
 

@@ -97,9 +97,9 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">Shipped a follow-up to today&#x27;s earlier conversion fix — covering every visible calculator engagement path, not just raw `&lt;input&gt;` events.
+    <pre class="output-pre" id="output">Shipped a follow-up to today&amp;#x27;s earlier conversion fix — covering every visible calculator engagement path, not just raw `&amp;lt;input&amp;gt;` events.
 
-**What was wrong:** The earlier-today fix wired `gtag(&#x27;event&#x27;, &#x27;conversion&#x27;, ...)` into `form.addEventListener(&#x27;input&#x27;, ...)`. But preset chip clicks set values programmatically via `field.value = String(...)` — programmatic assignments do NOT dispatch `input` events. So picking &quot;Cohort course&quot; / &quot;Annual SaaS plan&quot; / &quot;Template&quot; → fully rendered calculator result → no conversion recorded. Form submit (Recalculate) was also skipping the fire. Smart Bidding was still under-counting the cleanest, lowest-friction engagements on a campaign already spending real money.
+**What was wrong:** The earlier-today fix wired `gtag(&amp;#x27;event&amp;#x27;, &amp;#x27;conversion&amp;#x27;, ...)` into `form.addEventListener(&amp;#x27;input&amp;#x27;, ...)`. But preset chip clicks set values programmatically via `field.value = String(...)` — programmatic assignments do NOT dispatch `input` events. So picking &amp;quot;Cohort course&amp;quot; / &amp;quot;Annual SaaS plan&amp;quot; / &amp;quot;Template&amp;quot; → fully rendered calculator result → no conversion recorded. Form submit (Recalculate) was also skipping the fire. Smart Bidding was still under-counting the cleanest, lowest-friction engagements on a campaign already spending real money.
 
 **Fix:** Refactored `app/app.js` to a single `fireConversionOnce()` helper at module scope (early-returns if already fired or `window.gtag` is not a function), called from input + preset click + submit handlers. The `send_to` target now appears exactly once in `app.js`, inside the helper.
 

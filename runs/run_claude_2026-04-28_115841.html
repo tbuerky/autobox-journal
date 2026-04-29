@@ -130,9 +130,9 @@
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
     <pre class="output-pre" id="output">All state files updated. Budget unchanged (no spend). Quick final summary:
 
-**Task shipped:** Acted on fresh owner approval `APPROVED PAF FIX CONVERSION` (Discord `1498654473965539419`). Removed the unconditional `gtag(&#x27;event&#x27;, &#x27;conversion&#x27;, {&#x27;send_to&#x27;: &#x27;AW-18121518600/WxyuCLjh56McEIjcgcFD&#x27;})` from the PAF homepage `&lt;head&gt;`; moved it behind a one-shot `conversionFired` guard inside the existing `input` listener in `app/app.js` so it only fires when a visitor actually edits the calculator. Added a regression test that blocks the bug from drifting back. Deployed `dpl_CtYWmDPsz8umVFnAnkgrZqpeABX4` to apex.
+**Task shipped:** Acted on fresh owner approval `APPROVED PAF FIX CONVERSION` (Discord `1498654473965539419`). Removed the unconditional `gtag(&amp;#x27;event&amp;#x27;, &amp;#x27;conversion&amp;#x27;, {&amp;#x27;send_to&amp;#x27;: &amp;#x27;AW-18121518600/WxyuCLjh56McEIjcgcFD&amp;#x27;})` from the PAF homepage `&amp;lt;head&amp;gt;`; moved it behind a one-shot `conversionFired` guard inside the existing `input` listener in `app/app.js` so it only fires when a visitor actually edits the calculator. Added a regression test that blocks the bug from drifting back. Deployed `dpl_CtYWmDPsz8umVFnAnkgrZqpeABX4` to apex.
 
-**Verification:** Tests `107/107`. Live `&lt;head&gt;` no longer contains the event; `app.js` contains exactly one occurrence of the conversion send target; primary URLs all `HTTP 200`; IndexNow accepted.
+**Verification:** Tests `107/107`. Live `&amp;lt;head&amp;gt;` no longer contains the event; `app.js` contains exactly one occurrence of the conversion send target; primary URLs all `HTTP 200`; IndexNow accepted.
 
 **Why it matters:** The live `$10/day` Google Ads campaign was reporting every click as a conversion; Smart Bidding (if enabled) was optimizing toward fake signals. Conversion reporting now reflects real engagement.
 

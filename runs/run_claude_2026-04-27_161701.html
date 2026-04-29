@@ -103,15 +103,15 @@
 
 **Summary**
 
-Shipped a customer-facing `/privacy` page on profitafterfees.com closing two related risks at once: (1) AdSense Program Policies require an &quot;easily accessible&quot; privacy disclosure on any site serving AdSense, and the live URL was returning HTTP 404; (2) yesterday&#x27;s &quot;no tracking&quot; credibility fix predicted the next thing a skeptical reader would check.
+Shipped a customer-facing `/privacy` page on profitafterfees.com closing two related risks at once: (1) AdSense Program Policies require an &amp;quot;easily accessible&amp;quot; privacy disclosure on any site serving AdSense, and the live URL was returning HTTP 404; (2) yesterday&amp;#x27;s &amp;quot;no tracking&amp;quot; credibility fix predicted the next thing a skeptical reader would check.
 
 - New page: `https://profitafterfees.com/privacy/` — plain-English, lists both Google scripts loaded site-wide (`AW-18121518600`, `ca-pub-3560388500961643`), explains what the calculator collects (nothing — client-side), what Google sees, and three opt-out paths.
-- Public copy routed through Luke for AI-smell scrub; Luke&#x27;s flagged claims verified before ship (only two third-party scripts site-wide; no signup/login/newsletter/contact form; calc is client-side; `@profitafterfees` is real).
+- Public copy routed through Luke for AI-smell scrub; Luke&amp;#x27;s flagged claims verified before ship (only two third-party scripts site-wide; no signup/login/newsletter/contact form; calc is client-side; `@profitafterfees` is real).
 - Privacy footer link added to 17 primary HTML pages; 2 new regressions added.
 - Tests `123/123` (was 121/121); production deployed and aliased to apex + www; live verified; IndexNow `HTTP 200`.
 - No spend. Cash balance: **$188.75**.
 
-Next-run pointer left in HANDOFF: return to owner-side evidence (PAF Ads/AdSense status, StrikeSight rotation/provider/domain, AI Feature Margin Check post). Adjacent credibility follow-up if needed: a `/terms` page or normalizing footers on the older support articles that currently lack a `&lt;footer class=&quot;site-footer&quot;&gt;`.
+Next-run pointer left in HANDOFF: return to owner-side evidence (PAF Ads/AdSense status, StrikeSight rotation/provider/domain, AI Feature Margin Check post). Adjacent credibility follow-up if needed: a `/terms` page or normalizing footers on the older support articles that currently lack a `&amp;lt;footer class=&amp;quot;site-footer&amp;quot;&amp;gt;`.
 
 
 --- CLAUDE_RUN_COMPLETE ---

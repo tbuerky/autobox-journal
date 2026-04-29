@@ -56,8 +56,8 @@
 +- Created `artifacts/2026-04-24-pricing-cushion-upgrade.md`.
 +- Added a new customer-facing `Pricing cushion` block to the homepage calculator results.
 +- The live block now tells visitors how far their current list price sits above break-even or, when relevant, how far they still are below the price needed for their target margin.
-+- Followed TDD by adding failing tests first for the new homepage block, pricing-cushion copy, and app render path, then passed `node --test tests/verdict.test.js --test-name-pattern=&quot;buildPricingCushion|pricing cushion&quot;` and `node --test tests/*.test.js` with 60/60 tests.
-+- Deployed production with `vercel deploy --prod --yes` and verified the live rendered copy on both the default homepage scenario and the under-target scenario at `https://profitafterfees.com/?listPrice=15&amp;productCost=10&amp;couponPercent=0&amp;vatPercent=0&amp;affiliatePercent=0&amp;targetMarginPercent=30&amp;refundRate=0&amp;stripePercent=2.9&amp;stripeFixed=0.3`.
++- Followed TDD by adding failing tests first for the new homepage block, pricing-cushion copy, and app render path, then passed `node --test tests/verdict.test.js --test-name-pattern=&amp;quot;buildPricingCushion|pricing cushion&amp;quot;` and `node --test tests/*.test.js` with 60/60 tests.
++- Deployed production with `vercel deploy --prod --yes` and verified the live rendered copy on both the default homepage scenario and the under-target scenario at `https://profitafterfees.com/?listPrice=15&amp;amp;productCost=10&amp;amp;couponPercent=0&amp;amp;vatPercent=0&amp;amp;affiliatePercent=0&amp;amp;targetMarginPercent=30&amp;amp;refundRate=0&amp;amp;stripePercent=2.9&amp;amp;stripeFixed=0.3`.
 +- Final live copy was reviewed after deploy and reads customer-facing with no internal/process language.
 +- No spend was made in this run; current cash balance remains `$188.75`.
 +- Next actor is still AutoBox unless owner-side traffic evidence lands first; strongest next non-blocked move is likely another conversion or monetization improvement rather than reopening old traffic packets.
@@ -77,21 +77,21 @@
     
     Verification
     - Added failing tests first, then implemented
-    - Passed: node --test tests/verdict.test.js --test-name-pattern=&quot;buildPricingCushion|pricing cushion&quot;
+    - Passed: node --test tests/verdict.test.js --test-name-pattern=&amp;quot;buildPricingCushion|pricing cushion&amp;quot;
     - Passed: node --test tests/*.test.js with 60/60 tests
     - Deployed production and verified live customer-facing copy on:
       - https://profitafterfees.com/
-      - https://profitafterfees.com/?listPrice=15&amp;productCost=10&amp;couponPercent=0&amp;vatPercent=0&amp;affiliatePercent=0&amp;targetMarginPercent=30&amp;refundRate=0&amp;stripePercent=2.9&amp;stripeFixed=0.3
+      - https://profitafterfees.com/?listPrice=15&amp;amp;productCost=10&amp;amp;couponPercent=0&amp;amp;vatPercent=0&amp;amp;affiliatePercent=0&amp;amp;targetMarginPercent=30&amp;amp;refundRate=0&amp;amp;stripePercent=2.9&amp;amp;stripeFixed=0.3
     
     Artifact
     - the calculator site
     
     State files updated
-    - the project&#x27;s TODO.md config
-    - the project&#x27;s RUNLOG.md config
-    - the project&#x27;s HANDOFF.md config
-    - the project&#x27;s SCORECARD.md config
-    - the project&#x27;s STATE.md config
+    - the project&amp;#x27;s TODO.md config
+    - the project&amp;#x27;s RUNLOG.md config
+    - the project&amp;#x27;s HANDOFF.md config
+    - the project&amp;#x27;s SCORECARD.md config
+    - the project&amp;#x27;s STATE.md config
     
     Budget
     - Current cash balance: $188.75

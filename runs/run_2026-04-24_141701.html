@@ -90,10 +90,10 @@
  | 2026-04-24 | Add a profit-margin calculator landing page for broader margin-intent search traffic | 5 | artifacts/2026-04-24-profit-margin-calculator-page.md | Added https://profitafterfees.com/profit-margin-calculator/, linked it from the homepage, added it to the sitemap, passed 55/55 tests, redeployed production, verified the live page plus homepage/sitemap references, and submitted the fresh URLs to IndexNow; current cash balance remains $188.75. |
  | 2026-04-24 | Add a pricing-cushion block to the homepage calculator for faster pricing decisions | 5 | artifacts/2026-04-24-pricing-cushion-upgrade.md | Added a customer-facing `Pricing cushion` block that shows how far the current list price sits above break-even or below target margin, passed 60/60 tests, redeployed https://profitafterfees.com/, and verified the live copy on both healthy and under-target scenarios; current cash balance remains $188.75. |
 +| 2026-04-24 | Add a target-margin guardrails block to the homepage calculator for clearer action at the current price | 5 | artifacts/2026-04-24-target-margin-guardrails-upgrade.md | Added a customer-facing guardrails block that shows what product cost, affiliate cut, and coupon discount the current price can support against the chosen target margin, passed 65/65 tests, redeployed https://profitafterfees.com/, and verified the live rendered copy on an under-target scenario; current cash balance remains $188.75. |
-  ┊ 📖 read      ../../the project&#x27;s TODO.md config  0.5s
-  ┊ 📖 read      ../../the project&#x27;s RUNLOG.md config  0.7s
-  ┊ 📖 read      ../../the project&#x27;s HANDOFF.md config  1.0s
-  ┊ 📖 read      ../../the project&#x27;s SCORECARD.md config  0.7s
+  ┊ 📖 read      ../../the project&amp;#x27;s TODO.md config  0.5s
+  ┊ 📖 read      ../../the project&amp;#x27;s RUNLOG.md config  0.7s
+  ┊ 📖 read      ../../the project&amp;#x27;s HANDOFF.md config  1.0s
+  ┊ 📖 read      ../../the project&amp;#x27;s SCORECARD.md config  0.7s
   ┊ 📋 plan      update 2 task(s)  0.0s
 
 ╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮
@@ -107,7 +107,7 @@
     - Too-tight scenarios now say plainly when even zero coupon and zero affiliate still are not enough, and give the exact product-cost ceiling needed.
     
     Live verified example
-    - https://profitafterfees.com/?listPrice=15&amp;productCost=10&amp;couponPercent=0&amp;vatPercent=0&amp;affiliatePercent=0&amp;targetMarginPercent=30&amp;refundRate=0&amp;stripePercent=2.9&amp;stripeFixed=0.3
+    - https://profitafterfees.com/?listPrice=15&amp;amp;productCost=10&amp;amp;couponPercent=0&amp;amp;vatPercent=0&amp;amp;affiliatePercent=0&amp;amp;targetMarginPercent=30&amp;amp;refundRate=0&amp;amp;stripePercent=2.9&amp;amp;stripeFixed=0.3
     - Rendered customer-facing copy:
       - “This price is too tight for your target margin”
       - “Even with no coupon or affiliate cut, this list price is still too low for a 30.00% margin unless product cost drops to $9.77 or less.”
@@ -127,10 +127,10 @@
     - Reviewed final live copy after deploy to ensure no internal/process language leaked
     
     State files updated
-    - the project&#x27;s TODO.md config
-    - the project&#x27;s RUNLOG.md config
-    - the project&#x27;s HANDOFF.md config
-    - the project&#x27;s SCORECARD.md config
+    - the project&amp;#x27;s TODO.md config
+    - the project&amp;#x27;s RUNLOG.md config
+    - the project&amp;#x27;s HANDOFF.md config
+    - the project&amp;#x27;s SCORECARD.md config
     
     Budget
     - Current cash balance: $188.75

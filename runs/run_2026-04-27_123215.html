@@ -125,25 +125,25 @@
  
  Artifact: `artifacts/2026-04-27-run-journal-discord-stale-output-fix.md`.
  
-  ┊ 💻 $         python3 -m py_compile scripts/build_run_journal.py scripts/post_discord_bot_update.py &amp;&amp; python3 scripts/build_run_journal.py logs/run_2026-04-27_123215 &gt;/tmp/build_journal.out &amp;&amp; python3 - &lt;&lt;&#x27;PY&#x27;
+  ┊ 💻 $         python3 -m py_compile scripts/build_run_journal.py scripts/post_discord_bot_update.py &amp;amp;&amp;amp; python3 scripts/build_run_journal.py logs/run_2026-04-27_123215 &amp;gt;/tmp/build_journal.out &amp;amp;&amp;amp; python3 - &amp;lt;&amp;lt;&amp;#x27;PY&amp;#x27;
 import json
 from pathlib import Path
-r=json.loads(Path(&#x27;journal/site/data.json&#x27;).read_text())[&#x27;runs&#x27;][-1]
-assert r[&#x27;run_id&#x27;]==&#x27;run_2026-04-27_123215&#x27;, r[&#x27;run_id&#x27;]
-assert &#x27;stale&#x27; in r.get(&#x27;objective&#x27;,&#x27;&#x27;).lower(), r.get(&#x27;objective&#x27;)
-assert r.get(&#x27;artifact_path&#x27;)==&#x27;artifacts/2026-04-27-run-journal-discord-stale-output-fix.md&#x27;, r.get(&#x27;artifact_path&#x27;)
-print(&#x27;verified latest journal entry:&#x27;, r[&#x27;run_id&#x27;], r[&#x27;timestamp&#x27;])
-print(&#x27;last_sent_marker:&#x27;, Path(&#x27;journal/site/.last_discord_run_id&#x27;).read_text().strip())
+r=json.loads(Path(&amp;#x27;journal/site/data.json&amp;#x27;).read_text())[&amp;#x27;runs&amp;#x27;][-1]
+assert r[&amp;#x27;run_id&amp;#x27;]==&amp;#x27;run_2026-04-27_123215&amp;#x27;, r[&amp;#x27;run_id&amp;#x27;]
+assert &amp;#x27;stale&amp;#x27; in r.get(&amp;#x27;objective&amp;#x27;,&amp;#x27;&amp;#x27;).lower(), r.get(&amp;#x27;objective&amp;#x27;)
+assert r.get(&amp;#x27;artifact_path&amp;#x27;)==&amp;#x27;artifacts/2026-04-27-run-journal-discord-stale-output-fix.md&amp;#x27;, r.get(&amp;#x27;artifact_path&amp;#x27;)
+print(&amp;#x27;verified latest journal entry:&amp;#x27;, r[&amp;#x27;run_id&amp;#x27;], r[&amp;#x27;timestamp&amp;#x27;])
+print(&amp;#x27;last_sent_marker:&amp;#x27;, Path(&amp;#x27;journal/site/.last_discord_run_id&amp;#x27;).read_text().strip())
 PY  143.7s [error]
-  ┊ 💻 $         python3 -m py_compile scripts/build_run_journal.py scripts/post_discord_bot_update.py &amp;&amp; python3 scripts/build_run_journal.py logs/run_2026-04-27_123215 &gt;/tmp/build_journal.out &amp;&amp; python3 - &lt;&lt;&#x27;PY&#x27;
+  ┊ 💻 $         python3 -m py_compile scripts/build_run_journal.py scripts/post_discord_bot_update.py &amp;amp;&amp;amp; python3 scripts/build_run_journal.py logs/run_2026-04-27_123215 &amp;gt;/tmp/build_journal.out &amp;amp;&amp;amp; python3 - &amp;lt;&amp;lt;&amp;#x27;PY&amp;#x27;
 import json
 from pathlib import Path
-r=json.loads(Path(&#x27;journal/site/data.json&#x27;).read_text())[&#x27;runs&#x27;][-1]
-assert r[&#x27;run_id&#x27;]==&#x27;run_2026-04-27_123215&#x27;, r[&#x27;run_id&#x27;]
-assert &#x27;2:17 pm report&#x27; in r.get(&#x27;objective&#x27;,&#x27;&#x27;), r.get(&#x27;objective&#x27;)
-assert r.get(&#x27;artifact_path&#x27;)==&#x27;artifacts/2026-04-27-run-journal-discord-stale-output-fix.md&#x27;, r.get(&#x27;artifact_path&#x27;)
-print(&#x27;verified latest journal entry:&#x27;, r[&#x27;run_id&#x27;], r[&#x27;timestamp&#x27;])
-print(&#x27;last_sent_marker:&#x27;, Path(&#x27;journal/site/.last_discord_run_id&#x27;).read_text().strip())
+r=json.loads(Path(&amp;#x27;journal/site/data.json&amp;#x27;).read_text())[&amp;#x27;runs&amp;#x27;][-1]
+assert r[&amp;#x27;run_id&amp;#x27;]==&amp;#x27;run_2026-04-27_123215&amp;#x27;, r[&amp;#x27;run_id&amp;#x27;]
+assert &amp;#x27;2:17 pm report&amp;#x27; in r.get(&amp;#x27;objective&amp;#x27;,&amp;#x27;&amp;#x27;), r.get(&amp;#x27;objective&amp;#x27;)
+assert r.get(&amp;#x27;artifact_path&amp;#x27;)==&amp;#x27;artifacts/2026-04-27-run-journal-discord-stale-output-fix.md&amp;#x27;, r.get(&amp;#x27;artifact_path&amp;#x27;)
+print(&amp;#x27;verified latest journal entry:&amp;#x27;, r[&amp;#x27;run_id&amp;#x27;], r[&amp;#x27;timestamp&amp;#x27;])
+print(&amp;#x27;last_sent_marker:&amp;#x27;, Path(&amp;#x27;journal/site/.last_discord_run_id&amp;#x27;).read_text().strip())
 PY  148.5s
 
 ╭─ ⚕ Hermes ───────────────────────────────────────────────────────────────────╮

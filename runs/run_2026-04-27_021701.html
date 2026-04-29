@@ -51,7 +51,7 @@
     <pre class="output-pre" id="output"> Ads test with exact `ADS STATUS:` capture format, pause thresholds, and optimization rules; live homepage still returns 200 and includes `AW-18121518600`; Discord webhook delivery returned 204; no sandbox spend; current cash balance remains $188.75 until spend is reported. |
   ┊ 💻 $         git status --short  0.4s
   ┊ 💻 $         git status --short  0.4s [error]
-  ┊ 💻 $         npx tsx --test src/services/huntFixtureMode.test.ts &amp;&amp; npm run build  13.3s
+  ┊ 💻 $         npx tsx --test src/services/huntFixtureMode.test.ts &amp;amp;&amp;amp; npm run build  13.3s
   ┊ ⚡ skill_man strikesight-repo-stabilization  0.1s
   ┊ review diff
 a//home/autoproj/.hermes-autonomy-v2/skills/software-development/strikesight-repo-stabilization/SKILL.md → b//home/autoproj/.hermes-autonomy-v2/skills/software-development/strikesight-repo-stabilization/SKILL.md
@@ -61,7 +61,7 @@ a//home/autoproj/.hermes-autonomy-v2/skills/software-development/strikesight-rep
  - Do not over-invest in deployment before EV/data trust is resolved.
 -- Current scanner smoke caveat: `/api/hunt` can execute successfully but still return an empty array when Yahoo Finance responds with `Too Many Requests` during universe scans. Treat this as a data reliability blocker, not a build/startup blocker. Next stabilization should add a deterministic dev-safe fixture/mock smoke path while preserving the real Hunt flow.
 +- Current scanner smoke caveat: `/api/hunt` can execute successfully but still return an empty array when Yahoo Finance responds with `Too Many Requests` during universe scans. Treat this as a data reliability blocker, not a build/startup blocker.
-+- Deterministic Hunt smoke path now exists on branch `autobox/strikesight-scanner-mvp` at commit `1bfa37a`: set `NODE_ENV=development` or `test` plus `HUNT_USE_FIXTURES=true`/`1` to make `/api/hunt` return stable fixture opportunities while preserving the default real scanner path for production. Verify with `cd backend &amp;&amp; npx tsx --test src/services/huntFixtureMode.test.ts`, `npm run build`, and a local fixture-mode `/api/hunt` smoke expecting tickers like `MSFT`, `UNH`, `AAPL`.
++- Deterministic Hunt smoke path now exists on branch `autobox/strikesight-scanner-mvp` at commit `1bfa37a`: set `NODE_ENV=development` or `test` plus `HUNT_USE_FIXTURES=true`/`1` to make `/api/hunt` return stable fixture opportunities while preserving the default real scanner path for production. Verify with `cd backend &amp;amp;&amp;amp; npx tsx --test src/services/huntFixtureMode.test.ts`, `npm run build`, and a local fixture-mode `/api/hunt` smoke expecting tickers like `MSFT`, `UNH`, `AAPL`.
  
  ## Final response format after inspection
  
@@ -92,11 +92,11 @@ a//home/autoproj/.hermes-autonomy-v2/skills/software-development/strikesight-rep
     - `/home/autoproj/projects/StrikeSight/journal/site/artifacts/2026-04-27-strikesight-deterministic-hunt-fixture-smoke.md`
     
     State updated:
-    - `the project&#x27;s TODO.md config`
-    - `the project&#x27;s STATE.md config`
-    - `the project&#x27;s RUNLOG.md config`
-    - `the project&#x27;s HANDOFF.md config`
-    - `the project&#x27;s SCORECARD.md config`
+    - `the project&amp;#x27;s TODO.md config`
+    - `the project&amp;#x27;s STATE.md config`
+    - `the project&amp;#x27;s RUNLOG.md config`
+    - `the project&amp;#x27;s HANDOFF.md config`
+    - `the project&amp;#x27;s SCORECARD.md config`
     
     Budget:
     - No spend.

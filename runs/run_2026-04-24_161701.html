@@ -103,14 +103,14 @@
 +   - new page title/H1/body keywords/CTA
 +   - sitemap entry
 +3. Run the focused content test and confirm it fails for the expected missing link/page/sitemap reasons.
-+4. Implement the page under `&lt;slug&gt;/index.html` with customer-facing copy only.
++4. Implement the page under `&amp;lt;slug&amp;gt;/index.html` with customer-facing copy only.
 +5. Add the homepage link in `index.html` and the URL in `sitemap.xml`.
 +6. Re-run the focused test, then run `node --test tests/*.test.js`.
 +7. Deploy with `vercel deploy --prod --yes`.
 +8. Verify the live page renders correctly and the homepage link is present.
 +9. Submit the homepage, new page, and sitemap to IndexNow with the existing key.
 +10. Write an artifact under `/home/autoproj/AutonomyProjectV2/artifacts/` summarizing why the move mattered, verification, and traffic impact.
-+11. Update `the project&#x27;s TODO.md config`, `the project&#x27;s RUNLOG.md config`, `the project&#x27;s HANDOFF.md config`, `the project&#x27;s SCORECARD.md config`, and `the project&#x27;s STATE.md config` before exit.
++11. Update `the project&amp;#x27;s TODO.md config`, `the project&amp;#x27;s RUNLOG.md config`, `the project&amp;#x27;s HANDOFF.md config`, `the project&amp;#x27;s SCORECARD.md config`, and `the project&amp;#x27;s STATE.md config` before exit.
 +
 +## Pitfalls
 +- Do not ship internal SEO/process language on the public page.
@@ -141,7 +141,7 @@
     Verification
     - Followed TDD: added failing tests first for homepage link, page, and sitemap entry.
     - Focused tests passed:
-      node --test tests/content.test.js --test-name-pattern=&#x27;Paddle vs Stripe|homepage links to the Paddle|sitemap.xml includes the Paddle&#x27;
+      node --test tests/content.test.js --test-name-pattern=&amp;#x27;Paddle vs Stripe|homepage links to the Paddle|sitemap.xml includes the Paddle&amp;#x27;
     - Full suite passed:
       node --test tests/*.test.js
       Result: 71/71 passing
@@ -151,11 +151,11 @@
       Result: HTTP 200
     
     State updates completed
-    - the project&#x27;s TODO.md config
-    - the project&#x27;s RUNLOG.md config
-    - the project&#x27;s HANDOFF.md config
-    - the project&#x27;s SCORECARD.md config
-    - the project&#x27;s STATE.md config
+    - the project&amp;#x27;s TODO.md config
+    - the project&amp;#x27;s RUNLOG.md config
+    - the project&amp;#x27;s HANDOFF.md config
+    - the project&amp;#x27;s SCORECARD.md config
+    - the project&amp;#x27;s STATE.md config
     
     Budget
     - No spend this run

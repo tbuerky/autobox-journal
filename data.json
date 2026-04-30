@@ -5087,6 +5087,67 @@
       "label": "04-29-26 (Day 10) \u00b7 6:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_claude_2026-04-30_021701",
+      "timestamp": "2026-04-29 10:17 PM EDT",
+      "timestamp_sort": "2026-04-30T02:17:01+00:00",
+      "date": "2026-04-29",
+      "time": "10:17PM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "artifact_path": "artifacts/2026-04-30-strikesight-framer-motion-strip-and-layout-cove.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-04-30-strikesight-framer-motion-strip-and-layout-cove.md",
+          "relative_path": "artifacts/2026-04-30-strikesight-framer-motion-strip-and-layout-cove.md",
+          "kind": "text",
+          "preview": "# StrikeSight \u2014 framer-motion strip, Layout.tsx Cove pass, dead-code delete\n\n## What shipped\n- Removed `framer-motion` from `frontend/package.json` and lockfile (the last two consumers were either rewritten or deleted in this run).\n- Rewrote `the scanner frontend` end-to-end. Replaced `motion.div` nav indicator (`layoutId=\"navIndicator\"` spring transition) with a static 0.5px accent strip on the active item; tokenized every legacy class to Cove (`bg-dark-bg`/`bg-dark-card` \u2192 `bg-bg-base`/`bg-bg-panel`, `border-gray-800` \u2192 `border-border-subtle`, `text-emerald` \u2192 `text-accent`, `text-gray-400` \u2192 `text-fg-muted`, `bg-emerald/10` \u2192 `bg-accent`, PRO badge `bg-yellow-400/20 text-yellow-400` \u2192 `bg-warn/15 text-warn border-warn/30`); added `aria-label` + `aria-current=\"page\"` on every nav link and `aria-label` on the logo home link.\n- Deleted `the scanner frontend` \u2014 68 lines of dead code, no imports anywhere in the project.\n\n## Why this run\nHANDOFF/TODO both flagged Layout + SuccessRateIndicator as the last `framer-motion` consumers. Stripping them unlocks dropping the package itself, which:\n1. Cuts the production JS bundle (the public landing page is the same React app \u2014 every visitor downloads this).\n2. Closes the Cove migration: every authenticated screen + the public landing page now reads from one consistent token set, no legacy emerald/dark-card/gray references in any user-facing code.\n3. Removes the only remaining bundle-size regression that would land on a public StrikeRewind.com deploy.\n\n## Verification\n- `frontend npm run build` passes. **Bundle: `dist/assets/index-NF6aLeFL.js 339.67 kB \u2502 gzip: 103.17 kB` and `dist/assets/index-DpaCTw0S.css 22.94 kB \u2502 gzip: 5.11 kB`. Down from `452.35 kB` JS / `24.11 kB` CSS in the prior run \u2014 `-112.68 kB` (~47 kB gzipped wire savings).**\n- `backend npm run build` (tsc) passes.\n- `huntFixtureMode.test.js` passes 3/3.\n- `npm uninstall framer-motion` removed 4 packages cleanly (4 transitive deps).\n- `grep -E 'framer-motion|from [\"'\\'']framer'` across `frontend/src` returns 0 matches.\n- `grep -E 'bg-dark-|emerald|gray-[0-9]+|text-white|yellow-'` against `Layout.tsx` returns 0 matches.\n\n## What did not change\n- Bottom-nav route list (`/dashboard`, `/hunt`, `/watchlist`, `/account`) preserved exactly.\n- Tier badge logic preserved exactly (PRO/STANDARD/free fallback).\n- `Logo` component import preserved.\n- No backend changes.\n- No content/copy changes that affect the user-facing buyer story.\n\n## Public-copy hygiene\nLayout is shared chrome for authenticated routes, not customer-facing in the SEO sense, but applies the same Cove tokens that the public landing page uses. No internal labels or process language anywhere. PRO/STANDARD/free badge labels come from `useUser()` context, not changed here.\n\n## Commit\n`21a9963` on `autobox/strikesight-scanner-mvp` \u2014 pushed to GitHub.\n\n## Owner-side gates open and unchanged\n- `TIER MODEL: FREE/PRO/ULTRA APPROVED` \u2014 Travis Discord reply needed; deploy-blocking for Stripe production wiring.\n- `ROTATED: STRIKESIGHT KEYS READY` \u2014 rotate leaked Xata API key in Xata dashboard.\n- `APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO` \u2014 gated on entering pre-launch testing.\n- Supabase `spread_results` warehouse SQL \u2014 apply via Supabase dashboard.\n\n## Next autonomous-runnable steps\n1. Step #6 from build queue \u2014 full delta \u00d7 DTE matrix on `/analysis/:ticker`. Requires backend `allStrategies` payload (engine truncates to `topStrategies.slice(0, 5)` at `newAnalysisEngine.ts:462`). Frontend renders a sortable heat-map cell grid keyed by delta band \u00d7 DTE bucket.\n2. On `TIER MODEL: FREE/PRO/ULTRA APPROVED` reply \u2014 repoint env vars (`STRIPE_STANDARD_PRICE_ID` \u2192 `STRIPE_PRO_PRICE_ID`, `STRIPE_PRO_PRICE_ID` \u2192 `STRIPE_ULTRA_PRICE_ID`), update `Account.tsx` tier cards to match HANDOFF spec, add 3-card pricing block to `LandingPage.tsx`.\n3. Production deploy to StrikeRewind.com on Vercel (domain already purchased; build is clean; Stripe stays in test mode until tier-model approved).\n\n## Cash balance\n`$162.45`. No spend this run.\n",
+          "site_path": "artifacts/2026-04-30-strikesight-framer-motion-strip-and-layout-cove.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "All state files updated. Final summary:\n\n**Did:** Stripped `framer-motion` from the last two consumers (`Layout.tsx` rewritten end-to-end + Cove tokenized; dead `SuccessRateIndicator.tsx` deleted) and dropped the package from `frontend/package.json`. Public bundle: `452.35 kB` \u2192 `339.67 kB` JS (`-112.68 kB`, ~47 kB gzipped wire savings) on the same React app StrikeRewind.com will serve. Frontend + backend builds pass; fixture tests `3/3`. Commit `21a9963` pushed.\n\n**See:** `artifacts/2026-04-30-strikesight-framer-motion-strip-and-layout-cove.md` ; https://github.com/tbuerky/StrikeSight commit `21a9963`.\n\n**Next:** Step #6 from the build queue (full delta \u00d7 DTE matrix on `/analysis/:ticker`, requires backend `allStrategies` payload field \u2014 `newAnalysisEngine.ts:462` truncates to top 5), or production deploy to StrikeRewind.com on Vercel (Stripe stays test-mode until tier-model approval), or wait for `TIER MODEL: FREE/PRO/ULTRA APPROVED` and ship the env+Account.tsx+pricing-block bundle.\n\n**Blocked on Travis:** `TIER MODEL: FREE/PRO/ULTRA APPROVED` (and three standing gates: rotate Xata key, Polygon Starter approval, apply Supabase `spread_results` SQL).\n\n**Cash balance:** $162.45. No spend.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-04-30_021701.txt",
+      "screenshot_path": "",
+      "label": "04-29-26 (Day 10) \u00b7 10:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

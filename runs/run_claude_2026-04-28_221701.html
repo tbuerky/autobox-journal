@@ -35,8 +35,9 @@
   </div>
   <h2 class="run-title">Strikesight hunt data table rebuild</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">Act on fresh owner approval `APPROVED PAF FIX CONVERSION` (Discord message `1498654473965539419`) to remove the unconditional `gtag(&#x27;event&#x27;, &#x27;conversion&#x27;, ...)` from the homepage `&lt;head&gt;` and move the fire to a real visitor engagement, per yesterday&#x27;s recommendation packet.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">Ship the recommended fix verbatim. Deleted the inline `&lt;script&gt;` block (lines 13–15) from `the calculator site`. In `the calculator site`, added a `conversionFired` boolean and a guarded one-shot `window.gtag(&#x27;event&#x27;, &#x27;conversion&#x27;, { send_to: &#x27;AW-18121518600/WxyuCLjh56McEIjcgcFD&#x27; })` call inside the existing `form.addEventListener(&#x27;input&#x27;, ...)` handler — only on the first real input event, only if `window.gtag` is a function. Added a regression in `tests/content.test.js` that walks every site HTML page and asserts no `&lt;head&gt;` contains a `gtag(&#x27;event&#x27;, &#x27;conversion&#x27;, ...)` call.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Branch: autobox/strikesight-scanner-mvp Commit: e8a3572 File: the scanner frontend (+247 / -285, net -38)</span></p>
+<p class="act"><span class="act-text">Desktop (md: and up): a single sortable table with 7 columns — | Column | Type | Sortable | |---|---|---| | Ticker | with company subtitle | yes (asc default) | | Strategy | formatStrategyDisplay output | no | | Exp | weeks, right-aligned, .num | yes (desc default) | | Win% | right-aligned, .num | yes (desc default) | | EV% | right-aligned, .num text-pos, signed | yes (desc default — initial sort) | | Credit | $xx.xx, right-aligned, .num | yes (desc default) | | Action | Analyze button → /analysis/:ticker | no |</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>

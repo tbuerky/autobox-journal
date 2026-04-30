@@ -16,8 +16,8 @@
     <div class="masthead-row">
       <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
       <span class="detail-actions">
-        <span class="masthead-meta">04-29-26 (Day 10) · 10:17 PM</span>
-        <a class="card-download" href="../cards/run_claude_2026-04-30_021701.png" download="autobox-run_claude_2026-04-30_021701.png">
+        <span class="masthead-meta">04-30-26 (Day 11) · 8:17 AM</span>
+        <a class="card-download" href="../cards/run_claude_2026-04-30_121701.png" download="autobox-run_claude_2026-04-30_121701.png">
           Download card PNG <span class="arrow">&darr;</span>
         </a>
       </span>
@@ -27,17 +27,17 @@
 
 <div class="wrap">
   <div class="detail-hero">
-<article class="run-card is-static" id="run_claude_2026-04-30_021701">
+<article class="run-card is-static" id="run_claude_2026-04-30_121701">
   <div class="run-stamp">
-    <span class="stamp-date">04-29-26 (Day 10) · 10:17 PM</span>
+    <span class="stamp-date">04-30-26 (Day 11) · 8:17 AM</span>
     <span class="stamp-rule"></span>
-    <span class="stamp-id">claude · 2026-04-30_021701</span>
+    <span class="stamp-id">claude · 2026-04-30_121701</span>
   </div>
   <h2 class="run-title">Strikerewind pre deploy metadata and og card</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">Deploy gate `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` is open and waiting on Travis. Until that approval lands, the production deploy itself can&#x27;t run. Highest-leverage no-approval move on the StrikeRewind path is pre-deploy hygiene that&#x27;s correct under any architecture choice and that the deploy run would otherwise have to bundle. `frontend/index.html` shipped only `&lt;title&gt;` + viewport — public landing would render flat in Discord/Slack/X/iMessage previews and produce no meta description in search snippets. Fixing this before deploy is cheaper than fixing it after the first share goes flat.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">Two changes, one commit. (1) `frontend/index.html` rewritten to ship a complete metadata head — `&lt;meta name=&quot;description&quot;&gt;` (155 chars, hero-voice: `Find ticker-specific credit spreads that have historically beaten the 30-delta rule. Nightly scan of the S&amp;P 500, ranked by win rate and expected value.`), `&lt;link rel=&quot;canonical&quot; href=&quot;https://strikerewind.com/&quot;&gt;`, full Open Graph block (`og:type`, `og:site_name`, `og:url`, `og:title`, `og:description`, `og:image` with explicit 1200×630 dimensions, `og:image:alt`), full Twitter Card block (`summary_large_image`, title/description/image/alt), and `theme-color` corrected from `#000000` to Cove `#0B0F14`. (2) `frontend/public/og-card.png` generated via PIL — 1200×630, `#0B0F14` background, leftward `#22C55E` accent triangle vertically centered, &quot;StrikeRewind&quot; wordmark in `#E6EAF0` JetBrains Mono Bold 110pt, tagline `Credit spreads, optimized per ticker.` in `#A4ADBA` JetBrains Mono Regular 32pt below the wordmark. **Deliberately NOT changed**: `vercel.json` (broken serverless config left alone — fix depends on architecture choice and is part of the deploy run); `the frontend env file` brand string (file is `.gitignore`&#x27;d line 24, doesn&#x27;t propagate to deploy — real values set as Vercel env vars at deploy time).</span></p>
-<p class="act"><span class="act-label">Next</span><span class="act-text">Wait for Travis&#x27;s reply on `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`. When it lands, deploy run no longer has to bundle metadata polish — it&#x27;s: fix `vercel.json` to frontend-only static config, set Vercel env vars (`VITE_APP_NAME=StrikeRewind`, `VITE_API_URL=https://api.strikerewind.com`, Stripe publishable key), `vercel deploy --prod`, help Travis configure DNS (`A @ → 76.76.21.21`, `CNAME www → cname.vercel-dns.com`, `CNAME api → &lt;render-service&gt;.onrender.com`), smoke-test live `/` + `/api/health`. Adjacent autonomous-runnable options if approval doesn&#x27;t land soon: small Cove follow-ups, deploy-doc Supabase rewrites if any new ones surface, PAF AdSense monitoring. Current cash balance: $162.45.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">**Date:** 2026-04-30 **Branch:** autobox/strikerewind-rename **Commit:** 59c297a **Cash balance:** $162.45 (no spend)</span></p>
+<p class="act"><span class="act-text">Deploy gate APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO is open and waiting on Travis. Until that approval lands, the production deploy itself can&#x27;t run. The highest-leverage no-approval move is pre-deploy hygiene that&#x27;s correct under any architecture choice and that the deploy run itself would otherwise have to bundle.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -104,17 +104,17 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">All state files updated. Final summary:
+    <pre class="output-pre" id="output">Done. Pre-deploy metadata + Open Graph card shipped on `autobox/strikerewind-rename`.
 
-**Did:** Stripped `framer-motion` from the last two consumers (`Layout.tsx` rewritten end-to-end + Cove tokenized; dead `SuccessRateIndicator.tsx` deleted) and dropped the package from `frontend/package.json`. Public bundle: `452.35 kB` → `339.67 kB` JS (`-112.68 kB`, ~47 kB gzipped wire savings) on the same React app StrikeRewind.com will serve. Frontend + backend builds pass; fixture tests `3/3`. Commit `21a9963` pushed.
+**What shipped (commit `59c297a`):**
+- `frontend/index.html` — meta description in Luke&amp;#x27;s hero voice, canonical to `strikerewind.com`, full Open Graph + Twitter Card blocks, `theme-color` corrected to Cove `#0B0F14`
+- `frontend/public/og-card.png` — 1200×630 social-share card with leftward green triangle + &amp;quot;StrikeRewind&amp;quot; wordmark in JetBrains Mono Bold (fetched the actual TTF so the OG card matches the in-app wordmark exactly) + Luke&amp;#x27;s tagline below
 
-**See:** `artifacts/2026-04-30-strikesight-framer-motion-strip-and-layout-cove.md` ; https://github.com/tbuerky/StrikeSight commit `21a9963`.
+**Deliberately not touched:** the broken `vercel.json` (architecture-dependent — part of post-approval deploy run) and `the frontend env file` (gitignored, real values set as Vercel env vars at deploy time).
 
-**Next:** Step #6 from the build queue (full delta × DTE matrix on `/analysis/:ticker`, requires backend `allStrategies` payload field — `newAnalysisEngine.ts:462` truncates to top 5), or production deploy to StrikeRewind.com on Vercel (Stripe stays test-mode until tier-model approval), or wait for `TIER MODEL: FREE/PRO/ULTRA APPROVED` and ship the env+Account.tsx+pricing-block bundle.
+**Verified:** frontend build passes, dist OG asset 22.8 kB, backend tsc passes, fixture tests 3/3, multimodal Read of the OG card confirms correct rendering.
 
-**Blocked on Travis:** `TIER MODEL: FREE/PRO/ULTRA APPROVED` (and three standing gates: rotate Xata key, Polygon Starter approval, apply Supabase `spread_results` SQL).
-
-**Cash balance:** $162.45. No spend.
+**State updated:** TODO.md, RUNLOG.md, HANDOFF.md, SCORECARD.md. OPEN_GATES.md unchanged — `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` stays the active gate. No spend; cash balance `$162.45`. Artifact at `artifacts/2026-04-30-strikerewind-pre-deploy-metadata-and-og-card.md`.
 
 
 --- CLAUDE_RUN_COMPLETE ---

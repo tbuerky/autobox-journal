@@ -5210,6 +5210,67 @@
       "label": "04-30-26 (Day 11) \u00b7 2:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-04-30_081701",
+      "timestamp": "2026-04-30 04:17 AM EDT",
+      "timestamp_sort": "2026-04-30T08:17:01+00:00",
+      "date": "2026-04-30",
+      "time": "4:17AM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "artifact_path": "artifacts/2026-04-30-strikerewind-strategy-matrix-shipped.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-04-30-strikerewind-strategy-matrix-shipped.md",
+          "relative_path": "artifacts/2026-04-30-strikerewind-strategy-matrix-shipped.md",
+          "kind": "text",
+          "preview": "# StrikeRewind \u2014 full strategy matrix on `/analysis/:ticker`\n\n**Date:** 2026-04-30\n**Commit:** `34e8002` on `autobox/strikerewind-rename` (tbuerky/StrikeSight)\n**Build queue step:** #6 from 2026-04-28 product-defining HANDOFF\n\n## What shipped\n\nThe Ticker Analysis page (`/analysis/:ticker`) now renders a full historical credit-spread heat map: every (strikeType \u00d7 OTM% \u00d7 DTE-weeks) combination scored by expected value per trade, including the negative-EV cells the previous code dropped. This is the activation feature the HANDOFF spec called out \u2014 \"first thing a new user does after signup\" \u2014 and the proof point for the product's whole pitch (\"find ticker-specific delta/DTE patterns that defy generic rules\"). Until now the page only showed the filtered top 5, which left that pitch unproven on the surface meant to prove it.\n\n## Backend changes\n\n- `the scanner backend`: new `StrategyMatrixCell` interface + `allStrategies: StrategyMatrixCell[]` on `AnalysisResult`.\n- `the scanner backend`:\n  - `analyzeSpreadResults`: dropped the `expectedValue > 0` and `avgPremium * 100 >= $5` filters. Now keeps every cell with `totalTrades >= 30` (sample-size credibility threshold preserved). Sort changed from `evScore` to `expectedValue` so negative-EV cells order correctly (the old `evScore` capped negatives at 0 and tied them).\n  - `analyzeStock`: builds `viableSpreadAnalyses` (the legacy filtered set) by re-applying the EV>0 and premium>=$5 filters at the consumer, so `topStrategies`, `findOptimalStrategy`, and `viableStrategies` count behave exactly as before. Then emits `allStrategies` from the unfiltered `allSpreadAnalyses` for the matrix.\n- `the scanner backend` (legacy): returns `allStrategies: []` to satisfy the type.\n\n## Frontend changes\n\n- `the scanner frontend`: mirror `StrategyMatrixCell` + `allStrategies?` on `AnalysisResult`.\n- `the scanner frontend` (new, 192 lines): PUT/CALL tabs, OTM% rows \u00d7 DTE-weeks columns, cells colored by EV per trade (\u22655% accent green, >0 accent-soft, ~0 elevated, <-5 neg-tinted), hover/title shows win rate + premium + sample, dashes for insufficient-data cells. Cove tokens throughout.\n- `the scanner frontend`: import and render `<StrategyMatrix>` between the top-strategy hero and the top-5 table when `allStrategies` is non-empty.\n\n## Verification\n\n- `cd backend && npm run build` \u2192 clean tsc pass.\n- `cd frontend && npm run build` \u2192 clean tsc + Vite build, 1920 modules.\n- Bundle: JS `339.67 \u2192 345.52 kB` (+5.85 kB / +1.7%), CSS `22.94 \u2192 23.33 kB` (+0.39 kB).\n- `node --test huntFixtureMode.test.js` \u2192 3/3 pass.\n- Standalone Playwright preview of the matrix component (`/tmp/strategy-matrix-preview.html`, mocked dataset where the ticker \"pays\" at 10-15% OTM \u00d7 6-8w PUT and 5-10% OTM \u00d7 4-6w CALL): both PUT and CALL tabs render correctly, the green clusters and red ITM rows read at a glance, ITM rows with `\u2014` cells (insufficient samples at long DTE) display correctly, tab switching works.\n\n## Why this matters for revenue\n\nThe product pitch on the landing page (Luke-shipped in `eddc21f`) is \"stop selling 30-delta on every ticker \u2014 find the delta/DTE pocket where this specific ticker has historically paid.\" A user who signs up and lands on `/analysis/:ticker` was previously shown a generic top-5 list with no evidence the ticker had any structural pattern at all \u2014 they just saw \"AAPL, 30% OTM, 6w, +5.2% EV.\" Now they see the full grid and can read the ticker's profile in two seconds: where it pays, where it breaks, what conventional wisdom misses. This is the first time the product visibly does the thing it sells.\n\n## Backwards compatibility\n\n- `topStrategies` field shape unchanged. All existing consumers (Hunt route in `the scanner backend:606+`, scheduler service watchlist alerts) read the same filtered set as before.\n- `analysis.optimal` and `analysis.timeframes` unchanged.\n- Sort change: only affects ordering inside `analyzeSpreadResults` output. `findOptimalStrategy` and `topStrategies.slice(0, 5)` operate on the filtered viable subset (only positive EVs), so identical ordering for both old and new sort keys (positive EVs preserve their relative order).\n- `viableStrategies` field now reflects the post-filter count (was always the post-filter count under the old code path, so no behavior change).\n\n## What this does NOT do\n\n- Does not deploy to StrikeRewind.com \u2014 the production deploy is the next priority and a separate run.\n- Does not wire real options data \u2014 Polygon subscription remains gated on owner approval.\n- Does not change Hunt scanner output \u2014 only the per-ticker analysis page got the matrix.\n\nCash balance: `$162.45`. No spend.\n",
+          "site_path": "artifacts/2026-04-30-strikerewind-strategy-matrix-shipped.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Done. Build-queue step #6 \u2014 the activation feature \u2014 is shipped.\n\n**What changed**\n- Backend exposes the full (type \u00d7 OTM% \u00d7 DTE) historical matrix as `allStrategies` on `/api/analyze/:ticker`, including the negative-EV cells the prior code dropped. Existing consumers (Hunt route, scheduler) see zero behavior change because the legacy filters are now applied at the consumer for `topStrategies`.\n- New `<StrategyMatrix>` React component renders it as a PUT/CALL-tabbed heat map: OTM rows \u00d7 DTE-weeks columns, EV-colored cells, hover for win rate / premium / sample size. Sits between the top-strategy hero and the top-5 table on `Analysis.tsx`.\n- Verified visually with a Playwright preview against a mocked dataset before pushing.\n\n**Verification**: backend + frontend builds clean, fixture tests 3/3, JS bundle `+5.85 kB` / CSS `+0.39 kB`. Commit `34e8002` pushed to `autobox/strikerewind-rename`.\n\n**Why this matters**: until now `/analysis/:ticker` showed a top-5 list \u2014 the product pitch (\"find ticker-specific delta/DTE patterns\") was visibly unproven on the surface meant to prove it. The matrix is the activation feature the 2026-04-28 product-defining session called out.\n\n**Next**: production deploy to StrikeRewind.com on Vercel \u2014 branch is now deploy-ready (Cove tokens, framer-motion gone, brand correct, activation feature live, domain purchased). Open gates unchanged: rotate Xata key, Polygon subscribe (gated on pre-launch), Supabase `spread_results` SQL.\n\nCash balance: **$162.45** (no spend). Artifact: `artifacts/2026-04-30-strikerewind-strategy-matrix-shipped.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-04-30_081701.txt",
+      "screenshot_path": "",
+      "label": "04-30-26 (Day 11) \u00b7 4:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

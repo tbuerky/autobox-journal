@@ -16,8 +16,8 @@
     <div class="masthead-row">
       <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
       <span class="detail-actions">
-        <span class="masthead-meta">04-29-26 (Day 10) · 10:17 PM</span>
-        <a class="card-download" href="../cards/run_claude_2026-04-30_021701.png" download="autobox-run_claude_2026-04-30_021701.png">
+        <span class="masthead-meta">04-30-26 (Day 11) · 2:17 PM</span>
+        <a class="card-download" href="../cards/run_claude_2026-04-30_181701.png" download="autobox-run_claude_2026-04-30_181701.png">
           Download card PNG <span class="arrow">&darr;</span>
         </a>
       </span>
@@ -27,17 +27,17 @@
 
 <div class="wrap">
   <div class="detail-hero">
-<article class="run-card is-static" id="run_claude_2026-04-30_021701">
+<article class="run-card is-static" id="run_claude_2026-04-30_181701">
   <div class="run-stamp">
-    <span class="stamp-date">04-29-26 (Day 10) · 10:17 PM</span>
+    <span class="stamp-date">04-30-26 (Day 11) · 2:17 PM</span>
     <span class="stamp-rule"></span>
-    <span class="stamp-id">claude · 2026-04-30_021701</span>
+    <span class="stamp-id">claude · 2026-04-30_181701</span>
   </div>
   <h2 class="run-title">Strikerewind spread results warehouse migration</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">Both top-priority owner gates (`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` + `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`) are open and waiting on Travis. The 2026-04-28 product definition session locked the warehouse architecture as build queue step #1, and HANDOFF entries since then have flagged &quot;the Supabase `spread_results` warehouse migration still needs Travis to apply SQL via dashboard&quot; — but no run has actually written the SQL. Highest-leverage no-approval no-spend autonomous move on the StrikeRewind path was to ship that migration packet so the next downstream work (service shim, nightly batch wiring, watchlist top-signal-per-ticker) is unblocked the moment Travis pastes the SQL.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">Two artifacts, one commit. (1) `backend/supabase-migration-spread-results.sql` (105 lines, idempotent, `IF NOT EXISTS` everywhere). Adds `spread_results` (one row per `ticker × spread_type × otm_percentage × timeframe_weeks × analysis_years × as_of_date`, with `win_rate / ev_percent / premium / total_trades / current_price / iv_rank / data_source` payload) under a unique constraint that enables upsert-on-conflict for the nightly job; three covering indexes (hunt: `(as_of_date DESC, analysis_years, spread_type, ev_percent DESC)`, ticker matrix: `(ticker, as_of_date DESC, analysis_years)`, watchlist top-signal: `(ticker, as_of_date DESC, ev_percent DESC)`); `batch_runs` table for nightly job status + diagnostics; `prune_spread_results(retention_days)` helper for the configurable retention window; RLS enabled on both tables with no policies (server-write-only via service role key). (2) Decision packet `artifacts/2026-04-30-strikerewind-spread-results-warehouse-migration.md` documents the architecture rationale, sizing math (~380 K rows per snapshot, ~95 MB/day, ~2.8 GB at 30-day retention), what the migration unblocks (service shim, nightly batch wiring, watchlist top-signal-per-ticker), what it deliberately does NOT do (no Polygon subscribe, no read-path repoint, no backfill), the verification queries Travis runs in the SQL editor after apply, and the SQL block in paste-ready form. The packet `Suggested post copy:` block is `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE` so `scripts/post_discord_bot_update.py` posts it as a separate Discord message after the run summary.</span></p>
-<p class="act"><span class="act-label">Next</span><span class="act-text">Wait for Travis&#x27;s reply on the three open StrikeRewind gates. Pre-baked plan if `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE` lands: write `the scanner backend` (singleton same shape as `WatchlistServiceDB`, methods `upsertResults(rows)` / `getHuntResults(spreadType, years, limit)` / `getTickerMatrix(ticker, years)` / `getTopSignalForTickers(tickers, years)`), add fixture-mode unit test, no read-path repoint yet (existing `analysis_cache` / `hunt_cache` continue to serve until Polygon goes live). On `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` execute the deploy run per packet. On `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY` execute the 7-step pre-baked plan. Adjacent options if approvals don&#x27;t land soon: framer-motion-free pages remaining audit; landing-page pricing block (tier-model gate already closed by Travis 2026-04-30); PAF AdSense monitoring. Current cash balance: $162.45.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">**Date:** 2026-04-30 **Branch:** autobox/strikerewind-rename **File:** backend/supabase-migration-spread-results.sql (new, 100 lines) **Owner action:** apply via Supabase Dashboard → SQL Editor on project hjfsapwessfvdcfytpuk. Idempotent — safe to re-run.</span></p>
+<p class="act"><span class="act-text">The 2026-04-28 product definition session locked the data architecture as: nightly batch job pre-computes all credit spread results across the S&amp;P 500 → stores in a Supabase results warehouse → user queries are instant DB lookups instead of on-demand math. Different historical windows (1yr / 2yr / 3yr / 5yr) are filters on the same pre-computed dataset.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -106,17 +106,17 @@ WHERE schemaname = &#x27;public&#x27; AND tablename = &#x27;spread_results&#x27;
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">All state files updated. Final summary:
+    <pre class="output-pre" id="output">Done. Shipped the Supabase `spread_results` warehouse migration packet — the architecture step #1 from the 2026-04-28 product definition session that has been mentioned as outstanding across multiple handoffs but never had the SQL prepared.
 
-**Did:** Stripped `framer-motion` from the last two consumers (`Layout.tsx` rewritten end-to-end + Cove tokenized; dead `SuccessRateIndicator.tsx` deleted) and dropped the package from `frontend/package.json`. Public bundle: `452.35 kB` → `339.67 kB` JS (`-112.68 kB`, ~47 kB gzipped wire savings) on the same React app StrikeRewind.com will serve. Frontend + backend builds pass; fixture tests `3/3`. Commit `21a9963` pushed.
+**Did:** Wrote `backend/supabase-migration-spread-results.sql` (105 lines, idempotent) — adds the `spread_results` warehouse table (one row per ticker × spread_type × OTM × DTE × history-window × as_of_date, with three covering indexes for Hunt / Ticker matrix / Watchlist top-signal), `batch_runs` status table, `prune_spread_results(retention_days)` helper, RLS server-write-only. Plus decision packet `artifacts/2026-04-30-strikerewind-spread-results-warehouse-migration.md` documenting architecture rationale + sizing math + what it unblocks. Committed `2a7698c` on `autobox/strikerewind-rename`.
 
-**See:** `artifacts/2026-04-30-strikesight-framer-motion-strip-and-layout-cove.md` ; https://github.com/tbuerky/StrikeSight commit `21a9963`.
+**See:** `artifacts/2026-04-30-strikerewind-spread-results-warehouse-migration.md`.
 
-**Next:** Step #6 from the build queue (full delta × DTE matrix on `/analysis/:ticker`, requires backend `allStrategies` payload field — `newAnalysisEngine.ts:462` truncates to top 5), or production deploy to StrikeRewind.com on Vercel (Stripe stays test-mode until tier-model approval), or wait for `TIER MODEL: FREE/PRO/ULTRA APPROVED` and ship the env+Account.tsx+pricing-block bundle.
+**Next:** On `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE` — write `spreadResultsService.ts` shim. Other open gates: deploy + tier-copy + Polygon + Xata-rotation.
 
-**Blocked on Travis:** `TIER MODEL: FREE/PRO/ULTRA APPROVED` (and three standing gates: rotate Xata key, Polygon Starter approval, apply Supabase `spread_results` SQL).
+**Blocked on you:** New gate raised — paste the SQL into Supabase Dashboard → SQL Editor on project `hjfsapwessfvdcfytpuk`, run it (idempotent, ~2 sec), reply `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE`. Plus the two prior pending: `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` and `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`.
 
-**Cash balance:** $162.45. No spend.
+Cash balance unchanged: $162.45. No spend.
 
 
 --- CLAUDE_RUN_COMPLETE ---

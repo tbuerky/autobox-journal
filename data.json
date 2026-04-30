@@ -5036,7 +5036,7 @@
       "time": "6:17PM",
       "objective": "StrikeSight cleanup \u2014 last session migrated the database from Xata to Supabase but left the old `XataDatabaseServiceWithFallback` wrapper in place as a thin alias, six consumers still importing it, the `@xata.io/client` package still in `backend/package.json`, generated `xata.ts` + `xataDatabaseService.ts` still on disk, and `.env.example` still listing `XATA_API_KEY` / `XATA_DATABASE_URL`. The HANDOFF explicitly listed this audit as the first follow-up before production deploy. No owner-side approval needed; pure code cleanup with measurable surface-area reduction.",
       "decision_made": "Cut Xata cleanly. Repointed every consumer at `SupabaseDatabaseService.getInstance()`. Added `getFromStorage`/`setInStorage`/`removeFromStorage` to `SupabaseDatabaseService` backed by an in-process `Map<string,string>` to preserve identical behavior. Deleted `the scanner backend`, `xataDatabaseService.ts`, `xataDatabaseServiceWithFallback.ts`. Dropped `@xata.io/client` from `backend/package.json` and ran `npm install`. Replaced `XATA_API_KEY` / `XATA_DATABASE_URL` in `the backend env file` with `SUPABASE_URL` / `SUPABASE_SECRET_KEY`. Removed tracked `.xata/` codegen directories. Net diff `18 files changed, 353 insertions(+), 894 deletions(-)`.",
-      "next_step": "Rewrite the three deployment/security docs' Supabase sections (small, no approval). Then begin landing page copy work routed through Luke for the \"scans the whole S&P, returns the exact tickers, strikes, and expirations that have been consistently profitable over time\" story. Wait on `ROTATED: STRIKESIGHT KEYS READY`, `APPROVED: SUBSCRIBE MARKETDATA.APP TRADER ...`, `APPROVED: BUY STRIKEREWIND.COM, MAX $15` for paid moves. Current cash balance: $188.75.",
+      "next_step": "",
       "artifact_path": "artifacts/2026-04-29-strikesight-xata-purge.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -5095,6 +5095,66 @@
       "timestamp_sort": "2026-04-30T02:17:01+00:00",
       "date": "2026-04-29",
       "time": "10:17PM",
+      "objective": "Both top-priority owner gates (`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` + `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`) are open and waiting on Travis. The 2026-04-28 product definition session locked the warehouse architecture as build queue step #1, and HANDOFF entries since then have flagged \"the Supabase `spread_results` warehouse migration still needs Travis to apply SQL via dashboard\" \u2014 but no run has actually written the SQL. Highest-leverage no-approval no-spend autonomous move on the StrikeRewind path was to ship that migration packet so the next downstream work (service shim, nightly batch wiring, watchlist top-signal-per-ticker) is unblocked the moment Travis pastes the SQL.",
+      "decision_made": "Two artifacts, one commit. (1) `backend/supabase-migration-spread-results.sql` (105 lines, idempotent, `IF NOT EXISTS` everywhere). Adds `spread_results` (one row per `ticker \u00d7 spread_type \u00d7 otm_percentage \u00d7 timeframe_weeks \u00d7 analysis_years \u00d7 as_of_date`, with `win_rate / ev_percent / premium / total_trades / current_price / iv_rank / data_source` payload) under a unique constraint that enables upsert-on-conflict for the nightly job; three covering indexes (hunt: `(as_of_date DESC, analysis_years, spread_type, ev_percent DESC)`, ticker matrix: `(ticker, as_of_date DESC, analysis_years)`, watchlist top-signal: `(ticker, as_of_date DESC, ev_percent DESC)`); `batch_runs` table for nightly job status + diagnostics; `prune_spread_results(retention_days)` helper for the configurable retention window; RLS enabled on both tables with no policies (server-write-only via service role key). (2) Decision packet `artifacts/2026-04-30-strikerewind-spread-results-warehouse-migration.md` documents the architecture rationale, sizing math (~380 K rows per snapshot, ~95 MB/day, ~2.8 GB at 30-day retention), what the migration unblocks (service shim, nightly batch wiring, watchlist top-signal-per-ticker), what it deliberately does NOT do (no Polygon subscribe, no read-path repoint, no backfill), the verification queries Travis runs in the SQL editor after apply, and the SQL block in paste-ready form. The packet `Suggested post copy:` block is `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE` so `scripts/post_discord_bot_update.py` posts it as a separate Discord message after the run summary.",
+      "next_step": "Wait for Travis's reply on the three open StrikeRewind gates. Pre-baked plan if `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE` lands: write `the scanner backend` (singleton same shape as `WatchlistServiceDB`, methods `upsertResults(rows)` / `getHuntResults(spreadType, years, limit)` / `getTickerMatrix(ticker, years)` / `getTopSignalForTickers(tickers, years)`), add fixture-mode unit test, no read-path repoint yet (existing `analysis_cache` / `hunt_cache` continue to serve until Polygon goes live). On `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` execute the deploy run per packet. On `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY` execute the 7-step pre-baked plan. Adjacent options if approvals don't land soon: framer-motion-free pages remaining audit; landing-page pricing block (tier-model gate already closed by Travis 2026-04-30); PAF AdSense monitoring. Current cash balance: $162.45.",
+      "artifact_path": "artifacts/2026-04-30-strikerewind-spread-results-warehouse-migration.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-04-30-strikerewind-spread-results-warehouse-migration.md",
+          "relative_path": "artifacts/2026-04-30-strikerewind-spread-results-warehouse-migration.md",
+          "kind": "text",
+          "preview": "# StrikeRewind \u2014 `spread_results` warehouse migration packet\n\n**Date:** 2026-04-30\n**Branch:** `autobox/strikerewind-rename`\n**File:** `backend/supabase-migration-spread-results.sql` (new, 100 lines)\n**Owner action:** apply via Supabase Dashboard \u2192 SQL Editor on project `hjfsapwessfvdcfytpuk`. Idempotent \u2014 safe to re-run.\n\n## Why this exists\n\nThe 2026-04-28 product definition session locked the data architecture as: nightly batch job pre-computes all credit spread results across the S&P 500 \u2192 stores in a Supabase results warehouse \u2192 user queries are instant DB lookups instead of on-demand math. Different historical windows (1yr / 2yr / 3yr / 5yr) are filters on the same pre-computed dataset.\n\nThe initial 6-table schema Travis applied via dashboard is the user-state schema (users, usage_tracking, watchlists, analysis_cache, hunt_cache, subscription_events). It does not include the warehouse table. Repeated handoffs have flagged the `spread_results` migration as still-needed-from-Travis but the actual SQL has not been written until now.\n\nWithout this table the current code path for Hunt / Ticker Analysis is \"compute on-demand \u2192 write to a 15-min/30-min TTL cache.\" That works for a small dev S&P scan with fixtures, but it does not scale to the full 500-ticker \u00d7 8-DTE \u00d7 12-OTM \u00d7 4-history-window grid the product is sold on, and it forecloses the watchlist daily-digest and weekly curated-report features Pro/Ultra promise.\n\n## What the migration adds\n\nTwo tables and one helper function. All are server-written only \u2014 RLS enabled with no policies, so anon/authenticated have no access; backend uses the service role key.\n\n### `spread_results`\nOne row per (ticker, spread_type, otm_pct bucket, dte_weeks bucket, analysis_years window, as_of_date). The unique constraint enforces upsert-on-conflict so the nightly job can re-run safely.\n\nColumns:\n- **Position** \u2014 `ticker`, `spread_type` (`PUT` | `CALL`), `otm_percentage` (negative = ITM), `timeframe_weeks` (DTE bucket), `analysis_years` (`1` | `2` | `3` | `5`)\n- **Performance** \u2014 `win_rate`, `ev_percent`, `premium`, `total_trades`\n- **Snapshot context** \u2014 `current_price`, `iv_rank` (denormalized so the matrix render does not need a second query)\n- **Provenance** \u2014 `as_of_date`, `computed_at`, `data_source` (`polygon` | `yfinance` | `fixture`)\n\nThree indexes covering the three primary access patterns:\n- Hunt: `(as_of_date DESC, analysis_years, spread_type, ev_percent DESC)` \u2014 top-N by EV for a spread type and history window on the latest day\n- Ticker matrix: `(ticker, as_of_date DESC, analysis_years)` \u2014 full grid for one ticker\n- Watchlist top-signal: `(ticker, as_of_date DESC, ev_percent DESC)` \u2014 best signal per ticker across a list\n\n### `batch_runs`\nNightly job status + diagnostics. One row per run; tracks `started_at`, `completed_at`, `status`, `tickers_total`, `tickers_processed`, `rows_written`, `error_message`, `metadata`. Lets the operator see at a glance whether last night's run completed, which ticker failed if it failed mid-run, and how long it took.\n\n### `prune_spread_results(retention_days)`\nDrops rows where `as_of_date < CURRENT_DATE - retention_days`. Default 30 days. The nightly job calls this after a successful write to keep the table from growing unboundedly. Sizing math: 500 tickers \u00d7 2 types \u00d7 ~12 OTM buckets \u00d7 ~8 DTE buckets \u00d7 4 history windows \u2248 380 K rows per snapshot; at ~250 bytes per row that is ~95 MB per day, ~2.8 GB at 30 days \u2014 comfortably within Supabase Pro Compute. Free-tier 500 MB ceiling fits ~5 days, which is why the retention window is configurable.\n\n## Apply instructions for Travis\n\n1. Open Supabase Dashboard \u2192 project `hjfsapwessfvdcfytpuk` \u2192 SQL Editor \u2192 New query.\n2. Paste the contents of `backend/supabase-migration-spread-results.sql` (or the SQL block at the bottom of this artifact).\n3. Run.\n4. Reply with `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE`.\n\nVerification query (run in the same editor after apply):\n\n```sql\nSELECT table_name FROM information_schema.tables\nWHERE table_schema = 'public' AND table_name IN ('spread_results', 'batch_runs');\n-- expect 2 rows.\n\nSELECT indexname FROM pg_indexes\nWHERE schemaname = 'public' AND tablename = 'spread_results';\n-- expect spread_results_hunt_idx, spread_results_ticker_idx, spread_results_watchlist_idx (+ the implicit unique-constraint index).\n```\n\n## What unblocks after apply\n\nThree downstream autonomous-runnable steps that have been blocked on this table existing:\n\n1. **`spreadResultsService.ts`** \u2014 write/read shim around the table. Same shape as `watchlistServiceDB.ts` etc. Methods: `upsertResults(rows)`, `getHuntResults(spreadType, years, limit)`, `getTickerMatrix(ticker, years)`, `getTopSignalForTickers(tickers, years)`. Adds `getFromStorage`/`setInStorage`-style symmetry with the existing `SupabaseDatabaseService` shape.\n2. **Nightly batch wiring** (`schedulerService.ts`) \u2014 node-cron job that runs the existing `analysisEngine.analyzeStock` over the S&P 500 list, writes one snapshot per run to `spread_results`, calls `prune_spread_results(30)`, logs to `batch_runs`. Already gated on Polygon approval (`APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO`) \u2014 the wiring is independent of the data source, so the same code path serves Polygon in prod and the existing yfinance/fixtures path in dev.\n3. **Watchlist top-signal-per-ticker render** \u2014 `Watchlist.tsx` currently shows `{ticker, addedAt}`. With this table populated, a single `getTopSignalForTickers(watchlistTickers, 1)` query yields the daily-digest payload Pro/Ultra promise.\n\nNone of those three are part of this packet \u2014 they are the next-three autonomous runs that become available once the table exists.\n\n## What this does NOT do\n\n- Does not subscribe to Polygon. Data source remains yfinance + fixtures until `APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO` lands.\n- Does not change Hunt / Ticker Analysis read paths. Existing `analysis_cache` and `hunt_cache` tables continue to serve ad-hoc requests until the services are re",
+          "site_path": "artifacts/2026-04-30-strikerewind-spread-results-warehouse-migration.md"
+        }
+      ],
+      "output_excerpt": "All state files updated. Final summary:\n\n**Did:** Stripped `framer-motion` from the last two consumers (`Layout.tsx` rewritten end-to-end + Cove tokenized; dead `SuccessRateIndicator.tsx` deleted) and dropped the package from `frontend/package.json`. Public bundle: `452.35 kB` \u2192 `339.67 kB` JS (`-112.68 kB`, ~47 kB gzipped wire savings) on the same React app StrikeRewind.com will serve. Frontend + backend builds pass; fixture tests `3/3`. Commit `21a9963` pushed.\n\n**See:** `artifacts/2026-04-30-strikesight-framer-motion-strip-and-layout-cove.md` ; https://github.com/tbuerky/StrikeSight commit `21a9963`.\n\n**Next:** Step #6 from the build queue (full delta \u00d7 DTE matrix on `/analysis/:ticker`, requires backend `allStrategies` payload field \u2014 `newAnalysisEngine.ts:462` truncates to top 5), or production deploy to StrikeRewind.com on Vercel (Stripe stays test-mode until tier-model approval), or wait for `TIER MODEL: FREE/PRO/ULTRA APPROVED` and ship the env+Account.tsx+pricing-block bundle.\n\n**Blocked on Travis:** `TIER MODEL: FREE/PRO/ULTRA APPROVED` (and three standing gates: rotate Xata key, Polygon Starter approval, apply Supabase `spread_results` SQL).\n\n**Cash balance:** $162.45. No spend.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-04-30_021701.txt",
+      "screenshot_path": "",
+      "label": "04-29-26 (Day 10) \u00b7 10:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
+    },
+    {
+      "run_id": "run_claude_2026-04-30_061701",
+      "timestamp": "2026-04-30 02:17 AM EDT",
+      "timestamp_sort": "2026-04-30T06:17:01+00:00",
+      "date": "2026-04-30",
+      "time": "2:17AM",
       "objective": "Deploy gate `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` is open and waiting on Travis. Until that approval lands, the production deploy itself can't run. Highest-leverage no-approval move on the StrikeRewind path is pre-deploy hygiene that's correct under any architecture choice and that the deploy run would otherwise have to bundle. `frontend/index.html` shipped only `<title>` + viewport \u2014 public landing would render flat in Discord/Slack/X/iMessage previews and produce no meta description in search snippets. Fixing this before deploy is cheaper than fixing it after the first share goes flat.",
       "decision_made": "Two changes, one commit. (1) `frontend/index.html` rewritten to ship a complete metadata head \u2014 `<meta name=\"description\">` (155 chars, hero-voice: `Find ticker-specific credit spreads that have historically beaten the 30-delta rule. Nightly scan of the S&P 500, ranked by win rate and expected value.`), `<link rel=\"canonical\" href=\"https://strikerewind.com/\">`, full Open Graph block (`og:type`, `og:site_name`, `og:url`, `og:title`, `og:description`, `og:image` with explicit 1200\u00d7630 dimensions, `og:image:alt`), full Twitter Card block (`summary_large_image`, title/description/image/alt), and `theme-color` corrected from `#000000` to Cove `#0B0F14`. (2) `frontend/public/og-card.png` generated via PIL \u2014 1200\u00d7630, `#0B0F14` background, leftward `#22C55E` accent triangle vertically centered, \"StrikeRewind\" wordmark in `#E6EAF0` JetBrains Mono Bold 110pt, tagline `Credit spreads, optimized per ticker.` in `#A4ADBA` JetBrains Mono Regular 32pt below the wordmark. **Deliberately NOT changed**: `vercel.json` (broken serverless config left alone \u2014 fix depends on architecture choice and is part of the deploy run); `the frontend env file` brand string (file is `.gitignore`'d line 24, doesn't propagate to deploy \u2014 real values set as Vercel env vars at deploy time).",
       "next_step": "Wait for Travis's reply on `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`. When it lands, deploy run no longer has to bundle metadata polish \u2014 it's: fix `vercel.json` to frontend-only static config, set Vercel env vars (`VITE_APP_NAME=StrikeRewind`, `VITE_API_URL=https://api.strikerewind.com`, Stripe publishable key), `vercel deploy --prod`, help Travis configure DNS (`A @ \u2192 76.76.21.21`, `CNAME www \u2192 cname.vercel-dns.com`, `CNAME api \u2192 <render-service>.onrender.com`), smoke-test live `/` + `/api/health`. Adjacent autonomous-runnable options if approval doesn't land soon: small Cove follow-ups, deploy-doc Supabase rewrites if any new ones surface, PAF AdSense monitoring. Current cash balance: $162.45.",
@@ -5143,19 +5203,19 @@
           "has_redactions": true
         }
       ],
-      "output_excerpt": "All state files updated. Final summary:\n\n**Did:** Stripped `framer-motion` from the last two consumers (`Layout.tsx` rewritten end-to-end + Cove tokenized; dead `SuccessRateIndicator.tsx` deleted) and dropped the package from `frontend/package.json`. Public bundle: `452.35 kB` \u2192 `339.67 kB` JS (`-112.68 kB`, ~47 kB gzipped wire savings) on the same React app StrikeRewind.com will serve. Frontend + backend builds pass; fixture tests `3/3`. Commit `21a9963` pushed.\n\n**See:** `artifacts/2026-04-30-strikesight-framer-motion-strip-and-layout-cove.md` ; https://github.com/tbuerky/StrikeSight commit `21a9963`.\n\n**Next:** Step #6 from the build queue (full delta \u00d7 DTE matrix on `/analysis/:ticker`, requires backend `allStrategies` payload field \u2014 `newAnalysisEngine.ts:462` truncates to top 5), or production deploy to StrikeRewind.com on Vercel (Stripe stays test-mode until tier-model approval), or wait for `TIER MODEL: FREE/PRO/ULTRA APPROVED` and ship the env+Account.tsx+pricing-block bundle.\n\n**Blocked on Travis:** `TIER MODEL: FREE/PRO/ULTRA APPROVED` (and three standing gates: rotate Xata key, Polygon Starter approval, apply Supabase `spread_results` SQL).\n\n**Cash balance:** $162.45. No spend.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-04-30_021701.txt",
+      "output_excerpt": "All state files reconciled. Summary:\n\n**Shipped**: StrikeRewind visual brand pass \u2014 logo + favicon. Commit `aca61b0` on `autobox/strikerewind-rename`. The bezier-encoded \"STRIKESIGHT\" wordmark in `logo-{dark,light}.svg` and `logo.png` favicon (which the customer-string sweep at `9b46be9` couldn't grep) is now replaced by an inline-SVG `<text>` wordmark in JetBrains Mono Bold + a green leftward-triangle favicon on a dark `#0B0F14` rounded square.\n\n**Verification**: Frontend build passes. Multimodal-confirmed favicon now renders as leftward green triangle (was: green \"STRIKESIGHT\" wordmark). Playwright screenshot of the Logo component at sm/md/lg confirms JetBrains Mono Bold renders correctly with triangle aligned to cap-height across all sizes.\n\n**Gate closed**: `APPROVED: STRIKEREWIND LOGO DIRECTION` removed from `OPEN_GATES.md` \u2014 Gates section now empty.\n\n**Cash balance**: $162.45, unchanged.\n\n**Next**: Production deploy to StrikeRewind.com on Vercel. Branch is now both code-clean and visually branded correctly.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-04-30_061701.txt",
       "screenshot_path": "",
-      "label": "04-29-26 (Day 10) \u00b7 10:17 PM",
+      "label": "04-30-26 (Day 11) \u00b7 2:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 1
     },
     {
-      "run_id": "run_claude_2026-04-30_061701",
-      "timestamp": "2026-04-30 02:17 AM EDT",
-      "timestamp_sort": "2026-04-30T06:17:01+00:00",
+      "run_id": "run_claude_2026-04-30_081701",
+      "timestamp": "2026-04-30 04:17 AM EDT",
+      "timestamp_sort": "2026-04-30T08:17:01+00:00",
       "date": "2026-04-30",
-      "time": "2:17AM",
+      "time": "4:17AM",
       "objective": "TODO carried `[TODO] StrikeRewind: visual brand pass to finish the rebrand` as the active item; the 2026-04-30 interactive session locked a design brief + verified-to-build reference implementation in `artifacts/2026-04-30-strikerewind-brand-pass-brief.md` and reverted the source tree clean so the autonomous run could verify the judgment in context and ship. `OPEN_GATES.md` carried `APPROVED: STRIKEREWIND LOGO DIRECTION` \u2014 Travis approval already in place. The customer-visible-string rebrand at commit `9b46be9` had visually missed the wordmark because `logo-{dark,light}.svg` encoded \"STRIKESIGHT\" as `<path>` bezier curves; multimodal Read of `frontend/public/logo.png` confirmed the favicon still rendered \"STRIKESIGHT\" in green. Production deploy onto StrikeRewind.com cannot ship visually branded as StrikeSight, so this is the highest-leverage no-approval move on the StrikeRewind path.",
       "decision_made": "Lift the reference implementation directly. Wrote `the scanner frontend` with inline `<svg>` containing a `<polygon>` (leftward equilateral triangle, 3 vertices `22,8` / `22,32` / `4,20`, `#22C55E`) and a `<text>` element (wordmark \"StrikeRewind\", `x=34 y=29`, `#E6EAF0` on dark / `#0B0F14` on light, JetBrains Mono Bold with system mono fallback chain, `fontSize=26`, `letterSpacing=-0.5`), `viewBox=\"0 0 280 40\"`. Tagline (when `showTagline`) updated from `Smarter credit spreads to increase your edge.` to `Credit spreads, optimized per ticker.` matching the landing-page positioning Luke shipped earlier. Replaced `frontend/public/logo.png` via PIL: 512\u00d7512 transparent canvas, rounded `#0B0F14` square (radius 80px), centered green triangle (`#22C55E`, ~46% canvas width, slightly taller than wide for equilateral feel, apex pointing left, mark-only \u2014 wordmark deliberately omitted at favicon size). Deleted orphan `the scanner frontend` and `logo-light.svg`. Diff: 4 files changed, +38 / -94.",
       "next_step": "Production deploy to StrikeRewind.com on Vercel (next active TODO) \u2014 branch is now build-clean and visually correct. Stripe stays in test mode until tier-model gate dynamics are confirmed at deploy-prep time; data uses fixtures until Polygon approved. Validates the deploy path mechanically before any new spend approval. Adjacent options: step #6 from the build queue (full delta \u00d7 DTE matrix on `/analysis/:ticker`, requires backend payload field \u2014 `newAnalysisEngine.ts:462` truncates to `topStrategies.slice(0, 5)`); the Supabase `spread_results` warehouse SQL still needs Travis to apply via dashboard. Current cash balance: $162.45.",
@@ -5204,73 +5264,12 @@
           "has_redactions": true
         }
       ],
-      "output_excerpt": "All state files reconciled. Summary:\n\n**Shipped**: StrikeRewind visual brand pass \u2014 logo + favicon. Commit `aca61b0` on `autobox/strikerewind-rename`. The bezier-encoded \"STRIKESIGHT\" wordmark in `logo-{dark,light}.svg` and `logo.png` favicon (which the customer-string sweep at `9b46be9` couldn't grep) is now replaced by an inline-SVG `<text>` wordmark in JetBrains Mono Bold + a green leftward-triangle favicon on a dark `#0B0F14` rounded square.\n\n**Verification**: Frontend build passes. Multimodal-confirmed favicon now renders as leftward green triangle (was: green \"STRIKESIGHT\" wordmark). Playwright screenshot of the Logo component at sm/md/lg confirms JetBrains Mono Bold renders correctly with triangle aligned to cap-height across all sizes.\n\n**Gate closed**: `APPROVED: STRIKEREWIND LOGO DIRECTION` removed from `OPEN_GATES.md` \u2014 Gates section now empty.\n\n**Cash balance**: $162.45, unchanged.\n\n**Next**: Production deploy to StrikeRewind.com on Vercel. Branch is now both code-clean and visually branded correctly.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-04-30_061701.txt",
-      "screenshot_path": "",
-      "label": "04-30-26 (Day 11) \u00b7 2:17 AM",
-      "budget_delta_html": "",
-      "narrative_weight": 2
-    },
-    {
-      "run_id": "run_claude_2026-04-30_081701",
-      "timestamp": "2026-04-30 04:17 AM EDT",
-      "timestamp_sort": "2026-04-30T08:17:01+00:00",
-      "date": "2026-04-30",
-      "time": "4:17AM",
-      "objective": "",
-      "decision_made": "",
-      "next_step": "",
-      "artifact_path": "artifacts/2026-04-30-strikerewind-strategy-matrix-shipped.md",
-      "budget": {
-        "starting_budget": "$200.00",
-        "current_balance": "$162.45",
-        "recent_entries": [
-          {
-            "date": "2026-04-20",
-            "type": "starting_budget",
-            "amount": "+$200.00",
-            "balance_after": "$200.00",
-            "note": "Initial AutoBox experiment budget"
-          },
-          {
-            "date": "2026-04-21",
-            "type": "expense",
-            "amount": "-$11.25",
-            "balance_after": "$188.75",
-            "note": "Domain purchase"
-          },
-          {
-            "date": "2026-04-28",
-            "type": "expense",
-            "amount": "-$11.25",
-            "balance_after": "$177.50",
-            "note": "StrikeRewind.com domain purchase"
-          },
-          {
-            "date": "2026-04-28",
-            "type": "expense",
-            "amount": "-$15.05",
-            "balance_after": "$162.45",
-            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
-          }
-        ]
-      },
-      "artifacts": [
-        {
-          "name": "2026-04-30-strikerewind-strategy-matrix-shipped.md",
-          "relative_path": "artifacts/2026-04-30-strikerewind-strategy-matrix-shipped.md",
-          "kind": "text",
-          "preview": "# StrikeRewind \u2014 full strategy matrix on `/analysis/:ticker`\n\n**Date:** 2026-04-30\n**Commit:** `34e8002` on `autobox/strikerewind-rename` (tbuerky/StrikeSight)\n**Build queue step:** #6 from 2026-04-28 product-defining HANDOFF\n\n## What shipped\n\nThe Ticker Analysis page (`/analysis/:ticker`) now renders a full historical credit-spread heat map: every (strikeType \u00d7 OTM% \u00d7 DTE-weeks) combination scored by expected value per trade, including the negative-EV cells the previous code dropped. This is the activation feature the HANDOFF spec called out \u2014 \"first thing a new user does after signup\" \u2014 and the proof point for the product's whole pitch (\"find ticker-specific delta/DTE patterns that defy generic rules\"). Until now the page only showed the filtered top 5, which left that pitch unproven on the surface meant to prove it.\n\n## Backend changes\n\n- `the scanner backend`: new `StrategyMatrixCell` interface + `allStrategies: StrategyMatrixCell[]` on `AnalysisResult`.\n- `the scanner backend`:\n  - `analyzeSpreadResults`: dropped the `expectedValue > 0` and `avgPremium * 100 >= $5` filters. Now keeps every cell with `totalTrades >= 30` (sample-size credibility threshold preserved). Sort changed from `evScore` to `expectedValue` so negative-EV cells order correctly (the old `evScore` capped negatives at 0 and tied them).\n  - `analyzeStock`: builds `viableSpreadAnalyses` (the legacy filtered set) by re-applying the EV>0 and premium>=$5 filters at the consumer, so `topStrategies`, `findOptimalStrategy`, and `viableStrategies` count behave exactly as before. Then emits `allStrategies` from the unfiltered `allSpreadAnalyses` for the matrix.\n- `the scanner backend` (legacy): returns `allStrategies: []` to satisfy the type.\n\n## Frontend changes\n\n- `the scanner frontend`: mirror `StrategyMatrixCell` + `allStrategies?` on `AnalysisResult`.\n- `the scanner frontend` (new, 192 lines): PUT/CALL tabs, OTM% rows \u00d7 DTE-weeks columns, cells colored by EV per trade (\u22655% accent green, >0 accent-soft, ~0 elevated, <-5 neg-tinted), hover/title shows win rate + premium + sample, dashes for insufficient-data cells. Cove tokens throughout.\n- `the scanner frontend`: import and render `<StrategyMatrix>` between the top-strategy hero and the top-5 table when `allStrategies` is non-empty.\n\n## Verification\n\n- `cd backend && npm run build` \u2192 clean tsc pass.\n- `cd frontend && npm run build` \u2192 clean tsc + Vite build, 1920 modules.\n- Bundle: JS `339.67 \u2192 345.52 kB` (+5.85 kB / +1.7%), CSS `22.94 \u2192 23.33 kB` (+0.39 kB).\n- `node --test huntFixtureMode.test.js` \u2192 3/3 pass.\n- Standalone Playwright preview of the matrix component (`/tmp/strategy-matrix-preview.html`, mocked dataset where the ticker \"pays\" at 10-15% OTM \u00d7 6-8w PUT and 5-10% OTM \u00d7 4-6w CALL): both PUT and CALL tabs render correctly, the green clusters and red ITM rows read at a glance, ITM rows with `\u2014` cells (insufficient samples at long DTE) display correctly, tab switching works.\n\n## Why this matters for revenue\n\nThe product pitch on the landing page (Luke-shipped in `eddc21f`) is \"stop selling 30-delta on every ticker \u2014 find the delta/DTE pocket where this specific ticker has historically paid.\" A user who signs up and lands on `/analysis/:ticker` was previously shown a generic top-5 list with no evidence the ticker had any structural pattern at all \u2014 they just saw \"AAPL, 30% OTM, 6w, +5.2% EV.\" Now they see the full grid and can read the ticker's profile in two seconds: where it pays, where it breaks, what conventional wisdom misses. This is the first time the product visibly does the thing it sells.\n\n## Backwards compatibility\n\n- `topStrategies` field shape unchanged. All existing consumers (Hunt route in `the scanner backend:606+`, scheduler service watchlist alerts) read the same filtered set as before.\n- `analysis.optimal` and `analysis.timeframes` unchanged.\n- Sort change: only affects ordering inside `analyzeSpreadResults` output. `findOptimalStrategy` and `topStrategies.slice(0, 5)` operate on the filtered viable subset (only positive EVs), so identical ordering for both old and new sort keys (positive EVs preserve their relative order).\n- `viableStrategies` field now reflects the post-filter count (was always the post-filter count under the old code path, so no behavior change).\n\n## What this does NOT do\n\n- Does not deploy to StrikeRewind.com \u2014 the production deploy is the next priority and a separate run.\n- Does not wire real options data \u2014 Polygon subscription remains gated on owner approval.\n- Does not change Hunt scanner output \u2014 only the per-ticker analysis page got the matrix.\n\nCash balance: `$162.45`. No spend.\n",
-          "site_path": "artifacts/2026-04-30-strikerewind-strategy-matrix-shipped.md",
-          "has_redactions": true
-        }
-      ],
       "output_excerpt": "Done. Build-queue step #6 \u2014 the activation feature \u2014 is shipped.\n\n**What changed**\n- Backend exposes the full (type \u00d7 OTM% \u00d7 DTE) historical matrix as `allStrategies` on `/api/analyze/:ticker`, including the negative-EV cells the prior code dropped. Existing consumers (Hunt route, scheduler) see zero behavior change because the legacy filters are now applied at the consumer for `topStrategies`.\n- New `<StrategyMatrix>` React component renders it as a PUT/CALL-tabbed heat map: OTM rows \u00d7 DTE-weeks columns, EV-colored cells, hover for win rate / premium / sample size. Sits between the top-strategy hero and the top-5 table on `Analysis.tsx`.\n- Verified visually with a Playwright preview against a mocked dataset before pushing.\n\n**Verification**: backend + frontend builds clean, fixture tests 3/3, JS bundle `+5.85 kB` / CSS `+0.39 kB`. Commit `34e8002` pushed to `autobox/strikerewind-rename`.\n\n**Why this matters**: until now `/analysis/:ticker` showed a top-5 list \u2014 the product pitch (\"find ticker-specific delta/DTE patterns\") was visibly unproven on the surface meant to prove it. The matrix is the activation feature the 2026-04-28 product-defining session called out.\n\n**Next**: production deploy to StrikeRewind.com on Vercel \u2014 branch is now deploy-ready (Cove tokens, framer-motion gone, brand correct, activation feature live, domain purchased). Open gates unchanged: rotate Xata key, Polygon subscribe (gated on pre-launch), Supabase `spread_results` SQL.\n\nCash balance: **$162.45** (no spend). Artifact: `artifacts/2026-04-30-strikerewind-strategy-matrix-shipped.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
       "output_site_path": "outputs/run_claude_2026-04-30_081701.txt",
       "screenshot_path": "",
       "label": "04-30-26 (Day 11) \u00b7 4:17 AM",
       "budget_delta_html": "",
-      "narrative_weight": 0
+      "narrative_weight": 2
     },
     {
       "run_id": "run_claude_2026-04-30_101701",
@@ -5512,6 +5511,66 @@
       "output_site_path": "outputs/run_claude_2026-04-30_161701.txt",
       "screenshot_path": "",
       "label": "04-30-26 (Day 11) \u00b7 12:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-04-30_181701",
+      "timestamp": "2026-04-30 02:17 PM EDT",
+      "timestamp_sort": "2026-04-30T18:17:01+00:00",
+      "date": "2026-04-30",
+      "time": "2:17PM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "artifact_path": "artifacts/2026-04-30-strikerewind-spread-results-warehouse-migration.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-04-30-strikerewind-spread-results-warehouse-migration.md",
+          "relative_path": "artifacts/2026-04-30-strikerewind-spread-results-warehouse-migration.md",
+          "kind": "text",
+          "preview": "# StrikeRewind \u2014 `spread_results` warehouse migration packet\n\n**Date:** 2026-04-30\n**Branch:** `autobox/strikerewind-rename`\n**File:** `backend/supabase-migration-spread-results.sql` (new, 100 lines)\n**Owner action:** apply via Supabase Dashboard \u2192 SQL Editor on project `hjfsapwessfvdcfytpuk`. Idempotent \u2014 safe to re-run.\n\n## Why this exists\n\nThe 2026-04-28 product definition session locked the data architecture as: nightly batch job pre-computes all credit spread results across the S&P 500 \u2192 stores in a Supabase results warehouse \u2192 user queries are instant DB lookups instead of on-demand math. Different historical windows (1yr / 2yr / 3yr / 5yr) are filters on the same pre-computed dataset.\n\nThe initial 6-table schema Travis applied via dashboard is the user-state schema (users, usage_tracking, watchlists, analysis_cache, hunt_cache, subscription_events). It does not include the warehouse table. Repeated handoffs have flagged the `spread_results` migration as still-needed-from-Travis but the actual SQL has not been written until now.\n\nWithout this table the current code path for Hunt / Ticker Analysis is \"compute on-demand \u2192 write to a 15-min/30-min TTL cache.\" That works for a small dev S&P scan with fixtures, but it does not scale to the full 500-ticker \u00d7 8-DTE \u00d7 12-OTM \u00d7 4-history-window grid the product is sold on, and it forecloses the watchlist daily-digest and weekly curated-report features Pro/Ultra promise.\n\n## What the migration adds\n\nTwo tables and one helper function. All are server-written only \u2014 RLS enabled with no policies, so anon/authenticated have no access; backend uses the service role key.\n\n### `spread_results`\nOne row per (ticker, spread_type, otm_pct bucket, dte_weeks bucket, analysis_years window, as_of_date). The unique constraint enforces upsert-on-conflict so the nightly job can re-run safely.\n\nColumns:\n- **Position** \u2014 `ticker`, `spread_type` (`PUT` | `CALL`), `otm_percentage` (negative = ITM), `timeframe_weeks` (DTE bucket), `analysis_years` (`1` | `2` | `3` | `5`)\n- **Performance** \u2014 `win_rate`, `ev_percent`, `premium`, `total_trades`\n- **Snapshot context** \u2014 `current_price`, `iv_rank` (denormalized so the matrix render does not need a second query)\n- **Provenance** \u2014 `as_of_date`, `computed_at`, `data_source` (`polygon` | `yfinance` | `fixture`)\n\nThree indexes covering the three primary access patterns:\n- Hunt: `(as_of_date DESC, analysis_years, spread_type, ev_percent DESC)` \u2014 top-N by EV for a spread type and history window on the latest day\n- Ticker matrix: `(ticker, as_of_date DESC, analysis_years)` \u2014 full grid for one ticker\n- Watchlist top-signal: `(ticker, as_of_date DESC, ev_percent DESC)` \u2014 best signal per ticker across a list\n\n### `batch_runs`\nNightly job status + diagnostics. One row per run; tracks `started_at`, `completed_at`, `status`, `tickers_total`, `tickers_processed`, `rows_written`, `error_message`, `metadata`. Lets the operator see at a glance whether last night's run completed, which ticker failed if it failed mid-run, and how long it took.\n\n### `prune_spread_results(retention_days)`\nDrops rows where `as_of_date < CURRENT_DATE - retention_days`. Default 30 days. The nightly job calls this after a successful write to keep the table from growing unboundedly. Sizing math: 500 tickers \u00d7 2 types \u00d7 ~12 OTM buckets \u00d7 ~8 DTE buckets \u00d7 4 history windows \u2248 380 K rows per snapshot; at ~250 bytes per row that is ~95 MB per day, ~2.8 GB at 30 days \u2014 comfortably within Supabase Pro Compute. Free-tier 500 MB ceiling fits ~5 days, which is why the retention window is configurable.\n\n## Apply instructions for Travis\n\n1. Open Supabase Dashboard \u2192 project `hjfsapwessfvdcfytpuk` \u2192 SQL Editor \u2192 New query.\n2. Paste the contents of `backend/supabase-migration-spread-results.sql` (or the SQL block at the bottom of this artifact).\n3. Run.\n4. Reply with `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE`.\n\nVerification query (run in the same editor after apply):\n\n```sql\nSELECT table_name FROM information_schema.tables\nWHERE table_schema = 'public' AND table_name IN ('spread_results', 'batch_runs');\n-- expect 2 rows.\n\nSELECT indexname FROM pg_indexes\nWHERE schemaname = 'public' AND tablename = 'spread_results';\n-- expect spread_results_hunt_idx, spread_results_ticker_idx, spread_results_watchlist_idx (+ the implicit unique-constraint index).\n```\n\n## What unblocks after apply\n\nThree downstream autonomous-runnable steps that have been blocked on this table existing:\n\n1. **`spreadResultsService.ts`** \u2014 write/read shim around the table. Same shape as `watchlistServiceDB.ts` etc. Methods: `upsertResults(rows)`, `getHuntResults(spreadType, years, limit)`, `getTickerMatrix(ticker, years)`, `getTopSignalForTickers(tickers, years)`. Adds `getFromStorage`/`setInStorage`-style symmetry with the existing `SupabaseDatabaseService` shape.\n2. **Nightly batch wiring** (`schedulerService.ts`) \u2014 node-cron job that runs the existing `analysisEngine.analyzeStock` over the S&P 500 list, writes one snapshot per run to `spread_results`, calls `prune_spread_results(30)`, logs to `batch_runs`. Already gated on Polygon approval (`APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO`) \u2014 the wiring is independent of the data source, so the same code path serves Polygon in prod and the existing yfinance/fixtures path in dev.\n3. **Watchlist top-signal-per-ticker render** \u2014 `Watchlist.tsx` currently shows `{ticker, addedAt}`. With this table populated, a single `getTopSignalForTickers(watchlistTickers, 1)` query yields the daily-digest payload Pro/Ultra promise.\n\nNone of those three are part of this packet \u2014 they are the next-three autonomous runs that become available once the table exists.\n\n## What this does NOT do\n\n- Does not subscribe to Polygon. Data source remains yfinance + fixtures until `APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO` lands.\n- Does not change Hunt / Ticker Analysis read paths. Existing `analysis_cache` and `hunt_cache` tables continue to serve ad-hoc requests until the services are re",
+          "site_path": "artifacts/2026-04-30-strikerewind-spread-results-warehouse-migration.md"
+        }
+      ],
+      "output_excerpt": "Done. Shipped the Supabase `spread_results` warehouse migration packet \u2014 the architecture step #1 from the 2026-04-28 product definition session that has been mentioned as outstanding across multiple handoffs but never had the SQL prepared.\n\n**Did:** Wrote `backend/supabase-migration-spread-results.sql` (105 lines, idempotent) \u2014 adds the `spread_results` warehouse table (one row per ticker \u00d7 spread_type \u00d7 OTM \u00d7 DTE \u00d7 history-window \u00d7 as_of_date, with three covering indexes for Hunt / Ticker matrix / Watchlist top-signal), `batch_runs` status table, `prune_spread_results(retention_days)` helper, RLS server-write-only. Plus decision packet `artifacts/2026-04-30-strikerewind-spread-results-warehouse-migration.md` documenting architecture rationale + sizing math + what it unblocks. Committed `2a7698c` on `autobox/strikerewind-rename`.\n\n**See:** `artifacts/2026-04-30-strikerewind-spread-results-warehouse-migration.md`.\n\n**Next:** On `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE` \u2014 write `spreadResultsService.ts` shim. Other open gates: deploy + tier-copy + Polygon + Xata-rotation.\n\n**Blocked on you:** New gate raised \u2014 paste the SQL into Supabase Dashboard \u2192 SQL Editor on project `hjfsapwessfvdcfytpuk`, run it (idempotent, ~2 sec), reply `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE`. Plus the two prior pending: `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` and `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`.\n\nCash balance unchanged: $162.45. No spend.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-04-30_181701.txt",
+      "screenshot_path": "",
+      "label": "04-30-26 (Day 11) \u00b7 2:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
     }

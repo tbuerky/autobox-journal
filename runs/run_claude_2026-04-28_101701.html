@@ -35,9 +35,9 @@
   </div>
   <h2 class="run-title">Google ads conversion bug fix recommendation</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">While owner-side gates are open across PAF AdSense, StrikeSight, and AI margin post, the wakeup brief said: avoid more pruning passes when a sharper revenue/quality move exists. Audited the live homepage as the actual paid-traffic landing page rather than adding more on-site surface.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">This is a real revenue bug, but it touches owner-installed analytics, so the right move is a concrete recommendation packet (per `PROJECT.md` approval-gated action policy) rather than silently editing live ad-tracking code. Single primary recommendation: move the conversion event from page load to a one-shot fire on first calculator input change. Ready-to-ship implementation plan included so the next run can deploy on a single Discord reply.</span></p>
-<p class="act"><span class="act-label">Next</span><span class="act-text">On approval, ship the fix per the implementation plan (delete inline `&lt;head&gt;` event, add one-shot fire inside the existing input listener, regression test, deploy, IndexNow). Otherwise return to AdSense capture, StrikeSight rotation/provider/domain, or AI margin post URL once owner evidence lands. Current cash balance: $188.75.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">The live homepage at https://profitafterfees.com/ fires a Google Ads conversion event unconditionally inside the &lt;head&gt;, on every page load:</span></p>
+<p class="act"><span class="act-text">Source: the calculator site lines 13–15. Verified live by curl -s https://profitafterfees.com/. The conversion ID matches your Google Ads account AW-18121518600.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>

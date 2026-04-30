@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>PAF second duplicate pair consolidation &middot; AutoBox</title>
+<title>Strikesight cove design tokens &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,10 +33,11 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-04-28_201701</span>
   </div>
-  <h2 class="run-title">PAF second duplicate pair consolidation</h2>
+  <h2 class="run-title">Strikesight cove design tokens</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">Owner-side gates still pending across PAF AdSense, StrikeSight approvals, and AI margin post. The prior pruning pass missed two pairs of identical-template duplicate calculator pages; closing those is the same kind of no-spend quality-control move as the prior pass.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">301-consolidate both pairs. Canonicals: `/transaction-fee-calculator/` (kept; broader generic intent and already homepage-linked) and `/ai-feature-cost-calculator/` (kept; brand-aligned with the rest of the AI surface). Added 4 new permanent redirects to `vercel.json`; deleted both loser directories; removed both from `sitemap.xml`; replaced the homepage related-grid LLM card with an AI feature cost card; removed the internal link from `transaction-fee-calculator` to the loser; removed loser-specific tests; updated the consolidated-redirects test to assert the two new losers are gone and the new redirect destinations exist.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Step #2 from the StrikeSight build queue locked into HANDOFF.md on 2026-04-28: **foundational design tokens** in frontend/tailwind.config.js and the scanner frontend so the upcoming Hunt-as-data-table rebuild and landing page copy rewrite reference one consistent system. Without this layer, every subsequent UI change would have to re-derive colors, type, and surface decisions ad hoc.</span></p>
+<p class="act"><span class="act-text">This is fully implementable in code — no Travis approval needed, no spend.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -45,49 +46,70 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <div class="artifact-prose"><h1>PAF second duplicate calculator-pair consolidation</h1>
-<h2>What shipped</h2>
-<p>Two more pairs of duplicate calculator pages on <code>profitafterfees.com</code> were consolidated via permanent redirects to canonicals. The prior consolidation pass (2026-04-28 18:35) addressed three pairs but missed these two, both of which were exact-template SEO variants of canonical calculators.</p>
-<p>| Loser (deleted, now 308) | Canonical (kept, 200) |</p>
-<p>|---|---|</p>
-<p>| <code>/stripe-processing-fee-calculator/</code> | <code>/transaction-fee-calculator/</code> |</p>
-<p>| <code>/llm-cost-calculator/</code> | <code>/ai-feature-cost-calculator/</code> |</p>
-<p>The first pair is the exact same per-transaction fee calculator with Stripe-specific keyword framing on the loser. The second pair is the exact same per-user AI cost calculator; the AI utility brand, social preview cards, AI model pricing index, distribution post, and standalone-domain packet all already point at <code>/ai-feature-cost-calculator/</code>, so <code>/llm-cost-calculator/</code> was a duplicate SEO stub competing with its own canonical.</p>
-<p>The homepage related-grid still had a stale &quot;Per-user LLM cost&quot; link to the loser page — replaced with a customer-facing card for the AI feature cost calculator.</p>
-<h2>Why now</h2>
-<p>The prior consolidation pass declared three pairs as the full set, but a sitewide audit found two more identical-template duplicates the prior pass missed. Each duplicate URL splits Google&#x27;s relevance signal across two pages competing for the same intent and adds an AdSense thin-content risk on the loser. While Travis is currently spending paid Google Ads dollars on the canonical calculator and waiting on AdSense approval, every duplicate adjacent to that path is leaving signal on the table.</p>
-<p>This is the same pruning theme as the prior pass (and the launch/home prune before it): one less internal-duplication pattern, no new public surface area, no new copy to maintain.</p>
-<h2>Changes</h2>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>StrikeSight: Cove design tokens shipped</h1>
+<h2>What this is</h2>
+<p>Step #2 from the StrikeSight build queue locked into <code>HANDOFF.md</code> on 2026-04-28: <strong>foundational design tokens</strong> in <code>frontend/tailwind.config.js</code> and <code>the scanner frontend</code> so the upcoming Hunt-as-data-table rebuild and landing page copy rewrite reference one consistent system. Without this layer, every subsequent UI change would have to re-derive colors, type, and surface decisions ad hoc.</p>
+<p>This is fully implementable in code — no Travis approval needed, no spend.</p>
+<h2>Why this is the right run</h2>
+<p>Travis priority shift (interactive 2026-04-28) puts StrikeSight on ~90% bandwidth on a &quot;build → polish → deploy → market&quot; path. The HANDOFF locked the build order: (1) Supabase <code>spread_results</code> warehouse table, (2) <strong>Cove design tokens</strong>, (3) Hunt as dense data table, (4) routing restructure, (5) Luke landing copy.</p>
+<p>Item #1 needs Travis to deploy SQL via the Supabase dashboard. Item #2 is fully autonomous. It is also a <strong>prerequisite</strong> for items #3 and #5 — the dense Hunt data table and the landing page need the new color/type system in place before either is built. Doing #2 first means #3 and #5 can both reference one anchor and don&#x27;t drift apart.</p>
+<p>The wakeup brief explicitly favors stronger design + product copy over more pages or more internal docs. This run is design-system foundation, not a page expansion or another SEO doc.</p>
+<h2>Cove design direction this run lands</h2>
+<p>From the 2026-04-28 Cove design audit (recorded in <code>STATE.md</code> and <code>HANDOFF.md</code>):</p>
 <ul>
-<li><code>vercel.json</code> — added 4 new permanent (308/301) redirects: <code>/stripe-processing-fee-calculator(/)</code> → <code>/transaction-fee-calculator/</code>, <code>/llm-cost-calculator(/)</code> → <code>/ai-feature-cost-calculator/</code>.</li>
-<li>Deleted <code>stripe-processing-fee-calculator/</code> and <code>llm-cost-calculator/</code> directories from the deployed tree.</li>
-<li><code>sitemap.xml</code> — removed both loser entries.</li>
-<li><code>index.html</code> — replaced the related-grid card pointing at <code>/llm-cost-calculator/</code> with a card pointing at <code>/ai-feature-cost-calculator/</code> (label &quot;AI feature cost &amp; margin&quot;, sub &quot;Token cost per active user, gross margin, and break-even price&quot;).</li>
-<li><code>transaction-fee-calculator/index.html</code> — removed the internal link to the loser slug.</li>
-<li><code>tests/content.test.js</code> — updated the consolidated-redirects test to assert the two new losers are gone and the two new redirect destinations exist in <code>vercel.json</code>; updated the surfaced/demoted homepage link arrays; removed loser-specific tests; removed deleted path constants and metadata-list entries.</li>
+<li>Institutional fintech aesthetic: <code>#0B0F14</code> background, layered near-black surfaces, <code>#111821</code> panels.</li>
+<li>JetBrains Mono or IBM Plex Mono for ALL numeric content.</li>
+<li>Replace Tailwind emerald everywhere with restrained <code>#22C55E</code> used sparingly.</li>
+<li><code>rounded-md</code> not <code>rounded-2xl</code>.</li>
+<li>Remove emerald glow effects.</li>
+</ul>
+<p>This run lands every one of those at the token layer. Subsequent passes apply them at the markup layer page by page.</p>
+<h2>What changed</h2>
+<h3><code>frontend/tailwind.config.js</code></h3>
+<ul>
+<li><code>emerald</code> color value swapped from <code>#10b981</code> → <code>#22C55E</code>. Backwards-compat: existing references in 12 <code>.tsx</code> files (<code>Layout</code>, <code>SuccessRateIndicator</code>, <code>TickerInput</code>, <code>Home</code>, <code>Hunt</code>, <code>Analysis</code>, <code>Watchlist</code>, <code>Account</code>, <code>Scanner</code>, <code>Privacy</code>, <code>Terms</code>, plus <code>index.css</code>) now render restrained green without any markup change.</li>
+<li>New semantic tokens: <code>accent</code>, <code>accent-soft</code> (12% green wash for hover/active states), <code>pos</code>, <code>neg</code>, <code>warn</code>.</li>
+<li>Layered surfaces: <code>bg-base</code>, <code>bg-surface</code>, <code>bg-panel</code>, <code>bg-elevated</code>. <code>dark-bg</code> aliased to <code>#0B0F14</code>, <code>dark-card</code> aliased to <code>#111821</code> (backwards-compat).</li>
+<li>Border scale: <code>border-subtle</code> <code>#1C2430</code>, <code>border-strong</code> <code>#27313F</code>.</li>
+<li>Text scale: <code>fg-primary</code> <code>#E6EAF0</code>, <code>fg-secondary</code> <code>#A4ADBA</code>, <code>fg-muted</code> <code>#6C7685</code>.</li>
+<li><code>fontFamily</code>: <code>mono</code> and <code>num</code> both map to <code>JetBrains Mono → IBM Plex Mono → ui-monospace → SFMono-Regular → Menlo → monospace</code>.</li>
+<li><code>borderRadius.DEFAULT</code> reduced to <code>0.375rem</code> (<code>rounded-md</code>).</li>
+</ul>
+<h3><code>the scanner frontend</code></h3>
+<ul>
+<li>Added Google Fonts import for JetBrains Mono <code>400/500/600/700</code>.</li>
+<li>New <code>:root</code> CSS custom properties expose every token (<code>--bg-base</code>, <code>--bg-panel</code>, <code>--accent</code>, <code>--pos</code>, <code>--neg</code>, <code>--fg-primary</code>, etc.) so non-Tailwind components and inline <code>style={}</code> references can use the same anchors.</li>
+<li><code>html, body</code> now resolve to <code>var(--bg-base)</code> / <code>var(--fg-primary)</code> — replaces the literal <code>#000000</code> background.</li>
+<li>New <code>.num</code> utility class: applies <code>font-num</code> plus <code>font-variant-numeric: tabular-nums</code> plus <code>font-feature-settings: &quot;tnum&quot; 1</code> so every numeric cell (win rate, EV%, strikes, credits) anchors on a single rule.</li>
+<li>New <code>.panel</code> and <code>.panel-elevated</code> component classes encapsulate the standard panel surface + subtle border at <code>rounded-md</code>. Subsequent Hunt-as-data-table pass can use <code>.panel</code> for the criteria rail and the results frame without re-deriving.</li>
+<li>Removed the emerald <code>box-shadow: 0 0 60px rgba(16, 185, 129, 0.05)</code> glow on the main container at <code>lg+</code> breakpoint (Cove explicit removal).</li>
+<li>Removed the emerald glow on <code>.slider:hover</code> thumb states (Cove explicit removal).</li>
+<li>Slider thumb border switched from hardcoded <code>#000</code> to <code>var(--bg-base)</code> so the thumb reads as cut out of the new institutional background, not floating on a different one.</li>
+</ul>
+<h3>What did NOT change this run (deliberate scoping)</h3>
+<ul>
+<li>No <code>.tsx</code> files were edited. Every existing <code>text-emerald</code> / <code>bg-emerald</code> / <code>border-emerald</code> / <code>bg-dark-bg</code> / <code>bg-dark-card</code> reference in 12 files now renders against the new tokens automatically. This is the correct scope for one autonomous run — markup-level passes are page-by-page work that belongs in the Hunt-data-table rebuild and landing page rewrite.</li>
+<li>The Tailwind keyframe animations <code>fade-in</code> and <code>slide-up</code> were preserved. Cove&#x27;s &quot;remove framer-motion page fades&quot; is a separate markup-layer concern (framer-motion is its own library, unrelated to Tailwind&#x27;s <code>animate-*</code> classes). When the routing restructure runs, the framer-motion <code>motion.div</code> page transitions can be removed in that pass.</li>
 </ul>
 <h2>Verification</h2>
 <ul>
-<li><code>node --test tests/*.test.js</code> → <code>106/106</code> passing.</li>
-<li><code>vercel deploy --prod --yes</code> → <code>dpl_9TBqzT2t1x1nknMcyyGQ7ZCRmvwW</code>; aliased to <code>profitafterfees.com</code> and <code>www.profitafterfees.com</code> under team <code>travis-4599s-projects</code>.</li>
-<li>Live HTTP checks:</li>
-<li><code>/stripe-processing-fee-calculator/</code> → <code>308</code> <code>Location: /transaction-fee-calculator/</code></li>
-<li><code>/llm-cost-calculator/</code> → <code>308</code> <code>Location: /ai-feature-cost-calculator/</code></li>
-<li><code>/</code>, <code>/transaction-fee-calculator/</code>, <code>/ai-feature-cost-calculator/</code>, <code>/privacy/</code>, <code>/ads.txt</code>, <code>/sitemap.xml</code> → all <code>200</code></li>
-<li>Live homepage HTML contains <code>href=&quot;./ai-feature-cost-calculator/&quot;</code> with the new card label and no remaining <code>llm-cost-calculator</code> reference.</li>
-<li>IndexNow POST for the three canonicals returned <code>HTTP 200</code>.</li>
+<li><code>cd /home/autoproj/projects/StrikeSight/frontend &amp;&amp; npm run build</code> → passes; bundle <code>dist/assets/index-lA3V66Oj.js 445.78 kB</code> (gzip 139.72 kB), CSS <code>dist/assets/index-CDrXkVds.css 24.33 kB</code>.</li>
+<li><code>cd /home/autoproj/projects/StrikeSight/backend &amp;&amp; npm run build</code> (tsc) → passes.</li>
+<li>Compiled CSS bundle:</li>
+<li><code>#22C55E</code> (new restrained accent): 10 occurrences (every <code>text-/bg-/border-/ring-emerald</code> rule and hover variant resolved correctly).</li>
+<li><code>#10b981</code> (old Tailwind emerald): 0 occurrences (token swap complete at the rendered level).</li>
+<li><code>#0B0F14</code> (institutional bg): present.</li>
+<li><code>#111821</code> (panel): present.</li>
+<li><code>JetBrains Mono</code>: present in <code>@font-face</code> rule.</li>
 </ul>
-<h2>Out of scope</h2>
+<p>Visual rendering review under a real browser is queued for the next session that has a browser; an autonomous run cannot perform a screenshot-grade design check.</p>
+<h2>Git</h2>
 <ul>
-<li>AdSense approval / Auto Ads / impressions / eCPM (Travis-side evidence).</li>
-<li>StrikeSight <code>ROTATED:</code> confirmation, options-data subscription approval, <code>getstrikesight.com</code> purchase approval (all Travis-side).</li>
-<li>AI Feature Margin Check post URL and submitted scenarios (Travis-side).</li>
-<li><code>break-even-price-calculator.bak/</code> (root-owned in sandbox; already 404 on production).</li>
-</ul>
-<h2>Approval</h2>
-<p>None required. No spend.</p>
-<h2>Cash balance</h2>
-<p>$188.75</p></div>
+<li>Commit: <code>e8b805d</code> on <code>autobox/strikesight-scanner-mvp</code>.</li>
+<li>Pushed to <code>https://github.com/tbuerky/StrikeSight</code>.</li>
+<li>Diff: `2 files changed, 85 insertions(+), 31 de</li>
+</ul></div>
   </section>
 
   <section class="detail-section">

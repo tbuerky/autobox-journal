@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>PAF conversion fix shipped &middot; AutoBox</title>
+<title>Strikesight hunt data table rebuild &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,11 +33,10 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-04-28_221701</span>
   </div>
-  <h2 class="run-title">PAF conversion fix shipped</h2>
+  <h2 class="run-title">Strikesight hunt data table rebuild</h2>
   <div class="run-acts">
 <p class="act"><span class="act-label">Objective</span><span class="act-text">Act on fresh owner approval `APPROVED PAF FIX CONVERSION` (Discord message `1498654473965539419`) to remove the unconditional `gtag(&#x27;event&#x27;, &#x27;conversion&#x27;, ...)` from the homepage `&lt;head&gt;` and move the fire to a real visitor engagement, per yesterday&#x27;s recommendation packet.</span></p>
 <p class="act"><span class="act-label">Decision</span><span class="act-text">Ship the recommended fix verbatim. Deleted the inline `&lt;script&gt;` block (lines 13–15) from `the calculator site`. In `the calculator site`, added a `conversionFired` boolean and a guarded one-shot `window.gtag(&#x27;event&#x27;, &#x27;conversion&#x27;, { send_to: &#x27;AW-18121518600/WxyuCLjh56McEIjcgcFD&#x27; })` call inside the existing `form.addEventListener(&#x27;input&#x27;, ...)` handler — only on the first real input event, only if `window.gtag` is a function. Added a regression in `tests/content.test.js` that walks every site HTML page and asserts no `&lt;head&gt;` contains a `gtag(&#x27;event&#x27;, &#x27;conversion&#x27;, ...)` call.</span></p>
-<p class="act"><span class="act-label">Next</span><span class="act-text">Capture AdSense status / Auto Ads / impressions / eCPM and the campaign&#x27;s bidding strategy + spend; if needed, ship a Smart Bidding reset packet. Owner-side gates also still open on StrikeSight `ROTATED:` confirmation, paid options-data approval, `getstrikesight.com` purchase approval, `aifeaturecost.com` purchase approval, and the AI Feature Margin Check post URL. Current cash balance: $188.75.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -47,48 +46,79 @@
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
     <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>PAF Google Ads conversion fix shipped — fired only on first calculator engagement</h1>
-<h2>Owner approval acted on</h2>
-<ul>
-<li>Discord message <code>1498654473965539419</code> from theshepherdstack: <code>APPROVED PAF FIX CONVERSION</code> (2026-04-28 11:57 UTC).</li>
-<li>Matched the single approval line on yesterday&#x27;s recommendation packet <code>artifacts/2026-04-28-google-ads-conversion-bug-fix-recommendation.md</code>.</li>
-</ul>
+    <div class="artifact-prose"><h1>StrikeSight Hunt rebuild — dense sortable data table</h1>
+<p>Branch: <code>autobox/strikesight-scanner-mvp</code></p>
+<p>Commit: <code>e8a3572</code></p>
+<p>File: <code>the scanner frontend</code> (<code>+247 / -285</code>, net <code>-38</code>)</p>
 <h2>What changed</h2>
-<p>1. Deleted the unconditional <code>gtag(&#x27;event&#x27;, &#x27;conversion&#x27;, ...)</code> block from the homepage <code>&lt;head&gt;</code> in <code>the calculator site</code>. Lines 13–15 of the previous file are gone; only the <code>gtag(&#x27;js&#x27;, ...)</code> and <code>gtag(&#x27;config&#x27;, &#x27;AW-18121518600&#x27;)</code> initialization remains.</p>
-<p>2. Wired a one-shot conversion fire inside the existing input listener in <code>the calculator site</code>:</p>
-<p>```js</p>
-<p>let conversionFired = false;</p>
-<p>form.addEventListener(&#x27;input&#x27;, (event) =&gt; {</p>
-<p>if (!(event.target instanceof HTMLInputElement)) {</p>
-<p>return;</p>
-<p>}</p>
-<p>if (!conversionFired &amp;&amp; typeof window.gtag === &#x27;function&#x27;) {</p>
-<p>window.gtag(&#x27;event&#x27;, &#x27;conversion&#x27;, { send_to: &#x27;AW-18121518600/WxyuCLjh56McEIjcgcFD&#x27; });</p>
-<p>conversionFired = true;</p>
-<p>}</p>
-<p>// ...debounced runCalculation as before</p>
-<p>});</p>
-<p>```</p>
-<p>3. Added a regression in <code>tests/content.test.js</code> asserting no HTML page fires <code>gtag(&#x27;event&#x27;, &#x27;conversion&#x27;, ...)</code> inside <code>&lt;head&gt;</code>. This blocks the bug from drifting back if the snippet is ever copy-pasted from the Google Ads UI again.</p>
+<h3>Killed</h3>
+<ul>
+<li><code>framer-motion</code> <code>&lt;motion.div&gt;</code> swipeable card per opportunity</li>
+<li><code>AnimatePresence</code> directional card transitions (<code>x: 300 → x: -300</code>)</li>
+<li><code>currentCardIndex</code>, <code>nextCard</code>, <code>prevCard</code>, dot-pagination row</li>
+<li>600px tall single-card hero with <code>text-8xl</code> EV display</li>
+<li>Setup form&#x27;s <code>motion.div</code> fade/translate wrapper</li>
+<li>All emerald-glow markup-layer styling on cards (panels now use <code>.panel</code>)</li>
+<li>The <code>framer-motion</code> import is gone from this file (still in <code>package.json</code> for other pages)</li>
+</ul>
+<h3>Built</h3>
+<p>Desktop (<code>md:</code> and up): a single sortable table with 7 columns —</p>
+<p>| Column | Type | Sortable |</p>
+<p>|---|---|---|</p>
+<p>| Ticker | with company subtitle | yes (asc default) |</p>
+<p>| Strategy | <code>formatStrategyDisplay</code> output | no |</p>
+<p>| Exp | weeks, right-aligned, <code>.num</code> | yes (desc default) |</p>
+<p>| Win% | right-aligned, <code>.num</code> | yes (desc default) |</p>
+<p>| EV% | right-aligned, <code>.num text-pos</code>, signed | yes (desc default — initial sort) |</p>
+<p>| Credit | <code>$xx.xx</code>, right-aligned, <code>.num</code> | yes (desc default) |</p>
+<p>| Action | <code>Analyze</code> button → <code>/analysis/:ticker</code> | no |</p>
+<p>Mobile (<code>&lt;md</code>): same data as a stacked list of <code>.panel</code> cards with a sort-chip row above them (<code>EV% / Win% / Credit / Exp</code>); each card shows ticker, signed EV%, strategy line, three-up Exp/Win/Credit grid in <code>.num</code>, and a full-width <code>Analyze {ticker}</code> button.</p>
+<p>Empty state: simple panel with <code>Target</code> icon, &quot;No matches found&quot;, &quot;Adjust criteria&quot; button. Cache state: <code>Cached Nm ago</code> chip + <code>RefreshCw</code> icon. Header still has <code>New hunt</code> link.</p>
+<p>Setup form: same controls (5 sliders + strategy-type tri-button + index list), now wrapped in <code>.panel p-6</code> instead of <code>bg-dark-card border-gray-800 rounded-xl</code>; range tracks switched to <code>bg-bg-elevated</code>; selected buttons use <code>border-accent bg-accent-soft text-accent</code>; unselected <code>border-border-subtle text-fg-secondary hover:border-border-strong</code>. CTA <code>bg-accent text-bg-base rounded</code> instead of <code>rounded-xl</code>; loading state shows the same cycling scan messages but in plain <code>&lt;span&gt;</code> instead of <code>motion.div</code>.</p>
+<h3>Sort behavior</h3>
+<p>Default: <code>evPercent</code> desc. Click a sortable header (<code>Ticker</code>, <code>Exp</code>, <code>Win%</code>, <code>EV%</code>, <code>Credit</code>):</p>
+<ul>
+<li>if not currently sorted by it → switch to that key, default direction (asc for <code>ticker</code>, desc for the rest)</li>
+<li>if already sorted by it → toggle direction</li>
+</ul>
+<p>Sort indicator: <code>ArrowUp</code> / <code>ArrowDown</code> lucide icon next to the active column header in <code>text-accent</code>. Mobile chips show <code>↑</code> / <code>↓</code> glyphs.</p>
+<h2>Why this run</h2>
+<p>HANDOFF locked the Cove design direction on 2026-04-28 (&quot;Hunt results: dense sortable data table … not swipeable cards&quot;) and the design tokens were shipped on the prior run (commit <code>e8b805d</code>). That made step #3 of the locked build queue the right autonomous next move:</p>
+<ul>
+<li>step #1 (Supabase <code>spread_results</code> warehouse table) is gated on Travis applying SQL via the dashboard</li>
+<li>step #2 (Cove design tokens) shipped last run</li>
+<li>step #3 (Hunt rebuild as data table) is unblocked and uses the just-shipped tokens</li>
+<li>step #4 (routing restructure) and step #5 (Luke landing copy) downstream of #3</li>
+</ul>
+<p>Doing #3 now also makes #5 (Luke pass on landing copy) and step #6 (Ticker Analysis as a similar dense matrix) reference the same table-grade visual language instead of two disconnected anchors.</p>
 <h2>Verification</h2>
 <ul>
-<li><code>node --test tests/*.test.js</code> passed <code>107/107</code> (was <code>106</code> — net <code>+1</code> from the new regression).</li>
-<li><code>vercel deploy --prod --yes</code> produced <code>dpl_CtYWmDPsz8umVFnAnkgrZqpeABX4</code> and aliased to <code>https://profitafterfees.com</code> automatically.</li>
-<li>Live <code>curl -s https://profitafterfees.com/</code> confirms the <code>&lt;head&gt;</code> no longer contains the conversion event (only the gtag loader and <code>gtag(&#x27;config&#x27;, &#x27;AW-18121518600&#x27;)</code> remain).</li>
-<li>Live <code>curl -s https://profitafterfees.com/app/app.js | grep -c WxyuCLjh56McEIjcgcFD</code> returned <code>1</code> — the conversion send target now lives only inside the input listener.</li>
-<li>Primary URLs all <code>HTTP 200</code>: <code>/</code>, <code>/privacy/</code>, <code>/ads.txt</code>, <code>/sitemap.xml</code>, <code>/transaction-fee-calculator/</code>, <code>/ai-feature-cost-calculator/</code>.</li>
-<li>IndexNow POST for <code>https://profitafterfees.com/</code> returned <code>HTTP 200</code>.</li>
+<li><code>cd frontend &amp;&amp; npm run build</code> → passes; bundle <code>446.16 kB</code> js / <code>25.94 kB</code> css</li>
+<li><code>cd backend &amp;&amp; npm run build</code> → passes</li>
+<li><code>npx tsx --test src/services/huntFixtureMode.test.ts</code> (with <code>HUNT_USE_FIXTURES=1</code>, only <code>SUPABASE_URL</code> + <code>SUPABASE_SECRET_KEY</code> set) → <code>3/3 pass</code></li>
+<li><code>grep framer-motion the scanner frontend</code> → zero matches</li>
+<li><code>grep &quot;currentCardIndex\|swipeable&quot; the scanner frontend</code> → zero matches</li>
+<li>54 occurrences of design tokens (<code>panel|num|border-subtle|accent</code>) in the new file</li>
 </ul>
-<h2>Why this matters</h2>
-<p>On the live $10/day campaign, every visit was previously reporting as a conversion. Smart Bidding (if enabled) was optimizing toward fake signals; cost-per-conversion and conversion-rate dashboards were meaningless. The fire now triggers exactly once per session, on the first calculator input change — the actual desired engagement on a no-form free-tool landing page. Any campaign currently in a learning phase against the broken signal should expect a reset.</p>
-<h2>Adjacent question still open for Travis</h2>
-<p>The recommendation packet flagged two adjacent facts that would let the next move be sized correctly:</p>
+<h2>Public-facing copy review</h2>
+<p>Per RULES.md rule 14/15: the new strings on this page are short, customer-facing, and stay product-shaped. No internal labels, experiment language, SEO scaffolding, or process notes. The phrases used are:</p>
 <ul>
-<li>Is the campaign currently using Smart Bidding (Maximize conversions / Target CPA / Maximize conversion value) or Manual CPC?</li>
-<li>Total spend so far against the <code>$50</code> stop-loss?</li>
+<li><code>Run a hunt</code></li>
+<li><code>Set your criteria. The scanner returns ticker-specific credit spreads that have historically beaten generic delta/DTE rules.</code></li>
+<li><code>Hunt results</code> / <code>Sort by:</code></li>
+<li><code>Hunting...</code> / scan-message rotation (existing strings)</li>
+<li><code>No matches found</code> / <code>Try loosening your criteria.</code> / <code>Adjust criteria</code></li>
 </ul>
-<p>If Smart Bidding has already optimized against the broken signal for several days, that&#x27;s a separate &quot;reset learning&quot; decision worth a single follow-up reply.</p>
-<p>No spend made. Cash balance: $188.75.</p></div>
+<p>These are tighter than the prior copy (&quot;Hunt Your Setup&quot;, &quot;Define your criteria and find matching opportunities&quot;) and match the product positioning locked in HANDOFF: &quot;scans the whole S&amp;P, returns exact strikes and expirations that have been consistently profitable over time.&quot;</p>
+<p>The Hunt page is not yet on a public URL — it&#x27;s behind auth on the <code>autobox/strikesight-scanner-mvp</code> branch. Once routing restructure (step #4) and the Luke landing-copy pass (step #5) ship and the app deploys to StrikeRewind.com, this Hunt UI is what an authenticated user sees after running a scan.</p>
+<h2>Next step</h2>
+<p>Step #4 from the build queue: restructure routing — <code>/</code> becomes the unauthenticated landing shell, <code>/dashboard</code> becomes the authenticated home (today&#x27;s top signal + watchlist quick-view + Run Hunt CTA), <code>/hunt</code> stays as the scanner. This is autonomous-runnable; no Travis approval required. After that, step #5 (Luke landing copy pass) is route-able to Luke per RULES.md as the first public-facing copy work on StrikeRewind.</p>
+<p>Open owner gates unchanged:</p>
+<ul>
+<li><code>ROTATED: STRIKESIGHT KEYS READY</code> (rotate the leaked Xata API key in Xata dashboard)</li>
+<li><code>APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO</code> — wait until pre-launch testing per Travis direction</li>
+<li>Apply <code>spread_results</code> Supabase migration via dashboard, or grant explicit consent for AutoBox to author the migration file</li>
+</ul></div>
   </section>
 
   <section class="detail-section">

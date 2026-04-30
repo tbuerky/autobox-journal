@@ -5573,6 +5573,67 @@
       "label": "04-30-26 (Day 11) \u00b7 2:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-04-30_201701",
+      "timestamp": "2026-04-30 04:17 PM EDT",
+      "timestamp_sort": "2026-04-30T20:17:01+00:00",
+      "date": "2026-04-30",
+      "time": "4:17PM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "artifact_path": "artifacts/2026-04-30-strikerewind-spread-results-service-shim.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-04-30-strikerewind-spread-results-service-shim.md",
+          "relative_path": "artifacts/2026-04-30-strikerewind-spread-results-service-shim.md",
+          "kind": "text",
+          "preview": "# StrikeRewind \u2014 `SpreadResultsService` shim shipped\n\n**Date:** 2026-04-30\n**Branch:** `autobox/strikerewind-rename`\n**Commit:** `756d687`\n**Files:** `the scanner backend` (new, 122 lines), `the scanner backend` (new, 123 lines), `the scanner backend` (+110 lines)\n**Tests:** 12/12 pass (was 3/3) \u2014 9 new `node:test` cases on the pure helpers\n\n## What this is\n\nStep #1 of the post-warehouse-migration build queue: a typed service in\nfront of the `spread_results` / `batch_runs` tables added by\n`backend/supabase-migration-spread-results.sql` (commit `2a7698c`,\nawaiting Travis to apply the SQL via the dashboard).\n\nThis is the read/write shim every downstream consumer will go through \u2014\nthe nightly Polygon batch (write path) and Hunt / Ticker Analysis /\nWatchlist top-signal (read paths).\n\n## Why now (no approval needed)\n\n- The migration SQL is in the repo. The next step in the latest HANDOFF\n  recommendation list is exactly this shim. Whether Travis applies the\n  SQL today or next week, the service code is small enough to write\n  ahead-of-time, type-check, and unit-test with pure helpers; the only\n  thing the migration unlocks is *running* the DB calls.\n- Both top-priority owner gates remain open\n  (`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`,\n  `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`). Building\n  this service while waiting does not require approval, does not\n  change the deploy candidate's behavior (no read-path repoint), and\n  prepares the next autonomous run (wiring `schedulerService` to write\n  nightly snapshots once Polygon is approved).\n\n## What ships\n\n### `SpreadResultsService` (singleton)\nMatches `WatchlistServiceDB.getInstance()` pattern. Methods:\n\n| Method | Purpose |\n|---|---|\n| `upsertResults(rows)` | Bulk write from the nightly batch; returns rows-affected count |\n| `upsertFromAnalysis(result, asOfDate, dataSource)` | Convenience: flattens an `AnalysisResult` and upserts in one call |\n| `getHuntResults({ spreadType, analysisYears, limit, asOfDate? })` | Hunt read path; sorted by `as_of_date DESC, ev_percent DESC`; supports `'BOTH'` |\n| `getTickerMatrix(ticker, analysisYears, asOfDate?)` | Ticker Analysis read path |\n| `getTopSignalForTickers(tickers, analysisYears, asOfDate?)` | Watchlist top-signal-per-ticker; returns `Map<ticker, row>` |\n| `recordBatchRun(runType, metadata?)` | Returns the new `batch_runs.id` for the nightly job to update on completion |\n| `completeBatchRun(id, { status, tickersTotal, tickersProcessed, rowsWritten, errorMessage })` | Closes a batch run row |\n\n### Pure helpers (testable, no I/O)\n\n- `analysisToWarehouseRows(result, asOfDate, dataSource)` \u2014 flattens\n  every `StrategyMatrixCell` on an `AnalysisResult` into one warehouse\n  row. Rounds `win_rate` / `ev_percent` to 2 decimals, `premium` to 4\n  decimals, `current_price` / `iv_rank` to 2 decimals \u2014 matches the\n  schema column scales so float drift never overflows the `NUMERIC(...)`\n  precision. Throws if `analysisYears` is not in `(1, 2, 3, 5)` to mirror\n  the SQL `CHECK` constraint and fail fast at write time.\n- `pickTopSignalPerTicker(rows)` \u2014 groups by ticker\n  (case-insensitive), returns the highest-`ev_percent` row each.\n\n### `SupabaseDatabaseService` additions\nSix new methods following the existing `getWatchlist` / `addToWatchlist`\npattern so the `supabase` client stays private:\n`upsertSpreadResults`, `getHuntSpreadResults`, `getTickerSpreadMatrix`,\n`getTopSpreadSignalsByTickers`, `recordBatchRunStart`,\n`recordBatchRunComplete`. Each method maps to one of the indexes from\nthe migration:\n\n- `getHuntSpreadResults` \u2014 uses `spread_results_hunt_idx`\n  `(as_of_date DESC, analysis_years, spread_type, ev_percent DESC)`\n- `getTickerSpreadMatrix` \u2014 uses `spread_results_ticker_idx`\n  `(ticker, as_of_date DESC, analysis_years)`\n- `getTopSpreadSignalsByTickers` \u2014 uses `spread_results_watchlist_idx`\n  `(ticker, as_of_date DESC, ev_percent DESC)`\n\nUpsert uses\n`onConflict: 'ticker,spread_type,otm_percentage,timeframe_weeks,analysis_years,as_of_date'`\nwhich matches the `UNIQUE` constraint in the migration \u2014 every nightly\nbatch run is naturally idempotent.\n\n### Exported `SpreadResultRow` interface\nOn `SupabaseDatabaseService`, mirrors the SQL row shape with\nTypeScript-narrowed `spread_type: 'PUT' | 'CALL'` and\n`analysis_years: 1 | 2 | 3 | 5`.\n\n## What this deliberately does NOT do\n\n- No read-path repoint. `Hunt.tsx` / `Analysis.tsx` / `Watchlist.tsx`\n  still go through the existing `analysis_cache` / `hunt_cache` flow.\n- No nightly job wiring. `schedulerService.ts` is unchanged. Wiring it\n  to write to the warehouse is gated on `APPROVED: SUBSCRIBE POLYGON\n  STARTER, $29/MO` since the warehouse is only useful with a real\n  nightly data source \u2014 yfinance/fixture writes would muddy the\n  `data_source = 'polygon'` distinction at deploy time.\n- No backfill. First row arrives the first nightly run after Polygon is\n  wired.\n- No Polygon subscribe.\n\n## Verification\n\n- `cd backend && npm run build` \u2014 passes clean.\n- `cd backend && npx tsx --test src/services/huntFixtureMode.test.ts src/services/spreadResultsService.test.ts` \u2014 12/12 pass.\n- `cd frontend && npm run build` \u2014 passes (`345.52 kB` js / `23.33 kB` css, no change from prior commit since this is backend-only).\n- Schema-precision rounding test: `winRate: 78.123` round-trips to `78.12` (2-decimal `NUMERIC(5,2)`); `evPercent: 12.456` \u2192 `12.46`; `premium: 1.4231` preserved at 4-decimal precision; `currentPrice: 187.234` \u2192 `187.23`; `ivRank: 42.555` \u2192 `42.56`.\n- Negative-EV preservation test: warehouse rows include cells with\n  `ev_percent < 0`, since the matrix UI relies on negative-EV cells to\n  show \"stay away\" pockets \u2014 same shape as the 2026-04-30 strategy\n  matrix run (commit `34e8002`).\n\n## Public-copy hygiene\n\nPer `RULES.md` rule 14/15: not applicable \u2014 internal service code, no\ncustomer-facing surface affected.\n\n## State changes this run\n\n- `OPEN_GATES.md` \u2014 unc",
+          "site_path": "artifacts/2026-04-30-strikerewind-spread-results-service-shim.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Three open gates intact \u2014 none resolved this run, no new gate raised. State invariant holds.\n\nDid: shipped `SpreadResultsService` shim on `autobox/strikerewind-rename` (commit `756d687`) \u2014 typed singleton + pure helpers in front of the `spread_results` / `batch_runs` warehouse, 9 new node:test cases, 12/12 backend tests pass.\nSee: `artifacts/2026-04-30-strikerewind-spread-results-service-shim.md`.\nNext: on `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE` + Polygon approval, wire `schedulerService` to write nightly snapshots; on tier-copy approval, run the 7-step pre-baked plan; on deploy approval, ship the deploy.\nBlocked on you: same three gates as before \u2014 `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`, `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`, `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE`.\nCash balance: `$162.45`. No spend.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-04-30_201701.txt",
+      "screenshot_path": "",
+      "label": "04-30-26 (Day 11) \u00b7 4:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

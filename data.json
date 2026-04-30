@@ -4974,9 +4974,9 @@
       "date": "2026-04-29",
       "time": "4:17PM",
       "objective": "Step #2 in the StrikeSight build queue \u2014 implement Cove design tokens in `index.css` and Tailwind config (color system, typography, spacing). Step #1 (Supabase `spread_results` warehouse table) needs Travis to apply SQL via the dashboard. Step #2 is fully autonomous and is a prerequisite for the Hunt-as-data-table rebuild (#3) and the Luke landing page rewrite (#5) \u2014 doing it first means both reference one anchor instead of drifting apart. Wakeup brief explicitly favors design-system foundation and stronger product copy over more pages or another internal doc.",
-      "decision_made": "Land tokens at the configuration layer only \u2014 no `.tsx` markup edits in this run (markup-layer passes belong with the page-by-page rebuilds that come next). `tailwind.config.js`: `emerald` color value swapped `#10b981` \u2192 `#22C55E`; new `accent` / `accent-soft` / `pos` / `neg` / `warn` semantic tokens; layered near-black surfaces (`bg-base #0B0F14`, `bg-surface #0F141B`, `bg-panel #111821`, `bg-elevated #161E29`); `dark-bg` / `dark-card` aliased to the new values for backwards compat; border scale (`border-subtle #1C2430`, `border-strong #27313F`); text scale (`fg-primary #E6EAF0`, `fg-secondary #A4ADBA`, `fg-muted #6C7685`); `font-mono` and `font-num` map to JetBrains Mono \u2192 IBM Plex Mono \u2192 ui-monospace fallback chain; `borderRadius.DEFAULT` reduced to `0.375rem` (`rounded-md`). `index.css`: JetBrains Mono Google Fonts import; `:root` CSS custom properties expose every token; `.num` utility (`font-variant-numeric: tabular-nums` + `font-feature-settings: \"tnum\" 1`) for numeric content (win rate / EV% / strikes / credits); `.panel` and `.panel-elevated` component classes encapsulate panel surface + subtle border at `rounded-md`; emerald box-shadow glow on the main container removed (Cove explicit); emerald glow on slider hover thumb removed (Cove explicit); slider thumb border switched from `#000` to `var(--bg-base)`.",
-      "next_step": "Step #3 in the HANDOFF queue \u2014 rebuild Hunt results UI as a dense sortable data table (`Ticker | Strike | Exp | Win% | EV% | Credit | Action`) using the new tokens at the markup layer (`.panel`, `.num`, `border-subtle`, `accent`), kill the swipeable card UI, remove framer-motion page fades. Then step #4 routing restructure (`/` \u2192 landing, `/dashboard` \u2192 authenticated home), then step #5 Luke landing page copy. Owner-side StrikeSight and AI utility gates unchanged. Current cash balance: $162.45.",
-      "artifact_path": "artifacts/2026-04-29-strikesight-cove-design-tokens.md",
+      "decision_made": "Land tokens at the configuration layer only \u2014 no `.tsx` markup edits in this run (markup-layer passes belong with the page-by-page rebuilds that come next). `tailwind.config.js`: `emerald` color value swapped `#10b981` \u2192 `#22C55E`; new `accent` / `accent-soft` / `pos` / `neg` / `warn` semantic tokens; layered near-black surfaces (`bg-base #0B0F14`, `bg-surface #0F141B`, `bg-panel #111821`, `bg-elevated #161E29`); `dark-bg` / `dark-card` aliased to the new values for backwards compat; border scale (`border-subtle #1C2430`, `border-strong #27313F`); text scale (`fg-primary #E6EAF0`, `fg-secondary #A4ADBA`, `fg-muted #6C7685`); `font-mono` and `font-num` map to JetBrains Mono \u2192 IBM Plex Mono \u2192 ui-monospace fallback chain; `borderRadius.DEFAULT` reduced to `0.375rem` (`rounded-md`). `index.css`: JetBrains Mono Google Fonts import; `:root` CSS custom properties expose every token; `.num` utility (`font-variant-numeric: tabular-nums` + `font-feature-settings: \"tnum\" 1`) for numeric content (win rate / EV% / strikes / credits); `.panel` and `.panel-elevated` component classes encapsulate panel surface + subtle border at `rounded-md`; emerald box-shadow glow on the main container remove",
+      "next_step": "",
+      "artifact_path": "",
       "budget": {
         "starting_budget": "$200.00",
         "current_balance": "$162.45",
@@ -5011,16 +5011,7 @@
           }
         ]
       },
-      "artifacts": [
-        {
-          "name": "2026-04-29-strikesight-cove-design-tokens.md",
-          "relative_path": "artifacts/2026-04-29-strikesight-cove-design-tokens.md",
-          "kind": "text",
-          "preview": "# StrikeSight: Cove design tokens shipped\n\n## What this is\nStep #2 from the StrikeSight build queue locked into `HANDOFF.md` on 2026-04-28: **foundational design tokens** in `frontend/tailwind.config.js` and `the scanner frontend` so the upcoming Hunt-as-data-table rebuild and landing page copy rewrite reference one consistent system. Without this layer, every subsequent UI change would have to re-derive colors, type, and surface decisions ad hoc.\n\nThis is fully implementable in code \u2014 no Travis approval needed, no spend.\n\n## Why this is the right run\nTravis priority shift (interactive 2026-04-28) puts StrikeSight on ~90% bandwidth on a \"build \u2192 polish \u2192 deploy \u2192 market\" path. The HANDOFF locked the build order: (1) Supabase `spread_results` warehouse table, (2) **Cove design tokens**, (3) Hunt as dense data table, (4) routing restructure, (5) Luke landing copy.\n\nItem #1 needs Travis to deploy SQL via the Supabase dashboard. Item #2 is fully autonomous. It is also a **prerequisite** for items #3 and #5 \u2014 the dense Hunt data table and the landing page need the new color/type system in place before either is built. Doing #2 first means #3 and #5 can both reference one anchor and don't drift apart.\n\nThe wakeup brief explicitly favors stronger design + product copy over more pages or more internal docs. This run is design-system foundation, not a page expansion or another SEO doc.\n\n## Cove design direction this run lands\nFrom the 2026-04-28 Cove design audit (recorded in `STATE.md` and `HANDOFF.md`):\n- Institutional fintech aesthetic: `#0B0F14` background, layered near-black surfaces, `#111821` panels.\n- JetBrains Mono or IBM Plex Mono for ALL numeric content.\n- Replace Tailwind emerald everywhere with restrained `#22C55E` used sparingly.\n- `rounded-md` not `rounded-2xl`.\n- Remove emerald glow effects.\n\nThis run lands every one of those at the token layer. Subsequent passes apply them at the markup layer page by page.\n\n## What changed\n\n### `frontend/tailwind.config.js`\n- `emerald` color value swapped from `#10b981` \u2192 `#22C55E`. Backwards-compat: existing references in 12 `.tsx` files (`Layout`, `SuccessRateIndicator`, `TickerInput`, `Home`, `Hunt`, `Analysis`, `Watchlist`, `Account`, `Scanner`, `Privacy`, `Terms`, plus `index.css`) now render restrained green without any markup change.\n- New semantic tokens: `accent`, `accent-soft` (12% green wash for hover/active states), `pos`, `neg`, `warn`.\n- Layered surfaces: `bg-base`, `bg-surface`, `bg-panel`, `bg-elevated`. `dark-bg` aliased to `#0B0F14`, `dark-card` aliased to `#111821` (backwards-compat).\n- Border scale: `border-subtle` `#1C2430`, `border-strong` `#27313F`.\n- Text scale: `fg-primary` `#E6EAF0`, `fg-secondary` `#A4ADBA`, `fg-muted` `#6C7685`.\n- `fontFamily`: `mono` and `num` both map to `JetBrains Mono \u2192 IBM Plex Mono \u2192 ui-monospace \u2192 SFMono-Regular \u2192 Menlo \u2192 monospace`.\n- `borderRadius.DEFAULT` reduced to `0.375rem` (`rounded-md`).\n\n### `the scanner frontend`\n- Added Google Fonts import for JetBrains Mono `400/500/600/700`.\n- New `:root` CSS custom properties expose every token (`--bg-base`, `--bg-panel`, `--accent`, `--pos`, `--neg`, `--fg-primary`, etc.) so non-Tailwind components and inline `style={}` references can use the same anchors.\n- `html, body` now resolve to `var(--bg-base)` / `var(--fg-primary)` \u2014 replaces the literal `#000000` background.\n- New `.num` utility class: applies `font-num` plus `font-variant-numeric: tabular-nums` plus `font-feature-settings: \"tnum\" 1` so every numeric cell (win rate, EV%, strikes, credits) anchors on a single rule.\n- New `.panel` and `.panel-elevated` component classes encapsulate the standard panel surface + subtle border at `rounded-md`. Subsequent Hunt-as-data-table pass can use `.panel` for the criteria rail and the results frame without re-deriving.\n- Removed the emerald `box-shadow: 0 0 60px rgba(16, 185, 129, 0.05)` glow on the main container at `lg+` breakpoint (Cove explicit removal).\n- Removed the emerald glow on `.slider:hover` thumb states (Cove explicit removal).\n- Slider thumb border switched from hardcoded `#000` to `var(--bg-base)` so the thumb reads as cut out of the new institutional background, not floating on a different one.\n\n### What did NOT change this run (deliberate scoping)\n- No `.tsx` files were edited. Every existing `text-emerald` / `bg-emerald` / `border-emerald` / `bg-dark-bg` / `bg-dark-card` reference in 12 files now renders against the new tokens automatically. This is the correct scope for one autonomous run \u2014 markup-level passes are page-by-page work that belongs in the Hunt-data-table rebuild and landing page rewrite.\n- The Tailwind keyframe animations `fade-in` and `slide-up` were preserved. Cove's \"remove framer-motion page fades\" is a separate markup-layer concern (framer-motion is its own library, unrelated to Tailwind's `animate-*` classes). When the routing restructure runs, the framer-motion `motion.div` page transitions can be removed in that pass.\n\n## Verification\n- `cd /home/autoproj/projects/StrikeSight/frontend && npm run build` \u2192 passes; bundle `dist/assets/index-lA3V66Oj.js 445.78 kB` (gzip 139.72 kB), CSS `dist/assets/index-CDrXkVds.css 24.33 kB`.\n- `cd /home/autoproj/projects/StrikeSight/backend && npm run build` (tsc) \u2192 passes.\n- Compiled CSS bundle:\n  - `#22C55E` (new restrained accent): 10 occurrences (every `text-/bg-/border-/ring-emerald` rule and hover variant resolved correctly).\n  - `#10b981` (old Tailwind emerald): 0 occurrences (token swap complete at the rendered level).\n  - `#0B0F14` (institutional bg): present.\n  - `#111821` (panel): present.\n  - `JetBrains Mono`: present in `@font-face` rule.\n\nVisual rendering review under a real browser is queued for the next session that has a browser; an autonomous run cannot perform a screenshot-grade design check.\n\n## Git\n- Commit: `e8b805d` on `autobox/strikesight-scanner-mvp`.\n- Pushed to `https://github.com/tbuerky/StrikeSight`.\n- Diff: `2 files changed, 85 insertions(+), 31 de",
-          "site_path": "artifacts/2026-04-29-strikesight-cove-design-tokens.md",
-          "has_redactions": true
-        }
-      ],
+      "artifacts": [],
       "output_excerpt": "State files updated. The single open gate (`TIER MODEL: FREE/PRO/ULTRA APPROVED`) was checked against fresh inputs and is still unanswered \u2014 it stays in `OPEN_GATES.md`. No new gate raised this run.\n\nSummary:\n\n- **Did:** Operationalized Travis's \"decrease verbosity\" Discord rule in code. Rewrote `scripts/post_discord_bot_update.py:build_messages` to emit a 4-line `Did:/See:/Next:/Blocked on you:` summary using one-sentence excerpts and a fresh `OPEN_GATES.md` parse for the blocker line. Dropped the unused `budget` argument and dead `current_budget()`/`BUDGET_PATH`. Verified locally: 480 chars on the latest run vs the previous ~3 000+; edge cases pass; `Suggested post copy:` extraction preserved.\n- **State files updated:** `OWNER_MESSAGES.md` (handled), `TODO.md` (DONE entry), `RUNLOG.md` (new section), `HANDOFF.md` (Latest handoff + Recommendation), `SCORECARD.md` (score 5 row), memory `feedback_discord_verbosity.md` (notes the rule is now code-enforced). `OPEN_GATES.md` unchanged.\n- **Next:** Layout.tsx + SuccessRateIndicator.tsx framer-motion strip (small unblock), or step #6 (full delta \u00d7 DTE matrix on `/analysis/:ticker`, needs backend payload), or `DEPLOYMENT.md` Supabase rewrites pre-deploy.\n- **Blocked on Travis:** `TIER MODEL: FREE/PRO/ULTRA APPROVED`. Cash balance: $162.45. No spend.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
       "output_site_path": "outputs/run_claude_2026-04-29_201701.txt",
       "screenshot_path": "",
@@ -5034,10 +5025,10 @@
       "timestamp_sort": "2026-04-29T22:17:01+00:00",
       "date": "2026-04-29",
       "time": "6:17PM",
-      "objective": "StrikeSight cleanup \u2014 last session migrated the database from Xata to Supabase but left the old `XataDatabaseServiceWithFallback` wrapper in place as a thin alias, six consumers still importing it, the `@xata.io/client` package still in `backend/package.json`, generated `xata.ts` + `xataDatabaseService.ts` still on disk, and `.env.example` still listing `XATA_API_KEY` / `XATA_DATABASE_URL`. The HANDOFF explicitly listed this audit as the first follow-up before production deploy. No owner-side approval needed; pure code cleanup with measurable surface-area reduction.",
-      "decision_made": "Cut Xata cleanly. Repointed every consumer at `SupabaseDatabaseService.getInstance()`. Added `getFromStorage`/`setInStorage`/`removeFromStorage` to `SupabaseDatabaseService` backed by an in-process `Map<string,string>` to preserve identical behavior. Deleted `the scanner backend`, `xataDatabaseService.ts`, `xataDatabaseServiceWithFallback.ts`. Dropped `@xata.io/client` from `backend/package.json` and ran `npm install`. Replaced `XATA_API_KEY` / `XATA_DATABASE_URL` in `the backend env file` with `SUPABASE_URL` / `SUPABASE_SECRET_KEY`. Removed tracked `.xata/` codegen directories. Net diff `18 files changed, 353 insertions(+), 894 deletions(-)`.",
+      "objective": "",
+      "decision_made": "",
       "next_step": "",
-      "artifact_path": "artifacts/2026-04-29-strikesight-xata-purge.md",
+      "artifact_path": "artifacts/2026-04-29-strikesight-deploy-docs-supabase-rewrite.md",
       "budget": {
         "starting_budget": "$200.00",
         "current_balance": "$162.45",
@@ -5074,11 +5065,11 @@
       },
       "artifacts": [
         {
-          "name": "2026-04-29-strikesight-xata-purge.md",
-          "relative_path": "artifacts/2026-04-29-strikesight-xata-purge.md",
+          "name": "2026-04-29-strikesight-deploy-docs-supabase-rewrite.md",
+          "relative_path": "artifacts/2026-04-29-strikesight-deploy-docs-supabase-rewrite.md",
           "kind": "text",
-          "preview": "# StrikeSight \u2014 purge Xata SDK, point all consumers at Supabase\n\nDate: 2026-04-29\nBranch: `autobox/strikesight-scanner-mvp`\nCommit: `ffdc8ba`\n\n## What changed\n\nLast session migrated the StrikeSight database from Xata to Supabase but left the old `XataDatabaseServiceWithFallback` wrapper in place as a thin alias (importing `SupabaseDatabaseService as XataDatabaseService`). Six files still imported the wrapper, the `@xata.io/client` package was still in `backend/package.json`, the generated `xata.ts` client and old `xataDatabaseService.ts` still existed, and `.env.example` still listed `XATA_API_KEY` / `XATA_DATABASE_URL`. Boot worked, but the surface area was confusing and any new contributor (or future autonomous run) would think Xata was still load-bearing.\n\nThis run cut Xata out cleanly:\n\n- Repointed every consumer to `SupabaseDatabaseService.getInstance()` directly:\n  - `the scanner backend` (6 files)\n- Added `getFromStorage` / `setInStorage` / `removeFromStorage` to `SupabaseDatabaseService` backed by an in-process `Map`. This preserves the exact behavior the wrapper had \u2014 those methods were always in-memory anyway (the wrapper's \"would query Xata cache table\" comments were never wired up).\n- Deleted `the scanner backend`, `the scanner backend`, `the scanner backend`.\n- Removed `@xata.io/client` from `backend/package.json`; ran `npm install` (one package removed; lockfile updated).\n- Replaced `XATA_API_KEY` / `XATA_DATABASE_URL` in `the backend env file` with `SUPABASE_URL` / `SUPABASE_SECRET_KEY`.\n- Removed tracked Xata codegen directories `.xata/` and `backend/.xata/` (compatibility/version JSON + migration ledger).\n\nNet diff: `18 files changed, 353 insertions(+), 894 deletions(-)`. About 800 lines of dead Xata code removed.\n\n## Verification\n\n- `cd backend && npm run build` \u2192 `tsc` passes clean (no errors).\n- `cd / (root) && npm run build` \u2192 backend `tsc` + frontend `tsc -b && vite build` both pass; `dist/assets/index-BDGG0Dbb.js 445.78 kB`.\n- Backend boot test with **only** `SUPABASE_URL` + `SUPABASE_SECRET_KEY` set (no `XATA_*` vars, no `STRIPE_*`, no `SENTRY_DSN`, no `ENABLE_SCHEDULER`):\n  ```\n  Sentry DSN not found, error tracking disabled\n  Scheduler disabled (set ENABLE_SCHEDULER=true to enable)\n  StrikeSight backend running on port 3099\n  ```\n- Existing fixture tests (`huntFixtureMode.test.ts`) pass `3/3`.\n- `grep -i \"xata\\|XATA\" backend/src/` returns zero matches.\n\n## Remaining Xata mentions in the repo\n\nThree internal deployment/security docs still mention Xata:\n- `DEPLOYMENT.md`\n- `HTTPS_DEPLOYMENT_GUIDE.md`\n- `SECURITY_AUDIT.md`\n\nPlus one frozen historical artifact under `journal/site/artifacts/`. None of these are user-facing and none load at runtime, but the deployment docs will need a Supabase rewrite before production deploy. Logged in TODO.md.\n\n## Why this was the right next move\n\nThe HANDOFF explicitly listed this audit as the first follow-up after the Supabase migration. It's blocking the production deploy: the deploy README still names Xata env vars, the package still pulls a 0.30.x SDK we don't use, and consumers were one-step-removed from the actual database. With this gone, the deploy pipeline reads cleanly: only `SUPABASE_URL` and `SUPABASE_SECRET_KEY` are required to boot, and the only deferred database wiring is Stripe (which is already gated behind `STRIPE_SECRET_KEY` lazy init) and the paid options data provider (still pending owner approval).\n\nThe Travis directive was \"polish up StrikeSight, then drive traffic.\" This is part of polish \u2014 visible to the next pair of eyes touching the repo (Travis, a future autonomous run, a contractor), and it removes a surface that would create deployment confusion. It cost zero dollars, did not cross any approval gate, and shrinks the change set by ~800 lines.\n\n## Next concrete moves on StrikeSight (in dependency order)\n\n1. Rewrite `DEPLOYMENT.md` and `HTTPS_DEPLOYMENT_GUIDE.md` Supabase sections (small, no approval).\n2. Polish landing page copy \u2014 route through Luke for the \"scans the whole S&P, returns the exact tickers, strikes, and expirations that have been consistently profitable over time\" story.\n3. On `ROTATED: STRIKESIGHT KEYS READY` from Travis (Xata key rotation in Xata dashboard \u2014 independent of the SDK removal above; the leaked key still needs to be invalidated).\n4. On `APPROVED: SUBSCRIBE MARKETDATA.APP TRADER ...` \u2014 wire real chain data behind the existing scanner.\n5. On `APPROVED: BUY STRIKEREWIND.COM, MAX $15` (or `GETSTRIKESIGHT.COM`) \u2014 purchase, point DNS.\n6. Production deploy \u2014 Vercel or Render with Supabase env.\n7. Stripe production keys + end-to-end subscription test.\n\n## Owner-side asks (no new approval gate from this run)\n\n- `ROTATED: STRIKESIGHT KEYS READY` (rotate Xata key in Xata dashboard so the leaked key is invalidated)\n- `APPROVED: SUBSCRIBE MARKETDATA.APP TRADER ...` (paid options chain data; ~$60/mo or Polygon Starter ~$29/mo equivalent)\n- `APPROVED: BUY STRIKEREWIND.COM, MAX $15` (or `GETSTRIKESIGHT.COM`)\n- PAF-side: confirm Smart Bidding strategy and total Google Ads spend so far against the `$50` stop-loss\n\n## Cash balance\n\n`$188.75`. No spend this run.\n",
-          "site_path": "artifacts/2026-04-29-strikesight-xata-purge.md",
+          "preview": "# StrikeSight deploy docs Supabase rewrite\n\nDate: 2026-04-29\nBranch: `autobox/strikesight-scanner-mvp`\nCommit: `965c543`\n\n## Why now\nTravis priority shift puts StrikeSight on the build \u2192 polish \u2192 deploy \u2192 market path. Step #1 of the locked HANDOFF queue (Supabase `spread_results` warehouse SQL) is gated on Travis applying SQL via dashboard; step #6 (full delta \u00d7 DTE matrix) needs a backend payload change too risky to bundle one-shot.\n\nA real deploy blocker was already on TODO.md as autonomous-runnable:\n> [TODO] StrikeSight: rewrite `DEPLOYMENT.md` and `HTTPS_DEPLOYMENT_GUIDE.md` Supabase sections (currently still reference XATA_API_KEY / XATA_DATABASE_URL; small, no approval needed; do this before production deploy).\n\nAfter the Xata SDK purge (commit `ffdc8ba`, 2026-04-29) the codebase no longer uses Xata, but the two deploy docs still listed `XATA_API_KEY` / `XATA_DATABASE_URL` in their production env-var examples and credited Xata for automatic backups. If Travis (or AutoBox post tier-model-approval) followed those docs verbatim, the production backend would boot with no database connection and `SupabaseDatabaseService.getInstance()` would throw on first call.\n\n## What changed\n\n**`DEPLOYMENT.md`** (2 edits):\n- Backend `.env` example block: replaced `[REDACTED]` + `[REDACTED]` with `SUPABASE_URL=https://your-project-ref.supabase.co` + `[REDACTED]` (matches `the backend env file`); added Supabase Dashboard URL pointer.\n- \"Backup & Recovery \u2192 Database\" bullet: replaced \"Xata provides automatic backups\" with the accurate Supabase split \u2014 Pro tier ships daily automated backups with 7-day retention; Free tier does not, so the operator runs scheduled `pg_dump` against the Supabase connection string. Also kept the \"test restore procedures\" reminder.\n\n**`HTTPS_DEPLOYMENT_GUIDE.md`** (1 edit):\n- Production backend `.env.production` example: replaced `[REDACTED]` + `[REDACTED]` with `SUPABASE_URL=https://your-project-ref.supabase.co` + `[REDACTED]`.\n\n## Deliberately NOT changed\n- `SECURITY_AUDIT.md` \u2014 incident report describing the leaked Xata key (`xau_ncIRLvD0ac8cIczjxF0vZbHzW6nCArva4`) that Travis still needs to rotate (`ROTATED: STRIKESIGHT KEYS READY` open gate). Frozen historical record; rewriting it would obscure the incident.\n- `2026-04-26-strikesight-scanner-mvp-verification.md` \u2014 frozen verification artifact in the journal site; not a deploy doc.\n- `STRIPE_STANDARD_PRICE_ID` / `STRIPE_PRO_PRICE_ID` env vars in `DEPLOYMENT.md` \u2014 left as-is. These map to the current Stripe Dashboard products (`Standard $9.99` / `Pro $29.99`). When Travis approves `TIER MODEL: FREE/PRO/ULTRA` the Stripe products get renamed to `Pro $29` / `Ultra $99` and AutoBox repoints env in the same deploy run. Until that approval lands, the deploy docs match the live Stripe configuration.\n\n## Verification\n```\n$ cd /home/autoproj/projects/StrikeSight && grep -nE 'Xata|XATA|DATABASE_URL' DEPLOYMENT.md HTTPS_DEPLOYMENT_GUIDE.md\n(no matches)\n```\n\n`the backend env file` was the source of truth for variable names \u2014 `SUPABASE_URL` + `SUPABASE_SECRET_KEY` \u2014 verified before the rewrite.\n\nNo code touched; no build changes; no fixture-test impact.\n\n## Public copy hygiene\nInternal docs, not customer-facing. RULES.md rule 14/15 do not apply, but every line still reads as accurate operator-facing instruction with no AutoBox/run-process scaffolding.\n\n## State\n- `OWNER_MESSAGES.md`: no fresh owner input handled this run.\n- `BUDGET.md`: no spend; current cash balance remains $162.45.\n- `OPEN_GATES.md`: unchanged. Existing gate `TIER MODEL: FREE/PRO/ULTRA APPROVED` still pending; no new gate raised.\n- `TODO.md`: deploy-docs Supabase rewrite line marked DONE.\n- `RUNLOG.md` / `HANDOFF.md`: appended.\n- `SCORECARD.md`: appended.\n\n## What this unblocks\nAfter Travis (a) replies `TIER MODEL: FREE/PRO/ULTRA APPROVED`, (b) renames Stripe products in Dashboard, and (c) rotates the Xata API key (`ROTATED: STRIKESIGHT KEYS READY`), AutoBox can run a single autonomous deploy session that points the StrikeRewind.com DNS at Vercel, sets the production env vars per these now-correct docs, and ships. No third deploy-doc rewrite needed mid-deploy.\n",
+          "site_path": "artifacts/2026-04-29-strikesight-deploy-docs-supabase-rewrite.md",
           "has_redactions": true
         }
       ],
@@ -5087,7 +5078,7 @@
       "screenshot_path": "",
       "label": "04-29-26 (Day 10) \u00b7 6:17 PM",
       "budget_delta_html": "",
-      "narrative_weight": 1
+      "narrative_weight": 0
     },
     {
       "run_id": "run_claude_2026-04-30_021701",
@@ -5095,6 +5086,67 @@
       "timestamp_sort": "2026-04-30T02:17:01+00:00",
       "date": "2026-04-29",
       "time": "10:17PM",
+      "objective": "All three top-priority owner gates remain open and unchanged from the prior run (`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`, `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`, `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE`). No new owner input. Highest-leverage no-approval no-spend autonomous move on the StrikeRewind path was a real pre-deploy customer-facing quality fix that the deploy run will benefit from but that has no architectural overlap with the deploy-gate work itself.",
+      "decision_made": "New `the scanner frontend` (40 lines) \u2014 standalone (NOT inside the Layout block, so unauthenticated visitors mistyping a URL don't see authenticated bottom-nav). Header has Logo `<Link>` to `/` matching LandingPage's pattern. Centered content: small mono `404` glyph in `text-fg-muted`, `We couldn't find that page.` headline (`text-3xl sm:text-4xl font-semibold tracking-tight`), `The link may be stale or mistyped. Pick a place to land below.` recover copy, primary `Back to home` CTA (`bg-accent text-bg-base`) + secondary `Go to dashboard` CTA (border-border-strong outline). Cove tokens throughout. `aria-label=\"StrikeRewind home\"` on the Logo link. `App.tsx` adds the import and `<Route path=\"*\" element={<NotFound />} />` AFTER Privacy so it only matches when nothing else does \u2014 and stays OUT of the `<Route element={<Layout />}>` block so it doesn't render with bottom-nav.",
+      "next_step": "Wait for Travis's reply on the three open StrikeRewind gates. Pre-baked plans documented in the prior handoff. Adjacent autonomous-runnable options if approvals don't land soon: (1) Cove pass on `Privacy.tsx` + `Terms.tsx` (last two customer-facing surfaces still pre-Cove); (2) backend `package.json` cleanup \u2014 move `nodemon`, `playwright`, `typescript`, `@types/*` from `dependencies` to `devDependencies` so Render Starter's prod install is leaner (currently `tsx` is in deps so `npm start` works fine, but the unnecessary dev packages bloat the bundle); (3) PAF AdSense impressions / eCPM passive check. Current cash balance: $162.45.",
+      "artifact_path": "artifacts/2026-04-30-strikesight-framer-motion-strip-and-layout-cove.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-04-30-strikesight-framer-motion-strip-and-layout-cove.md",
+          "relative_path": "artifacts/2026-04-30-strikesight-framer-motion-strip-and-layout-cove.md",
+          "kind": "text",
+          "preview": "# StrikeSight \u2014 framer-motion strip, Layout.tsx Cove pass, dead-code delete\n\n## What shipped\n- Removed `framer-motion` from `frontend/package.json` and lockfile (the last two consumers were either rewritten or deleted in this run).\n- Rewrote `the scanner frontend` end-to-end. Replaced `motion.div` nav indicator (`layoutId=\"navIndicator\"` spring transition) with a static 0.5px accent strip on the active item; tokenized every legacy class to Cove (`bg-dark-bg`/`bg-dark-card` \u2192 `bg-bg-base`/`bg-bg-panel`, `border-gray-800` \u2192 `border-border-subtle`, `text-emerald` \u2192 `text-accent`, `text-gray-400` \u2192 `text-fg-muted`, `bg-emerald/10` \u2192 `bg-accent`, PRO badge `bg-yellow-400/20 text-yellow-400` \u2192 `bg-warn/15 text-warn border-warn/30`); added `aria-label` + `aria-current=\"page\"` on every nav link and `aria-label` on the logo home link.\n- Deleted `the scanner frontend` \u2014 68 lines of dead code, no imports anywhere in the project.\n\n## Why this run\nHANDOFF/TODO both flagged Layout + SuccessRateIndicator as the last `framer-motion` consumers. Stripping them unlocks dropping the package itself, which:\n1. Cuts the production JS bundle (the public landing page is the same React app \u2014 every visitor downloads this).\n2. Closes the Cove migration: every authenticated screen + the public landing page now reads from one consistent token set, no legacy emerald/dark-card/gray references in any user-facing code.\n3. Removes the only remaining bundle-size regression that would land on a public StrikeRewind.com deploy.\n\n## Verification\n- `frontend npm run build` passes. **Bundle: `dist/assets/index-NF6aLeFL.js 339.67 kB \u2502 gzip: 103.17 kB` and `dist/assets/index-DpaCTw0S.css 22.94 kB \u2502 gzip: 5.11 kB`. Down from `452.35 kB` JS / `24.11 kB` CSS in the prior run \u2014 `-112.68 kB` (~47 kB gzipped wire savings).**\n- `backend npm run build` (tsc) passes.\n- `huntFixtureMode.test.js` passes 3/3.\n- `npm uninstall framer-motion` removed 4 packages cleanly (4 transitive deps).\n- `grep -E 'framer-motion|from [\"'\\'']framer'` across `frontend/src` returns 0 matches.\n- `grep -E 'bg-dark-|emerald|gray-[0-9]+|text-white|yellow-'` against `Layout.tsx` returns 0 matches.\n\n## What did not change\n- Bottom-nav route list (`/dashboard`, `/hunt`, `/watchlist`, `/account`) preserved exactly.\n- Tier badge logic preserved exactly (PRO/STANDARD/free fallback).\n- `Logo` component import preserved.\n- No backend changes.\n- No content/copy changes that affect the user-facing buyer story.\n\n## Public-copy hygiene\nLayout is shared chrome for authenticated routes, not customer-facing in the SEO sense, but applies the same Cove tokens that the public landing page uses. No internal labels or process language anywhere. PRO/STANDARD/free badge labels come from `useUser()` context, not changed here.\n\n## Commit\n`21a9963` on `autobox/strikesight-scanner-mvp` \u2014 pushed to GitHub.\n\n## Owner-side gates open and unchanged\n- `TIER MODEL: FREE/PRO/ULTRA APPROVED` \u2014 Travis Discord reply needed; deploy-blocking for Stripe production wiring.\n- `ROTATED: STRIKESIGHT KEYS READY` \u2014 rotate leaked Xata API key in Xata dashboard.\n- `APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO` \u2014 gated on entering pre-launch testing.\n- Supabase `spread_results` warehouse SQL \u2014 apply via Supabase dashboard.\n\n## Next autonomous-runnable steps\n1. Step #6 from build queue \u2014 full delta \u00d7 DTE matrix on `/analysis/:ticker`. Requires backend `allStrategies` payload (engine truncates to `topStrategies.slice(0, 5)` at `newAnalysisEngine.ts:462`). Frontend renders a sortable heat-map cell grid keyed by delta band \u00d7 DTE bucket.\n2. On `TIER MODEL: FREE/PRO/ULTRA APPROVED` reply \u2014 repoint env vars (`STRIPE_STANDARD_PRICE_ID` \u2192 `STRIPE_PRO_PRICE_ID`, `STRIPE_PRO_PRICE_ID` \u2192 `STRIPE_ULTRA_PRICE_ID`), update `Account.tsx` tier cards to match HANDOFF spec, add 3-card pricing block to `LandingPage.tsx`.\n3. Production deploy to StrikeRewind.com on Vercel (domain already purchased; build is clean; Stripe stays in test mode until tier-model approved).\n\n## Cash balance\n`$162.45`. No spend this run.\n",
+          "site_path": "artifacts/2026-04-30-strikesight-framer-motion-strip-and-layout-cove.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "All state files updated. Final summary:\n\n**Did:** Stripped `framer-motion` from the last two consumers (`Layout.tsx` rewritten end-to-end + Cove tokenized; dead `SuccessRateIndicator.tsx` deleted) and dropped the package from `frontend/package.json`. Public bundle: `452.35 kB` \u2192 `339.67 kB` JS (`-112.68 kB`, ~47 kB gzipped wire savings) on the same React app StrikeRewind.com will serve. Frontend + backend builds pass; fixture tests `3/3`. Commit `21a9963` pushed.\n\n**See:** `artifacts/2026-04-30-strikesight-framer-motion-strip-and-layout-cove.md` ; https://github.com/tbuerky/StrikeSight commit `21a9963`.\n\n**Next:** Step #6 from the build queue (full delta \u00d7 DTE matrix on `/analysis/:ticker`, requires backend `allStrategies` payload field \u2014 `newAnalysisEngine.ts:462` truncates to top 5), or production deploy to StrikeRewind.com on Vercel (Stripe stays test-mode until tier-model approval), or wait for `TIER MODEL: FREE/PRO/ULTRA APPROVED` and ship the env+Account.tsx+pricing-block bundle.\n\n**Blocked on Travis:** `TIER MODEL: FREE/PRO/ULTRA APPROVED` (and three standing gates: rotate Xata key, Polygon Starter approval, apply Supabase `spread_results` SQL).\n\n**Cash balance:** $162.45. No spend.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-04-30_021701.txt",
+      "screenshot_path": "",
+      "label": "04-29-26 (Day 10) \u00b7 10:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
+    },
+    {
+      "run_id": "run_claude_2026-04-30_061701",
+      "timestamp": "2026-04-30 02:17 AM EDT",
+      "timestamp_sort": "2026-04-30T06:17:01+00:00",
+      "date": "2026-04-30",
+      "time": "2:17AM",
       "objective": "Both top-priority owner gates (`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` + `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`) are open and waiting on Travis. The 2026-04-28 product definition session locked the warehouse architecture as build queue step #1, and HANDOFF entries since then have flagged \"the Supabase `spread_results` warehouse migration still needs Travis to apply SQL via dashboard\" \u2014 but no run has actually written the SQL. Highest-leverage no-approval no-spend autonomous move on the StrikeRewind path was to ship that migration packet so the next downstream work (service shim, nightly batch wiring, watchlist top-signal-per-ticker) is unblocked the moment Travis pastes the SQL.",
       "decision_made": "Two artifacts, one commit. (1) `backend/supabase-migration-spread-results.sql` (105 lines, idempotent, `IF NOT EXISTS` everywhere). Adds `spread_results` (one row per `ticker \u00d7 spread_type \u00d7 otm_percentage \u00d7 timeframe_weeks \u00d7 analysis_years \u00d7 as_of_date`, with `win_rate / ev_percent / premium / total_trades / current_price / iv_rank / data_source` payload) under a unique constraint that enables upsert-on-conflict for the nightly job; three covering indexes (hunt: `(as_of_date DESC, analysis_years, spread_type, ev_percent DESC)`, ticker matrix: `(ticker, as_of_date DESC, analysis_years)`, watchlist top-signal: `(ticker, as_of_date DESC, ev_percent DESC)`); `batch_runs` table for nightly job status + diagnostics; `prune_spread_results(retention_days)` helper for the configurable retention window; RLS enabled on both tables with no policies (server-write-only via service role key). (2) Decision packet `artifacts/2026-04-30-strikerewind-spread-results-warehouse-migration.md` documents the architecture rationale, sizing math (~380 K rows per snapshot, ~95 MB/day, ~2.8 GB at 30-day retention), what the migration unblocks (service shim, nightly batch wiring, watchlist top-signal-per-ticker), what it deliberately does NOT do (no Polygon subscribe, no read-path repoint, no backfill), the verification queries Travis runs in the SQL editor after apply, and the SQL block in paste-ready form. The packet `Suggested post copy:` block is `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE` so `scripts/post_discord_bot_update.py` posts it as a separate Discord message after the run summary.",
       "next_step": "Wait for Travis's reply on the three open StrikeRewind gates. Pre-baked plan if `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE` lands: write `the scanner backend` (singleton same shape as `WatchlistServiceDB`, methods `upsertResults(rows)` / `getHuntResults(spreadType, years, limit)` / `getTickerMatrix(ticker, years)` / `getTopSignalForTickers(tickers, years)`), add fixture-mode unit test, no read-path repoint yet (existing `analysis_cache` / `hunt_cache` continue to serve until Polygon goes live). On `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` execute the deploy run per packet. On `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY` execute the 7-step pre-baked plan. Adjacent options if approvals don't land soon: framer-motion-free pages remaining audit; landing-page pricing block (tier-model gate already closed by Travis 2026-04-30); PAF AdSense monitoring. Current cash balance: $162.45.",
@@ -5142,19 +5194,19 @@
           "site_path": "artifacts/2026-04-30-strikerewind-spread-results-warehouse-migration.md"
         }
       ],
-      "output_excerpt": "All state files updated. Final summary:\n\n**Did:** Stripped `framer-motion` from the last two consumers (`Layout.tsx` rewritten end-to-end + Cove tokenized; dead `SuccessRateIndicator.tsx` deleted) and dropped the package from `frontend/package.json`. Public bundle: `452.35 kB` \u2192 `339.67 kB` JS (`-112.68 kB`, ~47 kB gzipped wire savings) on the same React app StrikeRewind.com will serve. Frontend + backend builds pass; fixture tests `3/3`. Commit `21a9963` pushed.\n\n**See:** `artifacts/2026-04-30-strikesight-framer-motion-strip-and-layout-cove.md` ; https://github.com/tbuerky/StrikeSight commit `21a9963`.\n\n**Next:** Step #6 from the build queue (full delta \u00d7 DTE matrix on `/analysis/:ticker`, requires backend `allStrategies` payload field \u2014 `newAnalysisEngine.ts:462` truncates to top 5), or production deploy to StrikeRewind.com on Vercel (Stripe stays test-mode until tier-model approval), or wait for `TIER MODEL: FREE/PRO/ULTRA APPROVED` and ship the env+Account.tsx+pricing-block bundle.\n\n**Blocked on Travis:** `TIER MODEL: FREE/PRO/ULTRA APPROVED` (and three standing gates: rotate Xata key, Polygon Starter approval, apply Supabase `spread_results` SQL).\n\n**Cash balance:** $162.45. No spend.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-04-30_021701.txt",
+      "output_excerpt": "All state files reconciled. Summary:\n\n**Shipped**: StrikeRewind visual brand pass \u2014 logo + favicon. Commit `aca61b0` on `autobox/strikerewind-rename`. The bezier-encoded \"STRIKESIGHT\" wordmark in `logo-{dark,light}.svg` and `logo.png` favicon (which the customer-string sweep at `9b46be9` couldn't grep) is now replaced by an inline-SVG `<text>` wordmark in JetBrains Mono Bold + a green leftward-triangle favicon on a dark `#0B0F14` rounded square.\n\n**Verification**: Frontend build passes. Multimodal-confirmed favicon now renders as leftward green triangle (was: green \"STRIKESIGHT\" wordmark). Playwright screenshot of the Logo component at sm/md/lg confirms JetBrains Mono Bold renders correctly with triangle aligned to cap-height across all sizes.\n\n**Gate closed**: `APPROVED: STRIKEREWIND LOGO DIRECTION` removed from `OPEN_GATES.md` \u2014 Gates section now empty.\n\n**Cash balance**: $162.45, unchanged.\n\n**Next**: Production deploy to StrikeRewind.com on Vercel. Branch is now both code-clean and visually branded correctly.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-04-30_061701.txt",
       "screenshot_path": "",
-      "label": "04-29-26 (Day 10) \u00b7 10:17 PM",
+      "label": "04-30-26 (Day 11) \u00b7 2:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 1
     },
     {
-      "run_id": "run_claude_2026-04-30_061701",
-      "timestamp": "2026-04-30 02:17 AM EDT",
-      "timestamp_sort": "2026-04-30T06:17:01+00:00",
+      "run_id": "run_claude_2026-04-30_081701",
+      "timestamp": "2026-04-30 04:17 AM EDT",
+      "timestamp_sort": "2026-04-30T08:17:01+00:00",
       "date": "2026-04-30",
-      "time": "2:17AM",
+      "time": "4:17AM",
       "objective": "Deploy gate `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` is open and waiting on Travis. Until that approval lands, the production deploy itself can't run. Highest-leverage no-approval move on the StrikeRewind path is pre-deploy hygiene that's correct under any architecture choice and that the deploy run would otherwise have to bundle. `frontend/index.html` shipped only `<title>` + viewport \u2014 public landing would render flat in Discord/Slack/X/iMessage previews and produce no meta description in search snippets. Fixing this before deploy is cheaper than fixing it after the first share goes flat.",
       "decision_made": "Two changes, one commit. (1) `frontend/index.html` rewritten to ship a complete metadata head \u2014 `<meta name=\"description\">` (155 chars, hero-voice: `Find ticker-specific credit spreads that have historically beaten the 30-delta rule. Nightly scan of the S&P 500, ranked by win rate and expected value.`), `<link rel=\"canonical\" href=\"https://strikerewind.com/\">`, full Open Graph block (`og:type`, `og:site_name`, `og:url`, `og:title`, `og:description`, `og:image` with explicit 1200\u00d7630 dimensions, `og:image:alt`), full Twitter Card block (`summary_large_image`, title/description/image/alt), and `theme-color` corrected from `#000000` to Cove `#0B0F14`. (2) `frontend/public/og-card.png` generated via PIL \u2014 1200\u00d7630, `#0B0F14` background, leftward `#22C55E` accent triangle vertically centered, \"StrikeRewind\" wordmark in `#E6EAF0` JetBrains Mono Bold 110pt, tagline `Credit spreads, optimized per ticker.` in `#A4ADBA` JetBrains Mono Regular 32pt below the wordmark. **Deliberately NOT changed**: `vercel.json` (broken serverless config left alone \u2014 fix depends on architecture choice and is part of the deploy run); `the frontend env file` brand string (file is `.gitignore`'d line 24, doesn't propagate to deploy \u2014 real values set as Vercel env vars at deploy time).",
       "next_step": "Wait for Travis's reply on `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`. When it lands, deploy run no longer has to bundle metadata polish \u2014 it's: fix `vercel.json` to frontend-only static config, set Vercel env vars (`VITE_APP_NAME=StrikeRewind`, `VITE_API_URL=https://api.strikerewind.com`, Stripe publishable key), `vercel deploy --prod`, help Travis configure DNS (`A @ \u2192 76.76.21.21`, `CNAME www \u2192 cname.vercel-dns.com`, `CNAME api \u2192 <render-service>.onrender.com`), smoke-test live `/` + `/api/health`. Adjacent autonomous-runnable options if approval doesn't land soon: small Cove follow-ups, deploy-doc Supabase rewrites if any new ones surface, PAF AdSense monitoring. Current cash balance: $162.45.",
@@ -5203,19 +5255,19 @@
           "has_redactions": true
         }
       ],
-      "output_excerpt": "All state files reconciled. Summary:\n\n**Shipped**: StrikeRewind visual brand pass \u2014 logo + favicon. Commit `aca61b0` on `autobox/strikerewind-rename`. The bezier-encoded \"STRIKESIGHT\" wordmark in `logo-{dark,light}.svg` and `logo.png` favicon (which the customer-string sweep at `9b46be9` couldn't grep) is now replaced by an inline-SVG `<text>` wordmark in JetBrains Mono Bold + a green leftward-triangle favicon on a dark `#0B0F14` rounded square.\n\n**Verification**: Frontend build passes. Multimodal-confirmed favicon now renders as leftward green triangle (was: green \"STRIKESIGHT\" wordmark). Playwright screenshot of the Logo component at sm/md/lg confirms JetBrains Mono Bold renders correctly with triangle aligned to cap-height across all sizes.\n\n**Gate closed**: `APPROVED: STRIKEREWIND LOGO DIRECTION` removed from `OPEN_GATES.md` \u2014 Gates section now empty.\n\n**Cash balance**: $162.45, unchanged.\n\n**Next**: Production deploy to StrikeRewind.com on Vercel. Branch is now both code-clean and visually branded correctly.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-04-30_061701.txt",
+      "output_excerpt": "Done. Build-queue step #6 \u2014 the activation feature \u2014 is shipped.\n\n**What changed**\n- Backend exposes the full (type \u00d7 OTM% \u00d7 DTE) historical matrix as `allStrategies` on `/api/analyze/:ticker`, including the negative-EV cells the prior code dropped. Existing consumers (Hunt route, scheduler) see zero behavior change because the legacy filters are now applied at the consumer for `topStrategies`.\n- New `<StrategyMatrix>` React component renders it as a PUT/CALL-tabbed heat map: OTM rows \u00d7 DTE-weeks columns, EV-colored cells, hover for win rate / premium / sample size. Sits between the top-strategy hero and the top-5 table on `Analysis.tsx`.\n- Verified visually with a Playwright preview against a mocked dataset before pushing.\n\n**Verification**: backend + frontend builds clean, fixture tests 3/3, JS bundle `+5.85 kB` / CSS `+0.39 kB`. Commit `34e8002` pushed to `autobox/strikerewind-rename`.\n\n**Why this matters**: until now `/analysis/:ticker` showed a top-5 list \u2014 the product pitch (\"find ticker-specific delta/DTE patterns\") was visibly unproven on the surface meant to prove it. The matrix is the activation feature the 2026-04-28 product-defining session called out.\n\n**Next**: production deploy to StrikeRewind.com on Vercel \u2014 branch is now deploy-ready (Cove tokens, framer-motion gone, brand correct, activation feature live, domain purchased). Open gates unchanged: rotate Xata key, Polygon subscribe (gated on pre-launch), Supabase `spread_results` SQL.\n\nCash balance: **$162.45** (no spend). Artifact: `artifacts/2026-04-30-strikerewind-strategy-matrix-shipped.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-04-30_081701.txt",
       "screenshot_path": "",
-      "label": "04-30-26 (Day 11) \u00b7 2:17 AM",
+      "label": "04-30-26 (Day 11) \u00b7 4:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 1
     },
     {
-      "run_id": "run_claude_2026-04-30_081701",
-      "timestamp": "2026-04-30 04:17 AM EDT",
-      "timestamp_sort": "2026-04-30T08:17:01+00:00",
+      "run_id": "run_claude_2026-04-30_101701",
+      "timestamp": "2026-04-30 06:17 AM EDT",
+      "timestamp_sort": "2026-04-30T10:17:01+00:00",
       "date": "2026-04-30",
-      "time": "4:17AM",
+      "time": "6:17AM",
       "objective": "TODO carried `[TODO] StrikeRewind: visual brand pass to finish the rebrand` as the active item; the 2026-04-30 interactive session locked a design brief + verified-to-build reference implementation in `artifacts/2026-04-30-strikerewind-brand-pass-brief.md` and reverted the source tree clean so the autonomous run could verify the judgment in context and ship. `OPEN_GATES.md` carried `APPROVED: STRIKEREWIND LOGO DIRECTION` \u2014 Travis approval already in place. The customer-visible-string rebrand at commit `9b46be9` had visually missed the wordmark because `logo-{dark,light}.svg` encoded \"STRIKESIGHT\" as `<path>` bezier curves; multimodal Read of `frontend/public/logo.png` confirmed the favicon still rendered \"STRIKESIGHT\" in green. Production deploy onto StrikeRewind.com cannot ship visually branded as StrikeSight, so this is the highest-leverage no-approval move on the StrikeRewind path.",
       "decision_made": "Lift the reference implementation directly. Wrote `the scanner frontend` with inline `<svg>` containing a `<polygon>` (leftward equilateral triangle, 3 vertices `22,8` / `22,32` / `4,20`, `#22C55E`) and a `<text>` element (wordmark \"StrikeRewind\", `x=34 y=29`, `#E6EAF0` on dark / `#0B0F14` on light, JetBrains Mono Bold with system mono fallback chain, `fontSize=26`, `letterSpacing=-0.5`), `viewBox=\"0 0 280 40\"`. Tagline (when `showTagline`) updated from `Smarter credit spreads to increase your edge.` to `Credit spreads, optimized per ticker.` matching the landing-page positioning Luke shipped earlier. Replaced `frontend/public/logo.png` via PIL: 512\u00d7512 transparent canvas, rounded `#0B0F14` square (radius 80px), centered green triangle (`#22C55E`, ~46% canvas width, slightly taller than wide for equilateral feel, apex pointing left, mark-only \u2014 wordmark deliberately omitted at favicon size). Deleted orphan `the scanner frontend` and `logo-light.svg`. Diff: 4 files changed, +38 / -94.",
       "next_step": "Production deploy to StrikeRewind.com on Vercel (next active TODO) \u2014 branch is now build-clean and visually correct. Stripe stays in test mode until tier-model gate dynamics are confirmed at deploy-prep time; data uses fixtures until Polygon approved. Validates the deploy path mechanically before any new spend approval. Adjacent options: step #6 from the build queue (full delta \u00d7 DTE matrix on `/analysis/:ticker`, requires backend payload field \u2014 `newAnalysisEngine.ts:462` truncates to `topStrategies.slice(0, 5)`); the Supabase `spread_results` warehouse SQL still needs Travis to apply via dashboard. Current cash balance: $162.45.",
@@ -5264,73 +5316,12 @@
           "has_redactions": true
         }
       ],
-      "output_excerpt": "Done. Build-queue step #6 \u2014 the activation feature \u2014 is shipped.\n\n**What changed**\n- Backend exposes the full (type \u00d7 OTM% \u00d7 DTE) historical matrix as `allStrategies` on `/api/analyze/:ticker`, including the negative-EV cells the prior code dropped. Existing consumers (Hunt route, scheduler) see zero behavior change because the legacy filters are now applied at the consumer for `topStrategies`.\n- New `<StrategyMatrix>` React component renders it as a PUT/CALL-tabbed heat map: OTM rows \u00d7 DTE-weeks columns, EV-colored cells, hover for win rate / premium / sample size. Sits between the top-strategy hero and the top-5 table on `Analysis.tsx`.\n- Verified visually with a Playwright preview against a mocked dataset before pushing.\n\n**Verification**: backend + frontend builds clean, fixture tests 3/3, JS bundle `+5.85 kB` / CSS `+0.39 kB`. Commit `34e8002` pushed to `autobox/strikerewind-rename`.\n\n**Why this matters**: until now `/analysis/:ticker` showed a top-5 list \u2014 the product pitch (\"find ticker-specific delta/DTE patterns\") was visibly unproven on the surface meant to prove it. The matrix is the activation feature the 2026-04-28 product-defining session called out.\n\n**Next**: production deploy to StrikeRewind.com on Vercel \u2014 branch is now deploy-ready (Cove tokens, framer-motion gone, brand correct, activation feature live, domain purchased). Open gates unchanged: rotate Xata key, Polygon subscribe (gated on pre-launch), Supabase `spread_results` SQL.\n\nCash balance: **$162.45** (no spend). Artifact: `artifacts/2026-04-30-strikerewind-strategy-matrix-shipped.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-04-30_081701.txt",
-      "screenshot_path": "",
-      "label": "04-30-26 (Day 11) \u00b7 4:17 AM",
-      "budget_delta_html": "",
-      "narrative_weight": 2
-    },
-    {
-      "run_id": "run_claude_2026-04-30_101701",
-      "timestamp": "2026-04-30 06:17 AM EDT",
-      "timestamp_sort": "2026-04-30T10:17:01+00:00",
-      "date": "2026-04-30",
-      "time": "6:17AM",
-      "objective": "",
-      "decision_made": "",
-      "next_step": "",
-      "artifact_path": "artifacts/2026-04-30-strikerewind-deploy-architecture-packet.md",
-      "budget": {
-        "starting_budget": "$200.00",
-        "current_balance": "$162.45",
-        "recent_entries": [
-          {
-            "date": "2026-04-20",
-            "type": "starting_budget",
-            "amount": "+$200.00",
-            "balance_after": "$200.00",
-            "note": "Initial AutoBox experiment budget"
-          },
-          {
-            "date": "2026-04-21",
-            "type": "expense",
-            "amount": "-$11.25",
-            "balance_after": "$188.75",
-            "note": "Domain purchase"
-          },
-          {
-            "date": "2026-04-28",
-            "type": "expense",
-            "amount": "-$11.25",
-            "balance_after": "$177.50",
-            "note": "StrikeRewind.com domain purchase"
-          },
-          {
-            "date": "2026-04-28",
-            "type": "expense",
-            "amount": "-$15.05",
-            "balance_after": "$162.45",
-            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
-          }
-        ]
-      },
-      "artifacts": [
-        {
-          "name": "2026-04-30-strikerewind-deploy-architecture-packet.md",
-          "relative_path": "artifacts/2026-04-30-strikerewind-deploy-architecture-packet.md",
-          "kind": "text",
-          "preview": "# StrikeRewind production deploy \u2014 architecture decision packet\n\n**Date:** 2026-04-30\n**Status:** Owner-blocking. One approval line at the bottom.\n**Cash balance:** $162.45.\n\n## TL;DR\n\nThe branch is build-clean and visually correct, but the existing `vercel.json` will not actually deploy a working backend. Recommend **frontend on Vercel (free) + backend on Render Starter ($7/mo)** \u2014 matches what `DEPLOYMENT.md` already documents in the repo, lets the scheduler/cron stay in a long-running Node process, and keeps the public landing page on a global CDN. One approval line, ~$7 of recurring spend.\n\n## Why deploy now\n\nThe 2026-04-28 product-defining HANDOFF locks production deploy as build-queue step #10 \u2014 the last gate between the current code and revenue. Everything upstream of it is shipped:\n\n- Brand pass + favicon (`aca61b0`) \u2014 no more \"StrikeSight\" in the wordmark or header\n- Cove tokens + framer-motion strip (`21a9963`) \u2014 production JS bundle is `339.67 \u2192 345.52 kB`, no animation library overhead\n- Full strategy matrix on `/analysis/:ticker` (`34e8002`) \u2014 the activation feature the landing page promises\n- Luke landing copy (`eddc21f`) \u2014 \"stop selling 30-delta on every ticker\" voice locked\n- Account.tsx Cove pass (`a26b588`) \u2014 billing surface matches landing tone\n- Supabase migration (`ffdc8ba`) \u2014 Xata gone, Supabase wired in\n- Tier model resolved (Free/Standard/Pro at $0/$9.99/$29.99 per Travis 2026-04-30)\n\nThere are no remaining autonomous code steps that materially change deploy-readiness. The next move is to put the product on a public URL.\n\n## What's broken in the current `vercel.json`\n\n`vercel.json` at the StrikeSight repo root declares the Express backend as a single Node 18 serverless function:\n\n```json\n\"functions\": { \"the scanner backend\": { \"runtime\": \"nodejs18.x\" } },\n\"rewrites\": [{ \"source\": \"/api/(.*)\", \"destination\": \"/the scanner backend\" }]\n```\n\nThis will not work as-is:\n\n1. `the scanner backend:720` ends with `app.listen(PORT, ...)` \u2014 Vercel serverless functions expect a default-exported handler, not a long-lived Express server. The function will boot, the `app.listen` call will silently bind a port that Vercel never routes to, and every `/api/*` request will time out or 500.\n2. `the scanner backend:713-717` starts `node-cron` schedulers for nightly options data fetches (9:30 AM ET / 6:00 AM ET per `schedulerService.ts`). Serverless functions are stateless \u2014 cron jobs won't fire because the process doesn't exist between invocations.\n3. `nodejs18.x` is past Vercel's deprecation window. Latest is `nodejs22.x` (or `nodejs20.x`). Even if the rest worked, the deploy would fail on runtime selection.\n4. `express-rate-limit` keeps in-memory state per process. With serverless cold starts, the rate limit would reset on every request, defeating the limiter.\n\nThis config has never been deployed. Fixing it before first deploy is cheaper than deploying-then-debugging.\n\n## Architecture options\n\n### Option A \u2014 Frontend on Vercel + Backend on Render Starter ($7/mo) \u2014 RECOMMENDED\n\n| Surface | Host | Plan | Cost | Why |\n|---|---|---|---|---|\n| Frontend (`/`, `/dashboard`, `/hunt`, `/analysis/:ticker`, `/watchlist`, `/account`) | Vercel | Hobby | $0 | Static React build, global CDN, Git-integrated auto-deploy on push to `autobox/strikerewind-rename`. |\n| Backend (`/api/*`) | Render | Starter | $7/mo | Persistent Node process, supports `node-cron`, no cold starts, $0.013/hr if scaled to zero, $7/mo flat for always-on. |\n\n**Total recurring:** $7/mo / $84/yr \u2014 within the standing budget posture.\n\n**Why this over the alternatives:**\n- The repo's own `DEPLOYMENT.md` recommends this split (lines 6-30) \u2014 it's the path the codebase was already designed for.\n- Vercel free tier gives the public landing page sub-100ms first-paint globally \u2014 institutional-fintech aesthetic + global CDN is the credibility lever for a credit-spread tool.\n- Render's Starter plan is the cheapest tier that supports the persistent scheduler. Render Free spins down after inactivity and would kill the nightly cron.\n- Two URLs: `strikerewind.com` (Vercel) + `api.strikerewind.com` (Render). Stripe webhook \u2192 backend domain only. Clean separation.\n- No code changes needed before deploy \u2014 the existing Express server already exposes `/api/*`, and the frontend already reads `VITE_API_URL`. Need to fix `vercel.json` and `the frontend env file` (both stale), but no source-tree refactoring.\n\n### Option B \u2014 Render monolith ($7/mo)\n\nAll on Render: backend serves both the React static bundle and `/api/*`. Same $7/mo. Simpler ops surface (one URL, one DNS record, one log stream), but:\n- Lose Vercel's global CDN \u2014 public landing page first-paint goes from ~50ms (Vercel edge) to ~300-500ms (Render origin).\n- Need to add `app.use(express.static(...))` + an SPA catchall to `the scanner backend` (~5 lines) \u2014 small, but a code change before deploy.\n- Less standard for the React + Vercel ecosystem; harder to hand off later.\n\n### Option C \u2014 Vercel-only with serverless backend rewrite\n\nRefactor the entire backend into individual `/api/*.ts` serverless functions, replace `node-cron` with Vercel Cron Jobs, replace `express-rate-limit` with a Vercel-friendly limiter, and split the scheduler into separate cron functions. **High engineering cost** (multi-day refactor), no cost savings vs Option A, breaks the \"one Express app\" mental model the codebase is built around. Not recommended.\n\n### Option D \u2014 Stay on a single VPS (DigitalOcean droplet)\n\nThe autobox.theshepherdstack.com VPS (DigitalOcean, `165.227.204.19`) is already provisioned. Could host both frontend and backend via Nginx + systemd. **No marginal spend** if it shares the existing droplet. But: introduces ops surface AutoBox doesn't currently maintain (TLS cert renewal, log rotation, deploy scripts), and the VPS is currently scoped to AutoBox's own state/journal infra \u2014 colocating a real customer-facing product on it raises blast radius. Not recommended for first deploy; reasonable late",
-          "site_path": "artifacts/2026-04-30-strikerewind-deploy-architecture-packet.md",
-          "has_redactions": true
-        }
-      ],
       "output_excerpt": "All state files are updated. Final summary:\n\n**What I did:** Shipped a deploy-architecture decision packet for StrikeRewind. The existing `vercel.json` declares the Express backend as a Node-18 serverless function but `the scanner backend:720` runs `app.listen` and `:713-717` starts `node-cron` schedulers \u2014 it can't actually deploy a working backend that way. The packet recommends frontend on Vercel (free) + backend on Render Starter ($7/mo), matches the repo's own `DEPLOYMENT.md`, lists three alternatives, documents Travis-side actions (~20-40 min) and AutoBox follow-up (one bounded run on approval).\n\n**Where to see it:** `artifacts/2026-04-30-strikerewind-deploy-architecture-packet.md`.\n\n**Next:** Wait for `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`. While waiting, the strongest autonomous-runnable move is adding a 3-card Free/Standard/Pro pricing block to `LandingPage.tsx` (tier model locked, bounded scope, customer-facing).\n\n**Blocked on Travis:** new gate `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`.\n\n**Cash balance:** $162.45 (no spend).\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
       "output_site_path": "outputs/run_claude_2026-04-30_101701.txt",
       "screenshot_path": "",
       "label": "04-30-26 (Day 11) \u00b7 6:17 AM",
       "budget_delta_html": "",
-      "narrative_weight": 1
+      "narrative_weight": 2
     },
     {
       "run_id": "run_claude_2026-04-30_121701",
@@ -5632,6 +5623,58 @@
       "output_site_path": "outputs/run_claude_2026-04-30_201701.txt",
       "screenshot_path": "",
       "label": "04-30-26 (Day 11) \u00b7 4:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-04-30_221701",
+      "timestamp": "2026-04-30 06:17 PM EDT",
+      "timestamp_sort": "2026-04-30T22:17:01+00:00",
+      "date": "2026-04-30",
+      "time": "6:17PM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "artifact_path": "",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          }
+        ]
+      },
+      "artifacts": [],
+      "output_excerpt": "Run complete. Open gates reconciled \u2014 no resolved or new gates this run; OPEN_GATES.md unchanged.\n\n**Shipped this run:** 404 catch-all route + NotFound page on `autobox/strikerewind-rename` (commit `b98ae89`). `the scanner frontend` had no `<Route path=\"*\">`, so any typo'd or stale URL on the live site would render a blank `<Routes>` body. New `the scanner frontend` (40 lines, Cove-tokenized, standalone \u2014 kept out of the Layout block so unauthenticated visitors don't see authenticated nav). Two recover CTAs: `Back to home` + `Go to dashboard`. Frontend build `1921 modules / +1` (JS +1.46 kB, CSS +0.07 kB); backend tsc passes; `12/12` fixture tests pass.\n\n**Why this and not the obvious gates:** all three top-priority owner gates (deploy, tier-copy, warehouse migration) remain open and unchanged from the prior run, no fresh owner input. Highest-leverage no-approval move was a real pre-deploy customer-facing quality fix that the deploy run will benefit from but doesn't overlap with the deploy-gate work itself.\n\n**State files updated:** TODO.md (new DONE line), RUNLOG.md (new run entry), SCORECARD.md (new row), HANDOFF.md (new \"Latest handoff\" + Recommendation). OPEN_GATES.md and BUDGET.md unchanged. Cash balance: $162.45.\n\n**Next autonomous-runnable adjacent items if approvals stay quiet:** Cove pass on `Privacy.tsx` + `Terms.tsx` (last two pre-Cove customer-facing surfaces); backend `package.json` dev-deps cleanup; PAF AdSense impressions / eCPM passive check.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-04-30_221701.txt",
+      "screenshot_path": "",
+      "label": "04-30-26 (Day 11) \u00b7 6:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
     }

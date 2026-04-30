@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind spread results warehouse migration &middot; AutoBox</title>
+<title>Strikesight framer motion strip and layout cove &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,11 +33,11 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-04-30_021701</span>
   </div>
-  <h2 class="run-title">Strikerewind spread results warehouse migration</h2>
+  <h2 class="run-title">Strikesight framer motion strip and layout cove</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">Both top-priority owner gates (`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` + `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`) are open and waiting on Travis. The 2026-04-28 product definition session locked the warehouse architecture as build queue step #1, and HANDOFF entries since then have flagged &quot;the Supabase `spread_results` warehouse migration still needs Travis to apply SQL via dashboard&quot; — but no run has actually written the SQL. Highest-leverage no-approval no-spend autonomous move on the StrikeRewind path was to ship that migration packet so the next downstream work (service shim, nightly batch wiring, watchlist top-signal-per-ticker) is unblocked the moment Travis pastes the SQL.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">Two artifacts, one commit. (1) `backend/supabase-migration-spread-results.sql` (105 lines, idempotent, `IF NOT EXISTS` everywhere). Adds `spread_results` (one row per `ticker × spread_type × otm_percentage × timeframe_weeks × analysis_years × as_of_date`, with `win_rate / ev_percent / premium / total_trades / current_price / iv_rank / data_source` payload) under a unique constraint that enables upsert-on-conflict for the nightly job; three covering indexes (hunt: `(as_of_date DESC, analysis_years, spread_type, ev_percent DESC)`, ticker matrix: `(ticker, as_of_date DESC, analysis_years)`, watchlist top-signal: `(ticker, as_of_date DESC, ev_percent DESC)`); `batch_runs` table for nightly job status + diagnostics; `prune_spread_results(retention_days)` helper for the configurable retention window; RLS enabled on both tables with no policies (server-write-only via service role key). (2) Decision packet `artifacts/2026-04-30-strikerewind-spread-results-warehouse-migration.md` documents the architecture rationale, sizing math (~380 K rows per snapshot, ~95 MB/day, ~2.8 GB at 30-day retention), what the migration unblocks (service shim, nightly batch wiring, watchlist top-signal-per-ticker), what it deliberately does NOT do (no Polygon subscribe, no read-path repoint, no backfill), the verification queries Travis runs in the SQL editor after apply, and the SQL block in paste-ready form. The packet `Suggested post copy:` block is `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE` so `scripts/post_discord_bot_update.py` posts it as a separate Discord message after the run summary.</span></p>
-<p class="act"><span class="act-label">Next</span><span class="act-text">Wait for Travis&#x27;s reply on the three open StrikeRewind gates. Pre-baked plan if `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE` lands: write `the scanner backend` (singleton same shape as `WatchlistServiceDB`, methods `upsertResults(rows)` / `getHuntResults(spreadType, years, limit)` / `getTickerMatrix(ticker, years)` / `getTopSignalForTickers(tickers, years)`), add fixture-mode unit test, no read-path repoint yet (existing `analysis_cache` / `hunt_cache` continue to serve until Polygon goes live). On `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` execute the deploy run per packet. On `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY` execute the 7-step pre-baked plan. Adjacent options if approvals don&#x27;t land soon: framer-motion-free pages remaining audit; landing-page pricing block (tier-model gate already closed by Travis 2026-04-30); PAF AdSense monitoring. Current cash balance: $162.45.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">All three top-priority owner gates remain open and unchanged from the prior run (`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`, `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`, `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE`). No new owner input. Highest-leverage no-approval no-spend autonomous move on the StrikeRewind path was a real pre-deploy customer-facing quality fix that the deploy run will benefit from but that has no architectural overlap with the deploy-gate work itself.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">New `the scanner frontend` (40 lines) — standalone (NOT inside the Layout block, so unauthenticated visitors mistyping a URL don&#x27;t see authenticated bottom-nav). Header has Logo `&lt;Link&gt;` to `/` matching LandingPage&#x27;s pattern. Centered content: small mono `404` glyph in `text-fg-muted`, `We couldn&#x27;t find that page.` headline (`text-3xl sm:text-4xl font-semibold tracking-tight`), `The link may be stale or mistyped. Pick a place to land below.` recover copy, primary `Back to home` CTA (`bg-accent text-bg-base`) + secondary `Go to dashboard` CTA (border-border-strong outline). Cove tokens throughout. `aria-label=&quot;StrikeRewind home&quot;` on the Logo link. `App.tsx` adds the import and `&lt;Route path=&quot;*&quot; element={&lt;NotFound /&gt;} /&gt;` AFTER Privacy so it only matches when nothing else does — and stays OUT of the `&lt;Route element={&lt;Layout /&gt;}&gt;` block so it doesn&#x27;t render with bottom-nav.</span></p>
+<p class="act"><span class="act-label">Next</span><span class="act-text">Wait for Travis&#x27;s reply on the three open StrikeRewind gates. Pre-baked plans documented in the prior handoff. Adjacent autonomous-runnable options if approvals don&#x27;t land soon: (1) Cove pass on `Privacy.tsx` + `Terms.tsx` (last two customer-facing surfaces still pre-Cove); (2) backend `package.json` cleanup — move `nodemon`, `playwright`, `typescript`, `@types/*` from `dependencies` to `devDependencies` so Render Starter&#x27;s prod install is leaner (currently `tsx` is in deps so `npm start` works fine, but the unnecessary dev packages bloat the bundle); (3) PAF AdSense impressions / eCPM passive check. Current cash balance: $162.45.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -46,61 +46,53 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <div class="artifact-prose"><h1>StrikeRewind — <code>spread_results</code> warehouse migration packet</h1>
-<p><strong>Date:</strong> 2026-04-30</p>
-<p><strong>Branch:</strong> <code>autobox/strikerewind-rename</code></p>
-<p><strong>File:</strong> <code>backend/supabase-migration-spread-results.sql</code> (new, 100 lines)</p>
-<p><strong>Owner action:</strong> apply via Supabase Dashboard → SQL Editor on project <code>hjfsapwessfvdcfytpuk</code>. Idempotent — safe to re-run.</p>
-<h2>Why this exists</h2>
-<p>The 2026-04-28 product definition session locked the data architecture as: nightly batch job pre-computes all credit spread results across the S&amp;P 500 → stores in a Supabase results warehouse → user queries are instant DB lookups instead of on-demand math. Different historical windows (1yr / 2yr / 3yr / 5yr) are filters on the same pre-computed dataset.</p>
-<p>The initial 6-table schema Travis applied via dashboard is the user-state schema (users, usage_tracking, watchlists, analysis_cache, hunt_cache, subscription_events). It does not include the warehouse table. Repeated handoffs have flagged the <code>spread_results</code> migration as still-needed-from-Travis but the actual SQL has not been written until now.</p>
-<p>Without this table the current code path for Hunt / Ticker Analysis is &quot;compute on-demand → write to a 15-min/30-min TTL cache.&quot; That works for a small dev S&amp;P scan with fixtures, but it does not scale to the full 500-ticker × 8-DTE × 12-OTM × 4-history-window grid the product is sold on, and it forecloses the watchlist daily-digest and weekly curated-report features Pro/Ultra promise.</p>
-<h2>What the migration adds</h2>
-<p>Two tables and one helper function. All are server-written only — RLS enabled with no policies, so anon/authenticated have no access; backend uses the service role key.</p>
-<h3><code>spread_results</code></h3>
-<p>One row per (ticker, spread_type, otm_pct bucket, dte_weeks bucket, analysis_years window, as_of_date). The unique constraint enforces upsert-on-conflict so the nightly job can re-run safely.</p>
-<p>Columns:</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>StrikeSight — framer-motion strip, Layout.tsx Cove pass, dead-code delete</h1>
+<h2>What shipped</h2>
 <ul>
-<li><strong>Position</strong> — <code>ticker</code>, <code>spread_type</code> (<code>PUT</code> | <code>CALL</code>), <code>otm_percentage</code> (negative = ITM), <code>timeframe_weeks</code> (DTE bucket), <code>analysis_years</code> (<code>1</code> | <code>2</code> | <code>3</code> | <code>5</code>)</li>
-<li><strong>Performance</strong> — <code>win_rate</code>, <code>ev_percent</code>, <code>premium</code>, <code>total_trades</code></li>
-<li><strong>Snapshot context</strong> — <code>current_price</code>, <code>iv_rank</code> (denormalized so the matrix render does not need a second query)</li>
-<li><strong>Provenance</strong> — <code>as_of_date</code>, <code>computed_at</code>, <code>data_source</code> (<code>polygon</code> | <code>yfinance</code> | <code>fixture</code>)</li>
+<li>Removed <code>framer-motion</code> from <code>frontend/package.json</code> and lockfile (the last two consumers were either rewritten or deleted in this run).</li>
+<li>Rewrote <code>the scanner frontend</code> end-to-end. Replaced <code>motion.div</code> nav indicator (<code>layoutId=&quot;navIndicator&quot;</code> spring transition) with a static 0.5px accent strip on the active item; tokenized every legacy class to Cove (<code>bg-dark-bg</code>/<code>bg-dark-card</code> → <code>bg-bg-base</code>/<code>bg-bg-panel</code>, <code>border-gray-800</code> → <code>border-border-subtle</code>, <code>text-emerald</code> → <code>text-accent</code>, <code>text-gray-400</code> → <code>text-fg-muted</code>, <code>bg-emerald/10</code> → <code>bg-accent</code>, PRO badge <code>bg-yellow-400/20 text-yellow-400</code> → <code>bg-warn/15 text-warn border-warn/30</code>); added <code>aria-label</code> + <code>aria-current=&quot;page&quot;</code> on every nav link and <code>aria-label</code> on the logo home link.</li>
+<li>Deleted <code>the scanner frontend</code> — 68 lines of dead code, no imports anywhere in the project.</li>
 </ul>
-<p>Three indexes covering the three primary access patterns:</p>
+<h2>Why this run</h2>
+<p>HANDOFF/TODO both flagged Layout + SuccessRateIndicator as the last <code>framer-motion</code> consumers. Stripping them unlocks dropping the package itself, which:</p>
+<p>1. Cuts the production JS bundle (the public landing page is the same React app — every visitor downloads this).</p>
+<p>2. Closes the Cove migration: every authenticated screen + the public landing page now reads from one consistent token set, no legacy emerald/dark-card/gray references in any user-facing code.</p>
+<p>3. Removes the only remaining bundle-size regression that would land on a public StrikeRewind.com deploy.</p>
+<h2>Verification</h2>
 <ul>
-<li>Hunt: <code>(as_of_date DESC, analysis_years, spread_type, ev_percent DESC)</code> — top-N by EV for a spread type and history window on the latest day</li>
-<li>Ticker matrix: <code>(ticker, as_of_date DESC, analysis_years)</code> — full grid for one ticker</li>
-<li>Watchlist top-signal: <code>(ticker, as_of_date DESC, ev_percent DESC)</code> — best signal per ticker across a list</li>
+<li><code>frontend npm run build</code> passes. <strong>Bundle: <code>dist/assets/index-NF6aLeFL.js 339.67 kB │ gzip: 103.17 kB</code> and <code>dist/assets/index-DpaCTw0S.css 22.94 kB │ gzip: 5.11 kB</code>. Down from <code>452.35 kB</code> JS / <code>24.11 kB</code> CSS in the prior run — <code>-112.68 kB</code> (~47 kB gzipped wire savings).</strong></li>
+<li><code>backend npm run build</code> (tsc) passes.</li>
+<li><code>huntFixtureMode.test.js</code> passes 3/3.</li>
+<li><code>npm uninstall framer-motion</code> removed 4 packages cleanly (4 transitive deps).</li>
+<li><code>grep -E &#x27;framer-motion|from [&quot;&#x27;\&#x27;&#x27;]framer&#x27;</code> across <code>frontend/src</code> returns 0 matches.</li>
+<li><code>grep -E &#x27;bg-dark-|emerald|gray-[0-9]+|text-white|yellow-&#x27;</code> against <code>Layout.tsx</code> returns 0 matches.</li>
 </ul>
-<h3><code>batch_runs</code></h3>
-<p>Nightly job status + diagnostics. One row per run; tracks <code>started_at</code>, <code>completed_at</code>, <code>status</code>, <code>tickers_total</code>, <code>tickers_processed</code>, <code>rows_written</code>, <code>error_message</code>, <code>metadata</code>. Lets the operator see at a glance whether last night&#x27;s run completed, which ticker failed if it failed mid-run, and how long it took.</p>
-<h3><code>prune_spread_results(retention_days)</code></h3>
-<p>Drops rows where <code>as_of_date &lt; CURRENT_DATE - retention_days</code>. Default 30 days. The nightly job calls this after a successful write to keep the table from growing unboundedly. Sizing math: 500 tickers × 2 types × ~12 OTM buckets × ~8 DTE buckets × 4 history windows ≈ 380 K rows per snapshot; at ~250 bytes per row that is ~95 MB per day, ~2.8 GB at 30 days — comfortably within Supabase Pro Compute. Free-tier 500 MB ceiling fits ~5 days, which is why the retention window is configurable.</p>
-<h2>Apply instructions for Travis</h2>
-<p>1. Open Supabase Dashboard → project <code>hjfsapwessfvdcfytpuk</code> → SQL Editor → New query.</p>
-<p>2. Paste the contents of <code>backend/supabase-migration-spread-results.sql</code> (or the SQL block at the bottom of this artifact).</p>
-<p>3. Run.</p>
-<p>4. Reply with <code>MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE</code>.</p>
-<p>Verification query (run in the same editor after apply):</p>
-<pre><code>SELECT table_name FROM information_schema.tables
-WHERE table_schema = &#x27;public&#x27; AND table_name IN (&#x27;spread_results&#x27;, &#x27;batch_runs&#x27;);
--- expect 2 rows.
-
-SELECT indexname FROM pg_indexes
-WHERE schemaname = &#x27;public&#x27; AND tablename = &#x27;spread_results&#x27;;
--- expect spread_results_hunt_idx, spread_results_ticker_idx, spread_results_watchlist_idx (+ the implicit unique-constraint index).
-</code></pre>
-<h2>What unblocks after apply</h2>
-<p>Three downstream autonomous-runnable steps that have been blocked on this table existing:</p>
-<p>1. <strong><code>spreadResultsService.ts</code></strong> — write/read shim around the table. Same shape as <code>watchlistServiceDB.ts</code> etc. Methods: <code>upsertResults(rows)</code>, <code>getHuntResults(spreadType, years, limit)</code>, <code>getTickerMatrix(ticker, years)</code>, <code>getTopSignalForTickers(tickers, years)</code>. Adds <code>getFromStorage</code>/<code>setInStorage</code>-style symmetry with the existing <code>SupabaseDatabaseService</code> shape.</p>
-<p>2. <strong>Nightly batch wiring</strong> (<code>schedulerService.ts</code>) — node-cron job that runs the existing <code>analysisEngine.analyzeStock</code> over the S&amp;P 500 list, writes one snapshot per run to <code>spread_results</code>, calls <code>prune_spread_results(30)</code>, logs to <code>batch_runs</code>. Already gated on Polygon approval (<code>APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO</code>) — the wiring is independent of the data source, so the same code path serves Polygon in prod and the existing yfinance/fixtures path in dev.</p>
-<p>3. <strong>Watchlist top-signal-per-ticker render</strong> — <code>Watchlist.tsx</code> currently shows <code>{ticker, addedAt}</code>. With this table populated, a single <code>getTopSignalForTickers(watchlistTickers, 1)</code> query yields the daily-digest payload Pro/Ultra promise.</p>
-<p>None of those three are part of this packet — they are the next-three autonomous runs that become available once the table exists.</p>
-<h2>What this does NOT do</h2>
+<h2>What did not change</h2>
 <ul>
-<li>Does not subscribe to Polygon. Data source remains yfinance + fixtures until <code>APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO</code> lands.</li>
-<li>Does not change Hunt / Ticker Analysis read paths. Existing <code>analysis_cache</code> and <code>hunt_cache</code> tables continue to serve ad-hoc requests until the services are re</li>
-</ul></div>
+<li>Bottom-nav route list (<code>/dashboard</code>, <code>/hunt</code>, <code>/watchlist</code>, <code>/account</code>) preserved exactly.</li>
+<li>Tier badge logic preserved exactly (PRO/STANDARD/free fallback).</li>
+<li><code>Logo</code> component import preserved.</li>
+<li>No backend changes.</li>
+<li>No content/copy changes that affect the user-facing buyer story.</li>
+</ul>
+<h2>Public-copy hygiene</h2>
+<p>Layout is shared chrome for authenticated routes, not customer-facing in the SEO sense, but applies the same Cove tokens that the public landing page uses. No internal labels or process language anywhere. PRO/STANDARD/free badge labels come from <code>useUser()</code> context, not changed here.</p>
+<h2>Commit</h2>
+<p><code>21a9963</code> on <code>autobox/strikesight-scanner-mvp</code> — pushed to GitHub.</p>
+<h2>Owner-side gates open and unchanged</h2>
+<ul>
+<li><code>TIER MODEL: FREE/PRO/ULTRA APPROVED</code> — Travis Discord reply needed; deploy-blocking for Stripe production wiring.</li>
+<li><code>ROTATED: STRIKESIGHT KEYS READY</code> — rotate leaked Xata API key in Xata dashboard.</li>
+<li><code>APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO</code> — gated on entering pre-launch testing.</li>
+<li>Supabase <code>spread_results</code> warehouse SQL — apply via Supabase dashboard.</li>
+</ul>
+<h2>Next autonomous-runnable steps</h2>
+<p>1. Step #6 from build queue — full delta × DTE matrix on <code>/analysis/:ticker</code>. Requires backend <code>allStrategies</code> payload (engine truncates to <code>topStrategies.slice(0, 5)</code> at <code>newAnalysisEngine.ts:462</code>). Frontend renders a sortable heat-map cell grid keyed by delta band × DTE bucket.</p>
+<p>2. On <code>TIER MODEL: FREE/PRO/ULTRA APPROVED</code> reply — repoint env vars (<code>STRIPE_STANDARD_PRICE_ID</code> → <code>STRIPE_PRO_PRICE_ID</code>, <code>STRIPE_PRO_PRICE_ID</code> → <code>STRIPE_ULTRA_PRICE_ID</code>), update <code>Account.tsx</code> tier cards to match HANDOFF spec, add 3-card pricing block to <code>LandingPage.tsx</code>.</p>
+<p>3. Production deploy to StrikeRewind.com on Vercel (domain already purchased; build is clean; Stripe stays in test mode until tier-model approved).</p>
+<h2>Cash balance</h2>
+<p><code>$162.45</code>. No spend this run.</p></div>
   </section>
 
   <section class="detail-section">

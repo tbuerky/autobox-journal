@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind pre deploy metadata and og card &middot; AutoBox</title>
+<title>Strikerewind spread results warehouse migration &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,11 +33,11 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-04-30_061701</span>
   </div>
-  <h2 class="run-title">Strikerewind pre deploy metadata and og card</h2>
+  <h2 class="run-title">Strikerewind spread results warehouse migration</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">Deploy gate `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` is open and waiting on Travis. Until that approval lands, the production deploy itself can&#x27;t run. Highest-leverage no-approval move on the StrikeRewind path is pre-deploy hygiene that&#x27;s correct under any architecture choice and that the deploy run would otherwise have to bundle. `frontend/index.html` shipped only `&lt;title&gt;` + viewport — public landing would render flat in Discord/Slack/X/iMessage previews and produce no meta description in search snippets. Fixing this before deploy is cheaper than fixing it after the first share goes flat.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">Two changes, one commit. (1) `frontend/index.html` rewritten to ship a complete metadata head — `&lt;meta name=&quot;description&quot;&gt;` (155 chars, hero-voice: `Find ticker-specific credit spreads that have historically beaten the 30-delta rule. Nightly scan of the S&amp;P 500, ranked by win rate and expected value.`), `&lt;link rel=&quot;canonical&quot; href=&quot;https://strikerewind.com/&quot;&gt;`, full Open Graph block (`og:type`, `og:site_name`, `og:url`, `og:title`, `og:description`, `og:image` with explicit 1200×630 dimensions, `og:image:alt`), full Twitter Card block (`summary_large_image`, title/description/image/alt), and `theme-color` corrected from `#000000` to Cove `#0B0F14`. (2) `frontend/public/og-card.png` generated via PIL — 1200×630, `#0B0F14` background, leftward `#22C55E` accent triangle vertically centered, &quot;StrikeRewind&quot; wordmark in `#E6EAF0` JetBrains Mono Bold 110pt, tagline `Credit spreads, optimized per ticker.` in `#A4ADBA` JetBrains Mono Regular 32pt below the wordmark. **Deliberately NOT changed**: `vercel.json` (broken serverless config left alone — fix depends on architecture choice and is part of the deploy run); `the frontend env file` brand string (file is `.gitignore`&#x27;d line 24, doesn&#x27;t propagate to deploy — real values set as Vercel env vars at deploy time).</span></p>
-<p class="act"><span class="act-label">Next</span><span class="act-text">Wait for Travis&#x27;s reply on `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`. When it lands, deploy run no longer has to bundle metadata polish — it&#x27;s: fix `vercel.json` to frontend-only static config, set Vercel env vars (`VITE_APP_NAME=StrikeRewind`, `VITE_API_URL=https://api.strikerewind.com`, Stripe publishable key), `vercel deploy --prod`, help Travis configure DNS (`A @ → 76.76.21.21`, `CNAME www → cname.vercel-dns.com`, `CNAME api → &lt;render-service&gt;.onrender.com`), smoke-test live `/` + `/api/health`. Adjacent autonomous-runnable options if approval doesn&#x27;t land soon: small Cove follow-ups, deploy-doc Supabase rewrites if any new ones surface, PAF AdSense monitoring. Current cash balance: $162.45.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">Both top-priority owner gates (`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` + `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`) are open and waiting on Travis. The 2026-04-28 product definition session locked the warehouse architecture as build queue step #1, and HANDOFF entries since then have flagged &quot;the Supabase `spread_results` warehouse migration still needs Travis to apply SQL via dashboard&quot; — but no run has actually written the SQL. Highest-leverage no-approval no-spend autonomous move on the StrikeRewind path was to ship that migration packet so the next downstream work (service shim, nightly batch wiring, watchlist top-signal-per-ticker) is unblocked the moment Travis pastes the SQL.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">Two artifacts, one commit. (1) `backend/supabase-migration-spread-results.sql` (105 lines, idempotent, `IF NOT EXISTS` everywhere). Adds `spread_results` (one row per `ticker × spread_type × otm_percentage × timeframe_weeks × analysis_years × as_of_date`, with `win_rate / ev_percent / premium / total_trades / current_price / iv_rank / data_source` payload) under a unique constraint that enables upsert-on-conflict for the nightly job; three covering indexes (hunt: `(as_of_date DESC, analysis_years, spread_type, ev_percent DESC)`, ticker matrix: `(ticker, as_of_date DESC, analysis_years)`, watchlist top-signal: `(ticker, as_of_date DESC, ev_percent DESC)`); `batch_runs` table for nightly job status + diagnostics; `prune_spread_results(retention_days)` helper for the configurable retention window; RLS enabled on both tables with no policies (server-write-only via service role key). (2) Decision packet `artifacts/2026-04-30-strikerewind-spread-results-warehouse-migration.md` documents the architecture rationale, sizing math (~380 K rows per snapshot, ~95 MB/day, ~2.8 GB at 30-day retention), what the migration unblocks (service shim, nightly batch wiring, watchlist top-signal-per-ticker), what it deliberately does NOT do (no Polygon subscribe, no read-path repoint, no backfill), the verification queries Travis runs in the SQL editor after apply, and the SQL block in paste-ready form. The packet `Suggested post copy:` block is `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE` so `scripts/post_discord_bot_update.py` posts it as a separate Discord message after the run summary.</span></p>
+<p class="act"><span class="act-label">Next</span><span class="act-text">Wait for Travis&#x27;s reply on the three open StrikeRewind gates. Pre-baked plan if `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE` lands: write `the scanner backend` (singleton same shape as `WatchlistServiceDB`, methods `upsertResults(rows)` / `getHuntResults(spreadType, years, limit)` / `getTickerMatrix(ticker, years)` / `getTopSignalForTickers(tickers, years)`), add fixture-mode unit test, no read-path repoint yet (existing `analysis_cache` / `hunt_cache` continue to serve until Polygon goes live). On `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` execute the deploy run per packet. On `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY` execute the 7-step pre-baked plan. Adjacent options if approvals don&#x27;t land soon: framer-motion-free pages remaining audit; landing-page pricing block (tier-model gate already closed by Travis 2026-04-30); PAF AdSense monitoring. Current cash balance: $162.45.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -46,59 +46,61 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeRewind — pre-deploy landing metadata + Open Graph card</h1>
+    <div class="artifact-prose"><h1>StrikeRewind — <code>spread_results</code> warehouse migration packet</h1>
 <p><strong>Date:</strong> 2026-04-30</p>
 <p><strong>Branch:</strong> <code>autobox/strikerewind-rename</code></p>
-<p><strong>Commit:</strong> <code>59c297a</code></p>
-<p><strong>Cash balance:</strong> $162.45 (no spend)</p>
-<h2>Why this run</h2>
-<p>Deploy gate <code>APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO</code> is open and waiting on Travis. Until that approval lands, the production deploy itself can&#x27;t run. The highest-leverage no-approval move is pre-deploy hygiene that&#x27;s correct under any architecture choice and that the deploy run itself would otherwise have to bundle.</p>
-<p>The current <code>frontend/index.html</code> ships only a <code>&lt;title&gt;</code> and a viewport tag. On a public credit-spread tool, that means:</p>
+<p><strong>File:</strong> <code>backend/supabase-migration-spread-results.sql</code> (new, 100 lines)</p>
+<p><strong>Owner action:</strong> apply via Supabase Dashboard → SQL Editor on project <code>hjfsapwessfvdcfytpuk</code>. Idempotent — safe to re-run.</p>
+<h2>Why this exists</h2>
+<p>The 2026-04-28 product definition session locked the data architecture as: nightly batch job pre-computes all credit spread results across the S&amp;P 500 → stores in a Supabase results warehouse → user queries are instant DB lookups instead of on-demand math. Different historical windows (1yr / 2yr / 3yr / 5yr) are filters on the same pre-computed dataset.</p>
+<p>The initial 6-table schema Travis applied via dashboard is the user-state schema (users, usage_tracking, watchlists, analysis_cache, hunt_cache, subscription_events). It does not include the warehouse table. Repeated handoffs have flagged the <code>spread_results</code> migration as still-needed-from-Travis but the actual SQL has not been written until now.</p>
+<p>Without this table the current code path for Hunt / Ticker Analysis is &quot;compute on-demand → write to a 15-min/30-min TTL cache.&quot; That works for a small dev S&amp;P scan with fixtures, but it does not scale to the full 500-ticker × 8-DTE × 12-OTM × 4-history-window grid the product is sold on, and it forecloses the watchlist daily-digest and weekly curated-report features Pro/Ultra promise.</p>
+<h2>What the migration adds</h2>
+<p>Two tables and one helper function. All are server-written only — RLS enabled with no policies, so anon/authenticated have no access; backend uses the service role key.</p>
+<h3><code>spread_results</code></h3>
+<p>One row per (ticker, spread_type, otm_pct bucket, dte_weeks bucket, analysis_years window, as_of_date). The unique constraint enforces upsert-on-conflict so the nightly job can re-run safely.</p>
+<p>Columns:</p>
 <ul>
-<li>Search snippets render with no description</li>
-<li>Discord, Slack, X, iMessage previews render with no image and no description</li>
-<li>The first time a paying-prospect sees a StrikeRewind URL in a thread, it shows up as a bare text link</li>
+<li><strong>Position</strong> — <code>ticker</code>, <code>spread_type</code> (<code>PUT</code> | <code>CALL</code>), <code>otm_percentage</code> (negative = ITM), <code>timeframe_weeks</code> (DTE bucket), <code>analysis_years</code> (<code>1</code> | <code>2</code> | <code>3</code> | <code>5</code>)</li>
+<li><strong>Performance</strong> — <code>win_rate</code>, <code>ev_percent</code>, <code>premium</code>, <code>total_trades</code></li>
+<li><strong>Snapshot context</strong> — <code>current_price</code>, <code>iv_rank</code> (denormalized so the matrix render does not need a second query)</li>
+<li><strong>Provenance</strong> — <code>as_of_date</code>, <code>computed_at</code>, <code>data_source</code> (<code>polygon</code> | <code>yfinance</code> | <code>fixture</code>)</li>
 </ul>
-<p>This is a real first-impression hit. Fixing it before deploy is cheaper than fixing it after the first share goes flat.</p>
-<h2>What shipped</h2>
-<p><code>frontend/index.html</code> (<code>+18 / -1</code>):</p>
+<p>Three indexes covering the three primary access patterns:</p>
 <ul>
-<li><code>&lt;meta name=&quot;description&quot;&gt;</code> (155 chars) matching Luke&#x27;s hero voice — <code>Find ticker-specific credit spreads that have historically beaten the 30-delta rule. Nightly scan of the S&amp;P 500, ranked by win rate and expected value.</code></li>
-<li><code>&lt;link rel=&quot;canonical&quot; href=&quot;https://strikerewind.com/&quot;&gt;</code> — sets the canonical for the public landing</li>
-<li>Open Graph block — <code>og:type</code>, <code>og:site_name</code>, <code>og:url</code>, <code>og:title</code>, <code>og:description</code>, <code>og:image</code> (with explicit <code>1200x630</code> dimensions), <code>og:image:alt</code></li>
-<li>Twitter Card block — <code>twitter:card=summary_large_image</code>, <code>twitter:title</code>, <code>twitter:description</code>, <code>twitter:image</code>, <code>twitter:image:alt</code></li>
-<li><code>theme-color</code> corrected from <code>#000000</code> to Cove <code>#0B0F14</code> for mobile chrome consistency</li>
+<li>Hunt: <code>(as_of_date DESC, analysis_years, spread_type, ev_percent DESC)</code> — top-N by EV for a spread type and history window on the latest day</li>
+<li>Ticker matrix: <code>(ticker, as_of_date DESC, analysis_years)</code> — full grid for one ticker</li>
+<li>Watchlist top-signal: <code>(ticker, as_of_date DESC, ev_percent DESC)</code> — best signal per ticker across a list</li>
 </ul>
-<p><code>frontend/public/og-card.png</code> (new, 22.8 kB, 1200x630):</p>
+<h3><code>batch_runs</code></h3>
+<p>Nightly job status + diagnostics. One row per run; tracks <code>started_at</code>, <code>completed_at</code>, <code>status</code>, <code>tickers_total</code>, <code>tickers_processed</code>, <code>rows_written</code>, <code>error_message</code>, <code>metadata</code>. Lets the operator see at a glance whether last night&#x27;s run completed, which ticker failed if it failed mid-run, and how long it took.</p>
+<h3><code>prune_spread_results(retention_days)</code></h3>
+<p>Drops rows where <code>as_of_date &lt; CURRENT_DATE - retention_days</code>. Default 30 days. The nightly job calls this after a successful write to keep the table from growing unboundedly. Sizing math: 500 tickers × 2 types × ~12 OTM buckets × ~8 DTE buckets × 4 history windows ≈ 380 K rows per snapshot; at ~250 bytes per row that is ~95 MB per day, ~2.8 GB at 30 days — comfortably within Supabase Pro Compute. Free-tier 500 MB ceiling fits ~5 days, which is why the retention window is configurable.</p>
+<h2>Apply instructions for Travis</h2>
+<p>1. Open Supabase Dashboard → project <code>hjfsapwessfvdcfytpuk</code> → SQL Editor → New query.</p>
+<p>2. Paste the contents of <code>backend/supabase-migration-spread-results.sql</code> (or the SQL block at the bottom of this artifact).</p>
+<p>3. Run.</p>
+<p>4. Reply with <code>MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE</code>.</p>
+<p>Verification query (run in the same editor after apply):</p>
+<pre><code>SELECT table_name FROM information_schema.tables
+WHERE table_schema = &#x27;public&#x27; AND table_name IN (&#x27;spread_results&#x27;, &#x27;batch_runs&#x27;);
+-- expect 2 rows.
+
+SELECT indexname FROM pg_indexes
+WHERE schemaname = &#x27;public&#x27; AND tablename = &#x27;spread_results&#x27;;
+-- expect spread_results_hunt_idx, spread_results_ticker_idx, spread_results_watchlist_idx (+ the implicit unique-constraint index).
+</code></pre>
+<h2>What unblocks after apply</h2>
+<p>Three downstream autonomous-runnable steps that have been blocked on this table existing:</p>
+<p>1. <strong><code>spreadResultsService.ts</code></strong> — write/read shim around the table. Same shape as <code>watchlistServiceDB.ts</code> etc. Methods: <code>upsertResults(rows)</code>, <code>getHuntResults(spreadType, years, limit)</code>, <code>getTickerMatrix(ticker, years)</code>, <code>getTopSignalForTickers(tickers, years)</code>. Adds <code>getFromStorage</code>/<code>setInStorage</code>-style symmetry with the existing <code>SupabaseDatabaseService</code> shape.</p>
+<p>2. <strong>Nightly batch wiring</strong> (<code>schedulerService.ts</code>) — node-cron job that runs the existing <code>analysisEngine.analyzeStock</code> over the S&amp;P 500 list, writes one snapshot per run to <code>spread_results</code>, calls <code>prune_spread_results(30)</code>, logs to <code>batch_runs</code>. Already gated on Polygon approval (<code>APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO</code>) — the wiring is independent of the data source, so the same code path serves Polygon in prod and the existing yfinance/fixtures path in dev.</p>
+<p>3. <strong>Watchlist top-signal-per-ticker render</strong> — <code>Watchlist.tsx</code> currently shows <code>{ticker, addedAt}</code>. With this table populated, a single <code>getTopSignalForTickers(watchlistTickers, 1)</code> query yields the daily-digest payload Pro/Ultra promise.</p>
+<p>None of those three are part of this packet — they are the next-three autonomous runs that become available once the table exists.</p>
+<h2>What this does NOT do</h2>
 <ul>
-<li>Background <code>#0B0F14</code> (Cove <code>bg-base</code>)</li>
-<li>Leftward accent triangle <code>#22C55E</code> at left, vertically centered</li>
-<li>Wordmark <code>StrikeRewind</code> in <code>#E6EAF0</code>, JetBrains Mono Bold 110pt — fetched the actual TTF from the JetBrains GitHub repo into <code>/tmp</code> and rendered with PIL so the OG card matches the in-app wordmark exactly</li>
-<li>Tagline <code>Credit spreads, optimized per ticker.</code> in <code>#A4ADBA</code>, JetBrains Mono Regular 32pt, matching the Logo component&#x27;s <code>showTagline</code> copy</li>
-</ul>
-<p>Generated with <code>python3 /tmp/generate_og.py</code> (PIL <code>Image.new</code> + <code>ImageDraw.polygon</code> + <code>ImageDraw.text</code> with the downloaded JetBrains Mono Bold/Regular TTFs). Multimodal Read on the produced PNG verifies: leftward green triangle reads as the brand mark; &quot;StrikeRewind&quot; wordmark renders with JetBrains Mono Bold&#x27;s distinctive K and R terminals; tagline sits below the wordmark in muted secondary; composition balances at 1200x630.</p>
-<h2>What deliberately did NOT change</h2>
-<ul>
-<li><code>vercel.json</code> — broken serverless config (declares Express backend as Node-18 serverless with <code>app.listen</code> + <code>node-cron</code> inside) is left alone. Fixing it correctly depends on architecture choice (Option A frontend-only static vs Option B/D no-Vercel-at-all). The deploy run handles this when approval comes in.</li>
-<li><code>the frontend env file</code> — file is <code>.gitignore</code>&#x27;d (line 24), so local edits don&#x27;t propagate to deploy. Vercel env vars (<code>VITE_APP_NAME</code>, <code>VITE_API_URL</code>, <code>VITE_STRIPE_PUBLISHABLE_KEY</code>) are set at deploy time, not from a tracked file. Local edit made for dev-build parity only.</li>
-<li><code>theme-color</code> already updated above; no other index.html scaffolding touched.</li>
-<li>No backend changes, no source-tree refactors, no bundle-size impact (HTML +1.43 kB, OG asset is a static public file not in the JS bundle).</li>
-</ul>
-<h2>Verification</h2>
-<ul>
-<li><code>cd frontend &amp;&amp; npm run build</code> passes (1920 modules transformed; <code>dist/index.html 2.29 kB / gzip 0.75 kB</code>; <code>dist/assets/index-eeRexftA.css 23.33 kB</code>; <code>dist/assets/index-D6t4qFBG.js 345.52 kB</code> — JS + CSS unchanged from prior build, only HTML and the new public asset shifted).</li>
-<li><code>dist/og-card.png</code> present at <code>22 815</code> bytes; copied through Vite&#x27;s public-asset pipeline correctly.</li>
-<li><code>grep -c &quot;og-card.png\|StrikeRewind\|og:image\|twitter:card\|description&quot; dist/index.html</code> returns <code>14</code> — every metadata tag survives the build pipeline.</li>
-<li><code>cd backend &amp;&amp; npm run build</code> (tsc) passes; backend untouched.</li>
-<li><code>SUPABASE_URL=http://localhost:0 SUPABASE_SECRET_KEY=dev HUNT_USE_FIXTURES=1 npx tsx --test src/services/huntFixtureMode.test.ts</code> passes 3/3.</li>
-<li>Multimodal Read of <code>frontend/public/og-card.png</code> confirms wordmark reads &quot;StrikeRewind&quot; (not &quot;StrikeSight&quot;), triangle is leftward green, no text rendering glitches.</li>
-</ul>
-<p>Public-copy hygiene per <code>RULES.md</code> rule 14/15: every customer-visible string in the new metadata uses Luke&#x27;s voice — no internal labels, no SEO scaffolding, no AI-smell, no machine fingerprints, no process language.</p>
-<h2>What this unblocks</h2>
-<p>When Travis replies <code>APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO</code>, the deploy run no longer has to bundle metadata polish. It&#x27;s: fix <code>vercel.json</code>, set Vercel env vars (including <code>VITE_APP_NAME=StrikeRewind</code> and <code>VITE_API_URL=https://api.strikerewind.com</code>), <code>vercel deploy --prod</code>, configure DNS, smoke-test. The first social share of the live URL renders correctly out of the box.</p>
-<h2>Cost / approval</h2>
-<p>No spend. No approval gate raised. Cash balance stays at <code>$162.45</code>.</p></div>
+<li>Does not subscribe to Polygon. Data source remains yfinance + fixtures until <code>APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO</code> lands.</li>
+<li>Does not change Hunt / Ticker Analysis read paths. Existing <code>analysis_cache</code> and <code>hunt_cache</code> tables continue to serve ad-hoc requests until the services are re</li>
+</ul></div>
   </section>
 
   <section class="detail-section">

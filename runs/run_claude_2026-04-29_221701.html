@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikesight xata purge &middot; AutoBox</title>
+<title>Strikesight deploy docs supabase rewrite &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,10 +33,11 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-04-29_221701</span>
   </div>
-  <h2 class="run-title">Strikesight xata purge</h2>
+  <h2 class="run-title">Strikesight deploy docs supabase rewrite</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">StrikeSight cleanup — last session migrated the database from Xata to Supabase but left the old `XataDatabaseServiceWithFallback` wrapper in place as a thin alias, six consumers still importing it, the `@xata.io/client` package still in `backend/package.json`, generated `xata.ts` + `xataDatabaseService.ts` still on disk, and `.env.example` still listing `XATA_API_KEY` / `XATA_DATABASE_URL`. The HANDOFF explicitly listed this audit as the first follow-up before production deploy. No owner-side approval needed; pure code cleanup with measurable surface-area reduction.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">Cut Xata cleanly. Repointed every consumer at `SupabaseDatabaseService.getInstance()`. Added `getFromStorage`/`setInStorage`/`removeFromStorage` to `SupabaseDatabaseService` backed by an in-process `Map&lt;string,string&gt;` to preserve identical behavior. Deleted `the scanner backend`, `xataDatabaseService.ts`, `xataDatabaseServiceWithFallback.ts`. Dropped `@xata.io/client` from `backend/package.json` and ran `npm install`. Replaced `XATA_API_KEY` / `XATA_DATABASE_URL` in `the backend env file` with `SUPABASE_URL` / `SUPABASE_SECRET_KEY`. Removed tracked `.xata/` codegen directories. Net diff `18 files changed, 353 insertions(+), 894 deletions(-)`.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Branch: autobox/strikesight-scanner-mvp Commit: 965c543</span></p>
+<p class="act"><span class="act-text">Travis priority shift puts StrikeSight on the build → polish → deploy → market path. Step #1 of the locked HANDOFF queue (Supabase spread_results warehouse SQL) is gated on Travis applying SQL via dashboard; step #6 (full delta × DTE matrix) needs a backend payload change too risky to bundle one-shot.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -46,65 +47,49 @@
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
     <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeSight — purge Xata SDK, point all consumers at Supabase</h1>
+    <div class="artifact-prose"><h1>StrikeSight deploy docs Supabase rewrite</h1>
 <p>Branch: <code>autobox/strikesight-scanner-mvp</code></p>
-<p>Commit: <code>ffdc8ba</code></p>
+<p>Commit: <code>965c543</code></p>
+<h2>Why now</h2>
+<p>Travis priority shift puts StrikeSight on the build → polish → deploy → market path. Step #1 of the locked HANDOFF queue (Supabase <code>spread_results</code> warehouse SQL) is gated on Travis applying SQL via dashboard; step #6 (full delta × DTE matrix) needs a backend payload change too risky to bundle one-shot.</p>
+<p>A real deploy blocker was already on TODO.md as autonomous-runnable:</p>
+<p>&gt; [TODO] StrikeSight: rewrite <code>DEPLOYMENT.md</code> and <code>HTTPS_DEPLOYMENT_GUIDE.md</code> Supabase sections (currently still reference XATA_API_KEY / XATA_DATABASE_URL; small, no approval needed; do this before production deploy).</p>
+<p>After the Xata SDK purge (commit <code>ffdc8ba</code>, 2026-04-29) the codebase no longer uses Xata, but the two deploy docs still listed <code>XATA_API_KEY</code> / <code>XATA_DATABASE_URL</code> in their production env-var examples and credited Xata for automatic backups. If Travis (or AutoBox post tier-model-approval) followed those docs verbatim, the production backend would boot with no database connection and <code>SupabaseDatabaseService.getInstance()</code> would throw on first call.</p>
 <h2>What changed</h2>
-<p>Last session migrated the StrikeSight database from Xata to Supabase but left the old <code>XataDatabaseServiceWithFallback</code> wrapper in place as a thin alias (importing <code>SupabaseDatabaseService as XataDatabaseService</code>). Six files still imported the wrapper, the <code>@xata.io/client</code> package was still in <code>backend/package.json</code>, the generated <code>xata.ts</code> client and old <code>xataDatabaseService.ts</code> still existed, and <code>.env.example</code> still listed <code>XATA_API_KEY</code> / <code>XATA_DATABASE_URL</code>. Boot worked, but the surface area was confusing and any new contributor (or future autonomous run) would think Xata was still load-bearing.</p>
-<p>This run cut Xata out cleanly:</p>
+<p><strong><code>DEPLOYMENT.md</code></strong> (2 edits):</p>
 <ul>
-<li>Repointed every consumer to <code>SupabaseDatabaseService.getInstance()</code> directly:</li>
-<li><code>the scanner backend</code> (6 files)</li>
-<li>Added <code>getFromStorage</code> / <code>setInStorage</code> / <code>removeFromStorage</code> to <code>SupabaseDatabaseService</code> backed by an in-process <code>Map</code>. This preserves the exact behavior the wrapper had — those methods were always in-memory anyway (the wrapper&#x27;s &quot;would query Xata cache table&quot; comments were never wired up).</li>
-<li>Deleted <code>the scanner backend</code>, <code>the scanner backend</code>, <code>the scanner backend</code>.</li>
-<li>Removed <code>@xata.io/client</code> from <code>backend/package.json</code>; ran <code>npm install</code> (one package removed; lockfile updated).</li>
-<li>Replaced <code>XATA_API_KEY</code> / <code>XATA_DATABASE_URL</code> in <code>the backend env file</code> with <code>SUPABASE_URL</code> / <code>SUPABASE_SECRET_KEY</code>.</li>
-<li>Removed tracked Xata codegen directories <code>.xata/</code> and <code>backend/.xata/</code> (compatibility/version JSON + migration ledger).</li>
+<li>Backend <code>.env</code> example block: replaced <code>[REDACTED]</code> + <code>[REDACTED]</code> with <code>SUPABASE_URL=https://your-project-ref.supabase.co</code> + <code>[REDACTED]</code> (matches <code>the backend env file</code>); added Supabase Dashboard URL pointer.</li>
+<li>&quot;Backup &amp; Recovery → Database&quot; bullet: replaced &quot;Xata provides automatic backups&quot; with the accurate Supabase split — Pro tier ships daily automated backups with 7-day retention; Free tier does not, so the operator runs scheduled <code>pg_dump</code> against the Supabase connection string. Also kept the &quot;test restore procedures&quot; reminder.</li>
 </ul>
-<p>Net diff: <code>18 files changed, 353 insertions(+), 894 deletions(-)</code>. About 800 lines of dead Xata code removed.</p>
+<p><strong><code>HTTPS_DEPLOYMENT_GUIDE.md</code></strong> (1 edit):</p>
+<ul>
+<li>Production backend <code>.env.production</code> example: replaced <code>[REDACTED]</code> + <code>[REDACTED]</code> with <code>SUPABASE_URL=https://your-project-ref.supabase.co</code> + <code>[REDACTED]</code>.</li>
+</ul>
+<h2>Deliberately NOT changed</h2>
+<ul>
+<li><code>SECURITY_AUDIT.md</code> — incident report describing the leaked Xata key (<code>xau_ncIRLvD0ac8cIczjxF0vZbHzW6nCArva4</code>) that Travis still needs to rotate (<code>ROTATED: STRIKESIGHT KEYS READY</code> open gate). Frozen historical record; rewriting it would obscure the incident.</li>
+<li><code>2026-04-26-strikesight-scanner-mvp-verification.md</code> — frozen verification artifact in the journal site; not a deploy doc.</li>
+<li><code>STRIPE_STANDARD_PRICE_ID</code> / <code>STRIPE_PRO_PRICE_ID</code> env vars in <code>DEPLOYMENT.md</code> — left as-is. These map to the current Stripe Dashboard products (<code>Standard $9.99</code> / <code>Pro $29.99</code>). When Travis approves <code>TIER MODEL: FREE/PRO/ULTRA</code> the Stripe products get renamed to <code>Pro $29</code> / <code>Ultra $99</code> and AutoBox repoints env in the same deploy run. Until that approval lands, the deploy docs match the live Stripe configuration.</li>
+</ul>
 <h2>Verification</h2>
+<pre><code>$ cd /home/autoproj/projects/StrikeSight &amp;&amp; grep -nE &#x27;Xata|XATA|DATABASE_URL&#x27; DEPLOYMENT.md HTTPS_DEPLOYMENT_GUIDE.md
+(no matches)
+</code></pre>
+<p><code>the backend env file</code> was the source of truth for variable names — <code>SUPABASE_URL</code> + <code>SUPABASE_SECRET_KEY</code> — verified before the rewrite.</p>
+<p>No code touched; no build changes; no fixture-test impact.</p>
+<h2>Public copy hygiene</h2>
+<p>Internal docs, not customer-facing. RULES.md rule 14/15 do not apply, but every line still reads as accurate operator-facing instruction with no AutoBox/run-process scaffolding.</p>
+<h2>State</h2>
 <ul>
-<li><code>cd backend &amp;&amp; npm run build</code> → <code>tsc</code> passes clean (no errors).</li>
-<li><code>cd / (root) &amp;&amp; npm run build</code> → backend <code>tsc</code> + frontend <code>tsc -b &amp;&amp; vite build</code> both pass; <code>dist/assets/index-BDGG0Dbb.js 445.78 kB</code>.</li>
-<li>Backend boot test with <strong>only</strong> <code>SUPABASE_URL</code> + <code>SUPABASE_SECRET_KEY</code> set (no <code>XATA_<em></code> vars, no <code>STRIPE_</em></code>, no <code>SENTRY_DSN</code>, no <code>ENABLE_SCHEDULER</code>):</li>
+<li><code>OWNER_MESSAGES.md</code>: no fresh owner input handled this run.</li>
+<li><code>BUDGET.md</code>: no spend; current cash balance remains $162.45.</li>
+<li><code>OPEN_GATES.md</code>: unchanged. Existing gate <code>TIER MODEL: FREE/PRO/ULTRA APPROVED</code> still pending; no new gate raised.</li>
+<li><code>TODO.md</code>: deploy-docs Supabase rewrite line marked DONE.</li>
+<li><code>RUNLOG.md</code> / <code>HANDOFF.md</code>: appended.</li>
+<li><code>SCORECARD.md</code>: appended.</li>
 </ul>
-<p>```</p>
-<p>Sentry DSN not found, error tracking disabled</p>
-<p>Scheduler disabled (set ENABLE_SCHEDULER=true to enable)</p>
-<p>StrikeSight backend running on port 3099</p>
-<p>```</p>
-<ul>
-<li>Existing fixture tests (<code>huntFixtureMode.test.ts</code>) pass <code>3/3</code>.</li>
-<li><code>grep -i &quot;xata\|XATA&quot; backend/src/</code> returns zero matches.</li>
-</ul>
-<h2>Remaining Xata mentions in the repo</h2>
-<p>Three internal deployment/security docs still mention Xata:</p>
-<ul>
-<li><code>DEPLOYMENT.md</code></li>
-<li><code>HTTPS_DEPLOYMENT_GUIDE.md</code></li>
-<li><code>SECURITY_AUDIT.md</code></li>
-</ul>
-<p>Plus one frozen historical artifact under <code>journal/site/artifacts/</code>. None of these are user-facing and none load at runtime, but the deployment docs will need a Supabase rewrite before production deploy. Logged in TODO.md.</p>
-<h2>Why this was the right next move</h2>
-<p>The HANDOFF explicitly listed this audit as the first follow-up after the Supabase migration. It&#x27;s blocking the production deploy: the deploy README still names Xata env vars, the package still pulls a 0.30.x SDK we don&#x27;t use, and consumers were one-step-removed from the actual database. With this gone, the deploy pipeline reads cleanly: only <code>SUPABASE_URL</code> and <code>SUPABASE_SECRET_KEY</code> are required to boot, and the only deferred database wiring is Stripe (which is already gated behind <code>STRIPE_SECRET_KEY</code> lazy init) and the paid options data provider (still pending owner approval).</p>
-<p>The Travis directive was &quot;polish up StrikeSight, then drive traffic.&quot; This is part of polish — visible to the next pair of eyes touching the repo (Travis, a future autonomous run, a contractor), and it removes a surface that would create deployment confusion. It cost zero dollars, did not cross any approval gate, and shrinks the change set by ~800 lines.</p>
-<h2>Next concrete moves on StrikeSight (in dependency order)</h2>
-<p>1. Rewrite <code>DEPLOYMENT.md</code> and <code>HTTPS_DEPLOYMENT_GUIDE.md</code> Supabase sections (small, no approval).</p>
-<p>2. Polish landing page copy — route through Luke for the &quot;scans the whole S&amp;P, returns the exact tickers, strikes, and expirations that have been consistently profitable over time&quot; story.</p>
-<p>3. On <code>ROTATED: STRIKESIGHT KEYS READY</code> from Travis (Xata key rotation in Xata dashboard — independent of the SDK removal above; the leaked key still needs to be invalidated).</p>
-<p>4. On <code>APPROVED: SUBSCRIBE MARKETDATA.APP TRADER ...</code> — wire real chain data behind the existing scanner.</p>
-<p>5. On <code>APPROVED: BUY STRIKEREWIND.COM, MAX $15</code> (or <code>GETSTRIKESIGHT.COM</code>) — purchase, point DNS.</p>
-<p>6. Production deploy — Vercel or Render with Supabase env.</p>
-<p>7. Stripe production keys + end-to-end subscription test.</p>
-<h2>Owner-side asks (no new approval gate from this run)</h2>
-<ul>
-<li><code>ROTATED: STRIKESIGHT KEYS READY</code> (rotate Xata key in Xata dashboard so the leaked key is invalidated)</li>
-<li><code>APPROVED: SUBSCRIBE MARKETDATA.APP TRADER ...</code> (paid options chain data; ~$60/mo or Polygon Starter ~$29/mo equivalent)</li>
-<li><code>APPROVED: BUY STRIKEREWIND.COM, MAX $15</code> (or <code>GETSTRIKESIGHT.COM</code>)</li>
-<li>PAF-side: confirm Smart Bidding strategy and total Google Ads spend so far against the <code>$50</code> stop-loss</li>
-</ul>
-<h2>Cash balance</h2>
-<p><code>$188.75</code>. No spend this run.</p></div>
+<h2>What this unblocks</h2>
+<p>After Travis (a) replies <code>TIER MODEL: FREE/PRO/ULTRA APPROVED</code>, (b) renames Stripe products in Dashboard, and (c) rotates the Xata API key (<code>ROTATED: STRIKESIGHT KEYS READY</code>), AutoBox can run a single autonomous deploy session that points the StrikeRewind.com DNS at Vercel, sets the production env vars per these now-correct docs, and ships. No third deploy-doc rewrite needed mid-deploy.</p></div>
   </section>
 
   <section class="detail-section">

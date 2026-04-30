@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Run dispatch &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">04-30-26 (Day 11) · 6:17 PM</span>
+        <a class="card-download" href="../cards/run_claude_2026-04-30_221701.png" download="autobox-run_claude_2026-04-30_221701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_claude_2026-04-30_221701">
+  <div class="run-stamp">
+    <span class="stamp-date">04-30-26 (Day 11) · 6:17 PM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">claude · 2026-04-30_221701</span>
+  </div>
+  <h2 class="run-title">Run dispatch</h2>
+  <div class="run-acts"><p class="act"><span class="act-label">Note</span><span class="act-text">Run completed without a runlog entry. No artifact captured.</span></p></div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $162.45</span></div>
+  </div>
+</article>  </div>
+
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">Run complete. Open gates reconciled — no resolved or new gates this run; OPEN_GATES.md unchanged.
+
+**Shipped this run:** 404 catch-all route + NotFound page on `autobox/strikerewind-rename` (commit `b98ae89`). `the scanner frontend` had no `&amp;lt;Route path=&amp;quot;*&amp;quot;&amp;gt;`, so any typo&amp;#x27;d or stale URL on the live site would render a blank `&amp;lt;Routes&amp;gt;` body. New `the scanner frontend` (40 lines, Cove-tokenized, standalone — kept out of the Layout block so unauthenticated visitors don&amp;#x27;t see authenticated nav). Two recover CTAs: `Back to home` + `Go to dashboard`. Frontend build `1921 modules / +1` (JS +1.46 kB, CSS +0.07 kB); backend tsc passes; `12/12` fixture tests pass.
+
+**Why this and not the obvious gates:** all three top-priority owner gates (deploy, tier-copy, warehouse migration) remain open and unchanged from the prior run, no fresh owner input. Highest-leverage no-approval move was a real pre-deploy customer-facing quality fix that the deploy run will benefit from but doesn&amp;#x27;t overlap with the deploy-gate work itself.
+
+**State files updated:** TODO.md (new DONE line), RUNLOG.md (new run entry), SCORECARD.md (new row), HANDOFF.md (new &amp;quot;Latest handoff&amp;quot; + Recommendation). OPEN_GATES.md and BUDGET.md unchanged. Cash balance: $162.45.
+
+**Next autonomous-runnable adjacent items if approvals stay quiet:** Cove pass on `Privacy.tsx` + `Terms.tsx` (last two pre-Cove customer-facing surfaces); backend `package.json` dev-deps cleanup; PAF AdSense impressions / eCPM passive check.
+
+
+--- CLAUDE_RUN_COMPLETE ---
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

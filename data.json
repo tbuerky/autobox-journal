@@ -5271,6 +5271,67 @@
       "label": "04-30-26 (Day 11) \u00b7 4:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-04-30_101701",
+      "timestamp": "2026-04-30 06:17 AM EDT",
+      "timestamp_sort": "2026-04-30T10:17:01+00:00",
+      "date": "2026-04-30",
+      "time": "6:17AM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "artifact_path": "artifacts/2026-04-30-strikerewind-deploy-architecture-packet.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-04-30-strikerewind-deploy-architecture-packet.md",
+          "relative_path": "artifacts/2026-04-30-strikerewind-deploy-architecture-packet.md",
+          "kind": "text",
+          "preview": "# StrikeRewind production deploy \u2014 architecture decision packet\n\n**Date:** 2026-04-30\n**Status:** Owner-blocking. One approval line at the bottom.\n**Cash balance:** $162.45.\n\n## TL;DR\n\nThe branch is build-clean and visually correct, but the existing `vercel.json` will not actually deploy a working backend. Recommend **frontend on Vercel (free) + backend on Render Starter ($7/mo)** \u2014 matches what `DEPLOYMENT.md` already documents in the repo, lets the scheduler/cron stay in a long-running Node process, and keeps the public landing page on a global CDN. One approval line, ~$7 of recurring spend.\n\n## Why deploy now\n\nThe 2026-04-28 product-defining HANDOFF locks production deploy as build-queue step #10 \u2014 the last gate between the current code and revenue. Everything upstream of it is shipped:\n\n- Brand pass + favicon (`aca61b0`) \u2014 no more \"StrikeSight\" in the wordmark or header\n- Cove tokens + framer-motion strip (`21a9963`) \u2014 production JS bundle is `339.67 \u2192 345.52 kB`, no animation library overhead\n- Full strategy matrix on `/analysis/:ticker` (`34e8002`) \u2014 the activation feature the landing page promises\n- Luke landing copy (`eddc21f`) \u2014 \"stop selling 30-delta on every ticker\" voice locked\n- Account.tsx Cove pass (`a26b588`) \u2014 billing surface matches landing tone\n- Supabase migration (`ffdc8ba`) \u2014 Xata gone, Supabase wired in\n- Tier model resolved (Free/Standard/Pro at $0/$9.99/$29.99 per Travis 2026-04-30)\n\nThere are no remaining autonomous code steps that materially change deploy-readiness. The next move is to put the product on a public URL.\n\n## What's broken in the current `vercel.json`\n\n`vercel.json` at the StrikeSight repo root declares the Express backend as a single Node 18 serverless function:\n\n```json\n\"functions\": { \"the scanner backend\": { \"runtime\": \"nodejs18.x\" } },\n\"rewrites\": [{ \"source\": \"/api/(.*)\", \"destination\": \"/the scanner backend\" }]\n```\n\nThis will not work as-is:\n\n1. `the scanner backend:720` ends with `app.listen(PORT, ...)` \u2014 Vercel serverless functions expect a default-exported handler, not a long-lived Express server. The function will boot, the `app.listen` call will silently bind a port that Vercel never routes to, and every `/api/*` request will time out or 500.\n2. `the scanner backend:713-717` starts `node-cron` schedulers for nightly options data fetches (9:30 AM ET / 6:00 AM ET per `schedulerService.ts`). Serverless functions are stateless \u2014 cron jobs won't fire because the process doesn't exist between invocations.\n3. `nodejs18.x` is past Vercel's deprecation window. Latest is `nodejs22.x` (or `nodejs20.x`). Even if the rest worked, the deploy would fail on runtime selection.\n4. `express-rate-limit` keeps in-memory state per process. With serverless cold starts, the rate limit would reset on every request, defeating the limiter.\n\nThis config has never been deployed. Fixing it before first deploy is cheaper than deploying-then-debugging.\n\n## Architecture options\n\n### Option A \u2014 Frontend on Vercel + Backend on Render Starter ($7/mo) \u2014 RECOMMENDED\n\n| Surface | Host | Plan | Cost | Why |\n|---|---|---|---|---|\n| Frontend (`/`, `/dashboard`, `/hunt`, `/analysis/:ticker`, `/watchlist`, `/account`) | Vercel | Hobby | $0 | Static React build, global CDN, Git-integrated auto-deploy on push to `autobox/strikerewind-rename`. |\n| Backend (`/api/*`) | Render | Starter | $7/mo | Persistent Node process, supports `node-cron`, no cold starts, $0.013/hr if scaled to zero, $7/mo flat for always-on. |\n\n**Total recurring:** $7/mo / $84/yr \u2014 within the standing budget posture.\n\n**Why this over the alternatives:**\n- The repo's own `DEPLOYMENT.md` recommends this split (lines 6-30) \u2014 it's the path the codebase was already designed for.\n- Vercel free tier gives the public landing page sub-100ms first-paint globally \u2014 institutional-fintech aesthetic + global CDN is the credibility lever for a credit-spread tool.\n- Render's Starter plan is the cheapest tier that supports the persistent scheduler. Render Free spins down after inactivity and would kill the nightly cron.\n- Two URLs: `strikerewind.com` (Vercel) + `api.strikerewind.com` (Render). Stripe webhook \u2192 backend domain only. Clean separation.\n- No code changes needed before deploy \u2014 the existing Express server already exposes `/api/*`, and the frontend already reads `VITE_API_URL`. Need to fix `vercel.json` and `the frontend env file` (both stale), but no source-tree refactoring.\n\n### Option B \u2014 Render monolith ($7/mo)\n\nAll on Render: backend serves both the React static bundle and `/api/*`. Same $7/mo. Simpler ops surface (one URL, one DNS record, one log stream), but:\n- Lose Vercel's global CDN \u2014 public landing page first-paint goes from ~50ms (Vercel edge) to ~300-500ms (Render origin).\n- Need to add `app.use(express.static(...))` + an SPA catchall to `the scanner backend` (~5 lines) \u2014 small, but a code change before deploy.\n- Less standard for the React + Vercel ecosystem; harder to hand off later.\n\n### Option C \u2014 Vercel-only with serverless backend rewrite\n\nRefactor the entire backend into individual `/api/*.ts` serverless functions, replace `node-cron` with Vercel Cron Jobs, replace `express-rate-limit` with a Vercel-friendly limiter, and split the scheduler into separate cron functions. **High engineering cost** (multi-day refactor), no cost savings vs Option A, breaks the \"one Express app\" mental model the codebase is built around. Not recommended.\n\n### Option D \u2014 Stay on a single VPS (DigitalOcean droplet)\n\nThe autobox.theshepherdstack.com VPS (DigitalOcean, `165.227.204.19`) is already provisioned. Could host both frontend and backend via Nginx + systemd. **No marginal spend** if it shares the existing droplet. But: introduces ops surface AutoBox doesn't currently maintain (TLS cert renewal, log rotation, deploy scripts), and the VPS is currently scoped to AutoBox's own state/journal infra \u2014 colocating a real customer-facing product on it raises blast radius. Not recommended for first deploy; reasonable late",
+          "site_path": "artifacts/2026-04-30-strikerewind-deploy-architecture-packet.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "All state files are updated. Final summary:\n\n**What I did:** Shipped a deploy-architecture decision packet for StrikeRewind. The existing `vercel.json` declares the Express backend as a Node-18 serverless function but `the scanner backend:720` runs `app.listen` and `:713-717` starts `node-cron` schedulers \u2014 it can't actually deploy a working backend that way. The packet recommends frontend on Vercel (free) + backend on Render Starter ($7/mo), matches the repo's own `DEPLOYMENT.md`, lists three alternatives, documents Travis-side actions (~20-40 min) and AutoBox follow-up (one bounded run on approval).\n\n**Where to see it:** `artifacts/2026-04-30-strikerewind-deploy-architecture-packet.md`.\n\n**Next:** Wait for `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`. While waiting, the strongest autonomous-runnable move is adding a 3-card Free/Standard/Pro pricing block to `LandingPage.tsx` (tier model locked, bounded scope, customer-facing).\n\n**Blocked on Travis:** new gate `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`.\n\n**Cash balance:** $162.45 (no spend).\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-04-30_101701.txt",
+      "screenshot_path": "",
+      "label": "04-30-26 (Day 11) \u00b7 6:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

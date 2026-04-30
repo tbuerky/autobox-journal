@@ -5393,6 +5393,67 @@
       "label": "04-30-26 (Day 11) \u00b7 8:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-04-30_141701",
+      "timestamp": "2026-04-30 10:17 AM EDT",
+      "timestamp_sort": "2026-04-30T14:17:01+00:00",
+      "date": "2026-04-30",
+      "time": "10:17AM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "artifact_path": "artifacts/2026-04-30-strikerewind-tier-copy-and-limits-audit.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-04-30-strikerewind-tier-copy-and-limits-audit.md",
+          "relative_path": "artifacts/2026-04-30-strikerewind-tier-copy-and-limits-audit.md",
+          "kind": "text",
+          "preview": "# StrikeRewind \u2014 Tier copy + tier limits pre-deploy audit (2026-04-30)\n\n## Why this matters now\n\nThe deploy gate `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` is open. The moment Travis approves it, `strikerewind.com` goes live with the current `LandingPage.tsx` / `Account.tsx` / `usageServiceDB.ts` exactly as they sit on `autobox/strikerewind-rename`.\n\nThis audit caught two pre-deploy customer-facing-promise-vs-built-reality mismatches and one buyer-credibility risk on the conversion-to-paid surface. They are the same shape as the PAF \"no tracking\" claim Travis flagged 2026-04-27 \u2014 public copy says X, the system does not-X. Cleaner to lock the corrections in one Discord turn than to ship live and patch.\n\nStripe stays in test mode for the first deploy per the deploy-architecture packet, so no real revenue is at stake yet \u2014 but the live URL still surfaces the broken promises to the very first buyer who lands on it from any source.\n\n---\n\n## Issue 1 \u2014 FREE Hunt promise vs FREE Hunt block (functional bug)\n\n**Customer-facing promise (multiple surfaces):**\n- `the scanner frontend:38` (hero subhead): \"...runs a nightly scan over the full S&P 500 and ranks every bull put and bear call by historical win rate and expected value...\"\n- `the scanner frontend:156` (bottom CTA): \"Free tier gets you the top 5 Hunt results per day, 2 ticker lookups per day, and 1 year of history. No card required.\"\n- `the scanner frontend:20` (FREE tier feature list): `\"Top 5 Hunt results per day (S&P 500)\"`\n- `the project's HANDOFF.md config` 2026-04-28 product-defining session (locked spec): \"Free: top 5 Hunt results/day (S&P 500 only), 2 ticker lookups/day (1yr history only)\"\n\n**Backend reality:** `the scanner backend:25`\n```ts\nFREE: {\n  ...\n  maxHuntsPerDay: 0, // Hunt is premium only\n  ...\n}\n```\n\n`the scanner backend:181-188` is the enforcement path called from `the scanner backend:559`:\n```ts\nif (limits.maxHuntsPerDay === 0) {\n  return {\n    allowed: false,\n    remaining: 0,\n    limit: 0,\n    reason: 'Hunt feature requires STANDARD or PRO subscription'\n  };\n}\n```\n\nWhen the hardcoded dev override (`usageServiceDB.ts:18 DEV_MODE = true`) is removed for production, every signup through the landing page CTA \u2192 `/dashboard` \u2192 `Run Hunt` clicks straight into a hard \"STANDARD or PRO subscription required\" block on the headline feature the landing page just sold them.\n\n**Recommended fix:** `FREE.maxHuntsPerDay: 0` \u2192 `FREE.maxHuntsPerDay: 1`. Free tier runs one Hunt per day, the result set is then truncated to the top 5 elsewhere (the result-truncation policy is a separate decision and is not currently wired \u2014 flagged as Issue 4 below). One Hunt/day matches the landing page's daily framing (\"top 5 Hunt results per day\") and the locked spec; it does not give free users unlimited Hunt access.\n\n---\n\n## Issue 2 \u2014 `DEV_MODE = true` hardcoded in tier-enforcement service\n\n`the scanner backend:18`:\n```ts\nprivate readonly DEV_MODE = true; // Force unlimited access\n```\n\nUsed at `usageServiceDB.ts:171-173` (and equivalents for analysis/scan limits) to bypass tier enforcement entirely. There is no env-driven escape \u2014 the flag is hardcoded.\n\nIf the production deploy ships with this flag still `true`, every tier limit is silently disabled. FREE users get unlimited everything. Free \u2192 paid conversion never has a paywall to convert against. Anyone who finds the live URL is on the implicit \"Pro for free, indefinitely\" plan. This bricks the entire freemium business model the moment the production URL is shared anywhere.\n\nIf the deploy ships with this flag manually flipped to `false`, Issue 1 fires immediately for every free signup.\n\n**Recommended fix:** make it env-driven, default-safe-for-prod:\n```ts\nprivate readonly DEV_MODE = process.env.NODE_ENV !== 'production';\n```\n\nThis way `vercel deploy --prod` / Render production runtime gives `NODE_ENV=production` automatically, which sets `DEV_MODE = false` automatically, which then enforces the Issue-1-corrected `FREE.maxHuntsPerDay: 1`. Local dev stays unchanged (no `NODE_ENV` set \u2192 defaults to dev \u2192 DEV_MODE on). Same default-safe pattern Travis approved for the PAF conversion-fire dedupe (`conversionFired` boolean default to `false`, no env override needed for the conservative path).\n\n---\n\n## Issue 3 \u2014 `Account.tsx` Pro tier features advertise capabilities not built\n\n`the scanner frontend:40-50`:\n```ts\n{\n  name: 'PRO',\n  price: 29.99,\n  features: [\n    'Everything in Standard',\n    'Real-time options data',\n    'Price + IV alerts',\n    'CSV exports',\n    'API access',\n  ],\n  notIncluded: [],\n},\n```\n\nCapability check (greps + file reads on `backend/src` and `frontend/src`):\n\n| Pro feature claim | Built? | Evidence |\n|---|---|---|\n| Real-time options data | NO | Architecture is EOD nightly batch (locked HANDOFF 2026-04-28: \"Polygon API called once/night in batch job, never at user request time\"). Travis 2026-04-28: \"EOD is sufficient \u2014 no real-time needed.\" No real-time pipeline exists. Direct contradiction of locked architecture. |\n| Price + IV alerts | NO | Project-wide grep for `alertService\\|sendAlert\\|priceAlert\\|notify` returns 0 backend matches (only `Privacy.tsx` mentions the word). No alerting code path. The landing page Watchlist copy correctly says \"daily heads-up when...\" (digest-style, Luke verified 2026-04-29) \u2014 but Account.tsx still claims \"alerts\" as a Pro feature. |\n| CSV exports | NO | Project-wide grep for `csv\\|exportToCsv\\|toCsv\\|writeCSV` returns 0 implementation matches. |\n| API access | NO | Project-wide grep for `apiKey\\|api_key\\|x-api-key` returns one match in `stripeServiceDB.ts` (Stripe SDK auth, not customer-facing API). No public API surface. |\n\n`Account.tsx:37` STANDARD `notIncluded` list also lists three of these \u2014 meaning STANDARD's \"you're missing this\" pitch points users at features that don't actually exist on PRO either.\n\n**Recommended pre-deploy correction (PRO fe",
+          "site_path": "artifacts/2026-04-30-strikerewind-tier-copy-and-limits-audit.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "All state files are in order. One task complete: the pre-deploy tier copy + limits audit packet. Wrapping up.\n\n**What I did:** Ran a pre-deploy capability audit on StrikeRewind's customer-facing surfaces ahead of the open deploy gate. Found three customer-facing-promise-vs-built-reality mismatches \u2014 same shape as the PAF \"no tracking\" claim Travis flagged \u2014 and surfaced them as one packet with one approval line (`APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`).\n\n**Where to see it:** `artifacts/2026-04-30-strikerewind-tier-copy-and-limits-audit.md`. Issues: (1) `usageServiceDB.ts:25` blocks FREE Hunt while landing page promises it; (2) `usageServiceDB.ts:18` hardcoded `DEV_MODE = true` with no env escape; (3) `Account.tsx:40-50` PRO claims 4 features (real-time data, alerts, CSV, API) that grep confirms aren't built.\n\n**What's next:** On approval, one bounded autonomous run lands all three corrections (env-driven DEV_MODE, FREE.maxHuntsPerDay \u2192 1, capability-honest PRO features substituted from the locked HANDOFF spec) on `autobox/strikerewind-rename` before the deploy gate fires.\n\n**Blocked on Travis:** `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY` (new); `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` (carry-over). Cash balance: $162.45 (unchanged).\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-04-30_141701.txt",
+      "screenshot_path": "",
+      "label": "04-30-26 (Day 11) \u00b7 10:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

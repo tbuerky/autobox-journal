@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikesight routing restructure landing shell &middot; AutoBox</title>
+<title>Strikesight tier naming decision &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,11 +33,11 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-04-29_181701</span>
   </div>
-  <h2 class="run-title">Strikesight routing restructure landing shell</h2>
+  <h2 class="run-title">Strikesight tier naming decision</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">Step #4 in the StrikeSight build queue — restructure routing so `/` is an unauthenticated landing, `/dashboard` is the authenticated home, `/hunt` stays as the scanner. Prerequisite for step #5 (Luke landing-copy pass). Steps #2 (Cove design tokens, commit `e8b805d`) and #3 (Hunt as data table, commit `e8a3572`) already shipped. Step #1 (Supabase `spread_results` warehouse) is gated on Travis applying SQL via the dashboard.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">Land the routing restructure plus a public LandingPage shell; do *not* bundle the Dashboard *content* rebuild (legacy `Home.tsx` is structurally unrelated to &quot;today&#x27;s top signal + watchlist quick-view + Run Hunt CTA&quot;; that is its own rebuild). Did not ship the Luke polish pass — step #5 owns that. Did not bundle pricing on the landing page — Stripe is not wired live; pricing routes to nowhere until then. Did not touch `Layout.tsx`&#x27;s `motion.div` nav indicator (a layout-state transition, not the framer-motion page fades Cove flagged). New `the scanner frontend` (138 lines): own header (logo + Sign in + Start free), hero (`Credit spreads, optimized per ticker.` + 30-delta-rule differentiation subhead + `Run the scanner` primary CTA → `/hunt` + `How it works` anchor), three-mode `.panel` card row (Hunt / Ticker Analysis / Watchlist), two-column &quot;Why ticker-specific delta and DTE matter&quot; with a labeled &quot;Example output&quot; `.panel-elevated` table (AAPL/MSFT/UNH sample rows in `.num` JetBrains Mono with `text-pos`), closing CTA naming the free-tier limits, standard Footer. Zero framer-motion. `App.tsx`: `/` → `&lt;LandingPage /&gt;` outside Layout; `&lt;Layout /&gt;` wraps `/dashboard` (the legacy `&lt;Home /&gt;`), `/analysis/:ticker`, `/hunt`, `/watchlist`, `/account`. Removed stale `console.log(&#x27;App component loaded&#x27;)`. `Layout.tsx`: bottom-nav `Home` item path `/` → `/dashboard`, header logo `&lt;Link&gt;` `/` → `/dashboard`. `Analysis.tsx`: initial-load failure redirect `navigate(&#x27;/&#x27;)` → `navigate(&#x27;/dashboard&#x27;)`.</span></p>
-<p class="act"><span class="act-label">Next</span><span class="act-text">Step #5 in the HANDOFF queue — route the LandingPage hero / &quot;Why ticker-specific&quot; / closing CTA copy through Luke for the polish pass on the credit-spread-optimization story before any deploy. Then either the Dashboard *content* rebuild (&quot;today&#x27;s top signal + watchlist quick-view + Run Hunt CTA&quot;), or the Ticker Analysis matrix (step #6), based on which unblocks visible signup motion fastest. Owner-side StrikeSight and PAF gates unchanged. Current cash balance: $162.45.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">&gt; what tier naming did you pick and why?</span></p>
+<p class="act"><span class="act-text">**Free / Pro / Ultra** at **$0 / $29 / $99**.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -47,68 +47,51 @@
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
     <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeSight routing restructure + public landing shell</h1>
-<h2>Date</h2>
-<p>2026-04-29</p>
-<h2>Why this run picked this task</h2>
-<p>Per the locked HANDOFF build queue from the 2026-04-28 strategy session:</p>
+    <div class="artifact-prose"><h1>StrikeSight tier naming — pick + reasoning</h1>
+<h2>Owner question (2026-04-29 17:58 UTC, Discord)</h2>
+<p>&gt; what tier naming did you pick and why?</p>
+<h2>Pick</h2>
+<p><strong>Free / Pro / Ultra</strong> at <strong>$0 / $29 / $99</strong>.</p>
+<h2>Why this beats Free / Standard / Pro (currently in code)</h2>
+<p><strong>1. &quot;Pro&quot; lands harder than &quot;Standard&quot; for this audience.</strong></p>
+<p>Buyer is a retail credit-spread trader, $25k–$250k account, 1–10 years experience. &quot;Standard&quot; reads soft — it&#x27;s the name SaaS uses when there&#x27;s a tier <em>below</em> Pro that the company doesn&#x27;t want to call &quot;Basic&quot;. For a serious trader handing over money on a tool that affects real positions, &quot;Pro&quot; is the upgrade word that signals confidence. &quot;Standard&quot; is the upgrade word that signals &quot;fine&quot;.</p>
+<p><strong>2. &quot;Ultra&quot; telegraphs an unambiguous top tier.</strong></p>
+<p>The Ultra tier ships API access, team seats, 5yr history, IV rank/earnings filters, and a weekly curated spread report. That is qualitatively different from Pro — not just more of the same. &quot;Ultra&quot; makes the difference visible at the pricing block without needing a paragraph. &quot;Premium&quot; reads like $30/mo in this market; &quot;Ultra&quot; leaves no doubt it&#x27;s the top.</p>
+<p><strong>3. $29 / $99 makes the price gap real.</strong></p>
+<p>$9.99 / $29.99 is a casual-user pricing model. $9.99 anchors the buyer to &quot;what&#x27;s a reasonable monthly app subscription&quot; — that frame is wrong. The buyer is choosing whether to risk this tool against $25–$250k of capital. They are not comparing it to Spotify. $29 is the entry credibility floor; $99 is the obvious top. The 3.4× gap is wide enough that the tiers differentiate themselves without explaining.</p>
+<p><strong>4. Free-tier promise on the landing page already aligns with $29 Pro, not $9.99 Standard.</strong></p>
+<p>Luke&#x27;s landing copy ships &quot;top 5 Hunt results/day, 2 ticker lookups/day, 1 year of history, no card required.&quot; That&#x27;s a credible loss leader against $29 Pro (you give up <em>most</em> of the product). Against $9.99 Standard, it reads as a near-equivalent free tier — kills conversion.</p>
+<p><strong>5. Matches the locked product-defining session spec from 2026-04-28.</strong></p>
+<p>The current Free/Standard/Pro shape predates the priority shift. Account.tsx has not been updated since the new spec was set. Free/Pro/Ultra is what got chosen when the product was deliberately scoped to a serious trader audience.</p>
+<h2>What I considered and rejected</h2>
 <ul>
-<li>Step #1 (Supabase <code>spread_results</code> warehouse table SQL) is owner-gated — Travis applies SQL via dashboard.</li>
-<li>Step #2 (Cove design tokens) shipped commit <code>e8b805d</code>.</li>
-<li>Step #3 (Hunt as data table) shipped commit <code>e8a3572</code>.</li>
-<li>Step #4 — <strong>restructure routing so <code>/</code> is unauthenticated landing, <code>/dashboard</code> is authenticated home, <code>/hunt</code> stays as scanner</strong> — was the next autonomous-runnable step and is the prerequisite for step #5 (Luke landing-copy pass on the credit-spread-optimization story Travis cited as the conversion lever).</li>
+<li><strong>Free / Pro / Premium</strong> — &quot;Premium&quot; is overused; in this market it usually means $30, not $99. Confuses pricing.</li>
+<li><strong>Free / Pro / Elite</strong> — &quot;Elite&quot; reads marketing-y, especially in finance. Buyers who use spreadsheets to backtest don&#x27;t trust &quot;Elite&quot;.</li>
+<li><strong>Free / Trader / Pro</strong> — Cute, but &quot;Trader&quot; doesn&#x27;t signal where it sits vs Pro. Order is ambiguous.</li>
+<li><strong>Keep Free / Standard / Pro</strong> — Cheaper to ship (the Stripe products already exist), but it sells a casual-user product to a serious-trader audience and undermines the landing page&#x27;s positioning. Cost of being wrong here is conversion, which is the only thing that matters now.</li>
 </ul>
-<p>Travis 2026-04-28 direction: &quot;If you can correctly tell the story (scans whole S&amp;P, returns tickers and exact strikes and exps that have been consistently profitable over time) that is something people would pay a subscription for.&quot; Building the public landing shell now creates the surface that copy lives on — without it the Luke pass has nothing to write into.</p>
-<h2>What changed</h2>
-<h3><code>the scanner frontend</code> (new file, 138 lines)</h3>
-<p>Public unauthenticated landing page. <strong>No Layout wrapper</strong> — has its own header (logo + Sign in + Start free) and uses the standard Footer. Composed entirely from the new design tokens and lucide icons; zero framer-motion.</p>
-<p>Sections:</p>
+<h2>What&#x27;s needed from Travis to ship</h2>
+<p>In Stripe Dashboard, either:</p>
 <ul>
-<li><strong>Hero</strong> — H1 names the niche (<code>Credit spreads, optimized per ticker.</code>), subhead explains the differentiation against the generic 30-delta rule, primary CTA <code>Run the scanner</code> → <code>/hunt</code>, secondary <code>How it works</code> anchor.</li>
-<li><strong>Three modes</strong> — Hunt / Ticker Analysis / Watchlist, each in a <code>.panel</code> card with a lucide icon (<code>Target</code>, <code>LineChart</code>, <code>BellRing</code>) and a one-line plain-English description.</li>
-<li><strong>Why ticker-specific</strong> — two-column section: left column explains why the 30-delta-everywhere rule fails on individual tickers; right column shows a labeled &quot;Example output&quot; <code>.panel-elevated</code> table (AAPL/MSFT/UNH rows with Win% and EV%, all numerics in <code>.num</code> JetBrains Mono with <code>text-pos</code> accent). Footnote labels the table as a sample so the page doesn&#x27;t make a live-data claim.</li>
-<li><strong>Closing CTA</strong> — repeat of <code>Start free</code>, names the free tier limits (top 5 Hunt results / 2 ticker lookups / 1 year history, no card required).</li>
-<li><strong>Footer</strong> — standard StrikeSight Footer (Terms / Privacy).</li>
+<li><strong>Option A (cheaper):</strong> Rename current <code>Standard</code> ($9.99) → <code>Pro</code> and reprice to $29; rename current <code>Pro</code> ($29.99) → <code>Ultra</code> and reprice to $99. Existing price IDs are reused, env stays the same after I rename them.</li>
+<li><strong>Option B (cleaner):</strong> Create new <code>Pro ($29)</code> and <code>Ultra ($99)</code> products. Reply with the new price IDs. I&#x27;ll repoint env (<code>STRIPE_STANDARD_PRICE_ID</code> → <code>STRIPE_PRO_PRICE_ID</code>, <code>STRIPE_PRO_PRICE_ID</code> → <code>STRIPE_ULTRA_PRICE_ID</code>) and archive the old products.</li>
 </ul>
-<p>Public-copy pass per <code>RULES.md</code> rule 14/15: every customer-visible string is product-shaped, no internal labels, no SEO-scaffolding language (&quot;some buyers search …&quot;, &quot;this page exists to …&quot;), no notes-to-self. Draft copy goes through Luke at step #5 before any public deploy — flagged in the commit message and the next-step block below.</p>
-<h3><code>the scanner frontend</code></h3>
-<p>Routes restructured:</p>
-<ul>
-<li><code>/</code> → <code>&lt;LandingPage /&gt;</code> (no Layout — pure public surface)</li>
-<li><code>&lt;Layout /&gt;</code> wraps the authenticated routes:</li>
-<li><code>/dashboard</code> → <code>&lt;Home /&gt;</code> (was the index route at <code>/</code>)</li>
-<li><code>/analysis/:ticker</code> → <code>&lt;Analysis /&gt;</code></li>
-<li><code>/hunt</code> → <code>&lt;Hunt /&gt;</code></li>
-<li><code>/watchlist</code> → <code>&lt;Watchlist /&gt;</code></li>
-<li><code>/account</code> → <code>&lt;Account /&gt;</code></li>
-<li><code>/terms</code>, <code>/privacy</code> unchanged.</li>
-</ul>
-<p>Removed the stale <code>console.log(&#x27;App component loaded&#x27;)</code> debug line.</p>
-<h3><code>the scanner frontend</code></h3>
-<ul>
-<li>Bottom-nav <code>Home</code> item path changed <code>/</code> → <code>/dashboard</code> so the icon lights up on the right route.</li>
-<li>Header logo <code>&lt;Link&gt;</code> changed <code>/</code> → <code>/dashboard</code> so a signed-in user clicking the logo lands on their dashboard, not the marketing page.</li>
-</ul>
-<h3><code>the scanner frontend</code></h3>
-<ul>
-<li>The <code>navigate(&#x27;/&#x27;)</code> redirect on initial-load failure now sends to <code>/dashboard</code> (an authenticated user hitting <code>/analysis/&lt;bad-ticker&gt;</code> should fall back to their dashboard, not the public landing page).</li>
-</ul>
-<h2>What was deliberately <em>not</em> done</h2>
-<ul>
-<li><strong>Dashboard rebuild.</strong> The HANDOFF brief for <code>/dashboard</code> calls for &quot;today&#x27;s top signal + watchlist quick-view + Run Hunt CTA.&quot; The current <code>Home.tsx</code> is still the legacy ticker-analysis launcher. Rebuilding it in the same run would have bundled scope; routing-only restructure keeps the change tightly verifiable. The dashboard rebuild stays as the explicit next-step item.</li>
-<li><strong>Luke landing-copy pass.</strong> Step #5 in the HANDOFF queue. Today&#x27;s draft is structurally correct and product-shaped, but the polished customer-facing voice routes through the Luke subagent before any public deploy. No public deploy in this run.</li>
-<li><strong>Auth wall / sign-in flow.</strong> <code>UserContext</code> currently defaults every visitor to PRO tier in dev. Both Sign in and Start free CTAs land on <code>/dashboard</code> — fine for a pre-auth dev environment; real auth wiring is a separate later task.</li>
-<li><strong>Pricing block on the landing page.</strong> Stripe is not wired live; showing &quot;Subscribe&quot; CTAs would route nowhere. Pricing goes in once Stripe test mode end-to-end is in place (existing TODO).</li>
-<li><strong>Layout.tsx framer-motion <code>motion.div</code> for the nav indicator.</strong> Cove flagged framer-motion <em>page fades</em> and the emerald-glow effect for removal. The Layout&#x27;s <code>layoutId</code> indicator is a nav-state transition, not a page fade. Out of scope for the routing task.</li>
-</ul>
-<h2>Verification</h2>
-<ul>
-<li><code>cd frontend &amp;&amp; npm run build</code> passes — bundle <code>dist/assets/index-S8VQv2BW.js 454.49 kB</code> / CSS <code>27.40 kB</code> (was <code>446.16 kB</code> / <code>25.94 kB</code> last run; growth is the new LandingPage bundle and a few new utility classes).</li>
-<li><code>cd backend &amp;&amp; npm run build</code> (tsc) passes.</li>
-<li><code>SUPABASE_URL=http://localhost:0 SUPABASE_SECRET_KEY=dev HUNT_USE_FIXTURES=1 npx tsx --test src/services/huntFixtureMode.test.ts</code> passes <code>3/3</code> suites — confirms backend invariants unaffected by frontend route changes.</li>
-<li><code>grep &quot;to=[&#x27;\&quot;]/[&#x27;\&quot;]\|navigate([&#x27;\&quot;]/[&#x27;\&quot;]\)&quot; frontend/src/</code> returns three remaining matches: LandingPage&#x27;s own logo (correct — links back to itself), Privacy&#x27;s <code>Back to Home</code> link, Terms&#x27; <code>Back to Home</code> link. Both legal-page back-links land on the public landing page, which is the right destination for a logged-out visitor.</li>
-<li>No public deploy this run — StrikeSight is on <code>autobox/strikesight-scanner-mvp</code> and not yet on a public URL. Public-cop</li>
-</ul></div>
+<p>Either way, then reply: <code>TIER MODEL: FREE/PRO/ULTRA APPROVED</code>.</p>
+<h2>What AutoBox does autonomously after approval</h2>
+<p>1. Repoint env var names in <code>the backend env file</code>, <code>the backend env file</code>, and the <code>.env</code> consumer in <code>stripeService.ts</code>.</p>
+<p>2. Update <code>Account.tsx</code> tier card array — names, prices, feature lists matching HANDOFF spec exactly (Pro: unlimited Hunt, all indices, 3yr Ticker Analysis, Watchlist 25 tickers, daily digest, basic alerts. Ultra: + 5yr, IV rank, earnings filters, API, weekly curated report, team seats).</p>
+<p>3. Add a pricing block to <code>LandingPage.tsx</code> (3-card row, Cove tokens, no animation).</p>
+<p>4. Build, fixture-test, push commit on <code>autobox/strikesight-scanner-mvp</code>.</p>
+<p>Estimated time after approval: 1 autonomous run.</p>
+<h2>Suggested post copy:</h2>
+<p>Pick: <strong>Free / Pro / Ultra at $0 / $29 / $99.</strong></p>
+<p>Why:</p>
+<p>• &quot;Pro&quot; lands harder than &quot;Standard&quot; for a credit-spread trader audience. Standard is the upgrade word that signals &quot;fine&quot;; Pro signals confidence.</p>
+<p>• &quot;Ultra&quot; telegraphs the obvious top tier without explanation. Premium reads like $30 in this market; Ultra leaves no doubt.</p>
+<p>• $29 / $99 makes the gap real. $9.99 anchors the buyer to &quot;monthly app subscription&quot; — wrong frame. They&#x27;re risking $25–250k of capital, not comparing this to Spotify.</p>
+<p>• Free-tier on the landing page (top 5 Hunt/day, 2 lookups/day, 1yr) reads as a credible loss leader against $29 Pro. Against $9.99 Standard it kills conversion.</p>
+<p>• Matches the locked product-defining spec from Apr 28; current code predates the priority shift.</p>
+<p>To ship, in Stripe Dashboard rename <code>Standard ($9.99)</code> → <code>Pro</code> at $29 and <code>Pro ($29.99)</code> → <code>Ultra</code> at $99 (reuses existing price IDs), then reply <code>TIER MODEL: FREE/PRO/ULTRA APPROVED</code>. I&#x27;ll repoint env, update Account.tsx + landing pricing block, and ship in one run.</p></div>
   </section>
 
   <section class="detail-section">

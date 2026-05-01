@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikesight dashboard rebuild &middot; AutoBox</title>
+<title>Strikesight analysis tailwind correctness sweep &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,10 +33,11 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-04-29_141701</span>
   </div>
-  <h2 class="run-title">Strikesight dashboard rebuild</h2>
+  <h2 class="run-title">Strikesight analysis tailwind correctness sweep</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">With step #5 (Luke landing-copy polish, `eddc21f`) shipped earlier today, the landing page now promises a &quot;scan the whole S&amp;P, ranked by win rate and EV per ticker&quot; workflow — but `/dashboard`, the post-signup landing surface, was still the legacy `Home.tsx` ticker-analysis launcher (popular ticker buttons + High IV stocks modal + recent analyses list). A user clicking `Start free` from the landing page was being dumped onto a screen that did not match what the landing page sold them. HANDOFF locks the spec for the rebuild: &quot;today&#x27;s top signal + watchlist quick-view + Run Hunt CTA&quot;. This is the post-signup activation surface, the second-most-important screen after `/hunt`. Step #6 (Ticker Analysis matrix) is bigger and still autonomously-runnable; the dashboard rebuild is more contained, fixes the immediate landing-vs-dashboard mismatch, and is the surface the landing page&#x27;s `Start free` CTA terminates on.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">Rewrite `the scanner frontend` end-to-end. Read the existing `huntResults` localStorage cache for &quot;top signal&quot; — same cache `Hunt.tsx` already maintains, so no extra API call from dashboard mount, no rate-limit risk, no heavy scan trigger. Top signal panel surfaces the highest-EV result with ticker (`font-mono`), company name, strategy display, three labeled stat columns (Win rate / EV / Credit) with `.num` everywhere and `text-pos` on EV, primary `Confirm on {ticker}` CTA → `/analysis/{ticker}` (the Hunt → Analysis workflow tie-in Luke shipped into the landing page), secondary `See all results` → `/hunt`, &quot;Refreshed N min ago&quot; stamp clickable to re-read localStorage. Empty state has clean `Run a hunt` CTA. Watchlist quick-view calls `getWatchlist()` once on mount for tiers where `canSaveWatchlist` is true, shows up to 5 tickers as rows with star icon (`text-accent`), ticker (`font-mono`), price (`.num`), success rate (`.num`), optimal weeks; empty state explains the workflow + nudges to Hunt; free-tier state explains the paid gating with digest-only language (&quot;a daily heads-up when a new spread clears your filters&quot;) matching what Luke shipped on the landing page (no realtime alert claim — none implemented). Run Hunt CTA card closes the page. Killed `framer-motion` import + `motion.div` / `AnimatePresence` from this page. Adopts Cove tokens throughout (`bg-bg-base`, `panel`, `panel-elevated`, `accent`, `text-pos`, `.num`, `font-mono`).</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Replaced 8 broken raw border-subtle / border-strong references in the scanner frontend with the working utility forms border-border-subtle / border-border-strong.</span></p>
+<p class="act"><span class="act-text">The previous run (Watchlist Cove pass, commit d92db10) caught a real bug while doing a compiled-CSS audit: the colors in frontend/tailwind.config.js are *named* border-subtle and border-strong (with the hyphen). Tailwind utilities follow the shape {prefix}-{color-name}, so the working class for the subtle border color is border-border-subtle, not border-subtle. The unprefixed forms were silently no-op — they generated no CSS rule. The .panel component class sets border: 1px solid var(--border-subtle) directly via CSS custom properties, so panel-bordered surfaces still rendered. But raw utility usage outside .panel — on the spread summary card, ticker masthead bottom border, the watchlist toggle button, two analysis-parameter selects, and three table-row borders — was rendering with border-color: currentColor instead of #1C2430. A user landing on /analysis/:ticker from the dashboard Confirm on {ticker} CTA was being shown rules in foreground text color rather than the intended subtle slate.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -46,60 +47,42 @@
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
     <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeSight <code>/dashboard</code> rebuild — top signal + watchlist quick-view + Run Hunt CTA</h1>
-<p><strong>Date</strong>: 2026-04-29</p>
-<p><strong>Branch</strong>: <code>autobox/strikesight-scanner-mvp</code></p>
-<p><strong>Commit</strong>: <code>8c43089</code></p>
-<p><strong>Repo</strong>: https://github.com/tbuerky/StrikeSight</p>
-<h2>Why this run</h2>
-<p>Step #4 (routing restructure + LandingPage shell) and step #5 (Luke landing-copy polish) shipped on 2026-04-29. After step #5, <code>/</code> now reads as a polished public landing page that promises a &quot;scan whole S&amp;P, ranked by win rate and EV per ticker&quot; workflow — but <code>/dashboard</code>, the post-signup landing for that flow, was still the legacy <code>Home.tsx</code> ticker-analysis launcher (popular ticker buttons + High IV stocks modal + recent analyses list). A user who clicked <code>Start free</code> from the landing page was being dumped onto a screen that didn&#x27;t match what they were sold.</p>
-<p>HANDOFF locks the spec for the rebuild: &quot;today&#x27;s top signal + watchlist quick-view + Run Hunt CTA&quot;. This is the post-signup activation surface — the second-most-important screen after <code>/hunt</code>. Per Travis priority shift quote, the conversion lever is &quot;telling the story&quot; (scans whole S&amp;P, returns tickers/strikes/exps that have been consistently profitable). The dashboard has to deliver on that story the moment a fresh signup hits it, otherwise the polished landing page is doing all the work alone.</p>
-<h2>What shipped</h2>
-<p><code>the scanner frontend</code> rewritten end-to-end (<code>+295 / -266</code>).</p>
-<p><strong>Header</strong>: small <code>Dashboard</code> eyebrow + H1 <code>What the scan found, and what you&#x27;re watching.</code> Tier badge in the corner styled with Cove tokens (no more emerald glow chips).</p>
-<p><strong>Top signal panel</strong> (<code>.panel-elevated</code>):</p>
+    <div class="artifact-prose"><h1>StrikeSight — Analysis.tsx Tailwind utility correctness sweep</h1>
+<h2>What</h2>
+<p>Replaced 8 broken raw <code>border-subtle</code> / <code>border-strong</code> references in <code>the scanner frontend</code> with the working utility forms <code>border-border-subtle</code> / <code>border-border-strong</code>.</p>
+<h2>Why</h2>
+<p>The previous run (Watchlist Cove pass, commit <code>d92db10</code>) caught a real bug while doing a compiled-CSS audit: the colors in <code>frontend/tailwind.config.js</code> are <em>named</em> <code>border-subtle</code> and <code>border-strong</code> (with the hyphen). Tailwind utilities follow the shape <code>{prefix}-{color-name}</code>, so the working class for the subtle border color is <code>border-border-subtle</code>, not <code>border-subtle</code>. The unprefixed forms were silently no-op — they generated no CSS rule. The <code>.panel</code> component class sets <code>border: 1px solid var(--border-subtle)</code> directly via CSS custom properties, so panel-bordered surfaces still rendered. But raw utility usage outside <code>.panel</code> — on the spread summary card, ticker masthead bottom border, the watchlist toggle button, two analysis-parameter selects, and three table-row borders — was rendering with <code>border-color: currentColor</code> instead of <code>#1C2430</code>. A user landing on <code>/analysis/:ticker</code> from the dashboard <code>Confirm on {ticker}</code> CTA was being shown rules in foreground text color rather than the intended subtle slate.</p>
+<h2>Changes</h2>
+<p>File: <code>the scanner frontend</code> (<code>+8 / -8</code>)</p>
+<p>Lines fixed:</p>
 <ul>
-<li>Reads <code>localStorage.getItem(&#x27;huntResults&#x27;)</code> — the same cache <code>Hunt.tsx</code> already writes (1-hour TTL) — and surfaces the highest-EV result. No new API call from the dashboard, no heavy scan on dashboard mount, no rate-limit risk.</li>
-<li>Shows ticker (JetBrains Mono via <code>font-mono</code>) + company name (from <code>getCompanyName</code>), strategy display via <code>formatStrategyDisplay</code>, three labeled stat columns (Win rate / EV / Credit) with <code>.num</code> everywhere and <code>text-pos</code> on EV.</li>
-<li>Primary CTA <code>Confirm on {ticker}</code> → <code>/analysis/{ticker}</code> (this is the Hunt → Analysis workflow tie-in Luke wrote into the landing page; the dashboard now embodies it).</li>
-<li>Secondary <code>See all results</code> → <code>/hunt</code>.</li>
-<li>&quot;Refreshed N min ago&quot; stamp computed from cache timestamp; clicking it re-reads localStorage so a fresh hunt run in another tab updates here.</li>
-<li>Empty state (no cache): <code>Run a hunt to see the spread that scored highest on win rate and expected value across the S&amp;P 500.</code> + <code>Run a hunt</code> CTA.</li>
-</ul>
-<p><strong>Watchlist quick-view</strong> (<code>.panel</code>):</p>
-<ul>
-<li>Calls <code>getWatchlist()</code> once on mount for tiers where <code>limits.canSaveWatchlist</code> is true.</li>
-<li>Shows up to 5 tickers, each row: star icon (<code>text-accent</code>), ticker (<code>font-mono</code>), price (<code>.num</code>), success rate (<code>.num</code>), optimal weeks, arrow.</li>
-<li>Empty state: <code>Star a ticker from any analysis page to follow it here. Each morning you&#x27;ll see the top current setup for every name on your list.</code> + <code>Find candidates in Hunt</code> CTA.</li>
-<li>Free-tier state: <code>Watchlist is part of the paid tier. Upgrade to follow specific tickers and get a daily heads-up when a new spread clears your filters.</code> + <code>See plans</code> link to <code>/account</code>. Honest framing — matches the digest-only language Luke shipped on the landing page (no realtime alert claim, no notification system, since none is implemented in <code>the scanner backend</code>).</li>
-<li>Cleanup-handles cancellation if the component unmounts mid-fetch.</li>
-</ul>
-<p><strong>Run Hunt CTA</strong> (<code>.panel</code>): plain card, name + one-line description + primary <code>Open Hunt</code> button. Picks up the tail-end of the dashboard for the user who just refilled context and wants to run a fresh scan.</p>
-<p>Both <code>framer-motion</code> import and the <code>&lt;motion.div&gt;</code> / <code>AnimatePresence</code> blocks (the legacy popular-ticker fade-in and the High IV modal animation) are gone. Dashboard renders without any animation library — consistent with the Cove direction and with <code>Hunt.tsx</code> (already framer-motion-free) and <code>LandingPage.tsx</code> (built without framer-motion).</p>
-<h2>What was deliberately not bundled</h2>
-<ul>
-<li>Polygon options data wiring (gated on <code>APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO</code> — separate step).</li>
-<li>Supabase <code>spread_results</code> warehouse table (gated on Travis applying SQL via the dashboard — separate step).</li>
-<li>Ticker Analysis full delta × DTE matrix rebuild (step #6 — separate task).</li>
-<li>Luke pass on the dashboard copy. Dashboard is post-signup authenticated UI, not public-facing copy in the SEO sense; copy strings are short headers + empty-state explanations, written cleanly per Luke&#x27;s voice (no internal labels, no SEO scaffolding, no AI-smell). When StrikeSight goes public, a Luke pass on every authenticated screen is its own deploy-prep run.</li>
-<li>Any markup-layer changes to legacy components on other routes (Watchlist, Account, Analysis, etc.). Those each need their own Cove + Luke passes; outside the scope of &quot;rebuild /dashboard.&quot;</li>
-<li>Auth wall (<code>UserContext</code> defaults everyone to PRO tier in dev — both Sign in and Start free CTAs route to <code>/dashboard</code> which is fine pre-auth; Stripe + auth wall is its own deploy step).</li>
+<li>L189 — spread summary card: <code>border border-subtle</code> → <code>border border-border-subtle</code></li>
+<li>L260 — ticker masthead bottom rule: <code>border-b border-subtle</code> → <code>border-b border-border-subtle</code></li>
+<li>L290 — watchlist toggle (off state): <code>border-subtle hover:border-strong</code> → <code>border-border-subtle hover:border-border-strong</code></li>
+<li>L313, L328 — analysis-parameter selects: <code>border border-subtle</code> → <code>border border-border-subtle</code> (replaceAll)</li>
+<li>L398 — best-strategy summary tile: <code>border border-subtle</code> → <code>border border-border-subtle</code></li>
+<li>L452 — top-strategies table head row: <code>border-b border-subtle</code> → <code>border-b border-border-subtle</code></li>
+<li>L462 — top-strategies table body rows: <code>border-b border-subtle last:border-b-0 hover:bg-bg-surface</code> → <code>border-b border-border-subtle last:border-b-0 hover:bg-bg-surface</code></li>
 </ul>
 <h2>Verification</h2>
 <ul>
-<li><code>cd frontend &amp;&amp; npm run build</code> passes. Bundle <code>dist/assets/index-C76eA7X-.js 450.75 kB</code> (down <code>-4.08 kB</code> from last run; fewer framer-motion subscriptions on this page) / CSS <code>26.32 kB</code>.</li>
+<li><code>cd frontend &amp;&amp; npm run build</code> passes — bundle <code>dist/assets/index-Dm-IF5aq.js 452.25 kB</code> (essentially flat from <code>452.19 kB</code>); CSS <code>25.89 kB</code> unchanged.</li>
 <li><code>cd backend &amp;&amp; npm run build</code> (tsc) passes.</li>
-<li><code>SUPABASE_URL=http://localhost:0 SUPABASE_SECRET_KEY=dev HUNT_USE_FIXTURES=1 npx tsx --test src/services/huntFixtureMode.test.ts</code> passes <code>3/3</code>.</li>
-<li><code>git diff --stat HEAD~1</code> confirms only <code>the scanner frontend</code> changed: <code>295 insertions(+), 266 deletions(-)</code>.</li>
-<li>Public-copy hygiene: no internal labels, no SEO/process scaffolding, no notes-to-self; numeric cells use <code>.num</code>, ticker uses <code>font-mono</code>, EV uses <code>text-pos</code>, surfaces use <code>.panel</code> / <code>.panel-elevated</code>.</li>
-<li><code>framer-motion</code> no longer imported anywhere in <code>Home.tsx</code>.</li>
+<li><code>SUPABASE_URL=http://localhost:0 SUPABASE_SECRET_KEY=dev HUNT_USE_FIXTURES=1 npx tsx --test src/services/huntFixtureMode.test.ts</code> passes 3/3.</li>
+<li>Compiled CSS audit on <code>dist/assets/index-CcDyrj8x.css</code>:</li>
+<li><code>.border-border-subtle</code> ✓ present</li>
+<li><code>.border-border-strong</code> ✓ present</li>
+<li><code>.hover\:border-border-strong</code> ✓ present</li>
+<li><code>.divide-border-subtle</code> ✓ present (used by Watchlist)</li>
+<li><code>.border-subtle</code> / <code>.border-strong</code> ✗ absent (correct — they were never generated; that was the whole bug)</li>
+<li><code>grep -rE &#x27;(^|[ &quot;])(border|divide|hover:border)-(subtle|strong)([ &quot;]|$)&#x27;</code> across <code>frontend/src</code> returns no matches — no remaining bad references anywhere in the project.</li>
 </ul>
-<h2>Build queue status</h2>
-<ul>
-<li>[DONE] #2 Cove design tokens (<code>e8b805d</code>)</li>
-<li>[DONE] #3 Hunt as data table (<code>e8a3572</code>)</li>
-<li>[DONE</li>
-</ul></div>
+<h2>Public-copy hygiene</h2>
+<p>No copy changes. Authenticated UI; this run is purely a CSS-correctness fix on existing markup. Per <code>RULES.md</code> rules 14/15, nothing customer-facing was added or modified.</p>
+<h2>Commit</h2>
+<p><code>117e11f</code> — pushed to <code>origin/autobox/strikesight-scanner-mvp</code>.</p>
+<h2>Cash balance</h2>
+<p>$162.45. No spend.</p></div>
   </section>
 
   <section class="detail-section">

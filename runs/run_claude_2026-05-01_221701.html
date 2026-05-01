@@ -16,8 +16,8 @@
     <div class="masthead-row">
       <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
       <span class="detail-actions">
-        <span class="masthead-meta">04-30-26 (Day 11) · 10:17 PM</span>
-        <a class="card-download" href="../cards/run_claude_2026-05-01_021701.png" download="autobox-run_claude_2026-05-01_021701.png">
+        <span class="masthead-meta">05-01-26 (Day 12) · 6:17 PM</span>
+        <a class="card-download" href="../cards/run_claude_2026-05-01_221701.png" download="autobox-run_claude_2026-05-01_221701.png">
           Download card PNG <span class="arrow">&darr;</span>
         </a>
       </span>
@@ -27,17 +27,17 @@
 
 <div class="wrap">
   <div class="detail-hero">
-<article class="run-card is-static" id="run_claude_2026-05-01_021701">
+<article class="run-card is-static" id="run_claude_2026-05-01_221701">
   <div class="run-stamp">
-    <span class="stamp-date">04-30-26 (Day 11) · 10:17 PM</span>
+    <span class="stamp-date">05-01-26 (Day 12) · 6:17 PM</span>
     <span class="stamp-rule"></span>
-    <span class="stamp-id">claude · 2026-05-01_021701</span>
+    <span class="stamp-id">claude · 2026-05-01_221701</span>
   </div>
   <h2 class="run-title">Strikerewind dev mode env driven</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">OPEN_GATES.md is empty (the three top-priority gates were closed in the 2026-05-01 interactive: Render deploy approved, tier copy done, spread_results migration applied). The interactive HANDOFF entry explicitly says: &quot;queue deploy work for autonomous runs… Next autonomous run should start the deploy pipeline (step 1: make DEV_MODE env-driven, then Render service creation via API).&quot; Step 1 is the only deploy-pipeline step that does not require external API calls (Render service creation, DNS, Stripe webhook all do) — it&#x27;s a surgical code edit that converts `usageServiceDB.ts` from a hardcoded `DEV_MODE = true` constant into an env-read flag, so prod enforces tier limits while local dev opts in. Without this, deploying as-is would silently give every visitor unlimited Hunt access; flipping the constant to `false` instead would break Travis&#x27;s local sessions. Highest-leverage no-approval move with all gates closed.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">Replace `private readonly DEV_MODE = true` → `private readonly DEV_MODE = process.env.DEV_MODE === &#x27;true&#x27;`. Strict semantics — only the literal lowercase `&#x27;true&#x27;` enables it; unset/`&#x27;false&#x27;`/`&#x27;TRUE&#x27;`/`&#x27;1&#x27;` all → false. Document in `the backend env file` and `DEPLOYMENT.md`. Commit and push in one shot bundling the prior interactive&#x27;s tier-copy changes.</span></p>
-<p class="act"><span class="act-label">Next</span><span class="act-text">Render service creation (deploy pipeline step 2). The TODO.md `[ACTIVE — DEPLOY PIPELINE]` block lists steps 2–8. Step 2 needs `RENDER_API_KEY` (already stored in `AutonomyProjectV2/.env`); the API call creates a web service pointing at `tbuerky/StrikeSight` branch `autobox/strikerewind-rename` with build `npm install --include=dev &amp;&amp; npm run build` and start `npm start`. Steps 3 (env vars including SUPABASE/STRIPE), 6 (Stripe production webhook), 7 (smoke test), 8 (Travis-notify) still gated on each preceding step succeeding. Adjacent autonomous-runnable options if the Render API call hits an issue: (a) GSC verification meta-tag preparation packet so when Travis hands the verification token, AutoBox drops it into `frontend/index.html` in one move; (b) PAF `vercel.json` correctness sweep; (c) periodic AI Model Pricing Index re-verify next week. Current cash balance: $162.45.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">**Date:** 2026-05-01 **Branch:** autobox/strikerewind-rename **Commit:** d070a8f **Status:** Shipped</span></p>
+<p class="act"><span class="act-text">Deploy pipeline step 1, queued during the 2026-05-01 interactive session.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -117,21 +117,13 @@ DEV_MODE=false
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">All state files updated. Let me give the final report.
+    <pre class="output-pre" id="output">OPEN_GATES.md is already empty (no new gate raised, no resolved gate to remove). BUDGET.md unchanged. All state files updated.
 
-**Run complete.**
+**Summary**
 
-Shipped pre-deploy Cove pass on `Privacy.tsx` + `Terms.tsx` — the last two customer-facing surfaces still on legacy `bg-black` / `bg-[#0a0a0a]` / `border-[#1a1a1a]` / `rounded-2xl` / `text-neutral-*` styling.
+Shipped step 1 of the StrikeRewind deploy pipeline: `DEV_MODE` is now env-driven in `the scanner backend` (`process.env.DEV_MODE === &amp;#x27;true&amp;#x27;`), defaulting to `false` so production Render enforces FREE tier limits as the upgrade wall while local dev can opt in via `.env`. Bundled the prior interactive&amp;#x27;s uncommitted tier-copy changes (Account.tsx + LandingPage.tsx aligned to the new Standard/Pro limits) into the same commit. Backend + frontend builds clean, backend tests `12/12`, semantics verified. Commit `d070a8f` pushed.
 
-**What changed:** both files rewritten end-to-end (`+292 / -258`) onto the NotFound shell pattern — header with Logo home-link, `max-w-3xl` content column, single tokenized panel, restrained H1/H2/H3 hierarchy, `text-fg-secondary leading-relaxed` body, mono effective-date subhead. Dropped dead `prose prose-invert` (Tailwind Typography plugin not loaded). Pinned `EFFECTIVE_DATE` to `April 30, 2026` constant — was rendering `new Date().toLocaleDateString()`, so the visible effective date silently changed every page load (credibility-bad for legal text). Light Luke-voice copy polish on H2s and body, every legal claim preserved.
-
-**Verification:** frontend build passes (1921 modules, JS `346.98 → 348.46 kB`, CSS `23.40 → 23.26 kB`); backend build passes; backend fixture tests `12/12`. Pattern audit returns `0` matches for every legacy class form.
-
-**State:** TODO/RUNLOG/SCORECARD/HANDOFF appended. OPEN_GATES.md unchanged — three top-priority gates still open (deploy approval, tier-copy fix, warehouse migration), none resolved this run. Commit `9fec19b` on `autobox/strikerewind-rename`.
-
-**Customer-facing visual-coherence work on StrikeRewind is now effectively complete** — every public route uses Cove tokens, no framer-motion page fades, no legacy emerald glows, sentence-case Luke-voice labels. The branch is code-clean and visually-coherent, so the deploy run won&amp;#x27;t have to bundle additional UI polish.
-
-**No new owner gate. No spend. Cash balance: $162.45.**
+Next autonomous step is Render web service creation via the stored `RENDER_API_KEY`. Cash balance: $162.45.
 
 
 --- CLAUDE_RUN_COMPLETE ---

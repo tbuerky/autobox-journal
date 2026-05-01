@@ -99,7 +99,7 @@ One run, single commit, no parallel surprises:
 
 1. Fix `vercel.json` — drop the broken `functions` + `rewrites` block, leave only the static frontend config.
 2. Update `frontend/.env.production` — set `VITE_API_URL=https://api.strikerewind.com`, `VITE_APP_NAME=StrikeRewind`, replace stale Stripe placeholder with the real `pk_test_*` for first deploy.
-3. Verify backend has a `start` script that survives Render's build process (it does: `tsx src/index.ts`, but Render may want a compiled `dist/index.js` — verify and adjust).
+3. Backend `start` script is `node dist/index.js` (production-correct, runs the compiled JS that `npm run build` emits to `dist/`). Verified pre-deploy 2026-05-01 — `NODE_ENV=production npm install --omit=dev` followed by `node dist/index.js` boots cleanly with only Supabase env vars set.
 4. `vercel link` against the existing `the-shepherd-stack` Vercel team, set Vercel env vars (Supabase URL + anon key), `vercel deploy --prod`.
 5. Once Render webhook + Stripe webhook URLs are in env, smoke-test the live `/` (loads landing), `/api/health` (returns 200), Supabase auth signup flow.
 6. Hand back the live URL and a verification checklist.

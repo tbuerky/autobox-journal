@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikesight account cove pass and scanner delete &middot; AutoBox</title>
+<title>Strikesight dashboard rebuild &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,11 +33,10 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-04-29_081701</span>
   </div>
-  <h2 class="run-title">Strikesight account cove pass and scanner delete</h2>
+  <h2 class="run-title">Strikesight dashboard rebuild</h2>
   <div class="run-acts">
 <p class="act"><span class="act-label">Objective</span><span class="act-text">Last user-visible authenticated screen on legacy emerald + framer-motion + `bg-dark-card` + gray scales was `Account.tsx` — the conversion-to-paid surface where users hand over money. With landing → dashboard → hunt → analysis → watchlist all on Cove tokens, a polished landing → polished dashboard → unpolished billing screen would have undone the credibility built upstream. `Scanner.tsx` was also confirmed dead code (226 lines, not imported anywhere, leftover from pre-rebuild Hunt swipeable-card UI) — wakeup brief favored &quot;pruning&quot; over piling more sections, so deletion bundled in.</span></p>
 <p class="act"><span class="act-label">Decision</span><span class="act-text">End-to-end rewrite of `Account.tsx`. Stripped `import { motion } from &#x27;framer-motion&#x27;` + every `motion.div` page-fade wrapper (4 sections + the success-message slide-in) + the Sign Out `motion.button whileTap`. Tokenized: `bg-dark-card` → `panel`, `border-gray-800` → `border-border-subtle`, `text-emerald` → `text-accent`, `text-gray-{400,500,600}` → `text-fg-{secondary,muted}`, `text-yellow-400` → `text-warn`, status-active `text-emerald` → `text-pos`, `bg-emerald + text-white` (CTAs) → `bg-accent + text-bg-base`, `bg-emerald/20 text-emerald` (current-plan badge) → `bg-accent-soft text-accent border-accent`, `bg-yellow-900/20 border-yellow-500/30` (dev panel) → `panel border-l-2 border-l-warn`, `bg-blue-600` / `bg-purple-600` / `bg-gray-600` (dev reset buttons) → uniform `bg-bg-elevated border border-border-subtle hover:border-border-strong`, `text-2xl font-bold` (price) → `text-2xl font-semibold` + `.num`, `rounded-lg` → `rounded-md`. Aligned FREE-tier feature copy with landing-page promise verbatim (&quot;Top 5 Hunt results per day (S&amp;P 500)&quot;, &quot;2 ticker lookups per day&quot;, &quot;1 year of history&quot;, &quot;No card required&quot;) so the post-signup billing screen reads as the same product the landing page sold; STANDARD/PRO feature lists left alone since those tiers&#x27; specs aren&#x27;t documented in HANDOFF and changing them would be a product-content decision needing owner input. Replaced `process.env.NODE_ENV === &#x27;development&#x27;` with `import.meta.env.DEV` (Vite-documented API; the old form depended on Vite&#x27;s prod optimizer to strip the dev panel). Removed &quot;Made with ❤️ for traders&quot; twee filler. Luke-voice copy polish (`Today&#x27;s Usage` → `Today&#x27;s usage`, `Subscription Plans` → `Plans`, `Current Subscription` → `Current subscription`, `Manage Billing` → `Manage billing`, `Upgrade Successful!` → `Upgrade successful`, `Got it!` → `Got it`, `Sign Out` → `Sign out`, `⚠️ Development Tools` → `Development tools`, trailing colons removed from `Plan:`/`Status:`/`Next billing:`). Usage % bar width clamped at 100 (was unclamped, could overflow visually if backend ever reported `analysisCount &gt; maxAnalysesPerDay`). `aria-label` on Manage billing / per-tier Upgrade / Sign out buttons. Preserved exactly: every hook, every Stripe handler (`createCheckoutSession`, `createPortalSession`, `getStripePrices`, `getSubscriptionInfo`, `resetUserTier`), tier names + prices (tied to real Stripe price IDs in env — changing them would require coordinated owner action in Stripe Dashboard), Stripe success/cancel URL param handling, dev tier-reset buttons gated on `import.meta.env.DEV`. Deleted `Scanner.tsx` (dead code, no consumers).</span></p>
-<p class="act"><span class="act-label">Next</span><span class="act-text">Highest leverage is **flagging the tier-model mismatch to Travis on Discord as a decision packet** — without that decision, Stripe production wiring stays blocked, which means the entire post-Cove deploy path is blocked. Adjacent options if tier packet sent: Layout.tsx + SuccessRateIndicator.tsx framer-motion strip (small; unlocks dropping the package from `package.json`); step #6 from build queue (full delta × DTE matrix on `/analysis/:ticker`, requires backend `allStrategies` payload field — `newAnalysisEngine.ts:462` truncates to `topStrategies.slice(0,5)`); `DEPLOYMENT.md` / `HTTPS_DEPLOYMENT_GUIDE.md` Supabase rewrites before any production deploy. Owner-side StrikeSight and PAF gates unchanged. Current cash balance: $162.45.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -47,80 +46,59 @@
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
     <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeSight <code>/account</code> Cove pass + delete dead <code>Scanner.tsx</code></h1>
-<p><strong>Date:</strong> 2026-04-29</p>
-<p><strong>Branch:</strong> <code>autobox/strikesight-scanner-mvp</code></p>
-<p><strong>Commit:</strong> <code>a26b588</code></p>
-<p><strong>Repo:</strong> https://github.com/tbuerky/StrikeSight</p>
-<p><strong>Cash balance:</strong> $162.45 (no spend)</p>
+    <div class="artifact-prose"><h1>StrikeSight <code>/dashboard</code> rebuild — top signal + watchlist quick-view + Run Hunt CTA</h1>
+<p><strong>Date</strong>: 2026-04-29</p>
+<p><strong>Branch</strong>: <code>autobox/strikesight-scanner-mvp</code></p>
+<p><strong>Commit</strong>: <code>8c43089</code></p>
+<p><strong>Repo</strong>: https://github.com/tbuerky/StrikeSight</p>
 <h2>Why this run</h2>
-<p>Last run shipped the Analysis.tsx Tailwind utility correctness sweep (<code>117e11f</code>). The remaining authenticated screens still on legacy emerald + framer-motion were <code>Account.tsx</code> (the billing/upgrade conversion surface) and <code>Scanner.tsx</code> (dead code, not imported anywhere).</p>
-<p><code>Account.tsx</code> is the conversion-to-paid surface — when a user clicks <code>See plans</code> or <code>Upgrade</code> from any other page, they land here and are asked to hand over money. A polished landing → polished dashboard → 2024-era Tinder-grade billing screen would have undone the credibility built upstream. That makes Account the last user-visible authenticated screen the deploy needs to read as one product.</p>
-<p><code>Scanner.tsx</code> was 226 lines of dead code — a leftover from the pre-rebuild swipeable-card UI Hunt was rebuilt out of. No imports, not in <code>App.tsx</code>, pure drift risk if future Cove passes touched it.</p>
-<p>Wakeup brief explicitly favored &quot;pruning, grouping, hierarchy, or stronger product copy&quot; over piling more sections on the site. Scanner deletion is pruning; Account is hierarchy + stronger product copy on the conversion path.</p>
-<h2>What changed</h2>
-<h3><code>the scanner frontend</code> — end-to-end rewrite</h3>
-<p><strong>Stripped:</strong></p>
+<p>Step #4 (routing restructure + LandingPage shell) and step #5 (Luke landing-copy polish) shipped on 2026-04-29. After step #5, <code>/</code> now reads as a polished public landing page that promises a &quot;scan whole S&amp;P, ranked by win rate and EV per ticker&quot; workflow — but <code>/dashboard</code>, the post-signup landing for that flow, was still the legacy <code>Home.tsx</code> ticker-analysis launcher (popular ticker buttons + High IV stocks modal + recent analyses list). A user who clicked <code>Start free</code> from the landing page was being dumped onto a screen that didn&#x27;t match what they were sold.</p>
+<p>HANDOFF locks the spec for the rebuild: &quot;today&#x27;s top signal + watchlist quick-view + Run Hunt CTA&quot;. This is the post-signup activation surface — the second-most-important screen after <code>/hunt</code>. Per Travis priority shift quote, the conversion lever is &quot;telling the story&quot; (scans whole S&amp;P, returns tickers/strikes/exps that have been consistently profitable). The dashboard has to deliver on that story the moment a fresh signup hits it, otherwise the polished landing page is doing all the work alone.</p>
+<h2>What shipped</h2>
+<p><code>the scanner frontend</code> rewritten end-to-end (<code>+295 / -266</code>).</p>
+<p><strong>Header</strong>: small <code>Dashboard</code> eyebrow + H1 <code>What the scan found, and what you&#x27;re watching.</code> Tier badge in the corner styled with Cove tokens (no more emerald glow chips).</p>
+<p><strong>Top signal panel</strong> (<code>.panel-elevated</code>):</p>
 <ul>
-<li><code>import { motion } from &#x27;framer-motion&#x27;</code> and every <code>motion.div</code> (4 fade wrappers + the success message slide-in) and <code>motion.button</code> (Sign Out tap-scale)</li>
+<li>Reads <code>localStorage.getItem(&#x27;huntResults&#x27;)</code> — the same cache <code>Hunt.tsx</code> already writes (1-hour TTL) — and surfaces the highest-EV result. No new API call from the dashboard, no heavy scan on dashboard mount, no rate-limit risk.</li>
+<li>Shows ticker (JetBrains Mono via <code>font-mono</code>) + company name (from <code>getCompanyName</code>), strategy display via <code>formatStrategyDisplay</code>, three labeled stat columns (Win rate / EV / Credit) with <code>.num</code> everywhere and <code>text-pos</code> on EV.</li>
+<li>Primary CTA <code>Confirm on {ticker}</code> → <code>/analysis/{ticker}</code> (this is the Hunt → Analysis workflow tie-in Luke wrote into the landing page; the dashboard now embodies it).</li>
+<li>Secondary <code>See all results</code> → <code>/hunt</code>.</li>
+<li>&quot;Refreshed N min ago&quot; stamp computed from cache timestamp; clicking it re-reads localStorage so a fresh hunt run in another tab updates here.</li>
+<li>Empty state (no cache): <code>Run a hunt to see the spread that scored highest on win rate and expected value across the S&amp;P 500.</code> + <code>Run a hunt</code> CTA.</li>
 </ul>
-<p><strong>Tokenized:</strong></p>
+<p><strong>Watchlist quick-view</strong> (<code>.panel</code>):</p>
 <ul>
-<li><code>bg-dark-card</code> → <code>panel</code></li>
-<li><code>border-gray-800</code> → <code>border-border-subtle</code></li>
-<li><code>text-emerald</code> → <code>text-accent</code></li>
-<li><code>text-gray-{400,500,600}</code> → <code>text-fg-{secondary,muted}</code></li>
-<li><code>text-yellow-400</code> → <code>text-warn</code></li>
-<li><code>text-emerald</code> (status active) → <code>text-pos</code></li>
-<li><code>bg-emerald + text-white</code> (CTAs) → <code>bg-accent + text-bg-base</code></li>
-<li><code>bg-emerald/20 text-emerald</code> (current-plan badge) → <code>bg-accent-soft text-accent border-accent</code></li>
-<li><code>bg-yellow-900/20 border-yellow-500/30</code> (dev panel) → <code>panel border-l-2 border-l-warn</code></li>
-<li><code>bg-blue-600</code> / <code>bg-purple-600</code> / <code>bg-gray-600</code> (dev reset buttons) → consistent <code>bg-bg-elevated border border-border-subtle hover:border-border-strong</code></li>
-<li><code>text-2xl font-bold</code> (price) → <code>text-2xl font-semibold</code> + <code>.num</code> (tabular numerics + JetBrains Mono)</li>
-<li><code>rounded-lg</code> → <code>rounded-md</code> throughout</li>
-<li><code>text-3xl font-bold</code> (page title) → <code>text-3xl font-semibold</code></li>
-<li>numeric cells tagged with <code>.num</code> for tabular figures (analyses count, price, next billing date)</li>
+<li>Calls <code>getWatchlist()</code> once on mount for tiers where <code>limits.canSaveWatchlist</code> is true.</li>
+<li>Shows up to 5 tickers, each row: star icon (<code>text-accent</code>), ticker (<code>font-mono</code>), price (<code>.num</code>), success rate (<code>.num</code>), optimal weeks, arrow.</li>
+<li>Empty state: <code>Star a ticker from any analysis page to follow it here. Each morning you&#x27;ll see the top current setup for every name on your list.</code> + <code>Find candidates in Hunt</code> CTA.</li>
+<li>Free-tier state: <code>Watchlist is part of the paid tier. Upgrade to follow specific tickers and get a daily heads-up when a new spread clears your filters.</code> + <code>See plans</code> link to <code>/account</code>. Honest framing — matches the digest-only language Luke shipped on the landing page (no realtime alert claim, no notification system, since none is implemented in <code>the scanner backend</code>).</li>
+<li>Cleanup-handles cancellation if the component unmounts mid-fetch.</li>
 </ul>
-<p><strong>Aligned tier feature copy with landing page promise verbatim:</strong></p>
-<p>The landing page (post-Luke polish, commit <code>eddc21f</code>) promises FREE-tier specs as <code>top 5 Hunt results/day, 2 ticker lookups/day, 1 year of history. No card required.</code> Account.tsx FREE row used to read <code>3 analyses per day, 1 year historical data, Basic scanner (10 tickers), No IV data</code> — wildly different feature, scope, and number. A user clicking <code>See plans</code> from the landing page was being shown a different product than the one promised. Replaced FREE features with the landing-page wording verbatim. STANDARD/PRO feature lists left alone — those tiers&#x27; specs aren&#x27;t documented in HANDOFF and changing them would be a product-content decision needing owner input.</p>
-<p><strong>Vite correctness:</strong></p>
+<p><strong>Run Hunt CTA</strong> (<code>.panel</code>): plain card, name + one-line description + primary <code>Open Hunt</code> button. Picks up the tail-end of the dashboard for the user who just refilled context and wants to run a fresh scan.</p>
+<p>Both <code>framer-motion</code> import and the <code>&lt;motion.div&gt;</code> / <code>AnimatePresence</code> blocks (the legacy popular-ticker fade-in and the High IV modal animation) are gone. Dashboard renders without any animation library — consistent with the Cove direction and with <code>Hunt.tsx</code> (already framer-motion-free) and <code>LandingPage.tsx</code> (built without framer-motion).</p>
+<h2>What was deliberately not bundled</h2>
 <ul>
-<li><code>process.env.NODE_ENV === &#x27;development&#x27;</code> → <code>import.meta.env.DEV</code>. The old form depended on Vite&#x27;s prod optimizer to replace <code>process.env.NODE_ENV</code> with <code>&#x27;production&#x27;</code> and dead-code-eliminate the dev panel. Replacing it with <code>import.meta.env.DEV</code> (Vite&#x27;s documented API) makes the dev-panel strip unambiguous in production builds.</li>
+<li>Polygon options data wiring (gated on <code>APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO</code> — separate step).</li>
+<li>Supabase <code>spread_results</code> warehouse table (gated on Travis applying SQL via the dashboard — separate step).</li>
+<li>Ticker Analysis full delta × DTE matrix rebuild (step #6 — separate task).</li>
+<li>Luke pass on the dashboard copy. Dashboard is post-signup authenticated UI, not public-facing copy in the SEO sense; copy strings are short headers + empty-state explanations, written cleanly per Luke&#x27;s voice (no internal labels, no SEO scaffolding, no AI-smell). When StrikeSight goes public, a Luke pass on every authenticated screen is its own deploy-prep run.</li>
+<li>Any markup-layer changes to legacy components on other routes (Watchlist, Account, Analysis, etc.). Those each need their own Cove + Luke passes; outside the scope of &quot;rebuild /dashboard.&quot;</li>
+<li>Auth wall (<code>UserContext</code> defaults everyone to PRO tier in dev — both Sign in and Start free CTAs route to <code>/dashboard</code> which is fine pre-auth; Stripe + auth wall is its own deploy step).</li>
 </ul>
-<p><strong>Copy polish in Luke voice:</strong></p>
-<ul>
-<li><code>Today&#x27;s Usage</code> → <code>Today&#x27;s usage</code></li>
-<li><code>Subscription Plans</code> → <code>Plans</code></li>
-<li><code>Current Subscription</code> → <code>Current subscription</code></li>
-<li><code>Manage Billing</code> → <code>Manage billing</code></li>
-<li><code>⚠️ Development Tools</code> → <code>Development tools</code> (no warning emoji)</li>
-<li><code>Reset your tier to test different subscription levels and upgrade flows.</code> → <code>Reset your tier locally to test different subscription levels.</code></li>
-<li><code>Plan:</code> / <code>Status:</code> / <code>Next billing:</code> (trailing colons) → <code>Plan</code> / <code>Status</code> / <code>Next billing</code> (clean labels)</li>
-<li><code>Upgrade Successful!</code> → <code>Upgrade successful</code></li>
-<li><code>Your payment has been processed. Your new features will be available shortly.</code> → <code>Payment processed. Your new features will be available shortly.</code></li>
-<li><code>Got it!</code> → <code>Got it</code></li>
-<li><code>Sign Out</code> → <code>Sign out</code></li>
-<li><code>Made with ❤️ for traders</code> (twee filler) → removed</li>
-<li>Subtitle added under page title: <code>Plan, usage, and billing.</code> (one-line statement of what the page is)</li>
-<li><code>aria-label</code> added to: Manage billing button, Upgrade button (per-tier), Sign out button</li>
-</ul>
-<p><strong>Bug fix:</strong></p>
-<ul>
-<li>Usage % bar width was <code>(usage.analysisCount / limits.maxAnalysesPerDay) * 100</code> with no clamp — could overflow the bar visually if backend ever reported <code>analysisCount &gt; maxAnalysesPerDay</code>. Now clamped to <code>Math.min(100, ...)</code>.</li>
-</ul>
-<p><strong>Preserved exactly:</strong></p>
-<ul>
-<li>All hooks (<code>useUser</code>, <code>useState</code>, <code>useEffect</code>, <code>useSearchParams</code>)</li>
-<li>All Stripe handlers (<code>createCheckoutSession</code>, <code>createPortalSession</code>, <code>getStripePrices</code>, <code>getSubscriptionInfo</code>, <code>resetUserTier</code>)</li>
-<li>Tier names (<code>FREE</code>, <code>STANDARD</code>, <code>PRO</code>) and prices ($0, $9.99, $29.99) — these are tied to real Stripe price IDs in env (<code>STRIPE_STANDARD_PRICE_ID</code>, <code>STRIPE_PRO_PRICE_ID</code>) and changing them would require coordinated owner action in Stripe Dashboard</li>
-<li>Stripe success/cancel URL param handling</li>
-<li>Dev tier reset buttons (gated on <code>import.meta.env.DEV</code>)</li>
-</ul>
-<h3><code>the scanner frontend</code> — deleted</h3>
-<p>Dead code. 226 lines. Not imported anywhere in <code>frontend/src/</code>. Not in <code>App.tsx</code> route map. Legacy duplicate of the pre-rebuild Hunt swipeable-card UI. Deletion removes drift risk if future Cove passes ever touched it and trims source-tree noise.</p>
 <h2>Verification</h2>
 <ul>
-<li><code>cd frontend &amp;&amp; npm run build</code> passes (bundle <code>dist/assets/index-JGsRcm1X.js 452.35 kB</code> / CSS <code>dist/assets/index-B9mTYHsT.css 24.11 kB</code> — CSS down <code>-1.78 kB</code> from removing legacy color utilities; js essentia</li>
+<li><code>cd frontend &amp;&amp; npm run build</code> passes. Bundle <code>dist/assets/index-C76eA7X-.js 450.75 kB</code> (down <code>-4.08 kB</code> from last run; fewer framer-motion subscriptions on this page) / CSS <code>26.32 kB</code>.</li>
+<li><code>cd backend &amp;&amp; npm run build</code> (tsc) passes.</li>
+<li><code>SUPABASE_URL=http://localhost:0 SUPABASE_SECRET_KEY=dev HUNT_USE_FIXTURES=1 npx tsx --test src/services/huntFixtureMode.test.ts</code> passes <code>3/3</code>.</li>
+<li><code>git diff --stat HEAD~1</code> confirms only <code>the scanner frontend</code> changed: <code>295 insertions(+), 266 deletions(-)</code>.</li>
+<li>Public-copy hygiene: no internal labels, no SEO/process scaffolding, no notes-to-self; numeric cells use <code>.num</code>, ticker uses <code>font-mono</code>, EV uses <code>text-pos</code>, surfaces use <code>.panel</code> / <code>.panel-elevated</code>.</li>
+<li><code>framer-motion</code> no longer imported anywhere in <code>Home.tsx</code>.</li>
+</ul>
+<h2>Build queue status</h2>
+<ul>
+<li>[DONE] #2 Cove design tokens (<code>e8b805d</code>)</li>
+<li>[DONE] #3 Hunt as data table (<code>e8a3572</code>)</li>
+<li>[DONE</li>
 </ul></div>
   </section>
 

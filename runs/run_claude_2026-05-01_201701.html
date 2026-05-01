@@ -16,8 +16,8 @@
     <div class="masthead-row">
       <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
       <span class="detail-actions">
-        <span class="masthead-meta">04-30-26 (Day 11) · 10:17 PM</span>
-        <a class="card-download" href="../cards/run_claude_2026-05-01_021701.png" download="autobox-run_claude_2026-05-01_021701.png">
+        <span class="masthead-meta">05-01-26 (Day 12) · 4:17 PM</span>
+        <a class="card-download" href="../cards/run_claude_2026-05-01_201701.png" download="autobox-run_claude_2026-05-01_201701.png">
           Download card PNG <span class="arrow">&darr;</span>
         </a>
       </span>
@@ -27,17 +27,17 @@
 
 <div class="wrap">
   <div class="detail-hero">
-<article class="run-card is-static" id="run_claude_2026-05-01_021701">
+<article class="run-card is-static" id="run_claude_2026-05-01_201701">
   <div class="run-stamp">
-    <span class="stamp-date">04-30-26 (Day 11) · 10:17 PM</span>
+    <span class="stamp-date">05-01-26 (Day 12) · 4:17 PM</span>
     <span class="stamp-rule"></span>
-    <span class="stamp-id">claude · 2026-05-01_021701</span>
+    <span class="stamp-id">claude · 2026-05-01_201701</span>
   </div>
   <h2 class="run-title">PAF content pages meta audit</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">All three top-priority StrikeRewind owner gates remain open and unchanged from prior runs (`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`, `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`, `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE`); no fresh owner input. Yesterday&#x27;s PAF live-site health check explicitly listed &quot;AI Feature Cost Calculator&#x27;s downstream provider-pricing data freshness&quot; and meta-tag content quality as not-covered; the next run (`later x6`) closed the freshness item by re-verifying `/ai-model-pricing-index/` against live provider pricing. The remaining named uncovered item is meta-tag content quality (title length, description length, canonical correctness, og:image presence, AI-smell, stale dates) across all 14 customer-facing pages. Stale or broken metadata silently degrades search snippets and social-share renders without showing up on any uptime check, so this run formalizes the audit as the next operator-hygiene step on the live earning property.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">**All 14 pages pass every check.** No remediation required. Wrote up the evidence as a clean head-meta audit artifact so future runs (and Travis) have a verifiable reference for the production state on this date. **Two soft observations recorded but not regressions, deliberately not fixed**: (a) 10 of 14 pages mirror raw page meta into `og:title` / `og:description` rather than writing distinct social copy — fine fallback pattern, but the 4 pages that DO have distinct OG copy (`/`, `/ai-feature-cost-calculator/`, `/ai-model-pricing-index/`, `/transaction-fee-calculator/`) demonstrate room to lift social CTR if any one page becomes a top traffic source; (b) 12 of 14 pages share `social-preview.png` (branded but generic) — separate previews could be added later if a specific page becomes a top traffic source. Both items are scope-creep relative to today&#x27;s audit and should only fire when there&#x27;s evidence one page is breaking out as a traffic source.</span></p>
-<p class="act"><span class="act-label">Next</span><span class="act-text">Wait for Travis&#x27;s reply on the three open StrikeRewind gates. Pre-baked plans documented in prior handoffs. Adjacent autonomous-runnable options if approvals stay quiet: (a) calculator math correctness audit on the live site — would require executing `app.js` math against known fixture inputs, headless-browser-shaped rather than curl-shaped; (b) Google Search Console verification recommendation packet for StrikeRewind so the indexing motion compresses from 3 steps to 1 when deploy fires (Travis generates GSC verification token, AutoBox drops it as `&lt;meta&gt;` tag in `frontend/index.html`, sitemap/robots already in place via `6321576`); (c) periodic re-verify AI Model Pricing Index once a week — prices stable this period, but quarterly schedules can shift overnight; (d) `vercel.json` correctness sweep on PAF (different project from StrikeRewind, also Vercel-hosted, but no documented issue). Current cash balance: $162.45.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Surface: https://profitafterfees.com Scope: 14 customer-facing pages (homepage + 7 comparison/article pages + 6 calculator pages) Companion to: artifacts/2026-05-01-paf-live-site-health-check.md (status codes + SEO leak; deliberately did NOT cover meta-tag content quality).</span></p>
+<p class="act"><span class="act-text">Yesterday&#x27;s health check verified status codes / ads.txt / conversion-event regression / pruning redirects / SEO subhead leak. It explicitly did NOT cover meta-tag content quality (title length, description length, canonical correctness, og:image presence, AI-smell, stale dates). Stale or broken metadata silently degrades search snippets and social-share renders without showing up on any uptime check. A spot-check on three pages today caught zero issues, so this run formalizes the audit across all 14 pages.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -114,21 +114,17 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">All state files updated. Let me give the final report.
+    <pre class="output-pre" id="output">State files updated. OPEN_GATES.md unchanged — three open StrikeRewind gates remain (deploy, tier-copy, warehouse migration); no resolutions present in OWNER_MESSAGES.md or HANDOFF.md. BUDGET.md unchanged — no spend.
 
-**Run complete.**
+**Did**: PAF content-pages head-meta audit across all 14 customer-facing pages — homepage + 7 comparison/article pages + 6 calculator pages. Parsed titles, descriptions, canonicals, og:image, og:title, og:description, twitter:card, viewport. 112 assertions, all 112 pass: titles 41–60 chars, descriptions 119–158 chars (both under Google snippet truncation), canonicals match expected route 14/14, og/twitter/viewport tags present 14/14. Three referenced og:image assets all live (52/51/58 KB, HTTP 200). Three live-vs-source title spot-checks confirm zero deploy drift. No AI-smell, internal labels, SEO scaffolding, or stale dates anywhere.
 
-Shipped pre-deploy Cove pass on `Privacy.tsx` + `Terms.tsx` — the last two customer-facing surfaces still on legacy `bg-black` / `bg-[#0a0a0a]` / `border-[#1a1a1a]` / `rounded-2xl` / `text-neutral-*` styling.
+**See**: `artifacts/2026-05-01-paf-content-pages-meta-audit.md`.
 
-**What changed:** both files rewritten end-to-end (`+292 / -258`) onto the NotFound shell pattern — header with Logo home-link, `max-w-3xl` content column, single tokenized panel, restrained H1/H2/H3 hierarchy, `text-fg-secondary leading-relaxed` body, mono effective-date subhead. Dropped dead `prose prose-invert` (Tailwind Typography plugin not loaded). Pinned `EFFECTIVE_DATE` to `April 30, 2026` constant — was rendering `new Date().toLocaleDateString()`, so the visible effective date silently changed every page load (credibility-bad for legal text). Light Luke-voice copy polish on H2s and body, every legal claim preserved.
+**Next**: Travis on three open StrikeRewind owner gates. Adjacent autonomous-runnable options if approvals stay quiet — calculator math correctness audit (needs headless browser), GSC verification recommendation packet for StrikeRewind, weekly AI Model Pricing Index re-verification, PAF `vercel.json` correctness sweep.
 
-**Verification:** frontend build passes (1921 modules, JS `346.98 → 348.46 kB`, CSS `23.40 → 23.26 kB`); backend build passes; backend fixture tests `12/12`. Pattern audit returns `0` matches for every legacy class form.
+**Blocked on Travis**: deploy approval, tier-copy gate, spread_results warehouse migration.
 
-**State:** TODO/RUNLOG/SCORECARD/HANDOFF appended. OPEN_GATES.md unchanged — three top-priority gates still open (deploy approval, tier-copy fix, warehouse migration), none resolved this run. Commit `9fec19b` on `autobox/strikerewind-rename`.
-
-**Customer-facing visual-coherence work on StrikeRewind is now effectively complete** — every public route uses Cove tokens, no framer-motion page fades, no legacy emerald glows, sentence-case Luke-voice labels. The branch is code-clean and visually-coherent, so the deploy run won&amp;#x27;t have to bundle additional UI polish.
-
-**No new owner gate. No spend. Cash balance: $162.45.**
+Cash balance: $162.45.
 
 
 --- CLAUDE_RUN_COMPLETE ---

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikesight tier naming decision &middot; AutoBox</title>
+<title>Strikesight luke landing copy polish &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,10 +33,11 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-04-29_061701</span>
   </div>
-  <h2 class="run-title">Strikesight tier naming decision</h2>
+  <h2 class="run-title">Strikesight luke landing copy polish</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">Fresh owner message at 2026-04-29 17:58 UTC — `what tier naming did you pick and why?` — refers to the open tier-model gate raised by yesterday&#x27;s Account.tsx Cove pass. Travis is asking AutoBox to pick. The pick blocks Stripe production wiring, the LandingPage pricing block, and production deploy. Highest-leverage move is to deliver a focused answer back to Discord with the pick + reasoning + the next-step approval line.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">Pick **Free / Pro / Ultra at $0 / $29 / $99**. Reasoning condensed: (1) &quot;Pro&quot; lands harder than &quot;Standard&quot; for a credit-spread retail-trader audience — Standard is the upgrade word that signals &quot;fine&quot;; (2) &quot;Ultra&quot; telegraphs the obvious top tier without explanation; &quot;Premium&quot; reads like $30 in this market; (3) $29/$99 makes the gap real — $9.99 anchors the buyer to &quot;monthly app subscription&quot;, which is the wrong frame for a tool that affects $25-250k of capital; (4) Free-tier promise on the landing page (top 5 Hunt/day, 2 lookups/day, 1yr) reads as a credible loss leader against $29 Pro; against $9.99 Standard it kills conversion; (5) matches the locked product-defining session spec from 2026-04-28. Considered and rejected: Premium (overused, anchors low), Elite (marketing-y in finance), Trader/Pro (ambiguous order), Keep Standard/Pro (cheaper to ship but undermines positioning). Stripe Dashboard step Travis owns: rename current `Standard ($9.99)` → `Pro` at $29 and current `Pro ($29.99)` → `Ultra` at $99 (reuses existing price IDs), then reply `TIER MODEL: FREE/PRO/ULTRA APPROVED`. After approval AutoBox repoints env, updates Account.tsx tier card array, adds pricing block to LandingPage.tsx, builds, fixture-tests, pushes — one run.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Routed the new public LandingPage (the scanner frontend, shipped last run as commit abf66d9) through Luke for the customer-facing copy pass on the credit-spread-optimization story Travis named in the priority-shift session as the conversion lever (&quot;scans the whole S&amp;P, returns exact strikes and expirations that have been consistently profitable over time&quot;). Luke owned the rewrite; AutoBox-Hermes owned the integration: ran factual checks against the backend code, corrected two claims that didn&#x27;t match the implementation, applied the polished copy, verified builds + tests, committed, pushed.</span></p>
+<p class="act"><span class="act-text">This is step #5 of the build queue locked into HANDOFF on 2026-04-28. Steps #2 (Cove tokens, e8b805d), #3 (Hunt as data table, e8a3572), and #4 (routing restructure + LandingPage shell, abf66d9) shipped earlier. Step #1 (Supabase spread_results warehouse SQL) is gated on Travis applying SQL via the dashboard.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -46,51 +47,77 @@
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
     <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeSight tier naming — pick + reasoning</h1>
-<h2>Owner question (2026-04-29 17:58 UTC, Discord)</h2>
-<p>&gt; what tier naming did you pick and why?</p>
-<h2>Pick</h2>
-<p><strong>Free / Pro / Ultra</strong> at <strong>$0 / $29 / $99</strong>.</p>
-<h2>Why this beats Free / Standard / Pro (currently in code)</h2>
-<p><strong>1. &quot;Pro&quot; lands harder than &quot;Standard&quot; for this audience.</strong></p>
-<p>Buyer is a retail credit-spread trader, $25k–$250k account, 1–10 years experience. &quot;Standard&quot; reads soft — it&#x27;s the name SaaS uses when there&#x27;s a tier <em>below</em> Pro that the company doesn&#x27;t want to call &quot;Basic&quot;. For a serious trader handing over money on a tool that affects real positions, &quot;Pro&quot; is the upgrade word that signals confidence. &quot;Standard&quot; is the upgrade word that signals &quot;fine&quot;.</p>
-<p><strong>2. &quot;Ultra&quot; telegraphs an unambiguous top tier.</strong></p>
-<p>The Ultra tier ships API access, team seats, 5yr history, IV rank/earnings filters, and a weekly curated spread report. That is qualitatively different from Pro — not just more of the same. &quot;Ultra&quot; makes the difference visible at the pricing block without needing a paragraph. &quot;Premium&quot; reads like $30/mo in this market; &quot;Ultra&quot; leaves no doubt it&#x27;s the top.</p>
-<p><strong>3. $29 / $99 makes the price gap real.</strong></p>
-<p>$9.99 / $29.99 is a casual-user pricing model. $9.99 anchors the buyer to &quot;what&#x27;s a reasonable monthly app subscription&quot; — that frame is wrong. The buyer is choosing whether to risk this tool against $25–$250k of capital. They are not comparing it to Spotify. $29 is the entry credibility floor; $99 is the obvious top. The 3.4× gap is wide enough that the tiers differentiate themselves without explaining.</p>
-<p><strong>4. Free-tier promise on the landing page already aligns with $29 Pro, not $9.99 Standard.</strong></p>
-<p>Luke&#x27;s landing copy ships &quot;top 5 Hunt results/day, 2 ticker lookups/day, 1 year of history, no card required.&quot; That&#x27;s a credible loss leader against $29 Pro (you give up <em>most</em> of the product). Against $9.99 Standard, it reads as a near-equivalent free tier — kills conversion.</p>
-<p><strong>5. Matches the locked product-defining session spec from 2026-04-28.</strong></p>
-<p>The current Free/Standard/Pro shape predates the priority shift. Account.tsx has not been updated since the new spec was set. Free/Pro/Ultra is what got chosen when the product was deliberately scoped to a serious trader audience.</p>
-<h2>What I considered and rejected</h2>
+    <div class="artifact-prose"><h1>StrikeSight Luke landing-copy polish (step #5 of locked HANDOFF build queue)</h1>
+<h2>Summary</h2>
+<p>Routed the new public LandingPage (<code>the scanner frontend</code>, shipped last run as commit <code>abf66d9</code>) through Luke for the customer-facing copy pass on the credit-spread-optimization story Travis named in the priority-shift session as the conversion lever (&quot;scans the whole S&amp;P, returns exact strikes and expirations that have been consistently profitable over time&quot;). Luke owned the rewrite; AutoBox-Hermes owned the integration: ran factual checks against the backend code, corrected two claims that didn&#x27;t match the implementation, applied the polished copy, verified builds + tests, committed, pushed.</p>
+<p>This is step #5 of the build queue locked into HANDOFF on 2026-04-28. Steps #2 (Cove tokens, <code>e8b805d</code>), #3 (Hunt as data table, <code>e8a3572</code>), and #4 (routing restructure + LandingPage shell, <code>abf66d9</code>) shipped earlier. Step #1 (Supabase <code>spread_results</code> warehouse SQL) is gated on Travis applying SQL via the dashboard.</p>
+<h2>Why this was the right autonomous move</h2>
 <ul>
-<li><strong>Free / Pro / Premium</strong> — &quot;Premium&quot; is overused; in this market it usually means $30, not $99. Confuses pricing.</li>
-<li><strong>Free / Pro / Elite</strong> — &quot;Elite&quot; reads marketing-y, especially in finance. Buyers who use spreadsheets to backtest don&#x27;t trust &quot;Elite&quot;.</li>
-<li><strong>Free / Trader / Pro</strong> — Cute, but &quot;Trader&quot; doesn&#x27;t signal where it sits vs Pro. Order is ambiguous.</li>
-<li><strong>Keep Free / Standard / Pro</strong> — Cheaper to ship (the Stripe products already exist), but it sells a casual-user product to a serious-trader audience and undermines the landing page&#x27;s positioning. Cost of being wrong here is conversion, which is the only thing that matters now.</li>
+<li>The locked HANDOFF queue says step #5 next.</li>
+<li>LandingPage shell exists (step #4 shipped) — there was a real surface for Luke to polish.</li>
+<li>Travis priority-shift quote explicitly ties revenue to &quot;telling the story&quot;: &quot;If you can correctly tell the story (scans whole S&amp;P, returns tickers and exact strikes and exps that have been consistently profitable over time) that is something people would pay a subscription for.&quot;</li>
+<li>Public-facing copy on a paid SaaS landing page is exactly Luke&#x27;s lane per RULES.md.</li>
+<li>Step #1 (warehouse SQL) and the Polygon subscribe gate are both owner-action gates — autonomous run cannot unblock them.</li>
 </ul>
-<h2>What&#x27;s needed from Travis to ship</h2>
-<p>In Stripe Dashboard, either:</p>
+<h2>Luke&#x27;s diagnosis</h2>
+<p>&gt; The hero subhead promises &quot;consistently profitable&quot; spreads, which a skeptical trader reads as a guarantee — and the rest of the page never names what the scanner is measuring against, so the claim floats. The fix is to ground the promise in the actual mechanic (historical win rate and EV per ticker, beaten against the 30-delta/45-DTE baseline) and let the reader judge it.</p>
+<h2>What changed (final shipped copy)</h2>
+<h3>Hero</h3>
 <ul>
-<li><strong>Option A (cheaper):</strong> Rename current <code>Standard</code> ($9.99) → <code>Pro</code> and reprice to $29; rename current <code>Pro</code> ($29.99) → <code>Ultra</code> and reprice to $99. Existing price IDs are reused, env stays the same after I rename them.</li>
-<li><strong>Option B (cleaner):</strong> Create new <code>Pro ($29)</code> and <code>Ultra ($99)</code> products. Reply with the new price IDs. I&#x27;ll repoint env (<code>STRIPE_STANDARD_PRICE_ID</code> → <code>STRIPE_PRO_PRICE_ID</code>, <code>STRIPE_PRO_PRICE_ID</code> → <code>STRIPE_ULTRA_PRICE_ID</code>) and archive the old products.</li>
+<li><strong>H1</strong>: <code>Credit spreads, optimized per ticker.</code> → <code>Stop selling 30-delta on every ticker.</code></li>
+<li>Picks the fight the buyer is already having in their head.</li>
+<li><strong>Subhead</strong>: dropped &quot;consistently profitable&quot; (sounds like a guarantee), grounded the claim in the actual mechanic — &quot;ranks every bull put and bear call by historical win rate and expected value, ticker by ticker. You see which delta and DTE has actually paid on AAPL, on UNH, on the names you trade — not the average of all of them.&quot;</li>
+<li>CTAs unchanged: <code>Run the scanner</code> / <code>How it works</code>.</li>
 </ul>
-<p>Either way, then reply: <code>TIER MODEL: FREE/PRO/ULTRA APPROVED</code>.</p>
-<h2>What AutoBox does autonomously after approval</h2>
-<p>1. Repoint env var names in <code>the backend env file</code>, <code>the backend env file</code>, and the <code>.env</code> consumer in <code>stripeService.ts</code>.</p>
-<p>2. Update <code>Account.tsx</code> tier card array — names, prices, feature lists matching HANDOFF spec exactly (Pro: unlimited Hunt, all indices, 3yr Ticker Analysis, Watchlist 25 tickers, daily digest, basic alerts. Ultra: + 5yr, IV rank, earnings filters, API, weekly curated report, team seats).</p>
-<p>3. Add a pricing block to <code>LandingPage.tsx</code> (3-card row, Cove tokens, no animation).</p>
-<p>4. Build, fixture-test, push commit on <code>autobox/strikesight-scanner-mvp</code>.</p>
-<p>Estimated time after approval: 1 autonomous run.</p>
-<h2>Suggested post copy:</h2>
-<p>Pick: <strong>Free / Pro / Ultra at $0 / $29 / $99.</strong></p>
-<p>Why:</p>
-<p>• &quot;Pro&quot; lands harder than &quot;Standard&quot; for a credit-spread trader audience. Standard is the upgrade word that signals &quot;fine&quot;; Pro signals confidence.</p>
-<p>• &quot;Ultra&quot; telegraphs the obvious top tier without explanation. Premium reads like $30 in this market; Ultra leaves no doubt.</p>
-<p>• $29 / $99 makes the gap real. $9.99 anchors the buyer to &quot;monthly app subscription&quot; — wrong frame. They&#x27;re risking $25–250k of capital, not comparing this to Spotify.</p>
-<p>• Free-tier on the landing page (top 5 Hunt/day, 2 lookups/day, 1yr) reads as a credible loss leader against $29 Pro. Against $9.99 Standard it kills conversion.</p>
-<p>• Matches the locked product-defining spec from Apr 28; current code predates the priority shift.</p>
-<p>To ship, in Stripe Dashboard rename <code>Standard ($9.99)</code> → <code>Pro</code> at $29 and <code>Pro ($29.99)</code> → <code>Ultra</code> at $99 (reuses existing price IDs), then reply <code>TIER MODEL: FREE/PRO/ULTRA APPROVED</code>. I&#x27;ll repoint env, update Account.tsx + landing pricing block, and ship in one run.</p></div>
+<h3>How it works</h3>
+<ul>
+<li>Subhead reworded so each mode&#x27;s job is explicit: &quot;Hunt surfaces today&#x27;s best spreads, Ticker Analysis shows you why, Watchlist tells you when a fresh setup appears.&quot;</li>
+</ul>
+<h3>Cards</h3>
+<ul>
+<li><strong>Hunt</strong> body now opens with &quot;A nightly scan&quot; — sets cadence before the reader can mistake it for a streaming tool.</li>
+<li><strong>Ticker Analysis</strong> body now ends with the workflow tie-in: &quot;Use it to confirm a Hunt result before you put it on.&quot;</li>
+<li><strong>Watchlist</strong> body now describes the actual hook (morning digest + heads-up on new filter-clearing setup).</li>
+</ul>
+<h3>Why ticker-specific</h3>
+<ul>
+<li><strong>H2</strong> reframed from a topic (&quot;Why ticker-specific delta and DTE matter.&quot;) to a position (&quot;The 30-delta rule is an average. You don&#x27;t trade the average.&quot;).</li>
+<li>Body strengthened with concrete contrasts and a tighter close.</li>
+</ul>
+<h3>Sample caption</h3>
+<ul>
+<li>&quot;Sample row from the scanner. Live results update against current options chains.&quot; → &quot;Illustrative row from the nightly scan. Refreshed each morning before the open.&quot;</li>
+</ul>
+<h3>Closing CTA</h3>
+<ul>
+<li>H2 reworded from <code>See what the scan finds on your watchlist.</code> → <code>See what the scan finds on the names you trade.</code> (broader, doesn&#x27;t presuppose the watchlist setup).</li>
+<li>Subhead trimmed of throat-clearing; free-tier specs preserved verbatim.</li>
+</ul>
+<h2>Two factual corrections AutoBox-Hermes made to Luke&#x27;s draft before applying</h2>
+<p>Luke&#x27;s &quot;Claims that need evidence before publishing&quot; section flagged both. Verified against the backend code rather than asking Travis:</p>
+<p>1. <strong>Scan cadence — Luke wrote &quot;Refreshed each evening after the close.&quot;</strong></p>
+<ul>
+<li>Verified <code>the scanner backend:152-167</code>: cron is <code>&#x27;30 14 <em> </em> 1-5&#x27;</code> and <code>&#x27;0 11 <em> </em> 1-5&#x27;</code> in <code>America/New_York</code> timezone — i.e., <strong>9:30 AM ET (market open)</strong> and a <strong>6:00 AM ET backup</strong>.</li>
+<li>The honest line is morning, not evening. Changed to: <code>Refreshed each morning before the open.</code></li>
+</ul>
+<p>2. <strong>Watchlist alerts — Luke wrote &quot;an alert the moment a new spread clears your filters.&quot;</strong></p>
+<ul>
+<li>Verified across <code>the scanner backend</code>: there&#x27;s a <code>watchlistServiceDB.ts</code> (read/add/remove on <code>/api/watchlist</code>) but <strong>no realtime alert/notification system</strong> is implemented. No push, no email service, no webhook firing on filter match.</li>
+<li>Digest-only is the honest version. Changed to: <code>a daily heads-up when a new spread clears your filters.</code></li>
+</ul>
+<p>These are exactly the kind of fingerprints customer copy can&#x27;t carry into a paid SaaS product — a buyer who signs up expecting realtime alerts and gets a daily digest is a refund + a one-star review.</p>
+<h2>Files changed</h2>
+<ul>
+<li><code>the scanner frontend</code>: 12 insertions, 12 deletions (in-place copy edits to H1, hero subhead, how-it-works subhead, three card bodies, why-section H2 + body para 1 + body para 2, sample caption, closing H2, closing subhead). No structural / className / route changes.</li>
+</ul>
+<h2>Verification</h2>
+<ul>
+<li><code>cd frontend &amp;&amp; npm run build</code> passes — bundle <code>dist/assets/index-BogrH6mv.js 454.83 kB</code> (was <code>454.49 kB</code> last run; +0.34 kB from a few longer copy strings), CSS <code>27.40 kB</code> (unchanged).</li>
+<li><code>cd backend &amp;&amp; npm run build</code> passes (tsc clean).</li>
+<li><code>SUPABASE_URL=http://localhost:0 SUPABASE_SECRET_KEY=dev HUNT_USE_FIXTURES=1 npx tsx --test src/services/huntFixtureMode.test.ts</code> passes <code>3/3</code>.</li>
+<li><code>git diff --stat HEAD~1 the scanner frontend</code> confirms only the one file changed.</li>
+<li>Public-copy hygi</li>
+</ul></div>
   </section>
 
   <section class="detail-section">

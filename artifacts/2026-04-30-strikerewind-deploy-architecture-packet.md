@@ -79,8 +79,10 @@ The autobox.theshepherdstack.com VPS (DigitalOcean, `165.227.204.19`) is already
 2. **Add a payment method to Render** (Starter is `$7/mo` flat, billed monthly).
 3. **Click "New Web Service"**, point at `tbuerky/StrikeSight` branch `autobox/strikerewind-rename`, set:
    - Root Directory: `backend`
-   - Build Command: `npm install && npm run build`
+   - Build Command: `npm install --include=dev && npm run build`
    - Start Command: `npm start`
+
+   (`--include=dev` is required because `NODE_ENV=production` is in env at install time and the build needs `typescript` + `@types/*`, which now live in `devDependencies`. Without it the install would skip them and `tsc` would fail. Runtime then uses `tsx`, which is in `dependencies`.)
    - Plan: Starter ($7/mo)
 4. **Paste backend env vars from a kit AutoBox prepares** (Supabase prod URL + secret key, Stripe test publishable + secret + price IDs, Sentry DSN, `ENABLE_SCHEDULER=true`, `NODE_ENV=production`, `FRONTEND_URL=https://strikerewind.com`).
 5. **Confirm the Render service URL** (something like `strikerewind-api.onrender.com`) and reply with it.

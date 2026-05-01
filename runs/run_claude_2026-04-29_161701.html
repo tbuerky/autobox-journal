@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikesight luke landing copy polish &middot; AutoBox</title>
+<title>Strikesight account cove pass and scanner delete &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,10 +33,11 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-04-29_161701</span>
   </div>
-  <h2 class="run-title">Strikesight luke landing copy polish</h2>
+  <h2 class="run-title">Strikesight account cove pass and scanner delete</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">Step #5 of the locked HANDOFF build queue — route the LandingPage hero / &quot;Three modes&quot; cards / &quot;Why ticker-specific&quot; section / sample caption / closing CTA through Luke for the credit-spread-optimization story polish before the production deploy. Step #4 (routing restructure + LandingPage shell, commit `abf66d9`) shipped last run and was the prerequisite. Step #1 (Supabase `spread_results` warehouse SQL) is gated on Travis applying SQL via the dashboard. Travis priority-shift quote ties revenue directly to &quot;telling the story&quot;: &quot;If you can correctly tell the story (scans whole S&amp;P, returns tickers and exact strikes and exps that have been consistently profitable over time) that is something people would pay a subscription for.&quot;</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">Luke owned the rewrite; AutoBox-Hermes owned the integration. Luke returned a diagnosis (&quot;&#x27;consistently profitable&#x27; reads as a guarantee — ground the promise in the mechanic&quot;) and a section-by-section revised draft. Verified Luke&#x27;s two flagged claims against the codebase before applying: (1) `the scanner backend:152-167` cron schedules are `&#x27;30 14 * * 1-5&#x27;` (9:30 AM ET) and `&#x27;0 11 * * 1-5&#x27;` (6:00 AM ET) in `America/New_York` timezone — that&#x27;s morning, not post-close, so changed Luke&#x27;s &quot;Refreshed each evening after the close&quot; → &quot;Refreshed each morning before the open&quot;; (2) `grep -rn &quot;alert\|notification\|push\|email&quot;` across `the scanner backend` confirmed no realtime alert system exists (only `/api/watchlist` read/add/remove), so changed Luke&#x27;s &quot;alert the moment a new spread clears your filters&quot; → &quot;a daily heads-up when a new spread clears your filters&quot; (digest framing).</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">**Date:** 2026-04-29 **Branch:** autobox/strikesight-scanner-mvp **Commit:** a26b588 **Repo:** https://github.com/tbuerky/StrikeSight **Cash balance:** $162.45 (no spend)</span></p>
+<p class="act"><span class="act-text">Last run shipped the Analysis.tsx Tailwind utility correctness sweep (117e11f). The remaining authenticated screens still on legacy emerald + framer-motion were Account.tsx (the billing/upgrade conversion surface) and Scanner.tsx (dead code, not imported anywhere).</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -46,76 +47,80 @@
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
     <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeSight Luke landing-copy polish (step #5 of locked HANDOFF build queue)</h1>
-<h2>Summary</h2>
-<p>Routed the new public LandingPage (<code>the scanner frontend</code>, shipped last run as commit <code>abf66d9</code>) through Luke for the customer-facing copy pass on the credit-spread-optimization story Travis named in the priority-shift session as the conversion lever (&quot;scans the whole S&amp;P, returns exact strikes and expirations that have been consistently profitable over time&quot;). Luke owned the rewrite; AutoBox-Hermes owned the integration: ran factual checks against the backend code, corrected two claims that didn&#x27;t match the implementation, applied the polished copy, verified builds + tests, committed, pushed.</p>
-<p>This is step #5 of the build queue locked into HANDOFF on 2026-04-28. Steps #2 (Cove tokens, <code>e8b805d</code>), #3 (Hunt as data table, <code>e8a3572</code>), and #4 (routing restructure + LandingPage shell, <code>abf66d9</code>) shipped earlier. Step #1 (Supabase <code>spread_results</code> warehouse SQL) is gated on Travis applying SQL via the dashboard.</p>
-<h2>Why this was the right autonomous move</h2>
+    <div class="artifact-prose"><h1>StrikeSight <code>/account</code> Cove pass + delete dead <code>Scanner.tsx</code></h1>
+<p><strong>Date:</strong> 2026-04-29</p>
+<p><strong>Branch:</strong> <code>autobox/strikesight-scanner-mvp</code></p>
+<p><strong>Commit:</strong> <code>a26b588</code></p>
+<p><strong>Repo:</strong> https://github.com/tbuerky/StrikeSight</p>
+<p><strong>Cash balance:</strong> $162.45 (no spend)</p>
+<h2>Why this run</h2>
+<p>Last run shipped the Analysis.tsx Tailwind utility correctness sweep (<code>117e11f</code>). The remaining authenticated screens still on legacy emerald + framer-motion were <code>Account.tsx</code> (the billing/upgrade conversion surface) and <code>Scanner.tsx</code> (dead code, not imported anywhere).</p>
+<p><code>Account.tsx</code> is the conversion-to-paid surface — when a user clicks <code>See plans</code> or <code>Upgrade</code> from any other page, they land here and are asked to hand over money. A polished landing → polished dashboard → 2024-era Tinder-grade billing screen would have undone the credibility built upstream. That makes Account the last user-visible authenticated screen the deploy needs to read as one product.</p>
+<p><code>Scanner.tsx</code> was 226 lines of dead code — a leftover from the pre-rebuild swipeable-card UI Hunt was rebuilt out of. No imports, not in <code>App.tsx</code>, pure drift risk if future Cove passes touched it.</p>
+<p>Wakeup brief explicitly favored &quot;pruning, grouping, hierarchy, or stronger product copy&quot; over piling more sections on the site. Scanner deletion is pruning; Account is hierarchy + stronger product copy on the conversion path.</p>
+<h2>What changed</h2>
+<h3><code>the scanner frontend</code> — end-to-end rewrite</h3>
+<p><strong>Stripped:</strong></p>
 <ul>
-<li>The locked HANDOFF queue says step #5 next.</li>
-<li>LandingPage shell exists (step #4 shipped) — there was a real surface for Luke to polish.</li>
-<li>Travis priority-shift quote explicitly ties revenue to &quot;telling the story&quot;: &quot;If you can correctly tell the story (scans whole S&amp;P, returns tickers and exact strikes and exps that have been consistently profitable over time) that is something people would pay a subscription for.&quot;</li>
-<li>Public-facing copy on a paid SaaS landing page is exactly Luke&#x27;s lane per RULES.md.</li>
-<li>Step #1 (warehouse SQL) and the Polygon subscribe gate are both owner-action gates — autonomous run cannot unblock them.</li>
+<li><code>import { motion } from &#x27;framer-motion&#x27;</code> and every <code>motion.div</code> (4 fade wrappers + the success message slide-in) and <code>motion.button</code> (Sign Out tap-scale)</li>
 </ul>
-<h2>Luke&#x27;s diagnosis</h2>
-<p>&gt; The hero subhead promises &quot;consistently profitable&quot; spreads, which a skeptical trader reads as a guarantee — and the rest of the page never names what the scanner is measuring against, so the claim floats. The fix is to ground the promise in the actual mechanic (historical win rate and EV per ticker, beaten against the 30-delta/45-DTE baseline) and let the reader judge it.</p>
-<h2>What changed (final shipped copy)</h2>
-<h3>Hero</h3>
+<p><strong>Tokenized:</strong></p>
 <ul>
-<li><strong>H1</strong>: <code>Credit spreads, optimized per ticker.</code> → <code>Stop selling 30-delta on every ticker.</code></li>
-<li>Picks the fight the buyer is already having in their head.</li>
-<li><strong>Subhead</strong>: dropped &quot;consistently profitable&quot; (sounds like a guarantee), grounded the claim in the actual mechanic — &quot;ranks every bull put and bear call by historical win rate and expected value, ticker by ticker. You see which delta and DTE has actually paid on AAPL, on UNH, on the names you trade — not the average of all of them.&quot;</li>
-<li>CTAs unchanged: <code>Run the scanner</code> / <code>How it works</code>.</li>
+<li><code>bg-dark-card</code> → <code>panel</code></li>
+<li><code>border-gray-800</code> → <code>border-border-subtle</code></li>
+<li><code>text-emerald</code> → <code>text-accent</code></li>
+<li><code>text-gray-{400,500,600}</code> → <code>text-fg-{secondary,muted}</code></li>
+<li><code>text-yellow-400</code> → <code>text-warn</code></li>
+<li><code>text-emerald</code> (status active) → <code>text-pos</code></li>
+<li><code>bg-emerald + text-white</code> (CTAs) → <code>bg-accent + text-bg-base</code></li>
+<li><code>bg-emerald/20 text-emerald</code> (current-plan badge) → <code>bg-accent-soft text-accent border-accent</code></li>
+<li><code>bg-yellow-900/20 border-yellow-500/30</code> (dev panel) → <code>panel border-l-2 border-l-warn</code></li>
+<li><code>bg-blue-600</code> / <code>bg-purple-600</code> / <code>bg-gray-600</code> (dev reset buttons) → consistent <code>bg-bg-elevated border border-border-subtle hover:border-border-strong</code></li>
+<li><code>text-2xl font-bold</code> (price) → <code>text-2xl font-semibold</code> + <code>.num</code> (tabular numerics + JetBrains Mono)</li>
+<li><code>rounded-lg</code> → <code>rounded-md</code> throughout</li>
+<li><code>text-3xl font-bold</code> (page title) → <code>text-3xl font-semibold</code></li>
+<li>numeric cells tagged with <code>.num</code> for tabular figures (analyses count, price, next billing date)</li>
 </ul>
-<h3>How it works</h3>
+<p><strong>Aligned tier feature copy with landing page promise verbatim:</strong></p>
+<p>The landing page (post-Luke polish, commit <code>eddc21f</code>) promises FREE-tier specs as <code>top 5 Hunt results/day, 2 ticker lookups/day, 1 year of history. No card required.</code> Account.tsx FREE row used to read <code>3 analyses per day, 1 year historical data, Basic scanner (10 tickers), No IV data</code> — wildly different feature, scope, and number. A user clicking <code>See plans</code> from the landing page was being shown a different product than the one promised. Replaced FREE features with the landing-page wording verbatim. STANDARD/PRO feature lists left alone — those tiers&#x27; specs aren&#x27;t documented in HANDOFF and changing them would be a product-content decision needing owner input.</p>
+<p><strong>Vite correctness:</strong></p>
 <ul>
-<li>Subhead reworded so each mode&#x27;s job is explicit: &quot;Hunt surfaces today&#x27;s best spreads, Ticker Analysis shows you why, Watchlist tells you when a fresh setup appears.&quot;</li>
+<li><code>process.env.NODE_ENV === &#x27;development&#x27;</code> → <code>import.meta.env.DEV</code>. The old form depended on Vite&#x27;s prod optimizer to replace <code>process.env.NODE_ENV</code> with <code>&#x27;production&#x27;</code> and dead-code-eliminate the dev panel. Replacing it with <code>import.meta.env.DEV</code> (Vite&#x27;s documented API) makes the dev-panel strip unambiguous in production builds.</li>
 </ul>
-<h3>Cards</h3>
+<p><strong>Copy polish in Luke voice:</strong></p>
 <ul>
-<li><strong>Hunt</strong> body now opens with &quot;A nightly scan&quot; — sets cadence before the reader can mistake it for a streaming tool.</li>
-<li><strong>Ticker Analysis</strong> body now ends with the workflow tie-in: &quot;Use it to confirm a Hunt result before you put it on.&quot;</li>
-<li><strong>Watchlist</strong> body now describes the actual hook (morning digest + heads-up on new filter-clearing setup).</li>
+<li><code>Today&#x27;s Usage</code> → <code>Today&#x27;s usage</code></li>
+<li><code>Subscription Plans</code> → <code>Plans</code></li>
+<li><code>Current Subscription</code> → <code>Current subscription</code></li>
+<li><code>Manage Billing</code> → <code>Manage billing</code></li>
+<li><code>⚠️ Development Tools</code> → <code>Development tools</code> (no warning emoji)</li>
+<li><code>Reset your tier to test different subscription levels and upgrade flows.</code> → <code>Reset your tier locally to test different subscription levels.</code></li>
+<li><code>Plan:</code> / <code>Status:</code> / <code>Next billing:</code> (trailing colons) → <code>Plan</code> / <code>Status</code> / <code>Next billing</code> (clean labels)</li>
+<li><code>Upgrade Successful!</code> → <code>Upgrade successful</code></li>
+<li><code>Your payment has been processed. Your new features will be available shortly.</code> → <code>Payment processed. Your new features will be available shortly.</code></li>
+<li><code>Got it!</code> → <code>Got it</code></li>
+<li><code>Sign Out</code> → <code>Sign out</code></li>
+<li><code>Made with ❤️ for traders</code> (twee filler) → removed</li>
+<li>Subtitle added under page title: <code>Plan, usage, and billing.</code> (one-line statement of what the page is)</li>
+<li><code>aria-label</code> added to: Manage billing button, Upgrade button (per-tier), Sign out button</li>
 </ul>
-<h3>Why ticker-specific</h3>
+<p><strong>Bug fix:</strong></p>
 <ul>
-<li><strong>H2</strong> reframed from a topic (&quot;Why ticker-specific delta and DTE matter.&quot;) to a position (&quot;The 30-delta rule is an average. You don&#x27;t trade the average.&quot;).</li>
-<li>Body strengthened with concrete contrasts and a tighter close.</li>
+<li>Usage % bar width was <code>(usage.analysisCount / limits.maxAnalysesPerDay) * 100</code> with no clamp — could overflow the bar visually if backend ever reported <code>analysisCount &gt; maxAnalysesPerDay</code>. Now clamped to <code>Math.min(100, ...)</code>.</li>
 </ul>
-<h3>Sample caption</h3>
+<p><strong>Preserved exactly:</strong></p>
 <ul>
-<li>&quot;Sample row from the scanner. Live results update against current options chains.&quot; → &quot;Illustrative row from the nightly scan. Refreshed each morning before the open.&quot;</li>
+<li>All hooks (<code>useUser</code>, <code>useState</code>, <code>useEffect</code>, <code>useSearchParams</code>)</li>
+<li>All Stripe handlers (<code>createCheckoutSession</code>, <code>createPortalSession</code>, <code>getStripePrices</code>, <code>getSubscriptionInfo</code>, <code>resetUserTier</code>)</li>
+<li>Tier names (<code>FREE</code>, <code>STANDARD</code>, <code>PRO</code>) and prices ($0, $9.99, $29.99) — these are tied to real Stripe price IDs in env (<code>STRIPE_STANDARD_PRICE_ID</code>, <code>STRIPE_PRO_PRICE_ID</code>) and changing them would require coordinated owner action in Stripe Dashboard</li>
+<li>Stripe success/cancel URL param handling</li>
+<li>Dev tier reset buttons (gated on <code>import.meta.env.DEV</code>)</li>
 </ul>
-<h3>Closing CTA</h3>
-<ul>
-<li>H2 reworded from <code>See what the scan finds on your watchlist.</code> → <code>See what the scan finds on the names you trade.</code> (broader, doesn&#x27;t presuppose the watchlist setup).</li>
-<li>Subhead trimmed of throat-clearing; free-tier specs preserved verbatim.</li>
-</ul>
-<h2>Two factual corrections AutoBox-Hermes made to Luke&#x27;s draft before applying</h2>
-<p>Luke&#x27;s &quot;Claims that need evidence before publishing&quot; section flagged both. Verified against the backend code rather than asking Travis:</p>
-<p>1. <strong>Scan cadence — Luke wrote &quot;Refreshed each evening after the close.&quot;</strong></p>
-<ul>
-<li>Verified <code>the scanner backend:152-167</code>: cron is <code>&#x27;30 14 <em> </em> 1-5&#x27;</code> and <code>&#x27;0 11 <em> </em> 1-5&#x27;</code> in <code>America/New_York</code> timezone — i.e., <strong>9:30 AM ET (market open)</strong> and a <strong>6:00 AM ET backup</strong>.</li>
-<li>The honest line is morning, not evening. Changed to: <code>Refreshed each morning before the open.</code></li>
-</ul>
-<p>2. <strong>Watchlist alerts — Luke wrote &quot;an alert the moment a new spread clears your filters.&quot;</strong></p>
-<ul>
-<li>Verified across <code>the scanner backend</code>: there&#x27;s a <code>watchlistServiceDB.ts</code> (read/add/remove on <code>/api/watchlist</code>) but <strong>no realtime alert/notification system</strong> is implemented. No push, no email service, no webhook firing on filter match.</li>
-<li>Digest-only is the honest version. Changed to: <code>a daily heads-up when a new spread clears your filters.</code></li>
-</ul>
-<p>These are exactly the kind of fingerprints customer copy can&#x27;t carry into a paid SaaS product — a buyer who signs up expecting realtime alerts and gets a daily digest is a refund + a one-star review.</p>
-<h2>Files changed</h2>
-<ul>
-<li><code>the scanner frontend</code>: 12 insertions, 12 deletions (in-place copy edits to H1, hero subhead, how-it-works subhead, three card bodies, why-section H2 + body para 1 + body para 2, sample caption, closing H2, closing subhead). No structural / className / route changes.</li>
-</ul>
+<h3><code>the scanner frontend</code> — deleted</h3>
+<p>Dead code. 226 lines. Not imported anywhere in <code>frontend/src/</code>. Not in <code>App.tsx</code> route map. Legacy duplicate of the pre-rebuild Hunt swipeable-card UI. Deletion removes drift risk if future Cove passes ever touched it and trims source-tree noise.</p>
 <h2>Verification</h2>
 <ul>
-<li><code>cd frontend &amp;&amp; npm run build</code> passes — bundle <code>dist/assets/index-BogrH6mv.js 454.83 kB</code> (was <code>454.49 kB</code> last run; +0.34 kB from a few longer copy strings), CSS <code>27.40 kB</code> (unchanged).</li>
-<li><code>cd backend &amp;&amp; npm run build</code> passes (tsc clean).</li>
-<li><code>SUPABASE_URL=http://localhost:0 SUPABASE_SECRET_KEY=dev HUNT_USE_FIXTURES=1 npx tsx --test src/services/huntFixtureMode.test.ts</code> passes <code>3/3</code>.</li>
-<li><code>git diff --stat HEAD~1 the scanner frontend</code> confirms only the one file changed.</li>
-<li>Public-copy hygi</li>
+<li><code>cd frontend &amp;&amp; npm run build</code> passes (bundle <code>dist/assets/index-JGsRcm1X.js 452.35 kB</code> / CSS <code>dist/assets/index-B9mTYHsT.css 24.11 kB</code> — CSS down <code>-1.78 kB</code> from removing legacy color utilities; js essentia</li>
 </ul></div>
   </section>
 

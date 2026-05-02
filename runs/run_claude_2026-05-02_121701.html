@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind options risk disclosure hardening &middot; AutoBox</title>
+<title>Strikerewind render deploy blocked billing &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,11 +33,11 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-02_121701</span>
   </div>
-  <h2 class="run-title">Strikerewind options risk disclosure hardening</h2>
+  <h2 class="run-title">Strikerewind render deploy blocked billing</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
-<p class="act"><span class="act-text">**Date:** 2026-05-02 **Branch:** autobox/strikerewind-rename **Commit:** 711abe8 **Files changed:** the scanner frontend (+1/-1), the scanner frontend (+3/-0)</span></p>
-<p class="act"><span class="act-text">StrikeRewind is queued to deploy the moment CARD ADDED: RENDER WORKSPACE clears. The landing page publishes specific Win%/EV% percentages (82.4% / 79.6% / 76.1% / +3.1% / +2.4% / +2.0% in the example output panel) computed from a backtest engine that does not model:</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">OPEN_GATES.md was empty entering this run; the 2026-05-01 (later x8) handoff explicitly named &quot;Render service creation (deploy pipeline step 2)&quot; as the next autonomous-runnable task. RENDER_API_KEY in `.env`, SUPABASE creds in `the backend env file`. Travis&#x27;s 2026-05-01 INTERACTIVE handoff: &quot;queue deploy work for autonomous runs… Next autonomous run should start the deploy pipeline.&quot; Step 1 done last run (commit `d070a8f`); step 2 was the only unblocked next-in-line. Highest-leverage move on the only path to StrikeRewind revenue.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">Build the `POST /v1/services` request with the full canonical config from `artifacts/2026-04-30-strikerewind-deploy-architecture-packet.md` and the deploy pipeline TODO (web_service, plan starter, region oregon, repo `https://github.com/tbuerky/StrikeSight`, branch `autobox/strikerewind-rename`, rootDir `backend`, autoDeploy yes, env `NODE_ENV=production` / `PORT=10000` / `SUPABASE_URL=...` / `SUPABASE_SECRET_KEY=...` / `FRONTEND_URL=https://strikerewind.com`, env env=node, buildCommand `npm install --include=dev &amp;&amp; npm run build`, startCommand `npm start`, healthCheckPath `/api/health`, numInstances 1). Fire the request.</span></p>
+<p class="act"><span class="act-label">Next</span><span class="act-text">Wait for Travis to add the card and reply `CARD ADDED: RENDER WORKSPACE`. On reply, the next autonomous run re-fires the same API call (request body persisted in the artifact) and proceeds to step 3 (set env vars — already in the create payload) → step 4 (deploy frontend to Vercel under the-shepherd-stack with `VITE_API_URL=&lt;render-url&gt;`). Adjacent autonomous-runnable options if the gate stays open: (a) Google Search Console verification meta-tag preparation packet so when Travis hands the verification token, AutoBox drops it into `frontend/index.html` in one move; (b) PAF `vercel.json` correctness sweep; (c) periodic AI Model Pricing Index re-verify next week (prices stable as of 2026-05-01 audit). Current cash balance: $162.45.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -47,137 +47,71 @@
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
     <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeRewind — pre-deploy options-risk disclosure hardening</h1>
-<p><strong>Date:</strong> 2026-05-02</p>
-<p><strong>Branch:</strong> <code>autobox/strikerewind-rename</code></p>
-<p><strong>Commit:</strong> <code>711abe8</code></p>
-<p><strong>Files changed:</strong> <code>the scanner frontend</code> (+1/-1), <code>the scanner frontend</code> (+3/-0)</p>
-<h2>Why now</h2>
-<p>StrikeRewind is queued to deploy the moment <code>CARD ADDED: RENDER WORKSPACE</code></p>
-<p>clears. The landing page publishes specific Win%/EV% percentages</p>
-<p>(82.4% / 79.6% / 76.1% / +3.1% / +2.4% / +2.0% in the example output</p>
-<p>panel) computed from a backtest engine that does not model:</p>
+    <div class="artifact-prose"><h1>StrikeRewind deploy blocked: Render workspace has no payment method</h1>
+<p><strong>Date</strong>: 2026-05-02</p>
+<p><strong>Run</strong>: Deploy pipeline step 2 (create Render web service via API)</p>
+<p><strong>Status</strong>: BLOCKED on Travis — owner-only action</p>
+<h2>What happened</h2>
+<p>Tried to create the StrikeRewind backend web service on Render via API per the</p>
+<p><code>[ACTIVE — DEPLOY PIPELINE]</code> step 2 in <code>the project&#x27;s TODO.md config</code>.</p>
+<p>Request: <code>POST https://api.render.com/v1/services</code> with the configuration from</p>
+<p><code>artifacts/2026-04-30-strikerewind-deploy-architecture-packet.md</code> (web_service,</p>
+<p>Starter plan $7/mo, repo <code>https://github.com/tbuerky/StrikeSight</code>, branch</p>
+<p><code>autobox/strikerewind-rename</code>, <code>rootDir: backend</code>, env vars: <code>NODE_ENV=production</code>,</p>
+<p><code>PORT=10000</code>, <code>SUPABASE_URL</code>, <code>SUPABASE_SECRET_KEY</code>, <code>FRONTEND_URL=https://strikerewind.com</code>,</p>
+<p>build <code>npm install --include=dev &amp;&amp; npm run build</code>, start <code>npm start</code>,</p>
+<p>healthcheck <code>/api/health</code>).</p>
+<p>Render API responded:</p>
+<pre><code>{&quot;message&quot;:&quot;Payment information is required to complete this request. To add a card, visit https://dashboard.render.com/billing&quot;}
+</code></pre>
+<p>The workspace ID on file (<code>tea-d7qhmmf7f7vs73fc4pk0</code>, &quot;My Workspace&quot;,</p>
+<p>[email]) has the API key working — auth is fine, owner ID is</p>
+<p>fine, the workspace exists — but no card is on file. Render gates ALL service</p>
+<p>creation behind billing setup, even for the $7/mo Starter plan, even for what</p>
+<p>would have been a brand-new workspace&#x27;s first service.</p>
+<p>Stripe production keys are also still missing from the deploy env (no</p>
+<p><code>STRIPE_SECRET_KEY</code> / <code>STRIPE_WEBHOOK_SECRET</code> in <code>.env</code>); this is a separate</p>
+<p>follow-up that fires after billing is unblocked, since the backend boots</p>
+<p>without Stripe (Stripe routes 500 until configured).</p>
+<h2>Exact next action — Travis</h2>
+<p>1. Go to <strong>https://dashboard.render.com/billing</strong></p>
+<p>2. Add a payment method (credit card) for the &quot;My Workspace&quot; workspace</p>
+<p>3. Reply: <code>CARD ADDED: RENDER WORKSPACE</code> so the next autonomous run can re-fire</p>
+<p>the service-creation API call and continue the deploy pipeline</p>
+<p>The next autonomous run after that reply does NOT need any further input from</p>
+<p>Travis to complete steps 2–4 of the deploy pipeline (Render service creation</p>
+<p>+ env vars + Vercel frontend deploy). Steps 5 (DNS) and 6 (Stripe production</p>
+<p>keys + webhook) remain owner-actions; step 7 (smoke test) and 8 (notify Travis)</p>
+<p>are AutoBox-runnable once 5 and 6 land.</p>
+<h2>Why this matters now</h2>
+<p>The <code>[ACTIVE — DEPLOY PIPELINE]</code> block in TODO.md is the only path to</p>
+<p>StrikeRewind revenue. Step 1 (DEV_MODE env-driven) shipped 2026-05-01 commit</p>
+<p><code>d070a8f</code>. Step 2 is the next-in-line, and it&#x27;s hard-blocked. Without a card</p>
+<p>on the Render workspace, no autonomous run can move this forward — adding</p>
+<p>the card is the single bottleneck on the whole revenue path right now.</p>
+<h2>What&#x27;s NOT blocked</h2>
 <ul>
-<li>broker commissions</li>
-<li>bid-ask spread</li>
-<li>slippage</li>
-<li>taxes</li>
-<li>forward-looking regime change</li>
+<li>Pre-deploy quality work continues to be autonomous-runnable (FAQ, methodology,</li>
 </ul>
-<p>For weekly options on retail accounts, bid-ask spread alone can</p>
-<p>routinely consume 5–10% of premium. A modeled <code>+2.0% EV</code> setup can be</p>
-<p>inverted in real-world execution. A user who trades what Hunt surfaces</p>
-<p>and loses money has a legitimate &quot;I relied on your number&quot; complaint</p>
-<p>unless the page acknowledges this gap.</p>
-<p>A <code>grep</code> of the entire <code>frontend/src</code> tree before this run returned</p>
-<p>zero matches for `options.*risk|substantial risk|slippage|bid-ask|</p>
-<p>commissions|hypothetical|Standardized Options`. Nowhere did the site</p>
-<p>acknowledge any of it. That is the disclosure gap closed by this run.</p>
-<h2>What changed</h2>
-<h3>Landing page methodology disclaimer</h3>
-<p><code>LandingPage.tsx:161-163</code>. One paragraph, customer-facing tone.</p>
-<p>Before:</p>
-<p>&gt; Backtest of historical price data, not a forecast. Past results do</p>
-<p>&gt; not guarantee future spreads behave the same way.</p>
-<p>After:</p>
-<p>&gt; Backtest of historical price data, not a forecast. Past results do</p>
-<p>&gt; not guarantee future spreads behave the same way. EV% is gross of</p>
-<p>&gt; broker commissions, bid-ask spread, slippage, and taxes — your</p>
-<p>&gt; real-world outcomes will differ from the modeled ones. Options</p>
-<p>&gt; trading involves substantial risk of loss and is not suitable for</p>
-<p>&gt; every investor.</p>
-<p>Two new sentences appended to the existing disclaimer. Same place on</p>
-<p>the page, same className, same tone. Buyer reading the methodology</p>
-<p>block now has the information they need to interpret the published</p>
-<p>EV% honestly.</p>
-<h3>Terms section 3 (Disclaimer of investment advice)</h3>
-<p><code>Terms.tsx:57-59</code>. New paragraph appended to the existing two-paragraph</p>
-<p>section. Adds:</p>
-<p>&gt; Options trading involves substantial risk of loss and is not suitable</p>
-<p>&gt; for every investor. Before trading options, you should review the</p>
-<p>&gt; Options Clearing Corporation&#x27;s &quot;Characteristics and Risks of</p>
-<p>&gt; Standardized Options&quot; disclosure document, which your broker is</p>
-<p>&gt; required to provide. Win rate and expected value figures published by</p>
-<p>&gt; the service are derived from a historical backtest and have inherent</p>
-<p>&gt; limitations: they do not include broker commissions, bid-ask spread,</p>
-<p>&gt; slippage, taxes, or other transaction costs, and they cannot account</p>
-<p>&gt; for events that have not yet occurred. Actual trading results will</p>
-<p>&gt; differ from modeled results.</p>
-<p>Document referenced by name without URL — brokers are required by SEC</p>
-<p>Rule 9b-1 to provide it as part of options-account approval, and a</p>
-<p>hardcoded URL would risk silent link rot.</p>
-<h2>What I deliberately did NOT do</h2>
+<p>metadata, robots.txt, sitemap.xml all already shipped — landing-page +</p>
+<p>pre-deploy chain is substantially complete).</p>
 <ul>
-<li><strong>Did NOT route through Luke.</strong> Same page just took two Luke passes</li>
+<li>PAF revenue path is intact, AdSense live, no regressions.</li>
+<li>AI utility properties unchanged.</li>
 </ul>
-<p>on 2026-05-01 (FAQ block commit <code>ec20bef</code>, methodology block commit</p>
-<p><code>8410703</code>). Adding regulatory boilerplate is correctness work, not</p>
-<p>voice work — same-week third Luke pass would burn quota for negligible</p>
-<p>gain.</p>
+<h2>Cash impact</h2>
+<p>None this run — Render rejected the call before any billable resource was</p>
+<p>created. Cash balance stays at <code>$162.45</code>. When the card lands and the service</p>
+<p>deploys, Render Starter plan = <code>$7/mo</code> (already pre-approved per closed gate</p>
+<p><code>APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO</code>).</p>
+<h2>Artifact files referenced</h2>
 <ul>
-<li><strong>Did NOT add a legal-disclaimer banner or modal.</strong> Inline disclosure</li>
+<li><code>artifacts/2026-04-30-strikerewind-deploy-architecture-packet.md</code> — full deploy</li>
 </ul>
-<p>in the methodology block + Terms is the right surface. A modal would</p>
-<p>read defensively and degrade the conversion path on the highest-</p>
-<p>intent visitor (someone reading the methodology has already chosen</p>
-<p>to engage seriously).</p>
+<p>architecture and ordered step list</p>
 <ul>
-<li><strong>Did NOT hardcode the OCC URL.</strong> Document name is the canonical</li>
-</ul>
-<p>reference; URLs to OCC documents have churned across redesigns over</p>
-<p>the past few years. Naming the document by its full title is sufficient</p>
-<p>for any user to locate it.</p>
-<ul>
-<li><strong>Did NOT touch Footer.tsx.</strong> It still uses legacy <code>bg-[#0a0a0a]</code> /</li>
-</ul>
-<p><code>border-[#1a1a1a]</code> / <code>text-neutral-*</code> tokens (the rest of the customer-</p>
-<p>facing surfaces moved to Cove tokens in commit <code>9fec19b</code>). Real</p>
-<p>inconsistency, but small visual one — flag for next adjacent run, not</p>
-<p>this one.</p>
-<ul>
-<li><strong>Did NOT add an &quot;I understand the risks&quot; checkbox to sign-up.</strong></li>
-</ul>
-<p>Friction on the activation path. Disclosure on the landing surface +</p>
-<p>Terms acceptance at sign-up is the standard pattern.</p>
-<h2>Verification</h2>
-<ul>
-<li><code>npm run build</code> (frontend): pass — 1921 modules, JS `352.86 → 353.69</li>
-</ul>
-<p>kB / +0.83 kB<code>, CSS </code>23.30 kB` unchanged</p>
-<ul>
-<li><code>npx tsx --test</code> (backend): <code>12/12</code> pass (3 huntFixtureMode +</li>
-</ul>
-<p>9 spreadResultsService)</p>
-<ul>
-<li>Public-copy hygiene per <code>RULES.md</code> rule 14/15: re-read both edited</li>
-</ul>
-<p>blocks. No AI-smell phrases (`leverage|empower|comprehensive|robust|</p>
-<p>dive into|unlock|elevate|best-in-class|seamless|experiment|launch|</p>
-<p>v2|draft`), no internal labels, no SEO scaffolding, no notes-to-self,</p>
-<p>no stale dates. Reads as part of the product.</p>
-<h2>Outcome</h2>
-<p>Commit <code>711abe8</code> pushed to <code>autobox/strikerewind-rename</code>. No deploy</p>
-<p>fires this run — Render is still gated on `CARD ADDED: RENDER</p>
-<p>WORKSPACE`. When deploy unblocks, both edits ship automatically with</p>
-<p>the rest of the branch. No new owner-blocking gate raised.</p>
-<h2>What this unblocks</h2>
-<p>On deploy day, the landing page no longer ships a credibility/legal</p>
-<p>gap. Any user who reads the methodology block sees that EV% does not</p>
-<p>include execution costs — preempting the &quot;your tool said +3% but I</p>
-<p>lost money on every trade&quot; failure mode that would surface on day 1</p>
-<p>of real traffic. Terms section 3 references the standard industry</p>
-<p>options-risk disclosure document, which is the language plaintiff</p>
-<p>attorneys, the SEC, FINRA, and arbitration panels all expect.</p>
-<h2>Cash balance</h2>
-<p><code>$162.45</code> (no change — no spend this run).</p>
-<h2>Next adjacent autonomous-runnable options if Render gate stays open</h2>
-<ul>
-<li>(a) Footer.tsx Cove-token alignment (legacy <code>bg-[#0a0a0a]</code> /</li>
-</ul>
-<p><code>border-[#1a1a1a]</code> / <code>text-neutral-*</code>); inconsistent with the rest</p>
-<p>of the customer-facing surfaces</p>
-<ul>
-<li>(b) Bing Webmast</li>
+<li><code>the project&#x27;s TODO.md config</code> <code>[ACTIVE — DEPLOY PIPELINE]</code> block — canonical step list</li>
+<li><code>the project&#x27;s HANDOFF.md config</code> 2026-05-01 INTERACTIVE entry — Travis&#x27;s queue-deploy-for-autonomous-runs direction</li>
 </ul></div>
   </section>
 

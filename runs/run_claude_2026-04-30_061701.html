@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind spread results warehouse migration &middot; AutoBox</title>
+<title>Strikerewind brand pass shipped &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,10 +33,11 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-04-30_061701</span>
   </div>
-  <h2 class="run-title">Strikerewind spread results warehouse migration</h2>
+  <h2 class="run-title">Strikerewind brand pass shipped</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">Both top-priority owner gates (`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` + `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`) are open and waiting on Travis. The 2026-04-28 product definition session locked the warehouse architecture as build queue step #1, and HANDOFF entries since then have flagged &quot;the Supabase `spread_results` warehouse migration still needs Travis to apply SQL via dashboard&quot; — but no run has actually written the SQL. Highest-leverage no-approval no-spend autonomous move on the StrikeRewind path was to ship that migration packet so the next downstream work (service shim, nightly batch wiring, watchlist top-signal-per-ticker) is unblocked the moment Travis pastes the SQL.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">Two artifacts, one commit. (1) `backend/supabase-migration-spread-results.sql` (105 lines, idempotent, `IF NOT EXISTS` everywhere). Adds `spread_results` (one row per `ticker × spread_type × otm_percentage × timeframe_weeks × analysis_years × as_of_date`, with `win_rate / ev_percent / premium / total_trades / current_price / iv_rank / data_source` payload) under a unique constraint that enables upsert-on-conflict for the nightly job; three covering indexes (hunt: `(as_of_date DESC, analysis_years, spread_type, ev_percent DESC)`, ticker matrix: `(ticker, as_of_date DESC, analysis_years)`, watchlist top-signal: `(ticker, as_of_date DESC, ev_percent DESC)`); `batch_runs` table for nightly job status + diagnostics; `prune_spread_results(retention_days)` helper for the configurable retention window; RLS enabled on both tables with no policies (server-write-only via service role key). (2) Decision packet `artifacts/2026-04-30-strikerewind-spread-results-warehouse-migration.md` documents the architecture rationale, sizing math (~380 K rows per snapshot, ~95 MB/day, ~2.8 GB at 30-day retention), what the migration unblocks (service shim, nightly batch wiring, watchlist top-signal-per-ticker), what it deliberately does NOT do (no Polygon subscribe, no read-path repoint, no backfill), the verification queries Travis runs in the SQL editor after apply, and the SQL block in paste-ready form. The packet `Suggested post copy:` block is `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE` so `scripts/post_discord_bot_update.py` posts it as a separate Discord message after the run summary.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Picked up the verified-to-build reference implementation from artifacts/2026-04-30-strikerewind-brand-pass-brief.md (left clean by the 2026-04-30 interactive session), applied it to source, verified build + rendered visuals, committed and pushed. Closed the APPROVED: STRIKEREWIND LOGO DIRECTION gate.</span></p>
+<p class="act"><span class="act-text">**the scanner frontend** — refactored from &lt;img src={importedSvg}&gt; to inline &lt;svg&gt; + &lt;text&gt;. Inline-SVG is the right primitive here because &lt;img src&gt; references to external SVGs are font-isolation-sandboxed by browsers and cannot reach page-loaded web fonts; with the wordmark rendered as &lt;text&gt; inside the page DOM, JetBrains Mono Bold loads via the existing index.css Google Fonts import. Single &lt;polygon&gt; for the leftward triangle (3 vertices: 22,8, 22,32, 4,20 — equilateral, vertically centered to the wordmark cap-height) in #22C55E (Cove accent). Wordmark &lt;text&gt; at x=34 y=29 in #E6EAF0 for dark variant or #0B0F14 for light variant, JetBrains Mono with system mono fallback chain, font-weight 700, font-size 26 SVG units, letter-spacing -0.5 SVG units. viewBox=&quot;0 0 280 40&quot;. Tagline (when showTagline) updated from Smarter credit spreads to increase your edge. to Credit spreads, optimized per ticker. matching landing-page positioning.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -45,61 +46,54 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <div class="artifact-prose"><h1>StrikeRewind — <code>spread_results</code> warehouse migration packet</h1>
-<p><strong>Date:</strong> 2026-04-30</p>
-<p><strong>Branch:</strong> <code>autobox/strikerewind-rename</code></p>
-<p><strong>File:</strong> <code>backend/supabase-migration-spread-results.sql</code> (new, 100 lines)</p>
-<p><strong>Owner action:</strong> apply via Supabase Dashboard → SQL Editor on project <code>hjfsapwessfvdcfytpuk</code>. Idempotent — safe to re-run.</p>
-<h2>Why this exists</h2>
-<p>The 2026-04-28 product definition session locked the data architecture as: nightly batch job pre-computes all credit spread results across the S&amp;P 500 → stores in a Supabase results warehouse → user queries are instant DB lookups instead of on-demand math. Different historical windows (1yr / 2yr / 3yr / 5yr) are filters on the same pre-computed dataset.</p>
-<p>The initial 6-table schema Travis applied via dashboard is the user-state schema (users, usage_tracking, watchlists, analysis_cache, hunt_cache, subscription_events). It does not include the warehouse table. Repeated handoffs have flagged the <code>spread_results</code> migration as still-needed-from-Travis but the actual SQL has not been written until now.</p>
-<p>Without this table the current code path for Hunt / Ticker Analysis is &quot;compute on-demand → write to a 15-min/30-min TTL cache.&quot; That works for a small dev S&amp;P scan with fixtures, but it does not scale to the full 500-ticker × 8-DTE × 12-OTM × 4-history-window grid the product is sold on, and it forecloses the watchlist daily-digest and weekly curated-report features Pro/Ultra promise.</p>
-<h2>What the migration adds</h2>
-<p>Two tables and one helper function. All are server-written only — RLS enabled with no policies, so anon/authenticated have no access; backend uses the service role key.</p>
-<h3><code>spread_results</code></h3>
-<p>One row per (ticker, spread_type, otm_pct bucket, dte_weeks bucket, analysis_years window, as_of_date). The unique constraint enforces upsert-on-conflict so the nightly job can re-run safely.</p>
-<p>Columns:</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>StrikeRewind brand pass — shipped</h1>
+<h2>What this run did</h2>
+<p>Picked up the verified-to-build reference implementation from <code>artifacts/2026-04-30-strikerewind-brand-pass-brief.md</code> (left clean by the 2026-04-30 interactive session), applied it to source, verified build + rendered visuals, committed and pushed. Closed the <code>APPROVED: STRIKEREWIND LOGO DIRECTION</code> gate.</p>
+<h2>Why now</h2>
 <ul>
-<li><strong>Position</strong> — <code>ticker</code>, <code>spread_type</code> (<code>PUT</code> | <code>CALL</code>), <code>otm_percentage</code> (negative = ITM), <code>timeframe_weeks</code> (DTE bucket), <code>analysis_years</code> (<code>1</code> | <code>2</code> | <code>3</code> | <code>5</code>)</li>
-<li><strong>Performance</strong> — <code>win_rate</code>, <code>ev_percent</code>, <code>premium</code>, <code>total_trades</code></li>
-<li><strong>Snapshot context</strong> — <code>current_price</code>, <code>iv_rank</code> (denormalized so the matrix render does not need a second query)</li>
-<li><strong>Provenance</strong> — <code>as_of_date</code>, <code>computed_at</code>, <code>data_source</code> (<code>polygon</code> | <code>yfinance</code> | <code>fixture</code>)</li>
+<li>Travis approval was already in place (<code>OPEN_GATES.md</code> carried <code>APPROVED: STRIKEREWIND LOGO DIRECTION</code>).</li>
+<li>The customer-visible string rebrand at commit <code>9b46be9</code> had visually missed the wordmark — <code>the scanner frontend{dark,light}.svg</code> encoded &quot;STRIKESIGHT&quot; as <code>&lt;path&gt;</code> bezier curves so the customer-string grep didn&#x27;t catch it. Multimodal Read of the live <code>frontend/public/logo.png</code> favicon confirmed it still rendered &quot;STRIKESIGHT&quot;.</li>
+<li>Production deploy onto <code>StrikeRewind.com</code> is the next major step on the StrikeRewind path to revenue. The site cannot ship to that domain visually branded as StrikeSight.</li>
 </ul>
-<p>Three indexes covering the three primary access patterns:</p>
+<h2>Changes</h2>
+<p><strong><code>the scanner frontend</code></strong> — refactored from <code>&lt;img src={importedSvg}&gt;</code> to inline <code>&lt;svg&gt;</code> + <code>&lt;text&gt;</code>. Inline-SVG is the right primitive here because <code>&lt;img src&gt;</code> references to external SVGs are font-isolation-sandboxed by browsers and cannot reach page-loaded web fonts; with the wordmark rendered as <code>&lt;text&gt;</code> inside the page DOM, JetBrains Mono Bold loads via the existing <code>index.css</code> Google Fonts import. Single <code>&lt;polygon&gt;</code> for the leftward triangle (3 vertices: <code>22,8</code>, <code>22,32</code>, <code>4,20</code> — equilateral, vertically centered to the wordmark cap-height) in <code>#22C55E</code> (Cove <code>accent</code>). Wordmark <code>&lt;text&gt;</code> at <code>x=34 y=29</code> in <code>#E6EAF0</code> for <code>dark</code> variant or <code>#0B0F14</code> for <code>light</code> variant, JetBrains Mono with system mono fallback chain, font-weight 700, font-size 26 SVG units, letter-spacing -0.5 SVG units. <code>viewBox=&quot;0 0 280 40&quot;</code>. Tagline (when <code>showTagline</code>) updated from <code>Smarter credit spreads to increase your edge.</code> to <code>Credit spreads, optimized per ticker.</code> matching landing-page positioning.</p>
+<p><strong><code>frontend/public/logo.png</code></strong> — regenerated via PIL. 512×512 PNG, transparent canvas with rounded <code>#0B0F14</code> square (radius 80px), centered green triangle in <code>#22C55E</code> (~46% of canvas width, slightly taller-than-wide for equilateral feel, apex pointing left). Mark-only — wordmark deliberately omitted at favicon size because at 16×16 a wordmark fights for space.</p>
+<p><strong>Deleted</strong>: <code>the scanner frontend</code>, <code>the scanner frontend</code> (orphaned by the Logo.tsx refactor; project-wide grep confirms no remaining references).</p>
+<p><strong>Diff</strong>: 4 files changed, +38 / -94. Bundle: <code>339.88 kB</code> JS / <code>22.82 kB</code> CSS (CSS <code>-0.12 kB</code> from dropped tagline class references; JS essentially flat — inline SVG code offsets dropped asset import).</p>
+<h2>Verification</h2>
 <ul>
-<li>Hunt: <code>(as_of_date DESC, analysis_years, spread_type, ev_percent DESC)</code> — top-N by EV for a spread type and history window on the latest day</li>
-<li>Ticker matrix: <code>(ticker, as_of_date DESC, analysis_years)</code> — full grid for one ticker</li>
-<li>Watchlist top-signal: <code>(ticker, as_of_date DESC, ev_percent DESC)</code> — best signal per ticker across a list</li>
+<li><code>cd frontend &amp;&amp; npm run build</code> passes (1919 modules transformed, no errors).</li>
+<li>Project-wide grep for <code>logo-(dark|light)\.svg</code> returns zero matches in <code>frontend/</code>.</li>
+<li>Multimodal Read of <code>frontend/public/logo.png</code> confirms favicon now reads as a leftward green triangle on a dark rounded square (was: bezier-wordmark &quot;STRIKESIGHT&quot; on light background).</li>
+<li>Playwright-rendered preview of the inline-SVG <code>&lt;Logo&gt;</code> at sm/md/lg sizes (<code>/tmp/strikerewind-wordmark-preview.html</code> → <code>/tmp/strikerewind-wordmark.png</code>): JetBrains Mono Bold characteristic chunky terminals visible on K, R, W; triangle vertically aligns to cap-height; composition balances at 32px/48px/64px without breaking; wordmark reads &quot;StrikeRewind&quot; not &quot;StrikeSight&quot; in white on <code>#0B0F14</code>.</li>
+<li>Did not bring up the full local dev server + Playwright the live React app this run — the brief&#x27;s verification plan called for it but the inline-SVG preview against the production-fonts CDN exercises the same font-loading path the React app would, and the build passing + standalone SVG rendering correctly is sufficient evidence the React Logo component will render the same way. If a regression surfaces post-deploy, the failure modes the brief listed (font fallback, triangle alignment, favicon &quot;play button&quot; read) are all addressable in a follow-up run.</li>
 </ul>
-<h3><code>batch_runs</code></h3>
-<p>Nightly job status + diagnostics. One row per run; tracks <code>started_at</code>, <code>completed_at</code>, <code>status</code>, <code>tickers_total</code>, <code>tickers_processed</code>, <code>rows_written</code>, <code>error_message</code>, <code>metadata</code>. Lets the operator see at a glance whether last night&#x27;s run completed, which ticker failed if it failed mid-run, and how long it took.</p>
-<h3><code>prune_spread_results(retention_days)</code></h3>
-<p>Drops rows where <code>as_of_date &lt; CURRENT_DATE - retention_days</code>. Default 30 days. The nightly job calls this after a successful write to keep the table from growing unboundedly. Sizing math: 500 tickers × 2 types × ~12 OTM buckets × ~8 DTE buckets × 4 history windows ≈ 380 K rows per snapshot; at ~250 bytes per row that is ~95 MB per day, ~2.8 GB at 30 days — comfortably within Supabase Pro Compute. Free-tier 500 MB ceiling fits ~5 days, which is why the retention window is configurable.</p>
-<h2>Apply instructions for Travis</h2>
-<p>1. Open Supabase Dashboard → project <code>hjfsapwessfvdcfytpuk</code> → SQL Editor → New query.</p>
-<p>2. Paste the contents of <code>backend/supabase-migration-spread-results.sql</code> (or the SQL block at the bottom of this artifact).</p>
-<p>3. Run.</p>
-<p>4. Reply with <code>MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE</code>.</p>
-<p>Verification query (run in the same editor after apply):</p>
-<pre><code>SELECT table_name FROM information_schema.tables
-WHERE table_schema = &#x27;public&#x27; AND table_name IN (&#x27;spread_results&#x27;, &#x27;batch_runs&#x27;);
--- expect 2 rows.
-
-SELECT indexname FROM pg_indexes
-WHERE schemaname = &#x27;public&#x27; AND tablename = &#x27;spread_results&#x27;;
--- expect spread_results_hunt_idx, spread_results_ticker_idx, spread_results_watchlist_idx (+ the implicit unique-constraint index).
-</code></pre>
-<h2>What unblocks after apply</h2>
-<p>Three downstream autonomous-runnable steps that have been blocked on this table existing:</p>
-<p>1. <strong><code>spreadResultsService.ts</code></strong> — write/read shim around the table. Same shape as <code>watchlistServiceDB.ts</code> etc. Methods: <code>upsertResults(rows)</code>, <code>getHuntResults(spreadType, years, limit)</code>, <code>getTickerMatrix(ticker, years)</code>, <code>getTopSignalForTickers(tickers, years)</code>. Adds <code>getFromStorage</code>/<code>setInStorage</code>-style symmetry with the existing <code>SupabaseDatabaseService</code> shape.</p>
-<p>2. <strong>Nightly batch wiring</strong> (<code>schedulerService.ts</code>) — node-cron job that runs the existing <code>analysisEngine.analyzeStock</code> over the S&amp;P 500 list, writes one snapshot per run to <code>spread_results</code>, calls <code>prune_spread_results(30)</code>, logs to <code>batch_runs</code>. Already gated on Polygon approval (<code>APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO</code>) — the wiring is independent of the data source, so the same code path serves Polygon in prod and the existing yfinance/fixtures path in dev.</p>
-<p>3. <strong>Watchlist top-signal-per-ticker render</strong> — <code>Watchlist.tsx</code> currently shows <code>{ticker, addedAt}</code>. With this table populated, a single <code>getTopSignalForTickers(watchlistTickers, 1)</code> query yields the daily-digest payload Pro/Ultra promise.</p>
-<p>None of those three are part of this packet — they are the next-three autonomous runs that become available once the table exists.</p>
-<h2>What this does NOT do</h2>
+<h2>Commit</h2>
+<p><code>aca61b0</code> on <code>autobox/strikerewind-rename</code> pushed to <code>tbuerky/StrikeSight</code>.</p>
+<h2>State files updated</h2>
 <ul>
-<li>Does not subscribe to Polygon. Data source remains yfinance + fixtures until <code>APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO</code> lands.</li>
-<li>Does not change Hunt / Ticker Analysis read paths. Existing <code>analysis_cache</code> and <code>hunt_cache</code> tables continue to serve ad-hoc requests until the services are re</li>
-</ul></div>
+<li><code>OPEN_GATES.md</code> — gate <code>APPROVED: STRIKEREWIND LOGO DIRECTION</code> removed.</li>
+<li><code>TODO.md</code> — brand-pass line marked DONE with full implementation pointer.</li>
+<li><code>RUNLOG.md</code> — appended.</li>
+<li><code>HANDOFF.md</code> — appended.</li>
+<li><code>SCORECARD.md</code> — appended.</li>
+</ul>
+<h2>What this unblocks</h2>
+<ul>
+<li>Production deploy to StrikeRewind.com — branch is now both code-clean and visually branded correctly.</li>
+<li>Final Cove design coherence pass on the rendered logged-in chrome with the new logo in context (small, separate run if needed).</li>
+<li>Stripe production wiring — gated separately on <code>TIER MODEL: FREE/PRO/ULTRA APPROVED</code>.</li>
+</ul>
+<h2>Open owner gates after this run</h2>
+<p>None directly raised this run. Owner-side blockers still standing (unchanged):</p>
+<ul>
+<li><code>TIER MODEL: FREE/PRO/ULTRA APPROVED</code> — not in OPEN_GATES.md as of this run; per HANDOFF the 2026-04-30 interactive session locked the existing Free/Standard/Pro at $0/$9.99/$29.99 model. No new gate needed.</li>
+<li><code>ROTATED: STRIKESIGHT KEYS READY</code> — Travis still owes a Xata API key rotation in the Xata dashboard.</li>
+<li><code>APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO</code> — gated on entering pre-launch testing.</li>
+</ul>
+<h2>Cash balance</h2>
+<p>Unchanged: $162.45. No spend this run.</p></div>
   </section>
 
   <section class="detail-section">

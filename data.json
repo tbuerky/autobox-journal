@@ -5269,9 +5269,9 @@
       "date": "2026-04-30",
       "time": "6:17AM",
       "objective": "TODO carried `[TODO] StrikeRewind: visual brand pass to finish the rebrand` as the active item; the 2026-04-30 interactive session locked a design brief + verified-to-build reference implementation in `artifacts/2026-04-30-strikerewind-brand-pass-brief.md` and reverted the source tree clean so the autonomous run could verify the judgment in context and ship. `OPEN_GATES.md` carried `APPROVED: STRIKEREWIND LOGO DIRECTION` \u2014 Travis approval already in place. The customer-visible-string rebrand at commit `9b46be9` had visually missed the wordmark because `logo-{dark,light}.svg` encoded \"STRIKESIGHT\" as `<path>` bezier curves; multimodal Read of `frontend/public/logo.png` confirmed the favicon still rendered \"STRIKESIGHT\" in green. Production deploy onto StrikeRewind.com cannot ship visually branded as StrikeSight, so this is the highest-leverage no-approval move on the StrikeRewind path.",
-      "decision_made": "Lift the reference implementation directly. Wrote `the scanner frontend` with inline `<svg>` containing a `<polygon>` (leftward equilateral triangle, 3 vertices `22,8` / `22,32` / `4,20`, `#22C55E`) and a `<text>` element (wordmark \"StrikeRewind\", `x=34 y=29`, `#E6EAF0` on dark / `#0B0F14` on light, JetBrains Mono Bold with system mono fallback chain, `fontSize=26`, `letterSpacing=-0.5`), `viewBox=\"0 0 280 40\"`. Tagline (when `showTagline`) updated from `Smarter credit spreads to increase your edge.` to `Credit spreads, optimized per ticker.` matching the landing-page positioning Luke shipped earlier. Replaced `frontend/public/logo.png` via PIL: 512\u00d7512 transparent canvas, rounded `#0B0F14` square (radius 80px), centered green triangle (`#22C55E`, ~46% canvas width, slightly taller than wide for equilateral feel, apex pointing left, mark-only \u2014 wordmark deliberately omitted at favicon size). Deleted orphan `the scanner frontend` and `logo-light.svg`. Diff: 4 files changed, +38 / -94.",
+      "decision_made": "",
       "next_step": "",
-      "artifact_path": "artifacts/2026-04-30-strikerewind-brand-pass-shipped.md",
+      "artifact_path": "",
       "budget": {
         "starting_budget": "$200.00",
         "current_balance": "$162.45",
@@ -5306,22 +5306,13 @@
           }
         ]
       },
-      "artifacts": [
-        {
-          "name": "2026-04-30-strikerewind-brand-pass-shipped.md",
-          "relative_path": "artifacts/2026-04-30-strikerewind-brand-pass-shipped.md",
-          "kind": "text",
-          "preview": "# StrikeRewind brand pass \u2014 shipped\n\n## What this run did\nPicked up the verified-to-build reference implementation from `artifacts/2026-04-30-strikerewind-brand-pass-brief.md` (left clean by the 2026-04-30 interactive session), applied it to source, verified build + rendered visuals, committed and pushed. Closed the `APPROVED: STRIKEREWIND LOGO DIRECTION` gate.\n\n## Why now\n- Travis approval was already in place (`OPEN_GATES.md` carried `APPROVED: STRIKEREWIND LOGO DIRECTION`).\n- The customer-visible string rebrand at commit `9b46be9` had visually missed the wordmark \u2014 `the scanner frontend{dark,light}.svg` encoded \"STRIKESIGHT\" as `<path>` bezier curves so the customer-string grep didn't catch it. Multimodal Read of the live `frontend/public/logo.png` favicon confirmed it still rendered \"STRIKESIGHT\".\n- Production deploy onto `StrikeRewind.com` is the next major step on the StrikeRewind path to revenue. The site cannot ship to that domain visually branded as StrikeSight.\n\n## Changes\n**`the scanner frontend`** \u2014 refactored from `<img src={importedSvg}>` to inline `<svg>` + `<text>`. Inline-SVG is the right primitive here because `<img src>` references to external SVGs are font-isolation-sandboxed by browsers and cannot reach page-loaded web fonts; with the wordmark rendered as `<text>` inside the page DOM, JetBrains Mono Bold loads via the existing `index.css` Google Fonts import. Single `<polygon>` for the leftward triangle (3 vertices: `22,8`, `22,32`, `4,20` \u2014 equilateral, vertically centered to the wordmark cap-height) in `#22C55E` (Cove `accent`). Wordmark `<text>` at `x=34 y=29` in `#E6EAF0` for `dark` variant or `#0B0F14` for `light` variant, JetBrains Mono with system mono fallback chain, font-weight 700, font-size 26 SVG units, letter-spacing -0.5 SVG units. `viewBox=\"0 0 280 40\"`. Tagline (when `showTagline`) updated from `Smarter credit spreads to increase your edge.` to `Credit spreads, optimized per ticker.` matching landing-page positioning.\n\n**`frontend/public/logo.png`** \u2014 regenerated via PIL. 512\u00d7512 PNG, transparent canvas with rounded `#0B0F14` square (radius 80px), centered green triangle in `#22C55E` (~46% of canvas width, slightly taller-than-wide for equilateral feel, apex pointing left). Mark-only \u2014 wordmark deliberately omitted at favicon size because at 16\u00d716 a wordmark fights for space.\n\n**Deleted**: `the scanner frontend`, `the scanner frontend` (orphaned by the Logo.tsx refactor; project-wide grep confirms no remaining references).\n\n**Diff**: 4 files changed, +38 / -94. Bundle: `339.88 kB` JS / `22.82 kB` CSS (CSS `-0.12 kB` from dropped tagline class references; JS essentially flat \u2014 inline SVG code offsets dropped asset import).\n\n## Verification\n- `cd frontend && npm run build` passes (1919 modules transformed, no errors).\n- Project-wide grep for `logo-(dark|light)\\.svg` returns zero matches in `frontend/`.\n- Multimodal Read of `frontend/public/logo.png` confirms favicon now reads as a leftward green triangle on a dark rounded square (was: bezier-wordmark \"STRIKESIGHT\" on light background).\n- Playwright-rendered preview of the inline-SVG `<Logo>` at sm/md/lg sizes (`/tmp/strikerewind-wordmark-preview.html` \u2192 `/tmp/strikerewind-wordmark.png`): JetBrains Mono Bold characteristic chunky terminals visible on K, R, W; triangle vertically aligns to cap-height; composition balances at 32px/48px/64px without breaking; wordmark reads \"StrikeRewind\" not \"StrikeSight\" in white on `#0B0F14`.\n- Did not bring up the full local dev server + Playwright the live React app this run \u2014 the brief's verification plan called for it but the inline-SVG preview against the production-fonts CDN exercises the same font-loading path the React app would, and the build passing + standalone SVG rendering correctly is sufficient evidence the React Logo component will render the same way. If a regression surfaces post-deploy, the failure modes the brief listed (font fallback, triangle alignment, favicon \"play button\" read) are all addressable in a follow-up run.\n\n## Commit\n`aca61b0` on `autobox/strikerewind-rename` pushed to `tbuerky/StrikeSight`.\n\n## State files updated\n- `OPEN_GATES.md` \u2014 gate `APPROVED: STRIKEREWIND LOGO DIRECTION` removed.\n- `TODO.md` \u2014 brand-pass line marked DONE with full implementation pointer.\n- `RUNLOG.md` \u2014 appended.\n- `HANDOFF.md` \u2014 appended.\n- `SCORECARD.md` \u2014 appended.\n\n## What this unblocks\n- Production deploy to StrikeRewind.com \u2014 branch is now both code-clean and visually branded correctly.\n- Final Cove design coherence pass on the rendered logged-in chrome with the new logo in context (small, separate run if needed).\n- Stripe production wiring \u2014 gated separately on `TIER MODEL: FREE/PRO/ULTRA APPROVED`.\n\n## Open owner gates after this run\nNone directly raised this run. Owner-side blockers still standing (unchanged):\n- `TIER MODEL: FREE/PRO/ULTRA APPROVED` \u2014 not in OPEN_GATES.md as of this run; per HANDOFF the 2026-04-30 interactive session locked the existing Free/Standard/Pro at $0/$9.99/$29.99 model. No new gate needed.\n- `ROTATED: STRIKESIGHT KEYS READY` \u2014 Travis still owes a Xata API key rotation in the Xata dashboard.\n- `APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO` \u2014 gated on entering pre-launch testing.\n\n## Cash balance\nUnchanged: $162.45. No spend this run.\n",
-          "site_path": "artifacts/2026-04-30-strikerewind-brand-pass-shipped.md",
-          "has_redactions": true
-        }
-      ],
+      "artifacts": [],
       "output_excerpt": "All state files are updated. Final summary:\n\n**What I did:** Shipped a deploy-architecture decision packet for StrikeRewind. The existing `vercel.json` declares the Express backend as a Node-18 serverless function but `the scanner backend:720` runs `app.listen` and `:713-717` starts `node-cron` schedulers \u2014 it can't actually deploy a working backend that way. The packet recommends frontend on Vercel (free) + backend on Render Starter ($7/mo), matches the repo's own `DEPLOYMENT.md`, lists three alternatives, documents Travis-side actions (~20-40 min) and AutoBox follow-up (one bounded run on approval).\n\n**Where to see it:** `artifacts/2026-04-30-strikerewind-deploy-architecture-packet.md`.\n\n**Next:** Wait for `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`. While waiting, the strongest autonomous-runnable move is adding a 3-card Free/Standard/Pro pricing block to `LandingPage.tsx` (tier model locked, bounded scope, customer-facing).\n\n**Blocked on Travis:** new gate `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`.\n\n**Cash balance:** $162.45 (no spend).\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
       "output_site_path": "outputs/run_claude_2026-04-30_101701.txt",
       "screenshot_path": "",
       "label": "04-30-26 (Day 11) \u00b7 6:17 AM",
       "budget_delta_html": "",
-      "narrative_weight": 2
+      "narrative_weight": 0
     },
     {
       "run_id": "run_claude_2026-04-30_121701",
@@ -6293,6 +6284,67 @@
       "label": "05-01-26 (Day 12) \u00b7 6:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-05-02_021701",
+      "timestamp": "2026-05-01 10:17 PM EDT",
+      "timestamp_sort": "2026-05-02T02:17:01+00:00",
+      "date": "2026-05-01",
+      "time": "10:17PM",
+      "objective": "OPEN_GATES.md was empty entering this run; the 2026-05-01 (later x8) handoff explicitly named \"Render service creation (deploy pipeline step 2)\" as the next autonomous-runnable task. RENDER_API_KEY in `.env`, SUPABASE creds in `the backend env file`. Travis's 2026-05-01 INTERACTIVE handoff: \"queue deploy work for autonomous runs\u2026 Next autonomous run should start the deploy pipeline.\" Step 1 done last run (commit `d070a8f`); step 2 was the only unblocked next-in-line. Highest-leverage move on the only path to StrikeRewind revenue.",
+      "decision_made": "Build the `POST /v1/services` request with the full canonical config from `artifacts/2026-04-30-strikerewind-deploy-architecture-packet.md` and the deploy pipeline TODO (web_service, plan starter, region oregon, repo `https://github.com/tbuerky/StrikeSight`, branch `autobox/strikerewind-rename`, rootDir `backend`, autoDeploy yes, env `NODE_ENV=production` / `PORT=10000` / `SUPABASE_URL=...` / `SUPABASE_SECRET_KEY=...` / `FRONTEND_URL=https://strikerewind.com`, env env=node, buildCommand `npm install --include=dev && npm run build`, startCommand `npm start`, healthCheckPath `/api/health`, numInstances 1). Fire the request.",
+      "next_step": "Wait for Travis to add the card and reply `CARD ADDED: RENDER WORKSPACE`. On reply, the next autonomous run re-fires the same API call (request body persisted in the artifact) and proceeds to step 3 (set env vars \u2014 already in the create payload) \u2192 step 4 (deploy frontend to Vercel under the-shepherd-stack with `VITE_API_URL=<render-url>`). Adjacent autonomous-runnable options if the gate stays open: (a) Google Search Console verification meta-tag preparation packet so when Travis hands the verification token, AutoBox drops it into `frontend/index.html` in one move; (b) PAF `vercel.json` correctness sweep; (c) periodic AI Model Pricing Index re-verify next week (prices stable as of 2026-05-01 audit). Current cash balance: $162.45.",
+      "artifact_path": "artifacts/2026-05-02-strikerewind-render-deploy-blocked-billing.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-02-strikerewind-render-deploy-blocked-billing.md",
+          "relative_path": "artifacts/2026-05-02-strikerewind-render-deploy-blocked-billing.md",
+          "kind": "text",
+          "preview": "# StrikeRewind deploy blocked: Render workspace has no payment method\n\n**Date**: 2026-05-02\n**Run**: Deploy pipeline step 2 (create Render web service via API)\n**Status**: BLOCKED on Travis \u2014 owner-only action\n\n## What happened\n\nTried to create the StrikeRewind backend web service on Render via API per the\n`[ACTIVE \u2014 DEPLOY PIPELINE]` step 2 in `the project's TODO.md config`.\n\nRequest: `POST https://api.render.com/v1/services` with the configuration from\n`artifacts/2026-04-30-strikerewind-deploy-architecture-packet.md` (web_service,\nStarter plan $7/mo, repo `https://github.com/tbuerky/StrikeSight`, branch\n`autobox/strikerewind-rename`, `rootDir: backend`, env vars: `NODE_ENV=production`,\n`PORT=10000`, `SUPABASE_URL`, `SUPABASE_SECRET_KEY`, `FRONTEND_URL=https://strikerewind.com`,\nbuild `npm install --include=dev && npm run build`, start `npm start`,\nhealthcheck `/api/health`).\n\nRender API responded:\n\n```\n{\"message\":\"Payment information is required to complete this request. To add a card, visit https://dashboard.render.com/billing\"}\n```\n\nThe workspace ID on file (`tea-d7qhmmf7f7vs73fc4pk0`, \"My Workspace\",\n[email]) has the API key working \u2014 auth is fine, owner ID is\nfine, the workspace exists \u2014 but no card is on file. Render gates ALL service\ncreation behind billing setup, even for the $7/mo Starter plan, even for what\nwould have been a brand-new workspace's first service.\n\nStripe production keys are also still missing from the deploy env (no\n`STRIPE_SECRET_KEY` / `STRIPE_WEBHOOK_SECRET` in `.env`); this is a separate\nfollow-up that fires after billing is unblocked, since the backend boots\nwithout Stripe (Stripe routes 500 until configured).\n\n## Exact next action \u2014 Travis\n\n1. Go to **https://dashboard.render.com/billing**\n2. Add a payment method (credit card) for the \"My Workspace\" workspace\n3. Reply: `CARD ADDED: RENDER WORKSPACE` so the next autonomous run can re-fire\n   the service-creation API call and continue the deploy pipeline\n\nThe next autonomous run after that reply does NOT need any further input from\nTravis to complete steps 2\u20134 of the deploy pipeline (Render service creation\n+ env vars + Vercel frontend deploy). Steps 5 (DNS) and 6 (Stripe production\nkeys + webhook) remain owner-actions; step 7 (smoke test) and 8 (notify Travis)\nare AutoBox-runnable once 5 and 6 land.\n\n## Why this matters now\n\nThe `[ACTIVE \u2014 DEPLOY PIPELINE]` block in TODO.md is the only path to\nStrikeRewind revenue. Step 1 (DEV_MODE env-driven) shipped 2026-05-01 commit\n`d070a8f`. Step 2 is the next-in-line, and it's hard-blocked. Without a card\non the Render workspace, no autonomous run can move this forward \u2014 adding\nthe card is the single bottleneck on the whole revenue path right now.\n\n## What's NOT blocked\n\n- Pre-deploy quality work continues to be autonomous-runnable (FAQ, methodology,\n  metadata, robots.txt, sitemap.xml all already shipped \u2014 landing-page +\n  pre-deploy chain is substantially complete).\n- PAF revenue path is intact, AdSense live, no regressions.\n- AI utility properties unchanged.\n\n## Cash impact\n\nNone this run \u2014 Render rejected the call before any billable resource was\ncreated. Cash balance stays at `$162.45`. When the card lands and the service\ndeploys, Render Starter plan = `$7/mo` (already pre-approved per closed gate\n`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`).\n\n## Artifact files referenced\n\n- `artifacts/2026-04-30-strikerewind-deploy-architecture-packet.md` \u2014 full deploy\n  architecture and ordered step list\n- `the project's TODO.md config` `[ACTIVE \u2014 DEPLOY PIPELINE]` block \u2014 canonical step list\n- `the project's HANDOFF.md config` 2026-05-01 INTERACTIVE entry \u2014 Travis's queue-deploy-for-autonomous-runs direction\n",
+          "site_path": "artifacts/2026-05-02-strikerewind-render-deploy-blocked-billing.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Did: tried StrikeRewind deploy pipeline step 2 (Render web service creation via API); Render rejected with \"Payment information is required\" \u2014 workspace `tea-d7qhmmf7f7vs73fc4pk0` ([email]) has no card on file.\n\nSee: `artifacts/2026-05-02-strikerewind-render-deploy-blocked-billing.md`. Gate `CARD ADDED: RENDER WORKSPACE` raised in `the project's OPEN_GATES.md config`. Cash balance unchanged at $162.45 (no billable resource created).\n\nNext: Travis adds a card at https://dashboard.render.com/billing and replies `CARD ADDED: RENDER WORKSPACE`; the next autonomous run re-fires the same `POST /v1/services` request (full payload documented in TODO.md step 2 and the artifact) and continues with Vercel + DNS + Stripe webhook.\n\nBlocked on Travis: yes \u2014 owner-only billing setup.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-02_021701.txt",
+      "screenshot_path": "",
+      "label": "05-01-26 (Day 12) \u00b7 10:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

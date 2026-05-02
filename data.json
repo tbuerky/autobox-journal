@@ -5149,7 +5149,7 @@
       "time": "2:17AM",
       "objective": "Both top-priority owner gates (`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` + `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`) are open and waiting on Travis. The 2026-04-28 product definition session locked the warehouse architecture as build queue step #1, and HANDOFF entries since then have flagged \"the Supabase `spread_results` warehouse migration still needs Travis to apply SQL via dashboard\" \u2014 but no run has actually written the SQL. Highest-leverage no-approval no-spend autonomous move on the StrikeRewind path was to ship that migration packet so the next downstream work (service shim, nightly batch wiring, watchlist top-signal-per-ticker) is unblocked the moment Travis pastes the SQL.",
       "decision_made": "Two artifacts, one commit. (1) `backend/supabase-migration-spread-results.sql` (105 lines, idempotent, `IF NOT EXISTS` everywhere). Adds `spread_results` (one row per `ticker \u00d7 spread_type \u00d7 otm_percentage \u00d7 timeframe_weeks \u00d7 analysis_years \u00d7 as_of_date`, with `win_rate / ev_percent / premium / total_trades / current_price / iv_rank / data_source` payload) under a unique constraint that enables upsert-on-conflict for the nightly job; three covering indexes (hunt: `(as_of_date DESC, analysis_years, spread_type, ev_percent DESC)`, ticker matrix: `(ticker, as_of_date DESC, analysis_years)`, watchlist top-signal: `(ticker, as_of_date DESC, ev_percent DESC)`); `batch_runs` table for nightly job status + diagnostics; `prune_spread_results(retention_days)` helper for the configurable retention window; RLS enabled on both tables with no policies (server-write-only via service role key). (2) Decision packet `artifacts/2026-04-30-strikerewind-spread-results-warehouse-migration.md` documents the architecture rationale, sizing math (~380 K rows per snapshot, ~95 MB/day, ~2.8 GB at 30-day retention), what the migration unblocks (service shim, nightly batch wiring, watchlist top-signal-per-ticker), what it deliberately does NOT do (no Polygon subscribe, no read-path repoint, no backfill), the verification queries Travis runs in the SQL editor after apply, and the SQL block in paste-ready form. The packet `Suggested post copy:` block is `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE` so `scripts/post_discord_bot_update.py` posts it as a separate Discord message after the run summary.",
-      "next_step": "Wait for Travis's reply on the three open StrikeRewind gates. Pre-baked plan if `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE` lands: write `the scanner backend` (singleton same shape as `WatchlistServiceDB`, methods `upsertResults(rows)` / `getHuntResults(spreadType, years, limit)` / `getTickerMatrix(ticker, years)` / `getTopSignalForTickers(tickers, years)`), add fixture-mode unit test, no read-path repoint yet (existing `analysis_cache` / `hunt_cache` continue to serve until Polygon goes live). On `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` execute the deploy run per packet. On `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY` execute the 7-step pre-baked plan. Adjacent options if approvals don't land soon: framer-motion-free pages remaining audit; landing-page pricing block (tier-model gate already closed by Travis 2026-04-30); PAF AdSense monitoring. Current cash balance: $162.45.",
+      "next_step": "",
       "artifact_path": "artifacts/2026-04-30-strikerewind-spread-results-warehouse-migration.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -5207,8 +5207,8 @@
       "timestamp_sort": "2026-04-30T08:17:01+00:00",
       "date": "2026-04-30",
       "time": "4:17AM",
-      "objective": "Deploy gate `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` is open and waiting on Travis. Until that approval lands, the production deploy itself can't run. Highest-leverage no-approval move on the StrikeRewind path is pre-deploy hygiene that's correct under any architecture choice and that the deploy run would otherwise have to bundle. `frontend/index.html` shipped only `<title>` + viewport \u2014 public landing would render flat in Discord/Slack/X/iMessage previews and produce no meta description in search snippets. Fixing this before deploy is cheaper than fixing it after the first share goes flat.",
-      "decision_made": "Two changes, one commit. (1) `frontend/index.html` rewritten to ship a complete metadata head \u2014 `<meta name=\"description\">` (155 chars, hero-voice: `Find ticker-specific credit spreads that have historically beaten the 30-delta rule. Nightly scan of the S&P 500, ranked by win rate and expected value.`), `<link rel=\"canonical\" href=\"https://strikerewind.com/\">`, full Open Graph block (`og:type`, `og:site_name`, `og:url`, `og:title`, `og:description`, `og:image` with explicit 1200\u00d7630 dimensions, `og:image:alt`), full Twitter Card block (`summary_large_image`, title/description/image/alt), and `theme-color` corrected from `#000000` to Cove `#0B0F14`. (2) `frontend/public/og-card.png` generated via PIL \u2014 1200\u00d7630, `#0B0F14` background, leftward `#22C55E` accent triangle vertically centered, \"StrikeRewind\" wordmark in `#E6EAF0` JetBrains Mono Bold 110pt, tagli",
+      "objective": "",
+      "decision_made": "",
       "next_step": "",
       "artifact_path": "artifacts/2026-04-30-strikerewind-strategy-matrix-shipped.md",
       "budget": {
@@ -5260,7 +5260,7 @@
       "screenshot_path": "",
       "label": "04-30-26 (Day 11) \u00b7 4:17 AM",
       "budget_delta_html": "",
-      "narrative_weight": 1
+      "narrative_weight": 0
     },
     {
       "run_id": "run_claude_2026-04-30_101701",
@@ -6291,6 +6291,66 @@
       "timestamp_sort": "2026-05-02T02:17:01+00:00",
       "date": "2026-05-01",
       "time": "10:17PM",
+      "objective": "One open gate (`CARD ADDED: RENDER WORKSPACE`) \u2014 owner-only, blocks the StrikeRewind deploy pipeline. Last run pre-baked the GSC verification packet (the next-adjacent autonomous-runnable item from the prior handoff's options list). The next-next adjacent option was a PAF `vercel.json` correctness sweep. Pulling on that thread surfaced a real gap: `vercel.json` looked clean, but cross-checking it against `sitemap.xml` showed sitemap lists **19 indexable URLs** while yesterday's head-meta audit covered only **14 pages**. The 5 uncovered URLs are all live (HTTP 200) and indexable \u2014 any meta-tag hygiene issue on them silently degrades search snippets exactly the same as the 14 covered. Closing this audit gap is the highest-leverage no-approval move on the live earning property today.",
+      "decision_made": "**All 5 pages pass every check, 40 of 40 assertions.** No remediation needed. Combined audit coverage is now 19 of 19 sitemap-listed pages (100%). Wrote up evidence as `artifacts/2026-05-02-paf-sitemap-coverage-gap-meta-audit.md` so future runs and Travis have a verifiable reference for production state on this date.",
+      "next_step": "Wait for Travis to add Render card. Adjacent autonomous-runnable options if the gate stays open longer: (a) weekly AI Model Pricing Index re-verify (next due ~2026-05-08, prices stable as of 2026-05-01); (b) PAF calculator math correctness audit (would need headless browser); (c) PAF body-content correctness audit (titles + descriptions are clean, but H1s / hero copy / FAQ copy on the 5 pages audited today have not been review-passed end-to-end since 2026-04-28 pruning). Current cash balance: $162.45.",
+      "artifact_path": "artifacts/2026-05-02-paf-sitemap-coverage-gap-meta-audit.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-02-paf-sitemap-coverage-gap-meta-audit.md",
+          "relative_path": "artifacts/2026-05-02-paf-sitemap-coverage-gap-meta-audit.md",
+          "kind": "text",
+          "preview": "# PAF \u2014 sitemap coverage gap meta audit\n\n**Date:** 2026-05-02\n**Surface:** profitafterfees.com (5 sitemap-listed pages not covered in 2026-05-01 head-meta audit)\n**Outcome:** PASS \u2014 all 5 pages clean; combined audit coverage now matches sitemap exactly (19/19)\n\n## Why this run\n\nYesterday's PAF head-meta audit (`2026-05-01-paf-content-pages-meta-audit.md`) called itself \"14 customer-facing pages\" \u2014 homepage + 7 comparison/article + 6 calculator. But `sitemap.xml` lists **19** indexable URLs. The 5 missed pages are all live (HTTP 200), all referenced in the sitemap, and all therefore present in Google's index \u2014 so any meta-tag hygiene problem on them ships into search snippets and social shares the same as the 14 covered pages.\n\nThis run closes that coverage gap.\n\n## Pages audited (the 5 missed yesterday)\n\n| Slug | Live status |\n|------|------|\n| `/digital-product-pricing-calculator/` | HTTP 200 |\n| `/break-even-price-calculator/` | HTTP 200 |\n| `/selling-price-calculator/` | HTTP 200 |\n| `/selling-price-markup-calculator/` | HTTP 200 |\n| `/profit-margin-calculator/` | HTTP 200 |\n\n## Head-meta assertions (5 pages \u00d7 8 checks = 40 assertions, all pass)\n\n| Page | Title len | Desc len | Canonical | og:image | og:title | og:desc | twitter | viewport |\n|------|-----------|----------|-----------|----------|----------|---------|---------|----------|\n| digital-product-pricing-calculator | 54 | 160 | OK | OK | OK | OK | OK | OK |\n| break-even-price-calculator | 47 | 133 | OK | OK | OK | OK | OK | OK |\n| selling-price-calculator | 44 | 120 | OK | OK | OK | OK | OK | OK |\n| selling-price-markup-calculator | 51 | 137 | OK | OK | OK | OK | OK | OK |\n| profit-margin-calculator | 44 | 149 | OK | OK | OK | OK | OK | OK |\n\nTitle-length hygiene threshold: 30\u201360 chars (Google snippet truncation ~60). Description-length hygiene threshold: 100\u2013160 chars (Google snippet truncation ~160). Canonical assertion: exact-string equality against `https://profitafterfees.com{route}`.\n\n## Literal copy\n\n```\ndigital-product-pricing-calculator\n  TITLE (54): Digital Product Pricing Calculator | Profit After Fees\n  DESC  (160): Use a digital product pricing calculator that shows what you actually keep after Stripe fees, VAT, coupons, affiliate payouts, refund reserve, and product cost.\n\nbreak-even-price-calculator\n  TITLE (47): Break-Even Price Calculator | Profit After Fees\n  DESC  (133): See the lowest price that stops losing money after Stripe fees, VAT, affiliates, refunds, and product cost. Open the live calculator.\n\nselling-price-calculator\n  TITLE (44): Selling Price Calculator | Profit After Fees\n  DESC  (120): See what a price pays you after Stripe fees, refunds, VAT, and affiliates, and whether it still hits your target margin.\n\nselling-price-markup-calculator\n  TITLE (51): Selling Price Markup Calculator | Profit After Fees\n  DESC  (137): Turn a markup rule into a list price that still hits your margin after Stripe fees. Open a worked markup scenario in the live calculator.\n\nprofit-margin-calculator\n  TITLE (44): Profit Margin Calculator | Profit After Fees\n  DESC  (149): See what margin is really left after Stripe fees, VAT, coupons, affiliates, refunds, and product cost. Open a worked scenario in the live calculator.\n```\n\nRead-clean: every title is sentence-case + brand suffix; every description is one or two short customer-facing sentences naming concrete fees (Stripe, VAT, affiliates, refunds, product cost) and ending with an action.\n\n## Live-vs-source `<title>` parity (5/5 MATCH)\n\n```\ndigital-product-pricing-calculator: MATCH\nbreak-even-price-calculator:        MATCH\nselling-price-calculator:           MATCH\nselling-price-markup-calculator:    MATCH\nprofit-margin-calculator:           MATCH\n```\n\nZero deploy drift on any of the 5 pages.\n\n## og:image asset reachability\n\nAll 5 pages reference the single shared `https://profitafterfees.com/social-preview.png` (HTTP 200, 52 607 B). Already verified reachable in yesterday's audit; no new asset.\n\n## AI-smell / internal-language sweep\n\nPASS \u2014 none of `leverage`, `empower`, `actionable insights`, `comprehensive`, `robust`, `dive into`, `unlock`, `elevate`, `best-in-class`, `world-class`, `seamless`, `experiment`, `launch`, `v2`, `draft`, `we built`, `this page`, `to capture`, `without the space`, `some buyers search` appear in any title or description across the 5 pages.\n\n## Combined coverage\n\nAfter this run: **19 of 19 sitemap-listed pages audited for head-meta hygiene; 19 of 19 pass.** Yesterday's audit covered 14, today closed the remaining 5.\n\n| Bucket | Count | Source |\n|--------|-------|--------|\n| Yesterday (covered) | 14 | `2026-05-01-paf-content-pages-meta-audit.md` |\n| Today (gap closure) | 5 | this artifact |\n| Total audited | 19 | both |\n| Sitemap entries | 19 | `sitemap.xml` |\n| Coverage | 100% | \u2014 |\n\n## Soft observations (not regressions, not fixed)\n\n1. **`digital-product-pricing-calculator` description is exactly 160 chars** \u2014 at the boundary of Google's snippet truncation. Functional today, but any future word added to the description silently truncates with an ellipsis in search results. Watch-item, not a remediation.\n\n2. **All 5 pages share `social-preview.png`** \u2014 same generic branded preview as the 12-of-14 pages flagged yesterday. Total: 17 of 19 pages share one OG image. Becomes a CTR-lift opportunity only if a specific page breaks out as a top traffic source.\n\n3. **All 5 mirror raw page meta into `og:title` / `og:description`** \u2014 no distinct social copy. Same fallback pattern as 10-of-14 yesterday. Total: 15 of 19 use the mirroring pattern.\n\n## Deliberately not covered\n\n- Body-content correctness (calculator inputs, headline accuracy, footnote accuracy on each page)\n- Visual / rendered-DOM correctness (would need a real browser)\n- Calculator math correctness (would need a headless browser to drive `app.js`)\n- Whether any of these 5 older pages should be pruned (Travis-side editorial decision; they're each ranked-for content that pulls non-zero tra",
+          "site_path": "artifacts/2026-05-02-paf-sitemap-coverage-gap-meta-audit.md"
+        }
+      ],
+      "output_excerpt": "Did: tried StrikeRewind deploy pipeline step 2 (Render web service creation via API); Render rejected with \"Payment information is required\" \u2014 workspace `tea-d7qhmmf7f7vs73fc4pk0` ([email]) has no card on file.\n\nSee: `artifacts/2026-05-02-strikerewind-render-deploy-blocked-billing.md`. Gate `CARD ADDED: RENDER WORKSPACE` raised in `the project's OPEN_GATES.md config`. Cash balance unchanged at $162.45 (no billable resource created).\n\nNext: Travis adds a card at https://dashboard.render.com/billing and replies `CARD ADDED: RENDER WORKSPACE`; the next autonomous run re-fires the same `POST /v1/services` request (full payload documented in TODO.md step 2 and the artifact) and continues with Vercel + DNS + Stripe webhook.\n\nBlocked on Travis: yes \u2014 owner-only billing setup.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-02_021701.txt",
+      "screenshot_path": "",
+      "label": "05-01-26 (Day 12) \u00b7 10:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
+    },
+    {
+      "run_id": "run_claude_2026-05-02_061701",
+      "timestamp": "2026-05-02 02:17 AM EDT",
+      "timestamp_sort": "2026-05-02T06:17:01+00:00",
+      "date": "2026-05-02",
+      "time": "2:17AM",
       "objective": "One open gate (`CARD ADDED: RENDER WORKSPACE`) \u2014 owner-only, cannot act on. Prior run blocked on Render billing; the same handoff named \"Google Search Console verification meta-tag prep packet for `frontend/index.html`\" as the next adjacent autonomous-runnable option. With the deploy pipeline frozen at step 2 and StrikeRewind organic discoverability being the bottleneck the moment the site goes live, pre-baking the GSC verification flow compresses the post-deploy indexing motion from a multi-message back-and-forth (\"Travis goes to GSC, picks a method, asks AutoBox where the tag goes, waits, gets a redeploy\") into \"Travis pastes one token / TXT record, AutoBox lands it in one move.\" Highest-leverage no-approval move on this run.",
       "decision_made": "Recommend Domain property + DNS TXT verification as primary path (covers all subdomains including future `api.strikerewind.com` per Render, no code residue, no redeploy on token rotation). Document URL-prefix + meta-tag verification as fallback with exact diff against `frontend/index.html`. Pre-bake exact Discord reply formats (`GSC VERIFIED: STRIKEREWIND DOMAIN` for Path A, `GSC URL-PREFIX TOKEN: <value>` for Path B) so the next autonomous run picks up either reply with zero ambiguity. Note explicitly that the GSC sitemap-submit step is Travis-side either way (UI-gated; Indexing API only supports `JobPosting`/`BroadcastEvent` so cannot substitute).",
       "next_step": "Wait for Travis to add Render card. When `CARD ADDED: RENDER WORKSPACE` clears, deploy pipeline resumes at step 2 (Render service creation re-fire). When StrikeRewind goes live and Travis kicks off GSC, this packet covers the verification motion. Adjacent autonomous-runnable options if the gate stays open longer: (a) PAF `vercel.json` correctness sweep; (b) weekly AI Model Pricing Index re-verify (next due ~2026-05-08, prices stable as of 2026-05-01); (c) PAF calculator math correctness audit (would need headless browser). Current cash balance: $162.45.",
@@ -6338,19 +6398,19 @@
           "site_path": "artifacts/2026-05-02-strikerewind-gsc-verification-packet.md"
         }
       ],
-      "output_excerpt": "Did: tried StrikeRewind deploy pipeline step 2 (Render web service creation via API); Render rejected with \"Payment information is required\" \u2014 workspace `tea-d7qhmmf7f7vs73fc4pk0` ([email]) has no card on file.\n\nSee: `artifacts/2026-05-02-strikerewind-render-deploy-blocked-billing.md`. Gate `CARD ADDED: RENDER WORKSPACE` raised in `the project's OPEN_GATES.md config`. Cash balance unchanged at $162.45 (no billable resource created).\n\nNext: Travis adds a card at https://dashboard.render.com/billing and replies `CARD ADDED: RENDER WORKSPACE`; the next autonomous run re-fires the same `POST /v1/services` request (full payload documented in TODO.md step 2 and the artifact) and continues with Vercel + DNS + Stripe webhook.\n\nBlocked on Travis: yes \u2014 owner-only billing setup.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-02_021701.txt",
+      "output_excerpt": "Done. One open gate remains (`CARD ADDED: RENDER WORKSPACE`), unchanged.\n\n**Run summary**\n\n- **Did:** Pre-baked StrikeRewind GSC verification packet \u2014 two-path doc (Domain DNS recommended primary, URL-prefix meta tag fallback) with exact Discord reply formats and exact diff against `frontend/index.html`. Pre-flight checks confirmed `frontend/index.html` has clean `<head>`, `sitemap.xml` + `robots.txt` already deployed.\n- **See:** `artifacts/2026-05-02-strikerewind-gsc-verification-packet.md`.\n- **Next:** Wait on `CARD ADDED: RENDER WORKSPACE`. When it clears + StrikeRewind goes live, Travis pastes one Discord reply and the next autonomous run handles the rest deterministically.\n- **Blocked on Travis:** add Render workspace billing card (existing gate). Cash balance: **$162.45**.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-02_061701.txt",
       "screenshot_path": "",
-      "label": "05-01-26 (Day 12) \u00b7 10:17 PM",
+      "label": "05-02-26 (Day 13) \u00b7 2:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 2
     },
     {
-      "run_id": "run_claude_2026-05-02_061701",
-      "timestamp": "2026-05-02 02:17 AM EDT",
-      "timestamp_sort": "2026-05-02T06:17:01+00:00",
+      "run_id": "run_claude_2026-05-02_081701",
+      "timestamp": "2026-05-02 04:17 AM EDT",
+      "timestamp_sort": "2026-05-02T08:17:01+00:00",
       "date": "2026-05-02",
-      "time": "2:17AM",
+      "time": "4:17AM",
       "objective": "OPEN_GATES.md was empty entering this run; the 2026-05-01 (later x8) handoff explicitly named \"Render service creation (deploy pipeline step 2)\" as the next autonomous-runnable task. RENDER_API_KEY in `.env`, SUPABASE creds in `the backend env file`. Travis's 2026-05-01 INTERACTIVE handoff: \"queue deploy work for autonomous runs\u2026 Next autonomous run should start the deploy pipeline.\" Step 1 done last run (commit `d070a8f`); step 2 was the only unblocked next-in-line. Highest-leverage move on the only path to StrikeRewind revenue.",
       "decision_made": "Build the `POST /v1/services` request with the full canonical config from `artifacts/2026-04-30-strikerewind-deploy-architecture-packet.md` and the deploy pipeline TODO (web_service, plan starter, region oregon, repo `https://github.com/tbuerky/StrikeSight`, branch `autobox/strikerewind-rename`, rootDir `backend`, autoDeploy yes, env `NODE_ENV=production` / `PORT=10000` / `SUPABASE_URL=...` / `SUPABASE_SECRET_KEY=...` / `FRONTEND_URL=https://strikerewind.com`, env env=node, buildCommand `npm install --include=dev && npm run build`, startCommand `npm start`, healthCheckPath `/api/health`, numInstances 1). Fire the request.",
       "next_step": "Wait for Travis to add the card and reply `CARD ADDED: RENDER WORKSPACE`. On reply, the next autonomous run re-fires the same API call (request body persisted in the artifact) and proceeds to step 3 (set env vars \u2014 already in the create payload) \u2192 step 4 (deploy frontend to Vercel under the-shepherd-stack with `VITE_API_URL=<render-url>`). Adjacent autonomous-runnable options if the gate stays open: (a) Google Search Console verification meta-tag preparation packet so when Travis hands the verification token, AutoBox drops it into `frontend/index.html` in one move; (b) PAF `vercel.json` correctness sweep; (c) periodic AI Model Pricing Index re-verify next week (prices stable as of 2026-05-01 audit). Current cash balance: $162.45.",
@@ -6399,10 +6459,10 @@
           "has_redactions": true
         }
       ],
-      "output_excerpt": "Done. One open gate remains (`CARD ADDED: RENDER WORKSPACE`), unchanged.\n\n**Run summary**\n\n- **Did:** Pre-baked StrikeRewind GSC verification packet \u2014 two-path doc (Domain DNS recommended primary, URL-prefix meta tag fallback) with exact Discord reply formats and exact diff against `frontend/index.html`. Pre-flight checks confirmed `frontend/index.html` has clean `<head>`, `sitemap.xml` + `robots.txt` already deployed.\n- **See:** `artifacts/2026-05-02-strikerewind-gsc-verification-packet.md`.\n- **Next:** Wait on `CARD ADDED: RENDER WORKSPACE`. When it clears + StrikeRewind goes live, Travis pastes one Discord reply and the next autonomous run handles the rest deterministically.\n- **Blocked on Travis:** add Render workspace billing card (existing gate). Cash balance: **$162.45**.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-02_061701.txt",
+      "output_excerpt": "State invariants hold: `OPEN_GATES.md` unchanged (only `CARD ADDED: RENDER WORKSPACE`), `BUDGET.md` unchanged ($162.45 balance).\n\n**Run summary**\n\n- **Did**: Closed the audit gap surfaced by yesterday's PAF head-meta audit \u2014 sitemap.xml lists 19 indexable URLs but yesterday's run covered only 14. Audited the 5 missed pages (`digital-product-pricing-calculator`, `break-even-price-calculator`, `selling-price-calculator`, `selling-price-markup-calculator`, `profit-margin-calculator`) against the same 8-assertion-per-page hygiene pattern. **40/40 pass; combined coverage is now 19/19 sitemap-listed pages, 100%.** Live-vs-source `<title>` parity 5/5 MATCH. AI-smell sweep PASS. No remediation, no deploy.\n- **See**: `artifacts/2026-05-02-paf-sitemap-coverage-gap-meta-audit.md`. The 5 audited pages are live at `https://profitafterfees.com/{slug}/`.\n- **Next**: Wait on Travis to add the Render workspace card. Adjacent options if the gate stays open longer \u2014 weekly AI Pricing re-verify (next due ~2026-05-08), PAF body-content correctness audit (H1s/hero/FAQ on the 5 pages haven't been review-passed since the 2026-04-28 pruning), or PAF calculator math correctness audit (needs headless browser).\n- **Blocked on Travis**: `CARD ADDED: RENDER WORKSPACE` only. Cash balance: $162.45.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-02_081701.txt",
       "screenshot_path": "",
-      "label": "05-02-26 (Day 13) \u00b7 2:17 AM",
+      "label": "05-02-26 (Day 13) \u00b7 4:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 1
     }

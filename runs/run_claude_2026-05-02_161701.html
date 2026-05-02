@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind logo css variable routing &middot; AutoBox</title>
+<title>Strikerewind render deploy blocked billing &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,11 +33,11 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-02_161701</span>
   </div>
-  <h2 class="run-title">Strikerewind logo css variable routing</h2>
+  <h2 class="run-title">Strikerewind render deploy blocked billing</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
-<p class="act"><span class="act-text">One open gate (CARD ADDED: RENDER WORKSPACE) — owner-only, blocks the StrikeRewind deploy pipeline. Last 5 runs alternated between PAF meta hygiene audits and pre-deploy hygiene on StrikeRewind customer-facing surfaces (options-risk disclosure 2026-05-02 commit 711abe8, Footer Cove-token alignment 2026-05-02 commit 508d453). Prior handoff explicitly named &quot;Logo.tsx review pass (last component with hardcoded color values, not tokens)&quot; as the next-adjacent autonomous-runnable option. Continuing the pre-deploy quality-control pattern on the customer-facing conversion chain.</span></p>
-<p class="act"><span class="act-text">the scanner frontend rendered a SVG wordmark with three fill values written as raw hex literals:</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">OPEN_GATES.md was empty entering this run; the 2026-05-01 (later x8) handoff explicitly named &quot;Render service creation (deploy pipeline step 2)&quot; as the next autonomous-runnable task. RENDER_API_KEY in `.env`, SUPABASE creds in `the backend env file`. Travis&#x27;s 2026-05-01 INTERACTIVE handoff: &quot;queue deploy work for autonomous runs… Next autonomous run should start the deploy pipeline.&quot; Step 1 done last run (commit `d070a8f`); step 2 was the only unblocked next-in-line. Highest-leverage move on the only path to StrikeRewind revenue.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">Build the `POST /v1/services` request with the full canonical config from `artifacts/2026-04-30-strikerewind-deploy-architecture-packet.md` and the deploy pipeline TODO (web_service, plan starter, region oregon, repo `https://github.com/tbuerky/StrikeSight`, branch `autobox/strikerewind-rename`, rootDir `backend`, autoDeploy yes, env `NODE_ENV=production` / `PORT=10000` / `SUPABASE_URL=...` / `SUPABASE_SECRET_KEY=...` / `FRONTEND_URL=https://strikerewind.com`, env env=node, buildCommand `npm install --include=dev &amp;&amp; npm run build`, startCommand `npm start`, healthCheckPath `/api/health`, numInstances 1). Fire the request.</span></p>
+<p class="act"><span class="act-label">Next</span><span class="act-text">Wait for Travis to add the card and reply `CARD ADDED: RENDER WORKSPACE`. On reply, the next autonomous run re-fires the same API call (request body persisted in the artifact) and proceeds to step 3 (set env vars — already in the create payload) → step 4 (deploy frontend to Vercel under the-shepherd-stack with `VITE_API_URL=&lt;render-url&gt;`). Adjacent autonomous-runnable options if the gate stays open: (a) Google Search Console verification meta-tag preparation packet so when Travis hands the verification token, AutoBox drops it into `frontend/index.html` in one move; (b) PAF `vercel.json` correctness sweep; (c) periodic AI Model Pricing Index re-verify next week (prices stable as of 2026-05-01 audit). Current cash balance: $162.45.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -47,65 +47,72 @@
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
     <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeRewind Logo CSS-variable routing — 2026-05-02</h1>
-<h2>Why this run</h2>
-<p>One open gate (<code>CARD ADDED: RENDER WORKSPACE</code>) — owner-only, blocks the StrikeRewind deploy pipeline. Last 5 runs alternated between PAF meta hygiene audits and pre-deploy hygiene on StrikeRewind customer-facing surfaces (options-risk disclosure 2026-05-02 commit <code>711abe8</code>, Footer Cove-token alignment 2026-05-02 commit <code>508d453</code>). Prior handoff explicitly named &quot;Logo.tsx review pass (last component with hardcoded color values, not tokens)&quot; as the next-adjacent autonomous-runnable option. Continuing the pre-deploy quality-control pattern on the customer-facing conversion chain.</p>
-<h2>Diagnosis</h2>
-<p><code>the scanner frontend</code> rendered a SVG wordmark with three fill values written as raw hex literals:</p>
-<ul>
-<li><code>#22C55E</code> — accent triangle</li>
-<li><code>#E6EAF0</code> — wordmark text on dark variant</li>
-<li><code>#0B0F14</code> — wordmark text on light variant</li>
-</ul>
-<p>These hex values match the canonical Cove tokens defined in <code>the scanner frontend:9-21</code> (<code>--accent</code>, <code>--fg-primary</code>, <code>--bg-base</code>), but the Logo component was not routing through those tokens — it duplicated the hex values inline. Concrete failure mode: the last token rotation (emerald <code>#10b981</code> → <code>#22C55E</code>, 2026-04-29 commit <code>e8b805d</code>) updated <code>tailwind.config.js</code> and <code>index.css</code>, but a Logo rendered as raw hex would not have followed automatically. Any future Cove-token shift would silently drift Logo.tsx from the rest of the surface.</p>
-<h2>Edit</h2>
-<pre><code>// before
-const wordmarkFill = variant === &#x27;light&#x27; ? &#x27;#0B0F14&#x27; : &#x27;#E6EAF0&#x27;;
-const accent = &#x27;#22C55E&#x27;;
-...
-&lt;polygon points=&quot;22,8 22,32 4,20&quot; fill={accent} /&gt;
-&lt;text fill={wordmarkFill} ...&gt;StrikeRewind&lt;/text&gt;
-
-// after
-const wordmarkFill = variant === &#x27;light&#x27; ? &#x27;var(--bg-base)&#x27; : &#x27;var(--fg-primary)&#x27;;
-const accentFill = &#x27;var(--accent)&#x27;;
-...
-&lt;polygon points=&quot;22,8 22,32 4,20&quot; style={{ fill: accentFill }} /&gt;
-&lt;text style={{ fill: wordmarkFill }} ...&gt;StrikeRewind&lt;/text&gt;
+    <div class="artifact-prose"><h1>StrikeRewind deploy blocked: Render workspace has no payment method</h1>
+<p><strong>Date</strong>: 2026-05-02</p>
+<p><strong>Run</strong>: Deploy pipeline step 2 (create Render web service via API)</p>
+<p><strong>Status</strong>: BLOCKED on Travis — owner-only action</p>
+<h2>What happened</h2>
+<p>Tried to create the StrikeRewind backend web service on Render via API per the</p>
+<p><code>[ACTIVE — DEPLOY PIPELINE]</code> step 2 in <code>the project&#x27;s TODO.md config</code>.</p>
+<p>Request: <code>POST https://api.render.com/v1/services</code> with the configuration from</p>
+<p><code>artifacts/2026-04-30-strikerewind-deploy-architecture-packet.md</code> (web_service,</p>
+<p>Starter plan $7/mo, repo <code>https://github.com/tbuerky/StrikeSight</code>, branch</p>
+<p><code>autobox/strikerewind-rename</code>, <code>rootDir: backend</code>, env vars: <code>NODE_ENV=production</code>,</p>
+<p><code>PORT=10000</code>, <code>SUPABASE_URL</code>, <code>SUPABASE_SECRET_KEY</code>, <code>FRONTEND_URL=https://strikerewind.com</code>,</p>
+<p>build <code>npm install --include=dev &amp;&amp; npm run build</code>, start <code>npm start</code>,</p>
+<p>healthcheck <code>/api/health</code>).</p>
+<p>Render API responded:</p>
+<pre><code>{&quot;message&quot;:&quot;Payment information is required to complete this request. To add a card, visit https://dashboard.render.com/billing&quot;}
 </code></pre>
-<p>Two non-obvious notes:</p>
-<p>1. The SVG <code>fill</code> <em>attribute</em> does not parse CSS <code>var()</code> — only the CSS <code>fill</code> <em>property</em> does. Switched both <code>fill</code> attributes to <code>style={{ fill: &#x27;var(--name)&#x27; }}</code> so the variable resolves at render time.</p>
-<p>2. <code>index.css:8-22</code> already declares all three tokens at <code>:root</code>, so the variables are guaranteed to be in scope wherever Logo renders (every public + authenticated surface).</p>
-<h2>Verification</h2>
+<p>The workspace ID on file (<code>tea-d7qhmmf7f7vs73fc4pk0</code>, &quot;My Workspace&quot;,</p>
+<p>[email]) has the API key working — auth is fine, owner ID is</p>
+<p>fine, the workspace exists — but no card is on file. Render gates ALL service</p>
+<p>creation behind billing setup, even for the $7/mo Starter plan, even for what</p>
+<p>would have been a brand-new workspace&#x27;s first service.</p>
+<p>Stripe production keys are also still missing from the deploy env (no</p>
+<p><code>STRIPE_SECRET_KEY</code> / <code>STRIPE_WEBHOOK_SECRET</code> in <code>.env</code>); this is a separate</p>
+<p>follow-up that fires after billing is unblocked, since the backend boots</p>
+<p>without Stripe (Stripe routes 500 until configured).</p>
+<h2>Exact next action — Travis</h2>
+<p>1. Go to <strong>https://dashboard.render.com/billing</strong></p>
+<p>2. Add a payment method (credit card) for the &quot;My Workspace&quot; workspace</p>
+<p>3. Reply: <code>CARD ADDED: RENDER WORKSPACE</code> so the next autonomous run can re-fire</p>
+<p>the service-creation API call and continue the deploy pipeline</p>
+<p>The next autonomous run after that reply does NOT need any further input from</p>
+<p>Travis to complete steps 2–4 of the deploy pipeline (Render service creation</p>
+<p>+ env vars + Vercel frontend deploy). Steps 5 (DNS) and 6 (Stripe production</p>
+<p>keys + webhook) remain owner-actions; step 7 (smoke test) and 8 (notify Travis)</p>
+<p>are AutoBox-runnable once 5 and 6 land.</p>
+<h2>Why this matters now</h2>
+<p>The <code>[ACTIVE — DEPLOY PIPELINE]</code> block in TODO.md is the only path to</p>
+<p>StrikeRewind revenue. Step 1 (DEV_MODE env-driven) shipped 2026-05-01 commit</p>
+<p><code>d070a8f</code>. Step 2 is the next-in-line, and it&#x27;s hard-blocked. Without a card</p>
+<p>on the Render workspace, no autonomous run can move this forward — adding</p>
+<p>the card is the single bottleneck on the whole revenue path right now.</p>
+<h2>What&#x27;s NOT blocked</h2>
 <ul>
-<li><code>cd frontend &amp;&amp; npm run build</code> passes (1921 modules, JS <code>353.70 → 353.74 kB / +0.04 kB</code> flat, CSS <code>22.83 kB</code> unchanged).</li>
-<li><code>cd backend &amp;&amp; npx tsx --test src/services/huntFixtureMode.test.ts src/services/spreadResultsService.test.ts</code> passes <code>12/12</code>.</li>
-<li>Compiled bundle <code>dist/assets/index-C6i4LMo2.js</code> contains <code>var(--accent)</code> ×1, <code>var(--fg-primary)</code> ×1, <code>var(--bg-base)</code> ×1 — all three tokens preserved through tree-shaking.</li>
-<li>Visual rendering identical: CSS variable values resolve to the same hex literals at render time. No customer-visible change in the live or deployed appearance.</li>
-<li>5 callsites left untouched (LandingPage, Privacy, Terms, NotFound, Layout) — all use default <code>variant=&quot;dark&quot;</code> <code>size=&quot;sm&quot;</code>, so behavior is unchanged.</li>
+<li>Pre-deploy quality work continues to be autonomous-runnable (FAQ, methodology,</li>
 </ul>
-<h2>Scope discipline</h2>
+<p>metadata, robots.txt, sitemap.xml all already shipped — landing-page +</p>
+<p>pre-deploy chain is substantially complete).</p>
 <ul>
-<li>Did NOT route through Cove subagent — pure mechanical token-routing, no design judgment, same approach as Footer commit <code>508d453</code> and Privacy/Terms commit <code>9fec19b</code>.</li>
-<li>Did NOT migrate to Tailwind <code>fill-accent</code> utility classes — would require adding <code>fill: { ... }</code> to <code>tailwind.config.js</code> plugin, larger surface change for marginal gain. CSS variables are already the source of truth.</li>
-<li>Did NOT change wordmark, polygon coordinates, viewBox, or component API — the diff is 4 insertions + 4 deletions, all on the fill values.</li>
-<li>Did NOT regenerate <code>og-card.png</code> — that asset is built once via PIL with hardcoded values (commit <code>59c297a</code>) and is correctly frozen at that hex. The Logo component is browser-runtime only.</li>
+<li>PAF revenue path is intact, AdSense live, no regressions.</li>
+<li>AI utility properties unchanged.</li>
 </ul>
-<h2>Commit</h2>
-<p><code>aa7b3d9</code> on <code>autobox/strikerewind-rename</code>.</p>
-<h2>What this does NOT cover</h2>
+<h2>Cash impact</h2>
+<p>None this run — Render rejected the call before any billable resource was</p>
+<p>created. Cash balance stays at <code>$162.45</code>. When the card lands and the service</p>
+<p>deploys, Render Starter plan = <code>$7/mo</code> (already pre-approved per closed gate</p>
+<p><code>APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO</code>).</p>
+<h2>Artifact files referenced</h2>
 <ul>
-<li>Inline color literals elsewhere in the codebase (verified earlier: <code>frontend npm run build</code> succeeds; project-wide search would surface SVG fills in chart components, status indicators — not in scope today).</li>
-<li>Light-variant exercise: no caller currently uses <code>variant=&quot;light&quot;</code>, so the dark-only path is the only one rendered live.</li>
+<li><code>artifacts/2026-04-30-strikerewind-deploy-architecture-packet.md</code> — full deploy</li>
 </ul>
-<h2>Next adjacent autonomous-runnable options if <code>CARD ADDED: RENDER WORKSPACE</code> stays open longer</h2>
+<p>architecture and ordered step list</p>
 <ul>
-<li>Bing Webmaster Tools verification packet (mirror of GSC packet — ~30% of US search traffic non-Google; Bing also feeds DuckDuckGo and Edge defaults).</li>
-<li>Pre-deploy end-to-end smoke-test plan: specific URLs / specific assertions / specific failure modes, so the next autonomous run after deploy fires deterministically rather than improvising.</li>
-<li>PAF body-copy AI-smell sweep on the 5 calculator pages (last touched 2026-04-25).</li>
-</ul>
-<h2>Cash balance</h2>
-<p>$162.45 (no spend this run).</p></div>
+<li><code>the project&#x27;s TODO.md config</code> <code>[ACTIVE — DEPLOY PIPELINE]</code> block — canonical step list</li>
+<li><code>the project&#x27;s HANDOFF.md config</code> 2026-05-01 INTERACTIVE entry — Travis&#x27;s queue-deploy-for-autonomous-runs direction</li>
+</ul></div>
   </section>
 
   <section class="detail-section">

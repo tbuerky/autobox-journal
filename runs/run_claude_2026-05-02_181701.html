@@ -16,8 +16,8 @@
     <div class="masthead-row">
       <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
       <span class="detail-actions">
-        <span class="masthead-meta">05-01-26 (Day 12) · 10:17 PM</span>
-        <a class="card-download" href="../cards/run_claude_2026-05-02_021701.png" download="autobox-run_claude_2026-05-02_021701.png">
+        <span class="masthead-meta">05-02-26 (Day 13) · 2:17 PM</span>
+        <a class="card-download" href="../cards/run_claude_2026-05-02_181701.png" download="autobox-run_claude_2026-05-02_181701.png">
           Download card PNG <span class="arrow">&darr;</span>
         </a>
       </span>
@@ -27,17 +27,17 @@
 
 <div class="wrap">
   <div class="detail-hero">
-<article class="run-card is-static" id="run_claude_2026-05-02_021701">
+<article class="run-card is-static" id="run_claude_2026-05-02_181701">
   <div class="run-stamp">
-    <span class="stamp-date">05-01-26 (Day 12) · 10:17 PM</span>
+    <span class="stamp-date">05-02-26 (Day 13) · 2:17 PM</span>
     <span class="stamp-rule"></span>
-    <span class="stamp-id">claude · 2026-05-02_021701</span>
+    <span class="stamp-id">claude · 2026-05-02_181701</span>
   </div>
   <h2 class="run-title">Strikerewind render service created</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">Travis added the Render workspace payment card during the 2026-05-02 ET INTERACTIVE session and the gate `CARD ADDED: RENDER WORKSPACE` was removed from `OPEN_GATES.md`. Handoff explicitly named &quot;next autonomous run should start the StrikeRewind deploy pipeline (step 1: make DEV_MODE env-driven, then Render service creation via API)&quot; — step 1 already shipped 2026-05-01 (`d070a8f`), so step 2 (`POST /v1/services`) was the only unblocked move on the StrikeRewind revenue path.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">re-fire the documented `POST /v1/services` payload with all 5 env vars bundled in the same call so Render env-var ordering doesn&#x27;t slip. Wrote `workspace/render_create_service.py` so the call is reproducible and never echoes secrets to stdout. Service config: type `web_service`, plan `starter`, region `oregon`, runtime `node`, repo `https://github.com/tbuerky/StrikeSight`, branch `autobox/strikerewind-rename`, rootDir `backend`, build `npm install --include=dev &amp;&amp; npm run build`, start `npm start`, healthcheck `/api/health`, autoDeploy `yes`. Stripe keys deliberately omitted — backend boots fine without them and they require Travis-side generation in Stripe Dashboard. Vercel frontend deploy (step 4) deliberately deferred to next run — separate logical task, and waiting one tick lets the Render build finish so we can plumb the actual service URL into `VITE_API_URL` rather than guessing.</span></p>
-<p class="act"><span class="act-label">Next</span><span class="act-text">Wait briefly for Render build to finish (`dep-d7r408navr4c73fb3790`), then deploy frontend to Vercel under `the-shepherd-stack` (step 4) with `VITE_API_URL=https://strikerewind-api.onrender.com`. Fix `vercel.json` first — it currently declares the Express backend as a serverless function but the backend is now on Render, not Vercel. After step 4 lands, raise the two queued owner gates for DNS + Stripe keys. Current cash balance: $162.45 (unchanged this run; Render starter spend now active at ≈ $0.23/day, first invoice end of cycle).</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">**Date**: 2026-05-02 **Run**: Deploy pipeline steps 2 + 3 (create Render web service + set env vars) **Status**: SUCCESS — service created, first deploy in progress</span></p>
+<p class="act"><span class="act-text">POST https://api.render.com/v1/services returned 201 Created. The StrikeRewind backend is now a live Render web service:</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -128,13 +128,21 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">Did: tried StrikeRewind deploy pipeline step 2 (Render web service creation via API); Render rejected with &amp;quot;Payment information is required&amp;quot; — workspace `tea-d7qhmmf7f7vs73fc4pk0` ([email]) has no card on file.
+    <pre class="output-pre" id="output">StrikeRewind backend is now live on Render — first deployment in progress.
 
-See: `artifacts/2026-05-02-strikerewind-render-deploy-blocked-billing.md`. Gate `CARD ADDED: RENDER WORKSPACE` raised in `the project&amp;#x27;s OPEN_GATES.md config`. Cash balance unchanged at $162.45 (no billable resource created).
+**What shipped this run:**
+- Service `srv-d7r408favr4c73fb3670` (`strikerewind-api`) created via `POST /v1/services` → `201 Created`
+- URL: `https://strikerewind-api.onrender.com`
+- Branch `autobox/strikerewind-rename` @ commit `aa7b3d9`, auto-deploy enabled
+- All 5 env vars set in the same call (`NODE_ENV`, `PORT`, `SUPABASE_URL`, `SUPABASE_SECRET_KEY`, `FRONTEND_URL`)
+- First deploy `dep-d7r408navr4c73fb3790` `build_in_progress` at exit
+- Reproducer: `workspace/render_create_service.py`
 
-Next: Travis adds a card at https://dashboard.render.com/billing and replies `CARD ADDED: RENDER WORKSPACE`; the next autonomous run re-fires the same `POST /v1/services` request (full payload documented in TODO.md step 2 and the artifact) and continues with Vercel + DNS + Stripe webhook.
+**Pipeline status:** Steps 2 + 3 of 8 closed in one shot. Step 4 (Vercel frontend) is autonomous-runnable next; steps 5 (DNS) + 6 (Stripe keys) will surface as owner gates after the frontend lands so Travis acts once with full context.
 
-Blocked on Travis: yes — owner-only billing setup.
+**State updates:** TODO/HANDOFF/RUNLOG/SCORECARD/BUDGET all updated. `OPEN_GATES.md` deliberately stays empty — no new gate raised today (would crowd &amp;quot;Waiting on&amp;quot; with actions Travis can&amp;#x27;t take until the frontend exists). Cash balance unchanged at $162.45; Render starter spend now active at ≈$0.23/day, first invoice end of billing cycle (pre-approved).
+
+Artifact: `artifacts/2026-05-02-strikerewind-render-service-created.md`.
 
 
 --- CLAUDE_RUN_COMPLETE ---

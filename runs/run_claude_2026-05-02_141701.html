@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind render deploy blocked billing &middot; AutoBox</title>
+<title>Strikerewind gsc verification packet &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,11 +33,11 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-02_141701</span>
   </div>
-  <h2 class="run-title">Strikerewind render deploy blocked billing</h2>
+  <h2 class="run-title">Strikerewind gsc verification packet</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">OPEN_GATES.md was empty entering this run; the 2026-05-01 (later x8) handoff explicitly named &quot;Render service creation (deploy pipeline step 2)&quot; as the next autonomous-runnable task. RENDER_API_KEY in `.env`, SUPABASE creds in `the backend env file`. Travis&#x27;s 2026-05-01 INTERACTIVE handoff: &quot;queue deploy work for autonomous runs… Next autonomous run should start the deploy pipeline.&quot; Step 1 done last run (commit `d070a8f`); step 2 was the only unblocked next-in-line. Highest-leverage move on the only path to StrikeRewind revenue.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">Build the `POST /v1/services` request with the full canonical config from `artifacts/2026-04-30-strikerewind-deploy-architecture-packet.md` and the deploy pipeline TODO (web_service, plan starter, region oregon, repo `https://github.com/tbuerky/StrikeSight`, branch `autobox/strikerewind-rename`, rootDir `backend`, autoDeploy yes, env `NODE_ENV=production` / `PORT=10000` / `SUPABASE_URL=...` / `SUPABASE_SECRET_KEY=...` / `FRONTEND_URL=https://strikerewind.com`, env env=node, buildCommand `npm install --include=dev &amp;&amp; npm run build`, startCommand `npm start`, healthCheckPath `/api/health`, numInstances 1). Fire the request.</span></p>
-<p class="act"><span class="act-label">Next</span><span class="act-text">Wait for Travis to add the card and reply `CARD ADDED: RENDER WORKSPACE`. On reply, the next autonomous run re-fires the same API call (request body persisted in the artifact) and proceeds to step 3 (set env vars — already in the create payload) → step 4 (deploy frontend to Vercel under the-shepherd-stack with `VITE_API_URL=&lt;render-url&gt;`). Adjacent autonomous-runnable options if the gate stays open: (a) Google Search Console verification meta-tag preparation packet so when Travis hands the verification token, AutoBox drops it into `frontend/index.html` in one move; (b) PAF `vercel.json` correctness sweep; (c) periodic AI Model Pricing Index re-verify next week (prices stable as of 2026-05-01 audit). Current cash balance: $162.45.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">One open gate (`CARD ADDED: RENDER WORKSPACE`) — owner-only, cannot act on. Prior run blocked on Render billing; the same handoff named &quot;Google Search Console verification meta-tag prep packet for `frontend/index.html`&quot; as the next adjacent autonomous-runnable option. With the deploy pipeline frozen at step 2 and StrikeRewind organic discoverability being the bottleneck the moment the site goes live, pre-baking the GSC verification flow compresses the post-deploy indexing motion from a multi-message back-and-forth (&quot;Travis goes to GSC, picks a method, asks AutoBox where the tag goes, waits, gets a redeploy&quot;) into &quot;Travis pastes one token / TXT record, AutoBox lands it in one move.&quot; Highest-leverage no-approval move on this run.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">Recommend Domain property + DNS TXT verification as primary path (covers all subdomains including future `api.strikerewind.com` per Render, no code residue, no redeploy on token rotation). Document URL-prefix + meta-tag verification as fallback with exact diff against `frontend/index.html`. Pre-bake exact Discord reply formats (`GSC VERIFIED: STRIKEREWIND DOMAIN` for Path A, `GSC URL-PREFIX TOKEN: &lt;value&gt;` for Path B) so the next autonomous run picks up either reply with zero ambiguity. Note explicitly that the GSC sitemap-submit step is Travis-side either way (UI-gated; Indexing API only supports `JobPosting`/`BroadcastEvent` so cannot substitute).</span></p>
+<p class="act"><span class="act-label">Next</span><span class="act-text">Wait for Travis to add Render card. When `CARD ADDED: RENDER WORKSPACE` clears, deploy pipeline resumes at step 2 (Render service creation re-fire). When StrikeRewind goes live and Travis kicks off GSC, this packet covers the verification motion. Adjacent autonomous-runnable options if the gate stays open longer: (a) PAF `vercel.json` correctness sweep; (b) weekly AI Model Pricing Index re-verify (next due ~2026-05-08, prices stable as of 2026-05-01); (c) PAF calculator math correctness audit (would need headless browser). Current cash balance: $162.45.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -46,72 +46,76 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeRewind deploy blocked: Render workspace has no payment method</h1>
-<p><strong>Date</strong>: 2026-05-02</p>
-<p><strong>Run</strong>: Deploy pipeline step 2 (create Render web service via API)</p>
-<p><strong>Status</strong>: BLOCKED on Travis — owner-only action</p>
-<h2>What happened</h2>
-<p>Tried to create the StrikeRewind backend web service on Render via API per the</p>
-<p><code>[ACTIVE — DEPLOY PIPELINE]</code> step 2 in <code>the project&#x27;s TODO.md config</code>.</p>
-<p>Request: <code>POST https://api.render.com/v1/services</code> with the configuration from</p>
-<p><code>artifacts/2026-04-30-strikerewind-deploy-architecture-packet.md</code> (web_service,</p>
-<p>Starter plan $7/mo, repo <code>https://github.com/tbuerky/StrikeSight</code>, branch</p>
-<p><code>autobox/strikerewind-rename</code>, <code>rootDir: backend</code>, env vars: <code>NODE_ENV=production</code>,</p>
-<p><code>PORT=10000</code>, <code>SUPABASE_URL</code>, <code>SUPABASE_SECRET_KEY</code>, <code>FRONTEND_URL=https://strikerewind.com</code>,</p>
-<p>build <code>npm install --include=dev &amp;&amp; npm run build</code>, start <code>npm start</code>,</p>
-<p>healthcheck <code>/api/health</code>).</p>
-<p>Render API responded:</p>
-<pre><code>{&quot;message&quot;:&quot;Payment information is required to complete this request. To add a card, visit https://dashboard.render.com/billing&quot;}
+    <div class="artifact-prose"><h1>StrikeRewind — Google Search Console verification: deploy-ready packet</h1>
+<p><strong>Date:</strong> 2026-05-02</p>
+<p><strong>Status:</strong> Pre-baked. Travis-side action required to fire.</p>
+<p><strong>Why this exists now:</strong> StrikeRewind deploy is gated on <code>CARD ADDED: RENDER WORKSPACE</code>. When that gate clears and the site goes live at <code>https://strikerewind.com</code>, indexing latency is the next thing that decides how fast the first organic visitor lands. A new domain on the open web with no GSC verification is invisible to Search until Google crawls it on its own schedule. With verification + sitemap submission, indexing is typically hours-to-days instead of weeks. This packet compresses that motion from a multi-message back-and-forth into &quot;Travis pastes one token, AutoBox lands the change in one move.&quot;</p>
+<p>---</p>
+<h2>Recommendation: Domain property via DNS TXT record</h2>
+<p>Google Search Console supports two verification surfaces:</p>
+<p>1. <strong>Domain property</strong> (recommended): <code>strikerewind.com</code>. Verified once via a DNS TXT record on the apex. Covers all subdomains (<code>api.strikerewind.com</code>, <code>www.strikerewind.com</code>) and both <code>http</code>/<code>https</code>. Travis controls the DNS at the registrar, not Vercel, so this is also independent of any frontend redeploy.</p>
+<p>2. <strong>URL-prefix property</strong> (fallback): <code>https://strikerewind.com/</code>. Verified via a <code>&lt;meta name=&quot;google-site-verification&quot;&gt;</code> tag in the home page <code>&lt;head&gt;</code>. Only covers that exact protocol/host/path prefix.</p>
+<p><strong>Pick Domain.</strong> Reason: a Domain property keeps verification valid through future host-protocol-subdomain changes (we will eventually have <code>api.strikerewind.com</code> via Render, and Domain coverage avoids re-verifying that as a separate property). The URL-prefix path requires a frontend redeploy on every token rotation; the Domain path does not. The fallback path is documented below in case Travis prefers it for any reason.</p>
+<p>---</p>
+<h2>Path A — Domain property (recommended)</h2>
+<h3>Travis-side steps (5 minutes)</h3>
+<p>1. Open https://search.google.com/search-console</p>
+<p>2. Click <strong>Add property</strong> → choose <strong>Domain</strong> (the left column, not URL-prefix)</p>
+<p>3. Enter <code>strikerewind.com</code> (no <code>https://</code>, no path)</p>
+<p>4. Google shows a verification token in the form: <code>google-site-verification=&lt;long-random-string&gt;</code>. The full string after the <code>=</code> is what gets pasted as the <strong>TXT record value</strong> at the registrar.</p>
+<p>5. At Travis&#x27;s domain registrar (the same place strikerewind.com is registered):</p>
+<ul>
+<li>Add a TXT record</li>
+<li>Host / Name: <code>@</code> (or leave blank, depending on registrar UI — means apex)</li>
+<li>Value: <code>google-site-verification=&lt;long-random-string&gt;</code> (the entire string, including the <code>google-site-verification=</code> prefix — paste it verbatim)</li>
+<li>TTL: default (3600 / 1 hour is fine)</li>
+</ul>
+<p>6. Wait 5–10 minutes for DNS propagation, then click <strong>Verify</strong> in GSC.</p>
+<h3>Travis Discord reply</h3>
+<pre><code>GSC VERIFIED: STRIKEREWIND DOMAIN
 </code></pre>
-<p>The workspace ID on file (<code>tea-d7qhmmf7f7vs73fc4pk0</code>, &quot;My Workspace&quot;,</p>
-<p>[email]) has the API key working — auth is fine, owner ID is</p>
-<p>fine, the workspace exists — but no card is on file. Render gates ALL service</p>
-<p>creation behind billing setup, even for the $7/mo Starter plan, even for what</p>
-<p>would have been a brand-new workspace&#x27;s first service.</p>
-<p>Stripe production keys are also still missing from the deploy env (no</p>
-<p><code>STRIPE_SECRET_KEY</code> / <code>STRIPE_WEBHOOK_SECRET</code> in <code>.env</code>); this is a separate</p>
-<p>follow-up that fires after billing is unblocked, since the backend boots</p>
-<p>without Stripe (Stripe routes 500 until configured).</p>
-<h2>Exact next action — Travis</h2>
-<p>1. Go to <strong>https://dashboard.render.com/billing</strong></p>
-<p>2. Add a payment method (credit card) for the &quot;My Workspace&quot; workspace</p>
-<p>3. Reply: <code>CARD ADDED: RENDER WORKSPACE</code> so the next autonomous run can re-fire</p>
-<p>the service-creation API call and continue the deploy pipeline</p>
-<p>The next autonomous run after that reply does NOT need any further input from</p>
-<p>Travis to complete steps 2–4 of the deploy pipeline (Render service creation</p>
-<p>+ env vars + Vercel frontend deploy). Steps 5 (DNS) and 6 (Stripe production</p>
-<p>keys + webhook) remain owner-actions; step 7 (smoke test) and 8 (notify Travis)</p>
-<p>are AutoBox-runnable once 5 and 6 land.</p>
-<h2>Why this matters now</h2>
-<p>The <code>[ACTIVE — DEPLOY PIPELINE]</code> block in TODO.md is the only path to</p>
-<p>StrikeRewind revenue. Step 1 (DEV_MODE env-driven) shipped 2026-05-01 commit</p>
-<p><code>d070a8f</code>. Step 2 is the next-in-line, and it&#x27;s hard-blocked. Without a card</p>
-<p>on the Render workspace, no autonomous run can move this forward — adding</p>
-<p>the card is the single bottleneck on the whole revenue path right now.</p>
-<h2>What&#x27;s NOT blocked</h2>
+<h3>AutoBox autonomous-run follow-up</h3>
+<p>On reply, the next autonomous run does exactly this — no further input needed:</p>
+<p>1. <strong>Submit sitemap</strong> at https://search.google.com/search-console — Sitemaps tab, enter <code>sitemap.xml</code>, click Submit. (The sitemap is already deployed at <code>https://strikerewind.com/sitemap.xml</code> per commit <code>6321576</code>.) <strong>NOTE: This step is Travis-side too — the GSC sitemap-submit UI requires being logged in. AutoBox writes the exact instruction line into the Discord reply.</strong></p>
+<p>2. <strong>No code change needed.</strong> Domain DNS verification leaves <code>frontend/index.html</code> untouched. The <code>&lt;meta name=&quot;google-site-verification&quot;&gt;</code> tag is not used in this path.</p>
+<p>3. <strong>Verify</strong> the TXT record is live by running <code>dig TXT strikerewind.com +short</code> and confirming the <code>google-site-verification=...</code> line is in the response.</p>
+<h3>Expected timeline</h3>
 <ul>
-<li>Pre-deploy quality work continues to be autonomous-runnable (FAQ, methodology,</li>
+<li>Verification: instant (Google polls DNS the moment Travis clicks Verify, and DNS is normally hot within minutes)</li>
+<li>First crawl: usually within hours (Googlebot prioritizes newly-verified properties)</li>
+<li>First indexed page: usually within 1–3 days</li>
+<li>Full sitemap indexed: usually within a week</li>
 </ul>
-<p>metadata, robots.txt, sitemap.xml all already shipped — landing-page +</p>
-<p>pre-deploy chain is substantially complete).</p>
+<p>---</p>
+<h2>Path B — URL-prefix property (fallback)</h2>
+<p>Use this only if Path A&#x27;s DNS step is impractical for some reason.</p>
+<h3>Travis-side steps</h3>
+<p>1. Open https://search.google.com/search-console</p>
+<p>2. Click <strong>Add property</strong> → choose <strong>URL prefix</strong> (the right column)</p>
+<p>3. Enter <code>https://strikerewind.com/</code></p>
+<p>4. Pick <strong>HTML tag</strong> verification method</p>
+<p>5. Google shows a tag like <code>&lt;meta name=&quot;google-site-verification&quot; content=&quot;&lt;long-random-string&gt;&quot; /&gt;</code>. Copy the <strong>content value only</strong> (the long random string).</p>
+<h3>Travis Discord reply</h3>
+<pre><code>GSC URL-PREFIX TOKEN: &lt;long-random-string&gt;
+</code></pre>
+<p>(Replace <code>&lt;long-random-string&gt;</code> with the actual content value from the GSC tag.)</p>
+<h3>AutoBox autonomous-run follow-up</h3>
+<p>On reply, the next autonomous run does exactly this:</p>
+<p>1. <strong>Insert verification meta tag</strong> in <code>frontend/index.html</code> directly under the existing <code>&lt;meta name=&quot;theme-color&quot;&gt;</code> line. Exact diff:</p>
+<p>```diff</p>
+<p>&lt;meta name=&quot;theme-color&quot; content=&quot;#0B0F14&quot; /&gt;</p>
+<p>+    &lt;meta name=&quot;google-site-verification&quot; content=&quot;&lt;long-random-string&gt;&quot; /&gt;</p>
+<p>&lt;title&gt;StrikeRewind — Credit spread optimizer&lt;/title&gt;</p>
+<p>```</p>
+<p>Replace <code>&lt;long-random-string&gt;</code> with the value Travis pastes.</p>
+<p>2. <strong>Build + deploy frontend to Vercel</strong> under the <code>the-shepherd-stack</code> account using <code>VERCEL_TOKEN_TSS</code>. The current Vercel deploy command shape is <code>vercel deploy --prod --token &quot;$VERCEL_TOKEN_TSS&quot;</code> from <code>frontend/</code> (the deploy architecture packet covers the broader Vercel setup; here we only need the redeploy to ship the new tag).</p>
+<p>3. <strong>Live-verify</strong> with <code>curl -s https://strikerewind.com | grep google-site-verification</code> — must return exactly the new line.</p>
+<p>4. <strong>Travis returns to GSC</strong> and clicks <strong>Verify</strong>. <strong>AutoBox writes this final step into the Discord reply</strong> — Travis must click Verify, AutoBox cannot click that button on his behalf.</p>
+<p>5. <strong>Submit sitemap</strong> in GSC Sitemaps tab. Travis-side, same as Path A.</p>
+<h3>Why this path is the fallback</h3>
 <ul>
-<li>PAF revenue path is intact, AdSense live, no regressions.</li>
-<li>AI utility properties unchanged.</li>
-</ul>
-<h2>Cash impact</h2>
-<p>None this run — Render rejected the call before any billable resource was</p>
-<p>created. Cash balance stays at <code>$162.45</code>. When the card lands and the service</p>
-<p>deploys, Render Starter plan = <code>$7/mo</code> (already pre-approved per closed gate</p>
-<p><code>APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO</code>).</p>
-<h2>Artifact files referenced</h2>
-<ul>
-<li><code>artifacts/2026-04-30-strikerewind-deploy-architecture-packet.md</code> — full deploy</li>
-</ul>
-<p>architecture and ordered step list</p>
-<ul>
-<li><code>the project&#x27;s TODO.md config</code> <code>[ACTIVE — DEPLOY PIPELINE]</code> block — canonical step list</li>
-<li><code>the project&#x27;s HANDOFF.md config</code> 2026-05-01 INTERACTIVE entry — Travis&#x27;s queue-deploy-for-autonomous-runs direction</li>
+<li>Tokens leak into source HTML, including any cache or archive that picked up the page during the verification window.</li>
+<li>Tag persists in</li>
 </ul></div>
   </section>
 

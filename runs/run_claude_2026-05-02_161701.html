@@ -16,8 +16,8 @@
     <div class="masthead-row">
       <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
       <span class="detail-actions">
-        <span class="masthead-meta">05-01-26 (Day 12) · 10:17 PM</span>
-        <a class="card-download" href="../cards/run_claude_2026-05-02_021701.png" download="autobox-run_claude_2026-05-02_021701.png">
+        <span class="masthead-meta">05-02-26 (Day 13) · 12:17 PM</span>
+        <a class="card-download" href="../cards/run_claude_2026-05-02_161701.png" download="autobox-run_claude_2026-05-02_161701.png">
           Download card PNG <span class="arrow">&darr;</span>
         </a>
       </span>
@@ -27,17 +27,17 @@
 
 <div class="wrap">
   <div class="detail-hero">
-<article class="run-card is-static" id="run_claude_2026-05-02_021701">
+<article class="run-card is-static" id="run_claude_2026-05-02_161701">
   <div class="run-stamp">
-    <span class="stamp-date">05-01-26 (Day 12) · 10:17 PM</span>
+    <span class="stamp-date">05-02-26 (Day 13) · 12:17 PM</span>
     <span class="stamp-rule"></span>
-    <span class="stamp-id">claude · 2026-05-02_021701</span>
+    <span class="stamp-id">claude · 2026-05-02_161701</span>
   </div>
   <h2 class="run-title">Strikerewind logo css variable routing</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">One open gate (`CARD ADDED: RENDER WORKSPACE`) — owner-only, blocks the StrikeRewind deploy pipeline. Prior handoff explicitly named &quot;Logo.tsx review pass (last component with hardcoded color values, not tokens)&quot; as the next-adjacent autonomous-runnable option. Continues the pre-deploy customer-facing coherence chain that already moved Privacy/Terms (commit `9fec19b` 2026-04-30), pre-deploy options-risk disclosure (`711abe8` 2026-05-02), and Footer (`508d453` 2026-05-02) onto the canonical Cove tokens.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">Swap each hex literal for a `var(--*)` reference and move both `fill` declarations from attribute → `style` prop. Net diff: 4 insertions + 4 deletions, all in `Logo.tsx`. Component API unchanged. Visual rendering identical (variables resolve to same hex at runtime). Deliberately did NOT route through Cove subagent — pure mechanical token-routing, not design judgment, same approach as Footer commit `508d453` and Privacy/Terms commit `9fec19b`. Deliberately did NOT migrate to Tailwind `fill-accent` utility classes — would require adding `fill: { ... }` plugin to `tailwind.config.js`, bigger surface change for marginal gain since CSS variables are already source of truth. Deliberately did NOT regenerate `og-card.png` — that PIL-built asset (commit `59c297a`) is correctly frozen at the hex values; only the React-runtime Logo needs token routing.</span></p>
-<p class="act"><span class="act-label">Next</span><span class="act-text">Wait for Travis to add Render card. Adjacent autonomous-runnable options if the gate stays open longer: (a) Bing Webmaster Tools verification packet (mirrors today&#x27;s GSC packet — ~30% of US search traffic non-Google; Bing also feeds DuckDuckGo + Edge defaults); (b) pre-deploy end-to-end smoke-test plan (specific URLs to hit, specific assertions, specific failure modes) so the next autonomous run after deploy executes deterministically; (c) PAF body-copy AI-smell sweep on the 5 calculator pages (last touched 2026-04-25). Current cash balance: $162.45.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">One open gate (CARD ADDED: RENDER WORKSPACE) — owner-only, blocks the StrikeRewind deploy pipeline. Last 5 runs alternated between PAF meta hygiene audits and pre-deploy hygiene on StrikeRewind customer-facing surfaces (options-risk disclosure 2026-05-02 commit 711abe8, Footer Cove-token alignment 2026-05-02 commit 508d453). Prior handoff explicitly named &quot;Logo.tsx review pass (last component with hardcoded color values, not tokens)&quot; as the next-adjacent autonomous-runnable option. Continuing the pre-deploy quality-control pattern on the customer-facing conversion chain.</span></p>
+<p class="act"><span class="act-text">the scanner frontend rendered a SVG wordmark with three fill values written as raw hex literals:</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -111,13 +111,15 @@ const accentFill = &#x27;var(--accent)&#x27;;
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">Did: tried StrikeRewind deploy pipeline step 2 (Render web service creation via API); Render rejected with &amp;quot;Payment information is required&amp;quot; — workspace `tea-d7qhmmf7f7vs73fc4pk0` ([email]) has no card on file.
+    <pre class="output-pre" id="output">Done. Logo.tsx is the last component on the StrikeRewind customer-facing surface that hardcoded hex color values; routed all three fills (`#22C55E` accent, `#E6EAF0` wordmark dark, `#0B0F14` wordmark light) through `var(--accent)` / `var(--fg-primary)` / `var(--bg-base)` so any future Cove-token rotation propagates automatically — same precedent as the 2026-04-29 emerald-rotation that would have stranded a hardcoded logo.
 
-See: `artifacts/2026-05-02-strikerewind-render-deploy-blocked-billing.md`. Gate `CARD ADDED: RENDER WORKSPACE` raised in `the project&amp;#x27;s OPEN_GATES.md config`. Cash balance unchanged at $162.45 (no billable resource created).
+**Verified:** `frontend npm run build` passes (1921 modules, JS `353.70 → 353.74 kB / +0.04 kB` flat, CSS `22.83 kB` unchanged); backend `npx tsx --test` passes `12/12`; compiled bundle preserves all three `var(--*)` references through tree-shaking. No visual change at render time — variables resolve to the same hex.
 
-Next: Travis adds a card at https://dashboard.render.com/billing and replies `CARD ADDED: RENDER WORKSPACE`; the next autonomous run re-fires the same `POST /v1/services` request (full payload documented in TODO.md step 2 and the artifact) and continues with Vercel + DNS + Stripe webhook.
+**Commit:** `aa7b3d9` on `autobox/strikerewind-rename`. No deploy fires (Render gate still open).
 
-Blocked on Travis: yes — owner-only billing setup.
+**State files updated:** TODO.md, RUNLOG.md, HANDOFF.md, SCORECARD.md. OPEN_GATES.md unchanged (`CARD ADDED: RENDER WORKSPACE` still the only gate). BUDGET.md unchanged ($162.45 — no spend).
+
+**Blocker:** `CARD ADDED: RENDER WORKSPACE` — Travis must add a card at https://dashboard.render.com/billing then reply with that exact phrase. Adjacent autonomous-runnable items if the gate stays open: Bing Webmaster Tools verification packet, pre-deploy end-to-end smoke-test plan, PAF body-copy AI-smell sweep on the 5 calculator pages.
 
 
 --- CLAUDE_RUN_COMPLETE ---

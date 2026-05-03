@@ -7959,6 +7959,73 @@
       "label": "05-03-26 (Day 14) \u00b7 8:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_claude_2026-05-03_141701",
+      "timestamp": "2026-05-03 10:17 AM EDT",
+      "timestamp_sort": "2026-05-03T14:17:01+00:00",
+      "date": "2026-05-03",
+      "time": "10:17AM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "artifact_path": "artifacts/2026-05-03-paf-google-ads-extend-or-expire-decision.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-03-paf-google-ads-extend-or-expire-decision.md",
+          "relative_path": "artifacts/2026-05-03-paf-google-ads-extend-or-expire-decision.md",
+          "kind": "text",
+          "preview": "# PAF Google Ads \u2014 extend or expire decision packet\n\nDate: 2026-05-03\nProject: Profit After Fees\nDecision deadline: 2026-05-04 (tomorrow \u2014 current $50 total cap end-of-day)\nCurrent cash balance: $162.45\n\n## TL;DR\nThe PAF Google Ads $50 test cap ends tomorrow. AutoBox cannot pull live ad metrics from this box (no Google Ads API credentials present), so this is an owner-only check. The decision splits cleanly into one of three branches based on what the dashboard shows. Reply formats below are ready to paste.\n\n## What's known going in\n- Total approved test cap: **$50.00**.\n- Spend as of 2026-04-29 (last reported by Travis): **$15.05** (all from Performance Max, since paused). Search campaign had not spent yet.\n- Remaining headroom against the $50 cap as of 2026-04-29: **$34.95**.\n- Both campaigns were dark pending advertiser verification (1\u201310 day Google review, submitted ~2026-04-28). 5 days have now elapsed \u2014 verification may have completed at any point in the window.\n- Conversion event was broken until 2026-04-28 22:32 UTC (`gtag('event','conversion',...)` was firing on every page load). It was rewired to fire once on first calculator input that night. Performance Max's 3 reported \"conversions\" pre-date the fix and should be treated as page views, not real input events.\n- Active Search campaign: `PAF Search - Fee Calculators`, Maximize Clicks, $1.50 max CPC, $10/day, 8 phrase-match keywords (stripe / paypal / payment fee calculator variants).\n- Performance Max campaign was paused by Travis 2026-04-29.\n\n## Step 1 \u2014 Travis: pull this in the Google Ads dashboard (\u22645 min)\nOpen account `490-612-1666`, set the date range to `2026-04-26 \u2192 today`, and capture the following two rows:\n\n```\nCampaign: PAF - Performance Max (PAUSED)\n  Status: <paused / verification-blocked / other>\n  Spend (date range): $<amount>\n  Clicks / Impressions / Conv. (post-2026-04-28 22:32 UTC only): <numbers>\n\nCampaign: PAF Search - Fee Calculators\n  Status: <enabled / eligible / paused / verification-blocked / disapproved>\n  Spend (date range): $<amount>\n  Clicks / Impressions / Conv.: <numbers>\n  Avg CPC: $<amount>\n  Top 5 search terms (if any visible): <list>\n  Any policy / disapproval warnings: <text>\nAccount: advertiser verification status: <verified / pending / failed>\n```\n\n## Step 2 \u2014 pick the branch and reply\nUse the numbers above to pick exactly one of three branches.\n\n### Branch A \u2014 verification still pending OR Search spend is $0 \u2192 **EXTEND, same cap**\nIf account is still under verification, or verification cleared late and the Search campaign hasn't had a fair window to actually run, the test never happened. Extending is the only way to get the data the $15.05 already spent was supposed to buy.\n\nAction in the dashboard:\n1. Move the Search campaign budget end date from `2026-05-04` to `2026-05-18` (two clean weeks of post-verification runtime).\n2. Keep the $50 total cap (so worst-case incremental spend is `$50 \u2212 current spend`, not a fresh $50).\n3. Leave Performance Max paused.\n\nReply format:\n```\nADS DECISION: EXTEND, end date 2026-05-18, $50 cap unchanged\nVerification status: <verified YYYY-MM-DD / still pending>\nSearch spend so far: $<amount>\nSearch clicks / impressions: <numbers>\n```\n\n### Branch B \u2014 Search ran clean, real signal in hand \u2192 **EXTEND, expand cap**\nIf the Search campaign ran at least 7 days post-verification with CTR \u2265 2%, avg CPC \u2264 $2.00, and at least one search term that maps to PAF intent (e.g. \"stripe fee calculator\", \"etsy seller fee\"), the test bought useful learning and a second tranche is justified.\n\nAction in the dashboard:\n1. Push end date out to `2026-06-04` (next 30 days).\n2. Raise total cap to `$150` (3\u00d7 current; still bounded enough to qualify as a test).\n3. Add the negative-keyword block from `artifacts/2026-04-26-google-ads-first-metrics-stop-loss-packet.md` (jobs, careers, developer API, login/support, chargeback/refund disputes, stock/investor terms, PDFs/templates/free downloads).\n4. Keep Maximize Clicks; do NOT switch to Smart Bidding (still well under the 50-conversion threshold for learning-reset to be worth it).\n\nReply format:\n```\nADS DECISION: EXPAND, end date 2026-06-04, cap raised to $150, negatives added\nSearch spend so far: $<amount> (CTR <%>, avg CPC $<amount>, conv <number>)\nTop intent search terms: <2\u20133 examples>\n```\n\nNOTE: this branch crosses the BUDGET.md ledger ceiling (current cash $162.45). If approved, AutoBox will record the new $150 cap as a contingent spend in BUDGET.md and stop spending after the cap is reached. If you want a hard floor of cash kept aside, say so in the reply (e.g. `cap raised to $100, $62 cash floor`).\n\n### Branch C \u2014 Search ran clean, signal weak or negative \u2192 **EXPIRE**\nIf the Search campaign ran \u22657 days post-verification and the data is bad (CTR <1%, CPC >$3, zero on-page input conversions, irrelevant search terms), the lane is not worth a second tranche. Let the cap expire and roll the bandwidth into evidence-driven directions (AdSense passive earnings, organic indexing, PAF's existing direct traffic).\n\nAction in the dashboard:\n1. Pause the Search campaign at `2026-05-04 23:59`.\n2. Do not raise the cap.\n3. Leave Performance Max paused.\n\nReply format:\n```\nADS DECISION: EXPIRE, paused 2026-05-04\nFinal Search spend: $<amount> (CTR <%>, avg CPC $<amount>, conv <number>)\nReason: <one-line: e.g. CPC too high / no calculator-intent terms / CTR floor>\n```\n\n## What AutoBox does on each reply\n- Branch A: log the extension in `BUDGET.md` (no new spend approved \u2014 same $50 cap), update `TODO.md`, remove the gate from `OPEN_GATES.md`.\n- Branch B: same plus add the new $150 cap as a contingent line in `BUDGET.md` and reissue the stop-loss rules from `artifacts/2026-04-26-google-ads-first-metrics-stop-loss-packet.md` against the new ceiling.\n- Branch C: log the final spend in `BUDGET.md`, add a `[DONE]` line to `TODO.md` with the post-mortem, remove the gate. No further AutoBox action on Google Ads until Travis re-opens the lane.\n\n## Why this matter",
+          "site_path": "artifacts/2026-05-03-paf-google-ads-extend-or-expire-decision.md"
+        }
+      ],
+      "output_excerpt": "All state files updated. Done.\n\n**What I did:** Built `artifacts/2026-05-03-paf-google-ads-extend-or-expire-decision.md` \u2014 three branches (extend / expand / expire) with paste-ready reply formats for the PAF Google Ads $50 cap that ends tomorrow (2026-05-04). Raised gate `ADS DECISION: PAF SEARCH, $50 CAP ENDS 2026-05-04`.\n\n**Blocked on Travis:** three gates \u2014 `STRIPE LIVE CONFIGURED: STRIKEREWIND`, `TESTING COMPLETE: STRIKEREWIND`, and the new `ADS DECISION: PAF SEARCH`. Cash balance: `$162.45`. No spend this run.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-03_141701.txt",
+      "screenshot_path": "",
+      "label": "05-03-26 (Day 14) \u00b7 10:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

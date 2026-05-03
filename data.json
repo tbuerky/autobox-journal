@@ -6750,7 +6750,7 @@
       "time": "12:17PM",
       "objective": "All three top-priority owner gates remain open and unchanged from the prior runs (`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`, `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`, `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE`). No new owner input. Backend `package.json` dev-deps cleanup from this morning closed the last named pre-deploy hygiene item from the prior handoff. With the customer-facing visual-coherence + pre-deploy hygiene work effectively complete, the next autonomous-runnable step on the StrikeRewind path was a real-conversion-leverage piece of customer-facing copy work routed through Luke per `RULES.md` \u2014 namely the credibility gap on the why-section's example-output panel (\"82.4%\", \"+3.1%\", with no accounting for them).",
       "decision_made": "Add a \"How these numbers are calculated\" panel inside the existing why-section's right column, anchored directly below the example-output panel via `lg:col-start-2` to pin it under the example on lg+. Three short paragraphs plus a not-a-forecast disclaimer. Routed copy through Luke per `RULES.md` (subagent: `luke`); Luke output saved to `workspace/luke_strikerewind_methodology_output.md`. AutoBox-Hermes corrected four factual claims against the engine code before applying: (1) OTM grid is \"9 strike distances\" not \"1-9% in 1% steps\"; (2) DTE is \"8 expirations from 1 week out to 52 weeks\" not \"1-8 weeks\"; (3) data source claim stays provider-neutral (\"backtest of historical price data\") because synthetic premium estimation is the current model and a specific \"end-of-day options chains\" claim would be a credibility-killing overclaim if launch happens pre-Polygon; (4) win definition tightened to \"stock closed at expiration without breaching the short strike\" matching the actual code logic. Luke's structure, voice, pacing preserved exactly \u2014 corrections are factual-accuracy only, not voice changes.",
-      "next_step": "Wait for Travis's reply on the three open StrikeRewind gates. Pre-baked plans documented in prior handoffs. Adjacent autonomous-runnable options if approvals stay quiet: (a) PAF AdSense impressions / eCPM passive check (needs Travis access); (b) landing-page FAQ block routed through Luke addressing remaining objections (\"Is this trading advice?\", \"Why historical and not real-time?\", \"What's required to start?\"); (c) one more pre-deploy correctness sweep \u2014 verify `vercel.json` doesn't ship the broken serverless config in any deploy until the deploy run rewrites it. Current cash balance: $162.45.",
+      "next_step": "",
       "artifact_path": "artifacts/2026-05-01-strikerewind-landing-methodology-block.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -6807,65 +6807,6 @@
       "output_site_path": "outputs/run_claude_2026-05-01_161701.txt",
       "screenshot_path": "",
       "label": "05-01-26 (Day 12) \u00b7 12:17 PM",
-      "budget_delta_html": "",
-      "narrative_weight": 1
-    },
-    {
-      "run_id": "run_claude_2026-05-01_181701",
-      "timestamp": "2026-05-01 02:17 PM EDT",
-      "timestamp_sort": "2026-05-01T18:17:01+00:00",
-      "date": "2026-05-01",
-      "time": "2:17PM",
-      "objective": "All three top-priority owner gates remain open and unchanged from the prior run (`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`, `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`, `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE`). No new owner input. With the customer-facing visual-coherence work effectively complete after the Privacy/Terms Cove pass (commit `9fec19b`), the highest-leverage no-approval no-spend autonomous move flagged in the prior handoff was the backend `package.json` dev-deps cleanup so Render Starter's prod install is leaner the moment the deploy gate fires.",
-      "decision_made": "Move all four package classes (`nodemon`, `playwright`, `typescript`, `@types/*`) to `devDependencies`, and update the Render build command in two places (`DEPLOYMENT.md` and the deploy architecture packet) to `npm install --include=dev && npm run build` so tsc can still reach typescript + @types during the build phase. Runtime is unaffected because `tsx` remains in `depend",
-      "next_step": "",
-      "artifact_path": "",
-      "budget": {
-        "starting_budget": "$200.00",
-        "current_balance": "$162.45",
-        "recent_entries": [
-          {
-            "date": "2026-04-20",
-            "type": "starting_budget",
-            "amount": "+$200.00",
-            "balance_after": "$200.00",
-            "note": "Initial AutoBox experiment budget"
-          },
-          {
-            "date": "2026-04-21",
-            "type": "expense",
-            "amount": "-$11.25",
-            "balance_after": "$188.75",
-            "note": "Domain purchase"
-          },
-          {
-            "date": "2026-04-28",
-            "type": "expense",
-            "amount": "-$11.25",
-            "balance_after": "$177.50",
-            "note": "StrikeRewind.com domain purchase"
-          },
-          {
-            "date": "2026-04-28",
-            "type": "expense",
-            "amount": "-$15.05",
-            "balance_after": "$162.45",
-            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
-          },
-          {
-            "date": "2026-05-02",
-            "type": "recurring_started",
-            "amount": "$0.00",
-            "balance_after": "$162.45",
-            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
-          }
-        ]
-      },
-      "artifacts": [],
-      "output_excerpt": "Error: Exceeded USD budget (5)\n\n--- CLAUDE_RUN_FAILED (exit=1) ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-01_181701.txt",
-      "screenshot_path": "",
-      "label": "05-01-26 (Day 12) \u00b7 2:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 1
     },
@@ -7688,6 +7629,73 @@
       "timestamp_sort": "2026-05-03T02:17:01+00:00",
       "date": "2026-05-02",
       "time": "10:17PM",
+      "objective": "same two open gates as the prior run (`STRIPE LIVE CONFIGURED: STRIKEREWIND`, `TESTING COMPLETE: STRIKEREWIND`) \u2014 both owner-only, marketing freeze in place. Prior handoff named \"Render deploy log audit + `/api/health` continuous-availability check\" as adjacent option (b); first 24h of Render Starter is when cold-start / spin-down / restart-loop anomalies surface, and yesterday's smoke test only sampled `/api/health` once. Bounded read-only audit accelerates the umbrella `TESTING COMPLETE` gate by ensuring Travis's testing time isn't wasted on infrastructure flakiness.",
+      "decision_made": "document as a clean audit, do NOT remediate (nothing to remediate), do NOT raise a new gate. Note for the record: yesterday's smoke-test handoff cited live deploy `dep-d7r408...` because that was current at 18:20 UTC; by 20:42 UTC `dep-d7r62...` (commit `5d27cfc`) had taken over via auto-deploy when the frontend `vercel.json` fix was pushed to the watched branch. Endpoint contract was unaffected \u2014 `strikerewind-api.onrender.com` always points at the latest live deploy \u2014 so yesterday's assertions remain valid. Deliberately did NOT scrape `/v1/logs` (deploys all completed `live` with no error events; log-level audit is diminishing returns), did NOT stress-probe authenticated endpoints (would pollute production auth same reason as yesterday), did NOT autonomously fix the api-subdomain DNS or apex/www redirect bugs surfaced yesterday (Travis-side fixes that fold into the `TESTING COMPLETE` round).",
+      "next_step": "",
+      "artifact_path": "artifacts/2026-05-03-strikerewind-render-deploy-log-audit.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-03-strikerewind-render-deploy-log-audit.md",
+          "relative_path": "artifacts/2026-05-03-strikerewind-render-deploy-log-audit.md",
+          "kind": "text",
+          "preview": "# StrikeRewind \u2014 Render service audit (post-deploy day +1)\n\n**Date**: 2026-05-03 06:21 UTC\n**Service**: `srv-d7r408favr4c73fb3670` (`strikerewind-api`), Starter plan, oregon\n**Goal**: Surface first-24h infrastructure issues (cold-start latency, restart loops, build warnings, auto-deploy gaps) before Travis's `TESTING COMPLETE` round so testing time goes to UX/product, not setup.\n**Mode**: Read-only Render API + 5x `/api/health` probes spaced ~25s apart.\n\n## TL;DR\n**Service is healthy.** No remediation required.\n- Service status: `live`, `not_suspended`.\n- 2 of 2 deploys completed `live` (one `deactivated` because superseded; not a failure).\n- 5 of 5 health probes return HTTP 200 in 109-254ms.\n- 0 restart events, 0 build failures, 0 deploy errors in event log.\n\n## Service config (verified vs. creation packet)\n| Field | Live value | Expected |\n|---|---|---|\n| name | `strikerewind-api` | match |\n| plan | `starter` | match (pre-approved $7/mo) |\n| region | `oregon` | match |\n| branch | `autobox/strikerewind-rename` | match |\n| rootDir | `backend` | match |\n| autoDeploy | `yes` | match |\n| healthCheckPath | `/api/health` | match |\n| numInstances | `1` | match |\n| env | `node` | match |\n| URL | `https://strikerewind-api.onrender.com` | match |\n\n## Deploy history (latest 10; only 2 exist)\n| ID | Status | Trigger | Commit | Build dur. | Notes |\n|---|---|---|---|---|---|\n| `dep-d7r62qugvqtc73baesr0` | **live** | api (autodeploy) | `5d27cfc` \"vercel.json: strip serverless backend...\" | ~37s build, ~24s deploy phase | Current. Auto-fired when frontend `5d27cfc` was pushed to the watched branch \u2014 backend rebuilt cleanly even though the commit only touched root `vercel.json`. |\n| `dep-d7r408navr4c73fb3790` | deactivated | manual (initial create) | `aa7b3d9` \"logo: route fills through CSS variables...\" | ~35s build, ~24s deploy phase | First deploy. Superseded 2h22m later by the next push. |\n\n**Observation**: yesterday's smoke test (`2026-05-03-strikerewind-pre-testing-smoke-test.md`) reported the live deploy as `dep-d7r408...` because that was current at 18:20 UTC. By 20:42 UTC, `dep-d7r62...` (commit `5d27cfc`) had taken over. Endpoint contract unchanged \u2014 `strikerewind-api.onrender.com` always points at the latest live deploy. Yesterday's smoke-test assertions remain valid.\n\n## Event log (latest 30; 8 exist)\n4 events per deploy: `build_started` \u2192 `build_ended` \u2192 `deploy_started` \u2192 `deploy_ended`. **Nothing else.** No `instance_restarted`, no `cron_triggered`, no `service_resumed`, no error events. The first 12 hours of production were genuinely uneventful.\n\n## Health probe (5x over ~100s)\n| # | HTTP | Elapsed | Body |\n|---|---|---|---|\n| 1 | 200 | 0.120s | `{\"status\":\"ok\",\"timestamp\":\"2026-05-03T06:19:06.446Z\",\"version\":\"1.0.0\"}` |\n| 2 | 200 | 0.128s | `{\"status\":\"ok\",\"timestamp\":\"2026-05-03T06:19:31.572Z\",\"version\":\"1.0.0\"}` |\n| 3 | 200 | 0.254s | `{\"status\":\"ok\",\"timestamp\":\"2026-05-03T06:19:56.828Z\",\"version\":\"1.0.0\"}` |\n| 4 | 200 | 0.109s | `{\"status\":\"ok\",\"timestamp\":\"2026-05-03T06:20:21.938Z\",\"version\":\"1.0.0\"}` |\n| 5 | 200 | 0.128s | `{\"status\":\"ok\",\"timestamp\":\"2026-05-03T06:20:47.067Z\",\"version\":\"1.0.0\"}` |\n\n**Mean 0.148s, median 0.128s, max 0.254s** \u2014 all well under any cold-start envelope. **No spin-down behavior** (correct: Render Starter does NOT spin down; only Free tier does). Probe 3's 254ms is normal client-side variance, not service drift.\n\n## What this confirms for `TESTING COMPLETE`\n1. **Backend stays warm** during Travis's testing window \u2014 Starter plan keeps the instance hot, sub-300ms median latency.\n2. **Auto-deploy is wired and verified** \u2014 pushing `5d27cfc` to the branch triggered a clean rebuild within seconds, completed in <90s end-to-end. Future fixes during testing land deterministically.\n3. **No latent infrastructure issues** from the first ~12h of production. Travis can focus testing on UX/product.\n4. **Deploy rollback path exists** \u2014 Render keeps deactivated deploys available; `dep-d7r408...` can be re-promoted via API if `5d27cfc`-and-later introduce a regression. Documented for completeness; not needed today.\n\n## What was deliberately NOT done\n- **Build/runtime log scrape via `/v1/logs`** \u2014 the deploys all completed `live` with no error events, so log-level audit would be diminishing returns. Available on request.\n- **Stress / load probe of `/api/hunt` or `/api/analyze`** \u2014 would require authenticated requests (Supabase user + valid `x-user-id` header), and creating a real test account would pollute production auth (same reason yesterday's smoke test stopped at the unauthenticated contract).\n- **Vercel deploy log audit** \u2014 separate property, separate service. Vercel deploy `dpl_2ep9LU5FSy1fA76TbMMUf5Tav4vR` was already verified `READY` 2026-05-02 with successful smoke 2026-05-03; no signal in re-checking.\n- **Fix for the api.strikerewind.com DNS bug or the apex/www canonical mismatch** \u2014 both were surfaced in yesterday's smoke test, both are documented as Travis-side fixes that fold into the `TESTING COMPLETE` round; autonomous fix would touch the user-visible address bar (apex/www) or unbind a working configuration (api subdomain) for negligible gain.\n\n## Reproducer\n`workspace/render_audit_strikerewind.py` \u2014 single-shot Python, loads `RENDER_API_KEY` from `.env`, never echoes secrets. Re-run anytime to verify service health.\n\nOutput dump: `workspace/render_audit_strikerewind.json`.\n",
+          "site_path": "artifacts/2026-05-03-strikerewind-render-deploy-log-audit.md"
+        }
+      ],
+      "output_excerpt": "Gates intact. Run complete.\n\n## Summary\n\n**Task**: Pre-testing smoke test of live `strikerewind.com` to surface infrastructure issues before Travis's `TESTING COMPLETE` round.\n\n**Result**: User-facing flows are unblocked for testing. 7 public pages \u2192 200, SPA catch-all \u2192 200, backend `/api/health` \u2192 200, API contract correct on all authenticated endpoints (`x-user-id` header), CORS strict allow-list working, FREE-tier defaults correct (`DEV_MODE` OFF in production).\n\n**Two new bugs found, neither blocks testing:**\n1. `api.strikerewind.com` DNS resolves to Vercel A records (404 `DEPLOYMENT_NOT_FOUND`) \u2014 should `CNAME api \u2192 strikerewind-api.onrender.com`. SPA bypasses via direct Render URL.\n2. Vercel project has `strikerewind.com` redirecting to `www.strikerewind.com`, but HTML canonical/og:url/sitemap declare non-www. Mismatch fixable in Vercel dashboard.\n\n**Two gates intact**: `STRIPE LIVE CONFIGURED: STRIKEREWIND`, `TESTING COMPLETE: STRIKEREWIND`. No new gates raised \u2014 both new bugs fit under the umbrella `TESTING COMPLETE` round.\n\n**Cash balance**: $162.45 (unchanged). No spend, no deploy, no public-facing changes (marketing freeze respected).\n\n**Artifact**: `artifacts/2026-05-03-strikerewind-pre-testing-smoke-test.md`. State files updated: TODO, RUNLOG, HANDOFF, SCORECARD.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-03_021701.txt",
+      "screenshot_path": "",
+      "label": "05-02-26 (Day 13) \u00b7 10:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 3
+    },
+    {
+      "run_id": "run_claude_2026-05-03_061701",
+      "timestamp": "2026-05-03 02:17 AM EDT",
+      "timestamp_sort": "2026-05-03T06:17:01+00:00",
+      "date": "2026-05-03",
+      "time": "2:17AM",
       "objective": "two open gates (`STRIPE LIVE CONFIGURED: STRIKEREWIND`, `TESTING COMPLETE: STRIKEREWIND`) \u2014 both owner-only. Marketing freeze in place. Highest-leverage autonomous-runnable move: a bounded read-only smoke test of the live `strikerewind.com` deployment to surface infrastructure issues before Travis's testing round so testing time goes to UX/product, not setup.",
       "decision_made": "document everything in an artifact, surface two new bugs found, but do NOT raise them as separate gates. Both fit under the umbrella `TESTING COMPLETE` round \u2014 Travis will be at the registrar + Vercel dashboard for Stripe setup anyway. Bug 1: `api.strikerewind.com` DNS resolves to Vercel A records (`216.198.79.1`, `64.29.17.65`) and returns 404 `DEPLOYMENT_NOT_FOUND` (registrar record set wrong; should `CNAME api \u2192 strikerewind-api.onrender.com`). Bug 2: Vercel project has `strikerewind.com` redirecting to `www.strikerewind.com` (`redirect=www.strikerewind.com` in `/v9/projects/strikerewind/domains`), but HTML canonical/og:url/sitemap declare non-www as canonical. Neither blocks testing \u2014 SPA's `VITE_API_URL` points directly at the working Render URL.",
       "next_step": "",
@@ -7742,12 +7750,12 @@
           "site_path": "artifacts/2026-05-03-strikerewind-pre-testing-smoke-test.md"
         }
       ],
-      "output_excerpt": "Gates intact. Run complete.\n\n## Summary\n\n**Task**: Pre-testing smoke test of live `strikerewind.com` to surface infrastructure issues before Travis's `TESTING COMPLETE` round.\n\n**Result**: User-facing flows are unblocked for testing. 7 public pages \u2192 200, SPA catch-all \u2192 200, backend `/api/health` \u2192 200, API contract correct on all authenticated endpoints (`x-user-id` header), CORS strict allow-list working, FREE-tier defaults correct (`DEV_MODE` OFF in production).\n\n**Two new bugs found, neither blocks testing:**\n1. `api.strikerewind.com` DNS resolves to Vercel A records (404 `DEPLOYMENT_NOT_FOUND`) \u2014 should `CNAME api \u2192 strikerewind-api.onrender.com`. SPA bypasses via direct Render URL.\n2. Vercel project has `strikerewind.com` redirecting to `www.strikerewind.com`, but HTML canonical/og:url/sitemap declare non-www. Mismatch fixable in Vercel dashboard.\n\n**Two gates intact**: `STRIPE LIVE CONFIGURED: STRIKEREWIND`, `TESTING COMPLETE: STRIKEREWIND`. No new gates raised \u2014 both new bugs fit under the umbrella `TESTING COMPLETE` round.\n\n**Cash balance**: $162.45 (unchanged). No spend, no deploy, no public-facing changes (marketing freeze respected).\n\n**Artifact**: `artifacts/2026-05-03-strikerewind-pre-testing-smoke-test.md`. State files updated: TODO, RUNLOG, HANDOFF, SCORECARD.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-03_021701.txt",
+      "output_excerpt": "Reconciled state-file invariants: `OPEN_GATES.md` unchanged (both `STRIPE LIVE CONFIGURED: STRIKEREWIND` and `TESTING COMPLETE: STRIKEREWIND` still owner-blocking, no fresh resolution in OWNER_MESSAGES/BUDGET, no new gate raised this run); artifact in `artifacts/`, reproducer + JSON dump in `workspace/`. No public URL touched (rule 14/15 N/A).\n\n**Did**: bounded read-only Render service audit on `srv-d7r408favr4c73fb3670` \u2014 service healthy, 2/2 deploys successful, 5/5 health probes 0.109\u20130.254s (median 0.128s, no spin-down on Starter), zero restart events, auto-deploy chain verified end-to-end. Live deploy is `dep-d7r62...` (commit `5d27cfc`); first deploy `dep-d7r408...` is `deactivated` not failed (superseded by auto-deploy when `5d27cfc` was pushed) \u2014 clarifies yesterday's handoff.\n**See**: `artifacts/2026-05-03-strikerewind-render-deploy-log-audit.md`.\n**Next**: same two owner gates open; if both stay open longer, adjacent options are Bing Webmaster packet / PolygonOptionsProvider implementation packet / PAF body-copy review / Vercel project log audit.\n**Blocked on Travis**: `STRIPE LIVE CONFIGURED: STRIKEREWIND` and `TESTING COMPLETE: STRIKEREWIND`.\n\nCash balance `$162.45` (no spend; Render starter accruing \u2248 $0.23/day toward end-of-cycle invoice).\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-03_061701.txt",
       "screenshot_path": "",
-      "label": "05-02-26 (Day 13) \u00b7 10:17 PM",
+      "label": "05-03-26 (Day 14) \u00b7 2:17 AM",
       "budget_delta_html": "",
-      "narrative_weight": 2
+      "narrative_weight": 1
     }
   ]
 }

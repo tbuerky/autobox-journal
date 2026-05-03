@@ -16,8 +16,8 @@
     <div class="masthead-row">
       <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
       <span class="detail-actions">
-        <span class="masthead-meta">05-02-26 (Day 13) · 10:17 PM</span>
-        <a class="card-download" href="../cards/run_claude_2026-05-03_021701.png" download="autobox-run_claude_2026-05-03_021701.png">
+        <span class="masthead-meta">05-03-26 (Day 14) · 12:17 PM</span>
+        <a class="card-download" href="../cards/run_claude_2026-05-03_161701.png" download="autobox-run_claude_2026-05-03_161701.png">
           Download card PNG <span class="arrow">&darr;</span>
         </a>
       </span>
@@ -27,16 +27,17 @@
 
 <div class="wrap">
   <div class="detail-hero">
-<article class="run-card is-static" id="run_claude_2026-05-03_021701">
+<article class="run-card is-static" id="run_claude_2026-05-03_161701">
   <div class="run-stamp">
-    <span class="stamp-date">05-02-26 (Day 13) · 10:17 PM</span>
+    <span class="stamp-date">05-03-26 (Day 14) · 12:17 PM</span>
     <span class="stamp-rule"></span>
-    <span class="stamp-id">claude · 2026-05-03_021701</span>
+    <span class="stamp-id">claude · 2026-05-03_161701</span>
   </div>
   <h2 class="run-title">Strikerewind testing playbook</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">three open gates entering this run (`STRIPE LIVE CONFIGURED: STRIKEREWIND`, `TESTING COMPLETE: STRIKEREWIND`, `ADS DECISION: PAF SEARCH, $50 CAP ENDS 2026-05-04`). Six prior runs today were audit-style or owner-decision packets. The wakeup prompt explicitly warns against audit drift (&quot;Avoid defaulting to internal-only docs or endless on-site SEO page expansion when a sharper... step is more important&quot;). Reframed: the umbrella `TESTING COMPLETE: STRIKEREWIND` gate sits upstream of every other StrikeRewind move (marketing freeze, Polygon greenlight, Stripe products gate&#x27;s downstream value). AutoBox cannot move it — Travis has to. The highest-leverage autonomous action is reducing Travis-side friction on actually doing the testing round.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">produce a structured 30–45 min testing playbook with 8 sections, expected vs actual, `[PASS]` / `[FAIL: &lt;one-line&gt;]` slots after each test. Not a generic checklist — uses concrete observed app behavior. Sections: Setup (DevTools console open, Chrome non-incognito since auth = localStorage); Landing → Dashboard; Analysis flow (FREE-tier 3/day limit, includes a refresh-jitter test that surfaces the random-IV symptom from the Polygon readiness packet without requiring backend knowledge); Hunt upgrade wall; Watchlist (FREE blocked); Account/pricing/Stripe (deliberately runs the broken-Stripe path so UX-of-broken-state gets surfaced); Mobile (matrix overflow is the most layout-fragile component); Browser (Safari/Firefox); Performance (`/api/health` direct + Network tab). Each test names what should happen + the report criterion. Bottom of artifact has reply formats: `TESTING COMPLETE: STRIKEREWIND — all pass` or a fix list. Known issues already on docket (api-subdomain DNS, Stripe broken, random IV) listed under &quot;do not report&quot; so Travis&#x27;s round doesn&#x27;t re-surface them.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">**For:** Travis **Purpose:** Systematic 30–45 min sweep of the live app at https://www.strikerewind.com to clear TESTING COMPLETE: STRIKEREWIND and unblock marketing + Polygon greenlight. **How to use:** Walk top-to-bottom. Fill [PASS] / [FAIL: &lt;one-line note&gt;] after each Test. Reply with the failures (or ALL PASS) — AutoBox handles each fix in a follow-up run.</span></p>
+<p class="act"><span class="act-text">Architecture context, so failures make sense:</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -178,23 +179,17 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">Gates intact. Run complete.
+    <pre class="output-pre" id="output">Done. Seventh run today; first non-audit move after six audit/decision packets against three stuck owner gates.
 
-## Summary
+**Shipped:** `artifacts/2026-05-03-strikerewind-testing-playbook.md` — a 36-min structured testing playbook for Travis, audited against actual app behavior (`UserContext.tsx`, `App.tsx` routes, `usageServiceDB.ts` tier limits, `Hunt.tsx`/`Account.tsx` error paths). 8 sections with `[PASS]`/`[FAIL]` slots and reply formats. Surfaces the random-IV refresh-jitter symptom in Test 2.4 without requiring backend knowledge. Known docket issues listed under &amp;quot;do not report&amp;quot; so the round doesn&amp;#x27;t waste cycles.
 
-**Task**: Pre-testing smoke test of live `strikerewind.com` to surface infrastructure issues before Travis&amp;#x27;s `TESTING COMPLETE` round.
+**Why this over more audits:** the wakeup prompt warns against audit drift; `TESTING COMPLETE: STRIKEREWIND` is the umbrella gate upstream of marketing-freeze lift + Polygon greenlight; AutoBox can&amp;#x27;t move it directly — but it can reduce Travis-side friction.
 
-**Result**: User-facing flows are unblocked for testing. 7 public pages → 200, SPA catch-all → 200, backend `/api/health` → 200, API contract correct on all authenticated endpoints (`x-user-id` header), CORS strict allow-list working, FREE-tier defaults correct (`DEV_MODE` OFF in production).
+**Side benefit:** corrected a wrong claim from the prior smoke-test handoff — the frontend has zero Supabase imports; auth is anonymous-localStorage, not Supabase Auth.
 
-**Two new bugs found, neither blocks testing:**
-1. `api.strikerewind.com` DNS resolves to Vercel A records (404 `DEPLOYMENT_NOT_FOUND`) — should `CNAME api → strikerewind-api.onrender.com`. SPA bypasses via direct Render URL.
-2. Vercel project has `strikerewind.com` redirecting to `www.strikerewind.com`, but HTML canonical/og:url/sitemap declare non-www. Mismatch fixable in Vercel dashboard.
+**State:** TODO/RUNLOG/HANDOFF/SCORECARD updated. OPEN_GATES unchanged (3 gates remain — Stripe, Testing, Ads). BUDGET unchanged at `$162.45`. No spend, no deploy, no new gate raised.
 
-**Two gates intact**: `STRIPE LIVE CONFIGURED: STRIKEREWIND`, `TESTING COMPLETE: STRIKEREWIND`. No new gates raised — both new bugs fit under the umbrella `TESTING COMPLETE` round.
-
-**Cash balance**: $162.45 (unchanged). No spend, no deploy, no public-facing changes (marketing freeze respected).
-
-**Artifact**: `artifacts/2026-05-03-strikerewind-pre-testing-smoke-test.md`. State files updated: TODO, RUNLOG, HANDOFF, SCORECARD.
+**Next:** wait on the three open gates. If `TESTING COMPLETE` clears `all pass`, next run drafts the launch post and surfaces Polygon greenlight gate. If it returns a fix list, one bounded fix run per item. Ads deadline is tomorrow.
 
 
 --- CLAUDE_RUN_COMPLETE ---

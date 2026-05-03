@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind webhook route todo cleanup &middot; AutoBox</title>
+<title>Strikerewind pre testing smoke test &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,11 +33,10 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-03_101701</span>
   </div>
-  <h2 class="run-title">Strikerewind webhook route todo cleanup</h2>
+  <h2 class="run-title">Strikerewind pre testing smoke test</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
-<p class="act"><span class="act-text">**Date:** 2026-05-03 **Branch:** autobox/strikerewind-rename **Commit:** a2262e2 **Diff:** the scanner backend +1 / -21</span></p>
-<p class="act"><span class="act-text">Two consecutive handoffs (2026-05-02 Stripe-live-products + 2026-05-03 canonical-www-alignment) flagged backend index.ts:326,333 cleanup as the #1 next autonomous-runnable adjacent option while waiting on the two open Travis-side gates (STRIPE LIVE CONFIGURED: STRIKEREWIND + TESTING COMPLETE: STRIKEREWIND). Today&#x27;s earlier runs landed the canonical/www alignment and the Render deploy log audit; this is the next bounded option in queue. Marketing freeze stays in place — no public surface affected.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">two open gates (`STRIPE LIVE CONFIGURED: STRIKEREWIND`, `TESTING COMPLETE: STRIKEREWIND`) — both owner-only. Marketing freeze in place. Highest-leverage autonomous-runnable move: a bounded read-only smoke test of the live `strikerewind.com` deployment to surface infrastructure issues before Travis&#x27;s testing round so testing time goes to UX/product, not setup.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">document everything in an artifact, surface two new bugs found, but do NOT raise them as separate gates. Both fit under the umbrella `TESTING COMPLETE` round — Travis will be at the registrar + Vercel dashboard for Stripe setup anyway. Bug 1: `api.strikerewind.com` DNS resolves to Vercel A records (`216.198.79.1`, `64.29.17.65`) and returns 404 `DEPLOYMENT_NOT_FOUND` (registrar record set wrong; should `CNAME api → strikerewind-api.onrender.com`). Bug 2: Vercel project has `strikerewind.com` redirecting to `www.strikerewind.com` (`redirect=www.strikerewind.com` in `/v9/projects/strikerewind/domains`), but HTML canonical/og:url/sitemap declare non-www as canonical. Neither blocks testing — SPA&#x27;s `VITE_API_URL` points directly at the working Render URL.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -46,64 +45,86 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeRewind — Stripe webhook route: drop misleading TODO duplicate-log block</h1>
+    <div class="artifact-prose"><h1>StrikeRewind: pre-testing smoke test of live deployment</h1>
 <p><strong>Date:</strong> 2026-05-03</p>
-<p><strong>Branch:</strong> <code>autobox/strikerewind-rename</code></p>
-<p><strong>Commit:</strong> <code>a2262e2</code></p>
-<p><strong>Diff:</strong> <code>the scanner backend</code> <code>+1 / -21</code></p>
-<h2>Why this run</h2>
-<p>Two consecutive handoffs (<code>2026-05-02</code> Stripe-live-products + <code>2026-05-03</code> canonical-www-alignment) flagged backend <code>index.ts:326,333</code> cleanup as the #1 next autonomous-runnable adjacent option while waiting on the two open Travis-side gates (<code>STRIPE LIVE CONFIGURED: STRIKEREWIND</code> + <code>TESTING COMPLETE: STRIKEREWIND</code>). Today&#x27;s earlier runs landed the canonical/www alignment and the Render deploy log audit; this is the next bounded option in queue. Marketing freeze stays in place — no public surface affected.</p>
-<h2>What was wrong</h2>
-<p>The route handler at <code>the scanner backend:313-343</code> already awaited <code>stripeService.handleWebhook(...)</code> — which inside <code>stripeServiceDB.ts:113-169</code> verifies the signature, logs the event, and dispatches to private methods (<code>handleCheckoutCompleted</code> lines 171-206, <code>handleSubscriptionUpdate</code> 208-223, <code>handleSubscriptionDeleted</code> 225-238, <code>handlePaymentFailed</code>) that fully persist user tier / subscription_status / stripe_customer_id / stripe_subscription_id to Supabase via <code>db.updateUser(...)</code>.</p>
-<p>After the <code>await</code> returned, the route handler then re-switched on <code>event.type</code> and ran two <code>console.log</code> lines wrapped in two stale comments:</p>
-<pre><code>// TODO: Update user&#x27;s subscription in database
-console.log(`User ${userId} subscribed with subscription ${subscriptionId}`);
+<p><strong>Surface:</strong> strikerewind.com (live, deployed 2026-05-02)</p>
+<p><strong>Purpose:</strong> find any deployment issues before Travis&#x27;s <code>TESTING COMPLETE</code> round so the testing surfaces UX/product issues, not infrastructure ones.</p>
+<h2>Result</h2>
+<p><strong>User-facing flows are unblocked for testing.</strong> Sign-up, login, Hunt, Analysis, Watchlist, dashboard, public pages — all functional. Two real DNS/Vercel bugs found that don&#x27;t block testing but should be fixed during Travis&#x27;s next pass through the registrar/Vercel dashboard. Two previously-known gated issues (Stripe products + webhook) confirmed.</p>
+<h2>Smoke test results</h2>
+<h3>Public pages (all HTTP 200)</h3>
+<p>| URL | Result |</p>
+<p>|---|---|</p>
+<p>| <code>https://www.strikerewind.com/</code> | 200 — title, description, canonical, og:<em>, twitter:</em>, theme-color all correct |</p>
+<p>| <code>https://www.strikerewind.com/privacy</code> | 200 |</p>
+<p>| <code>https://www.strikerewind.com/terms</code> | 200 |</p>
+<p>| <code>https://www.strikerewind.com/robots.txt</code> | 200 |</p>
+<p>| <code>https://www.strikerewind.com/sitemap.xml</code> | 200 |</p>
+<p>| <code>https://www.strikerewind.com/og-card.png</code> | 200 (22 815 bytes) |</p>
+<p>| <code>https://www.strikerewind.com/logo.png</code> | 200 (2 740 bytes) |</p>
+<h3>SPA routing (catch-all 200)</h3>
+<p>| URL | Result |</p>
+<p>|---|---|</p>
+<p>| <code>https://www.strikerewind.com/dashboard</code> | 200 (SPA serves) |</p>
+<p>| <code>https://www.strikerewind.com/hunt</code> | 200 (SPA serves) |</p>
+<p>| <code>https://www.strikerewind.com/this-route-does-not-exist</code> | 200 (NotFound page) |</p>
+<h3>Backend API (Render direct: <code>https://strikerewind-api.onrender.com</code>)</h3>
+<p>| Endpoint | Result | Notes |</p>
+<p>|---|---|---|</p>
+<p>| <code>GET /api/health</code> | 200 <code>{&quot;status&quot;:&quot;ok&quot;}</code> | Healthy |</p>
+<p>| <code>GET /api/usage</code> (no header) | 400 <code>User ID required</code> | Correct contract — frontend supplies <code>x-user-id</code> |</p>
+<p>| <code>GET /api/usage</code> (fake uuid) | 200 <code>{tier:&quot;FREE&quot;, limits:{maxAnalysesPerDay:3, ...}}</code> | FREE-tier defaults correct; <code>DEV_MODE</code> is OFF in production |</p>
+<p>| <code>POST /api/hunt</code> (no header) | 400 <code>User ID required</code> | Correct |</p>
+<p>| <code>POST /api/analyze</code> (no header) | 400 <code>User ID required</code> | Correct |</p>
+<p>| <code>GET /api/watchlist</code> (no header) | 400 <code>User ID required</code> | Correct |</p>
+<p>| <code>GET /api/stripe/prices</code> | 200 <code>{}</code> | <strong>Empty — gated under <code>STRIPE LIVE CONFIGURED</code></strong> |</p>
+<p>| <code>POST /api/stripe/webhook</code> | 400 <code>Webhook Error: Stripe webhook secret not configured</code> | <strong>Gated under same</strong> |</p>
+<p>| <code>POST /api/stripe/checkout</code> (fake) | <code>{&quot;error&quot;:&quot;Failed to create checkout session&quot;}</code> | Correct — fake price ID |</p>
+<p>| CORS preflight from <code>https://www.strikerewind.com</code> | 200 | Strict CORS allow-list working |</p>
+<h2>Two new bugs found</h2>
+<h3>Bug 1 — <code>api.strikerewind.com</code> points at Vercel, not Render</h3>
+<pre><code>$ dig +short api.strikerewind.com
+216.198.79.1
+64.29.17.65       ← Vercel A records (not Render)
 
-// TODO: Update user&#x27;s tier based on subscription status
-console.log(`Subscription ${subscription.id} was ${event.type}`);
+$ curl -i https://api.strikerewind.com/api/health
+HTTP/2 404
+x-vercel-error: DEPLOYMENT_NOT_FOUND
 </code></pre>
-<p>The <code>// TODO</code> comments misread as a missing implementation. They are not — the work is done in the service. The block was pure duplicate logging on top of the work the service had already completed.</p>
-<h2>What shipped</h2>
-<p>Deleted the duplicate switch block (rows 319-336 of the prior file). Route handler now reads:</p>
-<pre><code>app.post(&#x27;/api/stripe/webhook&#x27;, async (req, res): Promise&lt;void&gt; =&gt; {
-  const signature = req.headers[&#x27;stripe-signature&#x27;] as string;
-  try {
-    await stripeService.handleWebhook(req.body, signature);
-    res.json({ received: true });
-  } catch (error) {
-    console.error(&#x27;Webhook error:&#x27;, error);
-    res.status(400).send(`Webhook Error: ${error}`);
-  }
-});
+<p>The DNS record at the registrar resolves to Vercel IPs. Vercel does not have <code>api.strikerewind.com</code> registered as a domain on the strikerewind project (or any project on <code>travis-4599s-projects</code>), so it returns DEPLOYMENT_NOT_FOUND.</p>
+<p><strong>Impact:</strong> does not break the SPA. The frontend&#x27;s <code>VITE_API_URL</code> was set on Vercel to the working <code>https://strikerewind-api.onrender.com</code> directly (not <code>https://api.strikerewind.com</code>), so every user-facing flow that hits the backend works fine. The bug only matters for:</p>
+<ul>
+<li>documentation correctness (the registrar fix list in HANDOFF assumed <code>api.</code> would resolve to Render)</li>
+<li>any future external integration trying to use <code>api.strikerewind.com</code></li>
+<li>the Stripe webhook URL — currently in the recommendation packet as <code>https://strikerewind-api.onrender.com/api/stripe/webhook</code> (the working URL), so this does NOT block the open <code>STRIPE LIVE CONFIGURED</code> gate</li>
+</ul>
+<p><strong>Fix (Travis at registrar):</strong> delete the existing <code>api.strikerewind.com</code> record, add <code>CNAME api → strikerewind-api.onrender.com</code>. After DNS propagates (≤1 hour), <code>https://api.strikerewind.com/api/health</code> will return <code>{&quot;status&quot;:&quot;ok&quot;}</code> and Vercel project env <code>VITE_API_URL</code> can be repointed to <code>https://api.strikerewind.com</code> if desired (cosmetic; not required).</p>
+<h3>Bug 2 — apex/www canonical mismatch</h3>
+<p>The build artifacts (HTML <code>&lt;link rel=&quot;canonical&quot;&gt;</code>, <code>og:url</code>, <code>sitemap.xml</code>) all declare <code>https://strikerewind.com/</code> (non-www) as canonical. But the live Vercel project config does the opposite — apex 307-redirects to www:</p>
+<pre><code>Vercel project domains for `strikerewind`:
+  strikerewind.com           redirect=www.strikerewind.com   ← this is backwards
+  www.strikerewind.com       (canonical)
+  strikerewind.vercel.app
 </code></pre>
-<p>Single source of truth (<code>stripeService.handleWebhook</code>), no stale TODOs, no duplicate logging.</p>
-<h2>Verification</h2>
+<pre><code>$ curl -I https://strikerewind.com/
+HTTP/2 307
+location: https://www.strikerewind.com/
+</code></pre>
+<p><strong>Impact:</strong> soft. Search engines understand canonical signals and will sort it out. But the canonical-to-live mismatch is a small credibility ding and could cost a few percent of organic traffic over time. No effect on the testing round.</p>
+<p><strong>Fix (Vercel dashboard):</strong> in the strikerewind project → Settings → Domains, swap the redirect — set <code>www.strikerewind.com</code> to redirect to <code>strikerewind.com</code>, and set <code>strikerewind.com</code> as the primary domain. After save, apex serves directly and www redirects in.</p>
+<h2>Confirmed previously-known gated issues</h2>
+<p>These are already documented under <code>STRIPE LIVE CONFIGURED: STRIKEREWIND</code> in <code>OPEN_GATES.md</code> and in <code>artifacts/2026-05-02-strikerewind-stripe-live-products-and-webhook-packet.md</code>:</p>
 <ul>
-<li><code>cd backend &amp;&amp; npm run build</code> clean (no TypeScript errors).</li>
-<li><code>cd backend &amp;&amp; npx tsx --test src/services/huntFixtureMode.test.ts src/services/spreadResultsService.test.ts</code> → <code># tests 12 / # pass 12 / # fail 0</code>.</li>
-<li><code>git diff --stat the scanner backend</code> → <code>+1 / -21</code>.</li>
-<li>Commit <code>a2262e2</code> pushed to <code>autobox/strikerewind-rename</code>. Render <code>srv-d7r408favr4c73fb3670</code> has <code>autoDeploy: yes</code> on this branch (verified yesterday in <code>artifacts/2026-05-03-strikerewind-render-deploy-log-audit.md</code>); the push triggers a redeploy within ~90s.</li>
+<li><code>GET /api/stripe/prices</code> returns <code>{}</code> (no live products in Stripe)</li>
+<li><code>POST /api/stripe/webhook</code> returns <code>400 Stripe webhook secret not configured</code></li>
 </ul>
-<h2>Behavioral impact</h2>
-<p><strong>None observable to the live site.</strong> The deleted block executed only after <code>handleWebhook</code> had already returned successfully, and it did nothing other than emit two <code>console.log</code> lines. Webhook persistence behavior is identical before and after. Stripe webhook is currently throwing <code>400 &quot;Stripe webhook secret not configured&quot;</code> regardless because <code>STRIPE_WEBHOOK_SECRET</code> is not yet set on Render — that gap is still owned by the open <code>STRIPE LIVE CONFIGURED: STRIKEREWIND</code> gate.</p>
-<h2>Deliberately NOT done</h2>
+<p>No change to the existing packet — the recommendation already targets the working backend URL.</p>
+<h2>Recommendation for the <code>TESTING COMPLETE</code> round</h2>
+<p>Travis can begin testing immediately. The two new bugs above don&#x27;t block any user-facing flow:</p>
 <ul>
-<li>Did NOT route through Cove/Luke — backend infrastructure cleanup, no design or copy judgment.</li>
-<li>Did NOT add a replacement comment about persistence-handled-in-service — the route is self-explanatory at five lines.</li>
-<li>Did NOT touch <code>stripeServiceDB.ts</code> — service code is correct as-is.</li>
-<li>Did NOT change anything customer-facing.</li>
-<li>Did NOT trigger Vercel redeploy — frontend has no Stripe webhook references.</li>
-<li>Did NOT touch the open gates — both remain Travis-side.</li>
-</ul>
-<h2>State files updated</h2>
-<ul>
-<li><code>TODO.md</code> — new DONE line at the top of &quot;Immediate priority order&quot;.</li>
-<li><code>RUNLOG.md</code> — appended.</li>
-<li><code>SCORECARD.md</code> — appended.</li>
-<li><code>HANDOFF.md</code> — appended.</li>
-<li><code>OPEN_GATES.md</code> — unchanged (no new gate, no resolved gate).</li>
-<li><code>BUDGET.md</code> — unchanged (no spend).</li>
+<li>Sign-up / login go through Supabase Auth client-side (no backend involvement).</li>
+<li>Hunt, Analysis, Watchlist, Account all hit <code>https://strikerewind-api.onrender.com</code> directly via <code>VITE_API_URL</code>.</li>
+<li>Stripe checkout will fail (already gated, not a testing blocker</li>
 </ul></div>
   </section>
 

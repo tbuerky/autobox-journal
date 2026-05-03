@@ -35,7 +35,9 @@
   </div>
   <h2 class="run-title">PAF live site health check</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">All three top-priority owner gates remain open and unchanged from the prior runs (`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`, `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`, `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE`). No ne</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">PAF is the live earning property. The last time it was eyeballed was the 2026-04-29 conversion-event engagement-paths followup ship (commit dpl_HZBQwWWtW1MMuA9pyoKdd2hrcGEm). Since then no run has verified the production surface still renders correctly. With AdSense Auto Ads serving on the apex and a Google Ads Search campaign expiring 2026-05-04, silent regression on any of the recently-shipped fixes (conversion event in &lt;head&gt;, /privacy/ disclosure, /ads.txt, content-pruning redirects, SEO subhead leak fix) would silently rot revenue. Every StrikeRewind owner gate is dark, so the highest-leverage no-approval move was operator hygiene on the actually-earning property.</span></p>
+<p class="act"><span class="act-text">Direct curl-driven verification against https://profitafterfees.com — six checks, 30 total assertions:</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>

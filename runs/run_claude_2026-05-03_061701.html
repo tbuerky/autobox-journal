@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind polygon readiness packet &middot; AutoBox</title>
+<title>Strikerewind testing playbook &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,10 +33,10 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-03_061701</span>
   </div>
-  <h2 class="run-title">Strikerewind polygon readiness packet</h2>
+  <h2 class="run-title">Strikerewind testing playbook</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">same two open gates as the prior four runs today (`STRIPE LIVE CONFIGURED: STRIKEREWIND`, `TESTING COMPLETE: STRIKEREWIND`) — both owner-only, marketing freeze in place. Travis&#x27;s 2026-05-02 message ended with &quot;let me know if you&#x27;re ready for polygon&quot;; that question is a direct, owner-named adjacent option that the prior handoff put as option (b). It outranks the other adjacent options (Bing webmaster packet, PAF copy review, Vercel log audit) because it answers a question the owner explicitly asked. Pre-spec means the run that follows greenlight is bounded and one-shot.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">produce a packet, not raise a new gate. The Polygon greenlight folds into the existing `TESTING COMPLETE: STRIKEREWIND` flow — Travis fills in tier+price (`APPROVED: POLYGON OPTIONS [STARTER|ADVANCED] $XX/MO`) when greenlighting post-testing. Packet specifies three commits totaling ~400 lines net: (1) `OptionsDataProvider` interface + fixture provider preserving current behavior for tests; (2) `PolygonOptionsProvider` (~150 lines, single file, env-keyed, token-bucket rate limiter, returns `null` on thin liquidity); (3) wire-through that retires `IVService`, replaces internal premium estimation with provider calls, adds nightly `iv_snapshots` warehouse table for trailing-52w IV-rank math, kills the misleading `&#x27;polygon&#x27;` default in `spreadResultsService`. Tests use `nock` or recorded fixtures; existing 12/12 fixture tests stay green via the fixture provider. Surfaces the load-bearing question Travis must answer when greenlighting: current-snapshot-only Polygon tier fixes IV credibility cheaply but leaves premiums theoretical — historical-chains tier is needed to make the product&#x27;s &quot;consistent winners over years&quot; claim honest. Recommendation: pick whichever Polygon Options tier covers historical chains, since spending $29 to fix only IV defeats the purpose.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">three open gates entering this run (`STRIPE LIVE CONFIGURED: STRIKEREWIND`, `TESTING COMPLETE: STRIKEREWIND`, `ADS DECISION: PAF SEARCH, $50 CAP ENDS 2026-05-04`). Six prior runs today were audit-style or owner-decision packets. The wakeup prompt explicitly warns against audit drift (&quot;Avoid defaulting to internal-only docs or endless on-site SEO page expansion when a sharper... step is more important&quot;). Reframed: the umbrella `TESTING COMPLETE: STRIKEREWIND` gate sits upstream of every other StrikeRewind move (marketing freeze, Polygon greenlight, Stripe products gate&#x27;s downstream value). AutoBox cannot move it — Travis has to. The highest-leverage autonomous action is reducing Travis-side friction on actually doing the testing round.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">produce a structured 30–45 min testing playbook with 8 sections, expected vs actual, `[PASS]` / `[FAIL: &lt;one-line&gt;]` slots after each test. Not a generic checklist — uses concrete observed app behavior. Sections: Setup (DevTools console open, Chrome non-incognito since auth = localStorage); Landing → Dashboard; Analysis flow (FREE-tier 3/day limit, includes a refresh-jitter test that surfaces the random-IV symptom from the Polygon readiness packet without requiring backend knowledge); Hunt upgrade wall; Watchlist (FREE blocked); Account/pricing/Stripe (deliberately runs the broken-Stripe path so UX-of-broken-state gets surfaced); Mobile (matrix overflow is the most layout-fragile component); Browser (Safari/Firefox); Performance (`/api/health` direct + Network tab). Each test names what should happen + the report criterion. Bottom of artifact has reply formats: `TESTING COMPLETE: STRIKEREWIND — all pass` or a fix list. Known issues already on docket (api-subdomain DNS, Stripe broken, random IV) listed under &quot;do not report&quot; so Travis&#x27;s round doesn&#x27;t re-surface them.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -45,81 +45,134 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeRewind — Polygon readiness packet</h1>
-<p><strong>Date:</strong> 2026-05-03</p>
-<p><strong>Trigger:</strong> Travis 2026-05-02 (&quot;Let me know if you&#x27;re ready for polygon.&quot;)</p>
-<p><strong>Status:</strong> Architecture is partially ready. Three load-bearing pieces are missing. This packet specifies them so the post-<code>TESTING COMPLETE</code> greenlight ships in one bounded run instead of two.</p>
+    <div class="artifact-prose"><h1>StrikeRewind testing playbook</h1>
+<p><strong>For:</strong> Travis</p>
+<p><strong>Purpose:</strong> Systematic 30–45 min sweep of the live app at <code>https://www.strikerewind.com</code> to clear <code>TESTING COMPLETE: STRIKEREWIND</code> and unblock marketing + Polygon greenlight.</p>
+<p><strong>How to use:</strong> Walk top-to-bottom. Fill <code>[PASS]</code> / <code>[FAIL: &lt;one-line note&gt;]</code> after each <code>Test</code>. Reply with the failures (or <code>ALL PASS</code>) — AutoBox handles each fix in a follow-up run.</p>
 <p>---</p>
-<h2>Direct answer to &quot;ready for Polygon&quot;</h2>
-<p><strong>No, not yet — but the gap is small and bounded.</strong> Earlier handoffs described an <code>OptionsDataProvider</code> interface &quot;ready behind a shim.&quot; That language was aspirational: there is no such interface in the repo today. What exists is a single warehouse column (<code>spread_results.data_source</code>) and a service that defaults that column to the literal string <code>&#x27;polygon&#x27;</code>. The actual options pricing path is fully synthetic and runs entirely on yfinance price history + Black-Scholes + a random-noise IV multiplier.</p>
-<p>Three things have to land before flipping the data source switch produces honest output:</p>
-<p>1. A real <code>OptionsDataProvider</code> interface (does not exist in code).</p>
-<p>2. A <code>PolygonOptionsProvider</code> that implements it.</p>
-<p>3. Replacement of <code>IVService.getIVData(...)</code> and <code>NewAnalysisEngine.estimateCreditSpreadPremium(...)</code> so they consume provider data instead of synthesizing it.</p>
-<p>All three are mechanical once Travis greenlights. The packet below specifies each.</p>
-<p>---</p>
-<h2>Current state — built vs aspirational</h2>
-<h3>Built</h3>
+<h2>Setup (2 min)</h2>
 <ul>
-<li><strong>Warehouse table</strong> <code>spread_results</code> with <code>data_source TEXT</code> column (per <code>spreadResultsService.ts:46-47</code>). Today every row writes <code>data_source = &#x27;polygon&#x27;</code> regardless of what produced it — the literal default in <code>analysisToWarehouseRows(...)</code>. This is misleading data lineage; ship date for the fix is post-Polygon-cutover.</li>
-<li><strong>Spread results service</strong> (<code>spreadResultsService.ts</code>) — pure mapping function <code>analysisToWarehouseRows</code>, bulk upsert, hunt/matrix queries, batch-run lifecycle methods. Provider-agnostic by design. No change needed.</li>
-<li><strong>Scheduler cron pattern</strong> (<code>schedulerService.ts:154-167</code>) — 9:30 AM ET market-open warmer + 6:00 AM ET backup, both Mon–Fri, <code>America/New_York</code> timezone. Iterates <code>SP500_TICKERS</code>, calls <code>analysisEngine.analyzeStock(ticker, &#x27;both&#x27;, 5, 52)</code> per ticker. The orchestration layer is reusable; only the inner per-ticker analysis call changes.</li>
-<li><strong>Tier flag plumbing</strong> — <code>UsageServiceDB.tierLimits.{FREE,STANDARD,PRO}.hasIVData</code> exists end-to-end (frontend <code>UserContext</code> reads it; backend <code>index.ts:213</code> returns it). Wiring is fine; the data feeding it is the issue.</li>
+<li>Use a regular Chrome window, <strong>not</strong> incognito (anonymous localStorage userId persists across this session — that is the auth model).</li>
+<li>Open DevTools console (Cmd+Opt+J / Ctrl+Shift+J). Leave it open the whole time. Note any red errors next to the relevant test.</li>
+<li>Have phone or DevTools mobile-emulator (Cmd+Shift+M) ready for the mobile pass at the end.</li>
 </ul>
-<h3>Aspirational (not in code)</h3>
+<p>Architecture context, so failures make sense:</p>
 <ul>
-<li><code>OptionsDataProvider</code> interface — does not exist anywhere under <code>backend/src/</code>. <code>Grep</code> for the symbol returns only matches in this packet&#x27;s predecessors. Earlier handoffs described &quot;a shim behind the interface&quot; — there is no shim and no interface.</li>
-<li>&quot;Polygon-ready abstraction layer&quot; — <code>newAnalysisEngine.ts</code> calls <code>this.ivService.getIVData(ticker, prices)</code> directly. There is no abstraction to swap.</li>
-<li>&quot;Provider-neutral premium estimation&quot; — premium estimation is hard-coded Black-Scholes with a <code>marketDiscount = 0.7</code> constant (<code>newAnalysisEngine.ts:99</code>) and synthetic IV multipliers (<code>ivService.ts:59</code> <code>1.1 + (Math.random() * 0.4 - 0.2)</code>).</li>
+<li>Auth = anonymous localStorage <code>userId</code>. No sign-up form, no email, no password. Identity persists per browser per device.</li>
+<li>Anyone hitting the site is FREE tier (3 analyses/day, 1 scan/day, Hunt blocked behind upgrade wall).</li>
+<li>Frontend: Vercel CDN. Backend: <code>https://strikerewind-api.onrender.com</code>. Both verified live.</li>
 </ul>
-<h3>Customer-facing risk created by the synthetic path</h3>
-<p>This is the credibility part. Three places where the current code makes a claim the data does not support:</p>
-<p>1. <strong><code>STANDARD</code>/<code>PRO</code> tier advertises <code>hasIVData: true</code></strong> (<code>usageServiceDB.ts:38, 48</code>). Frontend gates a &quot;current IV / IV rank / IV percentile&quot; display on this flag. Today every paying user would see IV numbers generated by <code>Math.random() * 0.4 - 0.2</code>. That is not &quot;real-time IV data&quot; — it is HV with cosmetic noise. If the launch post or methodology block mentions IV, the words don&#x27;t match the implementation.</p>
-<p>2. <strong>Methodology block currently reads &quot;backtest of historical price data, not a forecast&quot;</strong> (landing page, shipped 2026-05-01). That phrasing was deliberately provider-neutral and is technically defensible — premiums are <em>estimated</em> from price history. But anyone who reads the code and sees <code>marketDiscount = 0.7</code> as a constant will not characterize the output as &quot;backtest of options data.&quot;</p>
-<p>3. <strong>Hunt result payloads include <code>currentIV</code>, <code>ivRank</code>, <code>ivPercentile</code></strong> (<code>newAnalysisEngine.ts:467</code> and downstream). These ride through to the Hunt UI under the same paid-tier flag. Same problem as (1).</p>
-<p>None of these are emergencies — Travis&#x27;s marketing freeze means no traffic is hitting the synthetic path yet. But the gap is the reason &quot;ready for Polygon&quot; is the next product question, not just a checkbox.</p>
 <p>---</p>
-<h2>Implementation plan — what AutoBox ships post-greenlight</h2>
-<p>Three commits in one bounded run. Each commit independently builds and tests.</p>
-<h3>Commit 1 — <code>OptionsDataProvider</code> interface + fixture provider</h3>
-<p>New file <code>the scanner backend/optionsDataProvider.ts</code>:</p>
-<pre><code>export interface OptionChainQuote {
-  ticker: string;
-  asOfDate: string;       // YYYY-MM-DD
-  expiration: string;     // YYYY-MM-DD
-  strike: number;
-  right: &#x27;call&#x27; | &#x27;put&#x27;;
-  bid: number;
-  ask: number;
-  mid: number;
-  impliedVolatility: number; // annualized, decimal
-  delta?: number;
-  openInterest?: number;
-}
-
-export interface IVSnapshot {
-  ticker: string;
-  asOfDate: string;
-  currentIV: number;       // annualized, percentage (0-100)
-  ivRank: number;          // 0-100, percentile vs trailing 52w
-  ivPercentile: number;    // 0-100, days-below over trailing 52w
-}
-
-export interface OptionsDataProvider {
-  readonly name: string;   // &#x27;polygon&#x27; | &#x27;fixture&#x27; | future providers
-  getIVSnapshot(ticker: string, asOf: Date): Promise&lt;IVSnapshot&gt;;
-  getCreditSpreadQuote(args: {
-    ticker: string;
-    asOf: Date;
-    expiration: Date;
-    shortStrike: number;
-    longStrike: number;
-    right: &#x27;call&#x27; | &#x27;put&#x27;;
-  }): Promise&lt;{ creditPerShare: number; impliedVolatility: number } | null&gt;;
-}
-</code></pre>
-<p>New file <code>the scanner backend/fixtureOptionsProvider.ts</code> — wraps current Black-Scholes + synthetic-IV behavior behind the i</p></div>
+<h2>1. Landing page → Dashboard (5 min)</h2>
+<p><strong>Test 1.1.</strong> Open <code>https://www.strikerewind.com</code>. Page renders headline, sample table, FAQ, methodology block.</p>
+<ul>
+<li>Expected: clean load, &lt; 3s, no console errors, no missing images.</li>
+<li>Result: ___</li>
+</ul>
+<p><strong>Test 1.2.</strong> Apex <code>https://strikerewind.com</code> 307-redirects to <code>https://www.strikerewind.com</code>.</p>
+<ul>
+<li>Expected: address bar lands on www.</li>
+<li>Known soft issue: source-tree canonicals were aligned to www earlier today (commit <code>1dbebb2</code>).</li>
+<li>Result: ___</li>
+</ul>
+<p><strong>Test 1.3.</strong> Click any in-page CTA that goes to <code>/dashboard</code>.</p>
+<ul>
+<li>Expected: <code>/dashboard</code> route renders (Layout-wrapped Home page).</li>
+<li>Result: ___</li>
+</ul>
+<p><strong>Test 1.4.</strong> Open <code>/privacy</code> and <code>/terms</code> from the footer.</p>
+<ul>
+<li>Expected: both render. Effective date shows on each.</li>
+<li>Result: ___</li>
+</ul>
+<p><strong>Test 1.5.</strong> Open <code>https://www.strikerewind.com/some-bogus-path-xyz</code>.</p>
+<ul>
+<li>Expected: NotFound page renders (catches <code>path=&quot;*&quot;</code>), HTTP 200 from Vercel SPA rewrite.</li>
+<li>Result: ___</li>
+</ul>
+<p>---</p>
+<h2>2. Analysis flow — single ticker (8 min)</h2>
+<p>This is the FREE-tier core flow. Each load counts against the 3/day limit on the backend.</p>
+<p><strong>Test 2.1.</strong> From dashboard, type <code>AAPL</code> in the ticker input and submit.</p>
+<ul>
+<li>Expected: Analysis page loads at <code>/analysis/AAPL</code>. Strategy matrix renders with Win% and EV% values per strategy/DTE cell.</li>
+<li>Watch for: empty cells, <code>NaN</code>, infinite spinner, 5xx in Network tab.</li>
+<li>Result: ___</li>
+</ul>
+<p><strong>Test 2.2.</strong> Try <code>MSFT</code>, then <code>SPY</code>. Each should render its own matrix.</p>
+<ul>
+<li>Expected: 3 distinct results. After the 3rd, hitting a 4th (e.g. <code>QQQ</code>) should return 429 &quot;limit exceeded&quot; surfaced in the UI, not a silent fail.</li>
+<li>Result: ___</li>
+</ul>
+<p><strong>Test 2.3.</strong> Try a deliberately broken ticker like <code>ZZZZZZZ</code>.</p>
+<ul>
+<li>Expected: friendly error message, not a thrown stack trace or blank screen.</li>
+<li>Result: ___</li>
+</ul>
+<p><strong>Test 2.4.</strong> On any successful analysis page: do values for the same ticker stay consistent across hard refresh (Cmd+Shift+R)?</p>
+<ul>
+<li>Expected: same Win% and EV% for the same ticker on consecutive loads (deterministic over yfinance + fixtures).</li>
+<li>If values jitter ±1–3% on every refresh: <strong>report this</strong>. The IV path is currently <code>random</code> (per Polygon readiness packet); jitter on premium-derived numbers is the visible symptom we knew about. Confirms the credibility risk that gates Polygon.</li>
+<li>Result: ___</li>
+</ul>
+<p>---</p>
+<h2>3. Hunt — the upgrade wall (3 min)</h2>
+<p><strong>Test 3.1.</strong> Click <code>/hunt</code> in the nav.</p>
+<ul>
+<li>Expected on FREE tier: page renders but the Hunt button is disabled or surfaces an upgrade-required state. Backend returns <code>maxHuntsPerDay: 0</code> for FREE.</li>
+<li>If Hunt actually starts and returns results on a FREE tier user: <strong>report this</strong>. That breaks the upgrade-wall thesis (Hunt is the paid feature).</li>
+<li>Result: ___</li>
+</ul>
+<p><strong>Test 3.2.</strong> Hunt criteria UI (universe selector, sliders, presets) should still be browsable so the user knows what they would get on upgrade.</p>
+<ul>
+<li>Expected: criteria UI renders cleanly.</li>
+<li>Result: ___</li>
+</ul>
+<p>---</p>
+<h2>4. Watchlist (3 min)</h2>
+<p><strong>Test 4.1.</strong> From Analysis, try to add the ticker to watchlist.</p>
+<ul>
+<li>Expected on FREE tier: blocked with upgrade prompt. <code>canSaveWatchlist: false</code> for FREE.</li>
+<li>Result: ___</li>
+</ul>
+<p><strong>Test 4.2.</strong> Open <code>/watchlist</code>.</p>
+<ul>
+<li>Expected: empty state with copy that names the upgrade requirement, not a stack trace or blank screen.</li>
+<li>Result: ___</li>
+</ul>
+<p>---</p>
+<h2>5. Account / pricing / Stripe (5 min)</h2>
+<p>This section will fail until <code>STRIPE LIVE CONFIGURED: STRIKEREWIND</code> lands. Run it anyway — surfaces what UX looks like in the broken state.</p>
+<p><strong>Test 5.1.</strong> Open <code>/account</code>.</p>
+<ul>
+<li>Expected: page renders. Current tier shows FREE.</li>
+<li>Result: ___</li>
+</ul>
+<p><strong>Test 5.2.</strong> Pricing block on <code>/account</code> — does it list both Standard and Pro tiers?</p>
+<ul>
+<li>Expected: both tiers visible. Without live Stripe products, the <code>/api/stripe/prices</code> call returns <code>{}</code> so the prices may be missing or fall back to hardcoded copy.</li>
+<li>If page crashes / renders blank: <strong>report this</strong>. Should degrade gracefully even with no live prices.</li>
+<li>Result: ___</li>
+</ul>
+<p><strong>Test 5.3.</strong> Click the upgrade button on Standard.</p>
+<ul>
+<li>Expected without live Stripe: graceful error message (&quot;checkout temporarily unavailable&quot; or similar), NOT a thrown alert / stack trace.</li>
+<li>Currently the code path is <code>alert(&#x27;Failed to start checkout. Please try again.&#x27;)</code> (<code>Account.tsx:90</code>) — an <code>alert()</code> is functional but ugly; flag if the alert fires.</li>
+<li>Result: ___</li>
+</ul>
+<p><strong>Test 5.4.</strong> Don&#x27;t actually try to complete a Stripe checkout — products aren&#x27;t created yet, all clicks will dead-end.</p>
+<p>---</p>
+<h2>6. Mobile pass (5 min)</h2>
+<p>DevTools → toggle device toolbar → iPhone 14 Pro (393×852) or your phone.</p>
+<p><strong>Test 6.1.</strong> Landing page on mobile: hero readable, sample table doesn&#x27;t overflow horizontally, CTA visible without scroll past the fold.</p>
+<ul>
+<li>Result: ___</li>
+</ul>
+<p><strong>Test 6.2.</strong> Dashboard on mobile: ticker input usable thumb-distance, no clipped buttons.</p>
+<ul>
+<li>Result: ___</li>
+</ul>
+<p><strong>Test 6.3.</strong> Analysis page on mobile: Strategy matrix is the most layout-fragile component. Horizontal scroll</p></div>
   </section>
 
   <section class="detail-section">

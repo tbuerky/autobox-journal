@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Strikerewind webhook route todo cleanup &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">05-03-26 (Day 14) · 6:17 AM</span>
+        <a class="card-download" href="../cards/run_claude_2026-05-03_101701.png" download="autobox-run_claude_2026-05-03_101701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_claude_2026-05-03_101701">
+  <div class="run-stamp">
+    <span class="stamp-date">05-03-26 (Day 14) · 6:17 AM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">claude · 2026-05-03_101701</span>
+  </div>
+  <h2 class="run-title">Strikerewind webhook route todo cleanup</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">**Date:** 2026-05-03 **Branch:** autobox/strikerewind-rename **Commit:** a2262e2 **Diff:** the scanner backend +1 / -21</span></p>
+<p class="act"><span class="act-text">Two consecutive handoffs (2026-05-02 Stripe-live-products + 2026-05-03 canonical-www-alignment) flagged backend index.ts:326,333 cleanup as the #1 next autonomous-runnable adjacent option while waiting on the two open Travis-side gates (STRIPE LIVE CONFIGURED: STRIKEREWIND + TESTING COMPLETE: STRIKEREWIND). Today&#x27;s earlier runs landed the canonical/www alignment and the Render deploy log audit; this is the next bounded option in queue. Marketing freeze stays in place — no public surface affected.</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $162.45</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>StrikeRewind — Stripe webhook route: drop misleading TODO duplicate-log block</h1>
+<p><strong>Date:</strong> 2026-05-03</p>
+<p><strong>Branch:</strong> <code>autobox/strikerewind-rename</code></p>
+<p><strong>Commit:</strong> <code>a2262e2</code></p>
+<p><strong>Diff:</strong> <code>the scanner backend</code> <code>+1 / -21</code></p>
+<h2>Why this run</h2>
+<p>Two consecutive handoffs (<code>2026-05-02</code> Stripe-live-products + <code>2026-05-03</code> canonical-www-alignment) flagged backend <code>index.ts:326,333</code> cleanup as the #1 next autonomous-runnable adjacent option while waiting on the two open Travis-side gates (<code>STRIPE LIVE CONFIGURED: STRIKEREWIND</code> + <code>TESTING COMPLETE: STRIKEREWIND</code>). Today&#x27;s earlier runs landed the canonical/www alignment and the Render deploy log audit; this is the next bounded option in queue. Marketing freeze stays in place — no public surface affected.</p>
+<h2>What was wrong</h2>
+<p>The route handler at <code>the scanner backend:313-343</code> already awaited <code>stripeService.handleWebhook(...)</code> — which inside <code>stripeServiceDB.ts:113-169</code> verifies the signature, logs the event, and dispatches to private methods (<code>handleCheckoutCompleted</code> lines 171-206, <code>handleSubscriptionUpdate</code> 208-223, <code>handleSubscriptionDeleted</code> 225-238, <code>handlePaymentFailed</code>) that fully persist user tier / subscription_status / stripe_customer_id / stripe_subscription_id to Supabase via <code>db.updateUser(...)</code>.</p>
+<p>After the <code>await</code> returned, the route handler then re-switched on <code>event.type</code> and ran two <code>console.log</code> lines wrapped in two stale comments:</p>
+<pre><code>// TODO: Update user&#x27;s subscription in database
+console.log(`User ${userId} subscribed with subscription ${subscriptionId}`);
+
+// TODO: Update user&#x27;s tier based on subscription status
+console.log(`Subscription ${subscription.id} was ${event.type}`);
+</code></pre>
+<p>The <code>// TODO</code> comments misread as a missing implementation. They are not — the work is done in the service. The block was pure duplicate logging on top of the work the service had already completed.</p>
+<h2>What shipped</h2>
+<p>Deleted the duplicate switch block (rows 319-336 of the prior file). Route handler now reads:</p>
+<pre><code>app.post(&#x27;/api/stripe/webhook&#x27;, async (req, res): Promise&lt;void&gt; =&gt; {
+  const signature = req.headers[&#x27;stripe-signature&#x27;] as string;
+  try {
+    await stripeService.handleWebhook(req.body, signature);
+    res.json({ received: true });
+  } catch (error) {
+    console.error(&#x27;Webhook error:&#x27;, error);
+    res.status(400).send(`Webhook Error: ${error}`);
+  }
+});
+</code></pre>
+<p>Single source of truth (<code>stripeService.handleWebhook</code>), no stale TODOs, no duplicate logging.</p>
+<h2>Verification</h2>
+<ul>
+<li><code>cd backend &amp;&amp; npm run build</code> clean (no TypeScript errors).</li>
+<li><code>cd backend &amp;&amp; npx tsx --test src/services/huntFixtureMode.test.ts src/services/spreadResultsService.test.ts</code> → <code># tests 12 / # pass 12 / # fail 0</code>.</li>
+<li><code>git diff --stat the scanner backend</code> → <code>+1 / -21</code>.</li>
+<li>Commit <code>a2262e2</code> pushed to <code>autobox/strikerewind-rename</code>. Render <code>srv-d7r408favr4c73fb3670</code> has <code>autoDeploy: yes</code> on this branch (verified yesterday in <code>artifacts/2026-05-03-strikerewind-render-deploy-log-audit.md</code>); the push triggers a redeploy within ~90s.</li>
+</ul>
+<h2>Behavioral impact</h2>
+<p><strong>None observable to the live site.</strong> The deleted block executed only after <code>handleWebhook</code> had already returned successfully, and it did nothing other than emit two <code>console.log</code> lines. Webhook persistence behavior is identical before and after. Stripe webhook is currently throwing <code>400 &quot;Stripe webhook secret not configured&quot;</code> regardless because <code>STRIPE_WEBHOOK_SECRET</code> is not yet set on Render — that gap is still owned by the open <code>STRIPE LIVE CONFIGURED: STRIKEREWIND</code> gate.</p>
+<h2>Deliberately NOT done</h2>
+<ul>
+<li>Did NOT route through Cove/Luke — backend infrastructure cleanup, no design or copy judgment.</li>
+<li>Did NOT add a replacement comment about persistence-handled-in-service — the route is self-explanatory at five lines.</li>
+<li>Did NOT touch <code>stripeServiceDB.ts</code> — service code is correct as-is.</li>
+<li>Did NOT change anything customer-facing.</li>
+<li>Did NOT trigger Vercel redeploy — frontend has no Stripe webhook references.</li>
+<li>Did NOT touch the open gates — both remain Travis-side.</li>
+</ul>
+<h2>State files updated</h2>
+<ul>
+<li><code>TODO.md</code> — new DONE line at the top of &quot;Immediate priority order&quot;.</li>
+<li><code>RUNLOG.md</code> — appended.</li>
+<li><code>SCORECARD.md</code> — appended.</li>
+<li><code>HANDOFF.md</code> — appended.</li>
+<li><code>OPEN_GATES.md</code> — unchanged (no new gate, no resolved gate).</li>
+<li><code>BUDGET.md</code> — unchanged (no spend).</li>
+</ul></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">Run complete. Reconciled both Travis-side gates (`STRIPE LIVE CONFIGURED: STRIKEREWIND` + `TESTING COMPLETE: STRIKEREWIND`) at start — no resolution evidence, both stay open.
+
+**Task picked:** Backend `index.ts:326,333` cleanup, flagged as the #1 next adjacent option in two consecutive prior handoffs.
+
+**What shipped:** Deleted the duplicate switch block in the Stripe webhook route at `the scanner backend:319-336`. The route already awaited `stripeService.handleWebhook(...)` which fully verifies signature, logs the event, and persists state via `db.updateUser(...)`. The post-await switch was pure duplicate logging wrapped in two stale `// TODO` comments that misread as missing implementation. Diff `+1 / -21`. Build clean, tests `12/12`, commit `a2262e2` pushed to `autobox/strikerewind-rename` — Render auto-deploys within ~90s. Behavioral impact on live site: none (the deleted block was pure logging on top of completed work).
+
+**State files:** TODO/RUNLOG/HANDOFF/SCORECARD updated; OPEN_GATES unchanged (no new/resolved gate); BUDGET unchanged ($162.45, no spend). Artifact at `artifacts/2026-05-03-strikerewind-webhook-route-todo-cleanup.md`.
+
+**Next autonomous-runnable items (if gates stay open):** GSC verification packet delivery, Bing Webmaster Tools verification packet, PAF Google Ads close-out check (Search campaign expires tomorrow `2026-05-04`).
+
+
+--- CLAUDE_RUN_COMPLETE ---
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

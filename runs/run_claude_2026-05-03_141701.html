@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>PAF google ads extend or expire decision &middot; AutoBox</title>
+<title>Strikerewind pre testing smoke test &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,11 +33,10 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-03_141701</span>
   </div>
-  <h2 class="run-title">PAF google ads extend or expire decision</h2>
+  <h2 class="run-title">Strikerewind pre testing smoke test</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
-<p class="act"><span class="act-text">Decision deadline: 2026-05-04 (tomorrow — current $50 total cap end-of-day)</span></p>
-<p class="act"><span class="act-text">The PAF Google Ads $50 test cap ends tomorrow. AutoBox cannot pull live ad metrics from this box (no Google Ads API credentials present), so this is an owner-only check. The decision splits cleanly into one of three branches based on what the dashboard shows. Reply formats below are ready to paste.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">two open gates (`STRIPE LIVE CONFIGURED: STRIKEREWIND`, `TESTING COMPLETE: STRIKEREWIND`) — both owner-only. Marketing freeze in place. Highest-leverage autonomous-runnable move: a bounded read-only smoke test of the live `strikerewind.com` deployment to surface infrastructure issues before Travis&#x27;s testing round so testing time goes to UX/product, not setup.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">document everything in an artifact, surface two new bugs found, but do NOT raise them as separate gates. Both fit under the umbrella `TESTING COMPLETE` round — Travis will be at the registrar + Vercel dashboard for Stripe setup anyway. Bug 1: `api.strikerewind.com` DNS resolves to Vercel A records (`216.198.79.1`, `64.29.17.65`) and returns 404 `DEPLOYMENT_NOT_FOUND` (registrar record set wrong; should `CNAME api → strikerewind-api.onrender.com`). Bug 2: Vercel project has `strikerewind.com` redirecting to `www.strikerewind.com` (`redirect=www.strikerewind.com` in `/v9/projects/strikerewind/domains`), but HTML canonical/og:url/sitemap declare non-www as canonical. Neither blocks testing — SPA&#x27;s `VITE_API_URL` points directly at the working Render URL.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -46,81 +45,87 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <div class="artifact-prose"><h1>PAF Google Ads — extend or expire decision packet</h1>
-<p>Decision deadline: 2026-05-04 (tomorrow — current $50 total cap end-of-day)</p>
-<h2>TL;DR</h2>
-<p>The PAF Google Ads $50 test cap ends tomorrow. AutoBox cannot pull live ad metrics from this box (no Google Ads API credentials present), so this is an owner-only check. The decision splits cleanly into one of three branches based on what the dashboard shows. Reply formats below are ready to paste.</p>
-<h2>What&#x27;s known going in</h2>
-<ul>
-<li>Total approved test cap: <strong>$50.00</strong>.</li>
-<li>Spend as of 2026-04-29 (last reported by Travis): <strong>$15.05</strong> (all from Performance Max, since paused). Search campaign had not spent yet.</li>
-<li>Remaining headroom against the $50 cap as of 2026-04-29: <strong>$34.95</strong>.</li>
-<li>Both campaigns were dark pending advertiser verification (1–10 day Google review, submitted ~2026-04-28). 5 days have now elapsed — verification may have completed at any point in the window.</li>
-<li>Conversion event was broken until 2026-04-28 22:32 UTC (<code>gtag(&#x27;event&#x27;,&#x27;conversion&#x27;,...)</code> was firing on every page load). It was rewired to fire once on first calculator input that night. Performance Max&#x27;s 3 reported &quot;conversions&quot; pre-date the fix and should be treated as page views, not real input events.</li>
-<li>Active Search campaign: <code>PAF Search - Fee Calculators</code>, Maximize Clicks, $1.50 max CPC, $10/day, 8 phrase-match keywords (stripe / paypal / payment fee calculator variants).</li>
-<li>Performance Max campaign was paused by Travis 2026-04-29.</li>
-</ul>
-<h2>Step 1 — Travis: pull this in the Google Ads dashboard (≤5 min)</h2>
-<p>Open account <code>490-612-1666</code>, set the date range to <code>2026-04-26 → today</code>, and capture the following two rows:</p>
-<pre><code>Campaign: PAF - Performance Max (PAUSED)
-  Status: &lt;paused / verification-blocked / other&gt;
-  Spend (date range): $&lt;amount&gt;
-  Clicks / Impressions / Conv. (post-2026-04-28 22:32 UTC only): &lt;numbers&gt;
+    <div class="artifact-prose"><h1>StrikeRewind: pre-testing smoke test of live deployment</h1>
+<p><strong>Date:</strong> 2026-05-03</p>
+<p><strong>Surface:</strong> strikerewind.com (live, deployed 2026-05-02)</p>
+<p><strong>Purpose:</strong> find any deployment issues before Travis&#x27;s <code>TESTING COMPLETE</code> round so the testing surfaces UX/product issues, not infrastructure ones.</p>
+<h2>Result</h2>
+<p><strong>User-facing flows are unblocked for testing.</strong> Sign-up, login, Hunt, Analysis, Watchlist, dashboard, public pages — all functional. Two real DNS/Vercel bugs found that don&#x27;t block testing but should be fixed during Travis&#x27;s next pass through the registrar/Vercel dashboard. Two previously-known gated issues (Stripe products + webhook) confirmed.</p>
+<h2>Smoke test results</h2>
+<h3>Public pages (all HTTP 200)</h3>
+<p>| URL | Result |</p>
+<p>|---|---|</p>
+<p>| <code>https://www.strikerewind.com/</code> | 200 — title, description, canonical, og:<em>, twitter:</em>, theme-color all correct |</p>
+<p>| <code>https://www.strikerewind.com/privacy</code> | 200 |</p>
+<p>| <code>https://www.strikerewind.com/terms</code> | 200 |</p>
+<p>| <code>https://www.strikerewind.com/robots.txt</code> | 200 |</p>
+<p>| <code>https://www.strikerewind.com/sitemap.xml</code> | 200 |</p>
+<p>| <code>https://www.strikerewind.com/og-card.png</code> | 200 (22 815 bytes) |</p>
+<p>| <code>https://www.strikerewind.com/logo.png</code> | 200 (2 740 bytes) |</p>
+<h3>SPA routing (catch-all 200)</h3>
+<p>| URL | Result |</p>
+<p>|---|---|</p>
+<p>| <code>https://www.strikerewind.com/dashboard</code> | 200 (SPA serves) |</p>
+<p>| <code>https://www.strikerewind.com/hunt</code> | 200 (SPA serves) |</p>
+<p>| <code>https://www.strikerewind.com/this-route-does-not-exist</code> | 200 (NotFound page) |</p>
+<h3>Backend API (Render direct: <code>https://strikerewind-api.onrender.com</code>)</h3>
+<p>| Endpoint | Result | Notes |</p>
+<p>|---|---|---|</p>
+<p>| <code>GET /api/health</code> | 200 <code>{&quot;status&quot;:&quot;ok&quot;}</code> | Healthy |</p>
+<p>| <code>GET /api/usage</code> (no header) | 400 <code>User ID required</code> | Correct contract — frontend supplies <code>x-user-id</code> |</p>
+<p>| <code>GET /api/usage</code> (fake uuid) | 200 <code>{tier:&quot;FREE&quot;, limits:{maxAnalysesPerDay:3, ...}}</code> | FREE-tier defaults correct; <code>DEV_MODE</code> is OFF in production |</p>
+<p>| <code>POST /api/hunt</code> (no header) | 400 <code>User ID required</code> | Correct |</p>
+<p>| <code>POST /api/analyze</code> (no header) | 400 <code>User ID required</code> | Correct |</p>
+<p>| <code>GET /api/watchlist</code> (no header) | 400 <code>User ID required</code> | Correct |</p>
+<p>| <code>GET /api/stripe/prices</code> | 200 <code>{}</code> | <strong>Empty — gated under <code>STRIPE LIVE CONFIGURED</code></strong> |</p>
+<p>| <code>POST /api/stripe/webhook</code> | 400 <code>Webhook Error: Stripe webhook secret not configured</code> | <strong>Gated under same</strong> |</p>
+<p>| <code>POST /api/stripe/checkout</code> (fake) | <code>{&quot;error&quot;:&quot;Failed to create checkout session&quot;}</code> | Correct — fake price ID |</p>
+<p>| CORS preflight from <code>https://www.strikerewind.com</code> | 200 | Strict CORS allow-list working |</p>
+<h2>Two new bugs found</h2>
+<h3>Bug 1 — <code>api.strikerewind.com</code> points at Vercel, not Render</h3>
+<pre><code>$ dig +short api.strikerewind.com
+216.198.79.1
+64.29.17.65       ← Vercel A records (not Render)
 
-Campaign: PAF Search - Fee Calculators
-  Status: &lt;enabled / eligible / paused / verification-blocked / disapproved&gt;
-  Spend (date range): $&lt;amount&gt;
-  Clicks / Impressions / Conv.: &lt;numbers&gt;
-  Avg CPC: $&lt;amount&gt;
-  Top 5 search terms (if any visible): &lt;list&gt;
-  Any policy / disapproval warnings: &lt;text&gt;
-Account: advertiser verification status: &lt;verified / pending / failed&gt;
+$ curl -i https://api.strikerewind.com/api/health
+HTTP/2 404
+x-vercel-error: DEPLOYMENT_NOT_FOUND
 </code></pre>
-<h2>Step 2 — pick the branch and reply</h2>
-<p>Use the numbers above to pick exactly one of three branches.</p>
-<h3>Branch A — verification still pending OR Search spend is $0 → <strong>EXTEND, same cap</strong></h3>
-<p>If account is still under verification, or verification cleared late and the Search campaign hasn&#x27;t had a fair window to actually run, the test never happened. Extending is the only way to get the data the $15.05 already spent was supposed to buy.</p>
-<p>Action in the dashboard:</p>
-<p>1. Move the Search campaign budget end date from <code>2026-05-04</code> to <code>2026-05-18</code> (two clean weeks of post-verification runtime).</p>
-<p>2. Keep the $50 total cap (so worst-case incremental spend is <code>$50 − current spend</code>, not a fresh $50).</p>
-<p>3. Leave Performance Max paused.</p>
-<p>Reply format:</p>
-<pre><code>ADS DECISION: EXTEND, end date 2026-05-18, $50 cap unchanged
-Verification status: &lt;verified YYYY-MM-DD / still pending&gt;
-Search spend so far: $&lt;amount&gt;
-Search clicks / impressions: &lt;numbers&gt;
-</code></pre>
-<h3>Branch B — Search ran clean, real signal in hand → <strong>EXTEND, expand cap</strong></h3>
-<p>If the Search campaign ran at least 7 days post-verification with CTR ≥ 2%, avg CPC ≤ $2.00, and at least one search term that maps to PAF intent (e.g. &quot;stripe fee calculator&quot;, &quot;etsy seller fee&quot;), the test bought useful learning and a second tranche is justified.</p>
-<p>Action in the dashboard:</p>
-<p>1. Push end date out to <code>2026-06-04</code> (next 30 days).</p>
-<p>2. Raise total cap to <code>$150</code> (3× current; still bounded enough to qualify as a test).</p>
-<p>3. Add the negative-keyword block from <code>artifacts/2026-04-26-google-ads-first-metrics-stop-loss-packet.md</code> (jobs, careers, developer API, login/support, chargeback/refund disputes, stock/investor terms, PDFs/templates/free downloads).</p>
-<p>4. Keep Maximize Clicks; do NOT switch to Smart Bidding (still well under the 50-conversion threshold for learning-reset to be worth it).</p>
-<p>Reply format:</p>
-<pre><code>ADS DECISION: EXPAND, end date 2026-06-04, cap raised to $150, negatives added
-Search spend so far: $&lt;amount&gt; (CTR &lt;%&gt;, avg CPC $&lt;amount&gt;, conv &lt;number&gt;)
-Top intent search terms: &lt;2–3 examples&gt;
-</code></pre>
-<p>NOTE: this branch crosses the BUDGET.md ledger ceiling (current cash $162.45). If approved, AutoBox will record the new $150 cap as a contingent spend in BUDGET.md and stop spending after the cap is reached. If you want a hard floor of cash kept aside, say so in the reply (e.g. <code>cap raised to $100, $62 cash floor</code>).</p>
-<h3>Branch C — Search ran clean, signal weak or negative → <strong>EXPIRE</strong></h3>
-<p>If the Search campaign ran ≥7 days post-verification and the data is bad (CTR &lt;1%, CPC &gt;$3, zero on-page input conversions, irrelevant search terms), the lane is not worth a second tranche. Let the cap expire and roll the bandwidth into evidence-driven directions (AdSense passive earnings, organic indexing, PAF&#x27;s existing direct traffic).</p>
-<p>Action in the dashboard:</p>
-<p>1. Pause the Search campaign at <code>2026-05-04 23:59</code>.</p>
-<p>2. Do not raise the cap.</p>
-<p>3. Leave Performance Max paused.</p>
-<p>Reply format:</p>
-<pre><code>ADS DECISION: EXPIRE, paused 2026-05-04
-Final Search spend: $&lt;amount&gt; (CTR &lt;%&gt;, avg CPC $&lt;amount&gt;, conv &lt;number&gt;)
-Reason: &lt;one-line: e.g. CPC too high / no calculator-intent terms / CTR floor&gt;
-</code></pre>
-<h2>What AutoBox does on each reply</h2>
+<p>The DNS record at the registrar resolves to Vercel IPs. Vercel does not have <code>api.strikerewind.com</code> registered as a domain on the strikerewind project (or any project on <code>travis-4599s-projects</code>), so it returns DEPLOYMENT_NOT_FOUND.</p>
+<p><strong>Impact:</strong> does not break the SPA. The frontend&#x27;s <code>VITE_API_URL</code> was set on Vercel to the working <code>https://strikerewind-api.onrender.com</code> directly (not <code>https://api.strikerewind.com</code>), so every user-facing flow that hits the backend works fine. The bug only matters for:</p>
 <ul>
-<li>Branch A: log the extension in <code>BUDGET.md</code> (no new spend approved — same $50 cap), update <code>TODO.md</code>, remove the gate from <code>OPEN_GATES.md</code>.</li>
-<li>Branch B: same plus add the new $150 cap as a contingent line in <code>BUDGET.md</code> and reissue the stop-loss rules from <code>artifacts/2026-04-26-google-ads-first-metrics-stop-loss-packet.md</code> against the new ceiling.</li>
-<li>Branch C: log the final spend in <code>BUDGET.md</code>, add a <code>[DONE]</code> line to <code>TODO.md</code> with the post-mortem, remove the gate. No further AutoBox action on Google Ads until Travis re-opens the lane.</li>
+<li>documentation correctness (the registrar fix list in HANDOFF assumed <code>api.</code> would resolve to Render)</li>
+<li>any future external integration trying to use <code>api.strikerewind.com</code></li>
+<li>the Stripe webhook URL — currently in the recommendation packet as <code>https://strikerewind-api.onrender.com/api/stripe/webhook</code> (the working URL), so this does NOT block the open <code>STRIPE LIVE CONFIGURED</code> gate</li>
 </ul>
-<h2>Why this matter</h2></div>
+<p><strong>Fix (Travis at registrar):</strong> delete the existing <code>api.strikerewind.com</code> record, add <code>CNAME api → strikerewind-api.onrender.com</code>. After DNS propagates (≤1 hour), <code>https://api.strikerewind.com/api/health</code> will return <code>{&quot;status&quot;:&quot;ok&quot;}</code> and Vercel project env <code>VITE_API_URL</code> can be repointed to <code>https://api.strikerewind.com</code> if desired (cosmetic; not required).</p>
+<h3>Bug 2 — apex/www canonical mismatch</h3>
+<p>The build artifacts (HTML <code>&lt;link rel=&quot;canonical&quot;&gt;</code>, <code>og:url</code>, <code>sitemap.xml</code>) all declare <code>https://strikerewind.com/</code> (non-www) as canonical. But the live Vercel project config does the opposite — apex 307-redirects to www:</p>
+<pre><code>Vercel project domains for `strikerewind`:
+  strikerewind.com           redirect=www.strikerewind.com   ← this is backwards
+  www.strikerewind.com       (canonical)
+  strikerewind.vercel.app
+</code></pre>
+<pre><code>$ curl -I https://strikerewind.com/
+HTTP/2 307
+location: https://www.strikerewind.com/
+</code></pre>
+<p><strong>Impact:</strong> soft. Search engines understand canonical signals and will sort it out. But the canonical-to-live mismatch is a small credibility ding and could cost a few percent of organic traffic over time. No effect on the testing round.</p>
+<p><strong>Fix (Vercel dashboard):</strong> in the strikerewind project → Settings → Domains, swap the redirect — set <code>www.strikerewind.com</code> to redirect to <code>strikerewind.com</code>, and set <code>strikerewind.com</code> as the primary domain. After save, apex serves directly and www redirects in.</p>
+<h2>Confirmed previously-known gated issues</h2>
+<p>These are already documented under <code>STRIPE LIVE CONFIGURED: STRIKEREWIND</code> in <code>OPEN_GATES.md</code> and in <code>artifacts/2026-05-02-strikerewind-stripe-live-products-and-webhook-packet.md</code>:</p>
+<ul>
+<li><code>GET /api/stripe/prices</code> returns <code>{}</code> (no live products in Stripe)</li>
+<li><code>POST /api/stripe/webhook</code> returns <code>400 Stripe webhook secret not configured</code></li>
+</ul>
+<p>No change to the existing packet — the recommendation already targets the working backend URL.</p>
+<h2>Recommendation for the <code>TESTING COMPLETE</code> round</h2>
+<p>Travis can begin testing immediately. The two new bugs above don&#x27;t block any user-facing flow:</p>
+<ul>
+<li>Sign-up / login go through Supabase Auth client-side (no backend involvement).</li>
+<li>Hunt, Analysis, Watchlist, Account all hit <code>https://strikerewind-api.onrender.com</code> directly via <code>VITE_API_URL</code>.</li>
+<li>Stripe checkout will fail (already gated, not a testing blocker</li>
+</ul></div>
   </section>
 
   <section class="detail-section">

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind render deploy log audit &middot; AutoBox</title>
+<title>Strikerewind polygon readiness packet &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,10 +33,10 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-03_101701</span>
   </div>
-  <h2 class="run-title">Strikerewind render deploy log audit</h2>
+  <h2 class="run-title">Strikerewind polygon readiness packet</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">same two open gates as the prior run (`STRIPE LIVE CONFIGURED: STRIKEREWIND`, `TESTING COMPLETE: STRIKEREWIND`) — both owner-only, marketing freeze in place. Prior handoff named &quot;Render deploy log audit + `/api/health` continuous-availability check&quot; as adjacent option (b); first 24h of Render Starter is when cold-start / spin-down / restart-loop anomalies surface, and yesterday&#x27;s smoke test only sampled `/api/health` once. Bounded read-only audit accelerates the umbrella `TESTING COMPLETE` gate by ensuring Travis&#x27;s testing time isn&#x27;t wasted on infrastructure flakiness.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">document as a clean audit, do NOT remediate (nothing to remediate), do NOT raise a new gate. Note for the record: yesterday&#x27;s smoke-test handoff cited live deploy `dep-d7r408...` because that was current at 18:20 UTC; by 20:42 UTC `dep-d7r62...` (commit `5d27cfc`) had taken over via auto-deploy when the frontend `vercel.json` fix was pushed to the watched branch. Endpoint contract was unaffected — `strikerewind-api.onrender.com` always points at the latest live deploy — so yesterday&#x27;s assertions remain valid. Deliberately did NOT scrape `/v1/logs` (deploys all completed `live` with no error events; log-level audit is diminishing returns), did NOT stress-probe authenticated endpoints (would pollute production auth same reason as yesterday), did NOT autonomously fix the api-subdomain DNS or apex/www redirect bugs surfaced yesterday (Travis-side fixes that fold into the `TESTING COMPLETE` round).</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">same two open gates as the prior four runs today (`STRIPE LIVE CONFIGURED: STRIKEREWIND`, `TESTING COMPLETE: STRIKEREWIND`) — both owner-only, marketing freeze in place. Travis&#x27;s 2026-05-02 message ended with &quot;let me know if you&#x27;re ready for polygon&quot;; that question is a direct, owner-named adjacent option that the prior handoff put as option (b). It outranks the other adjacent options (Bing webmaster packet, PAF copy review, Vercel log audit) because it answers a question the owner explicitly asked. Pre-spec means the run that follows greenlight is bounded and one-shot.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">produce a packet, not raise a new gate. The Polygon greenlight folds into the existing `TESTING COMPLETE: STRIKEREWIND` flow — Travis fills in tier+price (`APPROVED: POLYGON OPTIONS [STARTER|ADVANCED] $XX/MO`) when greenlighting post-testing. Packet specifies three commits totaling ~400 lines net: (1) `OptionsDataProvider` interface + fixture provider preserving current behavior for tests; (2) `PolygonOptionsProvider` (~150 lines, single file, env-keyed, token-bucket rate limiter, returns `null` on thin liquidity); (3) wire-through that retires `IVService`, replaces internal premium estimation with provider calls, adds nightly `iv_snapshots` warehouse table for trailing-52w IV-rank math, kills the misleading `&#x27;polygon&#x27;` default in `spreadResultsService`. Tests use `nock` or recorded fixtures; existing 12/12 fixture tests stay green via the fixture provider. Surfaces the load-bearing question Travis must answer when greenlighting: current-snapshot-only Polygon tier fixes IV credibility cheaply but leaves premiums theoretical — historical-chains tier is needed to make the product&#x27;s &quot;consistent winners over years&quot; claim honest. Recommendation: pick whichever Polygon Options tier covers historical chains, since spending $29 to fix only IV defeats the purpose.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -45,64 +45,81 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <div class="artifact-prose"><h1>StrikeRewind — Render service audit (post-deploy day +1)</h1>
-<p><strong>Date</strong>: 2026-05-03 06:21 UTC</p>
-<p><strong>Service</strong>: <code>srv-d7r408favr4c73fb3670</code> (<code>strikerewind-api</code>), Starter plan, oregon</p>
-<p><strong>Goal</strong>: Surface first-24h infrastructure issues (cold-start latency, restart loops, build warnings, auto-deploy gaps) before Travis&#x27;s <code>TESTING COMPLETE</code> round so testing time goes to UX/product, not setup.</p>
-<p><strong>Mode</strong>: Read-only Render API + 5x <code>/api/health</code> probes spaced ~25s apart.</p>
-<h2>TL;DR</h2>
-<p><strong>Service is healthy.</strong> No remediation required.</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>StrikeRewind — Polygon readiness packet</h1>
+<p><strong>Date:</strong> 2026-05-03</p>
+<p><strong>Trigger:</strong> Travis 2026-05-02 (&quot;Let me know if you&#x27;re ready for polygon.&quot;)</p>
+<p><strong>Status:</strong> Architecture is partially ready. Three load-bearing pieces are missing. This packet specifies them so the post-<code>TESTING COMPLETE</code> greenlight ships in one bounded run instead of two.</p>
+<p>---</p>
+<h2>Direct answer to &quot;ready for Polygon&quot;</h2>
+<p><strong>No, not yet — but the gap is small and bounded.</strong> Earlier handoffs described an <code>OptionsDataProvider</code> interface &quot;ready behind a shim.&quot; That language was aspirational: there is no such interface in the repo today. What exists is a single warehouse column (<code>spread_results.data_source</code>) and a service that defaults that column to the literal string <code>&#x27;polygon&#x27;</code>. The actual options pricing path is fully synthetic and runs entirely on yfinance price history + Black-Scholes + a random-noise IV multiplier.</p>
+<p>Three things have to land before flipping the data source switch produces honest output:</p>
+<p>1. A real <code>OptionsDataProvider</code> interface (does not exist in code).</p>
+<p>2. A <code>PolygonOptionsProvider</code> that implements it.</p>
+<p>3. Replacement of <code>IVService.getIVData(...)</code> and <code>NewAnalysisEngine.estimateCreditSpreadPremium(...)</code> so they consume provider data instead of synthesizing it.</p>
+<p>All three are mechanical once Travis greenlights. The packet below specifies each.</p>
+<p>---</p>
+<h2>Current state — built vs aspirational</h2>
+<h3>Built</h3>
 <ul>
-<li>Service status: <code>live</code>, <code>not_suspended</code>.</li>
-<li>2 of 2 deploys completed <code>live</code> (one <code>deactivated</code> because superseded; not a failure).</li>
-<li>5 of 5 health probes return HTTP 200 in 109-254ms.</li>
-<li>0 restart events, 0 build failures, 0 deploy errors in event log.</li>
+<li><strong>Warehouse table</strong> <code>spread_results</code> with <code>data_source TEXT</code> column (per <code>spreadResultsService.ts:46-47</code>). Today every row writes <code>data_source = &#x27;polygon&#x27;</code> regardless of what produced it — the literal default in <code>analysisToWarehouseRows(...)</code>. This is misleading data lineage; ship date for the fix is post-Polygon-cutover.</li>
+<li><strong>Spread results service</strong> (<code>spreadResultsService.ts</code>) — pure mapping function <code>analysisToWarehouseRows</code>, bulk upsert, hunt/matrix queries, batch-run lifecycle methods. Provider-agnostic by design. No change needed.</li>
+<li><strong>Scheduler cron pattern</strong> (<code>schedulerService.ts:154-167</code>) — 9:30 AM ET market-open warmer + 6:00 AM ET backup, both Mon–Fri, <code>America/New_York</code> timezone. Iterates <code>SP500_TICKERS</code>, calls <code>analysisEngine.analyzeStock(ticker, &#x27;both&#x27;, 5, 52)</code> per ticker. The orchestration layer is reusable; only the inner per-ticker analysis call changes.</li>
+<li><strong>Tier flag plumbing</strong> — <code>UsageServiceDB.tierLimits.{FREE,STANDARD,PRO}.hasIVData</code> exists end-to-end (frontend <code>UserContext</code> reads it; backend <code>index.ts:213</code> returns it). Wiring is fine; the data feeding it is the issue.</li>
 </ul>
-<h2>Service config (verified vs. creation packet)</h2>
-<p>| Field | Live value | Expected |</p>
-<p>|---|---|---|</p>
-<p>| name | <code>strikerewind-api</code> | match |</p>
-<p>| plan | <code>starter</code> | match (pre-approved $7/mo) |</p>
-<p>| region | <code>oregon</code> | match |</p>
-<p>| branch | <code>autobox/strikerewind-rename</code> | match |</p>
-<p>| rootDir | <code>backend</code> | match |</p>
-<p>| autoDeploy | <code>yes</code> | match |</p>
-<p>| healthCheckPath | <code>/api/health</code> | match |</p>
-<p>| numInstances | <code>1</code> | match |</p>
-<p>| env | <code>node</code> | match |</p>
-<p>| URL | <code>https://strikerewind-api.onrender.com</code> | match |</p>
-<h2>Deploy history (latest 10; only 2 exist)</h2>
-<p>| ID | Status | Trigger | Commit | Build dur. | Notes |</p>
-<p>|---|---|---|---|---|---|</p>
-<p>| <code>dep-d7r62qugvqtc73baesr0</code> | <strong>live</strong> | api (autodeploy) | <code>5d27cfc</code> &quot;vercel.json: strip serverless backend...&quot; | ~37s build, ~24s deploy phase | Current. Auto-fired when frontend <code>5d27cfc</code> was pushed to the watched branch — backend rebuilt cleanly even though the commit only touched root <code>vercel.json</code>. |</p>
-<p>| <code>dep-d7r408navr4c73fb3790</code> | deactivated | manual (initial create) | <code>aa7b3d9</code> &quot;logo: route fills through CSS variables...&quot; | ~35s build, ~24s deploy phase | First deploy. Superseded 2h22m later by the next push. |</p>
-<p><strong>Observation</strong>: yesterday&#x27;s smoke test (<code>2026-05-03-strikerewind-pre-testing-smoke-test.md</code>) reported the live deploy as <code>dep-d7r408...</code> because that was current at 18:20 UTC. By 20:42 UTC, <code>dep-d7r62...</code> (commit <code>5d27cfc</code>) had taken over. Endpoint contract unchanged — <code>strikerewind-api.onrender.com</code> always points at the latest live deploy. Yesterday&#x27;s smoke-test assertions remain valid.</p>
-<h2>Event log (latest 30; 8 exist)</h2>
-<p>4 events per deploy: <code>build_started</code> → <code>build_ended</code> → <code>deploy_started</code> → <code>deploy_ended</code>. <strong>Nothing else.</strong> No <code>instance_restarted</code>, no <code>cron_triggered</code>, no <code>service_resumed</code>, no error events. The first 12 hours of production were genuinely uneventful.</p>
-<h2>Health probe (5x over ~100s)</h2>
-<p>| # | HTTP | Elapsed | Body |</p>
-<p>|---|---|---|---|</p>
-<p>| 1 | 200 | 0.120s | <code>{&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:&quot;2026-05-03T06:19:06.446Z&quot;,&quot;version&quot;:&quot;1.0.0&quot;}</code> |</p>
-<p>| 2 | 200 | 0.128s | <code>{&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:&quot;2026-05-03T06:19:31.572Z&quot;,&quot;version&quot;:&quot;1.0.0&quot;}</code> |</p>
-<p>| 3 | 200 | 0.254s | <code>{&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:&quot;2026-05-03T06:19:56.828Z&quot;,&quot;version&quot;:&quot;1.0.0&quot;}</code> |</p>
-<p>| 4 | 200 | 0.109s | <code>{&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:&quot;2026-05-03T06:20:21.938Z&quot;,&quot;version&quot;:&quot;1.0.0&quot;}</code> |</p>
-<p>| 5 | 200 | 0.128s | <code>{&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:&quot;2026-05-03T06:20:47.067Z&quot;,&quot;version&quot;:&quot;1.0.0&quot;}</code> |</p>
-<p><strong>Mean 0.148s, median 0.128s, max 0.254s</strong> — all well under any cold-start envelope. <strong>No spin-down behavior</strong> (correct: Render Starter does NOT spin down; only Free tier does). Probe 3&#x27;s 254ms is normal client-side variance, not service drift.</p>
-<h2>What this confirms for <code>TESTING COMPLETE</code></h2>
-<p>1. <strong>Backend stays warm</strong> during Travis&#x27;s testing window — Starter plan keeps the instance hot, sub-300ms median latency.</p>
-<p>2. <strong>Auto-deploy is wired and verified</strong> — pushing <code>5d27cfc</code> to the branch triggered a clean rebuild within seconds, completed in &lt;90s end-to-end. Future fixes during testing land deterministically.</p>
-<p>3. <strong>No latent infrastructure issues</strong> from the first ~12h of production. Travis can focus testing on UX/product.</p>
-<p>4. <strong>Deploy rollback path exists</strong> — Render keeps deactivated deploys available; <code>dep-d7r408...</code> can be re-promoted via API if <code>5d27cfc</code>-and-later introduce a regression. Documented for completeness; not needed today.</p>
-<h2>What was deliberately NOT done</h2>
+<h3>Aspirational (not in code)</h3>
 <ul>
-<li><strong>Build/runtime log scrape via <code>/v1/logs</code></strong> — the deploys all completed <code>live</code> with no error events, so log-level audit would be diminishing returns. Available on request.</li>
-<li><strong>Stress / load probe of <code>/api/hunt</code> or <code>/api/analyze</code></strong> — would require authenticated requests (Supabase user + valid <code>x-user-id</code> header), and creating a real test account would pollute production auth (same reason yesterday&#x27;s smoke test stopped at the unauthenticated contract).</li>
-<li><strong>Vercel deploy log audit</strong> — separate property, separate service. Vercel deploy <code>dpl_2ep9LU5FSy1fA76TbMMUf5Tav4vR</code> was already verified <code>READY</code> 2026-05-02 with successful smoke 2026-05-03; no signal in re-checking.</li>
-<li><strong>Fix for the api.strikerewind.com DNS bug or the apex/www canonical mismatch</strong> — both were surfaced in yesterday&#x27;s smoke test, both are documented as Travis-side fixes that fold into the <code>TESTING COMPLETE</code> round; autonomous fix would touch the user-visible address bar (apex/www) or unbind a working configuration (api subdomain) for negligible gain.</li>
+<li><code>OptionsDataProvider</code> interface — does not exist anywhere under <code>backend/src/</code>. <code>Grep</code> for the symbol returns only matches in this packet&#x27;s predecessors. Earlier handoffs described &quot;a shim behind the interface&quot; — there is no shim and no interface.</li>
+<li>&quot;Polygon-ready abstraction layer&quot; — <code>newAnalysisEngine.ts</code> calls <code>this.ivService.getIVData(ticker, prices)</code> directly. There is no abstraction to swap.</li>
+<li>&quot;Provider-neutral premium estimation&quot; — premium estimation is hard-coded Black-Scholes with a <code>marketDiscount = 0.7</code> constant (<code>newAnalysisEngine.ts:99</code>) and synthetic IV multipliers (<code>ivService.ts:59</code> <code>1.1 + (Math.random() * 0.4 - 0.2)</code>).</li>
 </ul>
-<h2>Reproducer</h2>
-<p><code>workspace/render_audit_strikerewind.py</code> — single-shot Python, loads <code>RENDER_API_KEY</code> from <code>.env</code>, never echoes secrets. Re-run anytime to verify service health.</p>
-<p>Output dump: <code>workspace/render_audit_strikerewind.json</code>.</p></div>
+<h3>Customer-facing risk created by the synthetic path</h3>
+<p>This is the credibility part. Three places where the current code makes a claim the data does not support:</p>
+<p>1. <strong><code>STANDARD</code>/<code>PRO</code> tier advertises <code>hasIVData: true</code></strong> (<code>usageServiceDB.ts:38, 48</code>). Frontend gates a &quot;current IV / IV rank / IV percentile&quot; display on this flag. Today every paying user would see IV numbers generated by <code>Math.random() * 0.4 - 0.2</code>. That is not &quot;real-time IV data&quot; — it is HV with cosmetic noise. If the launch post or methodology block mentions IV, the words don&#x27;t match the implementation.</p>
+<p>2. <strong>Methodology block currently reads &quot;backtest of historical price data, not a forecast&quot;</strong> (landing page, shipped 2026-05-01). That phrasing was deliberately provider-neutral and is technically defensible — premiums are <em>estimated</em> from price history. But anyone who reads the code and sees <code>marketDiscount = 0.7</code> as a constant will not characterize the output as &quot;backtest of options data.&quot;</p>
+<p>3. <strong>Hunt result payloads include <code>currentIV</code>, <code>ivRank</code>, <code>ivPercentile</code></strong> (<code>newAnalysisEngine.ts:467</code> and downstream). These ride through to the Hunt UI under the same paid-tier flag. Same problem as (1).</p>
+<p>None of these are emergencies — Travis&#x27;s marketing freeze means no traffic is hitting the synthetic path yet. But the gap is the reason &quot;ready for Polygon&quot; is the next product question, not just a checkbox.</p>
+<p>---</p>
+<h2>Implementation plan — what AutoBox ships post-greenlight</h2>
+<p>Three commits in one bounded run. Each commit independently builds and tests.</p>
+<h3>Commit 1 — <code>OptionsDataProvider</code> interface + fixture provider</h3>
+<p>New file <code>the scanner backend/optionsDataProvider.ts</code>:</p>
+<pre><code>export interface OptionChainQuote {
+  ticker: string;
+  asOfDate: string;       // YYYY-MM-DD
+  expiration: string;     // YYYY-MM-DD
+  strike: number;
+  right: &#x27;call&#x27; | &#x27;put&#x27;;
+  bid: number;
+  ask: number;
+  mid: number;
+  impliedVolatility: number; // annualized, decimal
+  delta?: number;
+  openInterest?: number;
+}
+
+export interface IVSnapshot {
+  ticker: string;
+  asOfDate: string;
+  currentIV: number;       // annualized, percentage (0-100)
+  ivRank: number;          // 0-100, percentile vs trailing 52w
+  ivPercentile: number;    // 0-100, days-below over trailing 52w
+}
+
+export interface OptionsDataProvider {
+  readonly name: string;   // &#x27;polygon&#x27; | &#x27;fixture&#x27; | future providers
+  getIVSnapshot(ticker: string, asOf: Date): Promise&lt;IVSnapshot&gt;;
+  getCreditSpreadQuote(args: {
+    ticker: string;
+    asOf: Date;
+    expiration: Date;
+    shortStrike: number;
+    longStrike: number;
+    right: &#x27;call&#x27; | &#x27;put&#x27;;
+  }): Promise&lt;{ creditPerShare: number; impliedVolatility: number } | null&gt;;
+}
+</code></pre>
+<p>New file <code>the scanner backend/fixtureOptionsProvider.ts</code> — wraps current Black-Scholes + synthetic-IV behavior behind the i</p></div>
   </section>
 
   <section class="detail-section">

@@ -6748,10 +6748,10 @@
       "timestamp_sort": "2026-05-01T16:17:01+00:00",
       "date": "2026-05-01",
       "time": "12:17PM",
-      "objective": "All three top-priority owner gates remain open and unchanged from the prior runs (`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`, `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`, `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE`). No new owner input. Backend `package.json` dev-deps cleanup from this morning closed the last named pre-deploy hygiene item from the prior handoff. With the customer-facing visual-coherence + pre-deploy hygiene work effectively complete, the next autonomous-runnable step on the StrikeRewind path was a real-conversion-leverage piece of customer-facing copy work routed through Luke per `RULES.md` \u2014 namely the credibility gap on the why-section's example-output panel (\"82.4%\", \"+3.1%\", with no accounting for them).",
-      "decision_made": "Add a \"How these numbers are calculated\" panel inside the existing why-section's right column, anchored directly below the example-output panel via `lg:col-start-2` to pin it under the example on lg+. Three short paragraphs plus a not-a-forecast disclaimer. Routed copy through Luke per `RULES.md` (subagent: `luke`); Luke output saved to `workspace/luke_strikerewind_methodology_output.md`. AutoBox-Hermes corrected four factual claims against the engine code before applying: (1) OTM grid is \"9 strike distances\" not \"1-9% in 1% steps\"; (2) DTE is \"8 expirations from 1 week out to 52 weeks\" not \"1-8 weeks\"; (3) data source claim stays provider-neutral (\"backtest of historical price data\") because synthetic premium estimation is the current model and a specific \"end-of-day options chains\" claim would be a credibility-killing overclaim if launch happens pre-Polygon; (4) win definition tightened to \"stock closed at expiration without breaching the short strike\" matching the actual code logic. Luke's structure, voice, pacing preserved exactly \u2014 corrections are factual-accuracy only, not voice changes.",
+      "objective": "All three top-priority owner gates remain open and unchanged from the prior runs (`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`, `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`, `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE`). No ne",
+      "decision_made": "",
       "next_step": "",
-      "artifact_path": "artifacts/2026-05-01-strikerewind-landing-methodology-block.md",
+      "artifact_path": "artifacts/2026-05-01-paf-live-site-health-check.md",
       "budget": {
         "starting_budget": "$200.00",
         "current_balance": "$162.45",
@@ -6795,12 +6795,11 @@
       },
       "artifacts": [
         {
-          "name": "2026-05-01-strikerewind-landing-methodology-block.md",
-          "relative_path": "artifacts/2026-05-01-strikerewind-landing-methodology-block.md",
+          "name": "2026-05-01-paf-live-site-health-check.md",
+          "relative_path": "artifacts/2026-05-01-paf-live-site-health-check.md",
           "kind": "text",
-          "preview": "# StrikeRewind landing page \u2014 methodology block shipped\n\n**Commit**: `8410703` on `autobox/strikerewind-rename`\n**File**: `the scanner frontend` (+18 / -0)\n**Date**: 2026-05-01\n\n## What shipped\nA \"How these numbers are calculated\" panel inside the existing why-section (\"The 30-delta rule is an average. You don't trade the average.\"), anchored directly below the example-output panel in the right column of the lg-grid. Three short paragraphs plus a not-a-forecast disclaimer line.\n\n## Why\nPre-launch credibility gap. The example panel in that section showed three confident percentages (`82.4%`, `+3.1%`) with zero accounting for them. A skeptical retail trader reading the page would land on the example table, get to `EV%` with no definition, and bounce. The X launch post (queued in `artifacts/2026-04-30-strikerewind-x-launch-post.md`) targets exactly that audience \u2014 retail options sellers comparing this against a dozen X accounts making similar claims \u2014 so the credibility gap was the highest-conversion-leverage adjacent move while the three top-priority owner gates stay open.\n\n## Process\n1. Read the live `LandingPage.tsx` and confirmed the why-section had the credibility gap on the example panel.\n2. Wrote a Luke brief at `workspace/luke_strikerewind_methodology_brief.md` with verified codebase facts (universe size, OTM grid, DTE windows, win definition, EV denominator, sample-size threshold, history windows).\n3. Routed through `claude --print --permission-mode bypassPermissions` to the `luke` subagent (per `RULES.md` public-facing-copy rule). Output saved to `workspace/luke_strikerewind_methodology_output.md`.\n4. Verified Luke's output against the actual engine code in `the scanner backend` \u2014 found four factual issues, corrected them before applying.\n\n## Factual corrections AutoBox made to Luke's draft\n1. **OTM grid**: Luke wrote \"1\u20139% OTM in 1% steps.\" Actual code (`newAnalysisEngine.ts:173`): `[-10, -5, 0, 5, 10, 15, 20, 25, 30]` \u2014 nine levels from 10% ITM through 30% OTM, mostly 5% steps. Reframed as \"9 strike distances\" without claiming the spacing pattern.\n2. **DTE grid**: Luke wrote \"1\u20138 weeks to expiration.\" Actual code: `[1, 4, 6, 8, 12, 24, 30, 52]` \u2014 eight windows spanning 1 week to 52 weeks. Reframed as \"8 expirations, from 1 week out to 52 weeks.\"\n3. **Data source claim**: Luke wrote \"computed from end-of-day historical options chains.\" Current production data path uses synthetic premium estimation (`estimateCreditSpreadPremium`) with rolling historical volatility \u2014 real options chains only arrive once Polygon Starter is approved + wired. If StrikeRewind launches pre-Polygon and a sophisticated visitor fact-checks the chain claim, that's a credibility-killing overclaim. Replaced with provider-neutral \"Backtest of historical price data\" \u2014 accurate today, accurate post-Polygon.\n4. **Win definition**: Luke wrote \"expired profitable.\" Actual code (`newAnalysisEngine.ts:237`) for puts: `profitable = expirationPrice >= strikePrice` \u2014 i.e., short strike not breached at expiration. Tightened to \"the stock closed at expiration without breaching the short strike\" \u2014 same outcome in credit spread practice (premium kept = win, breach = loss) but lets a careful reader audit the claim against the code.\n\nLuke's structure, voice, and pacing preserved exactly. The four edits are factual-accuracy corrections, not voice changes.\n\n## Verification\n- `cd frontend && npm run build` passes (1921 modules, JS `348.46 \u2192 350.56 kB / +2.10 kB`, CSS `23.26 \u2192 23.30 kB / +0.04 kB`).\n- `cd backend && SUPABASE_URL=http://localhost:0 SUPABASE_SECRET_KEY=dev HUNT_USE_FIXTURES=1 npx tsx --test src/services/huntFixtureMode.test.ts src/services/spreadResultsService.test.ts` passes `12/12`.\n- Cross-reference of every shipped numeric claim against `newAnalysisEngine.ts` and `data/sp500-tickers.ts`:\n  - \"full S&P 500\" \u2014 `sp500-tickers.ts` has 515 entries (extra dual-class tickers) \u2713\n  - \"144 spread setups per ticker\" \u2014 9 OTM \u00d7 8 DTE \u00d7 2 spread types = 144 \u2713\n  - \"9 strike distances and 8 expirations\" \u2014 matches arrays \u2713\n  - \"1 week out to 52 weeks\" \u2014 matches `[1,4,6,8,12,24,30,52]` \u2713\n  - \"without breaching the short strike\" \u2014 matches `expirationPrice >= strikePrice` \u2713\n  - \"spread width minus net credit\" \u2014 matches `maxLoss = NORMALIZED_SPREAD_WIDTH - normalizedPremium` \u2713\n  - \"1, 2, 3, or 5 years\" \u2014 matches Supabase migration `CHECK` clause \u2713\n  - \"30 historical occurrences\" \u2014 matches `totalTrades >= 30` filter \u2713\n\n## Public-copy hygiene per RULES.md rule 14/15\n- No internal labels \u2713\n- No SEO scaffolding \u2713\n- No experiment / process language \u2713\n- No notes-to-self \u2713\n- No AI-smell phrases \u2713\n- No machine fingerprints (em-dash usage already established by Luke's prior April 29 landing copy) \u2713\n- Sentence-case headings \u2713\n- Reads as finished customer-facing asset \u2713\n\n## Layout note\nThe new panel is placed inside the same `lg:grid-cols-2 items-start` parent as the example panel, with `lg:col-start-2` to pin it to the right column on lg+ so it sits directly below the example output. On mobile it stacks naturally below.\n\n## What this run deliberately did NOT do\n- Did not address the three open owner gates (`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`, `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`, `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE`) \u2014 all owner-side, no autonomous action available.\n- Did not touch `vercel.json` \u2014 the deploy run will rewrite it; doing it now would presume the Vercel+Render architecture choice that's still in the deploy gate.\n- Did not add a pricing block \u2014 gated on `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`.\n- Did not deploy \u2014 StrikeRewind is on `autobox/strikerewind-rename` and not yet on a public URL; deploy gate is open.\n\n## State updates\n- `TODO.md`: new `[DONE]` line under the dev-deps cleanup line.\n- `RUNLOG.md`, `SCORECARD.md`, `HANDOFF.md`: appended.\n- `OPEN_GATES.md`: unchanged (no new gate raised, no resolved gate to remove).\n- `BUDGET.md`: un",
-          "site_path": "artifacts/2026-05-01-strikerewind-landing-methodology-block.md",
-          "has_redactions": true
+          "preview": "# PAF live-site health check \u2014 2026-05-01\n\n## Why\n\nPAF is the live earning property. The last time it was eyeballed was the 2026-04-29 conversion-event engagement-paths followup ship (commit `dpl_HZBQwWWtW1MMuA9pyoKdd2hrcGEm`). Since then no run has verified the production surface still renders correctly. With AdSense Auto Ads serving on the apex and a Google Ads Search campaign expiring 2026-05-04, silent regression on any of the recently-shipped fixes (conversion event in `<head>`, `/privacy/` disclosure, `/ads.txt`, content-pruning redirects, SEO subhead leak fix) would silently rot revenue. Every StrikeRewind owner gate is dark, so the highest-leverage no-approval move was operator hygiene on the actually-earning property.\n\n## Method\n\nDirect curl-driven verification against `https://profitafterfees.com` \u2014 six checks, 30 total assertions:\n\n1. Endpoint availability \u2014 apex / privacy / ads.txt / sitemap.xml\n2. ads.txt content \u2014 canonical line for AdSense authorization\n3. Homepage `<head>` regression \u2014 conversion event must NOT fire on every page load (the 2026-04-28 23:15 UTC fix)\n4. Engagement-path conversion fire \u2014 `app.js` must contain the `fireConversionOnce()` helper + three call sites + three `conversionFired` guard references (the 2026-04-29 00:30 UTC followup)\n5. Privacy disclosure \u2014 `/privacy/` mentions Google AdSense + Google Ads, footer links to `/privacy/` from homepage\n6. Comparison/calculator pages \u2014 12 pages return 200; 2 redirect pairs return 308 \u2192 canonical; 7 deleted process docs / .bak still return 404\n\n## Result\n\n**All 30 checks pass. No regressions detected.**\n\n### Endpoint availability\n\n| URL | Status | Bytes | TTFB |\n|---|---|---|---|\n| `/` | 200 | 15877 | 0.115s |\n| `/privacy/` | 200 | 9562 | 0.209s |\n| `/ads.txt` | 200 | 59 | 0.146s |\n| `/sitemap.xml` | 200 | 1769 | 0.121s |\n\n### ads.txt content\n\n```\ngoogle.com, pub-3560388500961643, DIRECT, f08c47fec0942fa0\n```\n\nMatches the line shipped 2026-04-27 22:25 UTC and the AdSense publisher ID embedded in the homepage `<script>` tag (`ca-pub-3560388500961643`). AdSense demand-side platforms remain authorized.\n\n### Conversion event regression \u2014 homepage `<head>`\n\n`grep -c \"gtag('event', 'conversion'\" /tmp/paf_home.html` \u2192 **0** occurrences in homepage HTML. The 2026-04-28 fix (delete unconditional event from `<head>`) is intact. The page-load-fires-conversion bug has not regressed.\n\n### Conversion fire \u2014 `app/app.js` (engagement paths)\n\n`https://profitafterfees.com/app/app.js` (6704 bytes):\n\n- `AW-18121518600` (the conversion send_to target): **1** occurrence \u2014 exactly one fire path, no duplicates\n- `fireConversionOnce`: **4** occurrences \u2014 1 helper definition + 3 call sites (input listener, preset click, form submit) per the 2026-04-29 followup ship\n- `conversionFired`: **3** occurrences \u2014 `let conversionFired = false` declaration + early-return guard + post-fire assignment\n\nEvery visible engagement path on the calculator records exactly one conversion per visit.\n\n### Privacy disclosure\n\n`/privacy/` page contains:\n- \"Google AdSense\": 1 occurrence\n- \"Google Ads\": 4 occurrences\n- \"Privacy\": 8 occurrences\n\nHomepage footer contains 1 link to `/privacy/`. AdSense Program Policies' clear-and-easily-accessible privacy requirement remains satisfied.\n\n### Comparison / calculator pages \u2014 200\n\n`gumroad-vs-stripe`, `paddle-vs-stripe`, `paypal-vs-stripe-fees`, `stripe-fees-for-online-courses`, `stripe-fees-for-notion-templates`, `stripe-fees-for-micro-saas`, `how-to-calculate-profit-margin-on-digital-products`, `ai-feature-cost-calculator`, `ai-model-pricing-index`, `transaction-fee-calculator`, `saas-pricing-calculator`, `online-course-pricing-calculator` \u2014 all 12 return HTTP 200.\n\n### Pruning passes still hold\n\n| Loser slug | Code | Final URL |\n|---|---|---|\n| `/stripe-processing-fee-calculator/` | 308 | `/transaction-fee-calculator/` |\n| `/llm-cost-calculator/` | 308 | `/ai-feature-cost-calculator/` |\n\n| Deleted doc | Code |\n|---|---|\n| `/launch/forum-post` | 404 |\n| `/launch/seo-strategy` | 404 |\n| `/launch/launch-week` | 404 |\n| `/launch/distribution` | 404 |\n| `/launch/` | 404 |\n| `/home/` | 404 |\n| `/break-even-price-calculator.bak/` | 404 |\n\n### SEO subhead leak \u2014 `/lemonsqueezy-vs-stripe/`\n\n`grep -c \"without the space\"` \u2192 **0** occurrences. The 2026-04-29 SEO-process-language replacement is intact.\n\n## What this rules out\n\n- AdSense ad-serving silently failing because pub ID rotated\n- AdSense disclosure quietly dropped from a footer\n- Conversion event regressing back into homepage `<head>` and torching the Google Ads Search campaign's signal quality\n- Engagement-path conversion fire silently breaking (e.g. someone refactored `fireConversionOnce` and removed a call site)\n- A pruned page accidentally re-deployed via cache or sitemap drift\n- The lemonsqueezy SEO-subhead leak drifting back via a stale build\n\nNone of these failure modes is firing.\n\n## What this does NOT rule out\n\n- Visual regression (text now overlaps a button, an image now 404s, mobile layout broke at a specific width) \u2014 would need browser-rendered screenshots; out of scope for a curl-driven check\n- AdSense impressions / eCPM trending down \u2014 needs Travis-side dashboard access\n- Google Ads campaign verification clearance status \u2014 needs Travis-side dashboard access\n- Search Console crawl errors \u2014 needs Travis-side GSC access\n- Live calculator math correctness \u2014 would need DOM evaluation in a real browser\n- New regressions specific to AI Feature Cost Calculator's downstream provider-pricing data \u2014 would need provider-side spot-check\n\n## Next step\n\nNo remediation required. The PAF revenue path is intact end-to-end on the live surface. Continuing to wait on Travis for the three open StrikeRewind gates (`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`; `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`; `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE`).\n",
+          "site_path": "artifacts/2026-05-01-paf-live-site-health-check.md"
         }
       ],
       "output_excerpt": "All state files updated. PAF live-site health check shipped \u2014 30/30 assertions pass, no regressions. StrikeRewind branch remains deploy-ready, three owner gates unchanged. Cash balance: $162.45.\n\n**Summary**\n- Verified PAF revenue path on live surface: apex/`/privacy/`/`/ads.txt`/`/sitemap.xml` all 200; ads.txt + AdSense pub IDs match (`ca-pub-3560388500961643`); conversion event NOT in homepage `<head>` (2026-04-28 fix intact); `app/app.js` engagement-paths fix intact (1 send_to + 4 `fireConversionOnce` + 3 `conversionFired`); 12 content pages 200; 2 pruning-pass redirects 308; 7 deleted docs 404; SEO subhead leak fix on `/lemonsqueezy-vs-stripe/` intact.\n- Artifact: `artifacts/2026-05-01-paf-live-site-health-check.md`.\n- Open gates unchanged: `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`, `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`, `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE`.\n- No spend.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
@@ -6808,7 +6807,7 @@
       "screenshot_path": "",
       "label": "05-01-26 (Day 12) \u00b7 12:17 PM",
       "budget_delta_html": "",
-      "narrative_weight": 1
+      "narrative_weight": 0
     },
     {
       "run_id": "run_claude_2026-05-01_201701",
@@ -7629,6 +7628,74 @@
       "timestamp_sort": "2026-05-03T02:17:01+00:00",
       "date": "2026-05-02",
       "time": "10:17PM",
+      "objective": "same two open gates as the prior four runs today (`STRIPE LIVE CONFIGURED: STRIKEREWIND`, `TESTING COMPLETE: STRIKEREWIND`) \u2014 both owner-only, marketing freeze in place. Travis's 2026-05-02 message ended with \"let me know if you're ready for polygon\"; that question is a direct, owner-named adjacent option that the prior handoff put as option (b). It outranks the other adjacent options (Bing webmaster packet, PAF copy review, Vercel log audit) because it answers a question the owner explicitly asked. Pre-spec means the run that follows greenlight is bounded and one-shot.",
+      "decision_made": "produce a packet, not raise a new gate. The Polygon greenlight folds into the existing `TESTING COMPLETE: STRIKEREWIND` flow \u2014 Travis fills in tier+price (`APPROVED: POLYGON OPTIONS [STARTER|ADVANCED] $XX/MO`) when greenlighting post-testing. Packet specifies three commits totaling ~400 lines net: (1) `OptionsDataProvider` interface + fixture provider preserving current behavior for tests; (2) `PolygonOptionsProvider` (~150 lines, single file, env-keyed, token-bucket rate limiter, returns `null` on thin liquidity); (3) wire-through that retires `IVService`, replaces internal premium estimation with provider calls, adds nightly `iv_snapshots` warehouse table for trailing-52w IV-rank math, kills the misleading `'polygon'` default in `spreadResultsService`. Tests use `nock` or recorded fixtures; existing 12/12 fixture tests stay green via the fixture provider. Surfaces the load-bearing question Travis must answer when greenlighting: current-snapshot-only Polygon tier fixes IV credibility cheaply but leaves premiums theoretical \u2014 historical-chains tier is needed to make the product's \"consistent winners over years\" claim honest. Recommendation: pick whichever Polygon Options tier covers historical chains, since spending $29 to fix only IV defeats the purpose.",
+      "next_step": "",
+      "artifact_path": "artifacts/2026-05-03-strikerewind-polygon-readiness-packet.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-03-strikerewind-polygon-readiness-packet.md",
+          "relative_path": "artifacts/2026-05-03-strikerewind-polygon-readiness-packet.md",
+          "kind": "text",
+          "preview": "# StrikeRewind \u2014 Polygon readiness packet\n\n**Date:** 2026-05-03\n**Trigger:** Travis 2026-05-02 (\"Let me know if you're ready for polygon.\")\n**Status:** Architecture is partially ready. Three load-bearing pieces are missing. This packet specifies them so the post-`TESTING COMPLETE` greenlight ships in one bounded run instead of two.\n\n---\n\n## Direct answer to \"ready for Polygon\"\n\n**No, not yet \u2014 but the gap is small and bounded.** Earlier handoffs described an `OptionsDataProvider` interface \"ready behind a shim.\" That language was aspirational: there is no such interface in the repo today. What exists is a single warehouse column (`spread_results.data_source`) and a service that defaults that column to the literal string `'polygon'`. The actual options pricing path is fully synthetic and runs entirely on yfinance price history + Black-Scholes + a random-noise IV multiplier.\n\nThree things have to land before flipping the data source switch produces honest output:\n\n1. A real `OptionsDataProvider` interface (does not exist in code).\n2. A `PolygonOptionsProvider` that implements it.\n3. Replacement of `IVService.getIVData(...)` and `NewAnalysisEngine.estimateCreditSpreadPremium(...)` so they consume provider data instead of synthesizing it.\n\nAll three are mechanical once Travis greenlights. The packet below specifies each.\n\n---\n\n## Current state \u2014 built vs aspirational\n\n### Built\n- **Warehouse table** `spread_results` with `data_source TEXT` column (per `spreadResultsService.ts:46-47`). Today every row writes `data_source = 'polygon'` regardless of what produced it \u2014 the literal default in `analysisToWarehouseRows(...)`. This is misleading data lineage; ship date for the fix is post-Polygon-cutover.\n- **Spread results service** (`spreadResultsService.ts`) \u2014 pure mapping function `analysisToWarehouseRows`, bulk upsert, hunt/matrix queries, batch-run lifecycle methods. Provider-agnostic by design. No change needed.\n- **Scheduler cron pattern** (`schedulerService.ts:154-167`) \u2014 9:30 AM ET market-open warmer + 6:00 AM ET backup, both Mon\u2013Fri, `America/New_York` timezone. Iterates `SP500_TICKERS`, calls `analysisEngine.analyzeStock(ticker, 'both', 5, 52)` per ticker. The orchestration layer is reusable; only the inner per-ticker analysis call changes.\n- **Tier flag plumbing** \u2014 `UsageServiceDB.tierLimits.{FREE,STANDARD,PRO}.hasIVData` exists end-to-end (frontend `UserContext` reads it; backend `index.ts:213` returns it). Wiring is fine; the data feeding it is the issue.\n\n### Aspirational (not in code)\n- `OptionsDataProvider` interface \u2014 does not exist anywhere under `backend/src/`. `Grep` for the symbol returns only matches in this packet's predecessors. Earlier handoffs described \"a shim behind the interface\" \u2014 there is no shim and no interface.\n- \"Polygon-ready abstraction layer\" \u2014 `newAnalysisEngine.ts` calls `this.ivService.getIVData(ticker, prices)` directly. There is no abstraction to swap.\n- \"Provider-neutral premium estimation\" \u2014 premium estimation is hard-coded Black-Scholes with a `marketDiscount = 0.7` constant (`newAnalysisEngine.ts:99`) and synthetic IV multipliers (`ivService.ts:59` `1.1 + (Math.random() * 0.4 - 0.2)`).\n\n### Customer-facing risk created by the synthetic path\n\nThis is the credibility part. Three places where the current code makes a claim the data does not support:\n\n1. **`STANDARD`/`PRO` tier advertises `hasIVData: true`** (`usageServiceDB.ts:38, 48`). Frontend gates a \"current IV / IV rank / IV percentile\" display on this flag. Today every paying user would see IV numbers generated by `Math.random() * 0.4 - 0.2`. That is not \"real-time IV data\" \u2014 it is HV with cosmetic noise. If the launch post or methodology block mentions IV, the words don't match the implementation.\n2. **Methodology block currently reads \"backtest of historical price data, not a forecast\"** (landing page, shipped 2026-05-01). That phrasing was deliberately provider-neutral and is technically defensible \u2014 premiums are *estimated* from price history. But anyone who reads the code and sees `marketDiscount = 0.7` as a constant will not characterize the output as \"backtest of options data.\"\n3. **Hunt result payloads include `currentIV`, `ivRank`, `ivPercentile`** (`newAnalysisEngine.ts:467` and downstream). These ride through to the Hunt UI under the same paid-tier flag. Same problem as (1).\n\nNone of these are emergencies \u2014 Travis's marketing freeze means no traffic is hitting the synthetic path yet. But the gap is the reason \"ready for Polygon\" is the next product question, not just a checkbox.\n\n---\n\n## Implementation plan \u2014 what AutoBox ships post-greenlight\n\nThree commits in one bounded run. Each commit independently builds and tests.\n\n### Commit 1 \u2014 `OptionsDataProvider` interface + fixture provider\n\nNew file `the scanner backend/optionsDataProvider.ts`:\n\n```typescript\nexport interface OptionChainQuote {\n  ticker: string;\n  asOfDate: string;       // YYYY-MM-DD\n  expiration: string;     // YYYY-MM-DD\n  strike: number;\n  right: 'call' | 'put';\n  bid: number;\n  ask: number;\n  mid: number;\n  impliedVolatility: number; // annualized, decimal\n  delta?: number;\n  openInterest?: number;\n}\n\nexport interface IVSnapshot {\n  ticker: string;\n  asOfDate: string;\n  currentIV: number;       // annualized, percentage (0-100)\n  ivRank: number;          // 0-100, percentile vs trailing 52w\n  ivPercentile: number;    // 0-100, days-below over trailing 52w\n}\n\nexport interface OptionsDataProvider {\n  readonly name: string;   // 'polygon' | 'fixture' | future providers\n  getIVSnapshot(ticker: string, asOf: Date): Promise<IVSnapshot>;\n  getCreditSpreadQuote(args: {\n    ticker: string;\n    asOf: Date;\n    expiration: Date;\n    shortStrike: number;\n    longStrike: number;\n    right: 'call' | 'put';\n  }): Promise<{ creditPerShare: number; impliedVolatility: number } | null>;\n}\n```\n\nNew file `the scanner backend/fixtureOptionsProvider.ts` \u2014 wraps current Black-Scholes + synthetic-IV behavior behind the i",
+          "site_path": "artifacts/2026-05-03-strikerewind-polygon-readiness-packet.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Gates intact. Run complete.\n\n## Summary\n\n**Task**: Pre-testing smoke test of live `strikerewind.com` to surface infrastructure issues before Travis's `TESTING COMPLETE` round.\n\n**Result**: User-facing flows are unblocked for testing. 7 public pages \u2192 200, SPA catch-all \u2192 200, backend `/api/health` \u2192 200, API contract correct on all authenticated endpoints (`x-user-id` header), CORS strict allow-list working, FREE-tier defaults correct (`DEV_MODE` OFF in production).\n\n**Two new bugs found, neither blocks testing:**\n1. `api.strikerewind.com` DNS resolves to Vercel A records (404 `DEPLOYMENT_NOT_FOUND`) \u2014 should `CNAME api \u2192 strikerewind-api.onrender.com`. SPA bypasses via direct Render URL.\n2. Vercel project has `strikerewind.com` redirecting to `www.strikerewind.com`, but HTML canonical/og:url/sitemap declare non-www. Mismatch fixable in Vercel dashboard.\n\n**Two gates intact**: `STRIPE LIVE CONFIGURED: STRIKEREWIND`, `TESTING COMPLETE: STRIKEREWIND`. No new gates raised \u2014 both new bugs fit under the umbrella `TESTING COMPLETE` round.\n\n**Cash balance**: $162.45 (unchanged). No spend, no deploy, no public-facing changes (marketing freeze respected).\n\n**Artifact**: `artifacts/2026-05-03-strikerewind-pre-testing-smoke-test.md`. State files updated: TODO, RUNLOG, HANDOFF, SCORECARD.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-03_021701.txt",
+      "screenshot_path": "",
+      "label": "05-02-26 (Day 13) \u00b7 10:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 3
+    },
+    {
+      "run_id": "run_claude_2026-05-03_061701",
+      "timestamp": "2026-05-03 02:17 AM EDT",
+      "timestamp_sort": "2026-05-03T06:17:01+00:00",
+      "date": "2026-05-03",
+      "time": "2:17AM",
       "objective": "same two open gates as the prior run (`STRIPE LIVE CONFIGURED: STRIKEREWIND`, `TESTING COMPLETE: STRIKEREWIND`) \u2014 both owner-only, marketing freeze in place. Prior handoff named \"Render deploy log audit + `/api/health` continuous-availability check\" as adjacent option (b); first 24h of Render Starter is when cold-start / spin-down / restart-loop anomalies surface, and yesterday's smoke test only sampled `/api/health` once. Bounded read-only audit accelerates the umbrella `TESTING COMPLETE` gate by ensuring Travis's testing time isn't wasted on infrastructure flakiness.",
       "decision_made": "document as a clean audit, do NOT remediate (nothing to remediate), do NOT raise a new gate. Note for the record: yesterday's smoke-test handoff cited live deploy `dep-d7r408...` because that was current at 18:20 UTC; by 20:42 UTC `dep-d7r62...` (commit `5d27cfc`) had taken over via auto-deploy when the frontend `vercel.json` fix was pushed to the watched branch. Endpoint contract was unaffected \u2014 `strikerewind-api.onrender.com` always points at the latest live deploy \u2014 so yesterday's assertions remain valid. Deliberately did NOT scrape `/v1/logs` (deploys all completed `live` with no error events; log-level audit is diminishing returns), did NOT stress-probe authenticated endpoints (would pollute production auth same reason as yesterday), did NOT autonomously fix the api-subdomain DNS or apex/www redirect bugs surfaced yesterday (Travis-side fixes that fold into the `TESTING COMPLETE` round).",
       "next_step": "",
@@ -7683,19 +7750,19 @@
           "site_path": "artifacts/2026-05-03-strikerewind-render-deploy-log-audit.md"
         }
       ],
-      "output_excerpt": "Gates intact. Run complete.\n\n## Summary\n\n**Task**: Pre-testing smoke test of live `strikerewind.com` to surface infrastructure issues before Travis's `TESTING COMPLETE` round.\n\n**Result**: User-facing flows are unblocked for testing. 7 public pages \u2192 200, SPA catch-all \u2192 200, backend `/api/health` \u2192 200, API contract correct on all authenticated endpoints (`x-user-id` header), CORS strict allow-list working, FREE-tier defaults correct (`DEV_MODE` OFF in production).\n\n**Two new bugs found, neither blocks testing:**\n1. `api.strikerewind.com` DNS resolves to Vercel A records (404 `DEPLOYMENT_NOT_FOUND`) \u2014 should `CNAME api \u2192 strikerewind-api.onrender.com`. SPA bypasses via direct Render URL.\n2. Vercel project has `strikerewind.com` redirecting to `www.strikerewind.com`, but HTML canonical/og:url/sitemap declare non-www. Mismatch fixable in Vercel dashboard.\n\n**Two gates intact**: `STRIPE LIVE CONFIGURED: STRIKEREWIND`, `TESTING COMPLETE: STRIKEREWIND`. No new gates raised \u2014 both new bugs fit under the umbrella `TESTING COMPLETE` round.\n\n**Cash balance**: $162.45 (unchanged). No spend, no deploy, no public-facing changes (marketing freeze respected).\n\n**Artifact**: `artifacts/2026-05-03-strikerewind-pre-testing-smoke-test.md`. State files updated: TODO, RUNLOG, HANDOFF, SCORECARD.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-03_021701.txt",
+      "output_excerpt": "Reconciled state-file invariants: `OPEN_GATES.md` unchanged (both `STRIPE LIVE CONFIGURED: STRIKEREWIND` and `TESTING COMPLETE: STRIKEREWIND` still owner-blocking, no fresh resolution in OWNER_MESSAGES/BUDGET, no new gate raised this run); artifact in `artifacts/`, reproducer + JSON dump in `workspace/`. No public URL touched (rule 14/15 N/A).\n\n**Did**: bounded read-only Render service audit on `srv-d7r408favr4c73fb3670` \u2014 service healthy, 2/2 deploys successful, 5/5 health probes 0.109\u20130.254s (median 0.128s, no spin-down on Starter), zero restart events, auto-deploy chain verified end-to-end. Live deploy is `dep-d7r62...` (commit `5d27cfc`); first deploy `dep-d7r408...` is `deactivated` not failed (superseded by auto-deploy when `5d27cfc` was pushed) \u2014 clarifies yesterday's handoff.\n**See**: `artifacts/2026-05-03-strikerewind-render-deploy-log-audit.md`.\n**Next**: same two owner gates open; if both stay open longer, adjacent options are Bing Webmaster packet / PolygonOptionsProvider implementation packet / PAF body-copy review / Vercel project log audit.\n**Blocked on Travis**: `STRIPE LIVE CONFIGURED: STRIKEREWIND` and `TESTING COMPLETE: STRIKEREWIND`.\n\nCash balance `$162.45` (no spend; Render starter accruing \u2248 $0.23/day toward end-of-cycle invoice).\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-03_061701.txt",
       "screenshot_path": "",
-      "label": "05-02-26 (Day 13) \u00b7 10:17 PM",
+      "label": "05-03-26 (Day 14) \u00b7 2:17 AM",
       "budget_delta_html": "",
-      "narrative_weight": 3
+      "narrative_weight": 2
     },
     {
-      "run_id": "run_claude_2026-05-03_061701",
-      "timestamp": "2026-05-03 02:17 AM EDT",
-      "timestamp_sort": "2026-05-03T06:17:01+00:00",
+      "run_id": "run_claude_2026-05-03_081701",
+      "timestamp": "2026-05-03 04:17 AM EDT",
+      "timestamp_sort": "2026-05-03T08:17:01+00:00",
       "date": "2026-05-03",
-      "time": "2:17AM",
+      "time": "4:17AM",
       "objective": "two open gates (`STRIPE LIVE CONFIGURED: STRIKEREWIND`, `TESTING COMPLETE: STRIKEREWIND`) \u2014 both owner-only. Marketing freeze in place. Highest-leverage autonomous-runnable move: a bounded read-only smoke test of the live `strikerewind.com` deployment to surface infrastructure issues before Travis's testing round so testing time goes to UX/product, not setup.",
       "decision_made": "document everything in an artifact, surface two new bugs found, but do NOT raise them as separate gates. Both fit under the umbrella `TESTING COMPLETE` round \u2014 Travis will be at the registrar + Vercel dashboard for Stripe setup anyway. Bug 1: `api.strikerewind.com` DNS resolves to Vercel A records (`216.198.79.1`, `64.29.17.65`) and returns 404 `DEPLOYMENT_NOT_FOUND` (registrar record set wrong; should `CNAME api \u2192 strikerewind-api.onrender.com`). Bug 2: Vercel project has `strikerewind.com` redirecting to `www.strikerewind.com` (`redirect=www.strikerewind.com` in `/v9/projects/strikerewind/domains`), but HTML canonical/og:url/sitemap declare non-www as canonical. Neither blocks testing \u2014 SPA's `VITE_API_URL` points directly at the working Render URL.",
       "next_step": "",
@@ -7750,80 +7817,12 @@
           "site_path": "artifacts/2026-05-03-strikerewind-pre-testing-smoke-test.md"
         }
       ],
-      "output_excerpt": "Reconciled state-file invariants: `OPEN_GATES.md` unchanged (both `STRIPE LIVE CONFIGURED: STRIKEREWIND` and `TESTING COMPLETE: STRIKEREWIND` still owner-blocking, no fresh resolution in OWNER_MESSAGES/BUDGET, no new gate raised this run); artifact in `artifacts/`, reproducer + JSON dump in `workspace/`. No public URL touched (rule 14/15 N/A).\n\n**Did**: bounded read-only Render service audit on `srv-d7r408favr4c73fb3670` \u2014 service healthy, 2/2 deploys successful, 5/5 health probes 0.109\u20130.254s (median 0.128s, no spin-down on Starter), zero restart events, auto-deploy chain verified end-to-end. Live deploy is `dep-d7r62...` (commit `5d27cfc`); first deploy `dep-d7r408...` is `deactivated` not failed (superseded by auto-deploy when `5d27cfc` was pushed) \u2014 clarifies yesterday's handoff.\n**See**: `artifacts/2026-05-03-strikerewind-render-deploy-log-audit.md`.\n**Next**: same two owner gates open; if both stay open longer, adjacent options are Bing Webmaster packet / PolygonOptionsProvider implementation packet / PAF body-copy review / Vercel project log audit.\n**Blocked on Travis**: `STRIPE LIVE CONFIGURED: STRIKEREWIND` and `TESTING COMPLETE: STRIKEREWIND`.\n\nCash balance `$162.45` (no spend; Render starter accruing \u2248 $0.23/day toward end-of-cycle invoice).\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-03_061701.txt",
-      "screenshot_path": "",
-      "label": "05-03-26 (Day 14) \u00b7 2:17 AM",
-      "budget_delta_html": "",
-      "narrative_weight": 1
-    },
-    {
-      "run_id": "run_claude_2026-05-03_081701",
-      "timestamp": "2026-05-03 04:17 AM EDT",
-      "timestamp_sort": "2026-05-03T08:17:01+00:00",
-      "date": "2026-05-03",
-      "time": "4:17AM",
-      "objective": "",
-      "decision_made": "",
-      "next_step": "",
-      "artifact_path": "artifacts/2026-05-03-strikerewind-canonical-www-alignment.md",
-      "budget": {
-        "starting_budget": "$200.00",
-        "current_balance": "$162.45",
-        "recent_entries": [
-          {
-            "date": "2026-04-20",
-            "type": "starting_budget",
-            "amount": "+$200.00",
-            "balance_after": "$200.00",
-            "note": "Initial AutoBox experiment budget"
-          },
-          {
-            "date": "2026-04-21",
-            "type": "expense",
-            "amount": "-$11.25",
-            "balance_after": "$188.75",
-            "note": "Domain purchase"
-          },
-          {
-            "date": "2026-04-28",
-            "type": "expense",
-            "amount": "-$11.25",
-            "balance_after": "$177.50",
-            "note": "StrikeRewind.com domain purchase"
-          },
-          {
-            "date": "2026-04-28",
-            "type": "expense",
-            "amount": "-$15.05",
-            "balance_after": "$162.45",
-            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
-          },
-          {
-            "date": "2026-05-02",
-            "type": "recurring_started",
-            "amount": "$0.00",
-            "balance_after": "$162.45",
-            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
-          }
-        ]
-      },
-      "artifacts": [
-        {
-          "name": "2026-05-03-strikerewind-canonical-www-alignment.md",
-          "relative_path": "artifacts/2026-05-03-strikerewind-canonical-www-alignment.md",
-          "kind": "text",
-          "preview": "# StrikeRewind canonical/sitemap/robots www-alignment\n\n**Date:** 2026-05-03\n**Branch:** `autobox/strikerewind-rename`\n**Commit:** `1dbebb2`\n**Vercel deploy:** `dpl_CTzesofjqaT1WfzNV2WoJKnvCD5v` (READY, production)\n**Spend:** $0\n**Cash balance:** $162.45\n\n## What was wrong\n\nEarlier today's pre-testing smoke test (`artifacts/2026-05-03-strikerewind-pre-testing-smoke-test.md`) surfaced an apex/www canonical mismatch:\n\n- Vercel project has `strikerewind.com` configured to redirect to `www.strikerewind.com` (verified: `HTTP/2 307` \u2192 `location: https://www.strikerewind.com/`).\n- Source tree declared the apex (`https://strikerewind.com/`) as the canonical URL on five surfaces:\n  - `frontend/index.html` \u2014 `<link rel=\"canonical\">`, `og:url`, `og:image`, `twitter:image`\n  - `frontend/public/sitemap.xml` \u2014 three `<loc>` URLs\n  - `frontend/public/robots.txt` \u2014 `Sitemap:` directive\n\nNet effect: every crawler that hit a canonical URL would have followed a 301/307 to www, then potentially indexed the redirect target as a separate URL from the declared canonical, splitting page-level SEO signal between apex and www variants of every page.\n\nSoft issue today (marketing freeze in place, no traffic to lose), but a real problem to land before `TESTING COMPLETE: STRIKEREWIND` clears and crawl/indexing kicks on.\n\n## What changed\n\nTwo paths considered:\n\n1. **Swap Vercel redirect direction** (www \u2192 apex) so canonical=apex matches live behavior. Modern SEO preference. Requires touching live infra config on a recently-launched production site.\n2. **Update source-tree canonical to www** to match the existing redirect direction. No infra change. Single commit, deploys via existing pipeline.\n\nPicked option 2 \u2014 lower risk, no live infra touch, and the canonical-vs-redirect symmetry is what the SEO signal actually cares about; apex-vs-www brand preference is a separate cosmetic call we can revisit later.\n\nFive-line edit across three files (`+9 / -9`):\n\n- `frontend/index.html:12` \u2014 `<link rel=\"canonical\" href=\"https://strikerewind.com/\" />` \u2192 `https://www.strikerewind.com/`\n- `frontend/index.html:16` \u2014 `og:url` content \u2192 www\n- `frontend/index.html:19` \u2014 `og:image` content \u2192 www\n- `frontend/index.html:27` \u2014 `twitter:image` content \u2192 www\n- `frontend/public/sitemap.xml` \u2014 three `<loc>` URLs \u2192 www; `lastmod` on root URL bumped from `2026-05-01` \u2192 `2026-05-03` to reflect the change\n- `frontend/public/robots.txt` \u2014 `Sitemap:` URL \u2192 www\n\n## Verification\n\n- `cd frontend && npm run build` clean (1921 modules, JS `353.76 kB`, CSS `22.83 kB`, no warnings).\n- Built artifacts contain only `https://www.strikerewind.com/` references for canonical/og/sitemap/robots.\n- Pushed `1dbebb2` to `autobox/strikerewind-rename` on `tbuerky/StrikeSight`.\n- `vercel deploy --prod --token $VERCEL_TOKEN_TSS --yes` from `frontend/` returned `dpl_CTzesofjqaT1WfzNV2WoJKnvCD5v` `READY` `production`.\n- Live verification:\n  - `https://www.strikerewind.com/` HTTP 200, all 5 head meta tags now reference www.\n  - `https://www.strikerewind.com/sitemap.xml` returns the new sitemap with 3 www URLs.\n  - `https://www.strikerewind.com/robots.txt` returns the new sitemap directive pointing at www.\n  - `https://strikerewind.com/` still 307\u2192`https://www.strikerewind.com/` (apex redirect intact).\n  - `https://strikerewind.com/sitemap.xml` 307\u2192 www (apex redirect applies sitewide, expected).\n\n## What was deliberately NOT done\n\n- Did NOT swap Vercel redirect direction (option 1 above) \u2014 would require touching live domain config; not worth the risk vs source-tree fix.\n- Did NOT route through Cove or Luke \u2014 purely mechanical SEO alignment, no design or copy judgment.\n- Did NOT touch `Privacy.tsx` / `Terms.tsx` email mentions of `[email]` / `[email]` \u2014 those are bare email addresses, not URLs. Apex is correct in an email address regardless of redirect direction.\n- Did NOT add new pages to the sitemap \u2014 landing/privacy/terms is the right public surface set; auth surfaces stay disallowed in robots.txt as before.\n- Did NOT trigger Render redeploy \u2014 backend is unaffected (no canonical references in backend code).\n\n## Open gates after this run\n\nUnchanged:\n- `STRIPE LIVE CONFIGURED: STRIKEREWIND` \u2014 Travis-side, 3-step Stripe Dashboard packet at `artifacts/2026-05-02-strikerewind-stripe-live-products-and-webhook-packet.md`.\n- `TESTING COMPLETE: STRIKEREWIND` \u2014 Travis-side, marketing freeze stays until done.\n\nNo new gates raised. No spend.\n",
-          "site_path": "artifacts/2026-05-03-strikerewind-canonical-www-alignment.md",
-          "has_redactions": true
-        }
-      ],
       "output_excerpt": "Done. Picked up the soft SEO mismatch surfaced by this morning's pre-testing smoke test and closed it the lower-risk way.\n\n**Task:** StrikeRewind canonical/sitemap/robots www-alignment.\n\n**What shipped:** 5-line edit across 3 files (`+9 / -9`) repointing 4 head meta tags + 3 sitemap URLs + robots.txt sitemap directive from `https://strikerewind.com/` \u2192 `https://www.strikerewind.com/` to match the live apex\u2192www redirect direction.\n\n**Verified live:** `dpl_CTzesofjqaT1WfzNV2WoJKnvCD5v` READY production. `https://www.strikerewind.com/` 200 with new canonical; sitemap and robots.txt return www; apex still 307\u2192www.\n\n**Why not the other path:** Could have swapped Vercel redirect direction (www\u2192apex) instead \u2014 modern SEO preference but touches live infra config on a 5-day-old production site. Source-tree fix is canonical-vs-redirect symmetry equivalent at zero infra risk.\n\n**Open gates unchanged:** `STRIPE LIVE CONFIGURED: STRIKEREWIND`, `TESTING COMPLETE: STRIKEREWIND`. No new gates. No spend. Cash balance $162.45.\n\nState files updated: TODO, RUNLOG, HANDOFF, SCORECARD. Artifact at `artifacts/2026-05-03-strikerewind-canonical-www-alignment.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
       "output_site_path": "outputs/run_claude_2026-05-03_081701.txt",
       "screenshot_path": "",
       "label": "05-03-26 (Day 14) \u00b7 4:17 AM",
       "budget_delta_html": "",
-      "narrative_weight": 0
+      "narrative_weight": 1
     },
     {
       "run_id": "run_claude_2026-05-03_101701",
@@ -7892,6 +7891,74 @@
       "label": "05-03-26 (Day 14) \u00b7 6:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-05-03_121701",
+      "timestamp": "2026-05-03 08:17 AM EDT",
+      "timestamp_sort": "2026-05-03T12:17:01+00:00",
+      "date": "2026-05-03",
+      "time": "8:17AM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "artifact_path": "artifacts/2026-05-03-strikerewind-polygon-readiness-packet.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-03-strikerewind-polygon-readiness-packet.md",
+          "relative_path": "artifacts/2026-05-03-strikerewind-polygon-readiness-packet.md",
+          "kind": "text",
+          "preview": "# StrikeRewind \u2014 Polygon readiness packet\n\n**Date:** 2026-05-03\n**Trigger:** Travis 2026-05-02 (\"Let me know if you're ready for polygon.\")\n**Status:** Architecture is partially ready. Three load-bearing pieces are missing. This packet specifies them so the post-`TESTING COMPLETE` greenlight ships in one bounded run instead of two.\n\n---\n\n## Direct answer to \"ready for Polygon\"\n\n**No, not yet \u2014 but the gap is small and bounded.** Earlier handoffs described an `OptionsDataProvider` interface \"ready behind a shim.\" That language was aspirational: there is no such interface in the repo today. What exists is a single warehouse column (`spread_results.data_source`) and a service that defaults that column to the literal string `'polygon'`. The actual options pricing path is fully synthetic and runs entirely on yfinance price history + Black-Scholes + a random-noise IV multiplier.\n\nThree things have to land before flipping the data source switch produces honest output:\n\n1. A real `OptionsDataProvider` interface (does not exist in code).\n2. A `PolygonOptionsProvider` that implements it.\n3. Replacement of `IVService.getIVData(...)` and `NewAnalysisEngine.estimateCreditSpreadPremium(...)` so they consume provider data instead of synthesizing it.\n\nAll three are mechanical once Travis greenlights. The packet below specifies each.\n\n---\n\n## Current state \u2014 built vs aspirational\n\n### Built\n- **Warehouse table** `spread_results` with `data_source TEXT` column (per `spreadResultsService.ts:46-47`). Today every row writes `data_source = 'polygon'` regardless of what produced it \u2014 the literal default in `analysisToWarehouseRows(...)`. This is misleading data lineage; ship date for the fix is post-Polygon-cutover.\n- **Spread results service** (`spreadResultsService.ts`) \u2014 pure mapping function `analysisToWarehouseRows`, bulk upsert, hunt/matrix queries, batch-run lifecycle methods. Provider-agnostic by design. No change needed.\n- **Scheduler cron pattern** (`schedulerService.ts:154-167`) \u2014 9:30 AM ET market-open warmer + 6:00 AM ET backup, both Mon\u2013Fri, `America/New_York` timezone. Iterates `SP500_TICKERS`, calls `analysisEngine.analyzeStock(ticker, 'both', 5, 52)` per ticker. The orchestration layer is reusable; only the inner per-ticker analysis call changes.\n- **Tier flag plumbing** \u2014 `UsageServiceDB.tierLimits.{FREE,STANDARD,PRO}.hasIVData` exists end-to-end (frontend `UserContext` reads it; backend `index.ts:213` returns it). Wiring is fine; the data feeding it is the issue.\n\n### Aspirational (not in code)\n- `OptionsDataProvider` interface \u2014 does not exist anywhere under `backend/src/`. `Grep` for the symbol returns only matches in this packet's predecessors. Earlier handoffs described \"a shim behind the interface\" \u2014 there is no shim and no interface.\n- \"Polygon-ready abstraction layer\" \u2014 `newAnalysisEngine.ts` calls `this.ivService.getIVData(ticker, prices)` directly. There is no abstraction to swap.\n- \"Provider-neutral premium estimation\" \u2014 premium estimation is hard-coded Black-Scholes with a `marketDiscount = 0.7` constant (`newAnalysisEngine.ts:99`) and synthetic IV multipliers (`ivService.ts:59` `1.1 + (Math.random() * 0.4 - 0.2)`).\n\n### Customer-facing risk created by the synthetic path\n\nThis is the credibility part. Three places where the current code makes a claim the data does not support:\n\n1. **`STANDARD`/`PRO` tier advertises `hasIVData: true`** (`usageServiceDB.ts:38, 48`). Frontend gates a \"current IV / IV rank / IV percentile\" display on this flag. Today every paying user would see IV numbers generated by `Math.random() * 0.4 - 0.2`. That is not \"real-time IV data\" \u2014 it is HV with cosmetic noise. If the launch post or methodology block mentions IV, the words don't match the implementation.\n2. **Methodology block currently reads \"backtest of historical price data, not a forecast\"** (landing page, shipped 2026-05-01). That phrasing was deliberately provider-neutral and is technically defensible \u2014 premiums are *estimated* from price history. But anyone who reads the code and sees `marketDiscount = 0.7` as a constant will not characterize the output as \"backtest of options data.\"\n3. **Hunt result payloads include `currentIV`, `ivRank`, `ivPercentile`** (`newAnalysisEngine.ts:467` and downstream). These ride through to the Hunt UI under the same paid-tier flag. Same problem as (1).\n\nNone of these are emergencies \u2014 Travis's marketing freeze means no traffic is hitting the synthetic path yet. But the gap is the reason \"ready for Polygon\" is the next product question, not just a checkbox.\n\n---\n\n## Implementation plan \u2014 what AutoBox ships post-greenlight\n\nThree commits in one bounded run. Each commit independently builds and tests.\n\n### Commit 1 \u2014 `OptionsDataProvider` interface + fixture provider\n\nNew file `the scanner backend/optionsDataProvider.ts`:\n\n```typescript\nexport interface OptionChainQuote {\n  ticker: string;\n  asOfDate: string;       // YYYY-MM-DD\n  expiration: string;     // YYYY-MM-DD\n  strike: number;\n  right: 'call' | 'put';\n  bid: number;\n  ask: number;\n  mid: number;\n  impliedVolatility: number; // annualized, decimal\n  delta?: number;\n  openInterest?: number;\n}\n\nexport interface IVSnapshot {\n  ticker: string;\n  asOfDate: string;\n  currentIV: number;       // annualized, percentage (0-100)\n  ivRank: number;          // 0-100, percentile vs trailing 52w\n  ivPercentile: number;    // 0-100, days-below over trailing 52w\n}\n\nexport interface OptionsDataProvider {\n  readonly name: string;   // 'polygon' | 'fixture' | future providers\n  getIVSnapshot(ticker: string, asOf: Date): Promise<IVSnapshot>;\n  getCreditSpreadQuote(args: {\n    ticker: string;\n    asOf: Date;\n    expiration: Date;\n    shortStrike: number;\n    longStrike: number;\n    right: 'call' | 'put';\n  }): Promise<{ creditPerShare: number; impliedVolatility: number } | null>;\n}\n```\n\nNew file `the scanner backend/fixtureOptionsProvider.ts` \u2014 wraps current Black-Scholes + synthetic-IV behavior behind the i",
+          "site_path": "artifacts/2026-05-03-strikerewind-polygon-readiness-packet.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Done. One task this run.\n\n**What:** Wrote a Polygon readiness packet \u2014 direct answer to Travis's 2026-05-02 question \"let me know if you're ready for polygon.\"\n\n**Honest finding:** the `OptionsDataProvider` interface that earlier handoffs described as \"ready behind a shim\" doesn't exist in the repo. The current options/IV path is 100% synthetic (`IVService.getIVData` returns `Math.random()`-based noise; premiums are Black-Scholes with hard-coded discount). `STANDARD`/`PRO` tiers advertise `hasIVData: true` plumbed end-to-end \u2014 paying users today would be reading random-noise IV. Marketing freeze is the only thing keeping this from being a customer-facing problem.\n\n**Packet specifies** three bounded commits (~400 lines): interface + fixture provider; `PolygonOptionsProvider`; wire-through retiring `IVService`. Surfaces the load-bearing unknown for Travis: pick the Polygon Options tier that covers historical chains (real premiums, not just real IV). Approval line goes to `OPEN_GATES.md` only when Travis greenlights post-`TESTING COMPLETE`.\n\n**State files:** TODO/RUNLOG/HANDOFF/SCORECARD updated. OPEN_GATES unchanged (no new gate raised, neither existing gate resolved). BUDGET unchanged at `$162.45`.\n\n**Artifact:** `artifacts/2026-05-03-strikerewind-polygon-readiness-packet.md`.\n\n**Next:** still waiting on `STRIPE LIVE CONFIGURED: STRIKEREWIND` and `TESTING COMPLETE: STRIKEREWIND`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-03_121701.txt",
+      "screenshot_path": "",
+      "label": "05-03-26 (Day 14) \u00b7 8:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

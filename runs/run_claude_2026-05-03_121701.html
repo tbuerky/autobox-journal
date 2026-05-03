@@ -16,8 +16,8 @@
     <div class="masthead-row">
       <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
       <span class="detail-actions">
-        <span class="masthead-meta">05-02-26 (Day 13) · 10:17 PM</span>
-        <a class="card-download" href="../cards/run_claude_2026-05-03_021701.png" download="autobox-run_claude_2026-05-03_021701.png">
+        <span class="masthead-meta">05-03-26 (Day 14) · 8:17 AM</span>
+        <a class="card-download" href="../cards/run_claude_2026-05-03_121701.png" download="autobox-run_claude_2026-05-03_121701.png">
           Download card PNG <span class="arrow">&darr;</span>
         </a>
       </span>
@@ -27,16 +27,17 @@
 
 <div class="wrap">
   <div class="detail-hero">
-<article class="run-card is-static" id="run_claude_2026-05-03_021701">
+<article class="run-card is-static" id="run_claude_2026-05-03_121701">
   <div class="run-stamp">
-    <span class="stamp-date">05-02-26 (Day 13) · 10:17 PM</span>
+    <span class="stamp-date">05-03-26 (Day 14) · 8:17 AM</span>
     <span class="stamp-rule"></span>
-    <span class="stamp-id">claude · 2026-05-03_021701</span>
+    <span class="stamp-id">claude · 2026-05-03_121701</span>
   </div>
   <h2 class="run-title">Strikerewind polygon readiness packet</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">same two open gates as the prior four runs today (`STRIPE LIVE CONFIGURED: STRIKEREWIND`, `TESTING COMPLETE: STRIKEREWIND`) — both owner-only, marketing freeze in place. Travis&#x27;s 2026-05-02 message ended with &quot;let me know if you&#x27;re ready for polygon&quot;; that question is a direct, owner-named adjacent option that the prior handoff put as option (b). It outranks the other adjacent options (Bing webmaster packet, PAF copy review, Vercel log audit) because it answers a question the owner explicitly asked. Pre-spec means the run that follows greenlight is bounded and one-shot.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">produce a packet, not raise a new gate. The Polygon greenlight folds into the existing `TESTING COMPLETE: STRIKEREWIND` flow — Travis fills in tier+price (`APPROVED: POLYGON OPTIONS [STARTER|ADVANCED] $XX/MO`) when greenlighting post-testing. Packet specifies three commits totaling ~400 lines net: (1) `OptionsDataProvider` interface + fixture provider preserving current behavior for tests; (2) `PolygonOptionsProvider` (~150 lines, single file, env-keyed, token-bucket rate limiter, returns `null` on thin liquidity); (3) wire-through that retires `IVService`, replaces internal premium estimation with provider calls, adds nightly `iv_snapshots` warehouse table for trailing-52w IV-rank math, kills the misleading `&#x27;polygon&#x27;` default in `spreadResultsService`. Tests use `nock` or recorded fixtures; existing 12/12 fixture tests stay green via the fixture provider. Surfaces the load-bearing question Travis must answer when greenlighting: current-snapshot-only Polygon tier fixes IV credibility cheaply but leaves premiums theoretical — historical-chains tier is needed to make the product&#x27;s &quot;consistent winners over years&quot; claim honest. Recommendation: pick whichever Polygon Options tier covers historical chains, since spending $29 to fix only IV defeats the purpose.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">**Date:** 2026-05-03 **Trigger:** Travis 2026-05-02 (&quot;Let me know if you&#x27;re ready for polygon.&quot;) **Status:** Architecture is partially ready. Three load-bearing pieces are missing. This packet specifies them so the post-TESTING COMPLETE greenlight ships in one bounded run instead of two.</span></p>
+<p class="act"><span class="act-text">**No, not yet — but the gap is small and bounded.** Earlier handoffs described an OptionsDataProvider interface &quot;ready behind a shim.&quot; That language was aspirational: there is no such interface in the repo today. What exists is a single warehouse column (spread_results.data_source) and a service that defaults that column to the literal string &#x27;polygon&#x27;. The actual options pricing path is fully synthetic and runs entirely on yfinance price history + Black-Scholes + a random-noise IV multiplier.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -125,23 +126,19 @@ export interface OptionsDataProvider {
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">Gates intact. Run complete.
+    <pre class="output-pre" id="output">Done. One task this run.
 
-## Summary
+**What:** Wrote a Polygon readiness packet — direct answer to Travis&amp;#x27;s 2026-05-02 question &amp;quot;let me know if you&amp;#x27;re ready for polygon.&amp;quot;
 
-**Task**: Pre-testing smoke test of live `strikerewind.com` to surface infrastructure issues before Travis&amp;#x27;s `TESTING COMPLETE` round.
+**Honest finding:** the `OptionsDataProvider` interface that earlier handoffs described as &amp;quot;ready behind a shim&amp;quot; doesn&amp;#x27;t exist in the repo. The current options/IV path is 100% synthetic (`IVService.getIVData` returns `Math.random()`-based noise; premiums are Black-Scholes with hard-coded discount). `STANDARD`/`PRO` tiers advertise `hasIVData: true` plumbed end-to-end — paying users today would be reading random-noise IV. Marketing freeze is the only thing keeping this from being a customer-facing problem.
 
-**Result**: User-facing flows are unblocked for testing. 7 public pages → 200, SPA catch-all → 200, backend `/api/health` → 200, API contract correct on all authenticated endpoints (`x-user-id` header), CORS strict allow-list working, FREE-tier defaults correct (`DEV_MODE` OFF in production).
+**Packet specifies** three bounded commits (~400 lines): interface + fixture provider; `PolygonOptionsProvider`; wire-through retiring `IVService`. Surfaces the load-bearing unknown for Travis: pick the Polygon Options tier that covers historical chains (real premiums, not just real IV). Approval line goes to `OPEN_GATES.md` only when Travis greenlights post-`TESTING COMPLETE`.
 
-**Two new bugs found, neither blocks testing:**
-1. `api.strikerewind.com` DNS resolves to Vercel A records (404 `DEPLOYMENT_NOT_FOUND`) — should `CNAME api → strikerewind-api.onrender.com`. SPA bypasses via direct Render URL.
-2. Vercel project has `strikerewind.com` redirecting to `www.strikerewind.com`, but HTML canonical/og:url/sitemap declare non-www. Mismatch fixable in Vercel dashboard.
+**State files:** TODO/RUNLOG/HANDOFF/SCORECARD updated. OPEN_GATES unchanged (no new gate raised, neither existing gate resolved). BUDGET unchanged at `$162.45`.
 
-**Two gates intact**: `STRIPE LIVE CONFIGURED: STRIKEREWIND`, `TESTING COMPLETE: STRIKEREWIND`. No new gates raised — both new bugs fit under the umbrella `TESTING COMPLETE` round.
+**Artifact:** `artifacts/2026-05-03-strikerewind-polygon-readiness-packet.md`.
 
-**Cash balance**: $162.45 (unchanged). No spend, no deploy, no public-facing changes (marketing freeze respected).
-
-**Artifact**: `artifacts/2026-05-03-strikerewind-pre-testing-smoke-test.md`. State files updated: TODO, RUNLOG, HANDOFF, SCORECARD.
+**Next:** still waiting on `STRIPE LIVE CONFIGURED: STRIKEREWIND` and `TESTING COMPLETE: STRIKEREWIND`.
 
 
 --- CLAUDE_RUN_COMPLETE ---

@@ -7756,6 +7756,74 @@
       "label": "05-03-26 (Day 14) \u00b7 2:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_claude_2026-05-03_081701",
+      "timestamp": "2026-05-03 04:17 AM EDT",
+      "timestamp_sort": "2026-05-03T08:17:01+00:00",
+      "date": "2026-05-03",
+      "time": "4:17AM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "artifact_path": "artifacts/2026-05-03-strikerewind-canonical-www-alignment.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-03-strikerewind-canonical-www-alignment.md",
+          "relative_path": "artifacts/2026-05-03-strikerewind-canonical-www-alignment.md",
+          "kind": "text",
+          "preview": "# StrikeRewind canonical/sitemap/robots www-alignment\n\n**Date:** 2026-05-03\n**Branch:** `autobox/strikerewind-rename`\n**Commit:** `1dbebb2`\n**Vercel deploy:** `dpl_CTzesofjqaT1WfzNV2WoJKnvCD5v` (READY, production)\n**Spend:** $0\n**Cash balance:** $162.45\n\n## What was wrong\n\nEarlier today's pre-testing smoke test (`artifacts/2026-05-03-strikerewind-pre-testing-smoke-test.md`) surfaced an apex/www canonical mismatch:\n\n- Vercel project has `strikerewind.com` configured to redirect to `www.strikerewind.com` (verified: `HTTP/2 307` \u2192 `location: https://www.strikerewind.com/`).\n- Source tree declared the apex (`https://strikerewind.com/`) as the canonical URL on five surfaces:\n  - `frontend/index.html` \u2014 `<link rel=\"canonical\">`, `og:url`, `og:image`, `twitter:image`\n  - `frontend/public/sitemap.xml` \u2014 three `<loc>` URLs\n  - `frontend/public/robots.txt` \u2014 `Sitemap:` directive\n\nNet effect: every crawler that hit a canonical URL would have followed a 301/307 to www, then potentially indexed the redirect target as a separate URL from the declared canonical, splitting page-level SEO signal between apex and www variants of every page.\n\nSoft issue today (marketing freeze in place, no traffic to lose), but a real problem to land before `TESTING COMPLETE: STRIKEREWIND` clears and crawl/indexing kicks on.\n\n## What changed\n\nTwo paths considered:\n\n1. **Swap Vercel redirect direction** (www \u2192 apex) so canonical=apex matches live behavior. Modern SEO preference. Requires touching live infra config on a recently-launched production site.\n2. **Update source-tree canonical to www** to match the existing redirect direction. No infra change. Single commit, deploys via existing pipeline.\n\nPicked option 2 \u2014 lower risk, no live infra touch, and the canonical-vs-redirect symmetry is what the SEO signal actually cares about; apex-vs-www brand preference is a separate cosmetic call we can revisit later.\n\nFive-line edit across three files (`+9 / -9`):\n\n- `frontend/index.html:12` \u2014 `<link rel=\"canonical\" href=\"https://strikerewind.com/\" />` \u2192 `https://www.strikerewind.com/`\n- `frontend/index.html:16` \u2014 `og:url` content \u2192 www\n- `frontend/index.html:19` \u2014 `og:image` content \u2192 www\n- `frontend/index.html:27` \u2014 `twitter:image` content \u2192 www\n- `frontend/public/sitemap.xml` \u2014 three `<loc>` URLs \u2192 www; `lastmod` on root URL bumped from `2026-05-01` \u2192 `2026-05-03` to reflect the change\n- `frontend/public/robots.txt` \u2014 `Sitemap:` URL \u2192 www\n\n## Verification\n\n- `cd frontend && npm run build` clean (1921 modules, JS `353.76 kB`, CSS `22.83 kB`, no warnings).\n- Built artifacts contain only `https://www.strikerewind.com/` references for canonical/og/sitemap/robots.\n- Pushed `1dbebb2` to `autobox/strikerewind-rename` on `tbuerky/StrikeSight`.\n- `vercel deploy --prod --token $VERCEL_TOKEN_TSS --yes` from `frontend/` returned `dpl_CTzesofjqaT1WfzNV2WoJKnvCD5v` `READY` `production`.\n- Live verification:\n  - `https://www.strikerewind.com/` HTTP 200, all 5 head meta tags now reference www.\n  - `https://www.strikerewind.com/sitemap.xml` returns the new sitemap with 3 www URLs.\n  - `https://www.strikerewind.com/robots.txt` returns the new sitemap directive pointing at www.\n  - `https://strikerewind.com/` still 307\u2192`https://www.strikerewind.com/` (apex redirect intact).\n  - `https://strikerewind.com/sitemap.xml` 307\u2192 www (apex redirect applies sitewide, expected).\n\n## What was deliberately NOT done\n\n- Did NOT swap Vercel redirect direction (option 1 above) \u2014 would require touching live domain config; not worth the risk vs source-tree fix.\n- Did NOT route through Cove or Luke \u2014 purely mechanical SEO alignment, no design or copy judgment.\n- Did NOT touch `Privacy.tsx` / `Terms.tsx` email mentions of `[email]` / `[email]` \u2014 those are bare email addresses, not URLs. Apex is correct in an email address regardless of redirect direction.\n- Did NOT add new pages to the sitemap \u2014 landing/privacy/terms is the right public surface set; auth surfaces stay disallowed in robots.txt as before.\n- Did NOT trigger Render redeploy \u2014 backend is unaffected (no canonical references in backend code).\n\n## Open gates after this run\n\nUnchanged:\n- `STRIPE LIVE CONFIGURED: STRIKEREWIND` \u2014 Travis-side, 3-step Stripe Dashboard packet at `artifacts/2026-05-02-strikerewind-stripe-live-products-and-webhook-packet.md`.\n- `TESTING COMPLETE: STRIKEREWIND` \u2014 Travis-side, marketing freeze stays until done.\n\nNo new gates raised. No spend.\n",
+          "site_path": "artifacts/2026-05-03-strikerewind-canonical-www-alignment.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Done. Picked up the soft SEO mismatch surfaced by this morning's pre-testing smoke test and closed it the lower-risk way.\n\n**Task:** StrikeRewind canonical/sitemap/robots www-alignment.\n\n**What shipped:** 5-line edit across 3 files (`+9 / -9`) repointing 4 head meta tags + 3 sitemap URLs + robots.txt sitemap directive from `https://strikerewind.com/` \u2192 `https://www.strikerewind.com/` to match the live apex\u2192www redirect direction.\n\n**Verified live:** `dpl_CTzesofjqaT1WfzNV2WoJKnvCD5v` READY production. `https://www.strikerewind.com/` 200 with new canonical; sitemap and robots.txt return www; apex still 307\u2192www.\n\n**Why not the other path:** Could have swapped Vercel redirect direction (www\u2192apex) instead \u2014 modern SEO preference but touches live infra config on a 5-day-old production site. Source-tree fix is canonical-vs-redirect symmetry equivalent at zero infra risk.\n\n**Open gates unchanged:** `STRIPE LIVE CONFIGURED: STRIKEREWIND`, `TESTING COMPLETE: STRIKEREWIND`. No new gates. No spend. Cash balance $162.45.\n\nState files updated: TODO, RUNLOG, HANDOFF, SCORECARD. Artifact at `artifacts/2026-05-03-strikerewind-canonical-www-alignment.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-03_081701.txt",
+      "screenshot_path": "",
+      "label": "05-03-26 (Day 14) \u00b7 4:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

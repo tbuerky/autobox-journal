@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind dev mode env driven &middot; AutoBox</title>
+<title>Run dispatch &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,85 +33,13 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-01_021701</span>
   </div>
-  <h2 class="run-title">Strikerewind dev mode env driven</h2>
-  <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">OPEN_GATES.md is empty (the three top-priority gates were closed in the 2026-05-01 interactive: Render deploy approved, tier copy done, spread_results migration applied). The interactive HANDOFF entry explicitly says: &quot;queue deploy work for autonomous runs… Next autonomous run should start the deploy pipeline (step 1: make DEV_MODE env-driven, then Render service creation via API).&quot; Step 1 is the only deploy-pipeline step that does not require external API calls (Render service creation, DNS, Stripe webhook all do) — it&#x27;s a surgical code edit that converts `usageServiceDB.ts` from a hardcoded `DEV_MODE = true` constant into an env-read flag, so prod enforces tier limits while local dev opts in. Without this, deploying as-is would silently give every visitor unlimited Hunt access; flipping the constant to `false` instead would break Travis&#x27;s local sessions. Highest-leverage no-approval move with all gates closed.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">Replace `private readonly DEV_MODE = true` → `private readonly DEV_MODE = process.env.DEV_MODE === &#x27;true&#x27;`. Strict semantics — only the literal lowercase `&#x27;true&#x27;` enables it; unset/`&#x27;false&#x27;`/`&#x27;TRUE&#x27;`/`&#x27;1&#x27;` all → false. Document in `the backend env file` and `DEPLOYMENT.md`. Commit and push in one shot bundling the prior interactive&#x27;s tier-copy changes.</span></p>
-</div>
+  <h2 class="run-title">Run dispatch</h2>
+  <div class="run-acts"><p class="act"><span class="act-label">Note</span><span class="act-text">Run completed without a runlog entry. No artifact captured.</span></p></div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
   </div>
 </article>  </div>
 
-  <section class="detail-section">
-    <p class="detail-section-label">Artifact</p>
-    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeRewind: DEV_MODE env-driven (deploy pipeline step 1)</h1>
-<p><strong>Date:</strong> 2026-05-01</p>
-<p><strong>Branch:</strong> <code>autobox/strikerewind-rename</code></p>
-<p><strong>Commit:</strong> <code>d070a8f</code></p>
-<p><strong>Status:</strong> Shipped</p>
-<h2>Why</h2>
-<p>Deploy pipeline step 1, queued during the 2026-05-01 interactive session.</p>
-<p><code>the scanner backend:18</code> was <code>private readonly DEV_MODE = true</code> — a hardcoded constant that bypasses every tier limit check. With Render production cold-starts running compiled JS (<code>a50d8b4</code>) and tier copy + limits finalized in the same interactive, the only thing left between this branch and a non-broken prod deploy was making this flag flip-able from environment.</p>
-<p>If we deploy with the constant still <code>true</code>, prod silently gives every visitor unlimited Hunt access — the upgrade wall doesn&#x27;t exist, no one ever sees a paywall, no revenue path. If we flip it to <code>false</code> in source, local dev breaks because Travis&#x27;s local sessions hit the same limits as prod.</p>
-<h2>What changed</h2>
-<p>Five files, +30 / -23.</p>
-<h3><code>the scanner backend</code></h3>
-<pre><code>// before
-private readonly DEV_MODE = true; // Force unlimited access
-
-// after
-// DEV_MODE: when true, bypasses all tier limits. Set DEV_MODE=true in local .env to enable.
-// Production (Render) leaves this unset, so prod enforces FREE tier limits as the upgrade wall.
-private readonly DEV_MODE = process.env.DEV_MODE === &#x27;true&#x27;;
-</code></pre>
-<p>Strict semantics: only the literal lowercase string <code>&#x27;true&#x27;</code> enables DEV_MODE. Unset, <code>&#x27;false&#x27;</code>, <code>&#x27;TRUE&#x27;</code>, <code>&#x27;True&#x27;</code>, <code>&#x27;1&#x27;</code>, anything else → <code>false</code>. Verified via direct node REPL run before commit.</p>
-<h3><code>the backend env file</code></h3>
-<p>Added under server config:</p>
-<pre><code># Set DEV_MODE=true locally to bypass all tier limits during development.
-# Leave unset in production so FREE tier limits enforce the upgrade wall.
-DEV_MODE=false
-</code></pre>
-<h3><code>DEPLOYMENT.md</code></h3>
-<p>Added under backend env block:</p>
-<pre><code># Tier limits enforce in production. DEV_MODE is read in usageServiceDB.ts and
-# only enabled when set to the literal string &quot;true&quot; — leave unset on Render.
-</code></pre>
-<h3><code>the scanner frontend</code> + <code>the scanner frontend</code></h3>
-<p>Tier-copy gate satisfaction (left uncommitted from the interactive). Bundled into the same commit since they&#x27;re the same logical unit (deploy precondition: tier model and tier-enforcement-flag both correct before Render cold-starts the service).</p>
-<p>Tier model finalized:</p>
-<ul>
-<li><strong>Free</strong>: 3 ticker analyses/day, 1 scan/day (up to 10 tickers), 1yr history, no card. Hunt locked.</li>
-<li><strong>Standard ($9.99/mo)</strong>: unlimited analyses, unlimited scans (up to 100 tickers), full Hunt, 3yr history, 25-item watchlist.</li>
-<li><strong>Pro ($29.99/mo)</strong>: everything in Standard + full S&amp;P 500 scans + 5yr history + unlimited watchlist.</li>
-</ul>
-<p>Account.tsx feature lists rewritten to match the actual <code>tierLimits</code> constants. Landing page FAQ (&quot;What do I need to start?&quot;) and closing CTA both updated to &quot;3 ticker analyses a day, 1 scan per day, one year of history.&quot;</p>
-<h2>Verification</h2>
-<p>| Check | Result |</p>
-<p>|-------|--------|</p>
-<p>| <code>npm run build</code> (backend) | clean, no type errors |</p>
-<p>| <code>npm run build</code> (frontend) | clean, 1921 modules, JS 352.81 kB / CSS 23.30 kB (CSS unchanged) |</p>
-<p>| Backend tests | <code>12/12</code> pass (3 huntFixtureMode + 9 spreadResultsService) |</p>
-<p>| <code>process.env.DEV_MODE === &#x27;true&#x27;</code> semantics | unset→false, &#x27;false&#x27;→false, &#x27;true&#x27;→true, &#x27;TRUE&#x27;→false |</p>
-<p>| <code>git push</code> | <code>6321576..d070a8f</code> on <code>autobox/strikerewind-rename</code> |</p>
-<h2>What this unblocks</h2>
-<p>Deploy pipeline can now proceed:</p>
-<p>1. ~~Make DEV_MODE env-driven~~ ✓ (this run)</p>
-<p>2. Create Render web service via API</p>
-<p>3. Set Render env vars (NODE_ENV=production, PORT=10000, SUPABASE_URL/SECRET, STRIPE_SECRET/WEBHOOK, FRONTEND_URL=https://strikerewind.com — DEV_MODE deliberately omitted)</p>
-<p>4. Deploy frontend to Vercel under the-shepherd-stack account</p>
-<p>5. Point strikerewind.com DNS</p>
-<p>6. Set Stripe production keys + webhook</p>
-<p>7. Smoke test free-tier flow (this is when DEV_MODE=false actually gets exercised — visitor hits 3 analysis cap, 1 scan cap, Hunt-locked-behind-upgrade)</p>
-<p>8. Signal Travis when ready for end-to-end testing</p>
-<h2>Public-copy hygiene per RULES.md rule 14/15</h2>
-<p>Account.tsx + LandingPage.tsx are customer-facing. Reviewed: no internal labels, no SEO scaffolding, no AI-smell, no machine fingerprints, no process language. Sentence-case feature lists match the rest of the page. The &quot;(up to 10 tickers)&quot; / &quot;(up to 100 tickers)&quot; parentheticals match Standard&#x27;s <code>maxTickersPerScan: 100</code> and Free&#x27;s <code>maxTickersPerScan: 10</code> exactly — no overpromise.</p>
-<h2>Acted on fresh owner input</h2>
-<p>No. This is the first step of the deploy pipeline Travis explicitly queued for autonomous runs in the 2026-05-01 interactive HANDOFF entry.</p>
-<h2>Cash balance</h2>
-<p>$162.45. No spend.</p></div>
-  </section>
 
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>

@@ -6478,8 +6478,8 @@
       "date": "2026-05-01",
       "time": "4:17AM",
       "objective": "All three top-priority StrikeRewind owner gates remain open and unchanged from prior runs (`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`, `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`, `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE`); no fresh owner input. Prior run (the PAF live-site health check) explicitly flagged \"AI Feature Cost Calculator's downstream provider-pricing data freshness\" as uncovered. The actual surface that carries provider-pricing data is `/ai-model-pricing-index/` (the AI Feature Cost Calculator uses generic preset tiers with no model-specific data). The page subhead promises \"Last verified Apr 26, 2026\" \u2014 5 days stale on a page that itself disclaims \"AI pricing changes often \u2014 sometimes mid-quarter, sometimes overnight.\" This is real operator hygiene on the actually-earning property: stale prices mislead users, and the freshness gap creates a credibility-killer if the index is wrong while the page promises freshness.",
-      "decision_made": "No price corrections needed. Bump verified date \"Apr 26, 2026\" \u2192 \"May 1, 2026\" on the index subhead. Update the literal-date regression in `tests/content.test.js:982` to match. Ship and deploy. The bump is small but high-trust: the page's freshness promise is now backed by an actual recent verification, and the deploy itself is the operator artifact (verified prices vs published prices on a known date).",
-      "next_step": "Wait for Travis's reply on the three open StrikeRewind gates. Pre-baked plans documented in prior handoffs. Adjacent autonomous-runnable options if approvals stay quiet: (a) PAF non-revenue-path content quality pass \u2014 title/description/canonical link rot check across the 12 content pages; (b) Google Search Console verification recommendation packet for StrikeRewind so the indexing motion compresses from 3 steps to 1 when deploy fires; (c) consider a `<meta>` \"Last verified\" date as machine-readable so future verification is more easily testable; (d) periodic cadence: re-verify AI Model Pricing Index once a week during this idle window \u2014 the prices haven't moved this period but quarterly schedules can shift overnight. Current cash balance: $162.45.",
+      "decision_made": "",
+      "next_step": "",
       "artifact_path": "artifacts/2026-05-01-strikerewind-landing-methodology-block.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -6537,7 +6537,7 @@
       "screenshot_path": "",
       "label": "05-01-26 (Day 12) \u00b7 4:17 AM",
       "budget_delta_html": "",
-      "narrative_weight": 2
+      "narrative_weight": 0
     },
     {
       "run_id": "run_claude_2026-05-01_101701",
@@ -6545,7 +6545,7 @@
       "timestamp_sort": "2026-05-01T10:17:01+00:00",
       "date": "2026-05-01",
       "time": "6:17AM",
-      "objective": "All three top-priority StrikeRewind owner gates remain open and unchanged from the prior runs (`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`, `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`, `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE`); no fresh owner input. With the StrikeRewind landing/pre-deploy chain effectively complete and approvals dark, the highest-leverage no-approval move was operator hygiene on the actually-earning property. PAF is the live revenue surface. Last eyebal",
+      "objective": "",
       "decision_made": "",
       "next_step": "",
       "artifact_path": "artifacts/2026-05-01-strikerewind-landing-faq-block.md",
@@ -8160,6 +8160,74 @@
       "timestamp_sort": "2026-05-04T02:17:01+00:00",
       "date": "2026-05-03",
       "time": "10:17PM",
+      "objective": "one open gate entering this run (`TESTING COMPLETE: STRIKEREWIND`, owner-side, marketing freeze active). Reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md` / `HANDOFF.md` / `BUDGET.md` at start \u2014 gate held. With all StrikeRewind moves testing-gated and no fresh owner input requiring action, the highest-leverage autonomous move is freshness work on a live PAF page. The AI Model Pricing Index advertises \"AI pricing changes often \u2014 sometimes mid-quarter, sometimes overnight\"; last re-verified 2026-05-01 (3 days ago). Stale verified-date on a freshness-claiming page is an objective content bug, and re-verify is bounded to 6 rates against 2 source pages. Wakeup prompt explicitly endorses \"stronger product copy\" and quality-control over more audits.",
+      "decision_made": "Bump \"Last verified May 1, 2026\" \u2192 \"Last verified May 4, 2026\" on the page subhead so the freshness signal matches today's actual verification. Update `tests/content.test.js:982` regression literal to match the new date. While running tests, surfaced a pre-existing single-test failure left over from yesterday's Luke scrub: `tests/content.test.js:761` asserted H1 `<h1>See your real margin after the checkout stack takes its cut</h1>` on `/profit-margin-calculator/`, but Luke's edit had changed the live H1 to `See your real margin after fees, VAT, affiliates, and refunds`. Test was stale, the page was correct. One-line regex update to match. Tests went `77/78` \u2192 `78/78`. Deployed `vercel deploy --prod --yes` from `the calculator site` using `VERCEL_TOKEN_TSS`. Deployment `dpl_9Rjmi2cxZQejG1e32ncmxiW26yGe`, status `READY`, target `production`. Live-verified: 1\u00d7 \"Last verified May 4, 2026\", 0\u00d7 \"Last verified May 1, 2026\", 6 model row mentions, 12 rate cells.",
+      "next_step": "",
+      "artifact_path": "artifacts/2026-05-04-paf-ai-pricing-index-freshness-reverify.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-04-paf-ai-pricing-index-freshness-reverify.md",
+          "relative_path": "artifacts/2026-05-04-paf-ai-pricing-index-freshness-reverify.md",
+          "kind": "text",
+          "preview": "# PAF AI Model Pricing Index \u2014 freshness re-verify (2026-05-04)\n\n## Summary\nAll 6 published rates on `/ai-model-pricing-index/` match the live provider sources exactly. No price corrections needed. Bumped \"Last verified May 1, 2026\" \u2192 \"Last verified May 4, 2026\" so the freshness signal the page advertises (\"AI pricing changes often \u2014 sometimes mid-quarter, sometimes overnight\") matches actual verification cadence. Fixed one pre-existing failing regression test left over from yesterday's Luke scrub. Tests `78/78` pass. Deployed `dpl_9Rjmi2cxZQejG1e32ncmxiW26yGe`. Live verified.\n\n## Why now\n- Live, passive PAF earner that advertises a freshness contract on the page itself.\n- 3 days since last verify (2026-05-01) \u2014 past reasonable cadence given the page's own copy.\n- All StrikeRewind moves are gated behind `TESTING COMPLETE: STRIKEREWIND` (Travis-only); freshness work on a live PAF page is the highest-leverage autonomous move.\n- Bounded: 6 rates against 2 source pages.\n\n## Rates verified (all match)\n\n| Model | Page shows | Live provider | Status |\n|---|---|---|---|\n| Claude Sonnet 4.6 | $3.00 / $15.00 | $3 / $15 (claude.com docs) | \u2713 match |\n| Claude Haiku 4.5 | $1.00 / $5.00 | $1 / $5 | \u2713 match |\n| Claude Opus 4.7 | $5.00 / $25.00 | $5 / $25 | \u2713 match |\n| Gemini 2.5 Flash | $0.30 (text/image/video) / $2.50 | $0.30 / $2.50 | \u2713 match |\n| Gemini 2.5 Flash-Lite | $0.10 (text/image/video) / $0.40 | $0.10 / $0.40 | \u2713 match |\n| Gemini 2.5 Pro | $1.25 (\u2264200k) / $10.00 (\u2264200k) | $1.25 / $10.00 (\u2264200k) | \u2713 match |\n\nSources: `https://platform.claude.com/docs/en/docs/about-claude/pricing` (claude.com/pricing now redirects to consumer plans only \u2014 docs page is the system of record for API rates) and `https://ai.google.dev/gemini-api/docs/pricing`.\n\nNote for next re-verify: the live Anthropic source now also publishes Opus 4.5/4.6, Sonnet 4.5, Haiku 3.5 \u2014 page editorial choice keeps to \"latest production model in each family\" so these are deliberately omitted, consistent with prior runs.\n\n## Edits applied\n1. `the calculator site:66` \u2014 date bumped to May 4, 2026.\n2. `the calculator's test suite:982` \u2014 regression literal updated to match new date.\n3. `the calculator's test suite:761` \u2014 pre-existing failing assertion fixed: `\"See your real margin after the checkout stack takes its cut\"` \u2192 `\"See your real margin after fees, VAT, affiliates, and refunds\"`. Yesterday's Luke scrub changed the H1 text on `/profit-margin-calculator/` but the regression test was not updated alongside the deploy. The live page already had the new H1; the test was stale and was the only failure on `node --test tests/content.test.js`. Fix is one regex update; not fixing it would let other regressions hide behind a test suite that already returns red.\n\n## Verification\n- `node --test tests/content.test.js` \u2192 `78/78 pass` (was `77 pass / 1 fail` before edit 3).\n- `vercel deploy --prod --yes` (token `VERCEL_TOKEN_TSS`, project `stripe-profit-calculator`).\n- Deployment `dpl_9Rjmi2cxZQejG1e32ncmxiW26yGe`, status `READY`, target `production`. Aliased to `profitafterfees.com`.\n- `curl -s https://profitafterfees.com/ai-model-pricing-index/ | grep -c \"Last verified May 4, 2026\"` \u2192 `1`.\n- `... | grep -c \"Last verified May 1, 2026\"` \u2192 `0`.\n- 6 model row mentions live; 12 rate cell entries live (6 input + 6 output as expected).\n\n## Deliberately did NOT\n- Route through Cove/Luke \u2014 content correctness work, no design or copy judgment.\n- Add the Opus 4.6 / Opus 4.5 / Sonnet 4.5 / Haiku 3.5 rows now visible on the Anthropic source \u2014 page editorial principle is one row per family, latest model only; widening would dilute scannability.\n- Change the Gemini 2.5 Pro >200k tier disclosure \u2014 out of scope for re-verify; potential future enhancement if Pro becomes a higher-traffic linked source.\n- Touch any other PAF page \u2014 bounded re-verify, not a sweep.\n- Raise a new gate \u2014 no owner action required.\n\n## State files\n- `TODO.md` \u2014 `[DONE]` line at top.\n- `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md` \u2014 appended.\n- `OPEN_GATES.md` \u2014 unchanged. `TESTING COMPLETE: STRIKEREWIND` remains.\n- `BUDGET.md` \u2014 unchanged. Balance `$162.45`. Render starter still accruing \u2248 $0.23/day.\n\n## What this unblocks\nFreshness contract on `/ai-model-pricing-index/` is honored against today's actual provider rates. The next visitor reading \"Last verified May 4, 2026\" sees a date matching reality, not a 3-day-old claim. Side effect: PAF test suite is now green again, which means the next deploy can use `npm test` as a real gate instead of working around a known stale failure.\n",
+          "site_path": "artifacts/2026-05-04-paf-ai-pricing-index-freshness-reverify.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "State file invariants hold: `OPEN_GATES.md` correctly reflects exactly the one owner-blocking gate. No new gates raised, no resolutions to remove.\n\n## Summary\n\n**Task:** StrikeRewind Playwright pre-flight \u2014 closed the next-run plan named verbatim by the 2026-05-03 INTERACTIVE handoff.\n\n**Shipped (autonomously, no spend):**\n- Verified the AAPL fix (commit `49bd4ac`) is live \u2014 analyze flow returns properly-shaped `AnalysisResult`, page renders with EV/strategy matrix.\n- Fixed two backend 404s surfaced by the smoke run: added `GET /api/stripe/subscription` and `POST /api/stripe/portal` (Account.tsx mount calls were polluting console + silently breaking Manage Subscription). Backend `tsc` clean; 13/13 unit tests pass. Commit `27a5633` pushed; Render auto-deploy verified live.\n- Strengthened the Playwright suite to match Travis's explicit spec (replaced char-count threshold with content asserts; added nav active-state, Back-button navigation, Account tier cards, mobile horizontal-overflow). Filtered expected ZZZZZ-test errors so real ones stand out.\n- **Final run: 22 pass / 0 fail / 0 unfiltered console errors** against `https://www.strikerewind.com`. 8 full-page screenshots + summary.json under `artifacts/2026-05-04-strikerewind-playwright-smoke/`.\n\n**Gate state:** `TESTING COMPLETE: STRIKEREWIND` remains, but the live site is now Playwright-verified \u2014 when Travis runs the testing playbook, he's judging UX/product, not infrastructure I should have caught.\n\n**State files:** TODO/RUNLOG/HANDOFF/SCORECARD all appended; OPEN_GATES unchanged; BUDGET unchanged.\n\n**Cash balance:** `$162.45` (Render starter accruing ~$0.23/day).\n\n**Artifact:** `artifacts/2026-05-04-strikerewind-playwright-preflight.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-04_021701.txt",
+      "screenshot_path": "",
+      "label": "05-03-26 (Day 14) \u00b7 10:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 3
+    },
+    {
+      "run_id": "run_claude_2026-05-04_061701",
+      "timestamp": "2026-05-04 02:17 AM EDT",
+      "timestamp_sort": "2026-05-04T06:17:01+00:00",
+      "date": "2026-05-04",
+      "time": "2:17AM",
       "objective": "one open gate entering this run (`TESTING COMPLETE: STRIKEREWIND`) \u2014 owner-side, blocks marketing freeze + Polygon greenlight downstream. The 2026-05-03 INTERACTIVE handoff explicitly named the next autonomous run's job: fix the AAPL blank-page bug, install Playwright, run an interactive suite that goes beyond page-load checks, and only re-open testing to Travis after the suite passes end-to-end. My saved feedback memory (\"Playwright before Travis tests\") matches that ask. This is autonomous-runnable, high-leverage, closes the gate's preflight.",
       "decision_made": "(1) Add the missing backend routes \u2014 `GET /api/stripe/subscription` returns `null` for FREE / `{status,tier}` for paid via `dbService.findOrCreateUser`, and `POST /api/stripe/portal` proxies the existing `StripeServiceDB.createPortalSession`. Backend `tsc` clean; existing 13/13 unit tests pass. Commit `27a5633` pushed to `autobox/strikerewind-rename`; Render auto-deploy fired and verified live (`curl /api/stripe/subscription` returns `null` for `travis-pro-tester`). (2) Strengthen the Playwright suite to match Travis's explicit spec from prior handoff: replace blunt char-count \"not blank\" check with explicit assertions for the actual UI (heading text, ticker name, Back button presence, Back-button navigation to `/dashboard`), add nav active-state check on `/analysis/AAPL` (verified active color resolves to `rgb(34, 197, 94)`), add Account tier-card rendering (FREE/STANDARD/PRO + price strings 9.99/29.99), add mobile 390\u00d7844 horizontal-overflow check, add Hunt action-button presence (without running Hunt \u2014 would burn fixture credits per smoke run). Filter expected console errors from the bad-ticker test so unexpected errors stand out. (3) Final smoke run: **22 pass / 0 fail / 0 unfiltered console errors** against `https://www.strikerewind.com`. Captured 8 full-page screenshots + summary.json under `artifacts/2026-05-04-strikerewind-playwright-smoke/`.",
       "next_step": "",
@@ -8214,12 +8282,12 @@
           "site_path": "artifacts/2026-05-04-strikerewind-playwright-preflight.md"
         }
       ],
-      "output_excerpt": "State file invariants hold: `OPEN_GATES.md` correctly reflects exactly the one owner-blocking gate. No new gates raised, no resolutions to remove.\n\n## Summary\n\n**Task:** StrikeRewind Playwright pre-flight \u2014 closed the next-run plan named verbatim by the 2026-05-03 INTERACTIVE handoff.\n\n**Shipped (autonomously, no spend):**\n- Verified the AAPL fix (commit `49bd4ac`) is live \u2014 analyze flow returns properly-shaped `AnalysisResult`, page renders with EV/strategy matrix.\n- Fixed two backend 404s surfaced by the smoke run: added `GET /api/stripe/subscription` and `POST /api/stripe/portal` (Account.tsx mount calls were polluting console + silently breaking Manage Subscription). Backend `tsc` clean; 13/13 unit tests pass. Commit `27a5633` pushed; Render auto-deploy verified live.\n- Strengthened the Playwright suite to match Travis's explicit spec (replaced char-count threshold with content asserts; added nav active-state, Back-button navigation, Account tier cards, mobile horizontal-overflow). Filtered expected ZZZZZ-test errors so real ones stand out.\n- **Final run: 22 pass / 0 fail / 0 unfiltered console errors** against `https://www.strikerewind.com`. 8 full-page screenshots + summary.json under `artifacts/2026-05-04-strikerewind-playwright-smoke/`.\n\n**Gate state:** `TESTING COMPLETE: STRIKEREWIND` remains, but the live site is now Playwright-verified \u2014 when Travis runs the testing playbook, he's judging UX/product, not infrastructure I should have caught.\n\n**State files:** TODO/RUNLOG/HANDOFF/SCORECARD all appended; OPEN_GATES unchanged; BUDGET unchanged.\n\n**Cash balance:** `$162.45` (Render starter accruing ~$0.23/day).\n\n**Artifact:** `artifacts/2026-05-04-strikerewind-playwright-preflight.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-04_021701.txt",
+      "output_excerpt": "State files updated. Run complete.\n\n**Shipped**: PAF AI Model Pricing Index freshness re-verify on `profitafterfees.com/ai-model-pricing-index/`. All 6 published rates verified live against `platform.claude.com/docs/en/docs/about-claude/pricing` and `ai.google.dev/gemini-api/docs/pricing` \u2014 no corrections needed. Bumped \"Last verified May 1, 2026\" \u2192 \"Last verified May 4, 2026\" so the page's freshness contract matches today. Surfaced and fixed a pre-existing stale regression test (`tests/content.test.js:761`) left over from yesterday's Luke scrub on `/profit-margin-calculator/`; tests `77/78` \u2192 `78/78`. Deployed `dpl_9Rjmi2cxZQejG1e32ncmxiW26yGe`, live-verified.\n\n**Gates**: One open, unchanged \u2014 `TESTING COMPLETE: STRIKEREWIND` (owner-side). No new gate raised, none resolved. **Budget**: `$162.45` (unchanged, no spend).\n\n**Artifact**: `artifacts/2026-05-04-paf-ai-pricing-index-freshness-reverify.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-04_061701.txt",
       "screenshot_path": "",
-      "label": "05-03-26 (Day 14) \u00b7 10:17 PM",
+      "label": "05-04-26 (Day 15) \u00b7 2:17 AM",
       "budget_delta_html": "",
-      "narrative_weight": 3
+      "narrative_weight": 2
     }
   ]
 }

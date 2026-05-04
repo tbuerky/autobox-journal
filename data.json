@@ -8481,6 +8481,73 @@
       "label": "05-04-26 (Day 15) \u00b7 8:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 2
+    },
+    {
+      "run_id": "run_claude_2026-05-04_141701",
+      "timestamp": "2026-05-04 10:17 AM EDT",
+      "timestamp_sort": "2026-05-04T14:17:01+00:00",
+      "date": "2026-05-04",
+      "time": "10:17AM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "artifact_path": "artifacts/2026-05-04-strikerewind-launch-post-three-variants.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-04-strikerewind-launch-post-three-variants.md",
+          "relative_path": "artifacts/2026-05-04-strikerewind-launch-post-three-variants.md",
+          "kind": "text",
+          "preview": "# StrikeRewind launch post \u2014 three variants matched to the open LAUNCH POSTURE gate\n\n**Date:** 2026-05-04\n**For:** Travis\n**Owner action:** when the `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` gate clears, paste the variant matching your reply (`HOLD FOR POLYGON` \u2192 A, `EARLY ACCESS` \u2192 B, `TIGHTEN COPY` \u2192 C). All three meet X's 280-char limit, founder voice from `@theshepherdstack`, URL on its own line.\n**Why now:** the existing pre-baked launch post at `artifacts/2026-04-30-strikerewind-x-launch-post.md` claims `\"Every night it scans the S&P 500\"` and `\"Top 5 setups daily\"` \u2014 both false under the current fixture-only data state surfaced by the 2026-05-04 data-honesty packet. Posting it as-is the moment `TESTING COMPLETE` clears would re-create the same trust mismatch the homepage decision packet was raised to resolve. These three replacement variants close the gap so the launch post is honest and on-brand on day one regardless of which posture Travis picks.\n**Routed through:** Luke (subagent), per `RULES.md` rule routing public-facing copy.\n\n---\n\n## Variant A \u2014 HOLD FOR POLYGON\n\n**Diagnosis:** Post can finally make the original claim land, because under A the nightly full-index scan is actually running \u2014 so lead with the concrete behavior the reader doubts is possible, not the methodology.\n\n**Final post copy:**\n\n> I got tired of selling 30-delta on every ticker like it's gospel. So I built StrikeRewind. Every night it scans the S&P 500 and ranks every bull put and bear call by historical win rate at each delta and DTE. Free tier, no card.\n>\n> https://strikerewind.com\n\n**Character count:** 274 / 280\n\n**What changed and why:**\n- Kept the original opener \u2014 the 30-delta line is the sharpest hook in the draft and survives the rewrite.\n- Cut \"Top 5 setups daily\" \u2014 the ranked-by-win-rate claim already does that work, and \"Top 5\" reads like a marketing tic.\n- Tightened \"ranks each\" to \"ranks every\" so the sentence reads cleanly aloud.\n- Held \"Free tier, no card\" because that's the lowest-friction CTA for a skeptical scroller and it's true today.\n- Left the URL on its own line per constraint.\n\n**Claim needing evidence before publish:** Polygon Starter must be live and the nightly cron must have completed at least one successful full S&P 500 scan before this posts. Otherwise the first sentence under the hook is false.\n\n---\n\n## Variant B \u2014 EARLY ACCESS\n\n**Diagnosis:** Honest pre-launch \u2014 the post should sell the methodology and the waitlist seat, not pretend the scan is running; the goal is an email, not a $9.99 charge.\n\n**Final post copy:**\n\n> I got tired of selling 30-delta like it's gospel. So I built StrikeRewind: a win-rate + EV engine that scores bull puts and bear calls across every delta and DTE. Early access on a 3-ticker preview. Full S&P 500 scan ships next. No card.\n>\n> https://strikerewind.com\n\n**Character count:** 263 / 280\n\n**What changed and why:**\n- Dropped \"on every ticker\" from the opener to buy room \u2014 the line still reads.\n- Replaced \"scans the S&P 500\" with what's actually live: the engine and the 3-ticker preview.\n- Named the gap directly (\"Full S&P 500 scan ships next\") so a skeptical reader sees the missing piece called out before they find it.\n- \"No card\" stays because that's the real free-tier promise and it lowers the bar to the waitlist.\n- Cut \"daily setups\" language entirely \u2014 there is no daily digest under fixtures.\n\n**Claim needing evidence before publish:** The free signup flow must capture email in a way that maps onto a paid-tier waitlist when Polygon is live, otherwise \"early access\" is a word with no follow-through.\n\n---\n\n## Variant C \u2014 TIGHTEN COPY\n\n**Diagnosis:** Sell the engine, not the operation \u2014 describe the methodology that's true today and will still be true after Polygon ships, and let the reader find out what's scanned by signing up.\n\n**Final post copy:**\n\n> I got tired of selling 30-delta on every ticker like it's gospel. So I built StrikeRewind. It scores bull puts and bear calls by historical win rate and EV across every delta and DTE, so you stop guessing which strike on which name. Free tier, no card.\n>\n> https://strikerewind.com\n\n**Character count:** 278 / 280\n\n**What changed and why:**\n- Removed \"Every night it scans the S&P 500\" \u2014 false today, would publicly burn the launch.\n- Removed \"Top 5 setups daily\" \u2014 same reason; no daily digest exists yet.\n- Replaced the operational claim with the methodology claim (\"scores by historical win rate and EV across every delta and DTE\") which is true on fixtures and on Polygon.\n- Added the buyer's actual decision in plain language: \"stop guessing which strike on which name.\" That's the pain a 30-delta-by-default seller feels.\n- Kept the founder hook untouched and \"Free tier, no card\" as the CTA.\n\n**Claim needing evidence before publish:** The Free tier must actually run a scoring pass against the 10-ticker subset on signup, or the post promises an engine that the new user doesn't see fire. Confirm the 1 scan/day path completes for a fresh free account before posting.\n\n---\n\n## Luke's recommendation\n\nVariant C reads strongest as a launch post \u2014 the 30-delta hook lands, the methodology is sharp and falsifiable, and nothing in it goes stale or false the day Polygon ships. Variant A is a stronger post only if the nightly S&P 500 scan is genuinely running by post time; otherwise it's the current draft's same data-honesty problem with a new date on it.\n\n---\n\n## Pre-publish verification checklist (run in order, do not skip)\n\nCarried over from `artifacts/2026-04-30-strikerewind-x-launch-post.md`, plus one new step (3) for the variants above:\n\n1. `https://strikerewind.com` is live and serves the LandingPage hero correctly (StrikeRewind wordmark renders, OG card preview shows on `https://www.opengraph.xyz/url/strikerewind.com`).\n2. `Start free` \u2192 `/dashboard` flow works end-to-end with no card prompt and the daily Hunt limit on FREE tier is `\u2265 1`.\n3. **Landing-page copy matches the chosen post variant.** Each po",
+          "site_path": "artifacts/2026-05-04-strikerewind-launch-post-three-variants.md"
+        }
+      ],
+      "output_excerpt": "Run complete. Sixth autonomous run of 2026-05-04.\n\n**What changed:** Shipped `artifacts/2026-05-04-strikerewind-launch-post-three-variants.md` \u2014 three Luke-written X launch posts matched 1:1 to the open `LAUNCH POSTURE` gate options (A HOLD FOR POLYGON / B EARLY ACCESS / C TIGHTEN COPY). The prior run's data-honesty packet exposed that the pre-baked 2026-04-30 launch post claims `\"Every night it scans the S&P 500\"` \u2014 false under the current `HUNT_USE_FIXTURES=true` state. This run closed that follow-on landmine before Travis clears `TESTING COMPLETE` and pastes from a stale artifact. New artifact supersedes `2026-04-30-strikerewind-x-launch-post.md`. Luke's pick: Variant C (sharpest hook, no future-stale risk).\n\n**State:** Both open gates carry forward unchanged (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); no new gate raised; no spend; cash balance `$162.45`. TODO/RUNLOG/HANDOFF/SCORECARD updated; OPEN_GATES and BUDGET unchanged.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-04_141701.txt",
+      "screenshot_path": "",
+      "label": "05-04-26 (Day 15) \u00b7 10:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

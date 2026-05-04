@@ -6411,7 +6411,7 @@
       "time": "2:17AM",
       "objective": "All three top-priority StrikeRewind owner gates remain open and unchanged from prior runs (`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`, `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`, `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE`); no fresh owner input. Yesterday's PAF live-site health check explicitly listed \"AI Feature Cost Calculator's downstream provider-pricing data freshness\" and meta-tag content quality as not-covered; the next run (`later x6`) closed the freshness item by re-verifying `/ai-model-pricing-index/` against live provider pricing. The remaining named uncovered item is meta-tag content quality (title length, description length, canonical correctness, og:image presence, AI-smell, stale dates) across all 14 customer-facing pages. Stale or broken metadata silently degrades search snippets and social-share renders without showing up on any uptime check, so this run formalizes the audit as the next operator-hygiene step on the live earning property.",
       "decision_made": "**All 14 pages pass every check.** No remediation required. Wrote up the evidence as a clean head-meta audit artifact so future runs (and Travis) have a verifiable reference for the production state on this date. **Two soft observations recorded but not regressions, deliberately not fixed**: (a) 10 of 14 pages mirror raw page meta into `og:title` / `og:description` rather than writing distinct social copy \u2014 fine fallback pattern, but the 4 pages that DO have distinct OG copy (`/`, `/ai-feature-cost-calculator/`, `/ai-model-pricing-index/`, `/transaction-fee-calculator/`) demonstrate room to lift social CTR if any one page becomes a top traffic source; (b) 12 of 14 pages share `social-preview.png` (branded but generic) \u2014 separate previews could be added later if a specific page becomes a top traffic source. Both items are scope-creep relative to today's audit and should only fire when there's evidence one page is breaking out as a traffic source.",
-      "next_step": "Wait for Travis's reply on the three open StrikeRewind gates. Pre-baked plans documented in prior handoffs. Adjacent autonomous-runnable options if approvals stay quiet: (a) calculator math correctness audit on the live site \u2014 would require executing `app.js` math against known fixture inputs, headless-browser-shaped rather than curl-shaped; (b) Google Search Console verification recommendation packet for StrikeRewind so the indexing motion compresses from 3 steps to 1 when deploy fires (Travis generates GSC verification token, AutoBox drops it as `<meta>` tag in `frontend/index.html`, sitemap/robots already in place via `6321576`); (c) periodic re-verify AI Model Pricing Index once a week \u2014 prices stable this period, but quarterly schedules can shift overnight; (d) `vercel.json` correctness sweep on PAF (different project from StrikeRewind, also Vercel-hosted, but no documented issue). Current cash balance: $162.45.",
+      "next_step": "",
       "artifact_path": "artifacts/2026-05-01-paf-content-pages-meta-audit.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -6477,7 +6477,7 @@
       "timestamp_sort": "2026-05-01T08:17:01+00:00",
       "date": "2026-05-01",
       "time": "4:17AM",
-      "objective": "All three top-priority StrikeRewind owner gates remain open and unchanged from prior runs (`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`, `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`, `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE`); no fresh owner input. Prior run (the PAF live-site health check) explicitly flagged \"AI Feature Cost Calculator's downstream provider-pricing data freshness\" as uncovered. The actual surface that carries provider-pricing data is `/ai-model-pricing-index/` (the AI Feature Cost Calculator uses generic preset tiers with no model-specific data). The page subhead promises \"Last verified Apr 26, 2026\" \u2014 5 days stale on a page that itself disclaims \"AI pricing changes often \u2014 sometimes mid-quarter, sometimes overnight.\" This is real operator hygiene on the actually-earning property: stale prices mislead users, and the freshness gap creates a credibility-killer if the index is wrong while the page promises freshness.",
+      "objective": "",
       "decision_made": "",
       "next_step": "",
       "artifact_path": "artifacts/2026-05-01-strikerewind-landing-methodology-block.md",
@@ -8160,6 +8160,74 @@
       "timestamp_sort": "2026-05-04T02:17:01+00:00",
       "date": "2026-05-03",
       "time": "10:17PM",
+      "objective": "third autonomous run of 2026-05-04. One open gate entering this run (`TESTING COMPLETE: STRIKEREWIND`, owner-side, marketing freeze active). Reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md` / `HANDOFF.md` / `BUDGET.md` at start \u2014 gate held; no resolution evidence. Today's earlier Playwright pre-flight surfaced one missing-route class of bug (added `/api/stripe/subscription` + `/api/stripe/portal`); the sharper next move was to cross-reference *every* frontend `/api/...` call against `the scanner backend` and find more of the same shape \u2014 that's the bug class Travis will hit during `TESTING COMPLETE` if any remain.",
+      "decision_made": "fail-closed defaults are the standard pattern. Flipped `the scanner frontend:45` to FREE-tier shape mirrored exactly from `the scanner backend:22-31`: `tier: 'FREE'`, `maxAnalysesPerDay: 3`, `maxScansPerDay: 1`, `hasIVData: false`, `historicalYears: 1`, `canSaveWatchlist: false`. Widened the tier-field type from `'PRO' as const` (literal type) to `'FREE' as 'FREE' | 'STANDARD' | 'PRO'` (union) so `setUserData(...)` keeps accepting any of the three tier values from the API without TS errors. Single-file change, `+6 / -6`. Commit `6ce5b06` pushed to `autobox/strikerewind-rename`. `frontend npm run build` clean (1921 modules, JS `356.04 kB`, CSS `23.32 kB`, no TS errors). `vercel deploy --prod --yes --token \"$VERCEL_TOKEN_TSS\"` from `frontend/` \u2192 `dpl_EkHPY7Z9ChS7aqoN7Ty3fETG9NaC` `READY production`. `vercel alias set strikerewind-q69r3wq2g-travis-4599s-projects.vercel.app www.strikerewind.com --token \"$VERCEL_TOKEN_TSS\"` \u2192 success. **Live bundle verified**: `curl https://www.strikerewind.com/` returns `/assets/index-CfoZB_25.js`; `curl <bundle> | grep 'tier:\"FREE'` returns `tier:\"FREE` \u2014 the new literal default is in the live JS. **Playwright smoke against live**: `[REDACTED] node workspace/strikerewind_smoke.mjs` \u2192 **22 pass / 0 fail / 0 unfiltered console errors**. Same suite that was green this morning. No regressions.",
+      "next_step": "",
+      "artifact_path": "artifacts/2026-05-04-strikerewind-failclosed-tier-defaults.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-04-strikerewind-failclosed-tier-defaults.md",
+          "relative_path": "artifacts/2026-05-04-strikerewind-failclosed-tier-defaults.md",
+          "kind": "text",
+          "preview": "# StrikeRewind: fail-closed tier defaults in UserContext\n\n## What was wrong\n`the scanner frontend:45` initialized fresh-load state to:\n\n```ts\ntier: 'PRO' as const,\nlimits: { maxAnalysesPerDay: -1, maxScansPerDay: -1, hasIVData: true,\n          historicalYears: 5, canSaveWatchlist: true }\n```\n\nEvery fresh-localStorage page load briefly showed PRO branding (Hunt\nunlocked, unlimited analyses, save-to-watchlist enabled) until the\n`/api/usage` request returned and `setUserData(...)` overwrote those\ndefaults with the real tier. On API failure the user remained on PRO\ndefaults indefinitely.\n\nServer enforces real tier on every protected endpoint, so this was\nclient-side UI only \u2014 but the flash was customer-visible on every cold\nload and would surface during Travis's `TESTING COMPLETE` round on a\nfresh browser.\n\n## How the audit found it\nCross-referenced every frontend `/api/...` call against the routes\ndefined in `the scanner backend`. All 14 frontend \u2192 backend routes\nexist (the two added today closed the gap surfaced by the morning\nPlaywright run). The only mismatches:\n\n- `/api/dev/reset-tier` and `/api/dev/user-data` \u2014 frontend exports them\n  but production gates `handleResetTier` behind `import.meta.env.DEV`\n  and never calls `getUserData`. Production-safe, dead in dist.\n\nWhile reading `UserContext.tsx` for the cross-reference, the PRO\ndefaults stood out: every other state in the codebase fails closed.\n\n## Fix shipped\nSingle-file commit `6ce5b06` \u2014 flip defaults to FREE-tier shape mirrored\nfrom `the scanner backend:22-31`:\n\n```ts\ntier: 'FREE' as 'FREE' | 'STANDARD' | 'PRO',\nlimits: { maxAnalysesPerDay: 3, maxScansPerDay: 1, hasIVData: false,\n          historicalYears: 1, canSaveWatchlist: false }\n```\n\nType widened from `'PRO' as const` to the full union so `setUserData`\nkeeps accepting any of the three tier values from the API.\n\n## Verification\n- `cd frontend && npm run build` \u2014 clean, 1921 modules, JS 356.04 kB,\n  CSS 23.32 kB, no TS errors.\n- Pushed to `autobox/strikerewind-rename`. Render auto-deploy fires for\n  backend changes only \u2014 this is frontend-only, no Render redeploy.\n- `vercel deploy --prod --yes --token \"$VERCEL_TOKEN_TSS\"` from\n  `frontend/` \u2014 `dpl_EkHPY7Z9ChS7aqoN7Ty3fETG9NaC`, status `READY`,\n  target `production`.\n- `vercel alias set <deployment> www.strikerewind.com` \u2014 alias updated.\n- `curl https://www.strikerewind.com/` returns the new bundle; grep\n  confirms `tier:\"FREE` is the literal default in the live JS.\n- `node workspace/strikerewind_smoke.mjs` against live \u2014\n  **22 pass / 0 fail / 0 unfiltered console errors**. Same suite that\n  was green this morning. No regressions.\n\n## Deliberately did NOT\n- Route through Cove/Luke (state-management bug, not design/copy).\n- Add a Playwright assertion that *specifically* catches the flash \u2014\n  would require slow-network mocking or service-worker delay; bundle\n  literal-grep is a stronger check than a page-load timing test.\n- Touch `Account.tsx` tier badge or upgrade-button visibility (the\n  defaults change is the correct fix; UI components consume state).\n- Migrate UserContext to react-query or SWR (out of scope, would\n  introduce a dependency).\n\n## Why this run\n- Today's earlier Playwright run surfaced one missing-route class of\n  bug (`/api/stripe/subscription` and `/api/stripe/portal` 404s).\n- Sharper next move was: are there *other* frontend \u2192 backend mismatches\n  of the same shape Travis would hit during `TESTING COMPLETE`?\n- Cross-reference came back clean except for this fail-open default,\n  which is the same class of \"silently wrong customer-facing state\"\n  that makes the testing playbook longer.\n- Closes a bug Travis would have surfaced; doesn't add the gate-stalling\n  fix-list churn the playbook is designed to avoid.\n\n## State\n- One open gate unchanged: `TESTING COMPLETE: STRIKEREWIND` (Travis-side).\n- Cash balance unchanged at `$162.45`.\n- No new gate raised, no spend, marketing freeze still in effect.\n",
+          "site_path": "artifacts/2026-05-04-strikerewind-failclosed-tier-defaults.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "State file invariants hold: `OPEN_GATES.md` correctly reflects exactly the one owner-blocking gate. No new gates raised, no resolutions to remove.\n\n## Summary\n\n**Task:** StrikeRewind Playwright pre-flight \u2014 closed the next-run plan named verbatim by the 2026-05-03 INTERACTIVE handoff.\n\n**Shipped (autonomously, no spend):**\n- Verified the AAPL fix (commit `49bd4ac`) is live \u2014 analyze flow returns properly-shaped `AnalysisResult`, page renders with EV/strategy matrix.\n- Fixed two backend 404s surfaced by the smoke run: added `GET /api/stripe/subscription` and `POST /api/stripe/portal` (Account.tsx mount calls were polluting console + silently breaking Manage Subscription). Backend `tsc` clean; 13/13 unit tests pass. Commit `27a5633` pushed; Render auto-deploy verified live.\n- Strengthened the Playwright suite to match Travis's explicit spec (replaced char-count threshold with content asserts; added nav active-state, Back-button navigation, Account tier cards, mobile horizontal-overflow). Filtered expected ZZZZZ-test errors so real ones stand out.\n- **Final run: 22 pass / 0 fail / 0 unfiltered console errors** against `https://www.strikerewind.com`. 8 full-page screenshots + summary.json under `artifacts/2026-05-04-strikerewind-playwright-smoke/`.\n\n**Gate state:** `TESTING COMPLETE: STRIKEREWIND` remains, but the live site is now Playwright-verified \u2014 when Travis runs the testing playbook, he's judging UX/product, not infrastructure I should have caught.\n\n**State files:** TODO/RUNLOG/HANDOFF/SCORECARD all appended; OPEN_GATES unchanged; BUDGET unchanged.\n\n**Cash balance:** `$162.45` (Render starter accruing ~$0.23/day).\n\n**Artifact:** `artifacts/2026-05-04-strikerewind-playwright-preflight.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-04_021701.txt",
+      "screenshot_path": "",
+      "label": "05-03-26 (Day 14) \u00b7 10:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 3
+    },
+    {
+      "run_id": "run_claude_2026-05-04_061701",
+      "timestamp": "2026-05-04 02:17 AM EDT",
+      "timestamp_sort": "2026-05-04T06:17:01+00:00",
+      "date": "2026-05-04",
+      "time": "2:17AM",
       "objective": "one open gate entering this run (`TESTING COMPLETE: STRIKEREWIND`, owner-side, marketing freeze active). Reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md` / `HANDOFF.md` / `BUDGET.md` at start \u2014 gate held. With all StrikeRewind moves testing-gated and no fresh owner input requiring action, the highest-leverage autonomous move is freshness work on a live PAF page. The AI Model Pricing Index advertises \"AI pricing changes often \u2014 sometimes mid-quarter, sometimes overnight\"; last re-verified 2026-05-01 (3 days ago). Stale verified-date on a freshness-claiming page is an objective content bug, and re-verify is bounded to 6 rates against 2 source pages. Wakeup prompt explicitly endorses \"stronger product copy\" and quality-control over more audits.",
       "decision_made": "Bump \"Last verified May 1, 2026\" \u2192 \"Last verified May 4, 2026\" on the page subhead so the freshness signal matches today's actual verification. Update `tests/content.test.js:982` regression literal to match the new date. While running tests, surfaced a pre-existing single-test failure left over from yesterday's Luke scrub: `tests/content.test.js:761` asserted H1 `<h1>See your real margin after the checkout stack takes its cut</h1>` on `/profit-margin-calculator/`, but Luke's edit had changed the live H1 to `See your real margin after fees, VAT, affiliates, and refunds`. Test was stale, the page was correct. One-line regex update to match. Tests went `77/78` \u2192 `78/78`. Deployed `vercel deploy --prod --yes` from `the calculator site` using `VERCEL_TOKEN_TSS`. Deployment `dpl_9Rjmi2cxZQejG1e32ncmxiW26yGe`, status `READY`, target `production`. Live-verified: 1\u00d7 \"Last verified May 4, 2026\", 0\u00d7 \"Last verified May 1, 2026\", 6 model row mentions, 12 rate cells.",
       "next_step": "",
@@ -8215,19 +8283,19 @@
           "has_redactions": true
         }
       ],
-      "output_excerpt": "State file invariants hold: `OPEN_GATES.md` correctly reflects exactly the one owner-blocking gate. No new gates raised, no resolutions to remove.\n\n## Summary\n\n**Task:** StrikeRewind Playwright pre-flight \u2014 closed the next-run plan named verbatim by the 2026-05-03 INTERACTIVE handoff.\n\n**Shipped (autonomously, no spend):**\n- Verified the AAPL fix (commit `49bd4ac`) is live \u2014 analyze flow returns properly-shaped `AnalysisResult`, page renders with EV/strategy matrix.\n- Fixed two backend 404s surfaced by the smoke run: added `GET /api/stripe/subscription` and `POST /api/stripe/portal` (Account.tsx mount calls were polluting console + silently breaking Manage Subscription). Backend `tsc` clean; 13/13 unit tests pass. Commit `27a5633` pushed; Render auto-deploy verified live.\n- Strengthened the Playwright suite to match Travis's explicit spec (replaced char-count threshold with content asserts; added nav active-state, Back-button navigation, Account tier cards, mobile horizontal-overflow). Filtered expected ZZZZZ-test errors so real ones stand out.\n- **Final run: 22 pass / 0 fail / 0 unfiltered console errors** against `https://www.strikerewind.com`. 8 full-page screenshots + summary.json under `artifacts/2026-05-04-strikerewind-playwright-smoke/`.\n\n**Gate state:** `TESTING COMPLETE: STRIKEREWIND` remains, but the live site is now Playwright-verified \u2014 when Travis runs the testing playbook, he's judging UX/product, not infrastructure I should have caught.\n\n**State files:** TODO/RUNLOG/HANDOFF/SCORECARD all appended; OPEN_GATES unchanged; BUDGET unchanged.\n\n**Cash balance:** `$162.45` (Render starter accruing ~$0.23/day).\n\n**Artifact:** `artifacts/2026-05-04-strikerewind-playwright-preflight.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-04_021701.txt",
+      "output_excerpt": "State files updated. Run complete.\n\n**Shipped**: PAF AI Model Pricing Index freshness re-verify on `profitafterfees.com/ai-model-pricing-index/`. All 6 published rates verified live against `platform.claude.com/docs/en/docs/about-claude/pricing` and `ai.google.dev/gemini-api/docs/pricing` \u2014 no corrections needed. Bumped \"Last verified May 1, 2026\" \u2192 \"Last verified May 4, 2026\" so the page's freshness contract matches today. Surfaced and fixed a pre-existing stale regression test (`tests/content.test.js:761`) left over from yesterday's Luke scrub on `/profit-margin-calculator/`; tests `77/78` \u2192 `78/78`. Deployed `dpl_9Rjmi2cxZQejG1e32ncmxiW26yGe`, live-verified.\n\n**Gates**: One open, unchanged \u2014 `TESTING COMPLETE: STRIKEREWIND` (owner-side). No new gate raised, none resolved. **Budget**: `$162.45` (unchanged, no spend).\n\n**Artifact**: `artifacts/2026-05-04-paf-ai-pricing-index-freshness-reverify.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-04_061701.txt",
       "screenshot_path": "",
-      "label": "05-03-26 (Day 14) \u00b7 10:17 PM",
+      "label": "05-04-26 (Day 15) \u00b7 2:17 AM",
       "budget_delta_html": "",
-      "narrative_weight": 3
+      "narrative_weight": 2
     },
     {
-      "run_id": "run_claude_2026-05-04_061701",
-      "timestamp": "2026-05-04 02:17 AM EDT",
-      "timestamp_sort": "2026-05-04T06:17:01+00:00",
+      "run_id": "run_claude_2026-05-04_081701",
+      "timestamp": "2026-05-04 04:17 AM EDT",
+      "timestamp_sort": "2026-05-04T08:17:01+00:00",
       "date": "2026-05-04",
-      "time": "2:17AM",
+      "time": "4:17AM",
       "objective": "one open gate entering this run (`TESTING COMPLETE: STRIKEREWIND`) \u2014 owner-side, blocks marketing freeze + Polygon greenlight downstream. The 2026-05-03 INTERACTIVE handoff explicitly named the next autonomous run's job: fix the AAPL blank-page bug, install Playwright, run an interactive suite that goes beyond page-load checks, and only re-open testing to Travis after the suite passes end-to-end. My saved feedback memory (\"Playwright before Travis tests\") matches that ask. This is autonomous-runnable, high-leverage, closes the gate's preflight.",
       "decision_made": "(1) Add the missing backend routes \u2014 `GET /api/stripe/subscription` returns `null` for FREE / `{status,tier}` for paid via `dbService.findOrCreateUser`, and `POST /api/stripe/portal` proxies the existing `StripeServiceDB.createPortalSession`. Backend `tsc` clean; existing 13/13 unit tests pass. Commit `27a5633` pushed to `autobox/strikerewind-rename`; Render auto-deploy fired and verified live (`curl /api/stripe/subscription` returns `null` for `travis-pro-tester`). (2) Strengthen the Playwright suite to match Travis's explicit spec from prior handoff: replace blunt char-count \"not blank\" check with explicit assertions for the actual UI (heading text, ticker name, Back button presence, Back-button navigation to `/dashboard`), add nav active-state check on `/analysis/AAPL` (verified active color resolves to `rgb(34, 197, 94)`), add Account tier-card rendering (FREE/STANDARD/PRO + price strings 9.99/29.99), add mobile 390\u00d7844 horizontal-overflow check, add Hunt action-button presence (without running Hunt \u2014 would burn fixture credits per smoke run). Filter expected console errors from the bad-ticker test so unexpected errors stand out. (3) Final smoke run: **22 pass / 0 fail / 0 unfiltered console errors** against `https://www.strikerewind.com`. Captured 8 full-page screenshots + summary.json under `artifacts/2026-05-04-strikerewind-playwright-smoke/`.",
       "next_step": "",
@@ -8282,10 +8350,10 @@
           "site_path": "artifacts/2026-05-04-strikerewind-playwright-preflight.md"
         }
       ],
-      "output_excerpt": "State files updated. Run complete.\n\n**Shipped**: PAF AI Model Pricing Index freshness re-verify on `profitafterfees.com/ai-model-pricing-index/`. All 6 published rates verified live against `platform.claude.com/docs/en/docs/about-claude/pricing` and `ai.google.dev/gemini-api/docs/pricing` \u2014 no corrections needed. Bumped \"Last verified May 1, 2026\" \u2192 \"Last verified May 4, 2026\" so the page's freshness contract matches today. Surfaced and fixed a pre-existing stale regression test (`tests/content.test.js:761`) left over from yesterday's Luke scrub on `/profit-margin-calculator/`; tests `77/78` \u2192 `78/78`. Deployed `dpl_9Rjmi2cxZQejG1e32ncmxiW26yGe`, live-verified.\n\n**Gates**: One open, unchanged \u2014 `TESTING COMPLETE: STRIKEREWIND` (owner-side). No new gate raised, none resolved. **Budget**: `$162.45` (unchanged, no spend).\n\n**Artifact**: `artifacts/2026-05-04-paf-ai-pricing-index-freshness-reverify.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-04_061701.txt",
+      "output_excerpt": "Run complete. Summary:\n\n**What I did**: Cross-referenced every frontend `/api/...` call against `the scanner backend` to find more silent route mismatches like the one I fixed this morning. Came back clean. While auditing `UserContext.tsx`, found a fail-open bug \u2014 `tier: 'PRO' as const` with unlimited limits as the default, so every fresh-load briefly showed PRO branding until `/api/usage` returned (and stayed PRO on API failure). Fixed to FREE-tier defaults mirrored from `the scanner backend`.\n\n**Where to see it**: Commit `6ce5b06` pushed; deploy `dpl_EkHPY7Z9ChS7aqoN7Ty3fETG9NaC` aliased to `www.strikerewind.com`. Live bundle confirms `tier:\"FREE` literal. Playwright smoke against live: **22/22 pass**, 0 console errors. Artifact `artifacts/2026-05-04-strikerewind-failclosed-tier-defaults.md`.\n\n**What's next**: Wait on `TESTING COMPLETE: STRIKEREWIND` (Travis-side). Adjacent options: extend Playwright with a real Hunt fixture-mode run, Bing Webmaster Tools verification packet, or PAF homepage trust-signal review for the active ad campaign.\n\n**Blocked on Travis**: Yes \u2014 `TESTING COMPLETE: STRIKEREWIND` (~36 min playbook at `artifacts/2026-05-03-strikerewind-testing-playbook.md`).\n\nCash balance: `$162.45` (unchanged).\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-04_081701.txt",
       "screenshot_path": "",
-      "label": "05-04-26 (Day 15) \u00b7 2:17 AM",
+      "label": "05-04-26 (Day 15) \u00b7 4:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 2
     }

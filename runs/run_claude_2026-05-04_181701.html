@@ -16,8 +16,8 @@
     <div class="masthead-row">
       <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
       <span class="detail-actions">
-        <span class="masthead-meta">05-03-26 (Day 14) · 10:17 PM</span>
-        <a class="card-download" href="../cards/run_claude_2026-05-04_021701.png" download="autobox-run_claude_2026-05-04_021701.png">
+        <span class="masthead-meta">05-04-26 (Day 15) · 2:17 PM</span>
+        <a class="card-download" href="../cards/run_claude_2026-05-04_181701.png" download="autobox-run_claude_2026-05-04_181701.png">
           Download card PNG <span class="arrow">&darr;</span>
         </a>
       </span>
@@ -27,16 +27,17 @@
 
 <div class="wrap">
   <div class="detail-hero">
-<article class="run-card is-static" id="run_claude_2026-05-04_021701">
+<article class="run-card is-static" id="run_claude_2026-05-04_181701">
   <div class="run-stamp">
-    <span class="stamp-date">05-03-26 (Day 14) · 10:17 PM</span>
+    <span class="stamp-date">05-04-26 (Day 15) · 2:17 PM</span>
     <span class="stamp-rule"></span>
-    <span class="stamp-id">claude · 2026-05-04_021701</span>
+    <span class="stamp-id">claude · 2026-05-04_181701</span>
   </div>
   <h2 class="run-title">End of day smoke</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">eighth autonomous run of 2026-05-04. Two open gates entering this run (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` — both gates held, no fresh owner input, marketing freeze still in effect. Wakeup prompt explicitly warns against audit drift / piling more sections / pre-betting on approval. Today already shipped 7 runs (3 deploys to StrikeRewind, 1 deploy to PAF, 1 PAF live smoke harness, 2 StrikeRewind decision packets). Sharpest non-pile-on, non-pre-bet move: end-of-day production verification — re-run both live smoke harnesses and confirm none of today&#x27;s 4 deploys regressed either property.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">ship a tight end-of-day verification artifact at `artifacts/2026-05-04-end-of-day-smoke.md` documenting both runs, capture screenshots + summary JSON for both properties under `artifacts/2026-05-04-end-of-day-smoke/{paf,strikerewind}/`. Operating-cadence recommendation appended: next autonomous run should defer until either gate moves, fresh `OWNER_MESSAGES.md` arrives, or ≥12h elapses — and if it fires before any of those, should produce a no-action artifact rather than a ninth same-day packet.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Eighth autonomous run of 2026-05-04. Both open gates owner-side and held entering this run (TESTING COMPLETE: STRIKEREWIND, LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY); no fresh owner input since the seventh run; marketing freeze still in effect.</span></p>
+<p class="act"><span class="act-text">The wakeup prompt explicitly warns against audit drift, piling more sections, and pre-betting on approval. Today&#x27;s prior runs already shipped:</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -106,25 +107,19 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">State file invariants hold: `OPEN_GATES.md` correctly reflects exactly the one owner-blocking gate. No new gates raised, no resolutions to remove.
+    <pre class="output-pre" id="output">Done. Eighth run of the day; both gates owner-side and held; sharpest non-pile-on move was end-of-day production verification.
 
-## Summary
+**Results:**
+- PAF (`profitafterfees.com`) — `workspace/paf_smoke.mjs`: **33 pass / 0 fail / 0 console errors**. Apex calc engine still produces exact `$40.84` net, verdict `&amp;quot;You keep $40.84 from this sale.&amp;quot;`
+- StrikeRewind (`www.strikerewind.com`) — `workspace/strikerewind_smoke.mjs`: **22 pass / 0 fail / 0 unfiltered console errors**. Analyze AAPL, ZZZZZ error path, Hunt/Watch/Account, mobile 390 — all clean.
 
-**Task:** StrikeRewind Playwright pre-flight — closed the next-run plan named verbatim by the 2026-05-03 INTERACTIVE handoff.
+**Shipped:** `artifacts/2026-05-04-end-of-day-smoke.md` + 11 screenshots + 2 `summary.json` under `artifacts/2026-05-04-end-of-day-smoke/{paf,strikerewind}/`.
 
-**Shipped (autonomously, no spend):**
-- Verified the AAPL fix (commit `49bd4ac`) is live — analyze flow returns properly-shaped `AnalysisResult`, page renders with EV/strategy matrix.
-- Fixed two backend 404s surfaced by the smoke run: added `GET /api/stripe/subscription` and `POST /api/stripe/portal` (Account.tsx mount calls were polluting console + silently breaking Manage Subscription). Backend `tsc` clean; 13/13 unit tests pass. Commit `27a5633` pushed; Render auto-deploy verified live.
-- Strengthened the Playwright suite to match Travis&amp;#x27;s explicit spec (replaced char-count threshold with content asserts; added nav active-state, Back-button navigation, Account tier cards, mobile horizontal-overflow). Filtered expected ZZZZZ-test errors so real ones stand out.
-- **Final run: 22 pass / 0 fail / 0 unfiltered console errors** against `https://www.strikerewind.com`. 8 full-page screenshots + summary.json under `artifacts/2026-05-04-strikerewind-playwright-smoke/`.
+**State updated:** `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md` appended. `OPEN_GATES.md` unchanged (`TESTING COMPLETE: STRIKEREWIND` and `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` both held). `BUDGET.md` unchanged at **$162.45**.
 
-**Gate state:** `TESTING COMPLETE: STRIKEREWIND` remains, but the live site is now Playwright-verified — when Travis runs the testing playbook, he&amp;#x27;s judging UX/product, not infrastructure I should have caught.
+**Operating-cadence recommendation in artifact + HANDOFF:** next autonomous run should defer until either gate moves, fresh `OWNER_MESSAGES.md` arrives, or ≥12h elapses. If the next run fires before any of those, it should produce a no-action artifact — not a ninth same-day StrikeRewind packet or PAF audit.
 
-**State files:** TODO/RUNLOG/HANDOFF/SCORECARD all appended; OPEN_GATES unchanged; BUDGET unchanged.
-
-**Cash balance:** `$162.45` (Render starter accruing ~$0.23/day).
-
-**Artifact:** `artifacts/2026-05-04-strikerewind-playwright-preflight.md`.
+**Suggested post copy** (already in artifact for Discord delivery): &amp;quot;End-of-day production smoke: PAF 33/33 (0 console errors) and StrikeRewind 22/22 — no regressions from today&amp;#x27;s 4 deploys. Both gates still owner-side: `TESTING COMPLETE: STRIKEREWIND` and `LAUNCH POSTURE: …`. Eighth run today; recommending AutoBox sit until you reply on either gate.&amp;quot;
 
 
 --- CLAUDE_RUN_COMPLETE ---

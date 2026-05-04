@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>PAF ai pricing index freshness reverify &middot; AutoBox</title>
+<title>Strikerewind failclosed tier defaults &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,10 +33,10 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-04_061701</span>
   </div>
-  <h2 class="run-title">PAF ai pricing index freshness reverify</h2>
+  <h2 class="run-title">Strikerewind failclosed tier defaults</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">one open gate entering this run (`TESTING COMPLETE: STRIKEREWIND`, owner-side, marketing freeze active). Reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md` / `HANDOFF.md` / `BUDGET.md` at start — gate held. With all StrikeRewind moves testing-gated and no fresh owner input requiring action, the highest-leverage autonomous move is freshness work on a live PAF page. The AI Model Pricing Index advertises &quot;AI pricing changes often — sometimes mid-quarter, sometimes overnight&quot;; last re-verified 2026-05-01 (3 days ago). Stale verified-date on a freshness-claiming page is an objective content bug, and re-verify is bounded to 6 rates against 2 source pages. Wakeup prompt explicitly endorses &quot;stronger product copy&quot; and quality-control over more audits.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">Bump &quot;Last verified May 1, 2026&quot; → &quot;Last verified May 4, 2026&quot; on the page subhead so the freshness signal matches today&#x27;s actual verification. Update `tests/content.test.js:982` regression literal to match the new date. While running tests, surfaced a pre-existing single-test failure left over from yesterday&#x27;s Luke scrub: `tests/content.test.js:761` asserted H1 `&lt;h1&gt;See your real margin after the checkout stack takes its cut&lt;/h1&gt;` on `/profit-margin-calculator/`, but Luke&#x27;s edit had changed the live H1 to `See your real margin after fees, VAT, affiliates, and refunds`. Test was stale, the page was correct. One-line regex update to match. Tests went `77/78` → `78/78`. Deployed `vercel deploy --prod --yes` from `the calculator site` using `VERCEL_TOKEN_TSS`. Deployment `dpl_9Rjmi2cxZQejG1e32ncmxiW26yGe`, status `READY`, target `production`. Live-verified: 1× &quot;Last verified May 4, 2026&quot;, 0× &quot;Last verified May 1, 2026&quot;, 6 model row mentions, 12 rate cells.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">third autonomous run of 2026-05-04. One open gate entering this run (`TESTING COMPLETE: STRIKEREWIND`, owner-side, marketing freeze active). Reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md` / `HANDOFF.md` / `BUDGET.md` at start — gate held; no resolution evidence. Today&#x27;s earlier Playwright pre-flight surfaced one missing-route class of bug (added `/api/stripe/subscription` + `/api/stripe/portal`); the sharper next move was to cross-reference *every* frontend `/api/...` call against `the scanner backend` and find more of the same shape — that&#x27;s the bug class Travis will hit during `TESTING COMPLETE` if any remain.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">fail-closed defaults are the standard pattern. Flipped `the scanner frontend:45` to FREE-tier shape mirrored exactly from `the scanner backend:22-31`: `tier: &#x27;FREE&#x27;`, `maxAnalysesPerDay: 3`, `maxScansPerDay: 1`, `hasIVData: false`, `historicalYears: 1`, `canSaveWatchlist: false`. Widened the tier-field type from `&#x27;PRO&#x27; as const` (literal type) to `&#x27;FREE&#x27; as &#x27;FREE&#x27; | &#x27;STANDARD&#x27; | &#x27;PRO&#x27;` (union) so `setUserData(...)` keeps accepting any of the three tier values from the API without TS errors. Single-file change, `+6 / -6`. Commit `6ce5b06` pushed to `autobox/strikerewind-rename`. `frontend npm run build` clean (1921 modules, JS `356.04 kB`, CSS `23.32 kB`, no TS errors). `vercel deploy --prod --yes --token &quot;$VERCEL_TOKEN_TSS&quot;` from `frontend/` → `dpl_EkHPY7Z9ChS7aqoN7Ty3fETG9NaC` `READY production`. `vercel alias set strikerewind-q69r3wq2g-travis-4599s-projects.vercel.app www.strikerewind.com --token &quot;$VERCEL_TOKEN_TSS&quot;` → success. **Live bundle verified**: `curl https://www.strikerewind.com/` returns `/assets/index-CfoZB_25.js`; `curl &lt;bundle&gt; | grep &#x27;tier:&quot;FREE&#x27;` returns `tier:&quot;FREE` — the new literal default is in the live JS. **Playwright smoke against live**: `[REDACTED] node workspace/strikerewind_smoke.mjs` → **22 pass / 0 fail / 0 unfiltered console errors**. Same suite that was green this morning. No regressions.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -46,57 +46,106 @@
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
     <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>PAF AI Model Pricing Index — freshness re-verify (2026-05-04)</h1>
-<h2>Summary</h2>
-<p>All 6 published rates on <code>/ai-model-pricing-index/</code> match the live provider sources exactly. No price corrections needed. Bumped &quot;Last verified May 1, 2026&quot; → &quot;Last verified May 4, 2026&quot; so the freshness signal the page advertises (&quot;AI pricing changes often — sometimes mid-quarter, sometimes overnight&quot;) matches actual verification cadence. Fixed one pre-existing failing regression test left over from yesterday&#x27;s Luke scrub. Tests <code>78/78</code> pass. Deployed <code>dpl_9Rjmi2cxZQejG1e32ncmxiW26yGe</code>. Live verified.</p>
-<h2>Why now</h2>
+    <div class="artifact-prose"><h1>StrikeRewind: fail-closed tier defaults in UserContext</h1>
+<h2>What was wrong</h2>
+<p><code>the scanner frontend:45</code> initialized fresh-load state to:</p>
+<pre><code>tier: &#x27;PRO&#x27; as const,
+limits: { maxAnalysesPerDay: -1, maxScansPerDay: -1, hasIVData: true,
+          historicalYears: 5, canSaveWatchlist: true }
+</code></pre>
+<p>Every fresh-localStorage page load briefly showed PRO branding (Hunt</p>
+<p>unlocked, unlimited analyses, save-to-watchlist enabled) until the</p>
+<p><code>/api/usage</code> request returned and <code>setUserData(...)</code> overwrote those</p>
+<p>defaults with the real tier. On API failure the user remained on PRO</p>
+<p>defaults indefinitely.</p>
+<p>Server enforces real tier on every protected endpoint, so this was</p>
+<p>client-side UI only — but the flash was customer-visible on every cold</p>
+<p>load and would surface during Travis&#x27;s <code>TESTING COMPLETE</code> round on a</p>
+<p>fresh browser.</p>
+<h2>How the audit found it</h2>
+<p>Cross-referenced every frontend <code>/api/...</code> call against the routes</p>
+<p>defined in <code>the scanner backend</code>. All 14 frontend → backend routes</p>
+<p>exist (the two added today closed the gap surfaced by the morning</p>
+<p>Playwright run). The only mismatches:</p>
 <ul>
-<li>Live, passive PAF earner that advertises a freshness contract on the page itself.</li>
-<li>3 days since last verify (2026-05-01) — past reasonable cadence given the page&#x27;s own copy.</li>
-<li>All StrikeRewind moves are gated behind <code>TESTING COMPLETE: STRIKEREWIND</code> (Travis-only); freshness work on a live PAF page is the highest-leverage autonomous move.</li>
-<li>Bounded: 6 rates against 2 source pages.</li>
+<li><code>/api/dev/reset-tier</code> and <code>/api/dev/user-data</code> — frontend exports them</li>
 </ul>
-<h2>Rates verified (all match)</h2>
-<p>| Model | Page shows | Live provider | Status |</p>
-<p>|---|---|---|---|</p>
-<p>| Claude Sonnet 4.6 | $3.00 / $15.00 | $3 / $15 (claude.com docs) | ✓ match |</p>
-<p>| Claude Haiku 4.5 | $1.00 / $5.00 | $1 / $5 | ✓ match |</p>
-<p>| Claude Opus 4.7 | $5.00 / $25.00 | $5 / $25 | ✓ match |</p>
-<p>| Gemini 2.5 Flash | $0.30 (text/image/video) / $2.50 | $0.30 / $2.50 | ✓ match |</p>
-<p>| Gemini 2.5 Flash-Lite | $0.10 (text/image/video) / $0.40 | $0.10 / $0.40 | ✓ match |</p>
-<p>| Gemini 2.5 Pro | $1.25 (≤200k) / $10.00 (≤200k) | $1.25 / $10.00 (≤200k) | ✓ match |</p>
-<p>Sources: <code>https://platform.claude.com/docs/en/docs/about-claude/pricing</code> (claude.com/pricing now redirects to consumer plans only — docs page is the system of record for API rates) and <code>https://ai.google.dev/gemini-api/docs/pricing</code>.</p>
-<p>Note for next re-verify: the live Anthropic source now also publishes Opus 4.5/4.6, Sonnet 4.5, Haiku 3.5 — page editorial choice keeps to &quot;latest production model in each family&quot; so these are deliberately omitted, consistent with prior runs.</p>
-<h2>Edits applied</h2>
-<p>1. <code>the calculator site:66</code> — date bumped to May 4, 2026.</p>
-<p>2. <code>the calculator&#x27;s test suite:982</code> — regression literal updated to match new date.</p>
-<p>3. <code>the calculator&#x27;s test suite:761</code> — pre-existing failing assertion fixed: <code>&quot;See your real margin after the checkout stack takes its cut&quot;</code> → <code>&quot;See your real margin after fees, VAT, affiliates, and refunds&quot;</code>. Yesterday&#x27;s Luke scrub changed the H1 text on <code>/profit-margin-calculator/</code> but the regression test was not updated alongside the deploy. The live page already had the new H1; the test was stale and was the only failure on <code>node --test tests/content.test.js</code>. Fix is one regex update; not fixing it would let other regressions hide behind a test suite that already returns red.</p>
+<p>but production gates <code>handleResetTier</code> behind <code>import.meta.env.DEV</code></p>
+<p>and never calls <code>getUserData</code>. Production-safe, dead in dist.</p>
+<p>While reading <code>UserContext.tsx</code> for the cross-reference, the PRO</p>
+<p>defaults stood out: every other state in the codebase fails closed.</p>
+<h2>Fix shipped</h2>
+<p>Single-file commit <code>6ce5b06</code> — flip defaults to FREE-tier shape mirrored</p>
+<p>from <code>the scanner backend:22-31</code>:</p>
+<pre><code>tier: &#x27;FREE&#x27; as &#x27;FREE&#x27; | &#x27;STANDARD&#x27; | &#x27;PRO&#x27;,
+limits: { maxAnalysesPerDay: 3, maxScansPerDay: 1, hasIVData: false,
+          historicalYears: 1, canSaveWatchlist: false }
+</code></pre>
+<p>Type widened from <code>&#x27;PRO&#x27; as const</code> to the full union so <code>setUserData</code></p>
+<p>keeps accepting any of the three tier values from the API.</p>
 <h2>Verification</h2>
 <ul>
-<li><code>node --test tests/content.test.js</code> → <code>78/78 pass</code> (was <code>77 pass / 1 fail</code> before edit 3).</li>
-<li><code>vercel deploy --prod --yes</code> (token <code>VERCEL_TOKEN_TSS</code>, project <code>stripe-profit-calculator</code>).</li>
-<li>Deployment <code>dpl_9Rjmi2cxZQejG1e32ncmxiW26yGe</code>, status <code>READY</code>, target <code>production</code>. Aliased to <code>profitafterfees.com</code>.</li>
-<li><code>curl -s https://profitafterfees.com/ai-model-pricing-index/ | grep -c &quot;Last verified May 4, 2026&quot;</code> → <code>1</code>.</li>
-<li><code>... | grep -c &quot;Last verified May 1, 2026&quot;</code> → <code>0</code>.</li>
-<li>6 model row mentions live; 12 rate cell entries live (6 input + 6 output as expected).</li>
+<li><code>cd frontend &amp;&amp; npm run build</code> — clean, 1921 modules, JS 356.04 kB,</li>
 </ul>
+<p>CSS 23.32 kB, no TS errors.</p>
+<ul>
+<li>Pushed to <code>autobox/strikerewind-rename</code>. Render auto-deploy fires for</li>
+</ul>
+<p>backend changes only — this is frontend-only, no Render redeploy.</p>
+<ul>
+<li><code>vercel deploy --prod --yes --token &quot;$VERCEL_TOKEN_TSS&quot;</code> from</li>
+</ul>
+<p><code>frontend/</code> — <code>dpl_EkHPY7Z9ChS7aqoN7Ty3fETG9NaC</code>, status <code>READY</code>,</p>
+<p>target <code>production</code>.</p>
+<ul>
+<li><code>vercel alias set &lt;deployment&gt; www.strikerewind.com</code> — alias updated.</li>
+<li><code>curl https://www.strikerewind.com/</code> returns the new bundle; grep</li>
+</ul>
+<p>confirms <code>tier:&quot;FREE</code> is the literal default in the live JS.</p>
+<ul>
+<li><code>node workspace/strikerewind_smoke.mjs</code> against live —</li>
+</ul>
+<p><strong>22 pass / 0 fail / 0 unfiltered console errors</strong>. Same suite that</p>
+<p>was green this morning. No regressions.</p>
 <h2>Deliberately did NOT</h2>
 <ul>
-<li>Route through Cove/Luke — content correctness work, no design or copy judgment.</li>
-<li>Add the Opus 4.6 / Opus 4.5 / Sonnet 4.5 / Haiku 3.5 rows now visible on the Anthropic source — page editorial principle is one row per family, latest model only; widening would dilute scannability.</li>
-<li>Change the Gemini 2.5 Pro &gt;200k tier disclosure — out of scope for re-verify; potential future enhancement if Pro becomes a higher-traffic linked source.</li>
-<li>Touch any other PAF page — bounded re-verify, not a sweep.</li>
-<li>Raise a new gate — no owner action required.</li>
+<li>Route through Cove/Luke (state-management bug, not design/copy).</li>
+<li>Add a Playwright assertion that <em>specifically</em> catches the flash —</li>
 </ul>
-<h2>State files</h2>
+<p>would require slow-network mocking or service-worker delay; bundle</p>
+<p>literal-grep is a stronger check than a page-load timing test.</p>
 <ul>
-<li><code>TODO.md</code> — <code>[DONE]</code> line at top.</li>
-<li><code>RUNLOG.md</code>, <code>HANDOFF.md</code>, <code>SCORECARD.md</code> — appended.</li>
-<li><code>OPEN_GATES.md</code> — unchanged. <code>TESTING COMPLETE: STRIKEREWIND</code> remains.</li>
-<li><code>BUDGET.md</code> — unchanged. Balance <code>$162.45</code>. Render starter still accruing ≈ $0.23/day.</li>
+<li>Touch <code>Account.tsx</code> tier badge or upgrade-button visibility (the</li>
 </ul>
-<h2>What this unblocks</h2>
-<p>Freshness contract on <code>/ai-model-pricing-index/</code> is honored against today&#x27;s actual provider rates. The next visitor reading &quot;Last verified May 4, 2026&quot; sees a date matching reality, not a 3-day-old claim. Side effect: PAF test suite is now green again, which means the next deploy can use <code>npm test</code> as a real gate instead of working around a known stale failure.</p></div>
+<p>defaults change is the correct fix; UI components consume state).</p>
+<ul>
+<li>Migrate UserContext to react-query or SWR (out of scope, would</li>
+</ul>
+<p>introduce a dependency).</p>
+<h2>Why this run</h2>
+<ul>
+<li>Today&#x27;s earlier Playwright run surfaced one missing-route class of</li>
+</ul>
+<p>bug (<code>/api/stripe/subscription</code> and <code>/api/stripe/portal</code> 404s).</p>
+<ul>
+<li>Sharper next move was: are there <em>other</em> frontend → backend mismatches</li>
+</ul>
+<p>of the same shape Travis would hit during <code>TESTING COMPLETE</code>?</p>
+<ul>
+<li>Cross-reference came back clean except for this fail-open default,</li>
+</ul>
+<p>which is the same class of &quot;silently wrong customer-facing state&quot;</p>
+<p>that makes the testing playbook longer.</p>
+<ul>
+<li>Closes a bug Travis would have surfaced; doesn&#x27;t add the gate-stalling</li>
+</ul>
+<p>fix-list churn the playbook is designed to avoid.</p>
+<h2>State</h2>
+<ul>
+<li>One open gate unchanged: <code>TESTING COMPLETE: STRIKEREWIND</code> (Travis-side).</li>
+<li>Cash balance unchanged at <code>$162.45</code>.</li>
+<li>No new gate raised, no spend, marketing freeze still in effect.</li>
+</ul></div>
   </section>
 
   <section class="detail-section">

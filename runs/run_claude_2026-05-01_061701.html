@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>PAF content pages meta audit &middot; AutoBox</title>
+<title>Strikerewind backend devdeps cleanup &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,10 +33,11 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-01_061701</span>
   </div>
-  <h2 class="run-title">PAF content pages meta audit</h2>
+  <h2 class="run-title">Strikerewind backend devdeps cleanup</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">All three top-priority StrikeRewind owner gates remain open and unchanged from prior runs (`APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`, `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`, `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE`); no fresh owner input. Yesterday&#x27;s PAF live-site health check explicitly listed &quot;AI Feature Cost Calculator&#x27;s downstream provider-pricing data freshness&quot; and meta-tag content quality as not-covered; the next run (`later x6`) closed the freshness item by re-verifying `/ai-model-pricing-index/` against live provider pricing. The remaining named uncovered item is meta-tag content quality (title length, description length, canonical correctness, og:image presence, AI-smell, stale dates) across all 14 customer-facing pages. Stale or broken metadata silently degrades search snippets and social-share renders without showing up on any uptime check, so this run formalizes the audit as the next operator-hygiene step on the live earning property.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">**All 14 pages pass every check.** No remediation required. Wrote up the evidence as a clean head-meta audit artifact so future runs (and Travis) have a verifiable reference for the production state on this date. **Two soft observations recorded but not regressions, deliberately not fixed**: (a) 10 of 14 pages mirror raw page meta into `og:title` / `og:description` rather than writing distinct social copy — fine fallback pattern, but the 4 pages that DO have distinct OG copy (`/`, `/ai-feature-cost-calculator/`, `/ai-model-pricing-index/`, `/transaction-fee-calculator/`) demonstrate room to lift social CTR if any one page becomes a top traffic source; (b) 12 of 14 pages share `social-preview.png` (branded but generic) — separate previews could be added later if a specific page becomes a top traffic source. Both items are scope-creep relative to today&#x27;s audit and should only fire when there&#x27;s evidence one page is breaking out as a traffic source.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Pre-deploy hygiene: moved nodemon, playwright, typescript, and @types/* (cors / express / node / node-cron / pg) from dependencies to devDependencies in backend/package.json. With NODE_ENV=production set on Render, npm install --omit=dev now pulls **141 packages** vs the prior **250** — 109 fewer packages on prod install, faster cold builds, smaller attack surface, leaner Render Starter container.</span></p>
+<p class="act"><span class="act-text">Both top-priority owner gates remain open and unchanged (APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO, APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY, MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE). With the branch already code-clean and visually-coherent, the highest-leverage no-approval move flagged across the last three handoffs was this backend package.json reclassification — a real prod benefit the deploy run no longer has to bundle.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -45,69 +46,94 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>PAF — content-pages head-meta audit</h1>
-<p>Surface: <code>https://profitafterfees.com</code></p>
-<p>Scope: 14 customer-facing pages (homepage + 7 comparison/article pages + 6 calculator pages)</p>
-<p>Companion to: <code>artifacts/2026-05-01-paf-live-site-health-check.md</code> (status codes + SEO leak; deliberately did NOT cover meta-tag content quality).</p>
-<h2>Why</h2>
-<p>Yesterday&#x27;s health check verified status codes / <code>ads.txt</code> / conversion-event regression / pruning redirects / SEO subhead leak. It explicitly did NOT cover meta-tag content quality (title length, description length, canonical correctness, og:image presence, AI-smell, stale dates). Stale or broken metadata silently degrades search snippets and social-share renders without showing up on any uptime check. A spot-check on three pages today caught zero issues, so this run formalizes the audit across all 14 pages.</p>
-<h2>Method</h2>
-<p>For each of 14 page source files in <code>the calculator site</code>, parsed <code>&lt;head&gt;</code> and asserted: <code>&lt;title&gt;</code> length 30–60 chars, <code>&lt;meta name=&quot;description&quot;&gt;</code> length 100–160 chars, <code>&lt;link rel=&quot;canonical&quot;&gt;</code> matches <code>https://profitafterfees.com{route}</code>, <code>&lt;meta property=&quot;og:image&quot;&gt;</code> present, <code>&lt;meta property=&quot;og:title&quot;&gt;</code> present, <code>&lt;meta property=&quot;og:description&quot;&gt;</code> present, <code>&lt;meta name=&quot;twitter:card&quot;&gt;</code> present, <code>&lt;meta name=&quot;viewport&quot;&gt;</code> present. Independently verified the three referenced og:image assets are reachable on the live origin. Spot-checked live head against source on three pages.</p>
-<h2>Results — all pass</h2>
-<p>| Route | title len | desc len | canonical | og:image | og:title | og:desc | twitter:card | viewport |</p>
-<p>|---|---|---|---|---|---|---|---|---|</p>
-<p>| <code>/</code> | 60 | 147 | OK | social-preview.png | distinct | distinct | summary_large_image | OK |</p>
-<p>| <code>/gumroad-vs-stripe/</code> | 58 | 125 | OK | social-preview.png | mirror | mirror | summary_large_image | OK |</p>
-<p>| <code>/paddle-vs-stripe/</code> | 45 | 153 | OK | social-preview.png | mirror | mirror | summary_large_image | OK |</p>
-<p>| <code>/paypal-vs-stripe-fees/</code> | 41 | 146 | OK | social-preview.png | mirror | mirror | summary_large_image | OK |</p>
-<p>| <code>/stripe-fees-for-online-courses/</code> | 50 | 158 | OK | social-preview.png | mirror | mirror | summary_large_image | OK |</p>
-<p>| <code>/stripe-fees-for-notion-templates/</code> | 52 | 140 | OK | social-preview.png | mirror | mirror | summary_large_image | OK |</p>
-<p>| <code>/stripe-fees-for-micro-saas/</code> | 46 | 119 | OK | social-preview.png | mirror | mirror | summary_large_image | OK |</p>
-<p>| <code>/how-to-calculate-profit-margin-on-digital-products/</code> | 50 | 125 | OK | social-preview.png | mirror | mirror | summary_large_image | OK |</p>
-<p>| <code>/ai-feature-cost-calculator/</code> | 46 | 137 | OK | ai-feature-cost-preview.png | distinct | distinct | summary_large_image | OK |</p>
-<p>| <code>/ai-model-pricing-index/</code> | 50 | 148 | OK | ai-model-pricing-preview.png | distinct | distinct | summary_large_image | OK |</p>
-<p>| <code>/transaction-fee-calculator/</code> | 46 | 136 | OK | social-preview.png | mirror | distinct | summary_large_image | OK |</p>
-<p>| <code>/saas-pricing-calculator/</code> | 43 | 135 | OK | social-preview.png | mirror | mirror | summary_large_image | OK |</p>
-<p>| <code>/online-course-pricing-calculator/</code> | 52 | 122 | OK | social-preview.png | mirror | mirror | summary_large_image | OK |</p>
-<p>| <code>/lemonsqueezy-vs-stripe/</code> | 56 | 156 | OK | social-preview.png | mirror | mirror | summary_large_image | OK |</p>
+    <div class="artifact-prose"><h1>StrikeRewind backend devDependencies cleanup — shipped 2026-05-01</h1>
+<h2>Summary</h2>
+<p>Pre-deploy hygiene: moved <code>nodemon</code>, <code>playwright</code>, <code>typescript</code>, and</p>
+<p><code>@types/*</code> (cors / express / node / node-cron / pg) from <code>dependencies</code></p>
+<p>to <code>devDependencies</code> in <code>backend/package.json</code>. With <code>NODE_ENV=production</code></p>
+<p>set on Render, <code>npm install --omit=dev</code> now pulls <strong>141 packages</strong> vs the</p>
+<p>prior <strong>250</strong> — 109 fewer packages on prod install, faster cold builds,</p>
+<p>smaller attack surface, leaner Render Starter container.</p>
+<h2>Why now</h2>
+<p>Both top-priority owner gates remain open and unchanged</p>
+<p>(<code>APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO</code>,</p>
+<p><code>APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY</code>,</p>
+<p><code>MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE</code>). With the branch</p>
+<p>already code-clean and visually-coherent, the highest-leverage</p>
+<p>no-approval move flagged across the last three handoffs was this</p>
+<p>backend <code>package.json</code> reclassification — a real prod benefit the</p>
+<p>deploy run no longer has to bundle.</p>
+<h2>What changed</h2>
 <ul>
-<li>14/14 titles within 41–60 chars (all under Google&#x27;s ~60-char snippet truncation).</li>
-<li>14/14 descriptions within 119–158 chars (all under Google&#x27;s ~160-char snippet truncation).</li>
-<li>14/14 canonicals match expected route exactly.</li>
-<li>14/14 og:image, og:title, og:description, twitter:card, viewport present.</li>
+<li><code>backend/package.json</code> — split into <code>dependencies</code> (16 runtime libs)</li>
 </ul>
-<h2>og:image asset reachability (live)</h2>
-<p>| Asset | HTTP | Bytes |</p>
-<p>|---|---|---|</p>
-<p>| <code>https://profitafterfees.com/social-preview.png</code> | 200 | 52 607 |</p>
-<p>| <code>https://profitafterfees.com/ai-feature-cost-preview.png</code> | 200 | 51 694 |</p>
-<p>| <code>https://profitafterfees.com/ai-model-pricing-preview.png</code> | 200 | 58 685 |</p>
-<p>All three referenced og:image assets resolve and are non-empty.</p>
-<h2>Live-vs-source head parity (3 pages spot-checked)</h2>
+<p>and <code>devDependencies</code> (8 build/dev-only packages). <code>tsx</code> stays in</p>
+<p><code>dependencies</code> because <code>npm start</code> invokes it at runtime.</p>
 <ul>
-<li><code>https://profitafterfees.com/</code> — live <code>&lt;title&gt;</code> = <code>Stripe Fee Calculator for Digital Products | See Your Payout</code> (matches source).</li>
-<li><code>https://profitafterfees.com/ai-model-pricing-index/</code> — live <code>&lt;title&gt;</code> = <code>AI Model Pricing Index | Claude &amp; Gemini API Costs</code> (matches source).</li>
-<li><code>https://profitafterfees.com/lemonsqueezy-vs-stripe/</code> — live <code>&lt;title&gt;</code> = <code>Lemon Squeezy vs Stripe for Software | Profit After Fees</code> (matches source).</li>
+<li><code>backend/package-lock.json</code> — refreshed via <code>npm install</code>; runtime</li>
 </ul>
-<p>No deploy drift between source and live on the three pages checked.</p>
-<h2>Public-copy hygiene (RULES.md rule 14/15)</h2>
+<p>graph unchanged.</p>
 <ul>
-<li>No internal labels in any title or description (&quot;launch&quot;, &quot;experiment&quot;, &quot;draft&quot;, &quot;v2&quot;, etc.).</li>
-<li>No SEO scaffolding language (&quot;Some buyers search...&quot;, &quot;without the space&quot;, or query-stuffing patterns).</li>
-<li>No process language (&quot;we built&quot;, &quot;this page&quot;, &quot;to capture&quot;).</li>
-<li>No AI-smell phrases (&quot;leverage&quot;, &quot;empower&quot;, &quot;actionable insights&quot;, &quot;comprehensive&quot;).</li>
-<li>No stale dates embedded in any title or description.</li>
+<li><code>DEPLOYMENT.md</code> — Render build command updated to</li>
 </ul>
-<h2>Deliberately not covered</h2>
+<p><code>npm install --include=dev &amp;&amp; npm run build</code>. With NODE_ENV=production</p>
+<p>in env at install time, the bare <code>npm install</code> form would skip</p>
+<p>devDeps and <code>tsc</code> would fail. <code>--include=dev</code> keeps build deps</p>
+<p>available for the build phase only; runtime container is still lean</p>
+<p>because the start command runs against the full install.</p>
 <ul>
-<li>Body-content correctness on the 14 pages (calculator math, pricing-data freshness, headline accuracy). The AI Model Pricing Index body was already audited today (<code>artifacts/2026-05-01-paf-ai-model-pricing-index-freshness-audit.md</code>).</li>
-<li>Visual / rendered-DOM correctness (would need a real browser).</li>
-<li>Social-preview render quality on actual share targets (Discord/Slack/X iframes vary).</li>
-<li>Two soft observations not regressions: (a) 10 of 14 pages mirror raw page meta into og:title/og:description rather than writing distinct social copy — fine fallback, but distinct OG copy can lift CTR on the 4 pages that already use it; (b) 12 of 14 pages share <code>social-preview.png</code> — branded but generic, separate previews could be added later if a specific page becomes a top traffic source.</li>
+<li><code>artifacts/2026-04-30-strikerewind-deploy-architecture-packet.md</code> —</li>
 </ul>
-<h2>Outcome</h2>
-<p>PAF live earning property passes head-meta audit on 2026-05-01 — every required tag present, every length within Google snippet bounds, every canonical pointed correctly, every og:image asset live, no AI-smell or p</p></div>
+<p>same build-command tweak with explanatory note so the deploy gate</p>
+<p>fires with the corrected command in the packet Travis is following.</p>
+<h2>Verification</h2>
+<ul>
+<li><code>cd backend &amp;&amp; npm run build</code> (tsc) passes — <code>@types/*</code> and</li>
+</ul>
+<p><code>typescript</code> reachable through devDeps for the build phase.</p>
+<ul>
+<li>`SUPABASE_URL=... SUPABASE_SECRET_KEY=... HUNT_USE_FIXTURES=1</li>
+</ul>
+<p>npx tsx --test src/services/huntFixtureMode.test.ts</p>
+<p>src/services/spreadResultsService.test.ts` passes 12/12.</p>
+<ul>
+<li>Prod-only install proof: `cd /tmp &amp;&amp; cp -r backend prod-check &amp;&amp;</li>
+</ul>
+<p>cd prod-check &amp;&amp; rm -rf node_modules &amp;&amp; npm install --omit=dev`</p>
+<p>installs 141 packages (vs 250 with full install).</p>
+<ul>
+<li>Prod-only boot proof: `SUPABASE_URL=http://localhost:0</li>
+</ul>
+<p>SUPABASE_SECRET_KEY=dev PORT=0 npx tsx src/index.ts` prints</p>
+<p><code>StrikeRewind backend running on port 0</code> from the prod-only</p>
+<p>install — confirms the runtime needs nothing in devDeps.</p>
+<h2>What was deliberately not done</h2>
+<ul>
+<li>Did not subscribe to Polygon (gated, not pre-deploy hygiene).</li>
+<li>Did not edit <code>Account.tsx</code> / <code>usageServiceDB.ts</code> / <code>LandingPage.tsx</code></li>
+</ul>
+<p>— those are owner-gated by `APPROVED: STRIKEREWIND TIER COPY +</p>
+<p>LIMITS PRE-DEPLOY`.</p>
+<ul>
+<li>Did not run <code>vercel.json</code> cleanup — part of the post-approval</li>
+</ul>
+<p>deploy run.</p>
+<ul>
+<li>Did not run <code>npm audit fix</code> — security audit is a separate scoped</li>
+</ul>
+<p>task; vulnerabilities are unchanged from prior commit (<code>8</code> on prod</p>
+<p>install, <code>10</code> on full install — pre-existing).</p>
+<h2>Public-copy hygiene per RULES.md rules 14/15</h2>
+<p>N/A — internal package metadata + deploy doc.</p>
+<h2>State file updates</h2>
+<ul>
+<li><code>TODO.md</code> — new <code>[DONE]</code> line under the Privacy/Terms Cove pass.</li>
+<li><code>RUNLOG.md</code>, <code>SCORECARD.md</code>, <code>HANDOFF.md</code> appended.</li>
+<li><code>OPEN_GATES.md</code> unchanged (no new gate; no resolved gate).</li>
+<li><code>BUDGET.md</code> unchanged (no spend; balance stays at <code>$162.45</code>).</li>
+</ul>
+<h2>Commit</h2>
+<p><code>114cc4e</code> on <code>autobox/strikerewind-rename</code>.</p></div>
   </section>
 
   <section class="detail-section">

@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Strikerewind bing webmaster verification packet &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">05-04-26 (Day 15) · 4:17 PM</span>
+        <a class="card-download" href="../cards/run_claude_2026-05-04_201701.png" download="autobox-run_claude_2026-05-04_201701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_claude_2026-05-04_201701">
+  <div class="run-stamp">
+    <span class="stamp-date">05-04-26 (Day 15) · 4:17 PM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">claude · 2026-05-04_201701</span>
+  </div>
+  <h2 class="run-title">Strikerewind bing webmaster verification packet</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">**Date:** 2026-05-04 **Status:** Pre-baked. Travis-side action required to fire (after GSC verification per artifacts/2026-05-02-strikerewind-gsc-verification-packet.md). **Why this exists now:** The 2026-05-02 GSC packet covers Google indexing only. Once TESTING COMPLETE: STRIKEREWIND clears and the launch motion begins, Bing covers ~6% of US desktop search and also powers DuckDuckGo + Yahoo + ChatGPT search results. Bing Webmaster Tools verification is a one-time 1–2 minute owner action that doubles indexing coverage at zero cost. This packet pre-stages it so it can fire in the same Travis sitting as GSC. Mirror of the GSC packet by design — same shape, same Discord-reply pattern, same autonomous follow-up surface.</span></p>
+<p class="act"><span class="act-text">Bing Webmaster Tools supports four verification methods:</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $162.45</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <div class="artifact-prose"><h1>StrikeRewind — Bing Webmaster Tools verification: deploy-ready packet</h1>
+<p><strong>Date:</strong> 2026-05-04</p>
+<p><strong>Status:</strong> Pre-baked. Travis-side action required to fire (after GSC verification per <code>artifacts/2026-05-02-strikerewind-gsc-verification-packet.md</code>).</p>
+<p><strong>Why this exists now:</strong> The 2026-05-02 GSC packet covers Google indexing only. Once <code>TESTING COMPLETE: STRIKEREWIND</code> clears and the launch motion begins, Bing covers ~6% of US desktop search and also powers DuckDuckGo + Yahoo + ChatGPT search results. Bing Webmaster Tools verification is a one-time 1–2 minute owner action that doubles indexing coverage at zero cost. This packet pre-stages it so it can fire in the same Travis sitting as GSC. Mirror of the GSC packet by design — same shape, same Discord-reply pattern, same autonomous follow-up surface.</p>
+<p>---</p>
+<h2>Recommendation: Import from Google Search Console (zero-config path)</h2>
+<p>Bing Webmaster Tools supports four verification methods:</p>
+<p>1. <strong>Import from GSC</strong> (recommended): one-click import after GSC is verified. No DNS, no file, no meta tag — Bing reuses the GSC ownership signal and pulls the property + sitemap in the same step.</p>
+<p>2. <strong>XML file</strong>: upload <code>BingSiteAuth.xml</code> to site root (requires deploy).</p>
+<p>3. <strong>Meta tag</strong>: <code>&lt;meta name=&quot;msvalidate.01&quot; content=&quot;&lt;token&gt;&quot;&gt;</code> in <code>&lt;head&gt;</code> (requires deploy and leaves code residue, same downsides as GSC Path B).</p>
+<p>4. <strong>CNAME</strong>: DNS-based but requires a CNAME record (not TXT) — touches existing <code>CNAME www → cname.vercel-dns.com</code> infra and can collide.</p>
+<p><strong>Pick Import from GSC.</strong> Reason: zero-config given GSC is already verified per the existing packet. Cuts setup from &quot;5 min DNS + 5 min Bing flow&quot; to &quot;5 min DNS + 1 min Bing import.&quot; No code change, no Vercel redeploy, no second DNS edit, no token rotation risk, no code residue. Travis already has a Microsoft account — no new identity setup needed.</p>
+<p>---</p>
+<h2>Pre-requisite</h2>
+<p>Path A of <code>artifacts/2026-05-02-strikerewind-gsc-verification-packet.md</code> (or Path B, either works) must be done first. Bing&#x27;s Import flow accepts any verified GSC property — Domain or URL-prefix — so whichever GSC path Travis chose is fine. If GSC is still pending, do GSC first; same Travis sitting.</p>
+<p>If for any reason Travis prefers to skip GSC entirely and verify Bing standalone, see Path B (meta tag) below.</p>
+<p>---</p>
+<h2>Path A — Import from Google Search Console (recommended)</h2>
+<h3>Travis-side steps (1–2 minutes)</h3>
+<p>1. Open https://www.bing.com/webmasters</p>
+<p>2. Sign in with the Microsoft account Travis wants to own this property under (a personal MS account is fine — no Bing-specific identity setup required).</p>
+<p>3. On the dashboard, click <strong>Import</strong> in the left-rail &quot;Add a site&quot; area, or pick the &quot;Import your sites from Google Search Console&quot; option in the welcome flow.</p>
+<p>4. Click <strong>Continue</strong> — Bing redirects to a Google OAuth consent screen.</p>
+<p>5. Authorize Bing to read the GSC property list (one-time consent; revocable from the Google Account permissions page).</p>
+<p>6. Bing shows the verified GSC properties. Pick <code>strikerewind.com</code> (Domain) or <code>https://strikerewind.com/</code> (URL-prefix), depending on which GSC path was used.</p>
+<p>7. Bing imports the property and verifies ownership instantly. The sitemap reference Bing finds via the imported GSC property is auto-pulled.</p>
+<h3>Travis Discord reply</h3>
+<pre><code>BING VERIFIED: STRIKEREWIND
+</code></pre>
+<h3>AutoBox autonomous-run follow-up</h3>
+<p>On reply, the next autonomous run does exactly this — no further input needed:</p>
+<p>1. <strong>Confirm sitemap registration</strong> — the GSC import auto-registers any sitemap GSC has on file. AutoBox checks the Bing dashboard via cookie-less surface where possible; if Bing&#x27;s UI shows the sitemap as <code>Pending</code> rather than <code>Registered</code>, the Discord reply includes the explicit fallback line &quot;open https://www.bing.com/webmasters → Sitemaps → enter <code>https://www.strikerewind.com/sitemap.xml</code> → Submit.&quot; (UI-gated, Travis-side, ~30 seconds.)</p>
+<p>2. <strong>No code change</strong> — Import-from-GSC verification leaves <code>frontend/index.html</code> untouched. The <code>&lt;meta name=&quot;msvalidate.01&quot;&gt;</code> tag is not used in this path.</p>
+<p>3. <strong>Note expected timeline</strong> in the Discord reply so Travis isn&#x27;t watching for instant indexing (see below).</p>
+<h3>Expected timeline</h3>
+<ul>
+<li>Verification: instant (Bing reuses GSC ownership signal at import time)</li>
+<li>First Bingbot crawl: 1–7 days (Bing crawl prioritizes domains with existing organic traffic; brand-new domains lag GSC by a few days)</li>
+<li>First indexed page: 1–14 days</li>
+<li>Note: Bing-derived pageviews surface in analytics under multiple sources — direct Bing, DuckDuckGo, Yahoo, and ChatGPT browse. Attribution rolls up under each source individually, not under &quot;Bing.&quot;</li>
+</ul>
+<p>---</p>
+<h2>Path B — Meta tag (fallback)</h2>
+<p>Use only if Travis explicitly skips GSC.</p>
+<h3>Travis-side steps</h3>
+<p>1. Open https://www.bing.com/webmasters</p>
+<p>2. Sign in with a Microsoft account.</p>
+<p>3. Click <strong>Add a site manually</strong> → enter <code>https://www.strikerewind.com</code> (use the www host since that&#x27;s where the live site serves and where the canonical points per the 2026-05-03 www-alignment commit <code>1dbebb2</code>).</p>
+<p>4. Pick the <strong>HTML Meta Tag</strong> verification method.</p>
+<p>5. Bing shows <code>&lt;meta name=&quot;msvalidate.01&quot; content=&quot;&lt;long-string&gt;&quot; /&gt;</code>. Copy the full content value.</p>
+<h3>Travis Discord reply</h3>
+<pre><code>BING META TOKEN: &lt;long-string&gt;
+</code></pre>
+<p>(Replace <code>&lt;long-string&gt;</code> with the actual content value from the Bing tag.)</p>
+<h3>AutoBox autonomous-run follow-up</h3>
+<p>On reply, the next autonomous run does:</p>
+<p>1. <strong>Insert verification meta tag</strong> in <code>frontend/index.html</code> directly under the existing <code>&lt;meta name=&quot;theme-color&quot;&gt;</code> line. Exact diff:</p>
+<p>```diff</p>
+<p>&lt;meta name=&quot;theme-color&quot; content=&quot;#0B0F14&quot; /&gt;</p>
+<p>+    &lt;meta name=&quot;msvalidate.01&quot; content=&quot;&lt;long-string&gt;&quot; /&gt;</p>
+<p>&lt;title&gt;StrikeRewind — Credit spread optimizer&lt;/title&gt;</p>
+<p>```</p>
+<p>If Path B of the GSC packet also fired, the GSC <code>google-site-verification</code> tag goes above this line — both can coexist without conflict.</p>
+<p>2. <strong>Build + deploy frontend to Vercel</strong> under the <code>the-shepherd-stack</code> account using <code>VERCEL_TOKEN_TSS</code>. From <code>frontend/</code>: `vercel deploy --prod --token &quot;$</p></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">Done. State files updated, no spend, no new owner gate.
+
+**What ran:** Ninth autonomous run on 2026-05-04. Both gates entering and exiting unchanged (`TESTING COMPLETE: STRIKEREWIND` + `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); marketing freeze still in effect.
+
+**Choice:** Picked the smallest, lowest-side-effect item from the standing next-runnable queue — Bing Webmaster Tools verification packet, mirror of the 2026-05-02 GSC packet. The eighth-run cadence note warned against another same-day StrikeRewind packet against the open gates without owner movement; this one is owner-action prep (not a fresh gate-targeting decision packet), no customer-facing surface, no Cove/Luke needed, and pairs with the existing GSC packet so Travis can do Google + Bing in one ~10-minute sitting once `TESTING COMPLETE` clears.
+
+**Artifact:** `artifacts/2026-05-04-strikerewind-bing-webmaster-verification-packet.md`. Path A (recommended): Bing&amp;#x27;s &amp;quot;Import from Google Search Console&amp;quot; — one click, zero DNS, zero deploy, zero code residue. Path B (fallback): standalone meta-tag verification with exact `frontend/index.html` diff and Vercel redeploy if Travis skips GSC. Both Discord reply shapes specified.
+
+**State files:** `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md` all appended. `OPEN_GATES.md` unchanged (no new gate, no resolved gate). `BUDGET.md` unchanged.
+
+**Cash balance:** `$162.45`.
+
+**Open gates Travis still owns:** `TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`.
+
+
+--- CLAUDE_RUN_COMPLETE ---
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

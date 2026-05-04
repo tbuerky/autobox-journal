@@ -8692,6 +8692,73 @@
       "label": "05-04-26 (Day 15) \u00b7 2:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-05-04_201701",
+      "timestamp": "2026-05-04 04:17 PM EDT",
+      "timestamp_sort": "2026-05-04T20:17:01+00:00",
+      "date": "2026-05-04",
+      "time": "4:17PM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "artifact_path": "artifacts/2026-05-04-strikerewind-bing-webmaster-verification-packet.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-04-strikerewind-bing-webmaster-verification-packet.md",
+          "relative_path": "artifacts/2026-05-04-strikerewind-bing-webmaster-verification-packet.md",
+          "kind": "text",
+          "preview": "# StrikeRewind \u2014 Bing Webmaster Tools verification: deploy-ready packet\n\n**Date:** 2026-05-04\n**Status:** Pre-baked. Travis-side action required to fire (after GSC verification per `artifacts/2026-05-02-strikerewind-gsc-verification-packet.md`).\n**Why this exists now:** The 2026-05-02 GSC packet covers Google indexing only. Once `TESTING COMPLETE: STRIKEREWIND` clears and the launch motion begins, Bing covers ~6% of US desktop search and also powers DuckDuckGo + Yahoo + ChatGPT search results. Bing Webmaster Tools verification is a one-time 1\u20132 minute owner action that doubles indexing coverage at zero cost. This packet pre-stages it so it can fire in the same Travis sitting as GSC. Mirror of the GSC packet by design \u2014 same shape, same Discord-reply pattern, same autonomous follow-up surface.\n\n---\n\n## Recommendation: Import from Google Search Console (zero-config path)\n\nBing Webmaster Tools supports four verification methods:\n\n1. **Import from GSC** (recommended): one-click import after GSC is verified. No DNS, no file, no meta tag \u2014 Bing reuses the GSC ownership signal and pulls the property + sitemap in the same step.\n2. **XML file**: upload `BingSiteAuth.xml` to site root (requires deploy).\n3. **Meta tag**: `<meta name=\"msvalidate.01\" content=\"<token>\">` in `<head>` (requires deploy and leaves code residue, same downsides as GSC Path B).\n4. **CNAME**: DNS-based but requires a CNAME record (not TXT) \u2014 touches existing `CNAME www \u2192 cname.vercel-dns.com` infra and can collide.\n\n**Pick Import from GSC.** Reason: zero-config given GSC is already verified per the existing packet. Cuts setup from \"5 min DNS + 5 min Bing flow\" to \"5 min DNS + 1 min Bing import.\" No code change, no Vercel redeploy, no second DNS edit, no token rotation risk, no code residue. Travis already has a Microsoft account \u2014 no new identity setup needed.\n\n---\n\n## Pre-requisite\n\nPath A of `artifacts/2026-05-02-strikerewind-gsc-verification-packet.md` (or Path B, either works) must be done first. Bing's Import flow accepts any verified GSC property \u2014 Domain or URL-prefix \u2014 so whichever GSC path Travis chose is fine. If GSC is still pending, do GSC first; same Travis sitting.\n\nIf for any reason Travis prefers to skip GSC entirely and verify Bing standalone, see Path B (meta tag) below.\n\n---\n\n## Path A \u2014 Import from Google Search Console (recommended)\n\n### Travis-side steps (1\u20132 minutes)\n\n1. Open https://www.bing.com/webmasters\n2. Sign in with the Microsoft account Travis wants to own this property under (a personal MS account is fine \u2014 no Bing-specific identity setup required).\n3. On the dashboard, click **Import** in the left-rail \"Add a site\" area, or pick the \"Import your sites from Google Search Console\" option in the welcome flow.\n4. Click **Continue** \u2014 Bing redirects to a Google OAuth consent screen.\n5. Authorize Bing to read the GSC property list (one-time consent; revocable from the Google Account permissions page).\n6. Bing shows the verified GSC properties. Pick `strikerewind.com` (Domain) or `https://strikerewind.com/` (URL-prefix), depending on which GSC path was used.\n7. Bing imports the property and verifies ownership instantly. The sitemap reference Bing finds via the imported GSC property is auto-pulled.\n\n### Travis Discord reply\n\n```\nBING VERIFIED: STRIKEREWIND\n```\n\n### AutoBox autonomous-run follow-up\n\nOn reply, the next autonomous run does exactly this \u2014 no further input needed:\n\n1. **Confirm sitemap registration** \u2014 the GSC import auto-registers any sitemap GSC has on file. AutoBox checks the Bing dashboard via cookie-less surface where possible; if Bing's UI shows the sitemap as `Pending` rather than `Registered`, the Discord reply includes the explicit fallback line \"open https://www.bing.com/webmasters \u2192 Sitemaps \u2192 enter `https://www.strikerewind.com/sitemap.xml` \u2192 Submit.\" (UI-gated, Travis-side, ~30 seconds.)\n2. **No code change** \u2014 Import-from-GSC verification leaves `frontend/index.html` untouched. The `<meta name=\"msvalidate.01\">` tag is not used in this path.\n3. **Note expected timeline** in the Discord reply so Travis isn't watching for instant indexing (see below).\n\n### Expected timeline\n\n- Verification: instant (Bing reuses GSC ownership signal at import time)\n- First Bingbot crawl: 1\u20137 days (Bing crawl prioritizes domains with existing organic traffic; brand-new domains lag GSC by a few days)\n- First indexed page: 1\u201314 days\n- Note: Bing-derived pageviews surface in analytics under multiple sources \u2014 direct Bing, DuckDuckGo, Yahoo, and ChatGPT browse. Attribution rolls up under each source individually, not under \"Bing.\"\n\n---\n\n## Path B \u2014 Meta tag (fallback)\n\nUse only if Travis explicitly skips GSC.\n\n### Travis-side steps\n\n1. Open https://www.bing.com/webmasters\n2. Sign in with a Microsoft account.\n3. Click **Add a site manually** \u2192 enter `https://www.strikerewind.com` (use the www host since that's where the live site serves and where the canonical points per the 2026-05-03 www-alignment commit `1dbebb2`).\n4. Pick the **HTML Meta Tag** verification method.\n5. Bing shows `<meta name=\"msvalidate.01\" content=\"<long-string>\" />`. Copy the full content value.\n\n### Travis Discord reply\n\n```\nBING META TOKEN: <long-string>\n```\n\n(Replace `<long-string>` with the actual content value from the Bing tag.)\n\n### AutoBox autonomous-run follow-up\n\nOn reply, the next autonomous run does:\n\n1. **Insert verification meta tag** in `frontend/index.html` directly under the existing `<meta name=\"theme-color\">` line. Exact diff:\n\n   ```diff\n        <meta name=\"theme-color\" content=\"#0B0F14\" />\n   +    <meta name=\"msvalidate.01\" content=\"<long-string>\" />\n        <title>StrikeRewind \u2014 Credit spread optimizer</title>\n   ```\n\n   If Path B of the GSC packet also fired, the GSC `google-site-verification` tag goes above this line \u2014 both can coexist without conflict.\n\n2. **Build + deploy frontend to Vercel** under the `the-shepherd-stack` account using `VERCEL_TOKEN_TSS`. From `frontend/`: `vercel deploy --prod --token \"$",
+          "site_path": "artifacts/2026-05-04-strikerewind-bing-webmaster-verification-packet.md"
+        }
+      ],
+      "output_excerpt": "Done. State files updated, no spend, no new owner gate.\n\n**What ran:** Ninth autonomous run on 2026-05-04. Both gates entering and exiting unchanged (`TESTING COMPLETE: STRIKEREWIND` + `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); marketing freeze still in effect.\n\n**Choice:** Picked the smallest, lowest-side-effect item from the standing next-runnable queue \u2014 Bing Webmaster Tools verification packet, mirror of the 2026-05-02 GSC packet. The eighth-run cadence note warned against another same-day StrikeRewind packet against the open gates without owner movement; this one is owner-action prep (not a fresh gate-targeting decision packet), no customer-facing surface, no Cove/Luke needed, and pairs with the existing GSC packet so Travis can do Google + Bing in one ~10-minute sitting once `TESTING COMPLETE` clears.\n\n**Artifact:** `artifacts/2026-05-04-strikerewind-bing-webmaster-verification-packet.md`. Path A (recommended): Bing's \"Import from Google Search Console\" \u2014 one click, zero DNS, zero deploy, zero code residue. Path B (fallback): standalone meta-tag verification with exact `frontend/index.html` diff and Vercel redeploy if Travis skips GSC. Both Discord reply shapes specified.\n\n**State files:** `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md` all appended. `OPEN_GATES.md` unchanged (no new gate, no resolved gate). `BUDGET.md` unchanged.\n\n**Cash balance:** `$162.45`.\n\n**Open gates Travis still owns:** `TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-04_201701.txt",
+      "screenshot_path": "",
+      "label": "05-04-26 (Day 15) \u00b7 4:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

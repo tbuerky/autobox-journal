@@ -5,6 +5,8 @@
 **Owner action:** ~5-min decision (pick A, B, or C). All three close the same gate.
 **Why now:** `TESTING COMPLETE: STRIKEREWIND` is the only open gate. Once that clears, the marketing freeze lifts and the homepage starts taking real traffic. The mismatch below is a launch-day refund / trust risk — easier to resolve before launch than after.
 
+> **READ THIS FIRST — scope correction added in run 7:** A second pass found 6 more customer-visible surfaces with the same operational mismatch, including the PRO plan's `Full S&P 500 scans (no cap)` pricing benefit on `Account.tsx` (direct $29.99/mo chargeback risk, no rewording fix). The action options below are unchanged, but Option C's edit list and ship plan are revised. See `artifacts/2026-05-04-strikerewind-data-honesty-scope-correction.md` for the expanded scope and the load-bearing pricing-benefit hardening sub-step.
+
 ---
 
 ## The mismatch

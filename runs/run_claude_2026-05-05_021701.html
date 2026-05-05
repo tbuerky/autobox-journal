@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Morning smoke &middot; AutoBox</title>
+<title>Strikerewind backend hygiene &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,10 +33,10 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-05_021701</span>
   </div>
-  <h2 class="run-title">Morning smoke</h2>
+  <h2 class="run-title">Strikerewind backend hygiene</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">first autonomous run of 2026-05-05. Two open gates entering this run (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` — both gates held, no fresh owner input, marketing freeze still in effect. 8th-run handoff (last 2026-05-04 smoke) explicitly endorsed re-running smoke verification when ≥12h has elapsed and gates have not moved (vs. piling another StrikeRewind packet or PAF audit on top). That window has now closed. Morning verification catches a different class of failure than end-of-day: anything that broke during low-traffic hours (Render free-tier sleep recovery, DNS drift, certs, Vercel build drift). Defends the active PAF Google Search ads ($1.47 CPC, running through 2026-05-18) where a silent regression on the apex calculator would burn paid-traffic dollars before anyone noticed.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">ship a tight artifact at `artifacts/2026-05-05-morning-smoke.md` documenting both runs, capture screenshots + summary JSON for both properties under `artifacts/2026-05-05-morning-smoke/{paf,strikerewind}/`. Identical pass counts and engine numbers vs. yesterday&#x27;s end-of-day smoke — clean overnight, no drift, no regression, no new console errors. Next-run guidance: prefer bounded backend hygiene flagged in the 10th-run handoff (clean `ivService.ts` dead `yahoo-finance2` import; correct `STATE.md` line 25 — no `OptionsDataProvider` interface in code, `PriceDataProvider` was added in commit `095c96b`) — autonomous, concrete, useful regardless of LAUNCH POSTURE outcome.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">second autonomous run of 2026-05-05. Two open gates entering this run (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` — both held, no fresh owner input, marketing freeze still in effect. Morning handoff explicitly prescribed bounded backend hygiene as the next-run move while both gates remain owner-side: clean `ivService.ts` dead `yahoo-finance2` import + correct `STATE.md` line 25 (no `OptionsDataProvider` interface in code; `PriceDataProvider` was added in commit `095c96b`). Autonomous, concrete, useful regardless of `LAUNCH POSTURE` outcome; ships as a single small backend commit with no deploy.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">dropped the dead import (and the blank line after it) from `ivService.ts` — `1 file changed, 2 deletions(-)`. `npm run build` clean (tsc passes, no warnings). 16/16 backend tests pass via `node --test --import=tsx src/services/*.test.ts` (3 priceDataProvider + 9 huntFixtureMode + 4 spreadResultsService — same baseline as the 10th-run count). Behavior identical (no runtime use of the import to begin with). Committed as `a58a853` on `autobox/strikerewind-rename` with explanatory message (&quot;backend: drop unused yahoo-finance2 import from ivService&quot;); branch now 2 commits ahead of origin (`095c96b` + `a58a853`). **Not pushed** — marketing freeze active, Travis is the next actor on `TESTING COMPLETE: STRIKEREWIND`, mid-test push would deploy unrelated changes that read as drift mid-test. Push when the testing gate clears or with the next intentional deploy bundle. Also corrected `the project&#x27;s STATE.md config` line 25: prior wording overstated readiness (&quot;Architecture is ready (warehouse tables, spreadResultsService shim, OptionsDataProvider interface)&quot;); revised to accurately describe what is in code today (`PriceDataProvider` interface + `YahooPriceDataProvider`, commit `095c96b`) and explicit list of what is still aspirational (`OptionsDataProvider` interface for chains, `PolygonPriceDataProvider`, `PolygonOptionsProvider`, scheduler wiring) so future runs do not over-trust the prior description. Shipped artifact at `artifacts/2026-05-05-strikerewind-backend-hygiene.md`.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -46,59 +46,48 @@
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
     <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>2026-05-05 morning production smoke verification</h1>
-<h2>Verdict</h2>
-<p>Clean overnight. Both live properties survived the gap from yesterday&#x27;s end-of-day smoke (2026-05-04) without regressions.</p>
+    <div class="artifact-prose"><h1>StrikeRewind backend hygiene — dead import + STATE.md correction</h1>
+<p>Run: second autonomous run of 2026-05-05 (after the morning smoke).</p>
+<p>Gates entering / exiting: <code>TESTING COMPLETE: STRIKEREWIND</code> + <code>LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY</code> — both held. No fresh owner input. Marketing freeze still in effect.</p>
+<h2>Why this move now</h2>
+<p>Both standing gates are owner-side. The morning smoke (33/33 PAF, 22/22 StrikeRewind) confirmed the live surfaces are clean and there is no signal to chase another packet/audit. The morning handoff explicitly prescribed bounded backend hygiene — clean the dead <code>yahoo-finance2</code> import in <code>ivService.ts</code> and correct <code>STATE.md</code> line 25 — as the next-run move: autonomous, concrete, useful regardless of <code>LAUNCH POSTURE</code> outcome, ships as a small backend commit with no deploy.</p>
+<h2>What changed</h2>
+<h3>1. <code>the scanner backend</code> — dropped unused <code>yahoo-finance2</code> import</h3>
+<p><code>ivService</code> only does pure math on price arrays passed in by the analysis engines (<code>calculateHistoricalVolatility</code>, <code>calculateIVRank</code>, <code>calculateIVPercentile</code>, <code>getIVData</code>). The <code>import yahooFinance from &#x27;yahoo-finance2&#x27;</code> on line 1 was never referenced anywhere in the file — confirmed by reading the whole file before deleting.</p>
+<p>Diff: <code>1 file changed, 2 deletions(-)</code>. Removed the <code>import</code> line and the blank line after it.</p>
+<p>Why it matters: shrinks the surface area of the next data-provider migration. After commit <code>095c96b</code>, <code>analysisEngine.ts</code> and <code>newAnalysisEngine.ts</code> go through the <code>PriceDataProvider</code> interface; this commit removes the last stray direct dependency on <code>yahoo-finance2</code> from the services layer. A future <code>PolygonPriceDataProvider</code> swap-in does not have to think about <code>ivService</code>.</p>
+<p>Verification:</p>
 <ul>
-<li><strong>PAF — <code>https://profitafterfees.com</code></strong>: <strong>33 pass / 0 fail / 0 console errors</strong></li>
-<li><strong>StrikeRewind — <code>https://www.strikerewind.com</code></strong>: <strong>22 pass / 0 fail</strong></li>
+<li><code>npm run build</code> clean (tsc passes, no warnings).</li>
+<li>16/16 backend tests pass via <code>node --test --import=tsx src/services/*.test.ts</code> (3 priceDataProvider + 9 huntFixtureMode + 4 spreadResultsService — same count as the 10th-run baseline).</li>
+<li>Behavior: identical. <code>ivService</code> had no runtime use of the import to begin with.</li>
 </ul>
-<h2>Why this run</h2>
-<p>Two open gates entering this run, both unchanged from end of 2026-05-04:</p>
+<p>Commit: <code>a58a853</code> on branch <code>autobox/strikerewind-rename</code>. <strong>Not pushed</strong> — marketing freeze active, Travis is the next actor on <code>TESTING COMPLETE: STRIKEREWIND</code>, and a mid-flight push during the testing window would deploy unrelated changes that could read as drift mid-test. Ships when the testing gate clears or when the next deploy bundle is intentional.</p>
+<h3>2. <code>the project&#x27;s STATE.md config</code> line 25 — corrected the architecture claim</h3>
+<p>Before: &quot;Architecture is ready (warehouse tables, spreadResultsService shim, <strong>OptionsDataProvider interface</strong>), but PolygonOptionsProvider + scheduler wiring are not yet built — those are next after testing green-lights.&quot;</p>
+<p>After: &quot;Architecture in code: warehouse tables (<code>spread_results</code> + <code>batch_runs</code>), <code>spreadResultsService</code> shim, and <strong><code>PriceDataProvider</code> interface (commit <code>095c96b</code>) with a single <code>YahooPriceDataProvider</code> implementation behind it</strong>. Still aspirational (not in code): <code>OptionsDataProvider</code> interface for chains, <code>PolygonPriceDataProvider</code>, <code>PolygonOptionsProvider</code>, and the nightly scheduler wiring that calls them. Those are next after testing green-lights.&quot;</p>
+<p>Why: the prior wording overstated readiness. <code>grep -rn &quot;OptionsDataProvider\|PriceDataProvider&quot; backend/src</code> confirms only <code>PriceDataProvider</code> exists in the codebase. The corrected line distinguishes what is in code today from what is still ahead, so future runs do not over-trust the prior description.</p>
+<h2>Deliberately NOT done</h2>
 <ul>
-<li><code>TESTING COMPLETE: STRIKEREWIND</code> — Travis-side</li>
-<li><code>LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY</code> — Travis-side</li>
+<li>Did NOT push <code>a58a853</code> or <code>095c96b</code> to origin — marketing freeze, Travis testing window. Push when the testing gate clears or with the next intentional deploy.</li>
+<li>Did NOT scaffold a <code>PolygonPriceDataProvider</code> or <code>OptionsDataProvider</code> interface — Polygon API key is still gated behind <code>SUBSCRIBE: POLYGON STARTER</code>, paper-only scaffolding without real integration grows scope without confidence.</li>
+<li>Did NOT route through Cove/Luke — backend internal, no customer-visible surface.</li>
+<li>Did NOT raise a new gate — both standing gates already cover the launch motion.</li>
+<li>Did NOT touch PAF / AdSense / AI Pricing Index — no signal there.</li>
+<li>Did NOT re-run smoke harnesses — morning run was clean and ≥12h has not elapsed.</li>
+<li>Did NOT ship another StrikeRewind decision packet — testing-gated; the existing data-honesty + scope-correction packets cover <code>LAUNCH POSTURE</code>.</li>
 </ul>
-<p>The 8th run on 2026-05-04 explicitly endorsed re-running the smoke verification when ≥12h has elapsed and gates have not moved (vs. piling another StrikeRewind packet or PAF audit on top). That window has now closed: it is 2026-05-05, no fresh <code>OWNER_MESSAGES.md</code> entries, marketing freeze still in effect, gates still owner-side.</p>
-<p>A morning verification — first run after a full overnight gap — also catches a different class of failure than end-of-day: anything that broke during low-traffic hours (Render free-tier sleep recovery, DNS, certificates, Vercel build drift). It defends the active PAF Google Search ads ($1.47 CPC, running through 2026-05-18) where a silent regression on the apex calculator would burn paid-traffic dollars before anyone noticed.</p>
-<h2>PAF results — 33/33</h2>
-<p>Reproducer: <code>cd workspace &amp;&amp; [REDACTED] node paf_smoke.mjs</code></p>
+<h2>State changes</h2>
 <ul>
-<li>Apex calculator engine: load <code>/</code>, click <code>Recalculate</code> with default inputs, <code>#results</code> produces exact engine-predicted numbers.</li>
-<li>Net profit <code>$40.84</code>, revenue ex-VAT <code>$75.00</code>, Stripe fee <code>$2.91</code>, affiliate fee <code>$22.50</code>.</li>
-<li>Verdict headline live: <code>&quot;You keep $40.84 from this sale.&quot;</code></li>
-<li>All 5 calculator pages HTTP 200 + scenario CTA links to <code>/?listPrice=...</code> with full param-encoded scenarios.</li>
-<li><code>/ai-model-pricing-index/</code> HTTP 200 + <code>Last verified May 4, 2026</code> + 6 model rows by name.</li>
-<li><code>/ai-feature-cost-calculator/</code> HTTP 200.</li>
-<li>Mobile 390×844: no horizontal overflow + form visible.</li>
-<li><code>/privacy/</code> HTTP 200, <code>/ads.txt</code> HTTP 200 + canonical <code>pub-3560388500961643</code> line.</li>
-<li>Zero unexpected console errors.</li>
+<li><code>the scanner backend</code> — 2 lines deleted (commit <code>a58a853</code>).</li>
+<li><code>the project&#x27;s STATE.md config</code> — line 25 rewritten for accuracy.</li>
+<li><code>TODO.md</code> — <code>[DONE]</code> entry at top of immediate-priority list.</li>
+<li><code>RUNLOG.md</code>, <code>HANDOFF.md</code>, <code>SCORECARD.md</code> — appended.</li>
+<li><code>OPEN_GATES.md</code> — unchanged (both gates held).</li>
+<li><code>BUDGET.md</code> — unchanged. Cash balance: $162.45.</li>
 </ul>
-<p>3 full-page screenshots + summary.json: <code>artifacts/2026-05-05-morning-smoke/paf/</code>.</p>
-<h2>StrikeRewind results — 22/22</h2>
-<p>Reproducer: <code>cd workspace &amp;&amp; [REDACTED] node strikerewind_smoke.mjs</code></p>
-<ul>
-<li>Landing renders.</li>
-<li>Analyze AAPL: 2441-char body with EV%, current price, strategy matrix.</li>
-<li>Nav active color <code>rgb(34, 197, 94)</code> on <code>/analysis/AAPL</code>.</li>
-<li><code>/analysis/ZZZZZ</code>: error state with <code>Could not load</code>, ticker name in heading, Back button present, Back navigates to <code>/dashboard</code>.</li>
-<li>Hunt / Watch / Account tabs all non-blank.</li>
-<li>Account renders FREE/STANDARD/PRO plan cards.</li>
-<li>Mobile 390×844: no horizontal overflow.</li>
-</ul>
-<p>8 full-page screenshots + summary.json: <code>artifacts/2026-05-05-morning-smoke/strikerewind/</code>.</p>
-<h2>Delta vs. yesterday&#x27;s end-of-day smoke</h2>
-<p>Identical pass counts. Identical engine numbers on PAF. Identical content on StrikeRewind (Analyze AAPL still 2441 chars; Account still renders all three plan cards). No drift, no regression, no new console errors.</p>
-<h2>Recommendation — operating cadence</h2>
-<p><strong>No new gate raised this run.</strong> Two gates remain:</p>
-<ul>
-<li><code>TESTING COMPLETE: STRIKEREWIND</code> — single highest-leverage block on every StrikeRewind revenue move (marketing freeze lift, X launch post, Polygon greenlight). Travis runs the playbook (<code>artifacts/2026-05-03-strikerewind-testing-playbook.md</code>, ~36 min) against the now-Playwright-verified live site. Reply: <code>TESTING COMPLETE: STRIKEREWIND — all pass</code> or a fix list.</li>
-<li><code>LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY</code> — closes on <code>LAUNCH POSTURE: HOLD FOR POLYGON</code> / <code>LAUNCH POSTURE: EARLY ACCESS</code> / <code>LAUNCH POSTURE: TIGHTEN COPY</code>. Recommended: TIGHTEN COPY. Canonical packet: <code>artifacts/2026-05-04-strikerewind-data-honesty-scope-correction.md</code>.</li>
-</ul>
-<p>Next-run guidance if both gates stay open: prefer bounded backend hygiene flagged in the 10th run&#x27;s handoff (clean <code>ivService.ts</code> dead <code>yahoo-finance2</code> import; correct <code>STATE.md</code> line 25 — there is no <code>OptionsDataProvider</code> interface in code, but <code>PriceDataProvider</code> was added in commit <code>095c96b</code>). Both are autonomous, concrete, useful regardless of LAUNCH POSTURE outcome, and ready to ship as a single small commit. Avoid: another smoke run inside the same 12h window (would be drift), another StrikeRewind packet (testing-gated), another PAF audit (78/78 source + 33/33 live tests already green).</p>
 <h2>Suggested post copy</h2>
-<p>&gt; Morning smoke check — PAF 33/33 (0 console errors) and StrikeRewind 22/22, no regressions overnight. Both gates still owner-side: <code>TESTING COMPLETE: STRIKEREWIND</code> and <code>LAUNCH POSTURE</code>. Ready when you are. Artifact: <code>artifacts/2026-05-05-morning-smoke.md</code>.</p>
-<p>Cash balance: <code>$162.45</code>. No spend, no deploy, no source-tree change.</p></div>
+<p>&gt; Backend hygiene pass on StrikeRewind: dropped a dead <code>yahoo-finance2</code> import from <code>ivService.ts</code> and corrected the architecture line in STATE.md. Build clean, 16/16 tests pass, commit <code>a58a853</code> (not pushed — marketing freeze). Both gates still owner-side: <code>TESTING COMPLETE: STRIKEREWIND</code> and <code>LAUNCH POSTURE</code>. Artifact: <code>artifacts/2026-05-05-strikerewind-backend-hygiene.md</code>.</p></div>
   </section>
 
   <section class="detail-section">

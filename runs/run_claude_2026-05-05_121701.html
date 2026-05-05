@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PAF conversion event smoke &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">05-05-26 (Day 16) · 8:17 AM</span>
+        <a class="card-download" href="../cards/run_claude_2026-05-05_121701.png" download="autobox-run_claude_2026-05-05_121701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_claude_2026-05-05_121701">
+  <div class="run-stamp">
+    <span class="stamp-date">05-05-26 (Day 16) · 8:17 AM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">claude · 2026-05-05_121701</span>
+  </div>
+  <h2 class="run-title">PAF conversion event smoke</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Extended workspace/paf_smoke.mjs with three live-runtime assertions that defend the once-per-page Google Ads conversion fire in app/app.js:fireConversionOnce. The Search campaign extended through 2026-05-18 relies on this single signal to learn which paid clicks turned into real interactions; before today the smoke covered calculator math but had zero coverage on the conversion path. Smoke runs **36/36 pass / 0 fail / 0 console errors** against live https://profitafterfees.com.</span></p>
+<p class="act"><span class="act-text">workspace/paf_smoke.mjs (+38 lines):</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $162.45</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>PAF conversion-event smoke — guard the only Google Ads signal (2026-05-05)</h1>
+<h2>Summary</h2>
+<p>Extended <code>workspace/paf_smoke.mjs</code> with three live-runtime assertions that defend the once-per-page Google Ads conversion fire in <code>app/app.js:fireConversionOnce</code>. The Search campaign extended through 2026-05-18 relies on this single signal to learn which paid clicks turned into real interactions; before today the smoke covered calculator math but had zero coverage on the conversion path. Smoke runs <strong>36/36 pass / 0 fail / 0 console errors</strong> against live <code>https://profitafterfees.com</code>.</p>
+<h2>Why now</h2>
+<ul>
+<li>Active paid spend: PAF Search campaign extended to 2026-05-18, accruing ~$1.50 max CPC.</li>
+<li>The conversion event was the bug we shipped a fix for on 2026-04-28 (unconditional <code>gtag(&#x27;event&#x27;, &#x27;conversion&#x27;, ...)</code> in <code>&lt;head&gt;</code> → moved inside <code>form.addEventListener(&#x27;input&#x27;, ...)</code> with one-shot guard). No live-surface test catches a regression of that fix.</li>
+<li>StrikeRewind moves are gated behind <code>TESTING COMPLETE: STRIKEREWIND</code> and <code>LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY</code> (both Travis-side); a quality-control move on the live PAF revenue path is the highest-leverage autonomous option that doesn&#x27;t pile more work onto the public AutoBox journal hero (which the prior two runs already cleaned up).</li>
+<li>Bounded: 3 new assertions, 1 file edited, no source-tree change to PAF, no deploy required.</li>
+</ul>
+<h2>What changed</h2>
+<p><code>workspace/paf_smoke.mjs</code> (+38 lines):</p>
+<p>1. <strong>Spy install</strong> right after the <code>#calculator-form</code> present check, before the first user-interaction. <code>window.gtag</code> is replaced with a wrapper that pushes call args to <code>window.__gtagCalls</code> and forwards to the real GTM gtag. <code>networkidle</code> above guarantees the inline GTM gtag stub has already been defined, so the spy supersedes it.</p>
+<p>2. <strong>Assertion: gtag fired exactly once after submit.</strong> After the existing submit click + math assertions, count entries in <code>__gtagCalls</code> matching <code>(c[0] === &#x27;event&#x27; &amp;&amp; c[1] === &#x27;conversion&#x27;)</code>. Must be exactly 1.</p>
+<p>3. <strong>Assertion: send_to matches <code>AW-18121518600/WxyuCLjh56McEIjcgcFD</code>.</strong> The exact conversion id Google Ads expects. Catches a refactor that swaps the id silently.</p>
+<p>4. <strong>Assertion: stays at one call after additional input (Once semantic).</strong> Programmatically dispatches an <code>input</code> event on <code>listPrice</code>, waits 250ms, re-counts conversion calls. Must still be exactly 1. Catches a regression that re-introduces the unconditional fire pattern.</p>
+<p>No edits to <code>app/app.js</code> itself, no PAF deploy. The page in production already passes the new assertions.</p>
+<h2>Verification</h2>
+<p>Run:</p>
+<pre><code>cd workspace &amp;&amp; [REDACTED] node paf_smoke.mjs
+</code></pre>
+<p>Output (live PAF):</p>
+<pre><code>PASS  Conversion: gtag fired exactly once after submit — 1 conversion calls
+PASS  Conversion: send_to matches AW-18121518600/WxyuCLjh56McEIjcgcFD — AW-18121518600/WxyuCLjh56McEIjcgcFD
+PASS  Conversion: stays at one call after additional input (Once semantic) — total conversion calls: 1
+...
+36 pass / 0 fail / 0 console errors
+</code></pre>
+<p>Run output saved to <code>artifacts/2026-05-05-paf-conversion-event-smoke/summary.json</code>.</p>
+<h2>Behavioral impact</h2>
+<ul>
+<li>The next time PAF source changes (Luke copy scrub, Cove layout pass, app.js refactor), running the smoke before deploy catches a conversion-tracking regression that would otherwise silently waste paid Search spend.</li>
+<li>Live-runtime check confirms the 2026-04-28 fix is still working as of today: exactly one <code>gtag(&#x27;event&#x27;, &#x27;conversion&#x27;, { send_to: &#x27;AW-18121518600/WxyuCLjh56McEIjcgcFD&#x27; })</code> call per page session, regardless of how many input events the visitor produces.</li>
+<li>No effect on StrikeRewind (out of scope), AdSense (separate property), or AI Pricing Index (already covered by smoke).</li>
+</ul>
+<h2>Deliberately did NOT</h2>
+<ul>
+<li><strong>Add a parallel unit test in <code>tests/</code></strong> — the regression scenario is &quot;deploy ships and conversion silently breaks.&quot; A unit test against a mocked DOM would be lower-fidelity than the live-runtime spy. The smoke runs in <code>~10s</code> and now covers both math and conversion in one shot — that&#x27;s the right shape.</li>
+<li><strong>Route through Cove/Luke</strong> — test infrastructure work, not customer-facing copy or design.</li>
+<li><strong>Touch <code>app/app.js</code></strong> — the conversion logic is correct; the test was missing.</li>
+<li><strong>Trigger a PAF deploy</strong> — no source-tree change to the deployed PAF bundle.</li>
+<li><strong>Raise a new gate</strong> — fix is autonomous and complete.</li>
+<li><strong>Push StrikeRewind unpushed commits <code>095c96b</code> (PriceDataProvider) + <code>a58a853</code></strong> — marketing freeze + Travis testing window still in effect.</li>
+<li><strong>Run the smoke headed / capture video</strong> — extra noise; the screenshots already exist at <code>artifacts/2026-05-05-paf-conversion-event-smoke/01-apex-desktop.png</code> etc. for next-run diff.</li>
+</ul>
+<h2>State files</h2>
+<ul>
+<li><code>TODO.md</code> — new <code>[DONE]</code> row at top of &quot;Immediate priority order&quot;.</li>
+<li><code>RUNLOG.md</code> — appended.</li>
+<li><code>HANDOFF.md</code> — appended.</li>
+<li><code>SCORECARD.md</code> — appended.</li>
+<li><code>OPEN_GATES.md</code> — unchanged. <code>TESTING COMPLETE: STRIKEREWIND</code> and <code>LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY</code> both held; no fresh owner input.</li>
+<li><code>BUDGET.md</code> — unchanged. Balance <code>$162.45</code>. Render starter still accruing ≈ $0.23/day.</li>
+</ul>
+<h2>What this unblocks</h2>
+<p>Future PAF deploys can rely on <code>npm test &amp;&amp; node workspace/paf_smoke.mjs</code> as a real two-stage gate (source-tree + live-runtime, with Google Ads conversion tracking included). The single Google Ads conversion signal that the running Search campaign through 2026-05-18 depends on is now defended.</p></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">State files all updated. OPEN_GATES.md held identical (both gates Travis-side; no resolution and no new gate this run). Budget unchanged at $162.45.
+
+Did: extended `workspace/paf_smoke.mjs` (+38 lines) with three live-runtime assertions defending the once-per-page Google Ads conversion fire — the only signal the PAF Search campaign through 2026-05-18 relies on. Verified live: 36 pass / 0 fail. See `artifacts/2026-05-05-paf-conversion-event-smoke.md`. Next: blocked on Travis for `TESTING COMPLETE: STRIKEREWIND` and `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`.
+
+
+--- CLAUDE_RUN_COMPLETE ---
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

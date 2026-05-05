@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind spread results warehouse migration &middot; AutoBox</title>
+<title>Strikerewind tier copy and limits audit &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,11 +33,11 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-04-30_181701</span>
   </div>
-  <h2 class="run-title">Strikerewind spread results warehouse migration</h2>
+  <h2 class="run-title">Strikerewind tier copy and limits audit</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
-<p class="act"><span class="act-text">**Date:** 2026-04-30 **Branch:** autobox/strikerewind-rename **File:** backend/supabase-migration-spread-results.sql (new, 100 lines) **Owner action:** apply via Supabase Dashboard → SQL Editor on project hjfsapwessfvdcfytpuk. Idempotent — safe to re-run.</span></p>
-<p class="act"><span class="act-text">The 2026-04-28 product definition session locked the data architecture as: nightly batch job pre-computes all credit spread results across the S&amp;P 500 → stores in a Supabase results warehouse → user queries are instant DB lookups instead of on-demand math. Different historical windows (1yr / 2yr / 3yr / 5yr) are filters on the same pre-computed dataset.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">With the deploy gate `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO` open and Stripe entering test-mode-on-first-deploy, surface customer-facing-promise-vs-built-reality mismatches on the conversion-to-paid surface so Travis can lock corrections before the live URL goes up. Same shape as the PAF &quot;no tracking&quot; claim Travis flagged 2026-04-27 — public copy promises X, system does not-X. Cleaner to consolidate into the deploy run than emergency-patch post-go-live.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">Produce one audit packet with three issues + advisory fourth + single approval line. Did NOT autonomously edit `Account.tsx` or `usageServiceDB.ts` — the corrections require Travis policy decisions (tier feature roadmap; whether DEV_MODE should be env-driven vs explicit-env-flag-controlled; whether to keep &quot;top 5&quot; framing on landing page). Single approval line consolidates all three into one Discord turn that consolidates with the deploy gate. Post-approval AutoBox lands all corrections in one bounded run with concrete pre-baked plan.</span></p>
+<p class="act"><span class="act-label">Next</span><span class="act-text">Wait for Travis reply on `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`. Pre-baked plan: (1) `usageServiceDB.ts:18` → `private readonly DEV_MODE = process.env.NODE_ENV !== &#x27;production&#x27;`; (2) `usageServiceDB.ts:25` `FREE.maxHuntsPerDay: 0` → `1`; (3) `Account.tsx:40-50` PRO features → `[&#x27;Everything in Standard&#x27;, &#x27;Watchlist daily digest (unlimited tickers)&#x27;, &#x27;Earnings-aware filters&#x27;, &#x27;Weekly curated spread report&#x27;]`; (4) `Account.tsx:37` STANDARD `notIncluded` → `[&#x27;Daily digest&#x27;, &#x27;Earnings-aware filters&#x27;, &#x27;Weekly curated report&#x27;]`; (5) `LandingPage.tsx:156` drop &quot;top 5&quot; framing → &quot;one daily Hunt across the S&amp;P 500, 2 ticker lookups, 1 year of history. No card required.&quot;; (6) builds + fixture tests; (7) commit + push; (8) update state files. Independently runnable: ascending the deploy gate is still owner-side, so approving this packet alone unblocks one autonomous run that fully closes pre-deploy customer-trust risk. Current cash balance: `$162.45`.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -46,61 +46,77 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <div class="artifact-prose"><h1>StrikeRewind — <code>spread_results</code> warehouse migration packet</h1>
-<p><strong>Date:</strong> 2026-04-30</p>
-<p><strong>Branch:</strong> <code>autobox/strikerewind-rename</code></p>
-<p><strong>File:</strong> <code>backend/supabase-migration-spread-results.sql</code> (new, 100 lines)</p>
-<p><strong>Owner action:</strong> apply via Supabase Dashboard → SQL Editor on project <code>hjfsapwessfvdcfytpuk</code>. Idempotent — safe to re-run.</p>
-<h2>Why this exists</h2>
-<p>The 2026-04-28 product definition session locked the data architecture as: nightly batch job pre-computes all credit spread results across the S&amp;P 500 → stores in a Supabase results warehouse → user queries are instant DB lookups instead of on-demand math. Different historical windows (1yr / 2yr / 3yr / 5yr) are filters on the same pre-computed dataset.</p>
-<p>The initial 6-table schema Travis applied via dashboard is the user-state schema (users, usage_tracking, watchlists, analysis_cache, hunt_cache, subscription_events). It does not include the warehouse table. Repeated handoffs have flagged the <code>spread_results</code> migration as still-needed-from-Travis but the actual SQL has not been written until now.</p>
-<p>Without this table the current code path for Hunt / Ticker Analysis is &quot;compute on-demand → write to a 15-min/30-min TTL cache.&quot; That works for a small dev S&amp;P scan with fixtures, but it does not scale to the full 500-ticker × 8-DTE × 12-OTM × 4-history-window grid the product is sold on, and it forecloses the watchlist daily-digest and weekly curated-report features Pro/Ultra promise.</p>
-<h2>What the migration adds</h2>
-<p>Two tables and one helper function. All are server-written only — RLS enabled with no policies, so anon/authenticated have no access; backend uses the service role key.</p>
-<h3><code>spread_results</code></h3>
-<p>One row per (ticker, spread_type, otm_pct bucket, dte_weeks bucket, analysis_years window, as_of_date). The unique constraint enforces upsert-on-conflict so the nightly job can re-run safely.</p>
-<p>Columns:</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>StrikeRewind — Tier copy + tier limits pre-deploy audit (2026-04-30)</h1>
+<h2>Why this matters now</h2>
+<p>The deploy gate <code>APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO</code> is open. The moment Travis approves it, <code>strikerewind.com</code> goes live with the current <code>LandingPage.tsx</code> / <code>Account.tsx</code> / <code>usageServiceDB.ts</code> exactly as they sit on <code>autobox/strikerewind-rename</code>.</p>
+<p>This audit caught two pre-deploy customer-facing-promise-vs-built-reality mismatches and one buyer-credibility risk on the conversion-to-paid surface. They are the same shape as the PAF &quot;no tracking&quot; claim Travis flagged 2026-04-27 — public copy says X, the system does not-X. Cleaner to lock the corrections in one Discord turn than to ship live and patch.</p>
+<p>Stripe stays in test mode for the first deploy per the deploy-architecture packet, so no real revenue is at stake yet — but the live URL still surfaces the broken promises to the very first buyer who lands on it from any source.</p>
+<p>---</p>
+<h2>Issue 1 — FREE Hunt promise vs FREE Hunt block (functional bug)</h2>
+<p><strong>Customer-facing promise (multiple surfaces):</strong></p>
 <ul>
-<li><strong>Position</strong> — <code>ticker</code>, <code>spread_type</code> (<code>PUT</code> | <code>CALL</code>), <code>otm_percentage</code> (negative = ITM), <code>timeframe_weeks</code> (DTE bucket), <code>analysis_years</code> (<code>1</code> | <code>2</code> | <code>3</code> | <code>5</code>)</li>
-<li><strong>Performance</strong> — <code>win_rate</code>, <code>ev_percent</code>, <code>premium</code>, <code>total_trades</code></li>
-<li><strong>Snapshot context</strong> — <code>current_price</code>, <code>iv_rank</code> (denormalized so the matrix render does not need a second query)</li>
-<li><strong>Provenance</strong> — <code>as_of_date</code>, <code>computed_at</code>, <code>data_source</code> (<code>polygon</code> | <code>yfinance</code> | <code>fixture</code>)</li>
+<li><code>the scanner frontend:38</code> (hero subhead): &quot;...runs a nightly scan over the full S&amp;P 500 and ranks every bull put and bear call by historical win rate and expected value...&quot;</li>
+<li><code>the scanner frontend:156</code> (bottom CTA): &quot;Free tier gets you the top 5 Hunt results per day, 2 ticker lookups per day, and 1 year of history. No card required.&quot;</li>
+<li><code>the scanner frontend:20</code> (FREE tier feature list): <code>&quot;Top 5 Hunt results per day (S&amp;P 500)&quot;</code></li>
+<li><code>the project&#x27;s HANDOFF.md config</code> 2026-04-28 product-defining session (locked spec): &quot;Free: top 5 Hunt results/day (S&amp;P 500 only), 2 ticker lookups/day (1yr history only)&quot;</li>
 </ul>
-<p>Three indexes covering the three primary access patterns:</p>
-<ul>
-<li>Hunt: <code>(as_of_date DESC, analysis_years, spread_type, ev_percent DESC)</code> — top-N by EV for a spread type and history window on the latest day</li>
-<li>Ticker matrix: <code>(ticker, as_of_date DESC, analysis_years)</code> — full grid for one ticker</li>
-<li>Watchlist top-signal: <code>(ticker, as_of_date DESC, ev_percent DESC)</code> — best signal per ticker across a list</li>
-</ul>
-<h3><code>batch_runs</code></h3>
-<p>Nightly job status + diagnostics. One row per run; tracks <code>started_at</code>, <code>completed_at</code>, <code>status</code>, <code>tickers_total</code>, <code>tickers_processed</code>, <code>rows_written</code>, <code>error_message</code>, <code>metadata</code>. Lets the operator see at a glance whether last night&#x27;s run completed, which ticker failed if it failed mid-run, and how long it took.</p>
-<h3><code>prune_spread_results(retention_days)</code></h3>
-<p>Drops rows where <code>as_of_date &lt; CURRENT_DATE - retention_days</code>. Default 30 days. The nightly job calls this after a successful write to keep the table from growing unboundedly. Sizing math: 500 tickers × 2 types × ~12 OTM buckets × ~8 DTE buckets × 4 history windows ≈ 380 K rows per snapshot; at ~250 bytes per row that is ~95 MB per day, ~2.8 GB at 30 days — comfortably within Supabase Pro Compute. Free-tier 500 MB ceiling fits ~5 days, which is why the retention window is configurable.</p>
-<h2>Apply instructions for Travis</h2>
-<p>1. Open Supabase Dashboard → project <code>hjfsapwessfvdcfytpuk</code> → SQL Editor → New query.</p>
-<p>2. Paste the contents of <code>backend/supabase-migration-spread-results.sql</code> (or the SQL block at the bottom of this artifact).</p>
-<p>3. Run.</p>
-<p>4. Reply with <code>MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE</code>.</p>
-<p>Verification query (run in the same editor after apply):</p>
-<pre><code>SELECT table_name FROM information_schema.tables
-WHERE table_schema = &#x27;public&#x27; AND table_name IN (&#x27;spread_results&#x27;, &#x27;batch_runs&#x27;);
--- expect 2 rows.
-
-SELECT indexname FROM pg_indexes
-WHERE schemaname = &#x27;public&#x27; AND tablename = &#x27;spread_results&#x27;;
--- expect spread_results_hunt_idx, spread_results_ticker_idx, spread_results_watchlist_idx (+ the implicit unique-constraint index).
+<p><strong>Backend reality:</strong> <code>the scanner backend:25</code></p>
+<pre><code>FREE: {
+  ...
+  maxHuntsPerDay: 0, // Hunt is premium only
+  ...
+}
 </code></pre>
-<h2>What unblocks after apply</h2>
-<p>Three downstream autonomous-runnable steps that have been blocked on this table existing:</p>
-<p>1. <strong><code>spreadResultsService.ts</code></strong> — write/read shim around the table. Same shape as <code>watchlistServiceDB.ts</code> etc. Methods: <code>upsertResults(rows)</code>, <code>getHuntResults(spreadType, years, limit)</code>, <code>getTickerMatrix(ticker, years)</code>, <code>getTopSignalForTickers(tickers, years)</code>. Adds <code>getFromStorage</code>/<code>setInStorage</code>-style symmetry with the existing <code>SupabaseDatabaseService</code> shape.</p>
-<p>2. <strong>Nightly batch wiring</strong> (<code>schedulerService.ts</code>) — node-cron job that runs the existing <code>analysisEngine.analyzeStock</code> over the S&amp;P 500 list, writes one snapshot per run to <code>spread_results</code>, calls <code>prune_spread_results(30)</code>, logs to <code>batch_runs</code>. Already gated on Polygon approval (<code>APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO</code>) — the wiring is independent of the data source, so the same code path serves Polygon in prod and the existing yfinance/fixtures path in dev.</p>
-<p>3. <strong>Watchlist top-signal-per-ticker render</strong> — <code>Watchlist.tsx</code> currently shows <code>{ticker, addedAt}</code>. With this table populated, a single <code>getTopSignalForTickers(watchlistTickers, 1)</code> query yields the daily-digest payload Pro/Ultra promise.</p>
-<p>None of those three are part of this packet — they are the next-three autonomous runs that become available once the table exists.</p>
-<h2>What this does NOT do</h2>
-<ul>
-<li>Does not subscribe to Polygon. Data source remains yfinance + fixtures until <code>APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO</code> lands.</li>
-<li>Does not change Hunt / Ticker Analysis read paths. Existing <code>analysis_cache</code> and <code>hunt_cache</code> tables continue to serve ad-hoc requests until the services are re</li>
-</ul></div>
+<p><code>the scanner backend:181-188</code> is the enforcement path called from <code>the scanner backend:559</code>:</p>
+<pre><code>if (limits.maxHuntsPerDay === 0) {
+  return {
+    allowed: false,
+    remaining: 0,
+    limit: 0,
+    reason: &#x27;Hunt feature requires STANDARD or PRO subscription&#x27;
+  };
+}
+</code></pre>
+<p>When the hardcoded dev override (<code>usageServiceDB.ts:18 DEV_MODE = true</code>) is removed for production, every signup through the landing page CTA → <code>/dashboard</code> → <code>Run Hunt</code> clicks straight into a hard &quot;STANDARD or PRO subscription required&quot; block on the headline feature the landing page just sold them.</p>
+<p><strong>Recommended fix:</strong> <code>FREE.maxHuntsPerDay: 0</code> → <code>FREE.maxHuntsPerDay: 1</code>. Free tier runs one Hunt per day, the result set is then truncated to the top 5 elsewhere (the result-truncation policy is a separate decision and is not currently wired — flagged as Issue 4 below). One Hunt/day matches the landing page&#x27;s daily framing (&quot;top 5 Hunt results per day&quot;) and the locked spec; it does not give free users unlimited Hunt access.</p>
+<p>---</p>
+<h2>Issue 2 — <code>DEV_MODE = true</code> hardcoded in tier-enforcement service</h2>
+<p><code>the scanner backend:18</code>:</p>
+<pre><code>private readonly DEV_MODE = true; // Force unlimited access
+</code></pre>
+<p>Used at <code>usageServiceDB.ts:171-173</code> (and equivalents for analysis/scan limits) to bypass tier enforcement entirely. There is no env-driven escape — the flag is hardcoded.</p>
+<p>If the production deploy ships with this flag still <code>true</code>, every tier limit is silently disabled. FREE users get unlimited everything. Free → paid conversion never has a paywall to convert against. Anyone who finds the live URL is on the implicit &quot;Pro for free, indefinitely&quot; plan. This bricks the entire freemium business model the moment the production URL is shared anywhere.</p>
+<p>If the deploy ships with this flag manually flipped to <code>false</code>, Issue 1 fires immediately for every free signup.</p>
+<p><strong>Recommended fix:</strong> make it env-driven, default-safe-for-prod:</p>
+<pre><code>private readonly DEV_MODE = process.env.NODE_ENV !== &#x27;production&#x27;;
+</code></pre>
+<p>This way <code>vercel deploy --prod</code> / Render production runtime gives <code>NODE_ENV=production</code> automatically, which sets <code>DEV_MODE = false</code> automatically, which then enforces the Issue-1-corrected <code>FREE.maxHuntsPerDay: 1</code>. Local dev stays unchanged (no <code>NODE_ENV</code> set → defaults to dev → DEV_MODE on). Same default-safe pattern Travis approved for the PAF conversion-fire dedupe (<code>conversionFired</code> boolean default to <code>false</code>, no env override needed for the conservative path).</p>
+<p>---</p>
+<h2>Issue 3 — <code>Account.tsx</code> Pro tier features advertise capabilities not built</h2>
+<p><code>the scanner frontend:40-50</code>:</p>
+<pre><code>{
+  name: &#x27;PRO&#x27;,
+  price: 29.99,
+  features: [
+    &#x27;Everything in Standard&#x27;,
+    &#x27;Real-time options data&#x27;,
+    &#x27;Price + IV alerts&#x27;,
+    &#x27;CSV exports&#x27;,
+    &#x27;API access&#x27;,
+  ],
+  notIncluded: [],
+},
+</code></pre>
+<p>Capability check (greps + file reads on <code>backend/src</code> and <code>frontend/src</code>):</p>
+<p>| Pro feature claim | Built? | Evidence |</p>
+<p>|---|---|---|</p>
+<p>| Real-time options data | NO | Architecture is EOD nightly batch (locked HANDOFF 2026-04-28: &quot;Polygon API called once/night in batch job, never at user request time&quot;). Travis 2026-04-28: &quot;EOD is sufficient — no real-time needed.&quot; No real-time pipeline exists. Direct contradiction of locked architecture. |</p>
+<p>| Price + IV alerts | NO | Project-wide grep for <code>alertService\|sendAlert\|priceAlert\|notify</code> returns 0 backend matches (only <code>Privacy.tsx</code> mentions the word). No alerting code path. The landing page Watchlist copy correctly says &quot;daily heads-up when...&quot; (digest-style, Luke verified 2026-04-29) — but Account.tsx still claims &quot;alerts&quot; as a Pro feature. |</p>
+<p>| CSV exports | NO | Project-wide grep for <code>csv\|exportToCsv\|toCsv\|writeCSV</code> returns 0 implementation matches. |</p>
+<p>| API access | NO | Project-wide grep for <code>apiKey\|api_key\|x-api-key</code> returns one match in <code>stripeServiceDB.ts</code> (Stripe SDK auth, not customer-facing API). No public API surface. |</p>
+<p><code>Account.tsx:37</code> STANDARD <code>notIncluded</code> list also lists three of these — meaning STANDARD&#x27;s &quot;you&#x27;re missing this&quot; pitch points users at features that don&#x27;t actually exist on PRO either.</p>
+<p>**Recommended pre-deploy correction (PRO fe</p></div>
   </section>
 
   <section class="detail-section">

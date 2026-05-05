@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind pre deploy metadata and og card &middot; AutoBox</title>
+<title>Strikesight framer motion strip and layout cove &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,11 +33,11 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-04-30_121701</span>
   </div>
-  <h2 class="run-title">Strikerewind pre deploy metadata and og card</h2>
+  <h2 class="run-title">Strikesight framer motion strip and layout cove</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
-<p class="act"><span class="act-text">**Date:** 2026-04-30 **Branch:** autobox/strikerewind-rename **Commit:** 59c297a **Cash balance:** $162.45 (no spend)</span></p>
-<p class="act"><span class="act-text">Deploy gate APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO is open and waiting on Travis. Until that approval lands, the production deploy itself can&#x27;t run. The highest-leverage no-approval move is pre-deploy hygiene that&#x27;s correct under any architecture choice and that the deploy run itself would otherwise have to bundle.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">Strip `framer-motion` from the last two consumers (`Layout.tsx`, `SuccessRateIndicator.tsx`) and drop the package from `frontend/package.json` so the production JS bundle that StrikeRewind.com will serve does not carry an animation library used by zero remaining surfaces.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">Rewrite `Layout.tsx` end-to-end (replace `motion.div` indicator with a static accent strip on the active item; tokenize every legacy class to Cove; add `aria-label` + `aria-current=&quot;page&quot;`); delete `SuccessRateIndicator.tsx`; remove `framer-motion` from `package.json` and lockfile via `npm uninstall framer-motion` (removed 4 packages, motion + 3 transitive deps).</span></p>
+<p class="act"><span class="act-label">Next</span><span class="act-text">Step #6 from build queue (full delta × DTE matrix on `/analysis/:ticker`, requires backend `allStrategies` payload), or production deploy to StrikeRewind.com on Vercel (domain purchased; build is clean; Stripe stays in test mode until tier-model approved), or wait for tier-model approval and ship the env+Account.tsx+pricing-block bundle. Current cash balance: $162.45.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -47,58 +47,52 @@
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
     <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeRewind — pre-deploy landing metadata + Open Graph card</h1>
-<p><strong>Date:</strong> 2026-04-30</p>
-<p><strong>Branch:</strong> <code>autobox/strikerewind-rename</code></p>
-<p><strong>Commit:</strong> <code>59c297a</code></p>
-<p><strong>Cash balance:</strong> $162.45 (no spend)</p>
-<h2>Why this run</h2>
-<p>Deploy gate <code>APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO</code> is open and waiting on Travis. Until that approval lands, the production deploy itself can&#x27;t run. The highest-leverage no-approval move is pre-deploy hygiene that&#x27;s correct under any architecture choice and that the deploy run itself would otherwise have to bundle.</p>
-<p>The current <code>frontend/index.html</code> ships only a <code>&lt;title&gt;</code> and a viewport tag. On a public credit-spread tool, that means:</p>
-<ul>
-<li>Search snippets render with no description</li>
-<li>Discord, Slack, X, iMessage previews render with no image and no description</li>
-<li>The first time a paying-prospect sees a StrikeRewind URL in a thread, it shows up as a bare text link</li>
-</ul>
-<p>This is a real first-impression hit. Fixing it before deploy is cheaper than fixing it after the first share goes flat.</p>
+    <div class="artifact-prose"><h1>StrikeSight — framer-motion strip, Layout.tsx Cove pass, dead-code delete</h1>
 <h2>What shipped</h2>
-<p><code>frontend/index.html</code> (<code>+18 / -1</code>):</p>
 <ul>
-<li><code>&lt;meta name=&quot;description&quot;&gt;</code> (155 chars) matching Luke&#x27;s hero voice — <code>Find ticker-specific credit spreads that have historically beaten the 30-delta rule. Nightly scan of the S&amp;P 500, ranked by win rate and expected value.</code></li>
-<li><code>&lt;link rel=&quot;canonical&quot; href=&quot;https://strikerewind.com/&quot;&gt;</code> — sets the canonical for the public landing</li>
-<li>Open Graph block — <code>og:type</code>, <code>og:site_name</code>, <code>og:url</code>, <code>og:title</code>, <code>og:description</code>, <code>og:image</code> (with explicit <code>1200x630</code> dimensions), <code>og:image:alt</code></li>
-<li>Twitter Card block — <code>twitter:card=summary_large_image</code>, <code>twitter:title</code>, <code>twitter:description</code>, <code>twitter:image</code>, <code>twitter:image:alt</code></li>
-<li><code>theme-color</code> corrected from <code>#000000</code> to Cove <code>#0B0F14</code> for mobile chrome consistency</li>
+<li>Removed <code>framer-motion</code> from <code>frontend/package.json</code> and lockfile (the last two consumers were either rewritten or deleted in this run).</li>
+<li>Rewrote <code>the scanner frontend</code> end-to-end. Replaced <code>motion.div</code> nav indicator (<code>layoutId=&quot;navIndicator&quot;</code> spring transition) with a static 0.5px accent strip on the active item; tokenized every legacy class to Cove (<code>bg-dark-bg</code>/<code>bg-dark-card</code> → <code>bg-bg-base</code>/<code>bg-bg-panel</code>, <code>border-gray-800</code> → <code>border-border-subtle</code>, <code>text-emerald</code> → <code>text-accent</code>, <code>text-gray-400</code> → <code>text-fg-muted</code>, <code>bg-emerald/10</code> → <code>bg-accent</code>, PRO badge <code>bg-yellow-400/20 text-yellow-400</code> → <code>bg-warn/15 text-warn border-warn/30</code>); added <code>aria-label</code> + <code>aria-current=&quot;page&quot;</code> on every nav link and <code>aria-label</code> on the logo home link.</li>
+<li>Deleted <code>the scanner frontend</code> — 68 lines of dead code, no imports anywhere in the project.</li>
 </ul>
-<p><code>frontend/public/og-card.png</code> (new, 22.8 kB, 1200x630):</p>
-<ul>
-<li>Background <code>#0B0F14</code> (Cove <code>bg-base</code>)</li>
-<li>Leftward accent triangle <code>#22C55E</code> at left, vertically centered</li>
-<li>Wordmark <code>StrikeRewind</code> in <code>#E6EAF0</code>, JetBrains Mono Bold 110pt — fetched the actual TTF from the JetBrains GitHub repo into <code>/tmp</code> and rendered with PIL so the OG card matches the in-app wordmark exactly</li>
-<li>Tagline <code>Credit spreads, optimized per ticker.</code> in <code>#A4ADBA</code>, JetBrains Mono Regular 32pt, matching the Logo component&#x27;s <code>showTagline</code> copy</li>
-</ul>
-<p>Generated with <code>python3 /tmp/generate_og.py</code> (PIL <code>Image.new</code> + <code>ImageDraw.polygon</code> + <code>ImageDraw.text</code> with the downloaded JetBrains Mono Bold/Regular TTFs). Multimodal Read on the produced PNG verifies: leftward green triangle reads as the brand mark; &quot;StrikeRewind&quot; wordmark renders with JetBrains Mono Bold&#x27;s distinctive K and R terminals; tagline sits below the wordmark in muted secondary; composition balances at 1200x630.</p>
-<h2>What deliberately did NOT change</h2>
-<ul>
-<li><code>vercel.json</code> — broken serverless config (declares Express backend as Node-18 serverless with <code>app.listen</code> + <code>node-cron</code> inside) is left alone. Fixing it correctly depends on architecture choice (Option A frontend-only static vs Option B/D no-Vercel-at-all). The deploy run handles this when approval comes in.</li>
-<li><code>the frontend env file</code> — file is <code>.gitignore</code>&#x27;d (line 24), so local edits don&#x27;t propagate to deploy. Vercel env vars (<code>VITE_APP_NAME</code>, <code>VITE_API_URL</code>, <code>VITE_STRIPE_PUBLISHABLE_KEY</code>) are set at deploy time, not from a tracked file. Local edit made for dev-build parity only.</li>
-<li><code>theme-color</code> already updated above; no other index.html scaffolding touched.</li>
-<li>No backend changes, no source-tree refactors, no bundle-size impact (HTML +1.43 kB, OG asset is a static public file not in the JS bundle).</li>
-</ul>
+<h2>Why this run</h2>
+<p>HANDOFF/TODO both flagged Layout + SuccessRateIndicator as the last <code>framer-motion</code> consumers. Stripping them unlocks dropping the package itself, which:</p>
+<p>1. Cuts the production JS bundle (the public landing page is the same React app — every visitor downloads this).</p>
+<p>2. Closes the Cove migration: every authenticated screen + the public landing page now reads from one consistent token set, no legacy emerald/dark-card/gray references in any user-facing code.</p>
+<p>3. Removes the only remaining bundle-size regression that would land on a public StrikeRewind.com deploy.</p>
 <h2>Verification</h2>
 <ul>
-<li><code>cd frontend &amp;&amp; npm run build</code> passes (1920 modules transformed; <code>dist/index.html 2.29 kB / gzip 0.75 kB</code>; <code>dist/assets/index-eeRexftA.css 23.33 kB</code>; <code>dist/assets/index-D6t4qFBG.js 345.52 kB</code> — JS + CSS unchanged from prior build, only HTML and the new public asset shifted).</li>
-<li><code>dist/og-card.png</code> present at <code>22 815</code> bytes; copied through Vite&#x27;s public-asset pipeline correctly.</li>
-<li><code>grep -c &quot;og-card.png\|StrikeRewind\|og:image\|twitter:card\|description&quot; dist/index.html</code> returns <code>14</code> — every metadata tag survives the build pipeline.</li>
-<li><code>cd backend &amp;&amp; npm run build</code> (tsc) passes; backend untouched.</li>
-<li><code>SUPABASE_URL=http://localhost:0 SUPABASE_SECRET_KEY=dev HUNT_USE_FIXTURES=1 npx tsx --test src/services/huntFixtureMode.test.ts</code> passes 3/3.</li>
-<li>Multimodal Read of <code>frontend/public/og-card.png</code> confirms wordmark reads &quot;StrikeRewind&quot; (not &quot;StrikeSight&quot;), triangle is leftward green, no text rendering glitches.</li>
+<li><code>frontend npm run build</code> passes. <strong>Bundle: <code>dist/assets/index-NF6aLeFL.js 339.67 kB │ gzip: 103.17 kB</code> and <code>dist/assets/index-DpaCTw0S.css 22.94 kB │ gzip: 5.11 kB</code>. Down from <code>452.35 kB</code> JS / <code>24.11 kB</code> CSS in the prior run — <code>-112.68 kB</code> (~47 kB gzipped wire savings).</strong></li>
+<li><code>backend npm run build</code> (tsc) passes.</li>
+<li><code>huntFixtureMode.test.js</code> passes 3/3.</li>
+<li><code>npm uninstall framer-motion</code> removed 4 packages cleanly (4 transitive deps).</li>
+<li><code>grep -E &#x27;framer-motion|from [&quot;&#x27;\&#x27;&#x27;]framer&#x27;</code> across <code>frontend/src</code> returns 0 matches.</li>
+<li><code>grep -E &#x27;bg-dark-|emerald|gray-[0-9]+|text-white|yellow-&#x27;</code> against <code>Layout.tsx</code> returns 0 matches.</li>
 </ul>
-<p>Public-copy hygiene per <code>RULES.md</code> rule 14/15: every customer-visible string in the new metadata uses Luke&#x27;s voice — no internal labels, no SEO scaffolding, no AI-smell, no machine fingerprints, no process language.</p>
-<h2>What this unblocks</h2>
-<p>When Travis replies <code>APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO</code>, the deploy run no longer has to bundle metadata polish. It&#x27;s: fix <code>vercel.json</code>, set Vercel env vars (including <code>VITE_APP_NAME=StrikeRewind</code> and <code>VITE_API_URL=https://api.strikerewind.com</code>), <code>vercel deploy --prod</code>, configure DNS, smoke-test. The first social share of the live URL renders correctly out of the box.</p>
-<h2>Cost / approval</h2>
-<p>No spend. No approval gate raised. Cash balance stays at <code>$162.45</code>.</p></div>
+<h2>What did not change</h2>
+<ul>
+<li>Bottom-nav route list (<code>/dashboard</code>, <code>/hunt</code>, <code>/watchlist</code>, <code>/account</code>) preserved exactly.</li>
+<li>Tier badge logic preserved exactly (PRO/STANDARD/free fallback).</li>
+<li><code>Logo</code> component import preserved.</li>
+<li>No backend changes.</li>
+<li>No content/copy changes that affect the user-facing buyer story.</li>
+</ul>
+<h2>Public-copy hygiene</h2>
+<p>Layout is shared chrome for authenticated routes, not customer-facing in the SEO sense, but applies the same Cove tokens that the public landing page uses. No internal labels or process language anywhere. PRO/STANDARD/free badge labels come from <code>useUser()</code> context, not changed here.</p>
+<h2>Commit</h2>
+<p><code>21a9963</code> on <code>autobox/strikesight-scanner-mvp</code> — pushed to GitHub.</p>
+<h2>Owner-side gates open and unchanged</h2>
+<ul>
+<li><code>TIER MODEL: FREE/PRO/ULTRA APPROVED</code> — Travis Discord reply needed; deploy-blocking for Stripe production wiring.</li>
+<li><code>ROTATED: STRIKESIGHT KEYS READY</code> — rotate leaked Xata API key in Xata dashboard.</li>
+<li><code>APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO</code> — gated on entering pre-launch testing.</li>
+<li>Supabase <code>spread_results</code> warehouse SQL — apply via Supabase dashboard.</li>
+</ul>
+<h2>Next autonomous-runnable steps</h2>
+<p>1. Step #6 from build queue — full delta × DTE matrix on <code>/analysis/:ticker</code>. Requires backend <code>allStrategies</code> payload (engine truncates to <code>topStrategies.slice(0, 5)</code> at <code>newAnalysisEngine.ts:462</code>). Frontend renders a sortable heat-map cell grid keyed by delta band × DTE bucket.</p>
+<p>2. On <code>TIER MODEL: FREE/PRO/ULTRA APPROVED</code> reply — repoint env vars (<code>STRIPE_STANDARD_PRICE_ID</code> → <code>STRIPE_PRO_PRICE_ID</code>, <code>STRIPE_PRO_PRICE_ID</code> → <code>STRIPE_ULTRA_PRICE_ID</code>), update <code>Account.tsx</code> tier cards to match HANDOFF spec, add 3-card pricing block to <code>LandingPage.tsx</code>.</p>
+<p>3. Production deploy to StrikeRewind.com on Vercel (domain already purchased; build is clean; Stripe stays in test mode until tier-model approved).</p>
+<h2>Cash balance</h2>
+<p><code>$162.45</code>. No spend this run.</p></div>
   </section>
 
   <section class="detail-section">

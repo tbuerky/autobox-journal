@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind tier copy and limits audit &middot; AutoBox</title>
+<title>Strikerewind strategy matrix shipped &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,11 +33,11 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-04-30_141701</span>
   </div>
-  <h2 class="run-title">Strikerewind tier copy and limits audit</h2>
+  <h2 class="run-title">Strikerewind strategy matrix shipped</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
-<p class="act"><span class="act-text">The deploy gate APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO is open. The moment Travis approves it, strikerewind.com goes live with the current LandingPage.tsx / Account.tsx / usageServiceDB.ts exactly as they sit on autobox/strikerewind-rename.</span></p>
-<p class="act"><span class="act-text">This audit caught two pre-deploy customer-facing-promise-vs-built-reality mismatches and one buyer-credibility risk on the conversion-to-paid surface. They are the same shape as the PAF &quot;no tracking&quot; claim Travis flagged 2026-04-27 — public copy says X, the system does not-X. Cleaner to lock the corrections in one Discord turn than to ship live and patch.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">Ship build-queue step #6 — render the full historical credit-spread heat map (every type × OTM% × DTE-weeks combination) on the Ticker Analysis page so a new user lands on the surface that proves the product&#x27;s pitch (&quot;find ticker-specific delta/DTE patterns&quot;) instead of a top-5 list that hides the ticker&#x27;s actual profile.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">Refactor `analyzeSpreadResults` in the new analysis engine to drop the `expectedValue &gt; 0` and `avgPremium * 100 &gt;= $5` filters (keep the `totalTrades &gt;= 30` sample-size threshold) and re-apply both filters at the `analyzeStock` consumer for the legacy `topStrategies` path — zero behavior change for existing consumers in `index.ts:606+` and `schedulerService.ts:79`. Emit the unfiltered set as `allStrategies: StrategyMatrixCell[]` on the response. Build a new `StrategyMatrix` component with PUT/CALL tabs, OTM rows × DTE columns, EV-colored cells using Cove tokens, hover details, dashes for insufficient-data cells. Render between the top-strategy hero and the top-5 table on `Analysis.tsx` when `allStrategies` is non-empty. Verified with a standalone Playwright preview against a mocked dataset before pushing — green clusters at expected OTM/DTE pockets read at a glance and tab switching works.</span></p>
+<p class="act"><span class="act-label">Next</span><span class="act-text">Production deploy to StrikeRewind.com on Vercel — branch is build-clean (Cove tokens shipped, framer-motion gone, brand correct, activation feature live), domain purchased ($11.25 spent 2026-04-28), Stripe stays in test mode for the deploy, data uses fixtures until Polygon approved. Or follow-up Cove pass on the live matrix once deployed. Current cash balance: $162.45.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -47,76 +47,50 @@
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
     <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeRewind — Tier copy + tier limits pre-deploy audit (2026-04-30)</h1>
-<h2>Why this matters now</h2>
-<p>The deploy gate <code>APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO</code> is open. The moment Travis approves it, <code>strikerewind.com</code> goes live with the current <code>LandingPage.tsx</code> / <code>Account.tsx</code> / <code>usageServiceDB.ts</code> exactly as they sit on <code>autobox/strikerewind-rename</code>.</p>
-<p>This audit caught two pre-deploy customer-facing-promise-vs-built-reality mismatches and one buyer-credibility risk on the conversion-to-paid surface. They are the same shape as the PAF &quot;no tracking&quot; claim Travis flagged 2026-04-27 — public copy says X, the system does not-X. Cleaner to lock the corrections in one Discord turn than to ship live and patch.</p>
-<p>Stripe stays in test mode for the first deploy per the deploy-architecture packet, so no real revenue is at stake yet — but the live URL still surfaces the broken promises to the very first buyer who lands on it from any source.</p>
-<p>---</p>
-<h2>Issue 1 — FREE Hunt promise vs FREE Hunt block (functional bug)</h2>
-<p><strong>Customer-facing promise (multiple surfaces):</strong></p>
+    <div class="artifact-prose"><h1>StrikeRewind — full strategy matrix on <code>/analysis/:ticker</code></h1>
+<p><strong>Date:</strong> 2026-04-30</p>
+<p><strong>Commit:</strong> <code>34e8002</code> on <code>autobox/strikerewind-rename</code> (tbuerky/StrikeSight)</p>
+<p><strong>Build queue step:</strong> #6 from 2026-04-28 product-defining HANDOFF</p>
+<h2>What shipped</h2>
+<p>The Ticker Analysis page (<code>/analysis/:ticker</code>) now renders a full historical credit-spread heat map: every (strikeType × OTM% × DTE-weeks) combination scored by expected value per trade, including the negative-EV cells the previous code dropped. This is the activation feature the HANDOFF spec called out — &quot;first thing a new user does after signup&quot; — and the proof point for the product&#x27;s whole pitch (&quot;find ticker-specific delta/DTE patterns that defy generic rules&quot;). Until now the page only showed the filtered top 5, which left that pitch unproven on the surface meant to prove it.</p>
+<h2>Backend changes</h2>
 <ul>
-<li><code>the scanner frontend:38</code> (hero subhead): &quot;...runs a nightly scan over the full S&amp;P 500 and ranks every bull put and bear call by historical win rate and expected value...&quot;</li>
-<li><code>the scanner frontend:156</code> (bottom CTA): &quot;Free tier gets you the top 5 Hunt results per day, 2 ticker lookups per day, and 1 year of history. No card required.&quot;</li>
-<li><code>the scanner frontend:20</code> (FREE tier feature list): <code>&quot;Top 5 Hunt results per day (S&amp;P 500)&quot;</code></li>
-<li><code>the project&#x27;s HANDOFF.md config</code> 2026-04-28 product-defining session (locked spec): &quot;Free: top 5 Hunt results/day (S&amp;P 500 only), 2 ticker lookups/day (1yr history only)&quot;</li>
+<li><code>the scanner backend</code>: new <code>StrategyMatrixCell</code> interface + <code>allStrategies: StrategyMatrixCell[]</code> on <code>AnalysisResult</code>.</li>
+<li><code>the scanner backend</code>:</li>
+<li><code>analyzeSpreadResults</code>: dropped the <code>expectedValue &gt; 0</code> and <code>avgPremium * 100 &gt;= $5</code> filters. Now keeps every cell with <code>totalTrades &gt;= 30</code> (sample-size credibility threshold preserved). Sort changed from <code>evScore</code> to <code>expectedValue</code> so negative-EV cells order correctly (the old <code>evScore</code> capped negatives at 0 and tied them).</li>
+<li><code>analyzeStock</code>: builds <code>viableSpreadAnalyses</code> (the legacy filtered set) by re-applying the EV&gt;0 and premium&gt;=$5 filters at the consumer, so <code>topStrategies</code>, <code>findOptimalStrategy</code>, and <code>viableStrategies</code> count behave exactly as before. Then emits <code>allStrategies</code> from the unfiltered <code>allSpreadAnalyses</code> for the matrix.</li>
+<li><code>the scanner backend</code> (legacy): returns <code>allStrategies: []</code> to satisfy the type.</li>
 </ul>
-<p><strong>Backend reality:</strong> <code>the scanner backend:25</code></p>
-<pre><code>FREE: {
-  ...
-  maxHuntsPerDay: 0, // Hunt is premium only
-  ...
-}
-</code></pre>
-<p><code>the scanner backend:181-188</code> is the enforcement path called from <code>the scanner backend:559</code>:</p>
-<pre><code>if (limits.maxHuntsPerDay === 0) {
-  return {
-    allowed: false,
-    remaining: 0,
-    limit: 0,
-    reason: &#x27;Hunt feature requires STANDARD or PRO subscription&#x27;
-  };
-}
-</code></pre>
-<p>When the hardcoded dev override (<code>usageServiceDB.ts:18 DEV_MODE = true</code>) is removed for production, every signup through the landing page CTA → <code>/dashboard</code> → <code>Run Hunt</code> clicks straight into a hard &quot;STANDARD or PRO subscription required&quot; block on the headline feature the landing page just sold them.</p>
-<p><strong>Recommended fix:</strong> <code>FREE.maxHuntsPerDay: 0</code> → <code>FREE.maxHuntsPerDay: 1</code>. Free tier runs one Hunt per day, the result set is then truncated to the top 5 elsewhere (the result-truncation policy is a separate decision and is not currently wired — flagged as Issue 4 below). One Hunt/day matches the landing page&#x27;s daily framing (&quot;top 5 Hunt results per day&quot;) and the locked spec; it does not give free users unlimited Hunt access.</p>
-<p>---</p>
-<h2>Issue 2 — <code>DEV_MODE = true</code> hardcoded in tier-enforcement service</h2>
-<p><code>the scanner backend:18</code>:</p>
-<pre><code>private readonly DEV_MODE = true; // Force unlimited access
-</code></pre>
-<p>Used at <code>usageServiceDB.ts:171-173</code> (and equivalents for analysis/scan limits) to bypass tier enforcement entirely. There is no env-driven escape — the flag is hardcoded.</p>
-<p>If the production deploy ships with this flag still <code>true</code>, every tier limit is silently disabled. FREE users get unlimited everything. Free → paid conversion never has a paywall to convert against. Anyone who finds the live URL is on the implicit &quot;Pro for free, indefinitely&quot; plan. This bricks the entire freemium business model the moment the production URL is shared anywhere.</p>
-<p>If the deploy ships with this flag manually flipped to <code>false</code>, Issue 1 fires immediately for every free signup.</p>
-<p><strong>Recommended fix:</strong> make it env-driven, default-safe-for-prod:</p>
-<pre><code>private readonly DEV_MODE = process.env.NODE_ENV !== &#x27;production&#x27;;
-</code></pre>
-<p>This way <code>vercel deploy --prod</code> / Render production runtime gives <code>NODE_ENV=production</code> automatically, which sets <code>DEV_MODE = false</code> automatically, which then enforces the Issue-1-corrected <code>FREE.maxHuntsPerDay: 1</code>. Local dev stays unchanged (no <code>NODE_ENV</code> set → defaults to dev → DEV_MODE on). Same default-safe pattern Travis approved for the PAF conversion-fire dedupe (<code>conversionFired</code> boolean default to <code>false</code>, no env override needed for the conservative path).</p>
-<p>---</p>
-<h2>Issue 3 — <code>Account.tsx</code> Pro tier features advertise capabilities not built</h2>
-<p><code>the scanner frontend:40-50</code>:</p>
-<pre><code>{
-  name: &#x27;PRO&#x27;,
-  price: 29.99,
-  features: [
-    &#x27;Everything in Standard&#x27;,
-    &#x27;Real-time options data&#x27;,
-    &#x27;Price + IV alerts&#x27;,
-    &#x27;CSV exports&#x27;,
-    &#x27;API access&#x27;,
-  ],
-  notIncluded: [],
-},
-</code></pre>
-<p>Capability check (greps + file reads on <code>backend/src</code> and <code>frontend/src</code>):</p>
-<p>| Pro feature claim | Built? | Evidence |</p>
-<p>|---|---|---|</p>
-<p>| Real-time options data | NO | Architecture is EOD nightly batch (locked HANDOFF 2026-04-28: &quot;Polygon API called once/night in batch job, never at user request time&quot;). Travis 2026-04-28: &quot;EOD is sufficient — no real-time needed.&quot; No real-time pipeline exists. Direct contradiction of locked architecture. |</p>
-<p>| Price + IV alerts | NO | Project-wide grep for <code>alertService\|sendAlert\|priceAlert\|notify</code> returns 0 backend matches (only <code>Privacy.tsx</code> mentions the word). No alerting code path. The landing page Watchlist copy correctly says &quot;daily heads-up when...&quot; (digest-style, Luke verified 2026-04-29) — but Account.tsx still claims &quot;alerts&quot; as a Pro feature. |</p>
-<p>| CSV exports | NO | Project-wide grep for <code>csv\|exportToCsv\|toCsv\|writeCSV</code> returns 0 implementation matches. |</p>
-<p>| API access | NO | Project-wide grep for <code>apiKey\|api_key\|x-api-key</code> returns one match in <code>stripeServiceDB.ts</code> (Stripe SDK auth, not customer-facing API). No public API surface. |</p>
-<p><code>Account.tsx:37</code> STANDARD <code>notIncluded</code> list also lists three of these — meaning STANDARD&#x27;s &quot;you&#x27;re missing this&quot; pitch points users at features that don&#x27;t actually exist on PRO either.</p>
-<p>**Recommended pre-deploy correction (PRO fe</p></div>
+<h2>Frontend changes</h2>
+<ul>
+<li><code>the scanner frontend</code>: mirror <code>StrategyMatrixCell</code> + <code>allStrategies?</code> on <code>AnalysisResult</code>.</li>
+<li><code>the scanner frontend</code> (new, 192 lines): PUT/CALL tabs, OTM% rows × DTE-weeks columns, cells colored by EV per trade (≥5% accent green, &gt;0 accent-soft, ~0 elevated, &lt;-5 neg-tinted), hover/title shows win rate + premium + sample, dashes for insufficient-data cells. Cove tokens throughout.</li>
+<li><code>the scanner frontend</code>: import and render <code>&lt;StrategyMatrix&gt;</code> between the top-strategy hero and the top-5 table when <code>allStrategies</code> is non-empty.</li>
+</ul>
+<h2>Verification</h2>
+<ul>
+<li><code>cd backend &amp;&amp; npm run build</code> → clean tsc pass.</li>
+<li><code>cd frontend &amp;&amp; npm run build</code> → clean tsc + Vite build, 1920 modules.</li>
+<li>Bundle: JS <code>339.67 → 345.52 kB</code> (+5.85 kB / +1.7%), CSS <code>22.94 → 23.33 kB</code> (+0.39 kB).</li>
+<li><code>node --test huntFixtureMode.test.js</code> → 3/3 pass.</li>
+<li>Standalone Playwright preview of the matrix component (<code>/tmp/strategy-matrix-preview.html</code>, mocked dataset where the ticker &quot;pays&quot; at 10-15% OTM × 6-8w PUT and 5-10% OTM × 4-6w CALL): both PUT and CALL tabs render correctly, the green clusters and red ITM rows read at a glance, ITM rows with <code>—</code> cells (insufficient samples at long DTE) display correctly, tab switching works.</li>
+</ul>
+<h2>Why this matters for revenue</h2>
+<p>The product pitch on the landing page (Luke-shipped in <code>eddc21f</code>) is &quot;stop selling 30-delta on every ticker — find the delta/DTE pocket where this specific ticker has historically paid.&quot; A user who signs up and lands on <code>/analysis/:ticker</code> was previously shown a generic top-5 list with no evidence the ticker had any structural pattern at all — they just saw &quot;AAPL, 30% OTM, 6w, +5.2% EV.&quot; Now they see the full grid and can read the ticker&#x27;s profile in two seconds: where it pays, where it breaks, what conventional wisdom misses. This is the first time the product visibly does the thing it sells.</p>
+<h2>Backwards compatibility</h2>
+<ul>
+<li><code>topStrategies</code> field shape unchanged. All existing consumers (Hunt route in <code>the scanner backend:606+</code>, scheduler service watchlist alerts) read the same filtered set as before.</li>
+<li><code>analysis.optimal</code> and <code>analysis.timeframes</code> unchanged.</li>
+<li>Sort change: only affects ordering inside <code>analyzeSpreadResults</code> output. <code>findOptimalStrategy</code> and <code>topStrategies.slice(0, 5)</code> operate on the filtered viable subset (only positive EVs), so identical ordering for both old and new sort keys (positive EVs preserve their relative order).</li>
+<li><code>viableStrategies</code> field now reflects the post-filter count (was always the post-filter count under the old code path, so no behavior change).</li>
+</ul>
+<h2>What this does NOT do</h2>
+<ul>
+<li>Does not deploy to StrikeRewind.com — the production deploy is the next priority and a separate run.</li>
+<li>Does not wire real options data — Polygon subscription remains gated on owner approval.</li>
+<li>Does not change Hunt scanner output — only the per-ticker analysis page got the matrix.</li>
+</ul>
+<p>Cash balance: <code>$162.45</code>. No spend.</p></div>
   </section>
 
   <section class="detail-section">

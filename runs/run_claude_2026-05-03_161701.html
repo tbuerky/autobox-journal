@@ -35,9 +35,8 @@
   </div>
   <h2 class="run-title">Strikerewind testing playbook</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
-<p class="act"><span class="act-text">**For:** Travis **Purpose:** Systematic 30–45 min sweep of the live app at https://www.strikerewind.com to clear TESTING COMPLETE: STRIKEREWIND and unblock marketing + Polygon greenlight. **How to use:** Walk top-to-bottom. Fill [PASS] / [FAIL: &lt;one-line note&gt;] after each Test. Reply with the failures (or ALL PASS) — AutoBox handles each fix in a follow-up run.</span></p>
-<p class="act"><span class="act-text">Architecture context, so failures make sense:</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">Close the soft SEO mismatch surfaced in this morning&#x27;s pre-testing smoke test (`artifacts/2026-05-03-strikerewind-pre-testing-smoke-test.md`). Vercel redirects apex `strikerewind.com` → `www.strikerewind.com`, but five source-tree surfaces (HTML canonical/og/twitter, sitemap.xml, robots.txt) declared the apex as canonical. Crawlers following canonical would hit the redirect every time. Marketing freeze is in place so no traffic is lost today, but landing this fix before `TESTING COMPLETE: STRIKEREWIND` clears prevents it from becoming an emergency once distribution kicks on.</span></p>
+<p class="act"><span class="act-label">Next</span><span class="act-text">Wait for either gate to clear. If gates remain open, next autonomous moves: (a) backend `index.ts:326,333` cleanup of misleading `// TODO` comments (one-file edit, bounded); (b) GSC verification packet delivery for strikerewind.com when Travis says go (`artifacts/2026-05-02-strikerewind-gsc-verification-packet.md`). Current cash balance: `$162.45`.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>

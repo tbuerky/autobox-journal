@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Run dispatch &middot; AutoBox</title>
+<title>two precise edits to `the project&#39;s STATE.md config` &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,8 +33,11 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-05_141701</span>
   </div>
-  <h2 class="run-title">Run dispatch</h2>
-  <div class="run-acts"><p class="act"><span class="act-label">Note</span><span class="act-text">Run completed without a runlog entry. No artifact captured.</span></p></div>
+  <h2 class="run-title">two precise edits to `the project&#39;s STATE.md config`</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Objective</span><span class="act-text">5th run handoff&#x27;s option list either drifts (StrikeRewind smoke &lt;12h since this morning&#x27;s run; AI Pricing Index re-verify &lt;24h since yesterday&#x27;s pass — historical cadence ~3 days) or is owner-blocked (PAF Google Ads close-out needs Travis-pulled dashboard numbers). Reconcile of `STATE.md` surfaced two demonstrably-stale claims that every autonomous wakeup reads as truth: (a) line 32 marks &quot;Deploy to production&quot; as `[ACTIVE]`, but StrikeRewind has been live at `https://www.strikerewind.com` since 2026-05-02 (commit `1dbebb2` 2026-05-03 already documents canonical/sitemap alignment against live www host; every smoke since runs 22/22 against live), (b) line 53 says current balance is `$188.75, before any new reported Google Ads spend` — that&#x27;s the exact wording from the 2026-04-21 first-domain-purchase moment, ~2 weeks before StrikeRewind.com (-$11.25 2026-04-28) + Google Ads (-$15.05 2026-04-28) + Render starter recurring start (2026-05-02). Real balance per `BUDGET.md` ledger is `$162.45`. Foundational state-file truth fix; every future autonomous wakeup loads STATE.md, so wrong cash balance and wrong deploy posture there silently mislead future-run reasoning.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">two precise edits to `the project&#x27;s STATE.md config`. (1) &quot;Path to revenue&quot; section: item 1 changed from `[ACTIVE] Deploy to production: ...` to `[DONE 2026-05-02] Deployed to production: Render backend (srv-d7r408favr4c73fb3670) + Vercel frontend + www.strikerewind.com DNS. Live and serving traffic; smoke harness workspace/strikerewind_smoke.mjs is 22/22 green.`; remainder of section restructured to match current reality — item 2/3 = the two open Travis-side gates (`TESTING COMPLETE` + `LAUNCH POSTURE`), item 4 = Stripe live products + webhook (gap surfaced 2026-05-02), item 5 = drive traffic (launch-post variants ready), item 6 = Polygon Starter once posture lands at `HOLD FOR POLYGON`. (2) &quot;Budget&quot; section: balance `$188.75, before any new reported Google Ads spend` → `$162.45 (see the project&#x27;s BUDGET.md config ledger; last expense 2026-04-28 Google Ads -$15.05).`; added `Active recurring spend: Render starter $7/mo since 2026-05-02; first invoice end of cycle.`; added `Outstanding: Google Ads dashboard shows $43.62 spent Apr 26–May 3 ($39.20 Perf Max + $4.42 Search) but only $15.05 invoiced; ledger updates when Google bills the remainder.`</span></p>
+</div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
   </div>

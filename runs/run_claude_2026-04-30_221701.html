@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Run dispatch &middot; AutoBox</title>
+<title>Strikerewind spread results service shim &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,13 +33,142 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-04-30_221701</span>
   </div>
-  <h2 class="run-title">Run dispatch</h2>
-  <div class="run-acts"><p class="act"><span class="act-label">Note</span><span class="act-text">Run completed without a runlog entry. No artifact captured.</span></p></div>
+  <h2 class="run-title">Strikerewind spread results service shim</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Objective</span><span class="act-text">Step #1 of the post-warehouse-migration build queue per the latest HANDOFF recommendation — write the typed service in front of the `spread_results` / `batch_runs` tables introduced by the 2026-04-30 migration (commit `2a7698c`, awaiting Travis to apply via dashboard). Both top-priority owner gates (deploy + tier-copy) remain open and unchanged from the prior run; this is the next code-level move that doesn&#x27;t require approval, doesn&#x27;t change deploy candidate behavior, and prepares the next autonomous run (wiring `schedulerService` to write nightly snapshots once Polygon is approved). The migration SQL is in the repo and the shim can be written, type-checked, and unit-tested with pure helpers ahead of the SQL being applied — the only thing the migration unlocks is *running* the DB calls.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">Add six DB methods (`upsertSpreadResults`, `getHuntSpreadResults`, `getTickerSpreadMatrix`, `getTopSpreadSignalsByTickers`, `recordBatchRunStart`, `recordBatchRunComplete`) to `SupabaseDatabaseService` following the existing `getWatchlist` / `addToWatchlist` style so the supabase client stays private; map each read method one-to-one to a covering index from the migration. Add `SpreadResultsService` (singleton) wrapping those calls with typed methods (`upsertResults`, `upsertFromAnalysis`, `getHuntResults`, `getTickerMatrix`, `getTopSignalForTickers` returns `Map&lt;ticker, row&gt;`, `recordBatchRun`, `completeBatchRun`). Extract two pure helpers — `analysisToWarehouseRows` (rounds to schema column precision, throws on `analysisYears` outside `(1,2,3,5)` to mirror the SQL `CHECK`) and `pickTopSignalPerTicker` (case-insensitive grouping, highest-EV per ticker) — and unit-test those in `node:test`. No mock test of the Supabase client (matches existing `huntFixtureMode.test.ts` pattern of testing pure functions only). Did NOT repoint `Hunt.tsx` / `Analysis.tsx` / `Watchlist.tsx` reads — `analysis_cache` / `hunt_cache` continue to serve until the nightly Polygon batch goes live. Did NOT wire `schedulerService.ts` to the warehouse — that&#x27;s gated on `APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO`. Did NOT raise a new owner gate — the migration-applied gate already covers the only Travis-side action this work depends on.</span></p>
+<p class="act"><span class="act-label">Next</span><span class="act-text">Wait for Travis on `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE` (the only gate this work depends on for runtime activation; service code itself is now type-checked and tested). Independently runnable downstream: when `APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO` lands, wire `schedulerService.ts` to call `SpreadResultsService.getInstance().upsertFromAnalysis(...)` after each ticker analysis in the nightly cron and bracket the run with `recordBatchRun` / `completeBatchRun`. Independently runnable upstream: pre-deploy tier-copy plan on `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`, deploy on `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`. Adjacent autonomous-runnable options: read-path migration once warehouse is populated (repoint `Hunt.tsx` and `Analysis.tsx` to call new endpoints backed by the new service), Watchlist top-signal-per-ticker render. Current cash balance: `$162.45`.</span></p>
+</div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
   </div>
 </article>  </div>
 
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>StrikeRewind — <code>SpreadResultsService</code> shim shipped</h1>
+<p><strong>Date:</strong> 2026-04-30</p>
+<p><strong>Branch:</strong> <code>autobox/strikerewind-rename</code></p>
+<p><strong>Commit:</strong> <code>756d687</code></p>
+<p><strong>Files:</strong> <code>the scanner backend</code> (new, 122 lines), <code>the scanner backend</code> (new, 123 lines), <code>the scanner backend</code> (+110 lines)</p>
+<p><strong>Tests:</strong> 12/12 pass (was 3/3) — 9 new <code>node:test</code> cases on the pure helpers</p>
+<h2>What this is</h2>
+<p>Step #1 of the post-warehouse-migration build queue: a typed service in</p>
+<p>front of the <code>spread_results</code> / <code>batch_runs</code> tables added by</p>
+<p><code>backend/supabase-migration-spread-results.sql</code> (commit <code>2a7698c</code>,</p>
+<p>awaiting Travis to apply the SQL via the dashboard).</p>
+<p>This is the read/write shim every downstream consumer will go through —</p>
+<p>the nightly Polygon batch (write path) and Hunt / Ticker Analysis /</p>
+<p>Watchlist top-signal (read paths).</p>
+<h2>Why now (no approval needed)</h2>
+<ul>
+<li>The migration SQL is in the repo. The next step in the latest HANDOFF</li>
+</ul>
+<p>recommendation list is exactly this shim. Whether Travis applies the</p>
+<p>SQL today or next week, the service code is small enough to write</p>
+<p>ahead-of-time, type-check, and unit-test with pure helpers; the only</p>
+<p>thing the migration unlocks is <em>running</em> the DB calls.</p>
+<ul>
+<li>Both top-priority owner gates remain open</li>
+</ul>
+<p>(<code>APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO</code>,</p>
+<p><code>APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY</code>). Building</p>
+<p>this service while waiting does not require approval, does not</p>
+<p>change the deploy candidate&#x27;s behavior (no read-path repoint), and</p>
+<p>prepares the next autonomous run (wiring <code>schedulerService</code> to write</p>
+<p>nightly snapshots once Polygon is approved).</p>
+<h2>What ships</h2>
+<h3><code>SpreadResultsService</code> (singleton)</h3>
+<p>Matches <code>WatchlistServiceDB.getInstance()</code> pattern. Methods:</p>
+<p>| Method | Purpose |</p>
+<p>|---|---|</p>
+<p>| <code>upsertResults(rows)</code> | Bulk write from the nightly batch; returns rows-affected count |</p>
+<p>| <code>upsertFromAnalysis(result, asOfDate, dataSource)</code> | Convenience: flattens an <code>AnalysisResult</code> and upserts in one call |</p>
+<p>| <code>getHuntResults({ spreadType, analysisYears, limit, asOfDate? })</code> | Hunt read path; sorted by <code>as_of_date DESC, ev_percent DESC</code>; supports <code>&#x27;BOTH&#x27;</code> |</p>
+<p>| <code>getTickerMatrix(ticker, analysisYears, asOfDate?)</code> | Ticker Analysis read path |</p>
+<p>| <code>getTopSignalForTickers(tickers, analysisYears, asOfDate?)</code> | Watchlist top-signal-per-ticker; returns <code>Map&lt;ticker, row&gt;</code> |</p>
+<p>| <code>recordBatchRun(runType, metadata?)</code> | Returns the new <code>batch_runs.id</code> for the nightly job to update on completion |</p>
+<p>| <code>completeBatchRun(id, { status, tickersTotal, tickersProcessed, rowsWritten, errorMessage })</code> | Closes a batch run row |</p>
+<h3>Pure helpers (testable, no I/O)</h3>
+<ul>
+<li><code>analysisToWarehouseRows(result, asOfDate, dataSource)</code> — flattens</li>
+</ul>
+<p>every <code>StrategyMatrixCell</code> on an <code>AnalysisResult</code> into one warehouse</p>
+<p>row. Rounds <code>win_rate</code> / <code>ev_percent</code> to 2 decimals, <code>premium</code> to 4</p>
+<p>decimals, <code>current_price</code> / <code>iv_rank</code> to 2 decimals — matches the</p>
+<p>schema column scales so float drift never overflows the <code>NUMERIC(...)</code></p>
+<p>precision. Throws if <code>analysisYears</code> is not in <code>(1, 2, 3, 5)</code> to mirror</p>
+<p>the SQL <code>CHECK</code> constraint and fail fast at write time.</p>
+<ul>
+<li><code>pickTopSignalPerTicker(rows)</code> — groups by ticker</li>
+</ul>
+<p>(case-insensitive), returns the highest-<code>ev_percent</code> row each.</p>
+<h3><code>SupabaseDatabaseService</code> additions</h3>
+<p>Six new methods following the existing <code>getWatchlist</code> / <code>addToWatchlist</code></p>
+<p>pattern so the <code>supabase</code> client stays private:</p>
+<p><code>upsertSpreadResults</code>, <code>getHuntSpreadResults</code>, <code>getTickerSpreadMatrix</code>,</p>
+<p><code>getTopSpreadSignalsByTickers</code>, <code>recordBatchRunStart</code>,</p>
+<p><code>recordBatchRunComplete</code>. Each method maps to one of the indexes from</p>
+<p>the migration:</p>
+<ul>
+<li><code>getHuntSpreadResults</code> — uses <code>spread_results_hunt_idx</code></li>
+</ul>
+<p><code>(as_of_date DESC, analysis_years, spread_type, ev_percent DESC)</code></p>
+<ul>
+<li><code>getTickerSpreadMatrix</code> — uses <code>spread_results_ticker_idx</code></li>
+</ul>
+<p><code>(ticker, as_of_date DESC, analysis_years)</code></p>
+<ul>
+<li><code>getTopSpreadSignalsByTickers</code> — uses <code>spread_results_watchlist_idx</code></li>
+</ul>
+<p><code>(ticker, as_of_date DESC, ev_percent DESC)</code></p>
+<p>Upsert uses</p>
+<p><code>onConflict: &#x27;ticker,spread_type,otm_percentage,timeframe_weeks,analysis_years,as_of_date&#x27;</code></p>
+<p>which matches the <code>UNIQUE</code> constraint in the migration — every nightly</p>
+<p>batch run is naturally idempotent.</p>
+<h3>Exported <code>SpreadResultRow</code> interface</h3>
+<p>On <code>SupabaseDatabaseService</code>, mirrors the SQL row shape with</p>
+<p>TypeScript-narrowed <code>spread_type: &#x27;PUT&#x27; | &#x27;CALL&#x27;</code> and</p>
+<p><code>analysis_years: 1 | 2 | 3 | 5</code>.</p>
+<h2>What this deliberately does NOT do</h2>
+<ul>
+<li>No read-path repoint. <code>Hunt.tsx</code> / <code>Analysis.tsx</code> / <code>Watchlist.tsx</code></li>
+</ul>
+<p>still go through the existing <code>analysis_cache</code> / <code>hunt_cache</code> flow.</p>
+<ul>
+<li>No nightly job wiring. <code>schedulerService.ts</code> is unchanged. Wiring it</li>
+</ul>
+<p>to write to the warehouse is gated on `APPROVED: SUBSCRIBE POLYGON</p>
+<p>STARTER, $29/MO` since the warehouse is only useful with a real</p>
+<p>nightly data source — yfinance/fixture writes would muddy the</p>
+<p><code>data_source = &#x27;polygon&#x27;</code> distinction at deploy time.</p>
+<ul>
+<li>No backfill. First row arrives the first nightly run after Polygon is</li>
+</ul>
+<p>wired.</p>
+<ul>
+<li>No Polygon subscribe.</li>
+</ul>
+<h2>Verification</h2>
+<ul>
+<li><code>cd backend &amp;&amp; npm run build</code> — passes clean.</li>
+<li><code>cd backend &amp;&amp; npx tsx --test src/services/huntFixtureMode.test.ts src/services/spreadResultsService.test.ts</code> — 12/12 pass.</li>
+<li><code>cd frontend &amp;&amp; npm run build</code> — passes (<code>345.52 kB</code> js / <code>23.33 kB</code> css, no change from prior commit since this is backend-only).</li>
+<li>Schema-precision rounding test: <code>winRate: 78.123</code> round-trips to <code>78.12</code> (2-decimal <code>NUMERIC(5,2)</code>); <code>evPercent: 12.456</code> → <code>12.46</code>; <code>premium: 1.4231</code> preserved at 4-decimal precision; <code>currentPrice: 187.234</code> → <code>187.23</code>; <code>ivRank: 42.555</code> → <code>42.56</code>.</li>
+<li>Negative-EV preservation test: warehouse rows include cells with</li>
+</ul>
+<p><code>ev_percent &lt; 0</code>, since the matrix UI relies on negative-EV cells to</p>
+<p>show &quot;stay away&quot; pockets — same shape as the 2026-04-30 strategy</p>
+<p>matrix run (commit <code>34e8002</code>).</p>
+<h2>Public-copy hygiene</h2>
+<p>Per <code>RULES.md</code> rule 14/15: not applicable — internal service code, no</p>
+<p>customer-facing surface affected.</p>
+<h2>State changes this run</h2>
+<ul>
+<li><code>OPEN_GATES.md</code> — unc</li>
+</ul></div>
+  </section>
 
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>

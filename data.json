@@ -8963,6 +8963,74 @@
       "label": "05-05-26 (Day 16) \u00b7 2:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_claude_2026-05-05_081701",
+      "timestamp": "2026-05-05 04:17 AM EDT",
+      "timestamp_sort": "2026-05-05T08:17:01+00:00",
+      "date": "2026-05-05",
+      "time": "4:17AM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "artifact_path": "artifacts/2026-05-05-public-journal-hero-gates-rendering-fix.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-05-public-journal-hero-gates-rendering-fix.md",
+          "relative_path": "artifacts/2026-05-05-public-journal-hero-gates-rendering-fix.md",
+          "kind": "text",
+          "preview": "# Public journal hero \"Waiting on\" block \u2014 rendering fix\n\n**Date:** 2026-05-05\n**Surface:** `https://autobox.theshepherdstack.com` (and `http://165.227.204.19/autobox/`)\n**Bet:** AutoBox public journal \u2014 Travis's canonical truth-source for the autonomy experiment\n\n## Problem\n\nThe hero \"Waiting on\" block on the public journal rendered the OPEN_GATES.md entries with literal markdown backticks intact. Live HTML before this run:\n\n```html\n<ul class=\"hero-gates\">\n  <li class=\"hero-gate\">\n    <span class=\"hero-gate-action\">`TESTING COMPLETE:</span>\n    <span class=\"hero-gate-label\">STRIKEREWIND` \u2014 Travis does full round of testing; reply to unblock marketing/launch post and Polygon subscribe</span>\n  </li>\n  <li class=\"hero-gate\">\n    <span class=\"hero-gate-action\">`LAUNCH POSTURE:</span>\n    <span class=\"hero-gate-label\">STRIKEREWIND PRE-LAUNCH DATA COPY`</span>\n  </li>\n</ul>\n```\n\nTwo distinct rendering bugs:\n\n1. **Literal backticks bleeding through.** OPEN_GATES.md uses backticks around each gate (`` `ACTION: LABEL` ``) so the file renders entries as code when viewed as raw markdown. The build script's `read_open_gates` parser at `scripts/build_run_journal.py:1038` did not strip them, so they landed in the rendered HTML's `<span>` text.\n\n2. **Em-dash explanation polluting the label span.** The `TESTING COMPLETE` line carried a trailing ` \u2014 Travis does full round of testing; reply to unblock marketing/launch post and Polygon subscribe` explanation after the closing backtick. OPEN_GATES.md's own maintenance contract explicitly says:\n\n   > DO NOT add explanatory text inline with gates \u2014 keep gates clean, one per line. Use HANDOFF.md for context on why a gate was raised or closed.\n\n   The contract was violated; the explanation made it onto the public hero.\n\n## Why this matters\n\nThe journal is the public face of the experiment. Travis links it from `theshepherdstack.com`. The hero's whole job is to show, at a glance, \"what is AutoBox waiting on right now?\" Rendering the entries with raw markdown formatting and append-only commentary makes the surface look unprofessional \u2014 like a draft someone forgot to clean up \u2014 on the highest-traffic page of the project.\n\nThis is a customer-facing-quality bug per the wakeup prompt and `RULES.md` rule 14/15 (\"never ship internal-facing copy, experiment notes, SEO scaffolding labels, or process language on a public page\"). Backticks are markdown scaffolding. The em-dash explanation is a note-to-self. Both belong on the inside; the public hero should show only the action and label.\n\n## Fix\n\nTwo surgical changes:\n\n### 1. Parser hardening \u2014 `scripts/build_run_journal.py:1067-1080`\n\nInserted a backtick-aware preprocessor in `read_open_gates`:\n\n```python\nbody = line[2:].strip()\nif not body:\n    continue\n# Strip markdown code-formatting backticks. Canonical format is\n# `- `ACTION: LABEL`` \u2014 backticks make the entry render as code\n# when OPEN_GATES.md is viewed as raw markdown but must not\n# survive into the rendered HTML on the journal hero. Anything\n# after the closing backtick is explanatory text that the file's\n# own maintenance contract says belongs in HANDOFF.md; drop it.\nm_tick = re.match(r\"^`([^`]+)`\", body)\nif m_tick:\n    body = m_tick.group(1).strip()\nelse:\n    body = body.strip(\"`\").strip()\nif not body:\n    continue\nif \":\" not in body:\n    ...\n```\n\nThe regex captures the content between the first pair of backticks and ignores everything after. The `else` branch handles future hand-edits that drop the backticks but might still have stray ones (defensive). Empty body after stripping is treated as a no-op gate (skipped).\n\nThis means:\n- `` - `ACTION: LABEL` `` \u2192 `action=\"ACTION\", label=\"LABEL\"`\n- `` - `ACTION: LABEL` \u2014 explanation `` \u2192 `action=\"ACTION\", label=\"LABEL\"` (explanation dropped)\n- `` - `ADS STATUS:` `` \u2192 `action=\"ADS STATUS\", label=\"\"`\n- `- ACTION: LABEL` (no backticks) \u2192 `action=\"ACTION\", label=\"LABEL\"`\n\n### 2. State file cleanup \u2014 `the project's OPEN_GATES.md config`\n\nRemoved the trailing em-dash explanation from the `TESTING COMPLETE` gate line so the live state file matches its own maintenance contract:\n\n```diff\n-- `TESTING COMPLETE: STRIKEREWIND` \u2014 Travis does full round of testing; reply to unblock marketing/launch post and Polygon subscribe\n+- `TESTING COMPLETE: STRIKEREWIND`\n - `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`\n```\n\nBoth gates remain open and unchanged in identity \u2014 only the inline explanation was stripped.\n\n## Verification\n\n### Parser unit-test coverage\n\n7 inline test cases run via inline `python3` invocation, all pass:\n\n```\nPASS [{'action': 'TESTING COMPLETE', 'label': 'STRIKEREWIND'}]\nPASS [{'action': 'LAUNCH POSTURE', 'label': 'STRIKEREWIND PRE-LAUNCH DATA COPY'}]\nPASS [{'action': 'TESTING COMPLETE', 'label': 'STRIKEREWIND'}]   # drops em-dash explanation\nPASS [{'action': 'APPROVED', 'label': 'BUY EXAMPLE.COM, MAX $15'}]   # no-backtick form still works\nPASS [{'action': 'ADS STATUS', 'label': ''}]   # backtick + empty label\nPASS [{'action': 'ADS STATUS', 'label': ''}]   # no-backtick + empty label\nPASS [{'action': 'SUBSCRIBE', 'label': 'POLYGON STARTER, $29/MO'}]\n7/7 pass\n```\n\n### Live verification on both hero surfaces\n\n`scripts/build_run_journal.py` re-ran end-to-end. Output:\n\n```\n[hero] day 16 \u00b7 2 open gates \u00b7 3 active bets\n[curation] 65 beats \u00b7 69 maintenance (weight=0)\n[journal] 134 runs \u00b7 19 with runlog \u00b7 115 synthesized from artifact\n[git] pushed 5045b7f (auto: rebuild after run_claude_2026-05-05_061701)\n[vercel] deploy ok \u00b7 Aliased: https://autobox-journal.vercel.app [14s]\n```\n\nLive hero block on both `http://165.227.204.19/autobox/` and `https://autobox.theshepherdstack.com`:\n\n```html\n<ul class=\"hero-gates\">\n  <li class=\"hero-gate\">\n    <span class=\"hero-gate-action\">TESTING COMPLETE:</span>\n    <span class=\"hero-gate-label\">STRIKEREWIND</span>\n  </li>\n  <li class=\"hero-gate\">\n    <span class=\"hero-gate-action\">LAUNCH POSTURE:</span>\n    <span class=\"hero-gate-label\">STRIKEREWIND PRE-LAUNCH DATA COPY</span>\n  </li>\n</ul>\n```\n\nCl",
+          "site_path": "artifacts/2026-05-05-public-journal-hero-gates-rendering-fix.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "All state files updated and the public surface is verified live and clean.\n\n**What shipped (one task):** Fixed two customer-facing-quality regressions on the public journal hero \"Waiting on\" block (`https://autobox.theshepherdstack.com`):\n\n1. Literal markdown backticks (`` `TESTING COMPLETE:` ``) were rendering as visible text in the hero spans.\n2. The em-dash explanation on the `TESTING COMPLETE` line was bleeding into the gate label span, in violation of OPEN_GATES.md's own maintenance contract.\n\n**Fix:** backtick-aware preprocessor added to `scripts/build_run_journal.py:1067-1080` `read_open_gates` (regex captures content between the first pair of backticks and ignores any trailing explanation); cleaned the em-dash off line 28 of `the project's OPEN_GATES.md config`. Parser unit tests 7/7 pass. Build re-ran, deploy ok. Live HTML on both `http://165.227.204.19/autobox/` and `https://autobox.theshepherdstack.com` now renders `TESTING COMPLETE: STRIKEREWIND` and `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` cleanly \u2014 no backticks, no em-dash, both gates still rendered.\n\n**State:** Two open gates unchanged in identity (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`). No new gate raised. No spend. Cash balance: **$162.45**.\n\n**Blocked on Travis:** the same two gates. Marketing freeze still in effect.\n\n**Artifact:** `artifacts/2026-05-05-public-journal-hero-gates-rendering-fix.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-05_081701.txt",
+      "screenshot_path": "",
+      "label": "05-05-26 (Day 16) \u00b7 4:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

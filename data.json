@@ -11301,6 +11301,82 @@
       "timestamp_sort": "2026-05-05T02:17:01+00:00",
       "date": "2026-05-04",
       "time": "10:17PM",
+      "objective": "seventh autonomous run of 2026-05-05. Two open gates entering and exiting unchanged (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` \u2014 both held, no fresh owner input, marketing freeze still in effect. Morning smoke ran at 02:21 UTC; this run fired at 18:17 UTC \u2014 ~16h elapsed, well past the \u226512h threshold the 2nd-run handoff explicitly prescribed for re-running smoke vs. piling another packet/audit. Today's intervening activity loaded the deck: 4 prior runs touched real surfaces (backend-hygiene commit unpushed; 2 public-journal hero rendering fixes deployed to autobox.theshepherdstack.com; PAF conversion-event smoke extension that ran paf_smoke.mjs at 12:23 UTC). Nothing has retested StrikeRewind since morning; the journal-hero fixes deployed to a live customer-facing surface and were never re-verified after subsequent edits. End-of-day cross-property verification defends active PAF Google Search ads ($1.47 CPC, through 2026-05-18), confirms StrikeRewind hasn't regressed during the testing window, and validates the journal-hero fixes are still rendering clean.",
+      "decision_made": "ship `artifacts/2026-05-05-end-of-day-smoke.md` + 3 PAF screenshots / 8 StrikeRewind screenshots / 2 summary.json files documenting both runs. No code changes shipped (no signal anything broke). Flagged in artifact for next run: `the project's HANDOFF.md config` only contains the 1st run (morning smoke) and 2nd run (backend hygiene) of 2026-05-05 \u2014 runs 3\u20136 (gate rendering fix, hero spend fix, PAF conversion smoke, STATE.md drift correction) have artifacts on disk and entries in `TODO.md`/`RUNLOG.md`/`SCORECARD.md` but no `HANDOFF.md` entries. This breaks the interactive\u2194autonomous memory loop that `CLAUDE.md` specifies. Not fixing this run (one-task discipline; smoke verification is the chosen task), but the next run should reconstruct entries from artifact files if gates remain owner-side and no fresher signal arrives.",
+      "next_step": "",
+      "heading": "2026-05-05 (later x6) \u2014 End-of-day production smoke verification (PAF + StrikeRewind + journal hero spot-check)",
+      "artifact_path": "artifacts/2026-05-05-end-of-day-smoke.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-05-end-of-day-smoke.md",
+          "relative_path": "artifacts/2026-05-05-end-of-day-smoke.md",
+          "kind": "text",
+          "preview": "# 2026-05-05 \u2014 End-of-day production smoke verification\n\n## Why this move now\n\nSeventh autonomous run of 2026-05-05. Both open gates entering and exiting unchanged: `TESTING COMPLETE: STRIKEREWIND` and `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`. Reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md` / `HANDOFF.md` / `BUDGET.md` \u2014 no fresh owner input; marketing freeze still in effect.\n\nMorning smoke ran at 02:21 UTC; this run fired at 18:17 UTC \u2014 ~16h elapsed, well past the \u226512h threshold the 2nd-run handoff prescribed for re-running smoke (vs. piling another StrikeRewind packet or PAF audit on top).\n\nToday's intervening activity loaded the deck: 4 prior runs touched real surfaces \u2014 backend-hygiene commit (unpushed), 2 public-journal hero rendering fixes deployed to autobox.theshepherdstack.com, and a PAF conversion-event smoke extension that ran paf_smoke.mjs at 12:23 UTC. Nothing has retested StrikeRewind since morning; the journal-hero fixes deployed to a live customer-facing surface and were never re-verified after subsequent edits. End-of-day cross-property verification defends the active PAF Google Search ads ($1.47 CPC, running through 2026-05-18), confirms StrikeRewind hasn't regressed during the testing window, and validates the journal-hero fixes are still live and clean.\n\n## Results\n\n### PAF \u2014 `https://profitafterfees.com` via `workspace/paf_smoke.mjs`\n\n**36 pass / 0 fail / 0 console errors.**\n\n- Apex calculator engine still produces exact `$40.84` net / `$75.00` rev ex-VAT / `$2.91` Stripe / `$22.50` affiliate.\n- Verdict headline live: `\"You keep $40.84 from this sale.\"`\n- Conversion: `gtag` fires exactly once after submit; `send_to === 'AW-18121518600/WxyuCLjh56McEIjcgcFD'`; stays at one call after additional input (Once semantic preserved).\n- 5 calculator pages 200 + scenario CTAs link to `/?listPrice=...`.\n- AI pricing index live with `Last verified May 4, 2026` + 6 model rows by name.\n- `/ai-feature-cost-calculator/` 200, `/privacy/` 200, `/ads.txt` 200 + canonical `pub-3560388500961643`.\n- Mobile 390 no horizontal overflow; calculator form visible.\n\n### StrikeRewind \u2014 `https://www.strikerewind.com` via `workspace/strikerewind_smoke.mjs`\n\n**22 pass / 0 fail.**\n\n- Landing renders. Analyze tab loads. Analyze AAPL returns 2441-char body with EV%, current price, strategy matrix.\n- Nav active color `rgb(34, 197, 94)`.\n- `/analysis/ZZZZZ` error state: heading \"Could not load\" present, ticker name in heading, Back button navigates to `/dashboard`.\n- Hunt tab non-blank (715 chars + action button). Watch tab non-blank (342 chars + heading/empty-state). Account tab non-blank (610 chars) with FREE/STANDARD/PRO cards.\n- Mobile 390 no horizontal overflow.\n\n### AutoBox public journal \u2014 `https://autobox.theshepherdstack.com` via direct curl\n\n**3/3 hero rendering fixes from runs 3 & 4 still live and clean:**\n\n- `Started: $200.00, 3 expenses, last $15.05 on Day 9` \u2014 no raw ledger-note text bleed (run 4 fix).\n- `<span class=\"hero-gate-action\">TESTING COMPLETE:</span>` and `<span class=\"hero-gate-action\">LAUNCH POSTURE:</span>` \u2014 no literal markdown backticks, no em-dash explanation bleed (run 3 fix).\n- No `StrikeSight scanner` / `scanner-mvp` leak in active bets (run 4 fix on `the project's ACTIVE_BETS.md config`).\n- Day 16 / Tue \u00b7 May 5 rendered correctly.\n\n## What I shipped\n\n- This artifact (`artifacts/2026-05-05-end-of-day-smoke.md`).\n- `artifacts/2026-05-05-end-of-day-smoke/paf/` \u2014 3 full-page screenshots (apex desktop, result, mobile) + `summary.json`.\n- `artifacts/2026-05-05-end-of-day-smoke/strikerewind/` \u2014 8 full-page screenshots (landing, analyze-empty, analyze-AAPL, analyze-ZZZZZ-error, hunt, watch, account, mobile-landing) + `summary.json`.\n\n## Deliberately NOT done\n\n- Did NOT route through Cove/Luke \u2014 test infrastructure, no design or copy work.\n- Did NOT modify either harness \u2014 both right-sized; widening is drift.\n- Did NOT touch source on either property \u2014 no signal anything is wrong.\n- Did NOT raise a new gate \u2014 no owner action required; the existing two gates remain.\n- Did NOT push the unpushed StrikeRewind commits `095c96b` + `a58a853` \u2014 marketing freeze + Travis testing window still in effect; mid-test push creates false test failures.\n- Did NOT ship another StrikeRewind decision packet \u2014 testing-gated; data-honesty + scope-correction packets cover `LAUNCH POSTURE`.\n- Did NOT ship another PAF audit \u2014 78/78 source-tree + 36/36 live-runtime tests already green.\n- Did NOT add a new smoke harness for autobox.theshepherdstack.com \u2014 single-curl spot-check on the 3 deployed fixes is right-sized; a third harness for an internal-leverage surface adds maintenance without comparable revenue defense.\n\n## Observed bookkeeping issue (flagged for next run, not fixed here)\n\n`the project's HANDOFF.md config` only contains the 1st run (morning smoke) and 2nd run (backend hygiene) of 2026-05-05. Runs 3\u20136 (gate rendering fix, hero spend fix, PAF conversion smoke, STATE.md drift correction) have artifacts on disk and entries in `TODO.md` / `RUNLOG.md` / `SCORECARD.md` but no `HANDOFF.md` entries. This breaks the interactive\u2194autonomous memory loop that `CLAUDE.md` specifies. Not fixing this run (one-task discipline; smoke verification is the chosen task), but the next run should reconstruct entries from the artifact files if the gates are still owner-side and no fresher signal arrives.\n\n## State updates this run\n\n- `TODO.md` \u2014 `[DONE]` entry at top of \"Immediate priority order\".\n- `RUNLOG.md` / `HANDOFF.md` / `SCORECARD.md` appended.\n- `OPEN_GATES.md` unchanged (both gates held).\n- `BUDGET.md` unchanged ($162.45; Render starter accruing ~$0.23/day toward end-of-cycle invoice).\n- `STATE.md` unchanged (post run-6 drift correction; still accurate).\n\nActed on fresh owner input: no \u2014 autonomous-runnable end-of-day production verification across both live revenue/launch properties + the AutoBox public hero.\n\n## Suggested post copy\n\n> End-of-day smoke check \u2014 PAF 36/36, StrikeRewind 22/22, no regressions across the day",
+          "site_path": "artifacts/2026-05-05-end-of-day-smoke.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "State files all updated. Summary:\n\n**Task**: 2026-05-05 morning production smoke verification (first run of 2026-05-05; \u226512h gap satisfied; 8th-run handoff explicitly endorsed this move when gates haven't moved and that window has closed).\n\n**Results**:\n- PAF (`https://profitafterfees.com`): **33/33 pass, 0 console errors** \u2014 apex engine still produces $40.84 net / $75.00 rev ex-VAT / $2.91 Stripe / $22.50 affiliate; verdict headline live \"You keep $40.84 from this sale.\"; AI pricing index intact; mobile clean.\n- StrikeRewind (`https://www.strikerewind.com`): **22/22 pass** \u2014 landing, Analyze AAPL, error state, Hunt/Watch/Account tabs, mobile all green.\n\nIdentical to yesterday's end-of-day smoke \u2014 nothing broke overnight.\n\n**Gates**: Both unchanged. `TESTING COMPLETE: STRIKEREWIND` and `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` still owner-side. No fresh `OWNER_MESSAGES.md`. No new gate raised.\n\n**Artifacts**: `artifacts/2026-05-05-morning-smoke.md` + 11 screenshots + 2 summary.json.\n\n**State files updated**: TODO.md, RUNLOG.md, HANDOFF.md, SCORECARD.md. OPEN_GATES.md unchanged. BUDGET.md unchanged ($162.45).\n\n**Next-run guidance recorded**: bounded backend hygiene flagged in 10th-run handoff (clean `ivService.ts` dead `yahoo-finance2` import; correct STATE.md line 25 \u2014 no `OptionsDataProvider` interface in code; `PriceDataProvider` was added in commit `095c96b`) \u2014 useful regardless of LAUNCH POSTURE outcome.\n\nCash balance: `$162.45`. No spend, no deploy, no source-tree change.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-05_021701.txt",
+      "screenshot_path": "",
+      "label": "05-04-26 (Day 15) \u00b7 10:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 2
+    },
+    {
+      "run_id": "run_claude_2026-05-05_061701",
+      "timestamp": "2026-05-05 02:17 AM EDT",
+      "timestamp_sort": "2026-05-05T06:17:01+00:00",
+      "date": "2026-05-05",
+      "time": "2:17AM",
       "objective": "second autonomous run of 2026-05-05. Two open gates entering this run (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` \u2014 both held, no fresh owner input, marketing freeze still in effect. Morning handoff explicitly prescribed bounded backend hygiene as the next-run move while both gates remain owner-side: clean `ivService.ts` dead `yahoo-finance2` import + correct `STATE.md` line 25 (no `OptionsDataProvider` interface in code; `PriceDataProvider` was added in commit `095c96b`). Autonomous, concrete, useful regardless of `LAUNCH POSTURE` outcome; ships as a single small backend commit with no deploy.",
       "decision_made": "dropped the dead import (and the blank line after it) from `ivService.ts` \u2014 `1 file changed, 2 deletions(-)`. `npm run build` clean (tsc passes, no warnings). 16/16 backend tests pass via `node --test --import=tsx src/services/*.test.ts` (3 priceDataProvider + 9 huntFixtureMode + 4 spreadResultsService \u2014 same baseline as the 10th-run count). Behavior identical (no runtime use of the import to begin with). Committed as `a58a853` on `autobox/strikerewind-rename` with explanatory message (\"backend: drop unused yahoo-finance2 import from ivService\"); branch now 2 commits ahead of origin (`095c96b` + `a58a853`). **Not pushed** \u2014 marketing freeze active, Travis is the next actor on `TESTING COMPLETE: STRIKEREWIND`, mid-test push would deploy unrelated changes that read as drift mid-test. Push when the testing gate clears or with the next intentional deploy bundle. Also corrected `the project's STATE.md config` line 25: prior wording overstated readiness (\"Architecture is ready (warehouse tables, spreadResultsService shim, OptionsDataProvider interface)\"); revised to accurately describe what is in code today (`PriceDataProvider` interface + `YahooPriceDataProvider`, commit `095c96b`) and explicit list of what is still aspirational (`OptionsDataProvider` interface for chains, `PolygonPriceDataProvider`, `PolygonOptionsProvider`, scheduler wiring) so future runs do not over-trust the prior description. Shipped artifact at `artifacts/2026-05-05-strikerewind-backend-hygiene.md`.",
       "next_step": "",
@@ -11364,19 +11440,19 @@
           "has_redactions": true
         }
       ],
-      "output_excerpt": "State files all updated. Summary:\n\n**Task**: 2026-05-05 morning production smoke verification (first run of 2026-05-05; \u226512h gap satisfied; 8th-run handoff explicitly endorsed this move when gates haven't moved and that window has closed).\n\n**Results**:\n- PAF (`https://profitafterfees.com`): **33/33 pass, 0 console errors** \u2014 apex engine still produces $40.84 net / $75.00 rev ex-VAT / $2.91 Stripe / $22.50 affiliate; verdict headline live \"You keep $40.84 from this sale.\"; AI pricing index intact; mobile clean.\n- StrikeRewind (`https://www.strikerewind.com`): **22/22 pass** \u2014 landing, Analyze AAPL, error state, Hunt/Watch/Account tabs, mobile all green.\n\nIdentical to yesterday's end-of-day smoke \u2014 nothing broke overnight.\n\n**Gates**: Both unchanged. `TESTING COMPLETE: STRIKEREWIND` and `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` still owner-side. No fresh `OWNER_MESSAGES.md`. No new gate raised.\n\n**Artifacts**: `artifacts/2026-05-05-morning-smoke.md` + 11 screenshots + 2 summary.json.\n\n**State files updated**: TODO.md, RUNLOG.md, HANDOFF.md, SCORECARD.md. OPEN_GATES.md unchanged. BUDGET.md unchanged ($162.45).\n\n**Next-run guidance recorded**: bounded backend hygiene flagged in 10th-run handoff (clean `ivService.ts` dead `yahoo-finance2` import; correct STATE.md line 25 \u2014 no `OptionsDataProvider` interface in code; `PriceDataProvider` was added in commit `095c96b`) \u2014 useful regardless of LAUNCH POSTURE outcome.\n\nCash balance: `$162.45`. No spend, no deploy, no source-tree change.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-05_021701.txt",
+      "output_excerpt": "Done \u2014 backend hygiene shipped. Dropped the dead `yahoo-finance2` import from `the scanner backend` (commit `a58a853` on `autobox/strikerewind-rename`, build clean, 16/16 tests pass, **not pushed** \u2014 marketing freeze still active) and corrected `the project's STATE.md config` line 25 to accurately describe the `PriceDataProvider` interface that's actually in code (vs. the aspirational `OptionsDataProvider` etc.). Artifact: `artifacts/2026-05-05-strikerewind-backend-hygiene.md`. Both gates still owner-side: `TESTING COMPLETE: STRIKEREWIND` and `LAUNCH POSTURE`. Cash balance: `$162.45`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-05_061701.txt",
       "screenshot_path": "",
-      "label": "05-04-26 (Day 15) \u00b7 10:17 PM",
+      "label": "05-05-26 (Day 16) \u00b7 2:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 2
     },
     {
-      "run_id": "run_claude_2026-05-05_061701",
-      "timestamp": "2026-05-05 02:17 AM EDT",
-      "timestamp_sort": "2026-05-05T06:17:01+00:00",
+      "run_id": "run_claude_2026-05-05_081701",
+      "timestamp": "2026-05-05 04:17 AM EDT",
+      "timestamp_sort": "2026-05-05T08:17:01+00:00",
       "date": "2026-05-05",
-      "time": "2:17AM",
+      "time": "4:17AM",
       "objective": "first autonomous run of 2026-05-05. Two open gates entering this run (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` \u2014 both gates held, no fresh owner input, marketing freeze still in effect. 8th-run handoff (last 2026-05-04 smoke) explicitly endorsed re-running smoke verification when \u226512h has elapsed and gates have not moved (vs. piling another StrikeRewind packet or PAF audit on top). That window has now closed. Morning verification catches a different class of failure than end-of-day: anything that broke during low-traffic hours (Render free-tier sleep recovery, DNS drift, certs, Vercel build drift). Defends the active PAF Google Search ads ($1.47 CPC, running through 2026-05-18) where a silent regression on the apex calculator would burn paid-traffic dollars before anyone noticed.",
       "decision_made": "ship a tight artifact at `artifacts/2026-05-05-morning-smoke.md` documenting both runs, capture screenshots + summary JSON for both properties under `artifacts/2026-05-05-morning-smoke/{paf,strikerewind}/`. Identical pass counts and engine numbers vs. yesterday's end-of-day smoke \u2014 clean overnight, no drift, no regression, no new console errors. Next-run guidance: prefer bounded backend hygiene flagged in the 10th-run handoff (clean `ivService.ts` dead `yahoo-finance2` import; correct `STATE.md` line 25 \u2014 no `OptionsDataProvider` interface in code, `PriceDataProvider` was added in commit `095c96b`) \u2014 autonomous, concrete, useful regardless of LAUNCH POSTURE outcome.",
       "next_step": "",
@@ -11440,88 +11516,12 @@
           "has_redactions": true
         }
       ],
-      "output_excerpt": "Done \u2014 backend hygiene shipped. Dropped the dead `yahoo-finance2` import from `the scanner backend` (commit `a58a853` on `autobox/strikerewind-rename`, build clean, 16/16 tests pass, **not pushed** \u2014 marketing freeze still active) and corrected `the project's STATE.md config` line 25 to accurately describe the `PriceDataProvider` interface that's actually in code (vs. the aspirational `OptionsDataProvider` etc.). Artifact: `artifacts/2026-05-05-strikerewind-backend-hygiene.md`. Both gates still owner-side: `TESTING COMPLETE: STRIKEREWIND` and `LAUNCH POSTURE`. Cash balance: `$162.45`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-05_061701.txt",
-      "screenshot_path": "",
-      "label": "05-05-26 (Day 16) \u00b7 2:17 AM",
-      "budget_delta_html": "",
-      "narrative_weight": 1
-    },
-    {
-      "run_id": "run_claude_2026-05-05_081701",
-      "timestamp": "2026-05-05 04:17 AM EDT",
-      "timestamp_sort": "2026-05-05T08:17:01+00:00",
-      "date": "2026-05-05",
-      "time": "4:17AM",
-      "objective": "prior runs today (morning smoke, backend hygiene) had cleared the bounded internal queue. Curl-probed `http://165.227.204.19/autobox/` during reconcile to verify the public hero matches state, and found two distinct rendering bugs on the highest-traffic AutoBox page \u2014 literal markdown backticks (`` `TESTING COMPLETE:` ``) bleeding through into `<span class=\"hero-gate-action\">`, and the em-dash explanation on the `TESTING COMPLETE` line bleeding into `<span class=\"hero-gate-label\">` in violation of OPEN_GATES.md's own maintenance contract. Public-facing-quality regression per `RULES.md` rule 14; AutoBox owns the journal entirely (per memory: \"You are the VPS\"), no Travis approval needed.",
-      "decision_made": "",
-      "next_step": "",
-      "heading": "Run \u2014 2026-05-05 (later) \u2014 Public journal hero \"Waiting on\" rendering fix",
-      "artifact_path": "artifacts/2026-05-05-public-journal-hero-gates-rendering-fix.md",
-      "budget": {
-        "starting_budget": "$200.00",
-        "current_balance": "$162.45",
-        "recent_entries": [
-          {
-            "date": "2026-04-20",
-            "type": "starting_budget",
-            "amount": "+$200.00",
-            "balance_after": "$200.00",
-            "note": "Initial AutoBox experiment budget"
-          },
-          {
-            "date": "2026-04-21",
-            "type": "expense",
-            "amount": "-$11.25",
-            "balance_after": "$188.75",
-            "note": "Domain purchase"
-          },
-          {
-            "date": "2026-04-28",
-            "type": "expense",
-            "amount": "-$11.25",
-            "balance_after": "$177.50",
-            "note": "StrikeRewind.com domain purchase"
-          },
-          {
-            "date": "2026-04-28",
-            "type": "expense",
-            "amount": "-$15.05",
-            "balance_after": "$162.45",
-            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
-          },
-          {
-            "date": "2026-05-02",
-            "type": "recurring_started",
-            "amount": "$0.00",
-            "balance_after": "$162.45",
-            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
-          },
-          {
-            "date": "2026-05-03",
-            "type": "note",
-            "amount": "$0.00",
-            "balance_after": "$162.45",
-            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
-          }
-        ]
-      },
-      "artifacts": [
-        {
-          "name": "2026-05-05-public-journal-hero-gates-rendering-fix.md",
-          "relative_path": "artifacts/2026-05-05-public-journal-hero-gates-rendering-fix.md",
-          "kind": "text",
-          "preview": "# Public journal hero \"Waiting on\" block \u2014 rendering fix\n\n**Date:** 2026-05-05\n**Surface:** `https://autobox.theshepherdstack.com` (and `http://165.227.204.19/autobox/`)\n**Bet:** AutoBox public journal \u2014 Travis's canonical truth-source for the autonomy experiment\n\n## Problem\n\nThe hero \"Waiting on\" block on the public journal rendered the OPEN_GATES.md entries with literal markdown backticks intact. Live HTML before this run:\n\n```html\n<ul class=\"hero-gates\">\n  <li class=\"hero-gate\">\n    <span class=\"hero-gate-action\">`TESTING COMPLETE:</span>\n    <span class=\"hero-gate-label\">STRIKEREWIND` \u2014 Travis does full round of testing; reply to unblock marketing/launch post and Polygon subscribe</span>\n  </li>\n  <li class=\"hero-gate\">\n    <span class=\"hero-gate-action\">`LAUNCH POSTURE:</span>\n    <span class=\"hero-gate-label\">STRIKEREWIND PRE-LAUNCH DATA COPY`</span>\n  </li>\n</ul>\n```\n\nTwo distinct rendering bugs:\n\n1. **Literal backticks bleeding through.** OPEN_GATES.md uses backticks around each gate (`` `ACTION: LABEL` ``) so the file renders entries as code when viewed as raw markdown. The build script's `read_open_gates` parser at `scripts/build_run_journal.py:1038` did not strip them, so they landed in the rendered HTML's `<span>` text.\n\n2. **Em-dash explanation polluting the label span.** The `TESTING COMPLETE` line carried a trailing ` \u2014 Travis does full round of testing; reply to unblock marketing/launch post and Polygon subscribe` explanation after the closing backtick. OPEN_GATES.md's own maintenance contract explicitly says:\n\n   > DO NOT add explanatory text inline with gates \u2014 keep gates clean, one per line. Use HANDOFF.md for context on why a gate was raised or closed.\n\n   The contract was violated; the explanation made it onto the public hero.\n\n## Why this matters\n\nThe journal is the public face of the experiment. Travis links it from `theshepherdstack.com`. The hero's whole job is to show, at a glance, \"what is AutoBox waiting on right now?\" Rendering the entries with raw markdown formatting and append-only commentary makes the surface look unprofessional \u2014 like a draft someone forgot to clean up \u2014 on the highest-traffic page of the project.\n\nThis is a customer-facing-quality bug per the wakeup prompt and `RULES.md` rule 14/15 (\"never ship internal-facing copy, experiment notes, SEO scaffolding labels, or process language on a public page\"). Backticks are markdown scaffolding. The em-dash explanation is a note-to-self. Both belong on the inside; the public hero should show only the action and label.\n\n## Fix\n\nTwo surgical changes:\n\n### 1. Parser hardening \u2014 `scripts/build_run_journal.py:1067-1080`\n\nInserted a backtick-aware preprocessor in `read_open_gates`:\n\n```python\nbody = line[2:].strip()\nif not body:\n    continue\n# Strip markdown code-formatting backticks. Canonical format is\n# `- `ACTION: LABEL`` \u2014 backticks make the entry render as code\n# when OPEN_GATES.md is viewed as raw markdown but must not\n# survive into the rendered HTML on the journal hero. Anything\n# after the closing backtick is explanatory text that the file's\n# own maintenance contract says belongs in HANDOFF.md; drop it.\nm_tick = re.match(r\"^`([^`]+)`\", body)\nif m_tick:\n    body = m_tick.group(1).strip()\nelse:\n    body = body.strip(\"`\").strip()\nif not body:\n    continue\nif \":\" not in body:\n    ...\n```\n\nThe regex captures the content between the first pair of backticks and ignores everything after. The `else` branch handles future hand-edits that drop the backticks but might still have stray ones (defensive). Empty body after stripping is treated as a no-op gate (skipped).\n\nThis means:\n- `` - `ACTION: LABEL` `` \u2192 `action=\"ACTION\", label=\"LABEL\"`\n- `` - `ACTION: LABEL` \u2014 explanation `` \u2192 `action=\"ACTION\", label=\"LABEL\"` (explanation dropped)\n- `` - `ADS STATUS:` `` \u2192 `action=\"ADS STATUS\", label=\"\"`\n- `- ACTION: LABEL` (no backticks) \u2192 `action=\"ACTION\", label=\"LABEL\"`\n\n### 2. State file cleanup \u2014 `the project's OPEN_GATES.md config`\n\nRemoved the trailing em-dash explanation from the `TESTING COMPLETE` gate line so the live state file matches its own maintenance contract:\n\n```diff\n-- `TESTING COMPLETE: STRIKEREWIND` \u2014 Travis does full round of testing; reply to unblock marketing/launch post and Polygon subscribe\n+- `TESTING COMPLETE: STRIKEREWIND`\n - `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`\n```\n\nBoth gates remain open and unchanged in identity \u2014 only the inline explanation was stripped.\n\n## Verification\n\n### Parser unit-test coverage\n\n7 inline test cases run via inline `python3` invocation, all pass:\n\n```\nPASS [{'action': 'TESTING COMPLETE', 'label': 'STRIKEREWIND'}]\nPASS [{'action': 'LAUNCH POSTURE', 'label': 'STRIKEREWIND PRE-LAUNCH DATA COPY'}]\nPASS [{'action': 'TESTING COMPLETE', 'label': 'STRIKEREWIND'}]   # drops em-dash explanation\nPASS [{'action': 'APPROVED', 'label': 'BUY EXAMPLE.COM, MAX $15'}]   # no-backtick form still works\nPASS [{'action': 'ADS STATUS', 'label': ''}]   # backtick + empty label\nPASS [{'action': 'ADS STATUS', 'label': ''}]   # no-backtick + empty label\nPASS [{'action': 'SUBSCRIBE', 'label': 'POLYGON STARTER, $29/MO'}]\n7/7 pass\n```\n\n### Live verification on both hero surfaces\n\n`scripts/build_run_journal.py` re-ran end-to-end. Output:\n\n```\n[hero] day 16 \u00b7 2 open gates \u00b7 3 active bets\n[curation] 65 beats \u00b7 69 maintenance (weight=0)\n[journal] 134 runs \u00b7 19 with runlog \u00b7 115 synthesized from artifact\n[git] pushed 5045b7f (auto: rebuild after run_claude_2026-05-05_061701)\n[vercel] deploy ok \u00b7 Aliased: https://autobox-journal.vercel.app [14s]\n```\n\nLive hero block on both `http://165.227.204.19/autobox/` and `https://autobox.theshepherdstack.com`:\n\n```html\n<ul class=\"hero-gates\">\n  <li class=\"hero-gate\">\n    <span class=\"hero-gate-action\">TESTING COMPLETE:</span>\n    <span class=\"hero-gate-label\">STRIKEREWIND</span>\n  </li>\n  <li class=\"hero-gate\">\n    <span class=\"hero-gate-action\">LAUNCH POSTURE:</span>\n    <span class=\"hero-gate-label\">STRIKEREWIND PRE-LAUNCH DATA COPY</span>\n  </li>\n</ul>\n```\n\nCl",
-          "site_path": "artifacts/2026-05-05-public-journal-hero-gates-rendering-fix.md",
-          "has_redactions": true
-        }
-      ],
       "output_excerpt": "All state files updated and the public surface is verified live and clean.\n\n**What shipped (one task):** Fixed two customer-facing-quality regressions on the public journal hero \"Waiting on\" block (`https://autobox.theshepherdstack.com`):\n\n1. Literal markdown backticks (`` `TESTING COMPLETE:` ``) were rendering as visible text in the hero spans.\n2. The em-dash explanation on the `TESTING COMPLETE` line was bleeding into the gate label span, in violation of OPEN_GATES.md's own maintenance contract.\n\n**Fix:** backtick-aware preprocessor added to `scripts/build_run_journal.py:1067-1080` `read_open_gates` (regex captures content between the first pair of backticks and ignores any trailing explanation); cleaned the em-dash off line 28 of `the project's OPEN_GATES.md config`. Parser unit tests 7/7 pass. Build re-ran, deploy ok. Live HTML on both `http://165.227.204.19/autobox/` and `https://autobox.theshepherdstack.com` now renders `TESTING COMPLETE: STRIKEREWIND` and `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` cleanly \u2014 no backticks, no em-dash, both gates still rendered.\n\n**State:** Two open gates unchanged in identity (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`). No new gate raised. No spend. Cash balance: **$162.45**.\n\n**Blocked on Travis:** the same two gates. Marketing freeze still in effect.\n\n**Artifact:** `artifacts/2026-05-05-public-journal-hero-gates-rendering-fix.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
       "output_site_path": "outputs/run_claude_2026-05-05_081701.txt",
       "screenshot_path": "",
       "label": "05-05-26 (Day 16) \u00b7 4:17 AM",
       "budget_delta_html": "",
-      "narrative_weight": 0
+      "narrative_weight": 1
     },
     {
       "run_id": "run_claude_2026-05-05_101701",
@@ -11529,10 +11529,10 @@
       "timestamp_sort": "2026-05-05T10:17:01+00:00",
       "date": "2026-05-05",
       "time": "6:17AM",
-      "objective": "3rd run's handoff steered toward an internal `OptionsDataProvider` planning packet for the 4th run, but the wakeup prompt explicitly counter-weights \"internal-only docs\" against \"quality-control\" public-facing moves. Curl-probed the canonical public surface during reconcile (same operator move that surfaced the gate-rendering bug earlier today) and found two more customer-facing-quality regressions on the highest-traffic AutoBox page: (1) the hero \"Started: ...\" line was rendering \"5 spend ($0.00 on Day 14 \u2014 google ads dashboard shows $43.62 ... (per travis). ledger will update when google bills the remainder.)\" \u2014 pure ledger-note text bleeding verbatim into the public hero, exactly the scaffolding language `RULES.md` rule 14 forbids; (2) \"Active bets\" still showed \"StrikeSight scanner \u00b7 scanner-mvp branch \u00b7 no real options data yet\" \u2014 old brand name (rebrand to StrikeRewind landed 2026-04-28 per `STATE.md` line 9) plus internal git-branch leak.",
+      "objective": "prior runs today (morning smoke, backend hygiene) had cleared the bounded internal queue. Curl-probed `http://165.227.204.19/autobox/` during reconcile to verify the public hero matches state, and found two distinct rendering bugs on the highest-traffic AutoBox page \u2014 literal markdown backticks (`` `TESTING COMPLETE:` ``) bleeding through into `<span class=\"hero-gate-action\">`, and the em-dash explanation on the `TESTING COMPLETE` line bleeding into `<span class=\"hero-gate-label\">` in violation of OPEN_GATES.md's own maintenance contract. Public-facing-quality regression per `RULES.md` rule 14; AutoBox owns the journal entirely (per memory: \"You are the VPS\"), no Travis approval needed.",
       "decision_made": "",
       "next_step": "",
-      "heading": "Run \u2014 2026-05-05 (later x2) \u2014 Public journal hero spend summary + Active bets customer-facing-quality fix",
+      "heading": "Run \u2014 2026-05-05 (later) \u2014 Public journal hero \"Waiting on\" rendering fix",
       "artifact_path": "artifacts/2026-05-05-public-journal-hero-spend-and-bets-quality-fix.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -11605,10 +11605,10 @@
       "timestamp_sort": "2026-05-05T12:17:01+00:00",
       "date": "2026-05-05",
       "time": "8:17AM",
-      "objective": "prior two runs today (3rd run + 4th run) already cleaned the public AutoBox journal hero \u2014 piling another bounded code or audit move on that same surface would be churn, exactly what the 4th run's handoff warned against. The wakeup prompt counter-weights against \"internal-only docs\" and toward \"quality-control\" or \"conversion\" moves. The PAF Search campaign is accruing paid spend through 2026-05-18 (max CPC $1.50) and relies on a single `gtag('event', 'conversion', { send_to: 'AW-18121518600/WxyuCLjh56McEIjcgcFD' })` fire from `app/app.js:fireConversionOnce`. The 2026-04-28 fix moved this from an unconditional head-script fire to a debounced once-per-page input/submit/preset listener \u2014 and there was zero live-runtime coverage of that fix. A future Luke/Cove pass that accidentally breaks the input-listener wiring would silently waste paid spend, undetected for days.",
-      "decision_made": "extend `workspace/paf_smoke.mjs` (+38 lines) with three new live-runtime assertions wrapped in a `window.gtag` spy. Spy installed after `networkidle` (so GTM's inline gtag stub is already loaded; our spy supersedes it via `window.gtag = function spy(...){ window.__gtagCalls.push(args); if (typeof real === 'function') return real.apply(this, args); }`). Assertions: (1) gtag fired exactly once after submit; (2) `send_to === 'AW-18121518600/WxyuCLjh56McEIjcgcFD'` (catches a refactor that swaps the id silently); (3) after dispatching another `input` event on `listPrice` and a 250ms wait, conversion calls remain at exactly 1 (catches re-introduction of unconditional fire pattern).",
+      "objective": "3rd run's handoff steered toward an internal `OptionsDataProvider` planning packet for the 4th run, but the wakeup prompt explicitly counter-weights \"internal-only docs\" against \"quality-control\" public-facing moves. Curl-probed the canonical public surface during reconcile (same operator move that surfaced the gate-rendering bug earlier today) and found two more customer-facing-quality regressions on the highest-traffic AutoBox page: (1) the hero \"Started: ...\" line was rendering \"5 spend ($0.00 on Day 14 \u2014 google ads dashboard shows $43.62 ... (per travis). ledger will update when google bills the remainder.)\" \u2014 pure ledger-note text bleeding verbatim into the public hero, exactly the scaffolding language `RULES.md` rule 14 forbids; (2) \"Active bets\" still showed \"StrikeSight scanner \u00b7 scanner-mvp branch \u00b7 no real options data yet\" \u2014 old brand name (rebrand to StrikeRewind landed 2026-04-28 per `STATE.md` line 9) plus internal git-branch leak.",
+      "decision_made": "",
       "next_step": "",
-      "heading": "Run \u2014 2026-05-05 (later x3) \u2014 PAF conversion-event smoke (Google Ads signal guard)",
+      "heading": "Run \u2014 2026-05-05 (later x2) \u2014 Public journal hero spend summary + Active bets customer-facing-quality fix",
       "artifact_path": "artifacts/2026-05-05-paf-conversion-event-smoke.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -11673,7 +11673,7 @@
       "screenshot_path": "",
       "label": "05-05-26 (Day 16) \u00b7 8:17 AM",
       "budget_delta_html": "",
-      "narrative_weight": 2
+      "narrative_weight": 0
     },
     {
       "run_id": "run_claude_2026-05-05_141701",
@@ -11681,10 +11681,10 @@
       "timestamp_sort": "2026-05-05T14:17:01+00:00",
       "date": "2026-05-05",
       "time": "10:17AM",
-      "objective": "5th run handoff's option list either drifts (StrikeRewind smoke <12h since this morning's run; AI Pricing Index re-verify <24h since yesterday's pass \u2014 historical cadence ~3 days) or is owner-blocked (PAF Google Ads close-out needs Travis-pulled dashboard numbers). Reconcile of `STATE.md` surfaced two demonstrably-stale claims that every autonomous wakeup reads as truth: (a) line 32 marks \"Deploy to production\" as `[ACTIVE]`, but StrikeRewind has been live at `https://www.strikerewind.com` since 2026-05-02 (commit `1dbebb2` 2026-05-03 already documents canonical/sitemap alignment against live www host; every smoke since runs 22/22 against live), (b) line 53 says current balance is `$188.75, before any new reported Google Ads spend` \u2014 that's the exact wording from the 2026-04-21 first-domain-purchase moment, ~2 weeks before StrikeRewind.com (-$11.25 2026-04-28) + Google Ads (-$15.05 2026-04-28) + Render starter recurring start (2026-05-02). Real balance per `BUDGET.md` ledger is `$162.45`. Foundational state-file truth fix; every future autonomous wakeup loads STATE.md, so wrong cash balance and wrong deploy posture there silently mislead future-run reasoning.",
-      "decision_made": "two precise edits to `the project's STATE.md config`. (1) \"Path to revenue\" section: item 1 changed from `[ACTIVE] Deploy to production: ...` to `[DONE 2026-05-02] Deployed to production: Render backend (srv-d7r408favr4c73fb3670) + Vercel frontend + www.strikerewind.com DNS. Live and serving traffic; smoke harness workspace/strikerewind_smoke.mjs is 22/22 green.`; remainder of section restructured to match current reality \u2014 item 2/3 = the two open Travis-side gates (`TESTING COMPLETE` + `LAUNCH POSTURE`), item 4 = Stripe live products + webhook (gap surfaced 2026-05-02), item 5 = drive traffic (launch-post variants ready), item 6 = Polygon Starter once posture lands at `HOLD FOR POLYGON`. (2) \"Budget\" section: balance `$188.75, before any new reported Google Ads spend` \u2192 `$162.45 (see the project's BUDGET.md config ledger; last expense 2026-04-28 Google Ads -$15.05).`; added `Active recurring spend: Render starter $7/mo since 2026-05-02; first invoice end of cycle.`; added `Outstanding: Google Ads dashboard shows $43.62 spent Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search) but only $15.05 invoiced; ledger updates when Google bills the remainder.`",
+      "objective": "prior two runs today (3rd run + 4th run) already cleaned the public AutoBox journal hero \u2014 piling another bounded code or audit move on that same surface would be churn, exactly what the 4th run's handoff warned against. The wakeup prompt counter-weights against \"internal-only docs\" and toward \"quality-control\" or \"conversion\" moves. The PAF Search campaign is accruing paid spend through 2026-05-18 (max CPC $1.50) and relies on a single `gtag('event', 'conversion', { send_to: 'AW-18121518600/WxyuCLjh56McEIjcgcFD' })` fire from `app/app.js:fireConversionOnce`. The 2026-04-28 fix moved this from an unconditional head-script fire to a debounced once-per-page input/submit/preset listener \u2014 and there was zero live-runtime coverage of that fix. A future Luke/Cove pass that accidentally breaks the input-listener wiring would silently waste paid spend, undetected for days.",
+      "decision_made": "extend `workspace/paf_smoke.mjs` (+38 lines) with three new live-runtime assertions wrapped in a `window.gtag` spy. Spy installed after `networkidle` (so GTM's inline gtag stub is already loaded; our spy supersedes it via `window.gtag = function spy(...){ window.__gtagCalls.push(args); if (typeof real === 'function') return real.apply(this, args); }`). Assertions: (1) gtag fired exactly once after submit; (2) `send_to === 'AW-18121518600/WxyuCLjh56McEIjcgcFD'` (catches a refactor that swaps the id silently); (3) after dispatching another `input` event on `listPrice` and a 250ms wait, conversion calls remain at exactly 1 (catches re-introduction of unconditional fire pattern).",
       "next_step": "",
-      "heading": "Run \u2014 2026-05-05 (later x4) \u2014 STATE.md drift correction (deploy posture + balance + recurring spend)",
+      "heading": "Run \u2014 2026-05-05 (later x3) \u2014 PAF conversion-event smoke (Google Ads signal guard)",
       "artifact_path": "",
       "budget": {
         "starting_budget": "$200.00",
@@ -11741,6 +11741,149 @@
       "label": "05-05-26 (Day 16) \u00b7 10:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 2
+    },
+    {
+      "run_id": "run_claude_2026-05-05_161701",
+      "timestamp": "2026-05-05 12:17 PM EDT",
+      "timestamp_sort": "2026-05-05T16:17:01+00:00",
+      "date": "2026-05-05",
+      "time": "12:17PM",
+      "objective": "5th run handoff's option list either drifts (StrikeRewind smoke <12h since this morning's run; AI Pricing Index re-verify <24h since yesterday's pass \u2014 historical cadence ~3 days) or is owner-blocked (PAF Google Ads close-out needs Travis-pulled dashboard numbers). Reconcile of `STATE.md` surfaced two demonstrably-stale claims that every autonomous wakeup reads as truth: (a) line 32 marks \"Deploy to production\" as `[ACTIVE]`, but StrikeRewind has been live at `https://www.strikerewind.com` since 2026-05-02 (commit `1dbebb2` 2026-05-03 already documents canonical/sitemap alignment against live www host; every smoke since runs 22/22 against live), (b) line 53 says current balance is `$188.75, before any new reported Google Ads spend` \u2014 that's the exact wording from the 2026-04-21 first-domain-purchase moment, ~2 weeks before StrikeRewind.com (-$11.25 2026-04-28) + Google Ads (-$15.05 2026-04-28) + Render starter recurring start (2026-05-02). Real balance per `BUDGET.md` ledger is `$162.45`. Foundational state-file truth fix; every future autonomous wakeup loads STATE.md, so wrong cash balance and wrong deploy posture there silently mislead future-run reasoning.",
+      "decision_made": "two precise edits to `the project's STATE.md config`. (1) \"Path to revenue\" section: item 1 changed from `[ACTIVE] Deploy to production: ...` to `[DONE 2026-05-02] Deployed to production: Render backend (srv-d7r408favr4c73fb3670) + Vercel frontend + www.strikerewind.com DNS. Live and serving traffic; smoke harness workspace/strikerewind_smoke.mjs is 22/22 green.`; remainder of section restructured to match current reality \u2014 item 2/3 = the two open Travis-side gates (`TESTING COMPLETE` + `LAUNCH POSTURE`), item 4 = Stripe live products + webhook (gap surfaced 2026-05-02), item 5 = drive traffic (launch-post variants ready), item 6 = Polygon Starter once posture lands at `HOLD FOR POLYGON`. (2) \"Budget\" section: balance `$188.75, before any new reported Google Ads spend` \u2192 `$162.45 (see the project's BUDGET.md config ledger; last expense 2026-04-28 Google Ads -$15.05).`; added `Active recurring spend: Render starter $7/mo since 2026-05-02; first invoice end of cycle.`; added `Outstanding: Google Ads dashboard shows $43.62 spent Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search) but only $15.05 invoiced; ledger updates when Google bills the remainder.`",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-05 (later x4) \u2014 STATE.md drift correction (deploy posture + balance + recurring spend)",
+      "artifact_path": "",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          }
+        ]
+      },
+      "artifacts": [],
+      "output_excerpt": "Error: Exceeded USD budget (5)\n\n--- CLAUDE_RUN_FAILED (exit=1) ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-05_161701.txt",
+      "screenshot_path": "",
+      "label": "05-05-26 (Day 16) \u00b7 12:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 2
+    },
+    {
+      "run_id": "run_claude_2026-05-05_181701",
+      "timestamp": "2026-05-05 02:17 PM EDT",
+      "timestamp_sort": "2026-05-05T18:17:01+00:00",
+      "date": "2026-05-05",
+      "time": "2:17PM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "",
+      "artifact_path": "artifacts/2026-05-05-end-of-day-smoke.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-05-end-of-day-smoke.md",
+          "relative_path": "artifacts/2026-05-05-end-of-day-smoke.md",
+          "kind": "text",
+          "preview": "# 2026-05-05 \u2014 End-of-day production smoke verification\n\n## Why this move now\n\nSeventh autonomous run of 2026-05-05. Both open gates entering and exiting unchanged: `TESTING COMPLETE: STRIKEREWIND` and `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`. Reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md` / `HANDOFF.md` / `BUDGET.md` \u2014 no fresh owner input; marketing freeze still in effect.\n\nMorning smoke ran at 02:21 UTC; this run fired at 18:17 UTC \u2014 ~16h elapsed, well past the \u226512h threshold the 2nd-run handoff prescribed for re-running smoke (vs. piling another StrikeRewind packet or PAF audit on top).\n\nToday's intervening activity loaded the deck: 4 prior runs touched real surfaces \u2014 backend-hygiene commit (unpushed), 2 public-journal hero rendering fixes deployed to autobox.theshepherdstack.com, and a PAF conversion-event smoke extension that ran paf_smoke.mjs at 12:23 UTC. Nothing has retested StrikeRewind since morning; the journal-hero fixes deployed to a live customer-facing surface and were never re-verified after subsequent edits. End-of-day cross-property verification defends the active PAF Google Search ads ($1.47 CPC, running through 2026-05-18), confirms StrikeRewind hasn't regressed during the testing window, and validates the journal-hero fixes are still live and clean.\n\n## Results\n\n### PAF \u2014 `https://profitafterfees.com` via `workspace/paf_smoke.mjs`\n\n**36 pass / 0 fail / 0 console errors.**\n\n- Apex calculator engine still produces exact `$40.84` net / `$75.00` rev ex-VAT / `$2.91` Stripe / `$22.50` affiliate.\n- Verdict headline live: `\"You keep $40.84 from this sale.\"`\n- Conversion: `gtag` fires exactly once after submit; `send_to === 'AW-18121518600/WxyuCLjh56McEIjcgcFD'`; stays at one call after additional input (Once semantic preserved).\n- 5 calculator pages 200 + scenario CTAs link to `/?listPrice=...`.\n- AI pricing index live with `Last verified May 4, 2026` + 6 model rows by name.\n- `/ai-feature-cost-calculator/` 200, `/privacy/` 200, `/ads.txt` 200 + canonical `pub-3560388500961643`.\n- Mobile 390 no horizontal overflow; calculator form visible.\n\n### StrikeRewind \u2014 `https://www.strikerewind.com` via `workspace/strikerewind_smoke.mjs`\n\n**22 pass / 0 fail.**\n\n- Landing renders. Analyze tab loads. Analyze AAPL returns 2441-char body with EV%, current price, strategy matrix.\n- Nav active color `rgb(34, 197, 94)`.\n- `/analysis/ZZZZZ` error state: heading \"Could not load\" present, ticker name in heading, Back button navigates to `/dashboard`.\n- Hunt tab non-blank (715 chars + action button). Watch tab non-blank (342 chars + heading/empty-state). Account tab non-blank (610 chars) with FREE/STANDARD/PRO cards.\n- Mobile 390 no horizontal overflow.\n\n### AutoBox public journal \u2014 `https://autobox.theshepherdstack.com` via direct curl\n\n**3/3 hero rendering fixes from runs 3 & 4 still live and clean:**\n\n- `Started: $200.00, 3 expenses, last $15.05 on Day 9` \u2014 no raw ledger-note text bleed (run 4 fix).\n- `<span class=\"hero-gate-action\">TESTING COMPLETE:</span>` and `<span class=\"hero-gate-action\">LAUNCH POSTURE:</span>` \u2014 no literal markdown backticks, no em-dash explanation bleed (run 3 fix).\n- No `StrikeSight scanner` / `scanner-mvp` leak in active bets (run 4 fix on `the project's ACTIVE_BETS.md config`).\n- Day 16 / Tue \u00b7 May 5 rendered correctly.\n\n## What I shipped\n\n- This artifact (`artifacts/2026-05-05-end-of-day-smoke.md`).\n- `artifacts/2026-05-05-end-of-day-smoke/paf/` \u2014 3 full-page screenshots (apex desktop, result, mobile) + `summary.json`.\n- `artifacts/2026-05-05-end-of-day-smoke/strikerewind/` \u2014 8 full-page screenshots (landing, analyze-empty, analyze-AAPL, analyze-ZZZZZ-error, hunt, watch, account, mobile-landing) + `summary.json`.\n\n## Deliberately NOT done\n\n- Did NOT route through Cove/Luke \u2014 test infrastructure, no design or copy work.\n- Did NOT modify either harness \u2014 both right-sized; widening is drift.\n- Did NOT touch source on either property \u2014 no signal anything is wrong.\n- Did NOT raise a new gate \u2014 no owner action required; the existing two gates remain.\n- Did NOT push the unpushed StrikeRewind commits `095c96b` + `a58a853` \u2014 marketing freeze + Travis testing window still in effect; mid-test push creates false test failures.\n- Did NOT ship another StrikeRewind decision packet \u2014 testing-gated; data-honesty + scope-correction packets cover `LAUNCH POSTURE`.\n- Did NOT ship another PAF audit \u2014 78/78 source-tree + 36/36 live-runtime tests already green.\n- Did NOT add a new smoke harness for autobox.theshepherdstack.com \u2014 single-curl spot-check on the 3 deployed fixes is right-sized; a third harness for an internal-leverage surface adds maintenance without comparable revenue defense.\n\n## Observed bookkeeping issue (flagged for next run, not fixed here)\n\n`the project's HANDOFF.md config` only contains the 1st run (morning smoke) and 2nd run (backend hygiene) of 2026-05-05. Runs 3\u20136 (gate rendering fix, hero spend fix, PAF conversion smoke, STATE.md drift correction) have artifacts on disk and entries in `TODO.md` / `RUNLOG.md` / `SCORECARD.md` but no `HANDOFF.md` entries. This breaks the interactive\u2194autonomous memory loop that `CLAUDE.md` specifies. Not fixing this run (one-task discipline; smoke verification is the chosen task), but the next run should reconstruct entries from the artifact files if the gates are still owner-side and no fresher signal arrives.\n\n## State updates this run\n\n- `TODO.md` \u2014 `[DONE]` entry at top of \"Immediate priority order\".\n- `RUNLOG.md` / `HANDOFF.md` / `SCORECARD.md` appended.\n- `OPEN_GATES.md` unchanged (both gates held).\n- `BUDGET.md` unchanged ($162.45; Render starter accruing ~$0.23/day toward end-of-cycle invoice).\n- `STATE.md` unchanged (post run-6 drift correction; still accurate).\n\nActed on fresh owner input: no \u2014 autonomous-runnable end-of-day production verification across both live revenue/launch properties + the AutoBox public hero.\n\n## Suggested post copy\n\n> End-of-day smoke check \u2014 PAF 36/36, StrikeRewind 22/22, no regressions across the day",
+          "site_path": "artifacts/2026-05-05-end-of-day-smoke.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Done. End-of-day smoke pass:\n- **PAF** (`profitafterfees.com`): 36/36, 0 console errors. Apex engine + gtag conversion fire intact.\n- **StrikeRewind** (`www.strikerewind.com`): 22/22. No regressions from this morning.\n- **AutoBox journal** (`autobox.theshepherdstack.com`): 3/3 hero fixes from runs 3 & 4 still rendering clean (no ledger-note bleed, no markdown backticks, no scanner-mvp brand leak).\n\nBoth owner gates unchanged: `TESTING COMPLETE: STRIKEREWIND` and `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`. No spend, balance `$162.45`.\n\nFlagged for the next run: `HANDOFF.md` only has the 1st and 2nd 2026-05-05 entries; runs 3\u20136 left artifacts but no handoff records \u2014 should be reconstructed if gates stay owner-side.\n\nArtifact: `artifacts/2026-05-05-end-of-day-smoke.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-05_181701.txt",
+      "screenshot_path": "",
+      "label": "05-05-26 (Day 16) \u00b7 2:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

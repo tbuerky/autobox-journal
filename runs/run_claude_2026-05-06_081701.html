@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind production smoke &middot; AutoBox</title>
+<title>PAF ai feature cost premium preset fix &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,9 +33,10 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-06_081701</span>
   </div>
-  <h2 class="run-title">Strikerewind production smoke</h2>
+  <h2 class="run-title">PAF ai feature cost premium preset fix</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">fifth autonomous run of 2026-05-06, fired ~12:17 UTC (~2h after run 4&#x27;s no-action; ~6h after run 3&#x27;s StrikeRewind smoke). Two open gates entering and exiting unchanged (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md` / `HANDOFF.md` / `BUDGET.md` — both held, no fresh owner input since 2026-05-02 marketing freeze. Run 4&#x27;s handoff explicitly named PAF smoke as the eligible move from 12:17 UTC onward (18h cadence since yesterday&#x27;s 18:17 UTC end-of-day smoke). Window opened at fire time.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">sixth autonomous run of 2026-05-06, fired ~14:18 UTC (~2h after run 5&#x27;s PAF smoke at 12:17 UTC). Two open gates entering and exiting unchanged (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md` / `HANDOFF.md` / `BUDGET.md` — both held, no fresh owner input since 2026-05-02 marketing freeze. Wakeup prompt explicitly says &quot;Do not produce advisory-only output&quot; — chose a real bounded customer-facing improvement on a live AdSense-monetized utility over a fourth no-action documented-blocker artifact.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">edit `app/ai-feature-cost.js` premium preset to $5 / $25 (matches Opus 4.7 — current most-expensive frontier model from tier-1 provider per the just-verified Pricing Index). Bump pre-existing stale `May 4` → `May 6` assertion in `content.test.js:982` (same class of stale-test bug as run 5&#x27;s `paf_smoke.mjs:133` fix; co-located cleanup since this deploy would otherwise leave that test failing). Run full test suite — 110/110 pass across `ai-feature-cost.test.js` + `scenarios.test.js` + `verdict.test.js` + `calc.test.js` + `content.test.js`. Deploy: `vercel deploy --prod --yes --token &quot;$VERCEL_TOKEN_TSS&quot;` from `the calculator site` → `dpl_41BjA4FAb7XAQPdvVXgzRBjaahUM` `READY production`. Aliased to `https://profitafterfees.com`. Live `app/ai-feature-cost.js` confirms `inputPricePerMillion: 5` + `outputPricePerMillion: 25` under the `premium` key.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -44,71 +45,59 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <div class="artifact-prose"><h1>StrikeRewind production smoke — 2026-05-06 08:18 UTC</h1>
-<h2>Result</h2>
-<p>22/22 pass against <code>https://www.strikerewind.com</code>.</p>
-<p>Bundle: <code>artifacts/2026-05-06-strikerewind-playwright-smoke/</code> (8 fullpage screenshots + <code>summary.json</code>).</p>
-<h2>Why this run now</h2>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>PAF — AI Feature Cost Calculator: Premium preset corrected from $15/$75 → $5/$25</h1>
+<p><strong>Date</strong>: 2026-05-06 ~14:30 UTC</p>
+<p><strong>Run</strong>: 6th autonomous run of the day</p>
+<p><strong>Type</strong>: customer-facing credibility fix on a live AdSense-monetized utility</p>
+<p><strong>Cash balance</strong>: $162.45 (no spend; existing Vercel + AdSense + Render stack)</p>
+<h2>What changed</h2>
+<p><code>the calculator site:25-29</code> — the <code>premium</code> model preset on <code>/ai-feature-cost-calculator/</code> was projecting $15 / $75 per million tokens for input/output. No current frontier model from a tier-1 provider charges anywhere near that. The most expensive model on the just-verified AI Model Pricing Index (Anthropic Opus 4.7) is $5 / $25. Updated <code>premium</code> to $5 / $25 to match.</p>
+<pre><code>   premium: {
+     label: &#x27;Premium reasoning model&#x27;,
+-    inputPricePerMillion: 15,
+-    outputPricePerMillion: 75,
++    inputPricePerMillion: 5,
++    outputPricePerMillion: 25,
+   },
+</code></pre>
+<p>Also bumped a stale <code>Last verified May 4, 2026</code> assertion to <code>May 6, 2026</code> in <code>tests/content.test.js:982</code> — pre-existing breakage from run 1 of today&#x27;s freshness bump on the AI Pricing Index page; same class of bug as run 5&#x27;s <code>paf_smoke.mjs</code> fix.</p>
+<h2>Why this matters</h2>
+<p><strong>Before</strong>: A user picking &quot;Premium reasoning model&quot; projected per-call costs ~3x what any current frontier model actually charges. Someone running the math to decide whether to ship an AI feature would conclude &quot;AI is too expensive, kill the feature&quot; based on prices that haven&#x27;t been current since 2023-era GPT-4 Turbo. That&#x27;s a credibility leak on a live AdSense page that ranks for AI-pricing queries — and a quietly bad outcome for builders who trust the math.</p>
+<p><strong>After</strong>: Premium tier reflects Anthropic Opus 4.7 — the actual current premium frontier from a tier-1 provider. A user who picks Premium and projects a margin will see numbers that match what they&#x27;d actually pay if they shipped. The page&#x27;s footer-note disclaimer that presets are illustrative still applies; the change is to make the &quot;illustrative&quot; example point at a real model.</p>
+<p>This aligns with the wakeup-prompt directive to prefer <strong>quality control</strong> over endless on-site SEO page expansion. No new pages, no new sections — one number trio fixed, on a live customer-facing tool.</p>
+<h2>Tests + deploy</h2>
 <ul>
-<li>Run 3 of 2026-05-06, fired ~08:17 UTC. Run 1 (02:17 UTC) was AI Pricing Index re-verify; run 2 (06:17 UTC) was TODO.md cleanup.</li>
-<li>Run 2&#x27;s handoff named StrikeRewind production smoke as the eligible move from now through 12:17 UTC. Eligibility window opened 06:17 UTC (12h after yesterday&#x27;s 18:17 UTC end-of-day smoke).</li>
-<li>Marketing freeze + <code>TESTING COMPLETE: STRIKEREWIND</code> gate still owner-side. Smoke is bounded, customer-facing, defends the testing-window state of the live site without touching code or marketing surface.</li>
+<li>110/110 tests pass after the change (<code>ai-feature-cost.test.js</code> 3/3, <code>scenarios.test.js</code>, <code>verdict.test.js</code>, <code>calc.test.js</code>, <code>content.test.js</code>).</li>
+<li>Deploy: <code>vercel deploy --prod --yes --token &quot;$VERCEL_TOKEN_TSS&quot;</code> from <code>the calculator site</code> → <code>dpl_41BjA4FAb7XAQPdvVXgzRBjaahUM</code> <code>READY production</code>. Aliased to <code>https://profitafterfees.com</code> (<code>vercel alias set ... profitafterfees.com</code>). Live <code>app/ai-feature-cost.js</code> confirms <code>inputPricePerMillion: 5</code> + <code>outputPricePerMillion: 25</code> under the <code>premium</code> key.</li>
 </ul>
-<h2>Coverage executed (against live <code>www.strikerewind.com</code>)</h2>
-<p>| # | Check | Pass |</p>
-<p>|---|---|:-:|</p>
-<p>| 1 | Landing renders | ✓ |</p>
-<p>| 2 | Analyze tab loads | ✓ |</p>
-<p>| 3 | Analyze AAPL: ticker rendered | ✓ |</p>
-<p>| 4 | Analyze AAPL: EV percentage rendered | ✓ |</p>
-<p>| 5 | Analyze AAPL: current price rendered | ✓ |</p>
-<p>| 6 | Analyze AAPL: page not blank (2441 chars) | ✓ |</p>
-<p>| 7 | Strategy matrix heading present | ✓ |</p>
-<p>| 8 | Analyze nav: URL <code>/analysis/AAPL</code> | ✓ |</p>
-<p>| 9 | Analyze nav: active color <code>rgb(34, 197, 94)</code> | ✓ |</p>
-<p>| 10 | Error ZZZZZ: &quot;Could not load&quot; heading | ✓ |</p>
-<p>| 11 | Error ZZZZZ: ticker in heading | ✓ |</p>
-<p>| 12 | Error ZZZZZ: Back button present | ✓ |</p>
-<p>| 13 | Error ZZZZZ: Back navigates to dashboard | ✓ |</p>
-<p>| 14 | Hunt tab not blank (715 chars) | ✓ |</p>
-<p>| 15 | Hunt: action button present | ✓ |</p>
-<p>| 16 | Watch tab not blank (342 chars) | ✓ |</p>
-<p>| 17 | Watch: heading or empty-state present | ✓ |</p>
-<p>| 18 | Account tab not blank (610 chars) | ✓ |</p>
-<p>| 19 | Account: FREE tier label rendered | ✓ |</p>
-<p>| 20 | Account: STANDARD plan card | ✓ |</p>
-<p>| 21 | Account: PRO plan card | ✓ |</p>
-<p>| 22 | Mobile landing: no horizontal overflow (0px) | ✓ |</p>
-<p>No console errors logged outside the deliberate ZZZZZ 500-path probe.</p>
-<h2>What this confirms</h2>
+<h2>What this does NOT change</h2>
 <ul>
-<li>The black-blank-page class of regression Travis hit on AAPL is not present today: 2441 chars + EV% + current price + matrix heading all rendered.</li>
-<li>Both happy and error paths render with recoverable UI (Back button works on the error state).</li>
-<li>Tier copy matches the ship state: FREE label + STANDARD/PRO plan cards on the Account tab.</li>
-<li>Mobile landing is clean — no horizontal overflow at 1280×900 narrow profile.</li>
+<li><code>low-cost</code> preset stays at $0.15 / $0.60 — still corresponds to a real OpenAI offering (GPT-4o-mini-class). Not stale.</li>
+<li><code>mid-tier</code> preset stays at $3 / $15 — matches Anthropic Sonnet 4.6, the current verified mid-tier reasoning frontier.</li>
+<li>Default scenario values, copy, layout, FAQ, AI Pricing Index page — all untouched. Single bounded change.</li>
 </ul>
-<h2>What this does NOT confirm</h2>
+<h2>Considered and rejected</h2>
 <ul>
-<li>Stripe checkout end-to-end. The harness deliberately does not click Upgrade because live Stripe is wired and Travis is the test purchaser.</li>
-<li>Hunt-end-to-end with a real result row click. The harness checks the Hunt action button and page-not-blank state but does not trigger a full scan run.</li>
-<li>Backend-only regressions invisible to the UI.</li>
+<li><strong>Renaming the dropdown options to specific model names</strong> (e.g. &quot;Anthropic Opus 4.7&quot; instead of &quot;Premium reasoning model&quot;). Rejected — locks the preset to a single named model and creates a freshness debt every time pricing or model lineup shifts. The current generic labels with editable presets are the right pattern.</li>
+<li><strong>Updating low-cost from $0.15 / $0.60 to $0.10 / $0.40</strong> to align with Gemini Flash-Lite (the cheapest model on the verified Pricing Index). Rejected — $0.15 / $0.60 still corresponds to a real model (GPT-4o-mini); changing it adds risk without obvious benefit.</li>
+<li><strong>Adding a &quot;verified date&quot; line to the calculator page itself</strong>. Rejected — the existing footer-note explicitly warns that presets are illustrative defaults, which is the right posture; a verified date implies the presets ARE current pricing and would create the same freshness debt.</li>
+<li><strong>Routing through Cove or Luke</strong>. Rejected — single-number numeric correction with no copy or layout judgment needed; not a creative-work task.</li>
 </ul>
-<h2>Considered and rejected this run</h2>
+<h2>Public-copy hygiene per RULES.md 14/15</h2>
 <ul>
-<li>PAF smoke — eligibility window opens at 12:17 UTC; running it now is duplicative.</li>
-<li>AI Pricing Index re-verify — done at 02:17 UTC; ≥48h window not open.</li>
-<li>Pushing unpushed StrikeRewind commits <code>095c96b</code> + <code>a58a853</code> — marketing freeze + testing window in effect; mid-test push burns Travis&#x27;s testing pass.</li>
-<li>A 2nd state-file hygiene move — TODO.md cleanup at 06:17 UTC was the right one; piling another would be drift.</li>
+<li>No internal labels, experiment language, or scaffolding copy added or changed. Only numeric preset values updated. Page copy continues to disclaim presets as illustrative.</li>
 </ul>
 <h2>Next-run guidance</h2>
-<p>| If next run fires at... | Eligible move |</p>
-<p>|---|---|</p>
-<p>| Now through 12:17 UTC | If Travis replies on either StrikeRewind gate, resume launch-readiness work. Otherwise no-action — bounded queue is empty inside this window. |</p>
-<p>| 12:17 UTC onward | PAF production smoke re-run via <code>workspace/paf_smoke.mjs</code> — 18h out from yesterday&#x27;s 18:17 UTC end-of-day smoke. |</p>
-<p>| 18:17 UTC onward | StrikeRewind end-of-day smoke re-run (12h cadence). |</p>
-<p>| Owner replies on either gate | Highest priority; resume launch-readiness work. |</p>
+<ul>
+<li>Run 5&#x27;s eligibility table from earlier today still holds for the rest of the day, with this run consuming the &quot;find a real bounded improvement&quot; slot:</li>
+<li><strong>Now through 2026-05-06 20:17 UTC</strong>: queue is now genuinely empty for this window. If owner replies on either StrikeRewind gate, resume launch-readiness work. Otherwise prefer no-action with a documented blocker over piling another move on top.</li>
+<li><strong>2026-05-06 20:17 UTC onward</strong>: StrikeRewind end-of-day smoke re-run via <code>workspace/strikerewind_smoke.mjs</code> (12h cadence since 08:17 UTC).</li>
+<li><strong>2026-05-06 end of day after both smokes clean</strong>: delete <code>the project&#x27;s TODO.md config.bak-pre-cleanup</code> + <code>the project&#x27;s HANDOFF.md config.bak-pre-relocate</code> rollback artifacts.</li>
+<li><strong>2026-05-08 02:17 UTC onward</strong>: AI Model Pricing Index re-verify (≥48h cadence).</li>
+</ul>
 <h2>Suggested post copy</h2>
-<p>&gt; Ran the StrikeRewind production smoke against <code>www.strikerewind.com</code> — 22/22 pass. AAPL analysis renders end-to-end (no blank page), Hunt/Watch/Account tabs all live, error state recovers via Back button, mobile has no horizontal overflow. Screenshots saved. Cash <code>$162.45</code>. Both StrikeRewind gates still on you: <code>TESTING COMPLETE: STRIKEREWIND</code> and <code>LAUNCH POSTURE</code>.</p></div>
+<p>&gt; Fixed a credibility leak on <code>/ai-feature-cost-calculator/</code>: the &quot;Premium reasoning model&quot; preset was projecting $15/$75 per million tokens — 3× higher than any current frontier model. Updated to $5/$25 (Anthropic Opus 4.7 — the most expensive entry in the just-verified pricing index). Tests 110/110 green. Deployed <code>dpl_41BjA4FAb7XAQPdvVXgzRBjaahUM</code>. Cash $162.45. Both StrikeRewind gates still on you.</p></div>
   </section>
 
   <section class="detail-section">

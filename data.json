@@ -12034,6 +12034,82 @@
       "timestamp_sort": "2026-05-06T02:17:01+00:00",
       "date": "2026-05-05",
       "time": "10:17PM",
+      "objective": "fifth autonomous run of 2026-05-06, fired ~12:17 UTC (~2h after run 4's no-action; ~6h after run 3's StrikeRewind smoke). Two open gates entering and exiting unchanged (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md` / `HANDOFF.md` / `BUDGET.md` \u2014 both held, no fresh owner input since 2026-05-02 marketing freeze. Run 4's handoff explicitly named PAF smoke as the eligible move from 12:17 UTC onward (18h cadence since yesterday's 18:17 UTC end-of-day smoke). Window opened at fire time.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-06 (run 5) \u2014 PAF production smoke against `profitafterfees.com` (36/36 pass; harness assertion bumped May 4 \u2192 May 6)",
+      "artifact_path": "artifacts/2026-05-06-ai-pricing-index-reverify.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-06-ai-pricing-index-reverify.md",
+          "relative_path": "artifacts/2026-05-06-ai-pricing-index-reverify.md",
+          "kind": "text",
+          "preview": "# AI Model Pricing Index \u2014 re-verify against provider sources (2026-05-06)\n\n## Move\nFirst autonomous run of 2026-05-06 (10th counting yesterday's nine no-action runs). Eligibility: AI Pricing Index re-verify window opened \u226548h after the prior 2026-05-04 verification. Re-verified all 6 model prices on `https://profitafterfees.com/ai-model-pricing-index/` against authoritative provider pricing pages, confirmed all match, bumped the public freshness date from \"May 4, 2026\" \u2192 \"May 6, 2026\", deployed to production, live-verified.\n\n## Comparison: page vs. authoritative source\n\n| Model | Page (input / output per 1M) | Provider source | Match |\n|---|---|---|---|\n| Claude Sonnet 4.6 | $3.00 / $15.00 | Anthropic docs (`platform.claude.com/docs/en/about-claude/pricing`): $3 / $15 | \u2713 |\n| Claude Haiku 4.5 | $1.00 / $5.00 | Anthropic docs: $1 / $5 | \u2713 |\n| Claude Opus 4.7 | $5.00 / $25.00 | Anthropic docs: $5 / $25 | \u2713 |\n| Gemini 2.5 Flash | $0.30 (text/image/video) / $2.50 | `ai.google.dev/gemini-api/docs/pricing`: $0.30 (text/image/video) / $2.50 | \u2713 |\n| Gemini 2.5 Flash-Lite | $0.10 (text/image/video) / $0.40 | `ai.google.dev/gemini-api/docs/pricing`: $0.10 (text/image/video) / $0.40 | \u2713 |\n| Gemini 2.5 Pro | $1.25 (\u2264200k) / $10.00 (\u2264200k) | `ai.google.dev/gemini-api/docs/pricing`: $1.25 (\u2264200k) / $10 (\u2264200k) | \u2713 |\n\nZero discrepancies. The page has been accurate since the 2026-05-04 update and remains accurate today.\n\n## Edit shipped\n- `the calculator site:66` \u2014 date string in `.subhead` paragraph: `Last verified May 4, 2026.` \u2192 `Last verified May 6, 2026.`\n- One-line change. No price edits, no model additions/removals, no layout change.\n\n## Deploy\n- Command: `vercel deploy --prod --yes --token \"$VERCEL_TOKEN_TSS\"` from `the calculator site`\n- Deployment: `dpl_Fzb2Qjag9so4LYbYXf1wTFb2Hw5S`, status `READY`, target `production`\n- Aliased: `https://profitafterfees.com`\n- Live verification: `curl -s https://profitafterfees.com/ai-model-pricing-index/` returns `Last verified May 6, 2026.` and all 6 expected model rows.\n\n## Why this move\n- Customer-facing freshness check on a live AdSense-monetized passive page.\n- Eligibility window per prior-run handoff guidance: \u226548h between re-verifies, opens 2026-05-06 02:21 UTC. Fired at 02:17 UTC, deployed by 02:20 UTC \u2014 within tolerance.\n- Bounded scope: one date string + one deploy + one curl verify.\n- Direct trust signal \u2014 a page that says \"Last verified May 6, 2026\" outranks a page that says \"Last verified May 4, 2026\" on freshness, both for users sanity-checking a feature build cost and for Google's freshness signals on AI-pricing queries.\n\n## Considered and not done\n- Did NOT add new models (e.g., Claude Sonnet 4.7 if/when released; Anthropic docs currently top out at Sonnet 4.6 + Opus 4.7 + Haiku 4.5 \u2014 no new release that warrants a row this run).\n- Did NOT add the Gemini 2.5 Pro >200k tier as a second row \u2014 current single-row presentation with the inline `prompts \u2264200k` qualifier is right-sized for the audience scoping their token budget; expanding to two rows would inflate the table without helping the typical small-builder use case.\n- Did NOT touch any other page on the site \u2014 out of scope.\n- Did NOT route through Cove/Luke \u2014 date bump on a page whose copy is already public-clean; no design or copy judgment needed.\n- Did NOT push unpushed StrikeRewind commits `095c96b` + `a58a853` \u2014 marketing freeze + Travis testing window still in effect on StrikeRewind property.\n- Did NOT touch the rest of the working tree's uncommitted changes (lots of older modifications + untracked PAF directories \u2014 not in the scope of this run; they pre-date this run and need their own intentional commit/deploy story).\n\n## Public-copy hygiene per RULES.md 14/15\nThe single line edited reads as customer-facing: \"Per-million-token input and output prices for Claude and Gemini models builders actually ship with. One table, direct provider sources, and calculator links for modeling the price against your own usage. Last verified May 6, 2026.\" No internal labels, no experiment language, no notes-to-self.\n\n## Cash impact\nNone. $162.45 unchanged. Vercel deploy is on the the-shepherd-stack account using the existing token; no marginal cost on the deploy itself.\n\n## Suggested post copy\n\n> AI Pricing Index re-verified against the provider docs \u2014 all 6 prices still match (Sonnet 4.6 $3/$15, Haiku 4.5 $1/$5, Opus 4.7 $5/$25, Gemini Flash $0.30/$2.50, Flash-Lite $0.10/$0.40, Pro $1.25/$10). Bumped the freshness date and deployed. Live now at `https://profitafterfees.com/ai-model-pricing-index/`. Cash `$162.45`. Both StrikeRewind gates still on you: `TESTING COMPLETE: STRIKEREWIND` and `LAUNCH POSTURE`.\n",
+          "site_path": "artifacts/2026-05-06-ai-pricing-index-reverify.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "All state files updated. Both open gates entering this run remain unchanged on exit (`TESTING COMPLETE: STRIKEREWIND` + `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); no new gates raised, so OPEN_GATES.md is unchanged. BUDGET.md unchanged at $162.45 (no spend).\n\n## Summary\n\n**Task shipped**: AI Model Pricing Index re-verify against authoritative provider docs + freshness date bump, deployed to `https://profitafterfees.com/ai-model-pricing-index/`.\n\n- All 6 prices match providers exactly (Sonnet 4.6 $3/$15, Haiku 4.5 $1/$5, Opus 4.7 $5/$25, Gemini Flash $0.30/$2.50, Flash-Lite $0.10/$0.40, Pro $1.25/$10).\n- One-line edit at `the calculator site:66`: `May 4, 2026.` \u2192 `May 6, 2026.`\n- Deploy `dpl_Fzb2Qjag9so4LYbYXf1wTFb2Hw5S` `READY production` aliased to `profitafterfees.com`; live-curl verified.\n- Cash balance: **$162.45** unchanged.\n- Both StrikeRewind gates still on Travis. Artifact: `artifacts/2026-05-06-ai-pricing-index-reverify.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-06_021701.txt",
+      "screenshot_path": "",
+      "label": "05-05-26 (Day 16) \u00b7 10:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-05-06_061701",
+      "timestamp": "2026-05-06 02:17 AM EDT",
+      "timestamp_sort": "2026-05-06T06:17:01+00:00",
+      "date": "2026-05-06",
+      "time": "2:17AM",
       "objective": "fourth autonomous run of 2026-05-06, fired 10:17 UTC (~2h after run 3's StrikeRewind smoke at 08:17 UTC). Two open gates entering and exiting unchanged (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md` / `HANDOFF.md` / `BUDGET.md` \u2014 both held, no fresh owner input since 2026-05-02 marketing freeze. Run 3's handoff explicitly named no-action as the right move for this window: \"Now through 2026-05-06 12:17 UTC | If owner replies on either gate, resume launch-readiness work. Otherwise no-action \u2014 bounded queue is empty inside this window (smoke just ran, AI Pricing Index just re-verified, TODO.md just compressed).\"",
       "decision_made": "ship a tight documented-blocker artifact at `artifacts/2026-05-06-no-action-rationale.md` covering eligibility table, considered-and-rejected list with rationale per item, operating-cadence observation (4 runs in 8h with both gates owner-side and no fresh owner input is the same pile-on pattern run 9 yesterday flagged), and next-run guidance keyed by fire time. Per PROJECT.md, \"Every session must produce a concrete artifact, or a documented blocker with evidence\" \u2014 this is the documented blocker, not advisory drift. Per RULES.md rule 3, advisory-only counts as failure; this is bounded operating-cadence documentation tied to specific eligibility windows with absolute clock targets.",
       "next_step": "",
@@ -12097,24 +12173,24 @@
           "has_redactions": true
         }
       ],
-      "output_excerpt": "All state files updated. Both open gates entering this run remain unchanged on exit (`TESTING COMPLETE: STRIKEREWIND` + `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); no new gates raised, so OPEN_GATES.md is unchanged. BUDGET.md unchanged at $162.45 (no spend).\n\n## Summary\n\n**Task shipped**: AI Model Pricing Index re-verify against authoritative provider docs + freshness date bump, deployed to `https://profitafterfees.com/ai-model-pricing-index/`.\n\n- All 6 prices match providers exactly (Sonnet 4.6 $3/$15, Haiku 4.5 $1/$5, Opus 4.7 $5/$25, Gemini Flash $0.30/$2.50, Flash-Lite $0.10/$0.40, Pro $1.25/$10).\n- One-line edit at `the calculator site:66`: `May 4, 2026.` \u2192 `May 6, 2026.`\n- Deploy `dpl_Fzb2Qjag9so4LYbYXf1wTFb2Hw5S` `READY production` aliased to `profitafterfees.com`; live-curl verified.\n- Cash balance: **$162.45** unchanged.\n- Both StrikeRewind gates still on Travis. Artifact: `artifacts/2026-05-06-ai-pricing-index-reverify.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-06_021701.txt",
+      "output_excerpt": "Final reconcile \u2014 gates unchanged, budget unchanged, run complete. Both StrikeRewind gates remain owner-side.\n\n**Summary**\n\nShipped TODO.md cleanup. The recurring tax was real: every wakeup attempted to Read a 151KB / ~62K-token file and hit the 25K-token ceiling. Compressed every historical `[DONE]` entry to a one-liner with date + artifact pointer; preserved all 12 forward-looking `[TODO]`/`[ACTIVE]`/`[READY]` entries verbatim; preserved header and Standing gates. Result: **151307 \u2192 20584 bytes (\u221286%)**, Read tool unblocked, no information loss (full narratives still in HANDOFF.md / artifacts/, byte-for-byte backup at `the project's TODO.md config.bak-pre-cleanup`).\n\n**State files updated**: TODO.md (rewritten in-place, new DONE row prepended), TODO.md.bak-pre-cleanup (created), HANDOFF.md (entry prepended), RUNLOG.md (entry prepended), SCORECARD.md (row prepended), artifact at `artifacts/2026-05-06-todo-cleanup.md`. OPEN_GATES.md unchanged (both gates held: `TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`). BUDGET.md unchanged at **$162.45**, no spend.\n\n**Next-run guidance**: smoke-window opened at 06:17 UTC \u2014 StrikeRewind smoke is the eligible move. PAF smoke eligible after 12:17 UTC. Owner reply on either gate is highest priority.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-06_061701.txt",
       "screenshot_path": "",
-      "label": "05-05-26 (Day 16) \u00b7 10:17 PM",
+      "label": "05-06-26 (Day 17) \u00b7 2:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 1
     },
     {
-      "run_id": "run_claude_2026-05-06_061701",
-      "timestamp": "2026-05-06 02:17 AM EDT",
-      "timestamp_sort": "2026-05-06T06:17:01+00:00",
+      "run_id": "run_claude_2026-05-06_081701",
+      "timestamp": "2026-05-06 04:17 AM EDT",
+      "timestamp_sort": "2026-05-06T08:17:01+00:00",
       "date": "2026-05-06",
-      "time": "2:17AM",
+      "time": "4:17AM",
       "objective": "third autonomous run of 2026-05-06, fired ~08:17 UTC (~2h after run 2's TODO.md cleanup, ~6h after run 1's AI Pricing Index re-verify). Two open gates entering and exiting unchanged (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md` / `HANDOFF.md` / `BUDGET.md` \u2014 both held, no fresh owner input since 2026-05-02 marketing freeze. Run 2's handoff explicitly named StrikeRewind production smoke as the eligible move from now through 12:17 UTC: eligibility window opened 06:17 UTC (12h after 2026-05-05 18:17 UTC end-of-day smoke).",
       "decision_made": "",
       "next_step": "",
       "heading": "2026-05-06 (run 3) \u2014 StrikeRewind production smoke re-run against `www.strikerewind.com` (22/22 pass)",
-      "artifact_path": "artifacts/2026-05-06-todo-cleanup.md",
+      "artifact_path": "artifacts/2026-05-06-strikerewind-production-smoke.md",
       "budget": {
         "starting_budget": "$200.00",
         "current_balance": "$162.45",
@@ -12165,27 +12241,26 @@
       },
       "artifacts": [
         {
-          "name": "2026-05-06-todo-cleanup.md",
-          "relative_path": "artifacts/2026-05-06-todo-cleanup.md",
+          "name": "2026-05-06-strikerewind-production-smoke.md",
+          "relative_path": "artifacts/2026-05-06-strikerewind-production-smoke.md",
           "kind": "text",
-          "preview": "# TODO.md cleanup \u2014 compress historical [DONE] narratives\n\n## When\n2026-05-06 06:19 UTC. Second autonomous run of 2026-05-06 (first was the AI Pricing Index re-verify at 02:17 UTC).\n\n## Why this move now\n- The prior-run handoff (2026-05-06 02:17 UTC) explicitly named TODO.md cleanup as the right fallback any time a run fires inside a closed eligibility window: \"file is now ~62K tokens > 25K Read-tool ceiling, every wakeup pays the cost.\"\n- Fire time 06:17 UTC is exactly at the boundary of the StrikeRewind smoke window opening but smoke is defensive (everything was 22/22 + 36/36 green at the 18:17 UTC end-of-day check 12h ago, plus the 02:17 UTC AI Pricing Index re-verify confirmed `https://profitafterfees.com` is still live and clean). TODO.md cleanup fixes a recurring tax on every single wakeup; smoke catches an as-yet-unobserved class of overnight regression. Cleanup wins on leverage.\n- Both gates (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`) still owner-side with no fresh owner input since 2026-05-02.\n\n## What was the problem\n- `the project's TODO.md config` had grown to 151307 bytes (~62K tokens). Every Read-tool call against it failed with \"exceeds maximum allowed tokens (25000).\" Every autonomous wakeup either had to skip the file or pay extra Bash-based tokenization cost. SessionStart's injected state did contain the head \u2014 but operating on the live file required workarounds.\n- 84 of 106 priority-order entries were `[DONE]` items with multi-paragraph run-narrative bodies (full reconcile descriptions, considered-and-rejected lists, file-line citations). Useful one time as a handoff record; redundant after that \u2014 the same content lives in `HANDOFF.md` and `artifacts/`.\n- 12 entries were `[TODO]`/`[ACTIVE]`/`[READY]` \u2014 actually load-bearing forward-looking work \u2014 buried under thousands of lines of historical prose.\n\n## What I shipped\n- Backed up the original to `the project's TODO.md config.bak-pre-cleanup` (151307 bytes, identical to pre-edit state).\n- Compressed every `[DONE]` entry to a single line of the form `- [DONE] <title> (<YYYY-MM-DD>) \u2014 <artifact path>` (or just the title + date if no artifact path was recoverable).\n- Preserved every `[TODO]` / `[ACTIVE]` / `[READY]` entry verbatim \u2014 none of these had narrative bloat to compress; all 12 are genuine forward-looking items.\n- Preserved the file header (lines 1\u20136) and the \"Standing gates\" footer (lines 125+) as-is.\n- Added a one-paragraph HTML-comment note at the top of \"Immediate priority order\" explaining the compression and pointing at the backup + the durable-narrative locations (HANDOFF.md, artifacts/).\n- Closed unclosed artifact-path backticks (regex artifact from extraction).\n\n## Result\n| Metric | Before | After | \u0394 |\n|---|---|---|---|\n| File size | 151307 bytes | 20584 bytes | \u221286% |\n| Tokens (~ approx) | ~62K | ~5K | comfortably under 25K Read ceiling |\n| Read tool | fails | succeeds | unblocked |\n| `- [` entries | 118 | 110 | \u22128 (multi-line ACTIVE block collapsed to one line) |\n| Non-DONE entries preserved | 12 | 12 | 0 (all preserved verbatim) |\n\nVerified post-edit: `Read /home/autoproj/AutonomyProjectV2/the project's TODO.md config offset=1 limit=30` succeeds. All 12 non-DONE entries (TODO Playwright pre-flight, TODO Stripe keys re-add, TODO break-even-price-calculator.bak deletion, TODO MarketData/Polygon scaffolding, TODO Xata key rotation, TODO MarketData/Polygon EOD wire, ACTIVE DEPLOY PIPELINE, READY POST-RENDER-DEPLOY GSC, TODO Stripe production keys, TODO AI utility post capture, TODO X post capture, READY DEPLOY-DAY launch post) are present with their full content intact.\n\n## Why no information loss\n- `HANDOFF.md` is the durable narrative log \u2014 every shipped run has a multi-paragraph entry there with the same (or richer) context that was redundantly duplicated into TODO.md.\n- `artifacts/` holds the per-run artifact files, which are the cited primary sources.\n- `RUNLOG.md` holds the structured per-run record.\n- `BUDGET.md`, `SCORECARD.md`, `STATE.md` hold the ongoing state.\n- `TODO.md.bak-pre-cleanup` retains the original byte-for-byte if anything was lost; safe to delete after one or two clean wakeups confirm nothing is missed.\n\n## Deliberately NOT done\n- Did NOT split into TODO.md + TODO_ARCHIVE.md. The compressed file is small enough that splitting adds maintenance overhead without saving context cost.\n- Did NOT route through Cove or Luke. Internal state-file hygiene; no design or copy judgment needed; nothing customer-facing changed.\n- Did NOT push unpushed StrikeRewind commits `095c96b` + `a58a853`. Marketing freeze + Travis testing window still in effect.\n- Did NOT touch any TODO/ACTIVE/READY entry's body text. Even the verbose ones (Playwright pre-flight TODO is ~1.3KB) are forward-looking work specifications, not historical narrative.\n- Did NOT raise a new gate. Autonomous and complete.\n- Did NOT delete `the project's HANDOFF.md config.bak-pre-relocate` (separate file, kept for one-day rollback per run 8's note).\n- Did NOT run StrikeRewind smoke (defensive duplication; 18:17 UTC smoke was 22/22 green, 02:17 UTC AI Pricing Index re-verify confirmed `profitafterfees.com` apex is live and clean).\n- Did NOT compress `HANDOFF.md` itself in the same run (different scope; one task per run; `HANDOFF.md` is not currently breaking the Read ceiling \u2014 last check ~485KB but Read pulls a window from the top so it's not a recurring tax the way TODO.md was).\n\n## Cash balance\n$162.45. No spend.\n\n## Suggested post copy\n\n> Cleaned up TODO.md \u2014 compressed 86% smaller (151KB \u2192 21KB, ~62K tokens \u2192 ~5K) by collapsing every old [DONE] entry into a single line + artifact pointer. All 12 forward-looking TODO/ACTIVE/READY items preserved verbatim. Full narratives still live in HANDOFF.md and artifacts/. Backup at `the project's TODO.md config.bak-pre-cleanup` if anything's missed. Cash $162.45. Both StrikeRewind gates still on you: `TESTING COMPLETE: STRIKEREWIND` and `LAUNCH POSTURE`.\n",
-          "site_path": "artifacts/2026-05-06-todo-cleanup.md",
-          "has_redactions": true
+          "preview": "# StrikeRewind production smoke \u2014 2026-05-06 08:18 UTC\n\n## Result\n22/22 pass against `https://www.strikerewind.com`.\n\nBundle: `artifacts/2026-05-06-strikerewind-playwright-smoke/` (8 fullpage screenshots + `summary.json`).\n\n## Why this run now\n- Run 3 of 2026-05-06, fired ~08:17 UTC. Run 1 (02:17 UTC) was AI Pricing Index re-verify; run 2 (06:17 UTC) was TODO.md cleanup.\n- Run 2's handoff named StrikeRewind production smoke as the eligible move from now through 12:17 UTC. Eligibility window opened 06:17 UTC (12h after yesterday's 18:17 UTC end-of-day smoke).\n- Marketing freeze + `TESTING COMPLETE: STRIKEREWIND` gate still owner-side. Smoke is bounded, customer-facing, defends the testing-window state of the live site without touching code or marketing surface.\n\n## Coverage executed (against live `www.strikerewind.com`)\n| # | Check | Pass |\n|---|---|:-:|\n| 1 | Landing renders | \u2713 |\n| 2 | Analyze tab loads | \u2713 |\n| 3 | Analyze AAPL: ticker rendered | \u2713 |\n| 4 | Analyze AAPL: EV percentage rendered | \u2713 |\n| 5 | Analyze AAPL: current price rendered | \u2713 |\n| 6 | Analyze AAPL: page not blank (2441 chars) | \u2713 |\n| 7 | Strategy matrix heading present | \u2713 |\n| 8 | Analyze nav: URL `/analysis/AAPL` | \u2713 |\n| 9 | Analyze nav: active color `rgb(34, 197, 94)` | \u2713 |\n| 10 | Error ZZZZZ: \"Could not load\" heading | \u2713 |\n| 11 | Error ZZZZZ: ticker in heading | \u2713 |\n| 12 | Error ZZZZZ: Back button present | \u2713 |\n| 13 | Error ZZZZZ: Back navigates to dashboard | \u2713 |\n| 14 | Hunt tab not blank (715 chars) | \u2713 |\n| 15 | Hunt: action button present | \u2713 |\n| 16 | Watch tab not blank (342 chars) | \u2713 |\n| 17 | Watch: heading or empty-state present | \u2713 |\n| 18 | Account tab not blank (610 chars) | \u2713 |\n| 19 | Account: FREE tier label rendered | \u2713 |\n| 20 | Account: STANDARD plan card | \u2713 |\n| 21 | Account: PRO plan card | \u2713 |\n| 22 | Mobile landing: no horizontal overflow (0px) | \u2713 |\n\nNo console errors logged outside the deliberate ZZZZZ 500-path probe.\n\n## What this confirms\n- The black-blank-page class of regression Travis hit on AAPL is not present today: 2441 chars + EV% + current price + matrix heading all rendered.\n- Both happy and error paths render with recoverable UI (Back button works on the error state).\n- Tier copy matches the ship state: FREE label + STANDARD/PRO plan cards on the Account tab.\n- Mobile landing is clean \u2014 no horizontal overflow at 1280\u00d7900 narrow profile.\n\n## What this does NOT confirm\n- Stripe checkout end-to-end. The harness deliberately does not click Upgrade because live Stripe is wired and Travis is the test purchaser.\n- Hunt-end-to-end with a real result row click. The harness checks the Hunt action button and page-not-blank state but does not trigger a full scan run.\n- Backend-only regressions invisible to the UI.\n\n## Considered and rejected this run\n- PAF smoke \u2014 eligibility window opens at 12:17 UTC; running it now is duplicative.\n- AI Pricing Index re-verify \u2014 done at 02:17 UTC; \u226548h window not open.\n- Pushing unpushed StrikeRewind commits `095c96b` + `a58a853` \u2014 marketing freeze + testing window in effect; mid-test push burns Travis's testing pass.\n- A 2nd state-file hygiene move \u2014 TODO.md cleanup at 06:17 UTC was the right one; piling another would be drift.\n\n## Next-run guidance\n| If next run fires at... | Eligible move |\n|---|---|\n| Now through 12:17 UTC | If Travis replies on either StrikeRewind gate, resume launch-readiness work. Otherwise no-action \u2014 bounded queue is empty inside this window. |\n| 12:17 UTC onward | PAF production smoke re-run via `workspace/paf_smoke.mjs` \u2014 18h out from yesterday's 18:17 UTC end-of-day smoke. |\n| 18:17 UTC onward | StrikeRewind end-of-day smoke re-run (12h cadence). |\n| Owner replies on either gate | Highest priority; resume launch-readiness work. |\n\n## Suggested post copy\n> Ran the StrikeRewind production smoke against `www.strikerewind.com` \u2014 22/22 pass. AAPL analysis renders end-to-end (no blank page), Hunt/Watch/Account tabs all live, error state recovers via Back button, mobile has no horizontal overflow. Screenshots saved. Cash `$162.45`. Both StrikeRewind gates still on you: `TESTING COMPLETE: STRIKEREWIND` and `LAUNCH POSTURE`.\n",
+          "site_path": "artifacts/2026-05-06-strikerewind-production-smoke.md"
         }
       ],
-      "output_excerpt": "Final reconcile \u2014 gates unchanged, budget unchanged, run complete. Both StrikeRewind gates remain owner-side.\n\n**Summary**\n\nShipped TODO.md cleanup. The recurring tax was real: every wakeup attempted to Read a 151KB / ~62K-token file and hit the 25K-token ceiling. Compressed every historical `[DONE]` entry to a one-liner with date + artifact pointer; preserved all 12 forward-looking `[TODO]`/`[ACTIVE]`/`[READY]` entries verbatim; preserved header and Standing gates. Result: **151307 \u2192 20584 bytes (\u221286%)**, Read tool unblocked, no information loss (full narratives still in HANDOFF.md / artifacts/, byte-for-byte backup at `the project's TODO.md config.bak-pre-cleanup`).\n\n**State files updated**: TODO.md (rewritten in-place, new DONE row prepended), TODO.md.bak-pre-cleanup (created), HANDOFF.md (entry prepended), RUNLOG.md (entry prepended), SCORECARD.md (row prepended), artifact at `artifacts/2026-05-06-todo-cleanup.md`. OPEN_GATES.md unchanged (both gates held: `TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`). BUDGET.md unchanged at **$162.45**, no spend.\n\n**Next-run guidance**: smoke-window opened at 06:17 UTC \u2014 StrikeRewind smoke is the eligible move. PAF smoke eligible after 12:17 UTC. Owner reply on either gate is highest priority.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-06_061701.txt",
+      "output_excerpt": "Run complete. Picked StrikeRewind production smoke per run 2's explicit eligibility-window guidance (window opened 06:17 UTC). 22/22 pass against `https://www.strikerewind.com` \u2014 AAPL analysis renders end-to-end (no blank page), error path recovers via Back button, Hunt/Watch/Account live, mobile clean. Both StrikeRewind gates remain owner-side; marketing freeze stays. No spend. Cash `$162.45`.\n\nState updated: `TODO.md`, `HANDOFF.md`, `RUNLOG.md`, `SCORECARD.md`. Artifact at `artifacts/2026-05-06-strikerewind-production-smoke.md` plus screenshot bundle at `artifacts/2026-05-06-strikerewind-playwright-smoke/`. `OPEN_GATES.md` and `BUDGET.md` unchanged.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-06_081701.txt",
       "screenshot_path": "",
-      "label": "05-06-26 (Day 17) \u00b7 2:17 AM",
+      "label": "05-06-26 (Day 17) \u00b7 4:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
     },
     {
-      "run_id": "run_claude_2026-05-06_081701",
-      "timestamp": "2026-05-06 04:17 AM EDT",
-      "timestamp_sort": "2026-05-06T08:17:01+00:00",
+      "run_id": "run_claude_2026-05-06_101701",
+      "timestamp": "2026-05-06 06:17 AM EDT",
+      "timestamp_sort": "2026-05-06T10:17:01+00:00",
       "date": "2026-05-06",
-      "time": "4:17AM",
+      "time": "6:17AM",
       "objective": "second autonomous run of 2026-05-06, fired 06:17 UTC (~4h after run 1's AI Pricing Index re-verify at 02:17 UTC). Two open gates entering and exiting unchanged (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md` / `HANDOFF.md` / `BUDGET.md` \u2014 both held, no fresh owner input since 2026-05-02 marketing freeze. Run 1's handoff explicitly named TODO.md cleanup as the right fallback any time a run fires inside a closed eligibility window: \"file is now ~62K tokens > 25K Read-tool ceiling, every wakeup pays the cost.\" Fire time is exactly at the boundary of the StrikeRewind smoke window opening (06:17 UTC), but smoke is defensive duplication \u2014 the 18:17 UTC end-of-day check yesterday was 22/22 + 36/36 green, and the 02:17 UTC run already confirmed `https://profitafterfees.com` is live and clean. TODO.md cleanup fixes a recurring tax on every single wakeup; smoke catches an as-yet-unobserved class of overnight regression. Cleanup wins on leverage.",
       "decision_made": "backed up the original to `the project's TODO.md config.bak-pre-cleanup` (151307 bytes preserved byte-for-byte). Ran a compression `awk` script against the priority-order section: every `[DONE]` line collapsed to `- [DONE] <title> (<YYYY-MM-DD>) \u2014 <artifact path>` (or just title + date if no artifact path was extractable); every `[TODO]` / `[ACTIVE]` / `[READY]` entry preserved verbatim. Header (lines 1\u20136) and \"Standing gates\" footer preserved as-is. Added a brief HTML-comment note above the priority-order list explaining the compression and pointing at the backup + the durable-narrative locations. Closed unclosed artifact-path backticks (regex artifact). Final size: 20584 bytes \u2014 **\u221286% reduction**, comfortably under the 25K-token Read ceiling. Verified post-edit by re-reading the file with `Read offset=1 limit=30` (succeeded).",
       "next_step": "",
@@ -12249,19 +12324,19 @@
           "has_redactions": true
         }
       ],
-      "output_excerpt": "Run complete. Picked StrikeRewind production smoke per run 2's explicit eligibility-window guidance (window opened 06:17 UTC). 22/22 pass against `https://www.strikerewind.com` \u2014 AAPL analysis renders end-to-end (no blank page), error path recovers via Back button, Hunt/Watch/Account live, mobile clean. Both StrikeRewind gates remain owner-side; marketing freeze stays. No spend. Cash `$162.45`.\n\nState updated: `TODO.md`, `HANDOFF.md`, `RUNLOG.md`, `SCORECARD.md`. Artifact at `artifacts/2026-05-06-strikerewind-production-smoke.md` plus screenshot bundle at `artifacts/2026-05-06-strikerewind-playwright-smoke/`. `OPEN_GATES.md` and `BUDGET.md` unchanged.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-06_081701.txt",
+      "output_excerpt": "Run 4 of 2026-05-06 \u2014 no-action with documented blocker. Fired 2h after run 3's StrikeRewind smoke; bounded queue empty in this window per run 3's explicit prescription. Artifact at `artifacts/2026-05-06-no-action-rationale.md`. Both StrikeRewind gates still on Travis. Cash `$162.45`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-06_101701.txt",
       "screenshot_path": "",
-      "label": "05-06-26 (Day 17) \u00b7 4:17 AM",
+      "label": "05-06-26 (Day 17) \u00b7 6:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 1
     },
     {
-      "run_id": "run_claude_2026-05-06_101701",
-      "timestamp": "2026-05-06 06:17 AM EDT",
-      "timestamp_sort": "2026-05-06T10:17:01+00:00",
+      "run_id": "run_claude_2026-05-06_121701",
+      "timestamp": "2026-05-06 08:17 AM EDT",
+      "timestamp_sort": "2026-05-06T12:17:01+00:00",
       "date": "2026-05-06",
-      "time": "6:17AM",
+      "time": "8:17AM",
       "objective": "first autonomous run of 2026-05-06 (10th run counting yesterday's nine; both open gates entering and exiting unchanged \u2014 `TESTING COMPLETE: STRIKEREWIND` + `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`; reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md` / `HANDOFF.md` / `BUDGET.md`, no fresh owner input since 2026-05-02 marketing freeze). Fired 02:17 UTC, ~4h after run 9. Prior-run handoff explicitly listed AI Model Pricing Index re-verify as the eligible move once \u226548h has elapsed since the 2026-05-04 verification \u2014 that window opens at 02:21 UTC, and the deploy completed within tolerance. Customer-facing freshness check on a live AdSense-monetized page that ranks for AI-pricing queries; bounded scope; concrete artifact regardless of result.",
       "decision_made": "bump the public freshness date in the page's `.subhead` paragraph from \"Last verified May 4, 2026.\" \u2192 \"Last verified May 6, 2026.\" and deploy to production. Single-line edit at `the calculator site:66`. No price edits, no model additions/removals, no layout change. Deploy: `vercel deploy --prod --yes --token \"$VERCEL_TOKEN_TSS\"` from `the calculator site` \u2192 `dpl_Fzb2Qjag9so4LYbYXf1wTFb2Hw5S` `READY production`, aliased to `https://profitafterfees.com`. Live verification: `curl -s https://profitafterfees.com/ai-model-pricing-index/` returns the new freshness string + all 6 model rows. Refreshed signal both for users sanity-checking the math and for Google's freshness ranking on AI-pricing queries.",
       "next_step": "",
@@ -12325,10 +12400,10 @@
           "has_redactions": true
         }
       ],
-      "output_excerpt": "Run 4 of 2026-05-06 \u2014 no-action with documented blocker. Fired 2h after run 3's StrikeRewind smoke; bounded queue empty in this window per run 3's explicit prescription. Artifact at `artifacts/2026-05-06-no-action-rationale.md`. Both StrikeRewind gates still on Travis. Cash `$162.45`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-06_101701.txt",
+      "output_excerpt": "All state files updated. OPEN_GATES.md unchanged (both gates still owner-side, no decisions made this run, no new gate raised). BUDGET.md unchanged at $162.45.\n\n**Run 5 of 2026-05-06 complete.** Ran the PAF production smoke against `profitafterfees.com` \u2014 36/36 pass after fixing one stale May-4 freshness assertion in the harness. Apex engine still produces the canonical $40.84 net, the Google Ads conversion event still fires exactly once on first input with the correct send_to, all 5 calculator sub-page CTAs route cleanly back to apex, and run 1's AI Pricing Index deploy is verified live with the May 6 freshness string. Defends the paid-traffic conversion path. Both StrikeRewind gates (`TESTING COMPLETE`, `LAUNCH POSTURE`) remain owner-side. Cash `$162.45`. No spend, no deploy.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-06_121701.txt",
       "screenshot_path": "",
-      "label": "05-06-26 (Day 17) \u00b7 6:17 AM",
+      "label": "05-06-26 (Day 17) \u00b7 8:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 1
     }

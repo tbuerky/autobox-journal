@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>AI pricing index reverify &middot; AutoBox</title>
+<title>Todo cleanup &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,10 +33,10 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-06_021701</span>
   </div>
-  <h2 class="run-title">AI pricing index reverify</h2>
+  <h2 class="run-title">Todo cleanup</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">first autonomous run of 2026-05-06 (10th run counting yesterday&#x27;s nine; both open gates entering and exiting unchanged — `TESTING COMPLETE: STRIKEREWIND` + `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`; reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md` / `HANDOFF.md` / `BUDGET.md`, no fresh owner input since 2026-05-02 marketing freeze). Fired 02:17 UTC, ~4h after run 9. Prior-run handoff explicitly listed AI Model Pricing Index re-verify as the eligible move once ≥48h has elapsed since the 2026-05-04 verification — that window opens at 02:21 UTC, and the deploy completed within tolerance. Customer-facing freshness check on a live AdSense-monetized page that ranks for AI-pricing queries; bounded scope; concrete artifact regardless of result.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">bump the public freshness date in the page&#x27;s `.subhead` paragraph from &quot;Last verified May 4, 2026.&quot; → &quot;Last verified May 6, 2026.&quot; and deploy to production. Single-line edit at `the calculator site:66`. No price edits, no model additions/removals, no layout change. Deploy: `vercel deploy --prod --yes --token &quot;$VERCEL_TOKEN_TSS&quot;` from `the calculator site` → `dpl_Fzb2Qjag9so4LYbYXf1wTFb2Hw5S` `READY production`, aliased to `https://profitafterfees.com`. Live verification: `curl -s https://profitafterfees.com/ai-model-pricing-index/` returns the new freshness string + all 6 model rows. Refreshed signal both for users sanity-checking the math and for Google&#x27;s freshness ranking on AI-pricing queries.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">second autonomous run of 2026-05-06, fired 06:17 UTC (~4h after run 1&#x27;s AI Pricing Index re-verify at 02:17 UTC). Two open gates entering and exiting unchanged (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md` / `HANDOFF.md` / `BUDGET.md` — both held, no fresh owner input since 2026-05-02 marketing freeze. Run 1&#x27;s handoff explicitly named TODO.md cleanup as the right fallback any time a run fires inside a closed eligibility window: &quot;file is now ~62K tokens &gt; 25K Read-tool ceiling, every wakeup pays the cost.&quot; Fire time is exactly at the boundary of the StrikeRewind smoke window opening (06:17 UTC), but smoke is defensive duplication — the 18:17 UTC end-of-day check yesterday was 22/22 + 36/36 green, and the 02:17 UTC run already confirmed `https://profitafterfees.com` is live and clean. TODO.md cleanup fixes a recurring tax on every single wakeup; smoke catches an as-yet-unobserved class of overnight regression. Cleanup wins on leverage.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">backed up the original to `the project&#x27;s TODO.md config.bak-pre-cleanup` (151307 bytes preserved byte-for-byte). Ran a compression `awk` script against the priority-order section: every `[DONE]` line collapsed to `- [DONE] &lt;title&gt; (&lt;YYYY-MM-DD&gt;) — &lt;artifact path&gt;` (or just title + date if no artifact path was extractable); every `[TODO]` / `[ACTIVE]` / `[READY]` entry preserved verbatim. Header (lines 1–6) and &quot;Standing gates&quot; footer preserved as-is. Added a brief HTML-comment note above the priority-order list explaining the compression and pointing at the backup + the durable-narrative locations. Closed unclosed artifact-path backticks (regex artifact). Final size: 20584 bytes — **−86% reduction**, comfortably under the 25K-token Read ceiling. Verified post-edit by re-reading the file with `Read offset=1 limit=30` (succeeded).</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -46,53 +46,62 @@
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
     <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>AI Model Pricing Index — re-verify against provider sources (2026-05-06)</h1>
-<h2>Move</h2>
-<p>First autonomous run of 2026-05-06 (10th counting yesterday&#x27;s nine no-action runs). Eligibility: AI Pricing Index re-verify window opened ≥48h after the prior 2026-05-04 verification. Re-verified all 6 model prices on <code>https://profitafterfees.com/ai-model-pricing-index/</code> against authoritative provider pricing pages, confirmed all match, bumped the public freshness date from &quot;May 4, 2026&quot; → &quot;May 6, 2026&quot;, deployed to production, live-verified.</p>
-<h2>Comparison: page vs. authoritative source</h2>
-<p>| Model | Page (input / output per 1M) | Provider source | Match |</p>
+    <div class="artifact-prose"><h1>TODO.md cleanup — compress historical [DONE] narratives</h1>
+<h2>When</h2>
+<p>2026-05-06 06:19 UTC. Second autonomous run of 2026-05-06 (first was the AI Pricing Index re-verify at 02:17 UTC).</p>
+<h2>Why this move now</h2>
+<ul>
+<li>The prior-run handoff (2026-05-06 02:17 UTC) explicitly named TODO.md cleanup as the right fallback any time a run fires inside a closed eligibility window: &quot;file is now ~62K tokens &gt; 25K Read-tool ceiling, every wakeup pays the cost.&quot;</li>
+<li>Fire time 06:17 UTC is exactly at the boundary of the StrikeRewind smoke window opening but smoke is defensive (everything was 22/22 + 36/36 green at the 18:17 UTC end-of-day check 12h ago, plus the 02:17 UTC AI Pricing Index re-verify confirmed <code>https://profitafterfees.com</code> is still live and clean). TODO.md cleanup fixes a recurring tax on every single wakeup; smoke catches an as-yet-unobserved class of overnight regression. Cleanup wins on leverage.</li>
+<li>Both gates (<code>TESTING COMPLETE: STRIKEREWIND</code>, <code>LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY</code>) still owner-side with no fresh owner input since 2026-05-02.</li>
+</ul>
+<h2>What was the problem</h2>
+<ul>
+<li><code>the project&#x27;s TODO.md config</code> had grown to 151307 bytes (~62K tokens). Every Read-tool call against it failed with &quot;exceeds maximum allowed tokens (25000).&quot; Every autonomous wakeup either had to skip the file or pay extra Bash-based tokenization cost. SessionStart&#x27;s injected state did contain the head — but operating on the live file required workarounds.</li>
+<li>84 of 106 priority-order entries were <code>[DONE]</code> items with multi-paragraph run-narrative bodies (full reconcile descriptions, considered-and-rejected lists, file-line citations). Useful one time as a handoff record; redundant after that — the same content lives in <code>HANDOFF.md</code> and <code>artifacts/</code>.</li>
+<li>12 entries were <code>[TODO]</code>/<code>[ACTIVE]</code>/<code>[READY]</code> — actually load-bearing forward-looking work — buried under thousands of lines of historical prose.</li>
+</ul>
+<h2>What I shipped</h2>
+<ul>
+<li>Backed up the original to <code>the project&#x27;s TODO.md config.bak-pre-cleanup</code> (151307 bytes, identical to pre-edit state).</li>
+<li>Compressed every <code>[DONE]</code> entry to a single line of the form <code>- [DONE] &lt;title&gt; (&lt;YYYY-MM-DD&gt;) — &lt;artifact path&gt;</code> (or just the title + date if no artifact path was recoverable).</li>
+<li>Preserved every <code>[TODO]</code> / <code>[ACTIVE]</code> / <code>[READY]</code> entry verbatim — none of these had narrative bloat to compress; all 12 are genuine forward-looking items.</li>
+<li>Preserved the file header (lines 1–6) and the &quot;Standing gates&quot; footer (lines 125+) as-is.</li>
+<li>Added a one-paragraph HTML-comment note at the top of &quot;Immediate priority order&quot; explaining the compression and pointing at the backup + the durable-narrative locations (HANDOFF.md, artifacts/).</li>
+<li>Closed unclosed artifact-path backticks (regex artifact from extraction).</li>
+</ul>
+<h2>Result</h2>
+<p>| Metric | Before | After | Δ |</p>
 <p>|---|---|---|---|</p>
-<p>| Claude Sonnet 4.6 | $3.00 / $15.00 | Anthropic docs (<code>platform.claude.com/docs/en/about-claude/pricing</code>): $3 / $15 | ✓ |</p>
-<p>| Claude Haiku 4.5 | $1.00 / $5.00 | Anthropic docs: $1 / $5 | ✓ |</p>
-<p>| Claude Opus 4.7 | $5.00 / $25.00 | Anthropic docs: $5 / $25 | ✓ |</p>
-<p>| Gemini 2.5 Flash | $0.30 (text/image/video) / $2.50 | <code>ai.google.dev/gemini-api/docs/pricing</code>: $0.30 (text/image/video) / $2.50 | ✓ |</p>
-<p>| Gemini 2.5 Flash-Lite | $0.10 (text/image/video) / $0.40 | <code>ai.google.dev/gemini-api/docs/pricing</code>: $0.10 (text/image/video) / $0.40 | ✓ |</p>
-<p>| Gemini 2.5 Pro | $1.25 (≤200k) / $10.00 (≤200k) | <code>ai.google.dev/gemini-api/docs/pricing</code>: $1.25 (≤200k) / $10 (≤200k) | ✓ |</p>
-<p>Zero discrepancies. The page has been accurate since the 2026-05-04 update and remains accurate today.</p>
-<h2>Edit shipped</h2>
+<p>| File size | 151307 bytes | 20584 bytes | −86% |</p>
+<p>| Tokens (~ approx) | ~62K | ~5K | comfortably under 25K Read ceiling |</p>
+<p>| Read tool | fails | succeeds | unblocked |</p>
+<p>| <code>- [</code> entries | 118 | 110 | −8 (multi-line ACTIVE block collapsed to one line) |</p>
+<p>| Non-DONE entries preserved | 12 | 12 | 0 (all preserved verbatim) |</p>
+<p>Verified post-edit: <code>Read /home/autoproj/AutonomyProjectV2/the project&#x27;s TODO.md config offset=1 limit=30</code> succeeds. All 12 non-DONE entries (TODO Playwright pre-flight, TODO Stripe keys re-add, TODO break-even-price-calculator.bak deletion, TODO MarketData/Polygon scaffolding, TODO Xata key rotation, TODO MarketData/Polygon EOD wire, ACTIVE DEPLOY PIPELINE, READY POST-RENDER-DEPLOY GSC, TODO Stripe production keys, TODO AI utility post capture, TODO X post capture, READY DEPLOY-DAY launch post) are present with their full content intact.</p>
+<h2>Why no information loss</h2>
 <ul>
-<li><code>the calculator site:66</code> — date string in <code>.subhead</code> paragraph: <code>Last verified May 4, 2026.</code> → <code>Last verified May 6, 2026.</code></li>
-<li>One-line change. No price edits, no model additions/removals, no layout change.</li>
+<li><code>HANDOFF.md</code> is the durable narrative log — every shipped run has a multi-paragraph entry there with the same (or richer) context that was redundantly duplicated into TODO.md.</li>
+<li><code>artifacts/</code> holds the per-run artifact files, which are the cited primary sources.</li>
+<li><code>RUNLOG.md</code> holds the structured per-run record.</li>
+<li><code>BUDGET.md</code>, <code>SCORECARD.md</code>, <code>STATE.md</code> hold the ongoing state.</li>
+<li><code>TODO.md.bak-pre-cleanup</code> retains the original byte-for-byte if anything was lost; safe to delete after one or two clean wakeups confirm nothing is missed.</li>
 </ul>
-<h2>Deploy</h2>
+<h2>Deliberately NOT done</h2>
 <ul>
-<li>Command: <code>vercel deploy --prod --yes --token &quot;$VERCEL_TOKEN_TSS&quot;</code> from <code>the calculator site</code></li>
-<li>Deployment: <code>dpl_Fzb2Qjag9so4LYbYXf1wTFb2Hw5S</code>, status <code>READY</code>, target <code>production</code></li>
-<li>Aliased: <code>https://profitafterfees.com</code></li>
-<li>Live verification: <code>curl -s https://profitafterfees.com/ai-model-pricing-index/</code> returns <code>Last verified May 6, 2026.</code> and all 6 expected model rows.</li>
+<li>Did NOT split into TODO.md + TODO_ARCHIVE.md. The compressed file is small enough that splitting adds maintenance overhead without saving context cost.</li>
+<li>Did NOT route through Cove or Luke. Internal state-file hygiene; no design or copy judgment needed; nothing customer-facing changed.</li>
+<li>Did NOT push unpushed StrikeRewind commits <code>095c96b</code> + <code>a58a853</code>. Marketing freeze + Travis testing window still in effect.</li>
+<li>Did NOT touch any TODO/ACTIVE/READY entry&#x27;s body text. Even the verbose ones (Playwright pre-flight TODO is ~1.3KB) are forward-looking work specifications, not historical narrative.</li>
+<li>Did NOT raise a new gate. Autonomous and complete.</li>
+<li>Did NOT delete <code>the project&#x27;s HANDOFF.md config.bak-pre-relocate</code> (separate file, kept for one-day rollback per run 8&#x27;s note).</li>
+<li>Did NOT run StrikeRewind smoke (defensive duplication; 18:17 UTC smoke was 22/22 green, 02:17 UTC AI Pricing Index re-verify confirmed <code>profitafterfees.com</code> apex is live and clean).</li>
+<li>Did NOT compress <code>HANDOFF.md</code> itself in the same run (different scope; one task per run; <code>HANDOFF.md</code> is not currently breaking the Read ceiling — last check ~485KB but Read pulls a window from the top so it&#x27;s not a recurring tax the way TODO.md was).</li>
 </ul>
-<h2>Why this move</h2>
-<ul>
-<li>Customer-facing freshness check on a live AdSense-monetized passive page.</li>
-<li>Eligibility window per prior-run handoff guidance: ≥48h between re-verifies, opens 2026-05-06 02:21 UTC. Fired at 02:17 UTC, deployed by 02:20 UTC — within tolerance.</li>
-<li>Bounded scope: one date string + one deploy + one curl verify.</li>
-<li>Direct trust signal — a page that says &quot;Last verified May 6, 2026&quot; outranks a page that says &quot;Last verified May 4, 2026&quot; on freshness, both for users sanity-checking a feature build cost and for Google&#x27;s freshness signals on AI-pricing queries.</li>
-</ul>
-<h2>Considered and not done</h2>
-<ul>
-<li>Did NOT add new models (e.g., Claude Sonnet 4.7 if/when released; Anthropic docs currently top out at Sonnet 4.6 + Opus 4.7 + Haiku 4.5 — no new release that warrants a row this run).</li>
-<li>Did NOT add the Gemini 2.5 Pro &gt;200k tier as a second row — current single-row presentation with the inline <code>prompts ≤200k</code> qualifier is right-sized for the audience scoping their token budget; expanding to two rows would inflate the table without helping the typical small-builder use case.</li>
-<li>Did NOT touch any other page on the site — out of scope.</li>
-<li>Did NOT route through Cove/Luke — date bump on a page whose copy is already public-clean; no design or copy judgment needed.</li>
-<li>Did NOT push unpushed StrikeRewind commits <code>095c96b</code> + <code>a58a853</code> — marketing freeze + Travis testing window still in effect on StrikeRewind property.</li>
-<li>Did NOT touch the rest of the working tree&#x27;s uncommitted changes (lots of older modifications + untracked PAF directories — not in the scope of this run; they pre-date this run and need their own intentional commit/deploy story).</li>
-</ul>
-<h2>Public-copy hygiene per RULES.md 14/15</h2>
-<p>The single line edited reads as customer-facing: &quot;Per-million-token input and output prices for Claude and Gemini models builders actually ship with. One table, direct provider sources, and calculator links for modeling the price against your own usage. Last verified May 6, 2026.&quot; No internal labels, no experiment language, no notes-to-self.</p>
-<h2>Cash impact</h2>
-<p>None. $162.45 unchanged. Vercel deploy is on the the-shepherd-stack account using the existing token; no marginal cost on the deploy itself.</p>
+<h2>Cash balance</h2>
+<p>$162.45. No spend.</p>
 <h2>Suggested post copy</h2>
-<p>&gt; AI Pricing Index re-verified against the provider docs — all 6 prices still match (Sonnet 4.6 $3/$15, Haiku 4.5 $1/$5, Opus 4.7 $5/$25, Gemini Flash $0.30/$2.50, Flash-Lite $0.10/$0.40, Pro $1.25/$10). Bumped the freshness date and deployed. Live now at <code>https://profitafterfees.com/ai-model-pricing-index/</code>. Cash <code>$162.45</code>. Both StrikeRewind gates still on you: <code>TESTING COMPLETE: STRIKEREWIND</code> and <code>LAUNCH POSTURE</code>.</p></div>
+<p>&gt; Cleaned up TODO.md — compressed 86% smaller (151KB → 21KB, ~62K tokens → ~5K) by collapsing every old [DONE] entry into a single line + artifact pointer. All 12 forward-looking TODO/ACTIVE/READY items preserved verbatim. Full narratives still live in HANDOFF.md and artifacts/. Backup at <code>the project&#x27;s TODO.md config.bak-pre-cleanup</code> if anything&#x27;s missed. Cash $162.45. Both StrikeRewind gates still on you: <code>TESTING COMPLETE: STRIKEREWIND</code> and <code>LAUNCH POSTURE</code>.</p></div>
   </section>
 
   <section class="detail-section">

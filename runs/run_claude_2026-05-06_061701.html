@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Todo cleanup &middot; AutoBox</title>
+<title>PAF ai feature cost premium preset fix &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,9 +33,10 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-06_061701</span>
   </div>
-  <h2 class="run-title">Todo cleanup</h2>
+  <h2 class="run-title">PAF ai feature cost premium preset fix</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">fifth autonomous run of 2026-05-06, fired ~12:17 UTC (~2h after run 4&#x27;s no-action; ~6h after run 3&#x27;s StrikeRewind smoke). Two open gates entering and exiting unchanged (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md` / `HANDOFF.md` / `BUDGET.md` — both held, no fresh owner input since 2026-05-02 marketing freeze. Run 4&#x27;s handoff explicitly named PAF smoke as the eligible move from 12:17 UTC onward (18h cadence since yesterday&#x27;s 18:17 UTC end-of-day smoke). Window opened at fire time.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">sixth autonomous run of 2026-05-06, fired ~14:18 UTC (~2h after run 5&#x27;s PAF smoke at 12:17 UTC). Two open gates entering and exiting unchanged (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md` / `HANDOFF.md` / `BUDGET.md` — both held, no fresh owner input since 2026-05-02 marketing freeze. Wakeup prompt explicitly says &quot;Do not produce advisory-only output&quot; — chose a real bounded customer-facing improvement on a live AdSense-monetized utility over a fourth no-action documented-blocker artifact.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">edit `app/ai-feature-cost.js` premium preset to $5 / $25 (matches Opus 4.7 — current most-expensive frontier model from tier-1 provider per the just-verified Pricing Index). Bump pre-existing stale `May 4` → `May 6` assertion in `content.test.js:982` (same class of stale-test bug as run 5&#x27;s `paf_smoke.mjs:133` fix; co-located cleanup since this deploy would otherwise leave that test failing). Run full test suite — 110/110 pass across `ai-feature-cost.test.js` + `scenarios.test.js` + `verdict.test.js` + `calc.test.js` + `content.test.js`. Deploy: `vercel deploy --prod --yes --token &quot;$VERCEL_TOKEN_TSS&quot;` from `the calculator site` → `dpl_41BjA4FAb7XAQPdvVXgzRBjaahUM` `READY production`. Aliased to `https://profitafterfees.com`. Live `app/ai-feature-cost.js` confirms `inputPricePerMillion: 5` + `outputPricePerMillion: 25` under the `premium` key.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -45,62 +46,58 @@
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
     <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>TODO.md cleanup — compress historical [DONE] narratives</h1>
-<h2>When</h2>
-<p>2026-05-06 06:19 UTC. Second autonomous run of 2026-05-06 (first was the AI Pricing Index re-verify at 02:17 UTC).</p>
-<h2>Why this move now</h2>
+    <div class="artifact-prose"><h1>PAF — AI Feature Cost Calculator: Premium preset corrected from $15/$75 → $5/$25</h1>
+<p><strong>Date</strong>: 2026-05-06 ~14:30 UTC</p>
+<p><strong>Run</strong>: 6th autonomous run of the day</p>
+<p><strong>Type</strong>: customer-facing credibility fix on a live AdSense-monetized utility</p>
+<p><strong>Cash balance</strong>: $162.45 (no spend; existing Vercel + AdSense + Render stack)</p>
+<h2>What changed</h2>
+<p><code>the calculator site:25-29</code> — the <code>premium</code> model preset on <code>/ai-feature-cost-calculator/</code> was projecting $15 / $75 per million tokens for input/output. No current frontier model from a tier-1 provider charges anywhere near that. The most expensive model on the just-verified AI Model Pricing Index (Anthropic Opus 4.7) is $5 / $25. Updated <code>premium</code> to $5 / $25 to match.</p>
+<pre><code>   premium: {
+     label: &#x27;Premium reasoning model&#x27;,
+-    inputPricePerMillion: 15,
+-    outputPricePerMillion: 75,
++    inputPricePerMillion: 5,
++    outputPricePerMillion: 25,
+   },
+</code></pre>
+<p>Also bumped a stale <code>Last verified May 4, 2026</code> assertion to <code>May 6, 2026</code> in <code>tests/content.test.js:982</code> — pre-existing breakage from run 1 of today&#x27;s freshness bump on the AI Pricing Index page; same class of bug as run 5&#x27;s <code>paf_smoke.mjs</code> fix.</p>
+<h2>Why this matters</h2>
+<p><strong>Before</strong>: A user picking &quot;Premium reasoning model&quot; projected per-call costs ~3x what any current frontier model actually charges. Someone running the math to decide whether to ship an AI feature would conclude &quot;AI is too expensive, kill the feature&quot; based on prices that haven&#x27;t been current since 2023-era GPT-4 Turbo. That&#x27;s a credibility leak on a live AdSense page that ranks for AI-pricing queries — and a quietly bad outcome for builders who trust the math.</p>
+<p><strong>After</strong>: Premium tier reflects Anthropic Opus 4.7 — the actual current premium frontier from a tier-1 provider. A user who picks Premium and projects a margin will see numbers that match what they&#x27;d actually pay if they shipped. The page&#x27;s footer-note disclaimer that presets are illustrative still applies; the change is to make the &quot;illustrative&quot; example point at a real model.</p>
+<p>This aligns with the wakeup-prompt directive to prefer <strong>quality control</strong> over endless on-site SEO page expansion. No new pages, no new sections — one number trio fixed, on a live customer-facing tool.</p>
+<h2>Tests + deploy</h2>
 <ul>
-<li>The prior-run handoff (2026-05-06 02:17 UTC) explicitly named TODO.md cleanup as the right fallback any time a run fires inside a closed eligibility window: &quot;file is now ~62K tokens &gt; 25K Read-tool ceiling, every wakeup pays the cost.&quot;</li>
-<li>Fire time 06:17 UTC is exactly at the boundary of the StrikeRewind smoke window opening but smoke is defensive (everything was 22/22 + 36/36 green at the 18:17 UTC end-of-day check 12h ago, plus the 02:17 UTC AI Pricing Index re-verify confirmed <code>https://profitafterfees.com</code> is still live and clean). TODO.md cleanup fixes a recurring tax on every single wakeup; smoke catches an as-yet-unobserved class of overnight regression. Cleanup wins on leverage.</li>
-<li>Both gates (<code>TESTING COMPLETE: STRIKEREWIND</code>, <code>LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY</code>) still owner-side with no fresh owner input since 2026-05-02.</li>
+<li>110/110 tests pass after the change (<code>ai-feature-cost.test.js</code> 3/3, <code>scenarios.test.js</code>, <code>verdict.test.js</code>, <code>calc.test.js</code>, <code>content.test.js</code>).</li>
+<li>Deploy: <code>vercel deploy --prod --yes --token &quot;$VERCEL_TOKEN_TSS&quot;</code> from <code>the calculator site</code> → <code>dpl_41BjA4FAb7XAQPdvVXgzRBjaahUM</code> <code>READY production</code>. Aliased to <code>https://profitafterfees.com</code> (<code>vercel alias set ... profitafterfees.com</code>). Live <code>app/ai-feature-cost.js</code> confirms <code>inputPricePerMillion: 5</code> + <code>outputPricePerMillion: 25</code> under the <code>premium</code> key.</li>
 </ul>
-<h2>What was the problem</h2>
+<h2>What this does NOT change</h2>
 <ul>
-<li><code>the project&#x27;s TODO.md config</code> had grown to 151307 bytes (~62K tokens). Every Read-tool call against it failed with &quot;exceeds maximum allowed tokens (25000).&quot; Every autonomous wakeup either had to skip the file or pay extra Bash-based tokenization cost. SessionStart&#x27;s injected state did contain the head — but operating on the live file required workarounds.</li>
-<li>84 of 106 priority-order entries were <code>[DONE]</code> items with multi-paragraph run-narrative bodies (full reconcile descriptions, considered-and-rejected lists, file-line citations). Useful one time as a handoff record; redundant after that — the same content lives in <code>HANDOFF.md</code> and <code>artifacts/</code>.</li>
-<li>12 entries were <code>[TODO]</code>/<code>[ACTIVE]</code>/<code>[READY]</code> — actually load-bearing forward-looking work — buried under thousands of lines of historical prose.</li>
+<li><code>low-cost</code> preset stays at $0.15 / $0.60 — still corresponds to a real OpenAI offering (GPT-4o-mini-class). Not stale.</li>
+<li><code>mid-tier</code> preset stays at $3 / $15 — matches Anthropic Sonnet 4.6, the current verified mid-tier reasoning frontier.</li>
+<li>Default scenario values, copy, layout, FAQ, AI Pricing Index page — all untouched. Single bounded change.</li>
 </ul>
-<h2>What I shipped</h2>
+<h2>Considered and rejected</h2>
 <ul>
-<li>Backed up the original to <code>the project&#x27;s TODO.md config.bak-pre-cleanup</code> (151307 bytes, identical to pre-edit state).</li>
-<li>Compressed every <code>[DONE]</code> entry to a single line of the form <code>- [DONE] &lt;title&gt; (&lt;YYYY-MM-DD&gt;) — &lt;artifact path&gt;</code> (or just the title + date if no artifact path was recoverable).</li>
-<li>Preserved every <code>[TODO]</code> / <code>[ACTIVE]</code> / <code>[READY]</code> entry verbatim — none of these had narrative bloat to compress; all 12 are genuine forward-looking items.</li>
-<li>Preserved the file header (lines 1–6) and the &quot;Standing gates&quot; footer (lines 125+) as-is.</li>
-<li>Added a one-paragraph HTML-comment note at the top of &quot;Immediate priority order&quot; explaining the compression and pointing at the backup + the durable-narrative locations (HANDOFF.md, artifacts/).</li>
-<li>Closed unclosed artifact-path backticks (regex artifact from extraction).</li>
+<li><strong>Renaming the dropdown options to specific model names</strong> (e.g. &quot;Anthropic Opus 4.7&quot; instead of &quot;Premium reasoning model&quot;). Rejected — locks the preset to a single named model and creates a freshness debt every time pricing or model lineup shifts. The current generic labels with editable presets are the right pattern.</li>
+<li><strong>Updating low-cost from $0.15 / $0.60 to $0.10 / $0.40</strong> to align with Gemini Flash-Lite (the cheapest model on the verified Pricing Index). Rejected — $0.15 / $0.60 still corresponds to a real model (GPT-4o-mini); changing it adds risk without obvious benefit.</li>
+<li><strong>Adding a &quot;verified date&quot; line to the calculator page itself</strong>. Rejected — the existing footer-note explicitly warns that presets are illustrative defaults, which is the right posture; a verified date implies the presets ARE current pricing and would create the same freshness debt.</li>
+<li><strong>Routing through Cove or Luke</strong>. Rejected — single-number numeric correction with no copy or layout judgment needed; not a creative-work task.</li>
 </ul>
-<h2>Result</h2>
-<p>| Metric | Before | After | Δ |</p>
-<p>|---|---|---|---|</p>
-<p>| File size | 151307 bytes | 20584 bytes | −86% |</p>
-<p>| Tokens (~ approx) | ~62K | ~5K | comfortably under 25K Read ceiling |</p>
-<p>| Read tool | fails | succeeds | unblocked |</p>
-<p>| <code>- [</code> entries | 118 | 110 | −8 (multi-line ACTIVE block collapsed to one line) |</p>
-<p>| Non-DONE entries preserved | 12 | 12 | 0 (all preserved verbatim) |</p>
-<p>Verified post-edit: <code>Read /home/autoproj/AutonomyProjectV2/the project&#x27;s TODO.md config offset=1 limit=30</code> succeeds. All 12 non-DONE entries (TODO Playwright pre-flight, TODO Stripe keys re-add, TODO break-even-price-calculator.bak deletion, TODO MarketData/Polygon scaffolding, TODO Xata key rotation, TODO MarketData/Polygon EOD wire, ACTIVE DEPLOY PIPELINE, READY POST-RENDER-DEPLOY GSC, TODO Stripe production keys, TODO AI utility post capture, TODO X post capture, READY DEPLOY-DAY launch post) are present with their full content intact.</p>
-<h2>Why no information loss</h2>
+<h2>Public-copy hygiene per RULES.md 14/15</h2>
 <ul>
-<li><code>HANDOFF.md</code> is the durable narrative log — every shipped run has a multi-paragraph entry there with the same (or richer) context that was redundantly duplicated into TODO.md.</li>
-<li><code>artifacts/</code> holds the per-run artifact files, which are the cited primary sources.</li>
-<li><code>RUNLOG.md</code> holds the structured per-run record.</li>
-<li><code>BUDGET.md</code>, <code>SCORECARD.md</code>, <code>STATE.md</code> hold the ongoing state.</li>
-<li><code>TODO.md.bak-pre-cleanup</code> retains the original byte-for-byte if anything was lost; safe to delete after one or two clean wakeups confirm nothing is missed.</li>
+<li>No internal labels, experiment language, or scaffolding copy added or changed. Only numeric preset values updated. Page copy continues to disclaim presets as illustrative.</li>
 </ul>
-<h2>Deliberately NOT done</h2>
+<h2>Next-run guidance</h2>
 <ul>
-<li>Did NOT split into TODO.md + TODO_ARCHIVE.md. The compressed file is small enough that splitting adds maintenance overhead without saving context cost.</li>
-<li>Did NOT route through Cove or Luke. Internal state-file hygiene; no design or copy judgment needed; nothing customer-facing changed.</li>
-<li>Did NOT push unpushed StrikeRewind commits <code>095c96b</code> + <code>a58a853</code>. Marketing freeze + Travis testing window still in effect.</li>
-<li>Did NOT touch any TODO/ACTIVE/READY entry&#x27;s body text. Even the verbose ones (Playwright pre-flight TODO is ~1.3KB) are forward-looking work specifications, not historical narrative.</li>
-<li>Did NOT raise a new gate. Autonomous and complete.</li>
-<li>Did NOT delete <code>the project&#x27;s HANDOFF.md config.bak-pre-relocate</code> (separate file, kept for one-day rollback per run 8&#x27;s note).</li>
-<li>Did NOT run StrikeRewind smoke (defensive duplication; 18:17 UTC smoke was 22/22 green, 02:17 UTC AI Pricing Index re-verify confirmed <code>profitafterfees.com</code> apex is live and clean).</li>
-<li>Did NOT compress <code>HANDOFF.md</code> itself in the same run (different scope; one task per run; <code>HANDOFF.md</code> is not currently breaking the Read ceiling — last check ~485KB but Read pulls a window from the top so it&#x27;s not a recurring tax the way TODO.md was).</li>
+<li>Run 5&#x27;s eligibility table from earlier today still holds for the rest of the day, with this run consuming the &quot;find a real bounded improvement&quot; slot:</li>
+<li><strong>Now through 2026-05-06 20:17 UTC</strong>: queue is now genuinely empty for this window. If owner replies on either StrikeRewind gate, resume launch-readiness work. Otherwise prefer no-action with a documented blocker over piling another move on top.</li>
+<li><strong>2026-05-06 20:17 UTC onward</strong>: StrikeRewind end-of-day smoke re-run via <code>workspace/strikerewind_smoke.mjs</code> (12h cadence since 08:17 UTC).</li>
+<li><strong>2026-05-06 end of day after both smokes clean</strong>: delete <code>the project&#x27;s TODO.md config.bak-pre-cleanup</code> + <code>the project&#x27;s HANDOFF.md config.bak-pre-relocate</code> rollback artifacts.</li>
+<li><strong>2026-05-08 02:17 UTC onward</strong>: AI Model Pricing Index re-verify (≥48h cadence).</li>
 </ul>
-<h2>Cash balance</h2>
-<p>$162.45. No spend.</p>
 <h2>Suggested post copy</h2>
-<p>&gt; Cleaned up TODO.md — compressed 86% smaller (151KB → 21KB, ~62K tokens → ~5K) by collapsing every old [DONE] entry into a single line + artifact pointer. All 12 forward-looking TODO/ACTIVE/READY items preserved verbatim. Full narratives still live in HANDOFF.md and artifacts/. Backup at <code>the project&#x27;s TODO.md config.bak-pre-cleanup</code> if anything&#x27;s missed. Cash $162.45. Both StrikeRewind gates still on you: <code>TESTING COMPLETE: STRIKEREWIND</code> and <code>LAUNCH POSTURE</code>.</p></div>
+<p>&gt; Fixed a credibility leak on <code>/ai-feature-cost-calculator/</code>: the &quot;Premium reasoning model&quot; preset was projecting $15/$75 per million tokens — 3× higher than any current frontier model. Updated to $5/$25 (Anthropic Opus 4.7 — the most expensive entry in the just-verified pricing index). Tests 110/110 green. Deployed <code>dpl_41BjA4FAb7XAQPdvVXgzRBjaahUM</code>. Cash $162.45. Both StrikeRewind gates still on you.</p></div>
   </section>
 
   <section class="detail-section">

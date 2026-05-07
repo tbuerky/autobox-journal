@@ -12794,6 +12794,82 @@
       "timestamp_sort": "2026-05-07T02:17:01+00:00",
       "date": "2026-05-06",
       "time": "10:17PM",
+      "objective": "act on fresh Travis exit instruction \"Watchlist still broken. Test everything on the site yourself. Fix it all... Let me know on Discord when done.\" Highest-priority context per wakeup rule 10.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-07 (run 2) \u2014 StrikeRewind watchlist fix + 29/29 live Playwright smoke",
+      "artifact_path": "artifacts/2026-05-07-strikerewind-watchlist-fix-and-smoke.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-07-strikerewind-watchlist-fix-and-smoke.md",
+          "relative_path": "artifacts/2026-05-07-strikerewind-watchlist-fix-and-smoke.md",
+          "kind": "text",
+          "preview": "# StrikeRewind \u2014 watchlist bug fixed, end-to-end smoke 29/29 pass against live\n\n**Run:** 2026-05-07 (run 2), fired 08:18 UTC.\n**Owner directive:** \"Watchlist still broken. Test everything on the site yourself. Fix it all. Don't come back until you're confident it's public-ready (other than data subscription). Let me know on Discord when done.\"\n**Result:** Bug found, root cause fixed and deployed, hardened smoke proves it; site is public-ready against the synthetic-data fixture set (the data-subscription gate Travis explicitly carved out remains owner-side).\n\n## What Travis was seeing\n\nOn `https://www.strikerewind.com/watchlist`, every saved ticker rendered the placeholder row:\n\n> AAPL \u2014 Data refreshing \u2014 open to retry\n> MSFT \u2014 Data refreshing \u2014 open to retry\n> UNH  \u2014 Data refreshing \u2014 open to retry\n\nThe earlier morning smoke (run 9, 2026-05-06) reported 22/22 pass because its Watchlist assertion only checked that the ticker symbol appeared in the page body, not that real price/win-rate data was rendered. The bug shipped past that harness.\n\n## Root cause\n\n`the scanner backend` `/api/watchlist` GET handler enriches every saved ticker by calling `analysisEngine.analyzeStock(ticker, ...)` directly. The sibling `/api/analyze` POST handler short-circuits to `getFixtureAnalysisResult(...)` when `HUNT_USE_FIXTURES=true` is set on the host (which it is on the live Render service, because no real options-data feed is wired yet \u2014 Polygon is the open subscription gate).\n\nSo `/api/analyze AAPL` returns the AAPL fixture (`currentPrice: 189.42, ivRank: 31`) and renders correctly. But the watchlist enrichment loop bypassed the fixture path, called the live analysis engine, hit the catch branch on every ticker, and pushed `dataAvailable: false` for every row. UI then renders \"Data refreshing \u2014 open to retry\" for each.\n\n## Fix\n\n`the scanner backend` (commit `b032b48` on `autobox/strikerewind-rename`):\n\n```ts\nconst fixtureMode = isHuntFixtureModeEnabled();\nconst enrichedWatchlist = [];\nfor (const item of watchlist) {\n  try {\n    const analysis = fixtureMode\n      ? (getFixtureAnalysisResult(item.ticker, 5, 26)\n          ?? await analysisEngine.analyzeStock(item.ticker, 'both', 5, 26))\n      : await analysisEngine.analyzeStock(item.ticker, 'both', 5, 26);\n    enrichedWatchlist.push({ ... dataAvailable: true });\n  } catch { ... dataAvailable: false; }\n}\n```\n\nMirrors `/api/analyze`'s behavior. For tickers in the fixture set (AAPL, MSFT, UNH today), serve fixture data. For any ticker outside the fixture set, fall through to the live engine \u2014 which still returns the placeholder row, correctly, because no real options data is subscribed yet. That fall-through path is the documented \"data subscription\" gate Travis flagged as out-of-scope for this run.\n\nDeployed to Render service `srv-d7r408favr4c73fb3670` as `dep-d7u4n1e8bjmc73bj5tjg`, build_in_progress \u2192 live in ~1 min.\n\n## Hardened smoke harness\n\n`workspace/strikerewind_smoke.mjs` got a stronger assertion so this exact regression cannot pass silently next time:\n\n```js\nrecord(\n  'Watch tab: AAPL row shows real fixture data (not \"Data refreshing\")',\n  /\\$189\\.42/.test(watchBody) && !/Data refreshing/.test(watchBody.split('AAPL')[1] ?? ''),\n  ...\n);\n```\n\nThe new check requires the AAPL row to render the actual fixture price (`$189.42`), not just the ticker symbol.\n\n## Live verification \u2014 29/29 pass against `https://www.strikerewind.com`\n\nRe-ran the hardened harness end-to-end. Coverage and result:\n\n| # | Surface | Check | Result |\n|---|---|---|---|\n| 1 | Landing | Renders | PASS |\n| 2 | Analyze | Tab loads | PASS |\n| 3 | Analyze | AAPL ticker rendered | PASS |\n| 4 | Analyze | EV percentage rendered | PASS |\n| 5 | Analyze | Current price `$189.42` rendered | PASS |\n| 6 | Analyze | Page is not blank (2441 chars) | PASS |\n| 7 | Analyze | Strategy matrix heading present | PASS |\n| 8 | Nav | URL is `/analysis/AAPL` | PASS |\n| 9 | Nav | Active color resolved (`rgb(34, 197, 94)`) | PASS |\n| 10 | Error state | ZZZZZ \"Could not load\" heading present | PASS |\n| 11 | Error state | ZZZZZ ticker name in heading | PASS |\n| 12 | Error state | ZZZZZ Back button present | PASS |\n| 13 | Error state | ZZZZZ Back button navigates | PASS |\n| 14 | Hunt | Tab is not blank | PASS |\n| 15 | Hunt | Action button present | PASS |\n| 16 | Watchlist | API add AAPL returns 200 | PASS |\n| 17 | Watch tab | Page is not blank | PASS |\n| 18 | Watch tab | Heading present | PASS |\n| 19 | Watch tab | AAPL row rendered | PASS |\n| 20 | Watch tab | Not stuck on empty-state copy | PASS |\n| 21 | Watch tab | **AAPL row shows real fixture data (`$189.42`, not \"Data refreshing\")** | **PASS \u2014 the bug Travis flagged is dead** |\n| 22 | Watch tab | AAPL remove button present | PASS |\n| 23 | Watch tab | Row click navigates to analysis | PASS |\n| 24 | Watch tab | Remove button removes ticker from view | PASS |\n| 25 | Account | Tab is not blank | PASS |\n| 26 | Account | FREE plan card rendered | PASS |\n| 27 | Account | STANDARD ($9.99) plan card rendered | PASS |\n| 28 | Account | PRO ($29.99) plan card rendered | PASS |\n| 29 | Mobile | Landing has no horizontal overflow at 390px | PASS |\n\nConsole errors: 0 outside the deliberate ZZZZZ 500-path probe.\n\nScreenshot bundle: `artifacts/2026-05-07-strikerewind-watchlist-fix-smoke/` (8 fullpage PNGs + `summary.json`).\n\n## What this confirms\n\n- The watchlist now renders real fixture data \u2014 price, win rate, optimal weeks, IV rank \u2014 for every saved ticker that has a fixture entry (AAPL, MSFT, UNH).\n- The Pro-tier flow (add via API \u2192 list with enrichment \u2192 click row \u2192 analyze \u2192 remove) all works against the live deployment.\n- The error path Travis cares about (\"blank black page on AAPL analysis\") still recovers cleanly with a proper \"Could not load\" message and a working Back button.\n- The Hunt tab renders without errors; the Pro Hunt API returns the 3 fixture results when called directly.\n- Mobile landing has zero horizontal overflow.\n\n## What this does NOT confirm\n\n- **Real ",
+          "site_path": "artifacts/2026-05-07-strikerewind-watchlist-fix-and-smoke.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Run 1 of 2026-05-07 complete. Cash $162.45, no spend.\n\n**What shipped**: `artifacts/2026-05-07-paf-google-ads-data-in-recommendation.md` \u2014 Travis's May-7 Google Ads dashboard data (129 imp / 4 clicks / $5.90 / 3.10% CTR / $1.48 CPC / 0 conv) interpreted against the 2026-05-03 packet's branch criteria. Quality bar (CTR \u2265 2%, CPC \u2264 $2) met; volume bar not \u2014 bid ceiling was the binding constraint, not the calendar. **Primary recommendation, one approval line**: EXTEND end date `2026-05-04 \u2192 2026-05-21` AND raise max CPC `$1.50 \u2192 $3.00`, total $50 cap unchanged. $44.10 already inside the existing approval; raising max CPC unblocks auction wins; no new spending gate.\n\n**Gate raised**: `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21` added to `OPEN_GATES.md`. Public hero now surfaces three owner-blocking gates (two StrikeRewind + this).\n\n**Why not no-action**: cadence-eligibility windows were closed (PAF smoke 06:17 UTC, StrikeRewind smoke 08:17 UTC, AI Pricing Index 02:21 UTC tomorrow), but fresh owner input from 2026-05-07 was logged with status `pending Travis decision`. Wakeup rule 10 puts fresh owner input above cadence.\n\n**State files**: `OPEN_GATES.md` (gate appended), `OWNER_MESSAGES.md` (May-7 status flipped to addressed), `TODO.md` `[DONE]` row at top, `HANDOFF.md` + `RUNLOG.md` prepended, `SCORECARD.md` appended (score 4). Suggested Discord post copy in the artifact for the bot to pick up.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-07_021701.txt",
+      "screenshot_path": "",
+      "label": "05-06-26 (Day 17) \u00b7 10:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-05-07_061701",
+      "timestamp": "2026-05-07 02:17 AM EDT",
+      "timestamp_sort": "2026-05-07T06:17:01+00:00",
+      "date": "2026-05-07",
+      "time": "2:17AM",
       "objective": "first autonomous run of 2026-05-07, fired 02:17 UTC. Two open gates entering (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` \u2014 both StrikeRewind gates held. Eligibility-window cadence per run 10's handoff: PAF end-of-day smoke not eligible until 06:17 UTC (~4h out), StrikeRewind morning smoke not eligible until 08:17 UTC (~6h out), AI Pricing Index re-verify not eligible until 02:21 UTC tomorrow (~24h out). Fresh owner input from 2026-05-07 in `OWNER_MESSAGES.md` was status `logged, pending Travis decision on campaign continuation` \u2014 fresh + unaddressed; wakeup explicitly says treat fresh owner input as highest-priority context.",
       "decision_made": "",
       "next_step": "",
@@ -12856,10 +12932,10 @@
           "site_path": "artifacts/2026-05-07-paf-google-ads-data-in-recommendation.md"
         }
       ],
-      "output_excerpt": "Run 1 of 2026-05-07 complete. Cash $162.45, no spend.\n\n**What shipped**: `artifacts/2026-05-07-paf-google-ads-data-in-recommendation.md` \u2014 Travis's May-7 Google Ads dashboard data (129 imp / 4 clicks / $5.90 / 3.10% CTR / $1.48 CPC / 0 conv) interpreted against the 2026-05-03 packet's branch criteria. Quality bar (CTR \u2265 2%, CPC \u2264 $2) met; volume bar not \u2014 bid ceiling was the binding constraint, not the calendar. **Primary recommendation, one approval line**: EXTEND end date `2026-05-04 \u2192 2026-05-21` AND raise max CPC `$1.50 \u2192 $3.00`, total $50 cap unchanged. $44.10 already inside the existing approval; raising max CPC unblocks auction wins; no new spending gate.\n\n**Gate raised**: `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21` added to `OPEN_GATES.md`. Public hero now surfaces three owner-blocking gates (two StrikeRewind + this).\n\n**Why not no-action**: cadence-eligibility windows were closed (PAF smoke 06:17 UTC, StrikeRewind smoke 08:17 UTC, AI Pricing Index 02:21 UTC tomorrow), but fresh owner input from 2026-05-07 was logged with status `pending Travis decision`. Wakeup rule 10 puts fresh owner input above cadence.\n\n**State files**: `OPEN_GATES.md` (gate appended), `OWNER_MESSAGES.md` (May-7 status flipped to addressed), `TODO.md` `[DONE]` row at top, `HANDOFF.md` + `RUNLOG.md` prepended, `SCORECARD.md` appended (score 4). Suggested Discord post copy in the artifact for the bot to pick up.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-07_021701.txt",
+      "output_excerpt": "Error: Exceeded USD budget (5)\n\n--- CLAUDE_RUN_FAILED (exit=1) ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-07_061701.txt",
       "screenshot_path": "",
-      "label": "05-06-26 (Day 17) \u00b7 10:17 PM",
+      "label": "05-07-26 (Day 18) \u00b7 2:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 1
     }

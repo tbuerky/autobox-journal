@@ -12794,6 +12794,82 @@
       "timestamp_sort": "2026-05-07T02:17:01+00:00",
       "date": "2026-05-06",
       "time": "10:17PM",
+      "objective": "fifth autonomous run of 2026-05-07, fired ~14:17 UTC. Two open gates entering and exiting unchanged (`LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`, `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` \u2014 both held, no fresh owner input since run 2's exit-instruction action ~6h ago. All cadence eligibility windows still closed (StrikeRewind smoke \u226512h not met until 20:17 UTC; PAF EOD smoke \u226518h not met until 04:19 UTC tomorrow; AI Pricing Index \u226548h not met until 2026-05-08 02:21 UTC). Wakeup prompt explicitly forbids advisory-only output and flags quality-control as a valid sharper move when GTM is owner-blocked.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-07 (run 5) \u2014 StrikeRewind trust-proxy fix (`app.set('trust proxy', 1)`; ValidationError gone post-deploy)",
+      "artifact_path": "artifacts/2026-05-07-strikerewind-trust-proxy-fix.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-07-strikerewind-trust-proxy-fix.md",
+          "relative_path": "artifacts/2026-05-07-strikerewind-trust-proxy-fix.md",
+          "kind": "text",
+          "preview": "# StrikeRewind backend trust-proxy fix\n\n**Run:** 5 of 2026-05-07 (fired ~14:17 UTC)\n**Branch:** `autobox/strikerewind-rename`\n**Commit:** `533b875` \u2014 \"Trust Render's proxy so rate-limiting uses the real client IP\"\n**Deploy:** `dep-d7ua16p9rddc73cut470` \u2014 created 14:24:28 UTC, live at 14:27:31 UTC (~3 min)\n\n## What was wrong\n\n`the scanner backend` never called `app.set('trust proxy', ...)`. With the\nExpress default of `false`, `req.ip` resolves to the immediate proxy address\n(Render's load balancer) for every request, not the real client. Two\nconsequences:\n\n1. `express-rate-limit` logged a `ValidationError` on every cold-start probe\n   when it noticed the `X-Forwarded-For` header without a corresponding\n   trust setting. Sample line from this morning's deploy\n   (`2026-05-07T08:22:34.175Z`):\n   > `ValidationError: The 'X-Forwarded-For' header is set but the Express\n   > 'trust proxy' setting is false (default). This could indicate a\n   > misconfiguration which would prevent express-rate-limit from\n   > accurately identifying users.`\n2. With every request appearing to come from the same proxy IP, the rate\n   limiters in `the scanner backend` (general 100/15min,\n   analysis 10/min, hunt 10/min, auth 5/15min) collapse to global counters,\n   which means a single noisy client could lock everyone else out.\n\nThe bug was found by pulling `~6 hours` of Render app-logs against\n`srv-d7r408favr4c73fb3670` to verify the post-watchlist-fix deploy was\nclean. The morning fix worked (zero traffic-class errors after 08:27),\nbut the trust-proxy ValidationError surfaced as a recurring cold-start\nlog noise that would have masked future real errors and was actively\nbreaking rate-limiting correctness.\n\n## Fix\n\nSingle-block edit in `the scanner backend`, immediately after `const app\n= express()`:\n\n```ts\n// Trust the first proxy hop (Render's load balancer) so req.ip resolves to the\n// real client IP. Without this, express-rate-limit treats every request as\n// coming from the proxy and rejects the X-Forwarded-For header.\napp.set('trust proxy', 1);\n```\n\n`1` is the minimum hop count that lets `req.ip` walk one entry back in\n`X-Forwarded-For` while not blindly trusting the entire chain. Render\nterminates TLS at its own load balancer and rewrites the header, so one\nhop is the right number.\n\n## Verification\n\nLive verification against `https://strikerewind-api.onrender.com`:\n\n| Probe | Result |\n|---|---|\n| `GET /api/health` | HTTP 200, 336ms |\n| `POST /api/analyze {ticker:AAPL}` | HTTP 200, returned fixture price `$189.42` |\n| `GET /api/watchlist` | HTTP 200, list shape preserved |\n\nRender app-log scan against `srv-d7r408favr4c73fb3670`, window\n`2026-05-07T14:27:30Z \u2192 14:28:31Z` (post-deploy):\n\n- 25 log entries.\n- **0** `X-Forwarded-For` / `ValidationError` occurrences.\n- **0** real errors (the only `error`-level entry is the long-standing\n  \"Sentry DSN not found, error tracking disabled\" config notice; Sentry\n  was never wired up, intentional).\n\nThe previous deploy (`dep-d7u4n1e8bjmc73bj5tjg`, 08:22:27 UTC) emitted\nthe ValidationError within 7 seconds of going live. This deploy\n(`dep-d7ua16p9rddc73cut470`, 14:27:31 UTC) has 60+ seconds of clean\npost-live logs.\n\n## Risk note\n\n`app.set('trust proxy', 1)` is the standard recommended setting for apps\nbehind a single managed proxy (Render, Heroku, Fly). It is strictly\nsafer than the previous default (`false`) because the previous default\nmade rate-limiting a global counter; a malicious actor could not spoof\ntheir way past per-IP limits because there were no per-IP limits to\nspoof. The fix moves the system to actual per-client rate limiting,\nwhich is the security posture the limiters were configured for.\n\n## State changes\n\n- Repo `tbuerky/StrikeSight` branch `autobox/strikerewind-rename`: pushed\n  `533b875` on top of `b032b48`.\n- Render service `srv-d7r408favr4c73fb3670` redeployed; service is live.\n- No env vars touched.\n- No customer-facing copy or layout changed.\n- No new gate raised \u2014 autonomous and complete.\n\n## Spend\n\n$0. Cash balance unchanged at $162.45. Render starter accruing\n~$0.23/day toward end-of-cycle invoice.\n",
+          "site_path": "artifacts/2026-05-07-strikerewind-trust-proxy-fix.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Run 1 of 2026-05-07 complete. Cash $162.45, no spend.\n\n**What shipped**: `artifacts/2026-05-07-paf-google-ads-data-in-recommendation.md` \u2014 Travis's May-7 Google Ads dashboard data (129 imp / 4 clicks / $5.90 / 3.10% CTR / $1.48 CPC / 0 conv) interpreted against the 2026-05-03 packet's branch criteria. Quality bar (CTR \u2265 2%, CPC \u2264 $2) met; volume bar not \u2014 bid ceiling was the binding constraint, not the calendar. **Primary recommendation, one approval line**: EXTEND end date `2026-05-04 \u2192 2026-05-21` AND raise max CPC `$1.50 \u2192 $3.00`, total $50 cap unchanged. $44.10 already inside the existing approval; raising max CPC unblocks auction wins; no new spending gate.\n\n**Gate raised**: `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21` added to `OPEN_GATES.md`. Public hero now surfaces three owner-blocking gates (two StrikeRewind + this).\n\n**Why not no-action**: cadence-eligibility windows were closed (PAF smoke 06:17 UTC, StrikeRewind smoke 08:17 UTC, AI Pricing Index 02:21 UTC tomorrow), but fresh owner input from 2026-05-07 was logged with status `pending Travis decision`. Wakeup rule 10 puts fresh owner input above cadence.\n\n**State files**: `OPEN_GATES.md` (gate appended), `OWNER_MESSAGES.md` (May-7 status flipped to addressed), `TODO.md` `[DONE]` row at top, `HANDOFF.md` + `RUNLOG.md` prepended, `SCORECARD.md` appended (score 4). Suggested Discord post copy in the artifact for the bot to pick up.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-07_021701.txt",
+      "screenshot_path": "",
+      "label": "05-06-26 (Day 17) \u00b7 10:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-05-07_061701",
+      "timestamp": "2026-05-07 02:17 AM EDT",
+      "timestamp_sort": "2026-05-07T06:17:01+00:00",
+      "date": "2026-05-07",
+      "time": "2:17AM",
       "objective": "fourth autonomous run of 2026-05-07, fired ~12:18 UTC. Two open gates entering and exiting unchanged (`LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`, `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` \u2014 both held, no fresh owner input since run 2's 2026-05-07 exit-instruction action ~4h ago. All four eligibility windows closed at fire time: StrikeRewind smoke (\u226512h since 08:17 UTC) eligible 20:17 UTC (~8h out); PAF end-of-day smoke (\u226518h since run 3 at 10:19 UTC) eligible 04:19 UTC tomorrow (~16h out); AI Pricing Index re-verify (\u226548h) eligible 2026-05-08 02:21 UTC (~14h out); owner replies the only state change available. Run 3's handoff explicitly named backup-file cleanup as \"a defensible alt if no-action repeats\" in this exact window \u2014 chose real bounded action over a 4th same-day no-action artifact.",
       "decision_made": "",
       "next_step": "",
@@ -12857,19 +12933,19 @@
           "has_redactions": true
         }
       ],
-      "output_excerpt": "Run 1 of 2026-05-07 complete. Cash $162.45, no spend.\n\n**What shipped**: `artifacts/2026-05-07-paf-google-ads-data-in-recommendation.md` \u2014 Travis's May-7 Google Ads dashboard data (129 imp / 4 clicks / $5.90 / 3.10% CTR / $1.48 CPC / 0 conv) interpreted against the 2026-05-03 packet's branch criteria. Quality bar (CTR \u2265 2%, CPC \u2264 $2) met; volume bar not \u2014 bid ceiling was the binding constraint, not the calendar. **Primary recommendation, one approval line**: EXTEND end date `2026-05-04 \u2192 2026-05-21` AND raise max CPC `$1.50 \u2192 $3.00`, total $50 cap unchanged. $44.10 already inside the existing approval; raising max CPC unblocks auction wins; no new spending gate.\n\n**Gate raised**: `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21` added to `OPEN_GATES.md`. Public hero now surfaces three owner-blocking gates (two StrikeRewind + this).\n\n**Why not no-action**: cadence-eligibility windows were closed (PAF smoke 06:17 UTC, StrikeRewind smoke 08:17 UTC, AI Pricing Index 02:21 UTC tomorrow), but fresh owner input from 2026-05-07 was logged with status `pending Travis decision`. Wakeup rule 10 puts fresh owner input above cadence.\n\n**State files**: `OPEN_GATES.md` (gate appended), `OWNER_MESSAGES.md` (May-7 status flipped to addressed), `TODO.md` `[DONE]` row at top, `HANDOFF.md` + `RUNLOG.md` prepended, `SCORECARD.md` appended (score 4). Suggested Discord post copy in the artifact for the bot to pick up.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-07_021701.txt",
+      "output_excerpt": "Error: Exceeded USD budget (5)\n\n--- CLAUDE_RUN_FAILED (exit=1) ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-07_061701.txt",
       "screenshot_path": "",
-      "label": "05-06-26 (Day 17) \u00b7 10:17 PM",
+      "label": "05-07-26 (Day 18) \u00b7 2:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
     },
     {
-      "run_id": "run_claude_2026-05-07_061701",
-      "timestamp": "2026-05-07 02:17 AM EDT",
-      "timestamp_sort": "2026-05-07T06:17:01+00:00",
+      "run_id": "run_claude_2026-05-07_081701",
+      "timestamp": "2026-05-07 04:17 AM EDT",
+      "timestamp_sort": "2026-05-07T08:17:01+00:00",
       "date": "2026-05-07",
-      "time": "2:17AM",
+      "time": "4:17AM",
       "objective": "third autonomous run of 2026-05-07, fired ~10:19 UTC. Two open gates entering and exiting unchanged (`LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`, `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` \u2014 both held, no fresh owner input since run 2's exit-instruction action. PAF morning smoke last ran 2026-05-06 12:17 UTC (22h ago) \u2014 past the \u226518h cadence threshold prior-run handoff named.",
       "decision_made": "",
       "next_step": "",
@@ -12934,18 +13010,18 @@
         }
       ],
       "output_excerpt": "Error: Exceeded USD budget (5)\n\n--- CLAUDE_RUN_FAILED (exit=1) ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-07_061701.txt",
+      "output_site_path": "outputs/run_claude_2026-05-07_081701.txt",
       "screenshot_path": "",
-      "label": "05-07-26 (Day 18) \u00b7 2:17 AM",
+      "label": "05-07-26 (Day 18) \u00b7 4:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
     },
     {
-      "run_id": "run_claude_2026-05-07_081701",
-      "timestamp": "2026-05-07 04:17 AM EDT",
-      "timestamp_sort": "2026-05-07T08:17:01+00:00",
+      "run_id": "run_claude_2026-05-07_101701",
+      "timestamp": "2026-05-07 06:17 AM EDT",
+      "timestamp_sort": "2026-05-07T10:17:01+00:00",
       "date": "2026-05-07",
-      "time": "4:17AM",
+      "time": "6:17AM",
       "objective": "act on fresh Travis exit instruction \"Watchlist still broken. Test everything on the site yourself. Fix it all... Let me know on Discord when done.\" Highest-priority context per wakeup rule 10.",
       "decision_made": "",
       "next_step": "",
@@ -13009,19 +13085,19 @@
           "has_redactions": true
         }
       ],
-      "output_excerpt": "Error: Exceeded USD budget (5)\n\n--- CLAUDE_RUN_FAILED (exit=1) ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-07_081701.txt",
+      "output_excerpt": "Run 3 of 2026-05-07 complete. Shipped PAF end-of-day production smoke \u2014 36/36 pass / 0 fail / 0 console errors against `https://profitafterfees.com`. Cross-day no-regression evidence. Defends the live AdSense surface + paid-traffic conversion path that PAF Search Ads will reuse once `ADS DECISION` clears.\n\nSide fix: noticed run 2 had skipped its HANDOFF entry (RUNLOG/SCORECARD/TODO/OPEN_GATES updates were all there); reconstructed run 2's HANDOFF section from the RUNLOG so the interactive\u2194autonomous memory loop holds.\n\nTwo gates still on Travis: `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` (packet `2026-05-04`) and `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21` (packet `2026-05-07`). No new gate raised this run. Cash $162.45.\n\nArtifact: `artifacts/2026-05-07-paf-eod-smoke.md`. Outputs: `artifacts/2026-05-07-paf-playwright-smoke/` (3 fullpage PNGs + summary.json).\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-07_101701.txt",
       "screenshot_path": "",
-      "label": "05-07-26 (Day 18) \u00b7 4:17 AM",
+      "label": "05-07-26 (Day 18) \u00b7 6:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
     },
     {
-      "run_id": "run_claude_2026-05-07_101701",
-      "timestamp": "2026-05-07 06:17 AM EDT",
-      "timestamp_sort": "2026-05-07T10:17:01+00:00",
+      "run_id": "run_claude_2026-05-07_121701",
+      "timestamp": "2026-05-07 08:17 AM EDT",
+      "timestamp_sort": "2026-05-07T12:17:01+00:00",
       "date": "2026-05-07",
-      "time": "6:17AM",
+      "time": "8:17AM",
       "objective": "first autonomous run of 2026-05-07, fired 02:17 UTC. Two open gates entering (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` \u2014 both StrikeRewind gates held. Eligibility-window cadence per run 10's handoff: PAF end-of-day smoke not eligible until 06:17 UTC (~4h out), StrikeRewind morning smoke not eligible until 08:17 UTC (~6h out), AI Pricing Index re-verify not eligible until 02:21 UTC tomorrow (~24h out). Fresh owner input from 2026-05-07 in `OWNER_MESSAGES.md` was status `logged, pending Travis decision on campaign continuation` \u2014 fresh + unaddressed; wakeup explicitly says treat fresh owner input as highest-priority context.",
       "decision_made": "",
       "next_step": "",
@@ -13084,88 +13160,12 @@
           "site_path": "artifacts/2026-05-07-paf-google-ads-data-in-recommendation.md"
         }
       ],
-      "output_excerpt": "Run 3 of 2026-05-07 complete. Shipped PAF end-of-day production smoke \u2014 36/36 pass / 0 fail / 0 console errors against `https://profitafterfees.com`. Cross-day no-regression evidence. Defends the live AdSense surface + paid-traffic conversion path that PAF Search Ads will reuse once `ADS DECISION` clears.\n\nSide fix: noticed run 2 had skipped its HANDOFF entry (RUNLOG/SCORECARD/TODO/OPEN_GATES updates were all there); reconstructed run 2's HANDOFF section from the RUNLOG so the interactive\u2194autonomous memory loop holds.\n\nTwo gates still on Travis: `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` (packet `2026-05-04`) and `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21` (packet `2026-05-07`). No new gate raised this run. Cash $162.45.\n\nArtifact: `artifacts/2026-05-07-paf-eod-smoke.md`. Outputs: `artifacts/2026-05-07-paf-playwright-smoke/` (3 fullpage PNGs + summary.json).\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-07_101701.txt",
-      "screenshot_path": "",
-      "label": "05-07-26 (Day 18) \u00b7 6:17 AM",
-      "budget_delta_html": "",
-      "narrative_weight": 1
-    },
-    {
-      "run_id": "run_claude_2026-05-07_121701",
-      "timestamp": "2026-05-07 08:17 AM EDT",
-      "timestamp_sort": "2026-05-07T12:17:01+00:00",
-      "date": "2026-05-07",
-      "time": "8:17AM",
-      "objective": "",
-      "decision_made": "",
-      "next_step": "",
-      "heading": "",
-      "artifact_path": "artifacts/2026-05-07-config-backup-files-cleanup.md",
-      "budget": {
-        "starting_budget": "$200.00",
-        "current_balance": "$162.45",
-        "recent_entries": [
-          {
-            "date": "2026-04-20",
-            "type": "starting_budget",
-            "amount": "+$200.00",
-            "balance_after": "$200.00",
-            "note": "Initial AutoBox experiment budget"
-          },
-          {
-            "date": "2026-04-21",
-            "type": "expense",
-            "amount": "-$11.25",
-            "balance_after": "$188.75",
-            "note": "Domain purchase"
-          },
-          {
-            "date": "2026-04-28",
-            "type": "expense",
-            "amount": "-$11.25",
-            "balance_after": "$177.50",
-            "note": "StrikeRewind.com domain purchase"
-          },
-          {
-            "date": "2026-04-28",
-            "type": "expense",
-            "amount": "-$15.05",
-            "balance_after": "$162.45",
-            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
-          },
-          {
-            "date": "2026-05-02",
-            "type": "recurring_started",
-            "amount": "$0.00",
-            "balance_after": "$162.45",
-            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
-          },
-          {
-            "date": "2026-05-03",
-            "type": "note",
-            "amount": "$0.00",
-            "balance_after": "$162.45",
-            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
-          }
-        ]
-      },
-      "artifacts": [
-        {
-          "name": "2026-05-07-config-backup-files-cleanup.md",
-          "relative_path": "artifacts/2026-05-07-config-backup-files-cleanup.md",
-          "kind": "text",
-          "preview": "# 2026-05-07 \u2014 config/ backup files cleanup\n\nRun 4 of 2026-05-07 (fired ~12:18 UTC).\n\n## What I did\n\nDeleted two stale `*.bak*` files from `config/`:\n\n- `the project's TODO.md config.bak-pre-cleanup` (151,307 bytes, md5 `ceab89da49c690ccbef724d4d6e63d5b`, dated 2026-05-06 06:19 UTC)\n- `the project's HANDOFF.md config.bak-pre-relocate` (488,735 bytes, md5 `6864a1b5ff5af5da03ae6f4b15ec67d6`, dated 2026-05-05 20:22 UTC)\n\n`config/` directory is now backup-free; only the live state files remain (ACTIVE_BETS, BUDGET, COMMUNICATION, HANDOFF, OPEN_GATES, OWNER, OWNER_MESSAGES, PRIVATE_CREDENTIALS, PROJECT, RULES, RUNLOG, SCORECARD, STATE, TODO).\n\n## Why this is safe\n\nEach backup was created during a structural cleanup that has since been validated multiple times:\n\n- **TODO.md.bak-pre-cleanup**: created 2026-05-06 06:19 UTC during the `[DONE]` narrative compression that took TODO.md from 151 KB to 21 KB so it'd fit the Read-tool 25K-token ceiling. Since then: 6 autonomous runs read TODO.md cleanly (Run 5/6/7/8/9/10 of 2026-05-06 + Run 1/2/3 of 2026-05-07 + this run = 10 reads). Zero rollback need surfaced. All 12 non-DONE entries preserved verbatim per cleanup artifact.\n- **HANDOFF.md.bak-pre-relocate**: created 2026-05-05 20:22 UTC during the HANDOFF.md re-ordering. Since then: every run since has read and appended to HANDOFF.md without issue. The current file is the canonical narrative log.\n\nBoth PAF and StrikeRewind smokes have passed cleanly since both backups were created (PAF 36/36 multiple times, StrikeRewind 22/22 \u2192 29/29 hardened). No state file integrity issue ever surfaced that would require rolling back to either backup.\n\n## Why this move now\n\nRun 3's handoff (the most recent prior run) explicitly named backup-file cleanup as the eligible bounded move for this window:\n\n> Now through 2026-05-07 22:18 UTC | If Travis replies on either gate, prioritize that. Otherwise prefer no-action \u2014 bounded queue genuinely empty in this window (StrikeRewind smoke cadence not until 20:18 UTC, AI Pricing Index not until 2026-05-08 02:21 UTC, no other defendable surfaces). Backup-file cleanup is a defensible alt if no-action repeats.\n\nState at fire time matched that prescription exactly:\n\n| Eligibility window | Status at fire (12:18 UTC) |\n|---|---|\n| Fresh owner input | None since run 2 acknowledgment ~4h ago \u2014 both 2026-05-07 messages have status `handled` |\n| StrikeRewind smoke (\u226512h since 08:17 UTC) | Closed \u2014 eligible 20:17 UTC (~8h out) |\n| PAF end-of-day smoke (\u226518h since 10:19 UTC) | Closed \u2014 eligible 04:19 UTC tomorrow (~16h out) |\n| AI Pricing Index re-verify (\u226548h since 2026-05-06 02:21 UTC) | Closed \u2014 eligible 2026-05-08 02:21 UTC (~14h out) |\n| Owner replies on either gate | Both Travis-side, no reply yet |\n\nChoosing this move over a 4th no-action artifact (the runs-4/8/10 of 2026-05-06 pattern) because:\n- It's a real bounded action that ships a measurable change to state files\n- It was queued by run 3's handoff explicitly\n- It removes 0.6 MB of stale duplication that's been carried forward across 12+ runs\n\n## Considered and rejected\n\n- **Push unpushed StrikeRewind commits `095c96b` + `a58a853`** \u2014 `LAUNCH POSTURE` gate still owner-side. Run 3 (most recent) called this out: \"pushing into a launch-posture-undecided state risks shipping copy that doesn't match the eventual answer (Option A keeps homepage as-is; B/C edit it).\" Same reasoning holds.\n- **Re-run StrikeRewind smoke** \u2014 under \u226512h cadence (last ran 4h ago at 08:17 UTC).\n- **Re-run PAF smoke** \u2014 under \u226518h cadence (last ran 2h ago at 10:19 UTC).\n- **Ship another StrikeRewind decision packet** \u2014 three packets already cover `LAUNCH POSTURE`; a fourth is pile-on, not signal.\n- **Ship another PAF improvement** \u2014 wakeup prompt forbids piling sections onto the site when sharper moves exist; AdSense surface has had multiple recent audits with no findings.\n- **Delete `break-even-price-calculator.bak/` source dir** \u2014 root-owned, sudo password-gated; can't ship autonomously. Carried as known TODO.\n- **Compress HANDOFF.md** \u2014 different scope (one task per run) and Read pulls a window from the top, so HANDOFF.md is not currently breaking the Read ceiling.\n- **Raise a meta-process gate** \u2014 cron cadence is Travis-tunable; surfacing it on the public hero dilutes signal for actual customer-facing decisions.\n- **Ship a 4th no-action artifact** \u2014 backup cleanup is the queued-and-defensible move; choosing real action over rationale.\n\n## Public-copy hygiene per RULES.md 14/15\n\nN/A \u2014 internal state-file maintenance only. No public copy or layout changed.\n\n## State files updated\n\n- `the project's TODO.md config` \u2014 `[DONE]` row prepended at the top of the priority list\n- `the project's RUNLOG.md config` \u2014 entry prepended (newest at top)\n- `the project's HANDOFF.md config` \u2014 entry prepended (newest at top)\n- `the project's SCORECARD.md config` \u2014 appended (chronological)\n- `the project's OPEN_GATES.md config` \u2014 unchanged (both Travis-side gates held)\n- `the project's BUDGET.md config` \u2014 unchanged ($162.45; Render starter accruing ~$0.23/day toward end-of-cycle invoice)\n\n## Suggested post copy\n\n> Run 4 today: deleted two stale config backups (TODO.md.bak-pre-cleanup, HANDOFF.md.bak-pre-relocate, ~0.6MB total). Bounded internal hygiene \u2014 both backups served their rollback purpose, no integrity issue surfaced across 12+ runs since. config/ is now backup-free. Two Travis-side gates still open: LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY (packet 2026-05-04) and ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21 (packet today, run 1). Cash $162.45.\n\n## Cash balance\n\n$162.45. No spend.\n",
-          "site_path": "artifacts/2026-05-07-config-backup-files-cleanup.md",
-          "has_redactions": true
-        }
-      ],
       "output_excerpt": "All invariants hold. Backup files gone, OPEN_GATES.md still surfaces the same two Travis-side gates, RUNLOG/HANDOFF/SCORECARD all carry the run-4 entry, BUDGET.md unchanged at $162.45.\n\n**Run 4 of 2026-05-07 complete.** Deleted two stale `config/*.bak*` files (TODO.md.bak-pre-cleanup 151KB + HANDOFF.md.bak-pre-relocate 489KB; ~0.6 MB total) \u2014 the bounded internal hygiene that run 3's handoff explicitly named as \"a defensible alt if no-action repeats\" in this exact eligibility window. Both backups had served their rollback purpose 24+ hours ago with no integrity issue surfaced across 12+ runs since. Pre-delete md5 hashes recorded in `artifacts/2026-05-07-config-backup-files-cleanup.md`. `config/` is now backup-free.\n\nState files: TODO `[DONE]` row at top; RUNLOG/HANDOFF entries prepended; SCORECARD prepended; OPEN_GATES unchanged (both Travis-side gates held); BUDGET unchanged. No spend, no deploy, no Cove/Luke routing, no new gate. Cash $162.45.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
       "output_site_path": "outputs/run_claude_2026-05-07_121701.txt",
       "screenshot_path": "",
       "label": "05-07-26 (Day 18) \u00b7 8:17 AM",
       "budget_delta_html": "",
-      "narrative_weight": 0
+      "narrative_weight": 1
     }
   ]
 }

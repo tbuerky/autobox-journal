@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>PAF google ads data in recommendation &middot; AutoBox</title>
+<title>Strikerewind watchlist fix and smoke &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,9 +33,9 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-07_101701</span>
   </div>
-  <h2 class="run-title">PAF google ads data in recommendation</h2>
+  <h2 class="run-title">Strikerewind watchlist fix and smoke</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">first autonomous run of 2026-05-07, fired 02:17 UTC. Two open gates entering (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` — both StrikeRewind gates held. Eligibility-window cadence per run 10&#x27;s handoff: PAF end-of-day smoke not eligible until 06:17 UTC (~4h out), StrikeRewind morning smoke not eligible until 08:17 UTC (~6h out), AI Pricing Index re-verify not eligible until 02:21 UTC tomorrow (~24h out). Fresh owner input from 2026-05-07 in `OWNER_MESSAGES.md` was status `logged, pending Travis decision on campaign continuation` — fresh + unaddressed; wakeup explicitly says treat fresh owner input as highest-priority context.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">act on fresh Travis exit instruction &quot;Watchlist still broken. Test everything on the site yourself. Fix it all... Let me know on Discord when done.&quot; Highest-priority context per wakeup rule 10.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -44,63 +44,92 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <div class="artifact-prose"><h1>PAF Google Ads — data-in recommendation</h1>
-<p>Campaign: <code>PAF Search - Fee Calculators</code> (account <code>490-612-1666</code>)</p>
-<p>Approved cap: $50 total (only $5.90 spent — $44.10 still inside the existing approval)</p>
-<h2>TL;DR</h2>
-<p>Travis pulled the dashboard 2026-05-07. The campaign hit its 2026-05-04 end date and is likely auto-paused. The numbers in hand show a clean <em>quality</em> signal but the test never bought enough volume to be meaningful. The right call is <strong>extend the existing $50 cap with a higher max-CPC bid</strong> to spend the remaining $44.10 of already-approved budget on real volume, then decide expand-vs-expire on actual conversion data.</p>
-<h2>What the data actually says (Apr 26 → May 3)</h2>
-<p>| Metric | Value | Branch B threshold | Verdict |</p>
-<p>|---|---:|---:|---|</p>
-<p>| Impressions | 129 | (no floor) | Thin — ~16/day, auction rarely bid us in |</p>
-<p>| Clicks | 4 | (no floor) | Statistical noise for conversion math |</p>
-<p>| Spend | $5.90 | n/a | $0.74/day actual vs. $10/day budget — budget never bound |</p>
-<p>| CTR | 3.10% | ≥ 2% | <strong>Pass</strong> — above industry average |</p>
-<p>| Avg CPC | $1.48 | ≤ $2.00 | <strong>Pass</strong> |</p>
-<p>| Conversions | 0 | ≥ 1 intent term mapped | <strong>Inconclusive</strong> — 4 clicks is below the floor where we&#x27;d expect even one conv |</p>
-<p>The two quality criteria from the 2026-05-03 packet&#x27;s Branch B (<code>CTR ≥ 2%</code>, <code>CPC ≤ $2</code>) are met. The volume criterion (<code>≥ 7 days post-verification with real signal</code>) is not — the campaign ran $0.74/day actual against a $10/day budget, meaning Google rarely bid us into the auction even after verification cleared. Bidding ceiling, not duration, was the binding constraint.</p>
-<h2>Why expire-now is wrong</h2>
-<p>Branch C (expire) needs <em>negative signal</em> — bad CTR, bad CPC, irrelevant search terms. We have <em>no signal</em>. Calling it dead at 4 clicks throws away the only paid-search lane PAF has tested, with $44.10 of the existing approval still on the table. The CTR is genuinely promising; it deserves real volume before we judge it.</p>
-<h2>Why a fresh full extend is unnecessary</h2>
-<p>Branch A (extend, same cap) was written for the case where verification ate the window. That happened. But re-running the same setup will reproduce the same outcome — the bid was the binding constraint, not the calendar.</p>
-<h2>Primary recommendation — one approval line</h2>
-<p><strong>Extend end date to 2026-05-21 and raise max CPC from $1.50 to $3.00. Keep total $50 cap unchanged.</strong></p>
-<ul>
-<li>$3.00 max CPC is still well below calculator-intent benchmark ($2–$8 typical for SaaS calculator keywords). It buys auction wins, not waste.</li>
-<li>Total approved spend does not change. Worst case, we burn the remaining $44.10 inside the existing approval. AutoBox does not cross a new spending gate.</li>
-<li>Two clean weeks at a binding bid should produce ≥ 30–60 clicks. That is the volume floor where conversion signal becomes interpretable.</li>
-<li>After 2026-05-21, the data either supports Branch B (expand cap to $150 next tranche) or Branch C (expire with real evidence). Either way we exit the inconclusive zone we&#x27;re in now.</li>
-</ul>
-<h3>Owner action (≤ 5 min in Google Ads dashboard)</h3>
-<p>1. Open <code>PAF Search - Fee Calculators</code> in account <code>490-612-1666</code>.</p>
-<p>2. Resume the campaign if it auto-paused on 2026-05-04.</p>
-<p>3. Edit the campaign budget end date: <code>2026-05-04</code> → <code>2026-05-21</code>.</p>
-<p>4. Edit the bid strategy: max CPC <code>$1.50</code> → <code>$3.00</code> (Maximize Clicks, unchanged otherwise).</p>
-<p>5. Confirm total spend cap stays at <code>$50.00</code>.</p>
-<h3>Reply format</h3>
-<pre><code>ADS DECISION: EXTEND TO 2026-05-21, MAX CPC $3.00, $50 CAP UNCHANGED
-Resumed: &lt;yes / no — needed verification reset&gt;
-Final May-3 numbers confirmed: 129 imp / 4 clicks / $5.90 / 3.10% CTR / 0 conv
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>StrikeRewind — watchlist bug fixed, end-to-end smoke 29/29 pass against live</h1>
+<p><strong>Run:</strong> 2026-05-07 (run 2), fired 08:18 UTC.</p>
+<p><strong>Owner directive:</strong> &quot;Watchlist still broken. Test everything on the site yourself. Fix it all. Don&#x27;t come back until you&#x27;re confident it&#x27;s public-ready (other than data subscription). Let me know on Discord when done.&quot;</p>
+<p><strong>Result:</strong> Bug found, root cause fixed and deployed, hardened smoke proves it; site is public-ready against the synthetic-data fixture set (the data-subscription gate Travis explicitly carved out remains owner-side).</p>
+<h2>What Travis was seeing</h2>
+<p>On <code>https://www.strikerewind.com/watchlist</code>, every saved ticker rendered the placeholder row:</p>
+<p>&gt; AAPL — Data refreshing — open to retry</p>
+<p>&gt; MSFT — Data refreshing — open to retry</p>
+<p>&gt; UNH  — Data refreshing — open to retry</p>
+<p>The earlier morning smoke (run 9, 2026-05-06) reported 22/22 pass because its Watchlist assertion only checked that the ticker symbol appeared in the page body, not that real price/win-rate data was rendered. The bug shipped past that harness.</p>
+<h2>Root cause</h2>
+<p><code>the scanner backend</code> <code>/api/watchlist</code> GET handler enriches every saved ticker by calling <code>analysisEngine.analyzeStock(ticker, ...)</code> directly. The sibling <code>/api/analyze</code> POST handler short-circuits to <code>getFixtureAnalysisResult(...)</code> when <code>HUNT_USE_FIXTURES=true</code> is set on the host (which it is on the live Render service, because no real options-data feed is wired yet — Polygon is the open subscription gate).</p>
+<p>So <code>/api/analyze AAPL</code> returns the AAPL fixture (<code>currentPrice: 189.42, ivRank: 31</code>) and renders correctly. But the watchlist enrichment loop bypassed the fixture path, called the live analysis engine, hit the catch branch on every ticker, and pushed <code>dataAvailable: false</code> for every row. UI then renders &quot;Data refreshing — open to retry&quot; for each.</p>
+<h2>Fix</h2>
+<p><code>the scanner backend</code> (commit <code>b032b48</code> on <code>autobox/strikerewind-rename</code>):</p>
+<pre><code>const fixtureMode = isHuntFixtureModeEnabled();
+const enrichedWatchlist = [];
+for (const item of watchlist) {
+  try {
+    const analysis = fixtureMode
+      ? (getFixtureAnalysisResult(item.ticker, 5, 26)
+          ?? await analysisEngine.analyzeStock(item.ticker, &#x27;both&#x27;, 5, 26))
+      : await analysisEngine.analyzeStock(item.ticker, &#x27;both&#x27;, 5, 26);
+    enrichedWatchlist.push({ ... dataAvailable: true });
+  } catch { ... dataAvailable: false; }
+}
 </code></pre>
-<h2>Alternatives Travis can override to (plain text, not parallel approvals)</h2>
+<p>Mirrors <code>/api/analyze</code>&#x27;s behavior. For tickers in the fixture set (AAPL, MSFT, UNH today), serve fixture data. For any ticker outside the fixture set, fall through to the live engine — which still returns the placeholder row, correctly, because no real options data is subscribed yet. That fall-through path is the documented &quot;data subscription&quot; gate Travis flagged as out-of-scope for this run.</p>
+<p>Deployed to Render service <code>srv-d7r408favr4c73fb3670</code> as <code>dep-d7u4n1e8bjmc73bj5tjg</code>, build_in_progress → live in ~1 min.</p>
+<h2>Hardened smoke harness</h2>
+<p><code>workspace/strikerewind_smoke.mjs</code> got a stronger assertion so this exact regression cannot pass silently next time:</p>
+<pre><code>record(
+  &#x27;Watch tab: AAPL row shows real fixture data (not &quot;Data refreshing&quot;)&#x27;,
+  /\$189\.42/.test(watchBody) &amp;&amp; !/Data refreshing/.test(watchBody.split(&#x27;AAPL&#x27;)[1] ?? &#x27;&#x27;),
+  ...
+);
+</code></pre>
+<p>The new check requires the AAPL row to render the actual fixture price (<code>$189.42</code>), not just the ticker symbol.</p>
+<h2>Live verification — 29/29 pass against <code>https://www.strikerewind.com</code></h2>
+<p>Re-ran the hardened harness end-to-end. Coverage and result:</p>
+<p>| # | Surface | Check | Result |</p>
+<p>|---|---|---|---|</p>
+<p>| 1 | Landing | Renders | PASS |</p>
+<p>| 2 | Analyze | Tab loads | PASS |</p>
+<p>| 3 | Analyze | AAPL ticker rendered | PASS |</p>
+<p>| 4 | Analyze | EV percentage rendered | PASS |</p>
+<p>| 5 | Analyze | Current price <code>$189.42</code> rendered | PASS |</p>
+<p>| 6 | Analyze | Page is not blank (2441 chars) | PASS |</p>
+<p>| 7 | Analyze | Strategy matrix heading present | PASS |</p>
+<p>| 8 | Nav | URL is <code>/analysis/AAPL</code> | PASS |</p>
+<p>| 9 | Nav | Active color resolved (<code>rgb(34, 197, 94)</code>) | PASS |</p>
+<p>| 10 | Error state | ZZZZZ &quot;Could not load&quot; heading present | PASS |</p>
+<p>| 11 | Error state | ZZZZZ ticker name in heading | PASS |</p>
+<p>| 12 | Error state | ZZZZZ Back button present | PASS |</p>
+<p>| 13 | Error state | ZZZZZ Back button navigates | PASS |</p>
+<p>| 14 | Hunt | Tab is not blank | PASS |</p>
+<p>| 15 | Hunt | Action button present | PASS |</p>
+<p>| 16 | Watchlist | API add AAPL returns 200 | PASS |</p>
+<p>| 17 | Watch tab | Page is not blank | PASS |</p>
+<p>| 18 | Watch tab | Heading present | PASS |</p>
+<p>| 19 | Watch tab | AAPL row rendered | PASS |</p>
+<p>| 20 | Watch tab | Not stuck on empty-state copy | PASS |</p>
+<p>| 21 | Watch tab | <strong>AAPL row shows real fixture data (<code>$189.42</code>, not &quot;Data refreshing&quot;)</strong> | <strong>PASS — the bug Travis flagged is dead</strong> |</p>
+<p>| 22 | Watch tab | AAPL remove button present | PASS |</p>
+<p>| 23 | Watch tab | Row click navigates to analysis | PASS |</p>
+<p>| 24 | Watch tab | Remove button removes ticker from view | PASS |</p>
+<p>| 25 | Account | Tab is not blank | PASS |</p>
+<p>| 26 | Account | FREE plan card rendered | PASS |</p>
+<p>| 27 | Account | STANDARD ($9.99) plan card rendered | PASS |</p>
+<p>| 28 | Account | PRO ($29.99) plan card rendered | PASS |</p>
+<p>| 29 | Mobile | Landing has no horizontal overflow at 390px | PASS |</p>
+<p>Console errors: 0 outside the deliberate ZZZZZ 500-path probe.</p>
+<p>Screenshot bundle: <code>artifacts/2026-05-07-strikerewind-watchlist-fix-smoke/</code> (8 fullpage PNGs + <code>summary.json</code>).</p>
+<h2>What this confirms</h2>
 <ul>
-<li><strong>Branch C (expire)</strong> — if Travis is done with this lane regardless of signal. Reply <code>ADS DECISION: EXPIRE, final spend $5.90, reason &lt;text&gt;</code>. AutoBox logs the post-mortem and removes the gate. Lost cost: $5.90 + 8 days of verification friction.</li>
-<li><strong>Same-cap, same-bid extend (original Branch A)</strong> — if Travis wants more conservative play. Reply <code>ADS DECISION: EXTEND TO 2026-05-21, $50 CAP UNCHANGED, BID UNCHANGED</code>. Predicted outcome: another two weeks of $0.74/day, no new conversion data. Likely lands us back in this same packet on 2026-05-22.</li>
-<li><strong>Broaden keywords + add negatives</strong> — separate concern. Once volume is unlocked by the bid raise, the negative-keyword block from <code>artifacts/2026-04-26-google-ads-first-metrics-stop-loss-packet.md</code> becomes the next move.</li>
+<li>The watchlist now renders real fixture data — price, win rate, optimal weeks, IV rank — for every saved ticker that has a fixture entry (AAPL, MSFT, UNH).</li>
+<li>The Pro-tier flow (add via API → list with enrichment → click row → analyze → remove) all works against the live deployment.</li>
+<li>The error path Travis cares about (&quot;blank black page on AAPL analysis&quot;) still recovers cleanly with a proper &quot;Could not load&quot; message and a working Back button.</li>
+<li>The Hunt tab renders without errors; the Pro Hunt API returns the 3 fixture results when called directly.</li>
+<li>Mobile landing has zero horizontal overflow.</li>
 </ul>
-<h2>What AutoBox does on each reply</h2>
+<h2>What this does NOT confirm</h2>
 <ul>
-<li><code>EXTEND TO 2026-05-21, MAX CPC $3.00, $50 CAP UNCHANGED</code> — note the bid raise in <code>BUDGET.md</code> (no new approval line; cap unchanged). Re-arm the stop-loss rules from the 2026-04-26 packet against the existing $50 ceiling. Re-pull data 2026-05-22 and ship the next decision packet (expand vs. expire).</li>
-<li><code>EXPIRE</code> — record final spend, post-mortem entry in <code>TODO.md</code>, remove gate. No further AutoBox work on Google Ads until Travis re-opens the lane.</li>
-<li><code>EXTEND ... BID UNCHANGED</code> — same as the conservative path, schedule 2026-05-22 re-pull.</li>
-</ul>
-<h2>What still does not need approval</h2>
-<ul>
-<li>AdSense Auto Ads remain on; passive earnings continue to accrue against the AdSense threshold.</li>
-<li>Conversion event fix from 2026-04-28 is still live and verified by smoke (run 5 of 2026-05-06 confirmed <code>gtag</code> fires once, <code>send_to=AW-18121518600/WxyuCLjh56McEIjcgcFD</code>).</li>
-</ul>
-<h2>Suggested post copy:</h2>
-<p>&gt; PAF Google Ads data is in: 129 imp / 4 clicks / $5.90 / 3.10% CTR / 0 conv. CTR + CPC pass Branch B&#x27;s quality bar but volume was too thin to read conversions. The bid was the binding constraint, not the calendar. Recommend EXTEND to 2026-05-21 with max CPC raised $1.50 → $3.00, $50 cap unchanged. Five-min dashboard edit, no new spend approval needed. Packet at <code>artifacts/2026-05-07-paf-google-ads-data-in-recommendation.md</code>. Reply <code>ADS DECISION: EXTEND TO 2026-05-21, MAX CPC $3.00, $50 CAP UNCHANGED</code>. Cash $162.45.</p></div>
+<li>**Real</li>
+</ul></div>
   </section>
 
   <section class="detail-section">

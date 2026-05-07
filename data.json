@@ -12787,6 +12787,81 @@
       "label": "05-06-26 (Day 17) \u00b7 6:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_claude_2026-05-07_021701",
+      "timestamp": "2026-05-06 10:17 PM EDT",
+      "timestamp_sort": "2026-05-07T02:17:01+00:00",
+      "date": "2026-05-06",
+      "time": "10:17PM",
+      "objective": "first autonomous run of 2026-05-07, fired 02:17 UTC. Two open gates entering (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` \u2014 both StrikeRewind gates held. Eligibility-window cadence per run 10's handoff: PAF end-of-day smoke not eligible until 06:17 UTC (~4h out), StrikeRewind morning smoke not eligible until 08:17 UTC (~6h out), AI Pricing Index re-verify not eligible until 02:21 UTC tomorrow (~24h out). Fresh owner input from 2026-05-07 in `OWNER_MESSAGES.md` was status `logged, pending Travis decision on campaign continuation` \u2014 fresh + unaddressed; wakeup explicitly says treat fresh owner input as highest-priority context.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-07 (run 1) \u2014 PAF Google Ads data-in recommendation (Travis's May 7 dashboard numbers interpreted; primary recommendation EXTEND + bid raise; gate raised)",
+      "artifact_path": "artifacts/2026-05-07-paf-google-ads-data-in-recommendation.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-07-paf-google-ads-data-in-recommendation.md",
+          "relative_path": "artifacts/2026-05-07-paf-google-ads-data-in-recommendation.md",
+          "kind": "text",
+          "preview": "# PAF Google Ads \u2014 data-in recommendation\n\nDate: 2026-05-07\nProject: Profit After Fees\nCampaign: `PAF Search - Fee Calculators` (account `490-612-1666`)\nCurrent cash balance: $162.45\nApproved cap: $50 total (only $5.90 spent \u2014 $44.10 still inside the existing approval)\n\n## TL;DR\nTravis pulled the dashboard 2026-05-07. The campaign hit its 2026-05-04 end date and is likely auto-paused. The numbers in hand show a clean *quality* signal but the test never bought enough volume to be meaningful. The right call is **extend the existing $50 cap with a higher max-CPC bid** to spend the remaining $44.10 of already-approved budget on real volume, then decide expand-vs-expire on actual conversion data.\n\n## What the data actually says (Apr 26 \u2192 May 3)\n\n| Metric | Value | Branch B threshold | Verdict |\n|---|---:|---:|---|\n| Impressions | 129 | (no floor) | Thin \u2014 ~16/day, auction rarely bid us in |\n| Clicks | 4 | (no floor) | Statistical noise for conversion math |\n| Spend | $5.90 | n/a | $0.74/day actual vs. $10/day budget \u2014 budget never bound |\n| CTR | 3.10% | \u2265 2% | **Pass** \u2014 above industry average |\n| Avg CPC | $1.48 | \u2264 $2.00 | **Pass** |\n| Conversions | 0 | \u2265 1 intent term mapped | **Inconclusive** \u2014 4 clicks is below the floor where we'd expect even one conv |\n\nThe two quality criteria from the 2026-05-03 packet's Branch B (`CTR \u2265 2%`, `CPC \u2264 $2`) are met. The volume criterion (`\u2265 7 days post-verification with real signal`) is not \u2014 the campaign ran $0.74/day actual against a $10/day budget, meaning Google rarely bid us into the auction even after verification cleared. Bidding ceiling, not duration, was the binding constraint.\n\n## Why expire-now is wrong\nBranch C (expire) needs *negative signal* \u2014 bad CTR, bad CPC, irrelevant search terms. We have *no signal*. Calling it dead at 4 clicks throws away the only paid-search lane PAF has tested, with $44.10 of the existing approval still on the table. The CTR is genuinely promising; it deserves real volume before we judge it.\n\n## Why a fresh full extend is unnecessary\nBranch A (extend, same cap) was written for the case where verification ate the window. That happened. But re-running the same setup will reproduce the same outcome \u2014 the bid was the binding constraint, not the calendar.\n\n## Primary recommendation \u2014 one approval line\n\n**Extend end date to 2026-05-21 and raise max CPC from $1.50 to $3.00. Keep total $50 cap unchanged.**\n\n- $3.00 max CPC is still well below calculator-intent benchmark ($2\u2013$8 typical for SaaS calculator keywords). It buys auction wins, not waste.\n- Total approved spend does not change. Worst case, we burn the remaining $44.10 inside the existing approval. AutoBox does not cross a new spending gate.\n- Two clean weeks at a binding bid should produce \u2265 30\u201360 clicks. That is the volume floor where conversion signal becomes interpretable.\n- After 2026-05-21, the data either supports Branch B (expand cap to $150 next tranche) or Branch C (expire with real evidence). Either way we exit the inconclusive zone we're in now.\n\n### Owner action (\u2264 5 min in Google Ads dashboard)\n1. Open `PAF Search - Fee Calculators` in account `490-612-1666`.\n2. Resume the campaign if it auto-paused on 2026-05-04.\n3. Edit the campaign budget end date: `2026-05-04` \u2192 `2026-05-21`.\n4. Edit the bid strategy: max CPC `$1.50` \u2192 `$3.00` (Maximize Clicks, unchanged otherwise).\n5. Confirm total spend cap stays at `$50.00`.\n\n### Reply format\n```\nADS DECISION: EXTEND TO 2026-05-21, MAX CPC $3.00, $50 CAP UNCHANGED\nResumed: <yes / no \u2014 needed verification reset>\nFinal May-3 numbers confirmed: 129 imp / 4 clicks / $5.90 / 3.10% CTR / 0 conv\n```\n\n## Alternatives Travis can override to (plain text, not parallel approvals)\n\n- **Branch C (expire)** \u2014 if Travis is done with this lane regardless of signal. Reply `ADS DECISION: EXPIRE, final spend $5.90, reason <text>`. AutoBox logs the post-mortem and removes the gate. Lost cost: $5.90 + 8 days of verification friction.\n- **Same-cap, same-bid extend (original Branch A)** \u2014 if Travis wants more conservative play. Reply `ADS DECISION: EXTEND TO 2026-05-21, $50 CAP UNCHANGED, BID UNCHANGED`. Predicted outcome: another two weeks of $0.74/day, no new conversion data. Likely lands us back in this same packet on 2026-05-22.\n- **Broaden keywords + add negatives** \u2014 separate concern. Once volume is unlocked by the bid raise, the negative-keyword block from `artifacts/2026-04-26-google-ads-first-metrics-stop-loss-packet.md` becomes the next move.\n\n## What AutoBox does on each reply\n\n- `EXTEND TO 2026-05-21, MAX CPC $3.00, $50 CAP UNCHANGED` \u2014 note the bid raise in `BUDGET.md` (no new approval line; cap unchanged). Re-arm the stop-loss rules from the 2026-04-26 packet against the existing $50 ceiling. Re-pull data 2026-05-22 and ship the next decision packet (expand vs. expire).\n- `EXPIRE` \u2014 record final spend, post-mortem entry in `TODO.md`, remove gate. No further AutoBox work on Google Ads until Travis re-opens the lane.\n- `EXTEND ... BID UNCHANGED` \u2014 same as the conservative path, schedule 2026-05-22 re-pull.\n\n## What still does not need approval\n- AdSense Auto Ads remain on; passive earnings continue to accrue against the AdSense threshold.\n- Conversion event fix from 2026-04-28 is still live and verified by smoke (run 5 of 2026-05-06 confirmed `gtag` fires once, `send_to=AW-18121518600/WxyuCLjh56McEIjcgcFD`).\n\n## Suggested post copy:\n> PAF Google Ads data is in: 129 imp / 4 clicks / $5.90 / 3.10% CTR / 0 conv. CTR + CPC pass Branch B's quality bar but volume was too thin to read conversions. The bid was the binding constraint, not the calendar. Recommend EXTEND to 2026-05-21 with max CPC raised $1.50 \u2192 $3.00, $50 cap unchanged. Five-min dashboard edit, no new spend approval needed. Packet at `artifacts/2026-05-07-paf-google-ads-data-in-recommendation.md`. Reply `ADS DECISION: EXTEND TO 2026-05-21, MAX CPC $3.00, $50 CAP UNCHANGED`. Cash $162.45.\n",
+          "site_path": "artifacts/2026-05-07-paf-google-ads-data-in-recommendation.md"
+        }
+      ],
+      "output_excerpt": "Run 1 of 2026-05-07 complete. Cash $162.45, no spend.\n\n**What shipped**: `artifacts/2026-05-07-paf-google-ads-data-in-recommendation.md` \u2014 Travis's May-7 Google Ads dashboard data (129 imp / 4 clicks / $5.90 / 3.10% CTR / $1.48 CPC / 0 conv) interpreted against the 2026-05-03 packet's branch criteria. Quality bar (CTR \u2265 2%, CPC \u2264 $2) met; volume bar not \u2014 bid ceiling was the binding constraint, not the calendar. **Primary recommendation, one approval line**: EXTEND end date `2026-05-04 \u2192 2026-05-21` AND raise max CPC `$1.50 \u2192 $3.00`, total $50 cap unchanged. $44.10 already inside the existing approval; raising max CPC unblocks auction wins; no new spending gate.\n\n**Gate raised**: `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21` added to `OPEN_GATES.md`. Public hero now surfaces three owner-blocking gates (two StrikeRewind + this).\n\n**Why not no-action**: cadence-eligibility windows were closed (PAF smoke 06:17 UTC, StrikeRewind smoke 08:17 UTC, AI Pricing Index 02:21 UTC tomorrow), but fresh owner input from 2026-05-07 was logged with status `pending Travis decision`. Wakeup rule 10 puts fresh owner input above cadence.\n\n**State files**: `OPEN_GATES.md` (gate appended), `OWNER_MESSAGES.md` (May-7 status flipped to addressed), `TODO.md` `[DONE]` row at top, `HANDOFF.md` + `RUNLOG.md` prepended, `SCORECARD.md` appended (score 4). Suggested Discord post copy in the artifact for the bot to pick up.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-07_021701.txt",
+      "screenshot_path": "",
+      "label": "05-06-26 (Day 17) \u00b7 10:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

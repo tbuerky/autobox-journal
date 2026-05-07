@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind watchlist fix and smoke &middot; AutoBox</title>
+<title>PAF eod smoke &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,9 +33,9 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-07_141701</span>
   </div>
-  <h2 class="run-title">Strikerewind watchlist fix and smoke</h2>
+  <h2 class="run-title">PAF eod smoke</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">act on fresh Travis exit instruction &quot;Watchlist still broken. Test everything on the site yourself. Fix it all... Let me know on Discord when done.&quot; Highest-priority context per wakeup rule 10.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">third autonomous run of 2026-05-07, fired ~10:19 UTC. Two open gates entering and exiting unchanged (`LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`, `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` — both held, no fresh owner input since run 2&#x27;s exit-instruction action. PAF morning smoke last ran 2026-05-06 12:17 UTC (22h ago) — past the ≥18h cadence threshold prior-run handoff named.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -45,91 +45,37 @@
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
     <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeRewind — watchlist bug fixed, end-to-end smoke 29/29 pass against live</h1>
-<p><strong>Run:</strong> 2026-05-07 (run 2), fired 08:18 UTC.</p>
-<p><strong>Owner directive:</strong> &quot;Watchlist still broken. Test everything on the site yourself. Fix it all. Don&#x27;t come back until you&#x27;re confident it&#x27;s public-ready (other than data subscription). Let me know on Discord when done.&quot;</p>
-<p><strong>Result:</strong> Bug found, root cause fixed and deployed, hardened smoke proves it; site is public-ready against the synthetic-data fixture set (the data-subscription gate Travis explicitly carved out remains owner-side).</p>
-<h2>What Travis was seeing</h2>
-<p>On <code>https://www.strikerewind.com/watchlist</code>, every saved ticker rendered the placeholder row:</p>
-<p>&gt; AAPL — Data refreshing — open to retry</p>
-<p>&gt; MSFT — Data refreshing — open to retry</p>
-<p>&gt; UNH  — Data refreshing — open to retry</p>
-<p>The earlier morning smoke (run 9, 2026-05-06) reported 22/22 pass because its Watchlist assertion only checked that the ticker symbol appeared in the page body, not that real price/win-rate data was rendered. The bug shipped past that harness.</p>
-<h2>Root cause</h2>
-<p><code>the scanner backend</code> <code>/api/watchlist</code> GET handler enriches every saved ticker by calling <code>analysisEngine.analyzeStock(ticker, ...)</code> directly. The sibling <code>/api/analyze</code> POST handler short-circuits to <code>getFixtureAnalysisResult(...)</code> when <code>HUNT_USE_FIXTURES=true</code> is set on the host (which it is on the live Render service, because no real options-data feed is wired yet — Polygon is the open subscription gate).</p>
-<p>So <code>/api/analyze AAPL</code> returns the AAPL fixture (<code>currentPrice: 189.42, ivRank: 31</code>) and renders correctly. But the watchlist enrichment loop bypassed the fixture path, called the live analysis engine, hit the catch branch on every ticker, and pushed <code>dataAvailable: false</code> for every row. UI then renders &quot;Data refreshing — open to retry&quot; for each.</p>
-<h2>Fix</h2>
-<p><code>the scanner backend</code> (commit <code>b032b48</code> on <code>autobox/strikerewind-rename</code>):</p>
-<pre><code>const fixtureMode = isHuntFixtureModeEnabled();
-const enrichedWatchlist = [];
-for (const item of watchlist) {
-  try {
-    const analysis = fixtureMode
-      ? (getFixtureAnalysisResult(item.ticker, 5, 26)
-          ?? await analysisEngine.analyzeStock(item.ticker, &#x27;both&#x27;, 5, 26))
-      : await analysisEngine.analyzeStock(item.ticker, &#x27;both&#x27;, 5, 26);
-    enrichedWatchlist.push({ ... dataAvailable: true });
-  } catch { ... dataAvailable: false; }
-}
-</code></pre>
-<p>Mirrors <code>/api/analyze</code>&#x27;s behavior. For tickers in the fixture set (AAPL, MSFT, UNH today), serve fixture data. For any ticker outside the fixture set, fall through to the live engine — which still returns the placeholder row, correctly, because no real options data is subscribed yet. That fall-through path is the documented &quot;data subscription&quot; gate Travis flagged as out-of-scope for this run.</p>
-<p>Deployed to Render service <code>srv-d7r408favr4c73fb3670</code> as <code>dep-d7u4n1e8bjmc73bj5tjg</code>, build_in_progress → live in ~1 min.</p>
-<h2>Hardened smoke harness</h2>
-<p><code>workspace/strikerewind_smoke.mjs</code> got a stronger assertion so this exact regression cannot pass silently next time:</p>
-<pre><code>record(
-  &#x27;Watch tab: AAPL row shows real fixture data (not &quot;Data refreshing&quot;)&#x27;,
-  /\$189\.42/.test(watchBody) &amp;&amp; !/Data refreshing/.test(watchBody.split(&#x27;AAPL&#x27;)[1] ?? &#x27;&#x27;),
-  ...
-);
-</code></pre>
-<p>The new check requires the AAPL row to render the actual fixture price (<code>$189.42</code>), not just the ticker symbol.</p>
-<h2>Live verification — 29/29 pass against <code>https://www.strikerewind.com</code></h2>
-<p>Re-ran the hardened harness end-to-end. Coverage and result:</p>
-<p>| # | Surface | Check | Result |</p>
-<p>|---|---|---|---|</p>
-<p>| 1 | Landing | Renders | PASS |</p>
-<p>| 2 | Analyze | Tab loads | PASS |</p>
-<p>| 3 | Analyze | AAPL ticker rendered | PASS |</p>
-<p>| 4 | Analyze | EV percentage rendered | PASS |</p>
-<p>| 5 | Analyze | Current price <code>$189.42</code> rendered | PASS |</p>
-<p>| 6 | Analyze | Page is not blank (2441 chars) | PASS |</p>
-<p>| 7 | Analyze | Strategy matrix heading present | PASS |</p>
-<p>| 8 | Nav | URL is <code>/analysis/AAPL</code> | PASS |</p>
-<p>| 9 | Nav | Active color resolved (<code>rgb(34, 197, 94)</code>) | PASS |</p>
-<p>| 10 | Error state | ZZZZZ &quot;Could not load&quot; heading present | PASS |</p>
-<p>| 11 | Error state | ZZZZZ ticker name in heading | PASS |</p>
-<p>| 12 | Error state | ZZZZZ Back button present | PASS |</p>
-<p>| 13 | Error state | ZZZZZ Back button navigates | PASS |</p>
-<p>| 14 | Hunt | Tab is not blank | PASS |</p>
-<p>| 15 | Hunt | Action button present | PASS |</p>
-<p>| 16 | Watchlist | API add AAPL returns 200 | PASS |</p>
-<p>| 17 | Watch tab | Page is not blank | PASS |</p>
-<p>| 18 | Watch tab | Heading present | PASS |</p>
-<p>| 19 | Watch tab | AAPL row rendered | PASS |</p>
-<p>| 20 | Watch tab | Not stuck on empty-state copy | PASS |</p>
-<p>| 21 | Watch tab | <strong>AAPL row shows real fixture data (<code>$189.42</code>, not &quot;Data refreshing&quot;)</strong> | <strong>PASS — the bug Travis flagged is dead</strong> |</p>
-<p>| 22 | Watch tab | AAPL remove button present | PASS |</p>
-<p>| 23 | Watch tab | Row click navigates to analysis | PASS |</p>
-<p>| 24 | Watch tab | Remove button removes ticker from view | PASS |</p>
-<p>| 25 | Account | Tab is not blank | PASS |</p>
-<p>| 26 | Account | FREE plan card rendered | PASS |</p>
-<p>| 27 | Account | STANDARD ($9.99) plan card rendered | PASS |</p>
-<p>| 28 | Account | PRO ($29.99) plan card rendered | PASS |</p>
-<p>| 29 | Mobile | Landing has no horizontal overflow at 390px | PASS |</p>
-<p>Console errors: 0 outside the deliberate ZZZZZ 500-path probe.</p>
-<p>Screenshot bundle: <code>artifacts/2026-05-07-strikerewind-watchlist-fix-smoke/</code> (8 fullpage PNGs + <code>summary.json</code>).</p>
-<h2>What this confirms</h2>
+    <div class="artifact-prose"><h1>PAF end-of-day production smoke — 2026-05-07</h1>
+<p><strong>Run:</strong> 3 of 2026-05-07, fired ~10:19 UTC.</p>
+<p><strong>Target:</strong> <code>https://profitafterfees.com</code>.</p>
+<p><strong>Harness:</strong> <code>workspace/paf_smoke.mjs</code>.</p>
+<p><strong>Result:</strong> 36 pass / 0 fail / 0 console errors.</p>
+<p><strong>Outputs:</strong> <code>artifacts/2026-05-07-paf-playwright-smoke/</code> (3 fullpage PNGs + <code>summary.json</code>).</p>
+<h2>Why this move now</h2>
+<p>PAF morning smoke last ran 2026-05-06 12:17 UTC (22h ago) — past the ≥18h cadence threshold prior-run handoff named as the eligibility window. Run 1 of 2026-05-07 02:17 UTC produced an owner-decision packet (Google Ads extend); run 2 of 2026-05-07 ~08:25 UTC fixed StrikeRewind watchlist and cleared <code>TESTING COMPLETE</code>. With both Travis-side gates parked, the eligible bounded autonomous move is the cadence smoke that defends the live AdSense surface + the paid-traffic conversion path PAF Search Ads will reuse once <code>ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21</code> clears.</p>
+<h2>Coverage</h2>
 <ul>
-<li>The watchlist now renders real fixture data — price, win rate, optimal weeks, IV rank — for every saved ticker that has a fixture entry (AAPL, MSFT, UNH).</li>
-<li>The Pro-tier flow (add via API → list with enrichment → click row → analyze → remove) all works against the live deployment.</li>
-<li>The error path Travis cares about (&quot;blank black page on AAPL analysis&quot;) still recovers cleanly with a proper &quot;Could not load&quot; message and a working Back button.</li>
-<li>The Hunt tab renders without errors; the Pro Hunt API returns the 3 fixture results when called directly.</li>
-<li>Mobile landing has zero horizontal overflow.</li>
+<li>Apex <code>/</code> HTTP 200 + <code>#calculator-form</code> + <code>listPrice</code> input present.</li>
+<li>Conversion gtag fires exactly once after submit, <code>send_to</code> matches <code>AW-18121518600/WxyuCLjh56McEIjcgcFD</code>, stays at one call after additional input (Once semantic).</li>
+<li>Engine produces <code>$40.84</code> net / <code>$75.00</code> revenue ex-VAT / <code>$2.91</code> Stripe / <code>$22.50</code> affiliate; verdict headline <code>&quot;You keep $40.84 from this sale.&quot;</code></li>
+<li>5 calc pages 200 + scenario CTAs link to <code>/?listPrice=...</code>: <code>/profit-margin-calculator/</code>, <code>/selling-price-calculator/</code>, <code>/selling-price-markup-calculator/</code>, <code>/break-even-price-calculator/</code>, <code>/digital-product-pricing-calculator/</code>.</li>
+<li><code>/ai-model-pricing-index/</code> 200 + <code>Last verified May 6, 2026</code> + 6 model rows (Sonnet 4.6, Haiku 4.5, Opus 4.7, Gemini 2.5 Flash, Flash-Lite, Gemini 2.5 Pro).</li>
+<li><code>/ai-feature-cost-calculator/</code> 200.</li>
+<li>Mobile 390px no horizontal overflow, calculator form visible.</li>
+<li><code>/privacy/</code> 200, <code>/ads.txt</code> 200 + <code>pub-3560388500961643</code>.</li>
 </ul>
-<h2>What this does NOT confirm</h2>
+<p>Identical pass-content to 2026-05-06 morning smoke — nothing regressed across the day.</p>
+<h2>Deliberately NOT done</h2>
 <ul>
-<li>**Real</li>
-</ul></div>
+<li>No source edits — smoke clean, nothing to fix.</li>
+<li>No deploy — no diff.</li>
+<li>No Cove / Luke routing — test infrastructure only, no public copy or layout changed.</li>
+<li>No new gate — autonomous and complete.</li>
+<li>No StrikeRewind smoke re-run — run 2&#x27;s hardened harness ran 2h ago at 29/29 pass.</li>
+<li>No backup-file deletion (<code>the project&#x27;s TODO.md config.bak-pre-cleanup</code>, <code>the project&#x27;s HANDOFF.md config.bak-pre-relocate</code>) — both StrikeRewind smokes have passed today; could ship next run as the standalone cleanup move.</li>
+</ul>
+<h2>Cash balance</h2>
+<p><code>$162.45</code>. No spend. Render starter accruing ~$0.23/day.</p></div>
   </section>
 
   <section class="detail-section">

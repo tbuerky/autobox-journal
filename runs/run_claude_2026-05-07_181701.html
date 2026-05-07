@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind stripe prices restoration packet &middot; AutoBox</title>
+<title>PAF google ads data in recommendation &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,11 +33,9 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-07_181701</span>
   </div>
-  <h2 class="run-title">Strikerewind stripe prices restoration packet</h2>
+  <h2 class="run-title">PAF google ads data in recommendation</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
-<p class="act"><span class="act-text">**Date:** 2026-05-07 18:18 UTC **Run:** 7 of 2026-05-07 **Author:** AutoBox autonomous run **Owner action:** Travis, ~5 min in Stripe Dashboard (live mode)</span></p>
-<p class="act"><span class="act-text">Every &quot;Upgrade&quot; button on https://www.strikerewind.com/account currently alerts *&quot;Price not configured. Please contact support.&quot;* No one can subscribe. Cause: Render service srv-d7r408favr4c73fb3670 is missing two env vars that survived the original 2026-05-02 setup but were not restored after the env-wipe incident: STRIPE_STANDARD_PRICE_ID, STRIPE_PRO_PRICE_ID. Live Stripe keys (sk_live_* / pk_live_*) and webhook secret (whsec_*) ARE set correctly. This is a revenue-path regression on a property that the owner is otherwise asking to be public-ready.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">first autonomous run of 2026-05-07, fired 02:17 UTC. Two open gates entering (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` — both StrikeRewind gates held. Eligibility-window cadence per run 10&#x27;s handoff: PAF end-of-day smoke not eligible until 06:17 UTC (~4h out), StrikeRewind morning smoke not eligible until 08:17 UTC (~6h out), AI Pricing Index re-verify not eligible until 02:21 UTC tomorrow (~24h out). Fresh owner input from 2026-05-07 in `OWNER_MESSAGES.md` was status `logged, pending Travis decision on campaign continuation` — fresh + unaddressed; wakeup explicitly says treat fresh owner input as highest-priority context.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -46,111 +44,63 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeRewind — Stripe price IDs missing on Render (subscription path silently broken)</h1>
-<p><strong>Date:</strong> 2026-05-07 18:18 UTC</p>
-<p><strong>Run:</strong> 7 of 2026-05-07</p>
-<p><strong>Author:</strong> AutoBox autonomous run</p>
-<p><strong>Owner action:</strong> Travis, ~5 min in Stripe Dashboard (live mode)</p>
+    <div class="artifact-prose"><h1>PAF Google Ads — data-in recommendation</h1>
+<p>Campaign: <code>PAF Search - Fee Calculators</code> (account <code>490-612-1666</code>)</p>
+<p>Approved cap: $50 total (only $5.90 spent — $44.10 still inside the existing approval)</p>
 <h2>TL;DR</h2>
-<p>Every &quot;Upgrade&quot; button on <code>https://www.strikerewind.com/account</code> currently alerts</p>
-<p><em>&quot;Price not configured. Please contact support.&quot;</em> No one can subscribe. Cause: Render</p>
-<p>service <code>srv-d7r408favr4c73fb3670</code> is missing two env vars that survived the original</p>
-<p>2026-05-02 setup but were not restored after the env-wipe incident:</p>
-<p><code>STRIPE_STANDARD_PRICE_ID</code>, <code>STRIPE_PRO_PRICE_ID</code>. Live Stripe keys (<code>sk_live_*</code> /</p>
-<p><code>pk_live_<em></code>) and webhook secret (<code>whsec_</em></code>) ARE set correctly. This is a</p>
-<p>revenue-path regression on a property that the owner is otherwise asking to be</p>
-<p>public-ready.</p>
-<h2>Evidence</h2>
-<p><code>GET https://strikerewind-api.onrender.com/api/stripe/prices</code> (HTTP 200) returned</p>
-<p><code>{}</code> at 2026-05-07 18:17 UTC. The endpoint code at <code>the scanner backend:369-374</code></p>
-<p>reads <code>process.env.STRIPE_STANDARD_PRICE_ID</code> and <code>process.env.STRIPE_PRO_PRICE_ID</code></p>
-<p>into the response; both unset → response is <code>{}</code>.</p>
-<p><code>Account.tsx:82-86</code> reads <code>prices.standard</code>/<code>prices.pro</code>, falsy → shows</p>
-<p><code>alert(&#x27;Price not configured. Please contact support.&#x27;)</code> and <code>return</code>s before</p>
-<p>calling <code>createCheckoutSession</code>. Subscription flow dead end.</p>
-<p>Render env-vars audit (via Render API, key names only):</p>
-<pre><code>FRONTEND_URL
-HUNT_USE_FIXTURES
-NODE_ENV
-PORT
-STRIPE_PUBLISHABLE_KEY      ← pk_live_* (correct)
-STRIPE_SECRET_KEY           ← sk_live_* (correct)
-STRIPE_WEBHOOK_SECRET       ← whsec_*  (correct)
-SUPABASE_SECRET_KEY
-SUPABASE_URL
-                            ← STRIPE_STANDARD_PRICE_ID missing
-                            ← STRIPE_PRO_PRICE_ID      missing
-</code></pre>
-<h2>Why this regressed</h2>
-<p>The original 2026-05-02 packet</p>
-<p>(<code>artifacts/2026-05-02-strikerewind-stripe-live-products-and-webhook-packet.md</code>)</p>
-<p>raised <code>STRIPE LIVE CONFIGURED: STRIKEREWIND</code> to set all 5 missing vars. Travis</p>
-<p>provided the price IDs, AutoBox plugged them in, gate cleared. Then an env-wipe</p>
-<p>incident later nuked all 5 vars. <code>TODO.md:49</code> records that</p>
-<p><code>STRIPE_SECRET_KEY</code> + <code>STRIPE_PUBLISHABLE_KEY</code> were restored and a new</p>
-<p><code>STRIPE_WEBHOOK_SECRET</code> was created fresh — but the two price-ID env vars were</p>
-<p>not restored, and nothing in the deploy pipeline reads them at boot, so the</p>
-<p>break was silent. Today&#x27;s run audited <code>/api/stripe/prices</code> and surfaced it.</p>
-<h2>Tier model in production code</h2>
-<p>Confirmed today on <code>autobox/strikerewind-rename</code> HEAD (commit <code>533b875</code>):</p>
-<p>| Tier name | Monthly price | Env var |</p>
-<p>|---|---|---|</p>
-<p>| FREE | $0 | (no Stripe product) |</p>
-<p>| STANDARD | $9.99 | <code>STRIPE_STANDARD_PRICE_ID</code> |</p>
-<p>| PRO | $29.99 | <code>STRIPE_PRO_PRICE_ID</code> |</p>
-<p>This is <code>Account.tsx:18-50</code> and <code>stripeServiceDB.ts:261-268</code> — finalized in</p>
-<p>commit <code>d070a8f</code> (&quot;Tier model finalized to Free / Standard ($9.99) / Pro</p>
-<p>($29.99)&quot;), which superseded the earlier Free/Pro/Ultra exploration. No code</p>
-<p>change needed.</p>
-<h2>Action — single recommendation, single approval line</h2>
-<p>Travis-owned, in Stripe Dashboard with <strong>live mode toggle ON</strong> (top-right of</p>
-<p>dashboard must read &quot;Viewing live data&quot;):</p>
-<p>1. <strong>Products</strong> → check whether &quot;Standard&quot; ($9.99/mo) and &quot;Pro&quot; ($29.99/mo)</p>
-<p>recurring products already exist in live mode.</p>
+<p>Travis pulled the dashboard 2026-05-07. The campaign hit its 2026-05-04 end date and is likely auto-paused. The numbers in hand show a clean <em>quality</em> signal but the test never bought enough volume to be meaningful. The right call is <strong>extend the existing $50 cap with a higher max-CPC bid</strong> to spend the remaining $44.10 of already-approved budget on real volume, then decide expand-vs-expire on actual conversion data.</p>
+<h2>What the data actually says (Apr 26 → May 3)</h2>
+<p>| Metric | Value | Branch B threshold | Verdict |</p>
+<p>|---|---:|---:|---|</p>
+<p>| Impressions | 129 | (no floor) | Thin — ~16/day, auction rarely bid us in |</p>
+<p>| Clicks | 4 | (no floor) | Statistical noise for conversion math |</p>
+<p>| Spend | $5.90 | n/a | $0.74/day actual vs. $10/day budget — budget never bound |</p>
+<p>| CTR | 3.10% | ≥ 2% | <strong>Pass</strong> — above industry average |</p>
+<p>| Avg CPC | $1.48 | ≤ $2.00 | <strong>Pass</strong> |</p>
+<p>| Conversions | 0 | ≥ 1 intent term mapped | <strong>Inconclusive</strong> — 4 clicks is below the floor where we&#x27;d expect even one conv |</p>
+<p>The two quality criteria from the 2026-05-03 packet&#x27;s Branch B (<code>CTR ≥ 2%</code>, <code>CPC ≤ $2</code>) are met. The volume criterion (<code>≥ 7 days post-verification with real signal</code>) is not — the campaign ran $0.74/day actual against a $10/day budget, meaning Google rarely bid us into the auction even after verification cleared. Bidding ceiling, not duration, was the binding constraint.</p>
+<h2>Why expire-now is wrong</h2>
+<p>Branch C (expire) needs <em>negative signal</em> — bad CTR, bad CPC, irrelevant search terms. We have <em>no signal</em>. Calling it dead at 4 clicks throws away the only paid-search lane PAF has tested, with $44.10 of the existing approval still on the table. The CTR is genuinely promising; it deserves real volume before we judge it.</p>
+<h2>Why a fresh full extend is unnecessary</h2>
+<p>Branch A (extend, same cap) was written for the case where verification ate the window. That happened. But re-running the same setup will reproduce the same outcome — the bid was the binding constraint, not the calendar.</p>
+<h2>Primary recommendation — one approval line</h2>
+<p><strong>Extend end date to 2026-05-21 and raise max CPC from $1.50 to $3.00. Keep total $50 cap unchanged.</strong></p>
 <ul>
-<li><strong>If yes:</strong> open each, copy the price ID (<code>price_*</code>).</li>
-<li><strong>If no:</strong> create both as monthly recurring products with those exact</li>
+<li>$3.00 max CPC is still well below calculator-intent benchmark ($2–$8 typical for SaaS calculator keywords). It buys auction wins, not waste.</li>
+<li>Total approved spend does not change. Worst case, we burn the remaining $44.10 inside the existing approval. AutoBox does not cross a new spending gate.</li>
+<li>Two clean weeks at a binding bid should produce ≥ 30–60 clicks. That is the volume floor where conversion signal becomes interpretable.</li>
+<li>After 2026-05-21, the data either supports Branch B (expand cap to $150 next tranche) or Branch C (expire with real evidence). Either way we exit the inconclusive zone we&#x27;re in now.</li>
 </ul>
-<p>prices, copy the price IDs.</p>
-<p>2. Reply on Discord in the format:</p>
-<p>```</p>
-<p>STRIPE PRICES: STRIKEREWIND</p>
-<p>STANDARD=price_&lt;value&gt;</p>
-<p>PRO=price_&lt;value&gt;</p>
-<p>```</p>
-<p>That&#x27;s it. No new webhook endpoint, no new keys — those are already live and</p>
-<p>correct from the prior restoration.</p>
-<h2>What happens immediately on reply</h2>
-<p>1. AutoBox PUTs <code>STRIPE_STANDARD_PRICE_ID</code> and <code>STRIPE_PRO_PRICE_ID</code> to Render</p>
-<p>service <code>srv-d7r408favr4c73fb3670</code> via Render API.</p>
-<p>2. Triggers redeploy (typical ~3 min).</p>
-<p>3. Verifies <code>GET /api/stripe/prices</code> now returns</p>
-<p><code>{&quot;standard&quot;:&quot;price_…&quot;,&quot;pro&quot;:&quot;price_…&quot;}</code>.</p>
-<p>4. Hits the Account page in headless Playwright, asserts the upgrade button</p>
-<p>handlers no longer trip the &quot;Price not configured&quot; alert (without clicking</p>
-<p>through to live Stripe).</p>
-<p>5. Extends the live smoke harness with a permanent regression assertion:</p>
-<p><code>/api/stripe/prices</code> must return non-empty <code>standard</code> and <code>pro</code> fields</p>
-<p>on every future smoke run, so a future env-wipe does not regress silently.</p>
-<p>6. Posts confirmation to Discord and updates TODO/HANDOFF/RUNLOG.</p>
-<h2>Cost</h2>
-<p>$0. No new spend. The Render starter ($7/mo) is the only recurring cost on this</p>
-<p>property and is already pre-approved.</p>
-<h2>Blast radius if not addressed</h2>
-<p>While the marketing freeze is in place and traffic is ~zero, this is non-urgent.</p>
-<p>But: the open <code>LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY</code> gate, when it</p>
-<p>resolves to <code>EARLY ACCESS</code> or <code>TIGHTEN COPY</code>, will surface the live site to first</p>
-<p>visitors. If the upgrade button alerts &quot;Price not configured&quot; on day one, that&#x27;s</p>
-<p>a credibility hit on the very first conversion attempt. Fixing this now is</p>
-<p>strictly easier than fixing it after a launch post lands.</p>
-<h2>Approval line</h2>
-<pre><code>APPROVED: STRIPE PRICES: STRIKEREWIND
-STANDARD=price_&lt;value&gt;
-PRO=price_&lt;value&gt;
+<h3>Owner action (≤ 5 min in Google Ads dashboard)</h3>
+<p>1. Open <code>PAF Search - Fee Calculators</code> in account <code>490-612-1666</code>.</p>
+<p>2. Resume the campaign if it auto-paused on 2026-05-04.</p>
+<p>3. Edit the campaign budget end date: <code>2026-05-04</code> → <code>2026-05-21</code>.</p>
+<p>4. Edit the bid strategy: max CPC <code>$1.50</code> → <code>$3.00</code> (Maximize Clicks, unchanged otherwise).</p>
+<p>5. Confirm total spend cap stays at <code>$50.00</code>.</p>
+<h3>Reply format</h3>
+<pre><code>ADS DECISION: EXTEND TO 2026-05-21, MAX CPC $3.00, $50 CAP UNCHANGED
+Resumed: &lt;yes / no — needed verification reset&gt;
+Final May-3 numbers confirmed: 129 imp / 4 clicks / $5.90 / 3.10% CTR / 0 conv
 </code></pre>
-<p>(Or &quot;DECLINED&quot; / &quot;HOLD UNTIL POLYGON&quot; — both are valid; the gate stays open</p>
-<p>until decided.)</p></div>
+<h2>Alternatives Travis can override to (plain text, not parallel approvals)</h2>
+<ul>
+<li><strong>Branch C (expire)</strong> — if Travis is done with this lane regardless of signal. Reply <code>ADS DECISION: EXPIRE, final spend $5.90, reason &lt;text&gt;</code>. AutoBox logs the post-mortem and removes the gate. Lost cost: $5.90 + 8 days of verification friction.</li>
+<li><strong>Same-cap, same-bid extend (original Branch A)</strong> — if Travis wants more conservative play. Reply <code>ADS DECISION: EXTEND TO 2026-05-21, $50 CAP UNCHANGED, BID UNCHANGED</code>. Predicted outcome: another two weeks of $0.74/day, no new conversion data. Likely lands us back in this same packet on 2026-05-22.</li>
+<li><strong>Broaden keywords + add negatives</strong> — separate concern. Once volume is unlocked by the bid raise, the negative-keyword block from <code>artifacts/2026-04-26-google-ads-first-metrics-stop-loss-packet.md</code> becomes the next move.</li>
+</ul>
+<h2>What AutoBox does on each reply</h2>
+<ul>
+<li><code>EXTEND TO 2026-05-21, MAX CPC $3.00, $50 CAP UNCHANGED</code> — note the bid raise in <code>BUDGET.md</code> (no new approval line; cap unchanged). Re-arm the stop-loss rules from the 2026-04-26 packet against the existing $50 ceiling. Re-pull data 2026-05-22 and ship the next decision packet (expand vs. expire).</li>
+<li><code>EXPIRE</code> — record final spend, post-mortem entry in <code>TODO.md</code>, remove gate. No further AutoBox work on Google Ads until Travis re-opens the lane.</li>
+<li><code>EXTEND ... BID UNCHANGED</code> — same as the conservative path, schedule 2026-05-22 re-pull.</li>
+</ul>
+<h2>What still does not need approval</h2>
+<ul>
+<li>AdSense Auto Ads remain on; passive earnings continue to accrue against the AdSense threshold.</li>
+<li>Conversion event fix from 2026-04-28 is still live and verified by smoke (run 5 of 2026-05-06 confirmed <code>gtag</code> fires once, <code>send_to=AW-18121518600/WxyuCLjh56McEIjcgcFD</code>).</li>
+</ul>
+<h2>Suggested post copy:</h2>
+<p>&gt; PAF Google Ads data is in: 129 imp / 4 clicks / $5.90 / 3.10% CTR / 0 conv. CTR + CPC pass Branch B&#x27;s quality bar but volume was too thin to read conversions. The bid was the binding constraint, not the calendar. Recommend EXTEND to 2026-05-21 with max CPC raised $1.50 → $3.00, $50 cap unchanged. Five-min dashboard edit, no new spend approval needed. Packet at <code>artifacts/2026-05-07-paf-google-ads-data-in-recommendation.md</code>. Reply <code>ADS DECISION: EXTEND TO 2026-05-21, MAX CPC $3.00, $50 CAP UNCHANGED</code>. Cash $162.45.</p></div>
   </section>
 
   <section class="detail-section">

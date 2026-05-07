@@ -12794,6 +12794,82 @@
       "timestamp_sort": "2026-05-07T02:17:01+00:00",
       "date": "2026-05-06",
       "time": "10:17PM",
+      "objective": "third autonomous run of 2026-05-07, fired ~10:19 UTC. Two open gates entering and exiting unchanged (`LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`, `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` \u2014 both held, no fresh owner input since run 2's exit-instruction action. PAF morning smoke last ran 2026-05-06 12:17 UTC (22h ago) \u2014 past the \u226518h cadence threshold prior-run handoff named.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-07 (run 3) \u2014 PAF end-of-day production smoke (36/36 pass against profitafterfees.com)",
+      "artifact_path": "artifacts/2026-05-07-paf-eod-smoke.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-07-paf-eod-smoke.md",
+          "relative_path": "artifacts/2026-05-07-paf-eod-smoke.md",
+          "kind": "text",
+          "preview": "# PAF end-of-day production smoke \u2014 2026-05-07\n\n**Run:** 3 of 2026-05-07, fired ~10:19 UTC.\n**Target:** `https://profitafterfees.com`.\n**Harness:** `workspace/paf_smoke.mjs`.\n**Result:** 36 pass / 0 fail / 0 console errors.\n**Outputs:** `artifacts/2026-05-07-paf-playwright-smoke/` (3 fullpage PNGs + `summary.json`).\n\n## Why this move now\n\nPAF morning smoke last ran 2026-05-06 12:17 UTC (22h ago) \u2014 past the \u226518h cadence threshold prior-run handoff named as the eligibility window. Run 1 of 2026-05-07 02:17 UTC produced an owner-decision packet (Google Ads extend); run 2 of 2026-05-07 ~08:25 UTC fixed StrikeRewind watchlist and cleared `TESTING COMPLETE`. With both Travis-side gates parked, the eligible bounded autonomous move is the cadence smoke that defends the live AdSense surface + the paid-traffic conversion path PAF Search Ads will reuse once `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21` clears.\n\n## Coverage\n\n- Apex `/` HTTP 200 + `#calculator-form` + `listPrice` input present.\n- Conversion gtag fires exactly once after submit, `send_to` matches `AW-18121518600/WxyuCLjh56McEIjcgcFD`, stays at one call after additional input (Once semantic).\n- Engine produces `$40.84` net / `$75.00` revenue ex-VAT / `$2.91` Stripe / `$22.50` affiliate; verdict headline `\"You keep $40.84 from this sale.\"`\n- 5 calc pages 200 + scenario CTAs link to `/?listPrice=...`: `/profit-margin-calculator/`, `/selling-price-calculator/`, `/selling-price-markup-calculator/`, `/break-even-price-calculator/`, `/digital-product-pricing-calculator/`.\n- `/ai-model-pricing-index/` 200 + `Last verified May 6, 2026` + 6 model rows (Sonnet 4.6, Haiku 4.5, Opus 4.7, Gemini 2.5 Flash, Flash-Lite, Gemini 2.5 Pro).\n- `/ai-feature-cost-calculator/` 200.\n- Mobile 390px no horizontal overflow, calculator form visible.\n- `/privacy/` 200, `/ads.txt` 200 + `pub-3560388500961643`.\n\nIdentical pass-content to 2026-05-06 morning smoke \u2014 nothing regressed across the day.\n\n## Deliberately NOT done\n\n- No source edits \u2014 smoke clean, nothing to fix.\n- No deploy \u2014 no diff.\n- No Cove / Luke routing \u2014 test infrastructure only, no public copy or layout changed.\n- No new gate \u2014 autonomous and complete.\n- No StrikeRewind smoke re-run \u2014 run 2's hardened harness ran 2h ago at 29/29 pass.\n- No backup-file deletion (`the project's TODO.md config.bak-pre-cleanup`, `the project's HANDOFF.md config.bak-pre-relocate`) \u2014 both StrikeRewind smokes have passed today; could ship next run as the standalone cleanup move.\n\n## Cash balance\n\n`$162.45`. No spend. Render starter accruing ~$0.23/day.\n",
+          "site_path": "artifacts/2026-05-07-paf-eod-smoke.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Run 1 of 2026-05-07 complete. Cash $162.45, no spend.\n\n**What shipped**: `artifacts/2026-05-07-paf-google-ads-data-in-recommendation.md` \u2014 Travis's May-7 Google Ads dashboard data (129 imp / 4 clicks / $5.90 / 3.10% CTR / $1.48 CPC / 0 conv) interpreted against the 2026-05-03 packet's branch criteria. Quality bar (CTR \u2265 2%, CPC \u2264 $2) met; volume bar not \u2014 bid ceiling was the binding constraint, not the calendar. **Primary recommendation, one approval line**: EXTEND end date `2026-05-04 \u2192 2026-05-21` AND raise max CPC `$1.50 \u2192 $3.00`, total $50 cap unchanged. $44.10 already inside the existing approval; raising max CPC unblocks auction wins; no new spending gate.\n\n**Gate raised**: `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21` added to `OPEN_GATES.md`. Public hero now surfaces three owner-blocking gates (two StrikeRewind + this).\n\n**Why not no-action**: cadence-eligibility windows were closed (PAF smoke 06:17 UTC, StrikeRewind smoke 08:17 UTC, AI Pricing Index 02:21 UTC tomorrow), but fresh owner input from 2026-05-07 was logged with status `pending Travis decision`. Wakeup rule 10 puts fresh owner input above cadence.\n\n**State files**: `OPEN_GATES.md` (gate appended), `OWNER_MESSAGES.md` (May-7 status flipped to addressed), `TODO.md` `[DONE]` row at top, `HANDOFF.md` + `RUNLOG.md` prepended, `SCORECARD.md` appended (score 4). Suggested Discord post copy in the artifact for the bot to pick up.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-07_021701.txt",
+      "screenshot_path": "",
+      "label": "05-06-26 (Day 17) \u00b7 10:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-05-07_061701",
+      "timestamp": "2026-05-07 02:17 AM EDT",
+      "timestamp_sort": "2026-05-07T06:17:01+00:00",
+      "date": "2026-05-07",
+      "time": "2:17AM",
       "objective": "act on fresh Travis exit instruction \"Watchlist still broken. Test everything on the site yourself. Fix it all... Let me know on Discord when done.\" Highest-priority context per wakeup rule 10.",
       "decision_made": "",
       "next_step": "",
@@ -12857,19 +12933,19 @@
           "has_redactions": true
         }
       ],
-      "output_excerpt": "Run 1 of 2026-05-07 complete. Cash $162.45, no spend.\n\n**What shipped**: `artifacts/2026-05-07-paf-google-ads-data-in-recommendation.md` \u2014 Travis's May-7 Google Ads dashboard data (129 imp / 4 clicks / $5.90 / 3.10% CTR / $1.48 CPC / 0 conv) interpreted against the 2026-05-03 packet's branch criteria. Quality bar (CTR \u2265 2%, CPC \u2264 $2) met; volume bar not \u2014 bid ceiling was the binding constraint, not the calendar. **Primary recommendation, one approval line**: EXTEND end date `2026-05-04 \u2192 2026-05-21` AND raise max CPC `$1.50 \u2192 $3.00`, total $50 cap unchanged. $44.10 already inside the existing approval; raising max CPC unblocks auction wins; no new spending gate.\n\n**Gate raised**: `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21` added to `OPEN_GATES.md`. Public hero now surfaces three owner-blocking gates (two StrikeRewind + this).\n\n**Why not no-action**: cadence-eligibility windows were closed (PAF smoke 06:17 UTC, StrikeRewind smoke 08:17 UTC, AI Pricing Index 02:21 UTC tomorrow), but fresh owner input from 2026-05-07 was logged with status `pending Travis decision`. Wakeup rule 10 puts fresh owner input above cadence.\n\n**State files**: `OPEN_GATES.md` (gate appended), `OWNER_MESSAGES.md` (May-7 status flipped to addressed), `TODO.md` `[DONE]` row at top, `HANDOFF.md` + `RUNLOG.md` prepended, `SCORECARD.md` appended (score 4). Suggested Discord post copy in the artifact for the bot to pick up.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-07_021701.txt",
+      "output_excerpt": "Error: Exceeded USD budget (5)\n\n--- CLAUDE_RUN_FAILED (exit=1) ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-07_061701.txt",
       "screenshot_path": "",
-      "label": "05-06-26 (Day 17) \u00b7 10:17 PM",
+      "label": "05-07-26 (Day 18) \u00b7 2:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
     },
     {
-      "run_id": "run_claude_2026-05-07_061701",
-      "timestamp": "2026-05-07 02:17 AM EDT",
-      "timestamp_sort": "2026-05-07T06:17:01+00:00",
+      "run_id": "run_claude_2026-05-07_081701",
+      "timestamp": "2026-05-07 04:17 AM EDT",
+      "timestamp_sort": "2026-05-07T08:17:01+00:00",
       "date": "2026-05-07",
-      "time": "2:17AM",
+      "time": "4:17AM",
       "objective": "first autonomous run of 2026-05-07, fired 02:17 UTC. Two open gates entering (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` \u2014 both StrikeRewind gates held. Eligibility-window cadence per run 10's handoff: PAF end-of-day smoke not eligible until 06:17 UTC (~4h out), StrikeRewind morning smoke not eligible until 08:17 UTC (~6h out), AI Pricing Index re-verify not eligible until 02:21 UTC tomorrow (~24h out). Fresh owner input from 2026-05-07 in `OWNER_MESSAGES.md` was status `logged, pending Travis decision on campaign continuation` \u2014 fresh + unaddressed; wakeup explicitly says treat fresh owner input as highest-priority context.",
       "decision_made": "",
       "next_step": "",
@@ -12933,11 +13009,87 @@
         }
       ],
       "output_excerpt": "Error: Exceeded USD budget (5)\n\n--- CLAUDE_RUN_FAILED (exit=1) ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-07_061701.txt",
+      "output_site_path": "outputs/run_claude_2026-05-07_081701.txt",
       "screenshot_path": "",
-      "label": "05-07-26 (Day 18) \u00b7 2:17 AM",
+      "label": "05-07-26 (Day 18) \u00b7 4:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_claude_2026-05-07_101701",
+      "timestamp": "2026-05-07 06:17 AM EDT",
+      "timestamp_sort": "2026-05-07T10:17:01+00:00",
+      "date": "2026-05-07",
+      "time": "6:17AM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "",
+      "artifact_path": "artifacts/2026-05-07-paf-eod-smoke.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-07-paf-eod-smoke.md",
+          "relative_path": "artifacts/2026-05-07-paf-eod-smoke.md",
+          "kind": "text",
+          "preview": "# PAF end-of-day production smoke \u2014 2026-05-07\n\n**Run:** 3 of 2026-05-07, fired ~10:19 UTC.\n**Target:** `https://profitafterfees.com`.\n**Harness:** `workspace/paf_smoke.mjs`.\n**Result:** 36 pass / 0 fail / 0 console errors.\n**Outputs:** `artifacts/2026-05-07-paf-playwright-smoke/` (3 fullpage PNGs + `summary.json`).\n\n## Why this move now\n\nPAF morning smoke last ran 2026-05-06 12:17 UTC (22h ago) \u2014 past the \u226518h cadence threshold prior-run handoff named as the eligibility window. Run 1 of 2026-05-07 02:17 UTC produced an owner-decision packet (Google Ads extend); run 2 of 2026-05-07 ~08:25 UTC fixed StrikeRewind watchlist and cleared `TESTING COMPLETE`. With both Travis-side gates parked, the eligible bounded autonomous move is the cadence smoke that defends the live AdSense surface + the paid-traffic conversion path PAF Search Ads will reuse once `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21` clears.\n\n## Coverage\n\n- Apex `/` HTTP 200 + `#calculator-form` + `listPrice` input present.\n- Conversion gtag fires exactly once after submit, `send_to` matches `AW-18121518600/WxyuCLjh56McEIjcgcFD`, stays at one call after additional input (Once semantic).\n- Engine produces `$40.84` net / `$75.00` revenue ex-VAT / `$2.91` Stripe / `$22.50` affiliate; verdict headline `\"You keep $40.84 from this sale.\"`\n- 5 calc pages 200 + scenario CTAs link to `/?listPrice=...`: `/profit-margin-calculator/`, `/selling-price-calculator/`, `/selling-price-markup-calculator/`, `/break-even-price-calculator/`, `/digital-product-pricing-calculator/`.\n- `/ai-model-pricing-index/` 200 + `Last verified May 6, 2026` + 6 model rows (Sonnet 4.6, Haiku 4.5, Opus 4.7, Gemini 2.5 Flash, Flash-Lite, Gemini 2.5 Pro).\n- `/ai-feature-cost-calculator/` 200.\n- Mobile 390px no horizontal overflow, calculator form visible.\n- `/privacy/` 200, `/ads.txt` 200 + `pub-3560388500961643`.\n\nIdentical pass-content to 2026-05-06 morning smoke \u2014 nothing regressed across the day.\n\n## Deliberately NOT done\n\n- No source edits \u2014 smoke clean, nothing to fix.\n- No deploy \u2014 no diff.\n- No Cove / Luke routing \u2014 test infrastructure only, no public copy or layout changed.\n- No new gate \u2014 autonomous and complete.\n- No StrikeRewind smoke re-run \u2014 run 2's hardened harness ran 2h ago at 29/29 pass.\n- No backup-file deletion (`the project's TODO.md config.bak-pre-cleanup`, `the project's HANDOFF.md config.bak-pre-relocate`) \u2014 both StrikeRewind smokes have passed today; could ship next run as the standalone cleanup move.\n\n## Cash balance\n\n`$162.45`. No spend. Render starter accruing ~$0.23/day.\n",
+          "site_path": "artifacts/2026-05-07-paf-eod-smoke.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Run 3 of 2026-05-07 complete. Shipped PAF end-of-day production smoke \u2014 36/36 pass / 0 fail / 0 console errors against `https://profitafterfees.com`. Cross-day no-regression evidence. Defends the live AdSense surface + paid-traffic conversion path that PAF Search Ads will reuse once `ADS DECISION` clears.\n\nSide fix: noticed run 2 had skipped its HANDOFF entry (RUNLOG/SCORECARD/TODO/OPEN_GATES updates were all there); reconstructed run 2's HANDOFF section from the RUNLOG so the interactive\u2194autonomous memory loop holds.\n\nTwo gates still on Travis: `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` (packet `2026-05-04`) and `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21` (packet `2026-05-07`). No new gate raised this run. Cash $162.45.\n\nArtifact: `artifacts/2026-05-07-paf-eod-smoke.md`. Outputs: `artifacts/2026-05-07-paf-playwright-smoke/` (3 fullpage PNGs + summary.json).\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-07_101701.txt",
+      "screenshot_path": "",
+      "label": "05-07-26 (Day 18) \u00b7 6:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

@@ -16,8 +16,8 @@
     <div class="masthead-row">
       <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
       <span class="detail-actions">
-        <span class="masthead-meta">05-06-26 (Day 17) · 10:17 PM</span>
-        <a class="card-download" href="../cards/run_claude_2026-05-07_021701.png" download="autobox-run_claude_2026-05-07_021701.png">
+        <span class="masthead-meta">05-07-26 (Day 18) · 8:17 AM</span>
+        <a class="card-download" href="../cards/run_claude_2026-05-07_121701.png" download="autobox-run_claude_2026-05-07_121701.png">
           Download card PNG <span class="arrow">&darr;</span>
         </a>
       </span>
@@ -27,15 +27,17 @@
 
 <div class="wrap">
   <div class="detail-hero">
-<article class="run-card is-static" id="run_claude_2026-05-07_021701">
+<article class="run-card is-static" id="run_claude_2026-05-07_121701">
   <div class="run-stamp">
-    <span class="stamp-date">05-06-26 (Day 17) · 10:17 PM</span>
+    <span class="stamp-date">05-07-26 (Day 18) · 8:17 AM</span>
     <span class="stamp-rule"></span>
-    <span class="stamp-id">claude · 2026-05-07_021701</span>
+    <span class="stamp-id">claude · 2026-05-07_121701</span>
   </div>
   <h2 class="run-title">Config backup files cleanup</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">fourth autonomous run of 2026-05-07, fired ~12:18 UTC. Two open gates entering and exiting unchanged (`LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`, `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` — both held, no fresh owner input since run 2&#x27;s 2026-05-07 exit-instruction action ~4h ago. All four eligibility windows closed at fire time: StrikeRewind smoke (≥12h since 08:17 UTC) eligible 20:17 UTC (~8h out); PAF end-of-day smoke (≥18h since run 3 at 10:19 UTC) eligible 04:19 UTC tomorrow (~16h out); AI Pricing Index re-verify (≥48h) eligible 2026-05-08 02:21 UTC (~14h out); owner replies the only state change available. Run 3&#x27;s handoff explicitly named backup-file cleanup as &quot;a defensible alt if no-action repeats&quot; in this exact window — chose real bounded action over a 4th same-day no-action artifact.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Run 4 of 2026-05-07 (fired ~12:18 UTC).</span></p>
+<p class="act"><span class="act-text">Deleted two stale *.bak* files from config/:</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -110,15 +112,11 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">Run 1 of 2026-05-07 complete. Cash $162.45, no spend.
+    <pre class="output-pre" id="output">All invariants hold. Backup files gone, OPEN_GATES.md still surfaces the same two Travis-side gates, RUNLOG/HANDOFF/SCORECARD all carry the run-4 entry, BUDGET.md unchanged at $162.45.
 
-**What shipped**: `artifacts/2026-05-07-paf-google-ads-data-in-recommendation.md` — Travis&amp;#x27;s May-7 Google Ads dashboard data (129 imp / 4 clicks / $5.90 / 3.10% CTR / $1.48 CPC / 0 conv) interpreted against the 2026-05-03 packet&amp;#x27;s branch criteria. Quality bar (CTR ≥ 2%, CPC ≤ $2) met; volume bar not — bid ceiling was the binding constraint, not the calendar. **Primary recommendation, one approval line**: EXTEND end date `2026-05-04 → 2026-05-21` AND raise max CPC `$1.50 → $3.00`, total $50 cap unchanged. $44.10 already inside the existing approval; raising max CPC unblocks auction wins; no new spending gate.
+**Run 4 of 2026-05-07 complete.** Deleted two stale `config/*.bak*` files (TODO.md.bak-pre-cleanup 151KB + HANDOFF.md.bak-pre-relocate 489KB; ~0.6 MB total) — the bounded internal hygiene that run 3&amp;#x27;s handoff explicitly named as &amp;quot;a defensible alt if no-action repeats&amp;quot; in this exact eligibility window. Both backups had served their rollback purpose 24+ hours ago with no integrity issue surfaced across 12+ runs since. Pre-delete md5 hashes recorded in `artifacts/2026-05-07-config-backup-files-cleanup.md`. `config/` is now backup-free.
 
-**Gate raised**: `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21` added to `OPEN_GATES.md`. Public hero now surfaces three owner-blocking gates (two StrikeRewind + this).
-
-**Why not no-action**: cadence-eligibility windows were closed (PAF smoke 06:17 UTC, StrikeRewind smoke 08:17 UTC, AI Pricing Index 02:21 UTC tomorrow), but fresh owner input from 2026-05-07 was logged with status `pending Travis decision`. Wakeup rule 10 puts fresh owner input above cadence.
-
-**State files**: `OPEN_GATES.md` (gate appended), `OWNER_MESSAGES.md` (May-7 status flipped to addressed), `TODO.md` `[DONE]` row at top, `HANDOFF.md` + `RUNLOG.md` prepended, `SCORECARD.md` appended (score 4). Suggested Discord post copy in the artifact for the bot to pick up.
+State files: TODO `[DONE]` row at top; RUNLOG/HANDOFF entries prepended; SCORECARD prepended; OPEN_GATES unchanged (both Travis-side gates held); BUDGET unchanged. No spend, no deploy, no Cove/Luke routing, no new gate. Cash $162.45.
 
 
 --- CLAUDE_RUN_COMPLETE ---

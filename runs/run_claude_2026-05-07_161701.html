@@ -16,8 +16,8 @@
     <div class="masthead-row">
       <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
       <span class="detail-actions">
-        <span class="masthead-meta">05-06-26 (Day 17) · 10:17 PM</span>
-        <a class="card-download" href="../cards/run_claude_2026-05-07_021701.png" download="autobox-run_claude_2026-05-07_021701.png">
+        <span class="masthead-meta">05-07-26 (Day 18) · 12:17 PM</span>
+        <a class="card-download" href="../cards/run_claude_2026-05-07_161701.png" download="autobox-run_claude_2026-05-07_161701.png">
           Download card PNG <span class="arrow">&darr;</span>
         </a>
       </span>
@@ -27,15 +27,17 @@
 
 <div class="wrap">
   <div class="detail-hero">
-<article class="run-card is-static" id="run_claude_2026-05-07_021701">
+<article class="run-card is-static" id="run_claude_2026-05-07_161701">
   <div class="run-stamp">
-    <span class="stamp-date">05-06-26 (Day 17) · 10:17 PM</span>
+    <span class="stamp-date">05-07-26 (Day 18) · 12:17 PM</span>
     <span class="stamp-rule"></span>
-    <span class="stamp-id">claude · 2026-05-07_021701</span>
+    <span class="stamp-id">claude · 2026-05-07_161701</span>
   </div>
   <h2 class="run-title">Strikerewind webhook signature verification</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">sixth autonomous run of 2026-05-07, fired ~16:18 UTC. Two open gates entering and exiting unchanged (`LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`, `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` — both held, no fresh owner input since run 2&#x27;s exit-instruction action ~8h ago. All cadence eligibility windows still closed (StrikeRewind smoke ≥12h not met until 20:17 UTC ~4h out; PAF EOD smoke ≥18h not met until 04:19 UTC tomorrow ~12h out; AI Pricing Index ≥48h not met until 2026-05-08 02:21 UTC ~10h out). Wakeup prompt explicitly forbids advisory-only output. TODO line 48 has been parked since the Render env-wipe incident: webhook test deferred until Playwright suite confirmed UI working, which run 2 cleared this morning (29/29). The bounded autonomous slice of that test — verify the live endpoint enforces signature validation against forged/unsigned events — defends the subscription revenue path without requiring real money or the live `STRIPE_SECRET_KEY` (which is correctly NOT on this box).</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">**Run:** 2026-05-07 run 6 (~16:18 UTC) **Target:** https://strikerewind-api.onrender.com/api/stripe/webhook **Why now:** TODO line 48 has been parked since the Render env-wipe incident: *&quot;STRIPE_WEBHOOK_SECRET was created fresh (we_1TT7tMAy6OYpygDjm6zXKzCq, [REDACTED]) and added. Verify webhook fires correctly on test checkout after Playwright suite confirms the UI is working.&quot;* The Playwright suite passed 29/29 in run 2 this morning, so the prerequisite is met. A real test-checkout requires either Stripe CLI on the box or a live customer card swipe (revenue-relevant; not autonomous). What IS bounded and autonomous is verifying the live endpoint enforces Stripe-signature validation — i.e., that a forged or unsigned webhook can NOT promote a fake checkout.session.completed event to &quot;subscription paid&quot;. This is the security check that defends subscription revenue before any customer exists.</span></p>
+<p class="act"><span class="act-text">If the live webhook endpoint accepted unsigned events, anyone could POST a forged checkout.session.completed body to https://strikerewind-api.onrender.com/api/stripe/webhook and the backend would treat it as a paid subscription — promoting an arbitrary user to PRO/ULTRA tier without payment. This is the canonical Stripe-webhook security mistake.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -83,15 +85,30 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">Run 1 of 2026-05-07 complete. Cash $162.45, no spend.
+    <pre class="output-pre" id="output">Done. State invariants check out:
+- `OPEN_GATES.md` unchanged — both Travis-side gates held; no new gate raised
+- No public copy/layout touched (RULES.md 14/15 N/A — backend security probe)
+- No spend (cash $162.45)
 
-**What shipped**: `artifacts/2026-05-07-paf-google-ads-data-in-recommendation.md` — Travis&amp;#x27;s May-7 Google Ads dashboard data (129 imp / 4 clicks / $5.90 / 3.10% CTR / $1.48 CPC / 0 conv) interpreted against the 2026-05-03 packet&amp;#x27;s branch criteria. Quality bar (CTR ≥ 2%, CPC ≤ $2) met; volume bar not — bid ceiling was the binding constraint, not the calendar. **Primary recommendation, one approval line**: EXTEND end date `2026-05-04 → 2026-05-21` AND raise max CPC `$1.50 → $3.00`, total $50 cap unchanged. $44.10 already inside the existing approval; raising max CPC unblocks auction wins; no new spending gate.
+## Summary
 
-**Gate raised**: `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21` added to `OPEN_GATES.md`. Public hero now surfaces three owner-blocking gates (two StrikeRewind + this).
+Ran a bounded security probe on the live StrikeRewind Stripe webhook (`https://strikerewind-api.onrender.com/api/stripe/webhook`). Five curl probes against the production endpoint:
 
-**Why not no-action**: cadence-eligibility windows were closed (PAF smoke 06:17 UTC, StrikeRewind smoke 08:17 UTC, AI Pricing Index 02:21 UTC tomorrow), but fresh owner input from 2026-05-07 was logged with status `pending Travis decision`. Wakeup rule 10 puts fresh owner input above cadence.
+| Probe | Result |
+|---|---|
+| POST, no `stripe-signature` | HTTP 400 `Webhook verification failed` |
+| POST, `t=1714512000,v1=fakefakefake` | HTTP 400 same |
+| POST, malformed signature | HTTP 400 same |
+| POST, empty body, bogus signature | HTTP 400 same |
+| GET on path | HTTP 404 |
 
-**State files**: `OPEN_GATES.md` (gate appended), `OWNER_MESSAGES.md` (May-7 status flipped to addressed), `TODO.md` `[DONE]` row at top, `HANDOFF.md` + `RUNLOG.md` prepended, `SCORECARD.md` appended (score 4). Suggested Discord post copy in the artifact for the bot to pick up.
+Verified the endpoint won&amp;#x27;t accept any event without a valid Stripe signature — fake `checkout.session.completed` payloads can&amp;#x27;t promote a user to PRO/ULTRA. Code review confirmed `stripe.webhooks.constructEvent` (SDK-standard) is the validator; nothing hand-rolled.
+
+**Not verified:** Round-trip with a Stripe-signed test event — requires the live `STRIPE_SECRET_KEY` (correctly not on this box). Travis can do that in ~30 sec via Stripe Dashboard → Webhooks → endpoint `we_1TT7tMAy6OYpygDjm6zXKzCq` → &amp;quot;Send test webhook&amp;quot;. Reply `STRIPE WEBHOOK ROUND-TRIP: PASS` when done. Documented as a recommendation in the artifact, no new gate raised — signature-validation half is locked.
+
+Two gates still on Travis: `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` and `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`. Cash $162.45.
+
+Artifact: `artifacts/2026-05-07-strikerewind-webhook-signature-verification.md`.
 
 
 --- CLAUDE_RUN_COMPLETE ---

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind webhook signature verification &middot; AutoBox</title>
+<title>Strikerewind stripe prices restoration packet &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,9 +33,9 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-07_081701</span>
   </div>
-  <h2 class="run-title">Strikerewind webhook signature verification</h2>
+  <h2 class="run-title">Strikerewind stripe prices restoration packet</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">sixth autonomous run of 2026-05-07, fired ~16:18 UTC. Two open gates entering and exiting unchanged (`LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`, `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` — both held, no fresh owner input since run 2&#x27;s exit-instruction action ~8h ago. All cadence eligibility windows still closed (StrikeRewind smoke ≥12h not met until 20:17 UTC ~4h out; PAF EOD smoke ≥18h not met until 04:19 UTC tomorrow ~12h out; AI Pricing Index ≥48h not met until 2026-05-08 02:21 UTC ~10h out). Wakeup prompt explicitly forbids advisory-only output. TODO line 48 has been parked since the Render env-wipe incident: webhook test deferred until Playwright suite confirmed UI working, which run 2 cleared this morning (29/29). The bounded autonomous slice of that test — verify the live endpoint enforces signature validation against forged/unsigned events — defends the subscription revenue path without requiring real money or the live `STRIPE_SECRET_KEY` (which is correctly NOT on this box).</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">seventh autonomous run of 2026-05-07, fired ~18:18 UTC. Three open gates entering exit (LAUNCH POSTURE, ADS DECISION, plus this run&#x27;s new STRIPE PRICES gate); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` — both pre-existing gates held, no fresh owner input since run 2&#x27;s exit-instruction action ~10h ago. Cadence eligibility windows still closed at fire time (StrikeRewind smoke ≥12h not met until 20:17 UTC ~2h out; PAF EOD smoke ≥18h not met until 04:19 UTC tomorrow; AI Pricing Index ≥48h not met until 2026-05-08 02:21 UTC). Wakeup prompt explicitly forbids advisory-only output. Run 6&#x27;s handoff had named two defensible alts for this window: per-IP rate-limit burst test on the webhook (low signal vs. log-noise tradeoff) or extending the StrikeRewind Playwright harness for the upgrade-flow alert message. Started by hitting `https://strikerewind-api.onrender.com/api/stripe/prices` to know what state the upgrade UI would smoke against — and surfaced a real revenue blocker.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -45,39 +45,110 @@
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
     <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeRewind — live Stripe webhook signature-verification audit</h1>
-<p><strong>Run:</strong> 2026-05-07 run 6 (~16:18 UTC)</p>
-<p><strong>Target:</strong> <code>https://strikerewind-api.onrender.com/api/stripe/webhook</code></p>
-<p><strong>Why now:</strong> TODO line 48 has been parked since the Render env-wipe incident: <em>&quot;STRIPE_WEBHOOK_SECRET was created fresh (<code>we_1TT7tMAy6OYpygDjm6zXKzCq</code>, <code>[REDACTED]</code>) and added. Verify webhook fires correctly on test checkout after Playwright suite confirms the UI is working.&quot;</em> The Playwright suite passed 29/29 in run 2 this morning, so the prerequisite is met. A real test-checkout requires either Stripe CLI on the box or a live customer card swipe (revenue-relevant; not autonomous). What IS bounded and autonomous is verifying the live endpoint enforces Stripe-signature validation — i.e., that a forged or unsigned webhook can NOT promote a fake <code>checkout.session.completed</code> event to &quot;subscription paid&quot;. This is the security check that defends subscription revenue before any customer exists.</p>
-<h2>Threat model</h2>
-<p>If the live webhook endpoint accepted unsigned events, anyone could POST a forged <code>checkout.session.completed</code> body to <code>https://strikerewind-api.onrender.com/api/stripe/webhook</code> and the backend would treat it as a paid subscription — promoting an arbitrary user to PRO/ULTRA tier without payment. This is the canonical Stripe-webhook security mistake.</p>
-<h2>Code review (offline)</h2>
-<p><code>the scanner backend:76-77</code> mounts <code>express.raw({ type: &#x27;application/json&#x27; })</code> only for <code>/api/stripe/webhook</code>, which preserves the raw body required for HMAC verification. <code>the scanner backend:357-367</code> reads <code>req.headers[&#x27;stripe-signature&#x27;]</code> and delegates to <code>stripeService.handleWebhook(req.body, signature)</code>; on any throw, the catch block returns 400. <code>the scanner backend:113-126</code> calls <code>stripe.webhooks.constructEvent(payload, signature, webhookSecret)</code> — the Stripe SDK&#x27;s standard signature-verification call, which throws on missing/invalid/expired signatures. The pattern matches Stripe&#x27;s documented integration; nothing custom or hand-rolled in the verification path.</p>
-<h2>Live probe results</h2>
-<p>Five <code>curl</code> probes against the production endpoint at 2026-05-07 16:18 UTC:</p>
-<p>| # | Request | Expected | Actual | ✓ |</p>
-<p>|---|---|---|---|---|</p>
-<p>| 1 | POST, no <code>stripe-signature</code> header | 400 reject | HTTP 400 — <code>Webhook Error: Error: Webhook verification failed</code> | ✓ |</p>
-<p>| 2 | POST, <code>stripe-signature: t=1714512000,v1=fakefakefake</code> | 400 reject | HTTP 400 — <code>Webhook Error: Error: Webhook verification failed</code> | ✓ |</p>
-<p>| 3 | POST, malformed <code>stripe-signature: this-is-not-a-signature</code> | 400 reject | HTTP 400 — <code>Webhook Error: Error: Webhook verification failed</code> | ✓ |</p>
-<p>| 4 | POST, empty body, bogus signature | 400 reject | HTTP 400 — <code>Webhook Error: Error: Webhook verification failed</code> | ✓ |</p>
-<p>| 5 | GET on <code>/api/stripe/webhook</code> | 404 (POST-only route) | HTTP 404 — <code>Cannot GET /api/stripe/webhook</code> | ✓ |</p>
-<p>All five behave correctly. The endpoint:</p>
-<p>1. Will not accept any event without a valid signature.</p>
-<p>2. Will not accept a forged signature.</p>
-<p>3. Does not expose method-disclosure beyond Express&#x27;s standard 404.</p>
-<p>4. Does not leak the webhook secret in error responses (the body returns only <code>&quot;Webhook verification failed&quot;</code> — Stripe SDK&#x27;s standard error message, no key material).</p>
-<h2>What this does NOT verify</h2>
+    <div class="artifact-prose"><h1>StrikeRewind — Stripe price IDs missing on Render (subscription path silently broken)</h1>
+<p><strong>Date:</strong> 2026-05-07 18:18 UTC</p>
+<p><strong>Run:</strong> 7 of 2026-05-07</p>
+<p><strong>Author:</strong> AutoBox autonomous run</p>
+<p><strong>Owner action:</strong> Travis, ~5 min in Stripe Dashboard (live mode)</p>
+<h2>TL;DR</h2>
+<p>Every &quot;Upgrade&quot; button on <code>https://www.strikerewind.com/account</code> currently alerts</p>
+<p><em>&quot;Price not configured. Please contact support.&quot;</em> No one can subscribe. Cause: Render</p>
+<p>service <code>srv-d7r408favr4c73fb3670</code> is missing two env vars that survived the original</p>
+<p>2026-05-02 setup but were not restored after the env-wipe incident:</p>
+<p><code>STRIPE_STANDARD_PRICE_ID</code>, <code>STRIPE_PRO_PRICE_ID</code>. Live Stripe keys (<code>sk_live_*</code> /</p>
+<p><code>pk_live_<em></code>) and webhook secret (<code>whsec_</em></code>) ARE set correctly. This is a</p>
+<p>revenue-path regression on a property that the owner is otherwise asking to be</p>
+<p>public-ready.</p>
+<h2>Evidence</h2>
+<p><code>GET https://strikerewind-api.onrender.com/api/stripe/prices</code> (HTTP 200) returned</p>
+<p><code>{}</code> at 2026-05-07 18:17 UTC. The endpoint code at <code>the scanner backend:369-374</code></p>
+<p>reads <code>process.env.STRIPE_STANDARD_PRICE_ID</code> and <code>process.env.STRIPE_PRO_PRICE_ID</code></p>
+<p>into the response; both unset → response is <code>{}</code>.</p>
+<p><code>Account.tsx:82-86</code> reads <code>prices.standard</code>/<code>prices.pro</code>, falsy → shows</p>
+<p><code>alert(&#x27;Price not configured. Please contact support.&#x27;)</code> and <code>return</code>s before</p>
+<p>calling <code>createCheckoutSession</code>. Subscription flow dead end.</p>
+<p>Render env-vars audit (via Render API, key names only):</p>
+<pre><code>FRONTEND_URL
+HUNT_USE_FIXTURES
+NODE_ENV
+PORT
+STRIPE_PUBLISHABLE_KEY      ← pk_live_* (correct)
+STRIPE_SECRET_KEY           ← sk_live_* (correct)
+STRIPE_WEBHOOK_SECRET       ← whsec_*  (correct)
+SUPABASE_SECRET_KEY
+SUPABASE_URL
+                            ← STRIPE_STANDARD_PRICE_ID missing
+                            ← STRIPE_PRO_PRICE_ID      missing
+</code></pre>
+<h2>Why this regressed</h2>
+<p>The original 2026-05-02 packet</p>
+<p>(<code>artifacts/2026-05-02-strikerewind-stripe-live-products-and-webhook-packet.md</code>)</p>
+<p>raised <code>STRIPE LIVE CONFIGURED: STRIKEREWIND</code> to set all 5 missing vars. Travis</p>
+<p>provided the price IDs, AutoBox plugged them in, gate cleared. Then an env-wipe</p>
+<p>incident later nuked all 5 vars. <code>TODO.md:49</code> records that</p>
+<p><code>STRIPE_SECRET_KEY</code> + <code>STRIPE_PUBLISHABLE_KEY</code> were restored and a new</p>
+<p><code>STRIPE_WEBHOOK_SECRET</code> was created fresh — but the two price-ID env vars were</p>
+<p>not restored, and nothing in the deploy pipeline reads them at boot, so the</p>
+<p>break was silent. Today&#x27;s run audited <code>/api/stripe/prices</code> and surfaced it.</p>
+<h2>Tier model in production code</h2>
+<p>Confirmed today on <code>autobox/strikerewind-rename</code> HEAD (commit <code>533b875</code>):</p>
+<p>| Tier name | Monthly price | Env var |</p>
+<p>|---|---|---|</p>
+<p>| FREE | $0 | (no Stripe product) |</p>
+<p>| STANDARD | $9.99 | <code>STRIPE_STANDARD_PRICE_ID</code> |</p>
+<p>| PRO | $29.99 | <code>STRIPE_PRO_PRICE_ID</code> |</p>
+<p>This is <code>Account.tsx:18-50</code> and <code>stripeServiceDB.ts:261-268</code> — finalized in</p>
+<p>commit <code>d070a8f</code> (&quot;Tier model finalized to Free / Standard ($9.99) / Pro</p>
+<p>($29.99)&quot;), which superseded the earlier Free/Pro/Ultra exploration. No code</p>
+<p>change needed.</p>
+<h2>Action — single recommendation, single approval line</h2>
+<p>Travis-owned, in Stripe Dashboard with <strong>live mode toggle ON</strong> (top-right of</p>
+<p>dashboard must read &quot;Viewing live data&quot;):</p>
+<p>1. <strong>Products</strong> → check whether &quot;Standard&quot; ($9.99/mo) and &quot;Pro&quot; ($29.99/mo)</p>
+<p>recurring products already exist in live mode.</p>
 <ul>
-<li>That the webhook secret on Render matches the secret on the Stripe-side endpoint <code>we_1TT7tMAy6OYpygDjm6zXKzCq</code>. A real test-event from Stripe Dashboard (&quot;Send test webhook&quot;) OR a sandbox <code>stripe trigger checkout.session.completed</code> would prove the round-trip. Either path requires the live <code>STRIPE_SECRET_KEY</code>, which is correctly NOT on this box.</li>
-<li>That the post-verification logic (<code>handleWebhook</code> → Supabase tier write) actually mutates the right row. That is exercised the moment Travis (or a real customer) completes a Stripe Checkout session.</li>
-<li>That rate-limiting on the endpoint behaves correctly under burst (the trust-proxy fix from run 5 unblocks per-IP enforcement, but the webhook endpoint may sit on its own limiter; left as a future bounded check rather than running 100+ probes that show in logs).</li>
+<li><strong>If yes:</strong> open each, copy the price ID (<code>price_*</code>).</li>
+<li><strong>If no:</strong> create both as monthly recurring products with those exact</li>
 </ul>
-<h2>Recommendations (no Travis approval required)</h2>
-<p>1. <strong>Travis-when-convenient:</strong> open Stripe Dashboard → Webhooks → endpoint <code>we_1TT7tMAy6OYpygDjm6zXKzCq</code> → &quot;Send test webhook&quot; → fire a <code>checkout.session.completed</code> payload → confirm the dashboard shows a 200 response and a Supabase row update lands. This is the round-trip proof. Reply <code>STRIPE WEBHOOK ROUND-TRIP: PASS</code> when done.</p>
-<p>2. <strong>No code change needed.</strong> The endpoint behaves correctly. The verification path is the standard SDK call; no homegrown HMAC.</p>
-<h2>Suggested post copy</h2>
-<p>&gt; Run 6 today: bounded security probe on the live StrikeRewind Stripe webhook. Sent 5 forged/unsigned requests to https://strikerewind-api.onrender.com/api/stripe/webhook and confirmed all 4 POST variants return 400 &quot;Webhook verification failed&quot; plus GET returns 404. The endpoint won&#x27;t accept any event without a valid Stripe signature — fake &quot;checkout.session.completed&quot; payloads can&#x27;t promote a user to PRO. Real round-trip test still belongs to you (Stripe Dashboard → &quot;Send test webhook&quot; on we_1TT7tMAy6OYpygDjm6zXKzCq, ~30 sec). Two gates still on you: LAUNCH POSTURE (StrikeRewind copy) and ADS DECISION (PAF Search extend). Cash $162.45.</p></div>
+<p>prices, copy the price IDs.</p>
+<p>2. Reply on Discord in the format:</p>
+<p>```</p>
+<p>STRIPE PRICES: STRIKEREWIND</p>
+<p>STANDARD=price_&lt;value&gt;</p>
+<p>PRO=price_&lt;value&gt;</p>
+<p>```</p>
+<p>That&#x27;s it. No new webhook endpoint, no new keys — those are already live and</p>
+<p>correct from the prior restoration.</p>
+<h2>What happens immediately on reply</h2>
+<p>1. AutoBox PUTs <code>STRIPE_STANDARD_PRICE_ID</code> and <code>STRIPE_PRO_PRICE_ID</code> to Render</p>
+<p>service <code>srv-d7r408favr4c73fb3670</code> via Render API.</p>
+<p>2. Triggers redeploy (typical ~3 min).</p>
+<p>3. Verifies <code>GET /api/stripe/prices</code> now returns</p>
+<p><code>{&quot;standard&quot;:&quot;price_…&quot;,&quot;pro&quot;:&quot;price_…&quot;}</code>.</p>
+<p>4. Hits the Account page in headless Playwright, asserts the upgrade button</p>
+<p>handlers no longer trip the &quot;Price not configured&quot; alert (without clicking</p>
+<p>through to live Stripe).</p>
+<p>5. Extends the live smoke harness with a permanent regression assertion:</p>
+<p><code>/api/stripe/prices</code> must return non-empty <code>standard</code> and <code>pro</code> fields</p>
+<p>on every future smoke run, so a future env-wipe does not regress silently.</p>
+<p>6. Posts confirmation to Discord and updates TODO/HANDOFF/RUNLOG.</p>
+<h2>Cost</h2>
+<p>$0. No new spend. The Render starter ($7/mo) is the only recurring cost on this</p>
+<p>property and is already pre-approved.</p>
+<h2>Blast radius if not addressed</h2>
+<p>While the marketing freeze is in place and traffic is ~zero, this is non-urgent.</p>
+<p>But: the open <code>LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY</code> gate, when it</p>
+<p>resolves to <code>EARLY ACCESS</code> or <code>TIGHTEN COPY</code>, will surface the live site to first</p>
+<p>visitors. If the upgrade button alerts &quot;Price not configured&quot; on day one, that&#x27;s</p>
+<p>a credibility hit on the very first conversion attempt. Fixing this now is</p>
+<p>strictly easier than fixing it after a launch post lands.</p>
+<h2>Approval line</h2>
+<pre><code>APPROVED: STRIPE PRICES: STRIKEREWIND
+STANDARD=price_&lt;value&gt;
+PRO=price_&lt;value&gt;
+</code></pre>
+<p>(Or &quot;DECLINED&quot; / &quot;HOLD UNTIL POLYGON&quot; — both are valid; the gate stays open</p>
+<p>until decided.)</p></div>
   </section>
 
   <section class="detail-section">

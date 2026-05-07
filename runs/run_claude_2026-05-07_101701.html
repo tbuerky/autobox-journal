@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind trust proxy fix &middot; AutoBox</title>
+<title>Strikerewind webhook signature verification &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,9 +33,9 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-07_101701</span>
   </div>
-  <h2 class="run-title">Strikerewind trust proxy fix</h2>
+  <h2 class="run-title">Strikerewind webhook signature verification</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">fifth autonomous run of 2026-05-07, fired ~14:17 UTC. Two open gates entering and exiting unchanged (`LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`, `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` — both held, no fresh owner input since run 2&#x27;s exit-instruction action ~6h ago. All cadence eligibility windows still closed (StrikeRewind smoke ≥12h not met until 20:17 UTC; PAF EOD smoke ≥18h not met until 04:19 UTC tomorrow; AI Pricing Index ≥48h not met until 2026-05-08 02:21 UTC). Wakeup prompt explicitly forbids advisory-only output and flags quality-control as a valid sharper move when GTM is owner-blocked.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">sixth autonomous run of 2026-05-07, fired ~16:18 UTC. Two open gates entering and exiting unchanged (`LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`, `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` — both held, no fresh owner input since run 2&#x27;s exit-instruction action ~8h ago. All cadence eligibility windows still closed (StrikeRewind smoke ≥12h not met until 20:17 UTC ~4h out; PAF EOD smoke ≥18h not met until 04:19 UTC tomorrow ~12h out; AI Pricing Index ≥48h not met until 2026-05-08 02:21 UTC ~10h out). Wakeup prompt explicitly forbids advisory-only output. TODO line 48 has been parked since the Render env-wipe incident: webhook test deferred until Playwright suite confirmed UI working, which run 2 cleared this morning (29/29). The bounded autonomous slice of that test — verify the live endpoint enforces signature validation against forged/unsigned events — defends the subscription revenue path without requiring real money or the live `STRIPE_SECRET_KEY` (which is correctly NOT on this box).</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -45,88 +45,39 @@
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
     <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeRewind backend trust-proxy fix</h1>
-<p><strong>Run:</strong> 5 of 2026-05-07 (fired ~14:17 UTC)</p>
-<p><strong>Branch:</strong> <code>autobox/strikerewind-rename</code></p>
-<p><strong>Commit:</strong> <code>533b875</code> — &quot;Trust Render&#x27;s proxy so rate-limiting uses the real client IP&quot;</p>
-<p><strong>Deploy:</strong> <code>dep-d7ua16p9rddc73cut470</code> — created 14:24:28 UTC, live at 14:27:31 UTC (~3 min)</p>
-<h2>What was wrong</h2>
-<p><code>the scanner backend</code> never called <code>app.set(&#x27;trust proxy&#x27;, ...)</code>. With the</p>
-<p>Express default of <code>false</code>, <code>req.ip</code> resolves to the immediate proxy address</p>
-<p>(Render&#x27;s load balancer) for every request, not the real client. Two</p>
-<p>consequences:</p>
-<p>1. <code>express-rate-limit</code> logged a <code>ValidationError</code> on every cold-start probe</p>
-<p>when it noticed the <code>X-Forwarded-For</code> header without a corresponding</p>
-<p>trust setting. Sample line from this morning&#x27;s deploy</p>
-<p>(<code>2026-05-07T08:22:34.175Z</code>):</p>
-<p>&gt; `ValidationError: The &#x27;X-Forwarded-For&#x27; header is set but the Express</p>
-<p>&gt; &#x27;trust proxy&#x27; setting is false (default). This could indicate a</p>
-<p>&gt; misconfiguration which would prevent express-rate-limit from</p>
-<p>&gt; accurately identifying users.`</p>
-<p>2. With every request appearing to come from the same proxy IP, the rate</p>
-<p>limiters in <code>the scanner backend</code> (general 100/15min,</p>
-<p>analysis 10/min, hunt 10/min, auth 5/15min) collapse to global counters,</p>
-<p>which means a single noisy client could lock everyone else out.</p>
-<p>The bug was found by pulling <code>~6 hours</code> of Render app-logs against</p>
-<p><code>srv-d7r408favr4c73fb3670</code> to verify the post-watchlist-fix deploy was</p>
-<p>clean. The morning fix worked (zero traffic-class errors after 08:27),</p>
-<p>but the trust-proxy ValidationError surfaced as a recurring cold-start</p>
-<p>log noise that would have masked future real errors and was actively</p>
-<p>breaking rate-limiting correctness.</p>
-<h2>Fix</h2>
-<p>Single-block edit in <code>the scanner backend</code>, immediately after `const app</p>
-<p>= express()`:</p>
-<pre><code>// Trust the first proxy hop (Render&#x27;s load balancer) so req.ip resolves to the
-// real client IP. Without this, express-rate-limit treats every request as
-// coming from the proxy and rejects the X-Forwarded-For header.
-app.set(&#x27;trust proxy&#x27;, 1);
-</code></pre>
-<p><code>1</code> is the minimum hop count that lets <code>req.ip</code> walk one entry back in</p>
-<p><code>X-Forwarded-For</code> while not blindly trusting the entire chain. Render</p>
-<p>terminates TLS at its own load balancer and rewrites the header, so one</p>
-<p>hop is the right number.</p>
-<h2>Verification</h2>
-<p>Live verification against <code>https://strikerewind-api.onrender.com</code>:</p>
-<p>| Probe | Result |</p>
-<p>|---|---|</p>
-<p>| <code>GET /api/health</code> | HTTP 200, 336ms |</p>
-<p>| <code>POST /api/analyze {ticker:AAPL}</code> | HTTP 200, returned fixture price <code>$189.42</code> |</p>
-<p>| <code>GET /api/watchlist</code> | HTTP 200, list shape preserved |</p>
-<p>Render app-log scan against <code>srv-d7r408favr4c73fb3670</code>, window</p>
-<p><code>2026-05-07T14:27:30Z → 14:28:31Z</code> (post-deploy):</p>
+    <div class="artifact-prose"><h1>StrikeRewind — live Stripe webhook signature-verification audit</h1>
+<p><strong>Run:</strong> 2026-05-07 run 6 (~16:18 UTC)</p>
+<p><strong>Target:</strong> <code>https://strikerewind-api.onrender.com/api/stripe/webhook</code></p>
+<p><strong>Why now:</strong> TODO line 48 has been parked since the Render env-wipe incident: <em>&quot;STRIPE_WEBHOOK_SECRET was created fresh (<code>we_1TT7tMAy6OYpygDjm6zXKzCq</code>, <code>[REDACTED]</code>) and added. Verify webhook fires correctly on test checkout after Playwright suite confirms the UI is working.&quot;</em> The Playwright suite passed 29/29 in run 2 this morning, so the prerequisite is met. A real test-checkout requires either Stripe CLI on the box or a live customer card swipe (revenue-relevant; not autonomous). What IS bounded and autonomous is verifying the live endpoint enforces Stripe-signature validation — i.e., that a forged or unsigned webhook can NOT promote a fake <code>checkout.session.completed</code> event to &quot;subscription paid&quot;. This is the security check that defends subscription revenue before any customer exists.</p>
+<h2>Threat model</h2>
+<p>If the live webhook endpoint accepted unsigned events, anyone could POST a forged <code>checkout.session.completed</code> body to <code>https://strikerewind-api.onrender.com/api/stripe/webhook</code> and the backend would treat it as a paid subscription — promoting an arbitrary user to PRO/ULTRA tier without payment. This is the canonical Stripe-webhook security mistake.</p>
+<h2>Code review (offline)</h2>
+<p><code>the scanner backend:76-77</code> mounts <code>express.raw({ type: &#x27;application/json&#x27; })</code> only for <code>/api/stripe/webhook</code>, which preserves the raw body required for HMAC verification. <code>the scanner backend:357-367</code> reads <code>req.headers[&#x27;stripe-signature&#x27;]</code> and delegates to <code>stripeService.handleWebhook(req.body, signature)</code>; on any throw, the catch block returns 400. <code>the scanner backend:113-126</code> calls <code>stripe.webhooks.constructEvent(payload, signature, webhookSecret)</code> — the Stripe SDK&#x27;s standard signature-verification call, which throws on missing/invalid/expired signatures. The pattern matches Stripe&#x27;s documented integration; nothing custom or hand-rolled in the verification path.</p>
+<h2>Live probe results</h2>
+<p>Five <code>curl</code> probes against the production endpoint at 2026-05-07 16:18 UTC:</p>
+<p>| # | Request | Expected | Actual | ✓ |</p>
+<p>|---|---|---|---|---|</p>
+<p>| 1 | POST, no <code>stripe-signature</code> header | 400 reject | HTTP 400 — <code>Webhook Error: Error: Webhook verification failed</code> | ✓ |</p>
+<p>| 2 | POST, <code>stripe-signature: t=1714512000,v1=fakefakefake</code> | 400 reject | HTTP 400 — <code>Webhook Error: Error: Webhook verification failed</code> | ✓ |</p>
+<p>| 3 | POST, malformed <code>stripe-signature: this-is-not-a-signature</code> | 400 reject | HTTP 400 — <code>Webhook Error: Error: Webhook verification failed</code> | ✓ |</p>
+<p>| 4 | POST, empty body, bogus signature | 400 reject | HTTP 400 — <code>Webhook Error: Error: Webhook verification failed</code> | ✓ |</p>
+<p>| 5 | GET on <code>/api/stripe/webhook</code> | 404 (POST-only route) | HTTP 404 — <code>Cannot GET /api/stripe/webhook</code> | ✓ |</p>
+<p>All five behave correctly. The endpoint:</p>
+<p>1. Will not accept any event without a valid signature.</p>
+<p>2. Will not accept a forged signature.</p>
+<p>3. Does not expose method-disclosure beyond Express&#x27;s standard 404.</p>
+<p>4. Does not leak the webhook secret in error responses (the body returns only <code>&quot;Webhook verification failed&quot;</code> — Stripe SDK&#x27;s standard error message, no key material).</p>
+<h2>What this does NOT verify</h2>
 <ul>
-<li>25 log entries.</li>
-<li><strong>0</strong> <code>X-Forwarded-For</code> / <code>ValidationError</code> occurrences.</li>
-<li><strong>0</strong> real errors (the only <code>error</code>-level entry is the long-standing</li>
+<li>That the webhook secret on Render matches the secret on the Stripe-side endpoint <code>we_1TT7tMAy6OYpygDjm6zXKzCq</code>. A real test-event from Stripe Dashboard (&quot;Send test webhook&quot;) OR a sandbox <code>stripe trigger checkout.session.completed</code> would prove the round-trip. Either path requires the live <code>STRIPE_SECRET_KEY</code>, which is correctly NOT on this box.</li>
+<li>That the post-verification logic (<code>handleWebhook</code> → Supabase tier write) actually mutates the right row. That is exercised the moment Travis (or a real customer) completes a Stripe Checkout session.</li>
+<li>That rate-limiting on the endpoint behaves correctly under burst (the trust-proxy fix from run 5 unblocks per-IP enforcement, but the webhook endpoint may sit on its own limiter; left as a future bounded check rather than running 100+ probes that show in logs).</li>
 </ul>
-<p>&quot;Sentry DSN not found, error tracking disabled&quot; config notice; Sentry</p>
-<p>was never wired up, intentional).</p>
-<p>The previous deploy (<code>dep-d7u4n1e8bjmc73bj5tjg</code>, 08:22:27 UTC) emitted</p>
-<p>the ValidationError within 7 seconds of going live. This deploy</p>
-<p>(<code>dep-d7ua16p9rddc73cut470</code>, 14:27:31 UTC) has 60+ seconds of clean</p>
-<p>post-live logs.</p>
-<h2>Risk note</h2>
-<p><code>app.set(&#x27;trust proxy&#x27;, 1)</code> is the standard recommended setting for apps</p>
-<p>behind a single managed proxy (Render, Heroku, Fly). It is strictly</p>
-<p>safer than the previous default (<code>false</code>) because the previous default</p>
-<p>made rate-limiting a global counter; a malicious actor could not spoof</p>
-<p>their way past per-IP limits because there were no per-IP limits to</p>
-<p>spoof. The fix moves the system to actual per-client rate limiting,</p>
-<p>which is the security posture the limiters were configured for.</p>
-<h2>State changes</h2>
-<ul>
-<li>Repo <code>tbuerky/StrikeSight</code> branch <code>autobox/strikerewind-rename</code>: pushed</li>
-</ul>
-<p><code>533b875</code> on top of <code>b032b48</code>.</p>
-<ul>
-<li>Render service <code>srv-d7r408favr4c73fb3670</code> redeployed; service is live.</li>
-<li>No env vars touched.</li>
-<li>No customer-facing copy or layout changed.</li>
-<li>No new gate raised — autonomous and complete.</li>
-</ul>
-<h2>Spend</h2>
-<p>$0. Cash balance unchanged at $162.45. Render starter accruing</p>
-<p>~$0.23/day toward end-of-cycle invoice.</p></div>
+<h2>Recommendations (no Travis approval required)</h2>
+<p>1. <strong>Travis-when-convenient:</strong> open Stripe Dashboard → Webhooks → endpoint <code>we_1TT7tMAy6OYpygDjm6zXKzCq</code> → &quot;Send test webhook&quot; → fire a <code>checkout.session.completed</code> payload → confirm the dashboard shows a 200 response and a Supabase row update lands. This is the round-trip proof. Reply <code>STRIPE WEBHOOK ROUND-TRIP: PASS</code> when done.</p>
+<p>2. <strong>No code change needed.</strong> The endpoint behaves correctly. The verification path is the standard SDK call; no homegrown HMAC.</p>
+<h2>Suggested post copy</h2>
+<p>&gt; Run 6 today: bounded security probe on the live StrikeRewind Stripe webhook. Sent 5 forged/unsigned requests to https://strikerewind-api.onrender.com/api/stripe/webhook and confirmed all 4 POST variants return 400 &quot;Webhook verification failed&quot; plus GET returns 404. The endpoint won&#x27;t accept any event without a valid Stripe signature — fake &quot;checkout.session.completed&quot; payloads can&#x27;t promote a user to PRO. Real round-trip test still belongs to you (Stripe Dashboard → &quot;Send test webhook&quot; on we_1TT7tMAy6OYpygDjm6zXKzCq, ~30 sec). Two gates still on you: LAUNCH POSTURE (StrikeRewind copy) and ADS DECISION (PAF Search extend). Cash $162.45.</p></div>
   </section>
 
   <section class="detail-section">

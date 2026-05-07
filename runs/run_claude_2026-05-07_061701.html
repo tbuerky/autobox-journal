@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind stripe prices restoration packet &middot; AutoBox</title>
+<title>Strikerewind eod smoke &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,9 +33,9 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-07_061701</span>
   </div>
-  <h2 class="run-title">Strikerewind stripe prices restoration packet</h2>
+  <h2 class="run-title">Strikerewind eod smoke</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">seventh autonomous run of 2026-05-07, fired ~18:18 UTC. Three open gates entering exit (LAUNCH POSTURE, ADS DECISION, plus this run&#x27;s new STRIPE PRICES gate); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` — both pre-existing gates held, no fresh owner input since run 2&#x27;s exit-instruction action ~10h ago. Cadence eligibility windows still closed at fire time (StrikeRewind smoke ≥12h not met until 20:17 UTC ~2h out; PAF EOD smoke ≥18h not met until 04:19 UTC tomorrow; AI Pricing Index ≥48h not met until 2026-05-08 02:21 UTC). Wakeup prompt explicitly forbids advisory-only output. Run 6&#x27;s handoff had named two defensible alts for this window: per-IP rate-limit burst test on the webhook (low signal vs. log-noise tradeoff) or extending the StrikeRewind Playwright harness for the upgrade-flow alert message. Started by hitting `https://strikerewind-api.onrender.com/api/stripe/prices` to know what state the upgrade UI would smoke against — and surfaced a real revenue blocker.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">eighth autonomous run of 2026-05-07, fired ~20:17 UTC. Three open gates entering and exiting unchanged (`LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`, `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`, `STRIPE PRICES: STRIKEREWIND PRICE IDS MISSING`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` — all three held, no fresh owner input since run 2&#x27;s exit-instruction action ~12h ago. Cadence eligibility: StrikeRewind hardened smoke ≥12h cleared at 20:17 UTC exactly (run 2 at 08:17 UTC); PAF EOD still ≥18h not met until 04:19 UTC tomorrow; AI Pricing Index ≥48h not met until 2026-05-08 02:21 UTC. Run 7&#x27;s handoff explicitly named this window&#x27;s eligible move: &quot;2026-05-07 20:17 UTC onward | StrikeRewind end-of-day smoke (≥12h since run 2&#x27;s hardened smoke at 08:17 UTC).&quot; Took it.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -44,111 +44,38 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeRewind — Stripe price IDs missing on Render (subscription path silently broken)</h1>
-<p><strong>Date:</strong> 2026-05-07 18:18 UTC</p>
-<p><strong>Run:</strong> 7 of 2026-05-07</p>
-<p><strong>Author:</strong> AutoBox autonomous run</p>
-<p><strong>Owner action:</strong> Travis, ~5 min in Stripe Dashboard (live mode)</p>
-<h2>TL;DR</h2>
-<p>Every &quot;Upgrade&quot; button on <code>https://www.strikerewind.com/account</code> currently alerts</p>
-<p><em>&quot;Price not configured. Please contact support.&quot;</em> No one can subscribe. Cause: Render</p>
-<p>service <code>srv-d7r408favr4c73fb3670</code> is missing two env vars that survived the original</p>
-<p>2026-05-02 setup but were not restored after the env-wipe incident:</p>
-<p><code>STRIPE_STANDARD_PRICE_ID</code>, <code>STRIPE_PRO_PRICE_ID</code>. Live Stripe keys (<code>sk_live_*</code> /</p>
-<p><code>pk_live_<em></code>) and webhook secret (<code>whsec_</em></code>) ARE set correctly. This is a</p>
-<p>revenue-path regression on a property that the owner is otherwise asking to be</p>
-<p>public-ready.</p>
-<h2>Evidence</h2>
-<p><code>GET https://strikerewind-api.onrender.com/api/stripe/prices</code> (HTTP 200) returned</p>
-<p><code>{}</code> at 2026-05-07 18:17 UTC. The endpoint code at <code>the scanner backend:369-374</code></p>
-<p>reads <code>process.env.STRIPE_STANDARD_PRICE_ID</code> and <code>process.env.STRIPE_PRO_PRICE_ID</code></p>
-<p>into the response; both unset → response is <code>{}</code>.</p>
-<p><code>Account.tsx:82-86</code> reads <code>prices.standard</code>/<code>prices.pro</code>, falsy → shows</p>
-<p><code>alert(&#x27;Price not configured. Please contact support.&#x27;)</code> and <code>return</code>s before</p>
-<p>calling <code>createCheckoutSession</code>. Subscription flow dead end.</p>
-<p>Render env-vars audit (via Render API, key names only):</p>
-<pre><code>FRONTEND_URL
-HUNT_USE_FIXTURES
-NODE_ENV
-PORT
-STRIPE_PUBLISHABLE_KEY      ← pk_live_* (correct)
-STRIPE_SECRET_KEY           ← sk_live_* (correct)
-STRIPE_WEBHOOK_SECRET       ← whsec_*  (correct)
-SUPABASE_SECRET_KEY
-SUPABASE_URL
-                            ← STRIPE_STANDARD_PRICE_ID missing
-                            ← STRIPE_PRO_PRICE_ID      missing
-</code></pre>
-<h2>Why this regressed</h2>
-<p>The original 2026-05-02 packet</p>
-<p>(<code>artifacts/2026-05-02-strikerewind-stripe-live-products-and-webhook-packet.md</code>)</p>
-<p>raised <code>STRIPE LIVE CONFIGURED: STRIKEREWIND</code> to set all 5 missing vars. Travis</p>
-<p>provided the price IDs, AutoBox plugged them in, gate cleared. Then an env-wipe</p>
-<p>incident later nuked all 5 vars. <code>TODO.md:49</code> records that</p>
-<p><code>STRIPE_SECRET_KEY</code> + <code>STRIPE_PUBLISHABLE_KEY</code> were restored and a new</p>
-<p><code>STRIPE_WEBHOOK_SECRET</code> was created fresh — but the two price-ID env vars were</p>
-<p>not restored, and nothing in the deploy pipeline reads them at boot, so the</p>
-<p>break was silent. Today&#x27;s run audited <code>/api/stripe/prices</code> and surfaced it.</p>
-<h2>Tier model in production code</h2>
-<p>Confirmed today on <code>autobox/strikerewind-rename</code> HEAD (commit <code>533b875</code>):</p>
-<p>| Tier name | Monthly price | Env var |</p>
-<p>|---|---|---|</p>
-<p>| FREE | $0 | (no Stripe product) |</p>
-<p>| STANDARD | $9.99 | <code>STRIPE_STANDARD_PRICE_ID</code> |</p>
-<p>| PRO | $29.99 | <code>STRIPE_PRO_PRICE_ID</code> |</p>
-<p>This is <code>Account.tsx:18-50</code> and <code>stripeServiceDB.ts:261-268</code> — finalized in</p>
-<p>commit <code>d070a8f</code> (&quot;Tier model finalized to Free / Standard ($9.99) / Pro</p>
-<p>($29.99)&quot;), which superseded the earlier Free/Pro/Ultra exploration. No code</p>
-<p>change needed.</p>
-<h2>Action — single recommendation, single approval line</h2>
-<p>Travis-owned, in Stripe Dashboard with <strong>live mode toggle ON</strong> (top-right of</p>
-<p>dashboard must read &quot;Viewing live data&quot;):</p>
-<p>1. <strong>Products</strong> → check whether &quot;Standard&quot; ($9.99/mo) and &quot;Pro&quot; ($29.99/mo)</p>
-<p>recurring products already exist in live mode.</p>
+    <div class="artifact-prose"><h1>StrikeRewind end-of-day production smoke — 2026-05-07 20:17 UTC</h1>
+<h2>Result</h2>
+<p><strong>29 / 29 PASS · 0 FAIL · 0 unfiltered console errors</strong></p>
+<p>Identical pass-content to run 2&#x27;s hardened smoke at 08:17 UTC — no day-over-day regression on the live revenue site.</p>
+<h2>Cadence</h2>
 <ul>
-<li><strong>If yes:</strong> open each, copy the price ID (<code>price_*</code>).</li>
-<li><strong>If no:</strong> create both as monthly recurring products with those exact</li>
+<li>Last hardened smoke: run 2 of 2026-05-07 at 08:17 UTC (29/29).</li>
+<li>This run: 20:17 UTC, exactly clears the ≥12h cadence window run 7&#x27;s handoff queued.</li>
+<li>Target: <code>https://www.strikerewind.com</code> (Vercel) and <code>https://strikerewind-api.onrender.com</code> (Render).</li>
 </ul>
-<p>prices, copy the price IDs.</p>
-<p>2. Reply on Discord in the format:</p>
-<p>```</p>
-<p>STRIPE PRICES: STRIKEREWIND</p>
-<p>STANDARD=price_&lt;value&gt;</p>
-<p>PRO=price_&lt;value&gt;</p>
-<p>```</p>
-<p>That&#x27;s it. No new webhook endpoint, no new keys — those are already live and</p>
-<p>correct from the prior restoration.</p>
-<h2>What happens immediately on reply</h2>
-<p>1. AutoBox PUTs <code>STRIPE_STANDARD_PRICE_ID</code> and <code>STRIPE_PRO_PRICE_ID</code> to Render</p>
-<p>service <code>srv-d7r408favr4c73fb3670</code> via Render API.</p>
-<p>2. Triggers redeploy (typical ~3 min).</p>
-<p>3. Verifies <code>GET /api/stripe/prices</code> now returns</p>
-<p><code>{&quot;standard&quot;:&quot;price_…&quot;,&quot;pro&quot;:&quot;price_…&quot;}</code>.</p>
-<p>4. Hits the Account page in headless Playwright, asserts the upgrade button</p>
-<p>handlers no longer trip the &quot;Price not configured&quot; alert (without clicking</p>
-<p>through to live Stripe).</p>
-<p>5. Extends the live smoke harness with a permanent regression assertion:</p>
-<p><code>/api/stripe/prices</code> must return non-empty <code>standard</code> and <code>pro</code> fields</p>
-<p>on every future smoke run, so a future env-wipe does not regress silently.</p>
-<p>6. Posts confirmation to Discord and updates TODO/HANDOFF/RUNLOG.</p>
-<h2>Cost</h2>
-<p>$0. No new spend. The Render starter ($7/mo) is the only recurring cost on this</p>
-<p>property and is already pre-approved.</p>
-<h2>Blast radius if not addressed</h2>
-<p>While the marketing freeze is in place and traffic is ~zero, this is non-urgent.</p>
-<p>But: the open <code>LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY</code> gate, when it</p>
-<p>resolves to <code>EARLY ACCESS</code> or <code>TIGHTEN COPY</code>, will surface the live site to first</p>
-<p>visitors. If the upgrade button alerts &quot;Price not configured&quot; on day one, that&#x27;s</p>
-<p>a credibility hit on the very first conversion attempt. Fixing this now is</p>
-<p>strictly easier than fixing it after a launch post lands.</p>
-<h2>Approval line</h2>
-<pre><code>APPROVED: STRIPE PRICES: STRIKEREWIND
-STANDARD=price_&lt;value&gt;
-PRO=price_&lt;value&gt;
-</code></pre>
-<p>(Or &quot;DECLINED&quot; / &quot;HOLD UNTIL POLYGON&quot; — both are valid; the gate stays open</p>
-<p>until decided.)</p></div>
+<h2>What the harness covered</h2>
+<ul>
+<li><strong>Landing</strong>: renders, screenshot captured.</li>
+<li><strong>Analyze tab golden path</strong>: navigate <code>/dashboard</code>, type <code>AAPL</code>, hit Enter, wait for <code>/api/analyze</code> POST, assert ticker + EV percentage + price <code>189.42</code> + body length, &quot;Strategy matrix&quot; heading, nav highlight on <code>/analysis/AAPL</code>.</li>
+<li><strong>Analyze error path</strong>: navigate <code>/analysis/ZZZZZ</code>, assert &quot;Could not load&quot; heading + ticker echo + Back button + Back navigates to <code>/dashboard</code>. Console-error filter accepts the deliberate 500 from <code>/api/analyze</code> for the nonsense ticker.</li>
+<li><strong>Hunt tab</strong>: page renders ≥300 chars, action button present.</li>
+<li><strong>Watch tab full mutation flow</strong>: pre-clean via API, add <code>AAPL</code> via API (<code>x-user-id: travis-pro-tester</code>, status 200), navigate <code>/watchlist</code>, assert heading + AAPL row rendered with real fixture price <code>$189.42</code> (regression assertion against the &quot;Data refreshing&quot; placeholder bug Travis hit), remove button present, row click navigates to <code>/analysis/AAPL</code>, remove button removes the row.</li>
+<li><strong>Account tab</strong>: page renders ≥200 chars, FREE tier label, STANDARD plan card with <code>9.99</code>, PRO plan card with <code>29.99</code>. (Did not click Upgrade — live Stripe.)</li>
+<li><strong>Mobile 390px</strong>: landing renders, <code>scrollWidth - clientWidth = 0</code> (no horizontal overflow).</li>
+</ul>
+<h2>Bundle</h2>
+<ul>
+<li><code>artifacts/2026-05-07-strikerewind-eod-smoke/</code> — 8 fullpage PNG screenshots + <code>summary.json</code> (29 pass entries, 0 fail, 0 unfiltered console error).</li>
+</ul>
+<h2>Notes</h2>
+<ul>
+<li>The <code>STRIPE PRICES: STRIKEREWIND PRICE IDS MISSING</code> gate (raised run 7) does NOT surface in this smoke. Account tab plan-card prices come from frontend hardcoded <code>$9.99</code> / <code>$29.99</code> display copy, not from <code>/api/stripe/prices</code>. The smoke deliberately avoids the upgrade button so the missing-price-IDs bug doesn&#x27;t get tripped here. Future run will land a regression assertion on that bug AFTER Travis answers <code>APPROVED: STRIPE PRICES: STRIKEREWIND</code> and the env vars land — the assertion would fail today.</li>
+<li>Trust-proxy fix (run 5) holds: 0 ValidationError occurrences in the analyze-tab path during this run.</li>
+<li>Post-rate-limit-hardening run 5 confirmed no client IP issues today; this smoke ran clean from a single IP and no rate-limit shedding surfaced.</li>
+</ul>
+<h2>Cash balance</h2>
+<p>$162.45 (Render starter ~$0.23/day accruing toward end-of-cycle invoice).</p></div>
   </section>
 
   <section class="detail-section">

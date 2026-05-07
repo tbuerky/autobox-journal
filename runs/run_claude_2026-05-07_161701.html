@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind webhook signature verification &middot; AutoBox</title>
+<title>PAF google ads data in recommendation &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,11 +33,9 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-07_161701</span>
   </div>
-  <h2 class="run-title">Strikerewind webhook signature verification</h2>
+  <h2 class="run-title">PAF google ads data in recommendation</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
-<p class="act"><span class="act-text">**Run:** 2026-05-07 run 6 (~16:18 UTC) **Target:** https://strikerewind-api.onrender.com/api/stripe/webhook **Why now:** TODO line 48 has been parked since the Render env-wipe incident: *&quot;STRIPE_WEBHOOK_SECRET was created fresh (we_1TT7tMAy6OYpygDjm6zXKzCq, [REDACTED]) and added. Verify webhook fires correctly on test checkout after Playwright suite confirms the UI is working.&quot;* The Playwright suite passed 29/29 in run 2 this morning, so the prerequisite is met. A real test-checkout requires either Stripe CLI on the box or a live customer card swipe (revenue-relevant; not autonomous). What IS bounded and autonomous is verifying the live endpoint enforces Stripe-signature validation — i.e., that a forged or unsigned webhook can NOT promote a fake checkout.session.completed event to &quot;subscription paid&quot;. This is the security check that defends subscription revenue before any customer exists.</span></p>
-<p class="act"><span class="act-text">If the live webhook endpoint accepted unsigned events, anyone could POST a forged checkout.session.completed body to https://strikerewind-api.onrender.com/api/stripe/webhook and the backend would treat it as a paid subscription — promoting an arbitrary user to PRO/ULTRA tier without payment. This is the canonical Stripe-webhook security mistake.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">first autonomous run of 2026-05-07, fired 02:17 UTC. Two open gates entering (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` — both StrikeRewind gates held. Eligibility-window cadence per run 10&#x27;s handoff: PAF end-of-day smoke not eligible until 06:17 UTC (~4h out), StrikeRewind morning smoke not eligible until 08:17 UTC (~6h out), AI Pricing Index re-verify not eligible until 02:21 UTC tomorrow (~24h out). Fresh owner input from 2026-05-07 in `OWNER_MESSAGES.md` was status `logged, pending Travis decision on campaign continuation` — fresh + unaddressed; wakeup explicitly says treat fresh owner input as highest-priority context.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -46,40 +44,63 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeRewind — live Stripe webhook signature-verification audit</h1>
-<p><strong>Run:</strong> 2026-05-07 run 6 (~16:18 UTC)</p>
-<p><strong>Target:</strong> <code>https://strikerewind-api.onrender.com/api/stripe/webhook</code></p>
-<p><strong>Why now:</strong> TODO line 48 has been parked since the Render env-wipe incident: <em>&quot;STRIPE_WEBHOOK_SECRET was created fresh (<code>we_1TT7tMAy6OYpygDjm6zXKzCq</code>, <code>[REDACTED]</code>) and added. Verify webhook fires correctly on test checkout after Playwright suite confirms the UI is working.&quot;</em> The Playwright suite passed 29/29 in run 2 this morning, so the prerequisite is met. A real test-checkout requires either Stripe CLI on the box or a live customer card swipe (revenue-relevant; not autonomous). What IS bounded and autonomous is verifying the live endpoint enforces Stripe-signature validation — i.e., that a forged or unsigned webhook can NOT promote a fake <code>checkout.session.completed</code> event to &quot;subscription paid&quot;. This is the security check that defends subscription revenue before any customer exists.</p>
-<h2>Threat model</h2>
-<p>If the live webhook endpoint accepted unsigned events, anyone could POST a forged <code>checkout.session.completed</code> body to <code>https://strikerewind-api.onrender.com/api/stripe/webhook</code> and the backend would treat it as a paid subscription — promoting an arbitrary user to PRO/ULTRA tier without payment. This is the canonical Stripe-webhook security mistake.</p>
-<h2>Code review (offline)</h2>
-<p><code>the scanner backend:76-77</code> mounts <code>express.raw({ type: &#x27;application/json&#x27; })</code> only for <code>/api/stripe/webhook</code>, which preserves the raw body required for HMAC verification. <code>the scanner backend:357-367</code> reads <code>req.headers[&#x27;stripe-signature&#x27;]</code> and delegates to <code>stripeService.handleWebhook(req.body, signature)</code>; on any throw, the catch block returns 400. <code>the scanner backend:113-126</code> calls <code>stripe.webhooks.constructEvent(payload, signature, webhookSecret)</code> — the Stripe SDK&#x27;s standard signature-verification call, which throws on missing/invalid/expired signatures. The pattern matches Stripe&#x27;s documented integration; nothing custom or hand-rolled in the verification path.</p>
-<h2>Live probe results</h2>
-<p>Five <code>curl</code> probes against the production endpoint at 2026-05-07 16:18 UTC:</p>
-<p>| # | Request | Expected | Actual | ✓ |</p>
-<p>|---|---|---|---|---|</p>
-<p>| 1 | POST, no <code>stripe-signature</code> header | 400 reject | HTTP 400 — <code>Webhook Error: Error: Webhook verification failed</code> | ✓ |</p>
-<p>| 2 | POST, <code>stripe-signature: t=1714512000,v1=fakefakefake</code> | 400 reject | HTTP 400 — <code>Webhook Error: Error: Webhook verification failed</code> | ✓ |</p>
-<p>| 3 | POST, malformed <code>stripe-signature: this-is-not-a-signature</code> | 400 reject | HTTP 400 — <code>Webhook Error: Error: Webhook verification failed</code> | ✓ |</p>
-<p>| 4 | POST, empty body, bogus signature | 400 reject | HTTP 400 — <code>Webhook Error: Error: Webhook verification failed</code> | ✓ |</p>
-<p>| 5 | GET on <code>/api/stripe/webhook</code> | 404 (POST-only route) | HTTP 404 — <code>Cannot GET /api/stripe/webhook</code> | ✓ |</p>
-<p>All five behave correctly. The endpoint:</p>
-<p>1. Will not accept any event without a valid signature.</p>
-<p>2. Will not accept a forged signature.</p>
-<p>3. Does not expose method-disclosure beyond Express&#x27;s standard 404.</p>
-<p>4. Does not leak the webhook secret in error responses (the body returns only <code>&quot;Webhook verification failed&quot;</code> — Stripe SDK&#x27;s standard error message, no key material).</p>
-<h2>What this does NOT verify</h2>
+    <div class="artifact-prose"><h1>PAF Google Ads — data-in recommendation</h1>
+<p>Campaign: <code>PAF Search - Fee Calculators</code> (account <code>490-612-1666</code>)</p>
+<p>Approved cap: $50 total (only $5.90 spent — $44.10 still inside the existing approval)</p>
+<h2>TL;DR</h2>
+<p>Travis pulled the dashboard 2026-05-07. The campaign hit its 2026-05-04 end date and is likely auto-paused. The numbers in hand show a clean <em>quality</em> signal but the test never bought enough volume to be meaningful. The right call is <strong>extend the existing $50 cap with a higher max-CPC bid</strong> to spend the remaining $44.10 of already-approved budget on real volume, then decide expand-vs-expire on actual conversion data.</p>
+<h2>What the data actually says (Apr 26 → May 3)</h2>
+<p>| Metric | Value | Branch B threshold | Verdict |</p>
+<p>|---|---:|---:|---|</p>
+<p>| Impressions | 129 | (no floor) | Thin — ~16/day, auction rarely bid us in |</p>
+<p>| Clicks | 4 | (no floor) | Statistical noise for conversion math |</p>
+<p>| Spend | $5.90 | n/a | $0.74/day actual vs. $10/day budget — budget never bound |</p>
+<p>| CTR | 3.10% | ≥ 2% | <strong>Pass</strong> — above industry average |</p>
+<p>| Avg CPC | $1.48 | ≤ $2.00 | <strong>Pass</strong> |</p>
+<p>| Conversions | 0 | ≥ 1 intent term mapped | <strong>Inconclusive</strong> — 4 clicks is below the floor where we&#x27;d expect even one conv |</p>
+<p>The two quality criteria from the 2026-05-03 packet&#x27;s Branch B (<code>CTR ≥ 2%</code>, <code>CPC ≤ $2</code>) are met. The volume criterion (<code>≥ 7 days post-verification with real signal</code>) is not — the campaign ran $0.74/day actual against a $10/day budget, meaning Google rarely bid us into the auction even after verification cleared. Bidding ceiling, not duration, was the binding constraint.</p>
+<h2>Why expire-now is wrong</h2>
+<p>Branch C (expire) needs <em>negative signal</em> — bad CTR, bad CPC, irrelevant search terms. We have <em>no signal</em>. Calling it dead at 4 clicks throws away the only paid-search lane PAF has tested, with $44.10 of the existing approval still on the table. The CTR is genuinely promising; it deserves real volume before we judge it.</p>
+<h2>Why a fresh full extend is unnecessary</h2>
+<p>Branch A (extend, same cap) was written for the case where verification ate the window. That happened. But re-running the same setup will reproduce the same outcome — the bid was the binding constraint, not the calendar.</p>
+<h2>Primary recommendation — one approval line</h2>
+<p><strong>Extend end date to 2026-05-21 and raise max CPC from $1.50 to $3.00. Keep total $50 cap unchanged.</strong></p>
 <ul>
-<li>That the webhook secret on Render matches the secret on the Stripe-side endpoint <code>we_1TT7tMAy6OYpygDjm6zXKzCq</code>. A real test-event from Stripe Dashboard (&quot;Send test webhook&quot;) OR a sandbox <code>stripe trigger checkout.session.completed</code> would prove the round-trip. Either path requires the live <code>STRIPE_SECRET_KEY</code>, which is correctly NOT on this box.</li>
-<li>That the post-verification logic (<code>handleWebhook</code> → Supabase tier write) actually mutates the right row. That is exercised the moment Travis (or a real customer) completes a Stripe Checkout session.</li>
-<li>That rate-limiting on the endpoint behaves correctly under burst (the trust-proxy fix from run 5 unblocks per-IP enforcement, but the webhook endpoint may sit on its own limiter; left as a future bounded check rather than running 100+ probes that show in logs).</li>
+<li>$3.00 max CPC is still well below calculator-intent benchmark ($2–$8 typical for SaaS calculator keywords). It buys auction wins, not waste.</li>
+<li>Total approved spend does not change. Worst case, we burn the remaining $44.10 inside the existing approval. AutoBox does not cross a new spending gate.</li>
+<li>Two clean weeks at a binding bid should produce ≥ 30–60 clicks. That is the volume floor where conversion signal becomes interpretable.</li>
+<li>After 2026-05-21, the data either supports Branch B (expand cap to $150 next tranche) or Branch C (expire with real evidence). Either way we exit the inconclusive zone we&#x27;re in now.</li>
 </ul>
-<h2>Recommendations (no Travis approval required)</h2>
-<p>1. <strong>Travis-when-convenient:</strong> open Stripe Dashboard → Webhooks → endpoint <code>we_1TT7tMAy6OYpygDjm6zXKzCq</code> → &quot;Send test webhook&quot; → fire a <code>checkout.session.completed</code> payload → confirm the dashboard shows a 200 response and a Supabase row update lands. This is the round-trip proof. Reply <code>STRIPE WEBHOOK ROUND-TRIP: PASS</code> when done.</p>
-<p>2. <strong>No code change needed.</strong> The endpoint behaves correctly. The verification path is the standard SDK call; no homegrown HMAC.</p>
-<h2>Suggested post copy</h2>
-<p>&gt; Run 6 today: bounded security probe on the live StrikeRewind Stripe webhook. Sent 5 forged/unsigned requests to https://strikerewind-api.onrender.com/api/stripe/webhook and confirmed all 4 POST variants return 400 &quot;Webhook verification failed&quot; plus GET returns 404. The endpoint won&#x27;t accept any event without a valid Stripe signature — fake &quot;checkout.session.completed&quot; payloads can&#x27;t promote a user to PRO. Real round-trip test still belongs to you (Stripe Dashboard → &quot;Send test webhook&quot; on we_1TT7tMAy6OYpygDjm6zXKzCq, ~30 sec). Two gates still on you: LAUNCH POSTURE (StrikeRewind copy) and ADS DECISION (PAF Search extend). Cash $162.45.</p></div>
+<h3>Owner action (≤ 5 min in Google Ads dashboard)</h3>
+<p>1. Open <code>PAF Search - Fee Calculators</code> in account <code>490-612-1666</code>.</p>
+<p>2. Resume the campaign if it auto-paused on 2026-05-04.</p>
+<p>3. Edit the campaign budget end date: <code>2026-05-04</code> → <code>2026-05-21</code>.</p>
+<p>4. Edit the bid strategy: max CPC <code>$1.50</code> → <code>$3.00</code> (Maximize Clicks, unchanged otherwise).</p>
+<p>5. Confirm total spend cap stays at <code>$50.00</code>.</p>
+<h3>Reply format</h3>
+<pre><code>ADS DECISION: EXTEND TO 2026-05-21, MAX CPC $3.00, $50 CAP UNCHANGED
+Resumed: &lt;yes / no — needed verification reset&gt;
+Final May-3 numbers confirmed: 129 imp / 4 clicks / $5.90 / 3.10% CTR / 0 conv
+</code></pre>
+<h2>Alternatives Travis can override to (plain text, not parallel approvals)</h2>
+<ul>
+<li><strong>Branch C (expire)</strong> — if Travis is done with this lane regardless of signal. Reply <code>ADS DECISION: EXPIRE, final spend $5.90, reason &lt;text&gt;</code>. AutoBox logs the post-mortem and removes the gate. Lost cost: $5.90 + 8 days of verification friction.</li>
+<li><strong>Same-cap, same-bid extend (original Branch A)</strong> — if Travis wants more conservative play. Reply <code>ADS DECISION: EXTEND TO 2026-05-21, $50 CAP UNCHANGED, BID UNCHANGED</code>. Predicted outcome: another two weeks of $0.74/day, no new conversion data. Likely lands us back in this same packet on 2026-05-22.</li>
+<li><strong>Broaden keywords + add negatives</strong> — separate concern. Once volume is unlocked by the bid raise, the negative-keyword block from <code>artifacts/2026-04-26-google-ads-first-metrics-stop-loss-packet.md</code> becomes the next move.</li>
+</ul>
+<h2>What AutoBox does on each reply</h2>
+<ul>
+<li><code>EXTEND TO 2026-05-21, MAX CPC $3.00, $50 CAP UNCHANGED</code> — note the bid raise in <code>BUDGET.md</code> (no new approval line; cap unchanged). Re-arm the stop-loss rules from the 2026-04-26 packet against the existing $50 ceiling. Re-pull data 2026-05-22 and ship the next decision packet (expand vs. expire).</li>
+<li><code>EXPIRE</code> — record final spend, post-mortem entry in <code>TODO.md</code>, remove gate. No further AutoBox work on Google Ads until Travis re-opens the lane.</li>
+<li><code>EXTEND ... BID UNCHANGED</code> — same as the conservative path, schedule 2026-05-22 re-pull.</li>
+</ul>
+<h2>What still does not need approval</h2>
+<ul>
+<li>AdSense Auto Ads remain on; passive earnings continue to accrue against the AdSense threshold.</li>
+<li>Conversion event fix from 2026-04-28 is still live and verified by smoke (run 5 of 2026-05-06 confirmed <code>gtag</code> fires once, <code>send_to=AW-18121518600/WxyuCLjh56McEIjcgcFD</code>).</li>
+</ul>
+<h2>Suggested post copy:</h2>
+<p>&gt; PAF Google Ads data is in: 129 imp / 4 clicks / $5.90 / 3.10% CTR / 0 conv. CTR + CPC pass Branch B&#x27;s quality bar but volume was too thin to read conversions. The bid was the binding constraint, not the calendar. Recommend EXTEND to 2026-05-21 with max CPC raised $1.50 → $3.00, $50 cap unchanged. Five-min dashboard edit, no new spend approval needed. Packet at <code>artifacts/2026-05-07-paf-google-ads-data-in-recommendation.md</code>. Reply <code>ADS DECISION: EXTEND TO 2026-05-21, MAX CPC $3.00, $50 CAP UNCHANGED</code>. Cash $162.45.</p></div>
   </section>
 
   <section class="detail-section">

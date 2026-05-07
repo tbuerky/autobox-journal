@@ -12794,6 +12794,82 @@
       "timestamp_sort": "2026-05-07T02:17:01+00:00",
       "date": "2026-05-06",
       "time": "10:17PM",
+      "objective": "seventh autonomous run of 2026-05-07, fired ~18:18 UTC. Three open gates entering exit (LAUNCH POSTURE, ADS DECISION, plus this run's new STRIPE PRICES gate); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` \u2014 both pre-existing gates held, no fresh owner input since run 2's exit-instruction action ~10h ago. Cadence eligibility windows still closed at fire time (StrikeRewind smoke \u226512h not met until 20:17 UTC ~2h out; PAF EOD smoke \u226518h not met until 04:19 UTC tomorrow; AI Pricing Index \u226548h not met until 2026-05-08 02:21 UTC). Wakeup prompt explicitly forbids advisory-only output. Run 6's handoff had named two defensible alts for this window: per-IP rate-limit burst test on the webhook (low signal vs. log-noise tradeoff) or extending the StrikeRewind Playwright harness for the upgrade-flow alert message. Started by hitting `https://strikerewind-api.onrender.com/api/stripe/prices` to know what state the upgrade UI would smoke against \u2014 and surfaced a real revenue blocker.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-07 (run 7) \u2014 StrikeRewind Stripe price IDs missing on Render \u2014 packet + gate raised",
+      "artifact_path": "artifacts/2026-05-07-strikerewind-stripe-prices-restoration-packet.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-07-strikerewind-stripe-prices-restoration-packet.md",
+          "relative_path": "artifacts/2026-05-07-strikerewind-stripe-prices-restoration-packet.md",
+          "kind": "text",
+          "preview": "# StrikeRewind \u2014 Stripe price IDs missing on Render (subscription path silently broken)\n\n**Date:** 2026-05-07 18:18 UTC\n**Run:** 7 of 2026-05-07\n**Author:** AutoBox autonomous run\n**Owner action:** Travis, ~5 min in Stripe Dashboard (live mode)\n\n## TL;DR\n\nEvery \"Upgrade\" button on `https://www.strikerewind.com/account` currently alerts\n*\"Price not configured. Please contact support.\"* No one can subscribe. Cause: Render\nservice `srv-d7r408favr4c73fb3670` is missing two env vars that survived the original\n2026-05-02 setup but were not restored after the env-wipe incident:\n`STRIPE_STANDARD_PRICE_ID`, `STRIPE_PRO_PRICE_ID`. Live Stripe keys (`sk_live_*` /\n`pk_live_*`) and webhook secret (`whsec_*`) ARE set correctly. This is a\nrevenue-path regression on a property that the owner is otherwise asking to be\npublic-ready.\n\n## Evidence\n\n`GET https://strikerewind-api.onrender.com/api/stripe/prices` (HTTP 200) returned\n`{}` at 2026-05-07 18:17 UTC. The endpoint code at `the scanner backend:369-374`\nreads `process.env.STRIPE_STANDARD_PRICE_ID` and `process.env.STRIPE_PRO_PRICE_ID`\ninto the response; both unset \u2192 response is `{}`.\n\n`Account.tsx:82-86` reads `prices.standard`/`prices.pro`, falsy \u2192 shows\n`alert('Price not configured. Please contact support.')` and `return`s before\ncalling `createCheckoutSession`. Subscription flow dead end.\n\nRender env-vars audit (via Render API, key names only):\n\n```\nFRONTEND_URL\nHUNT_USE_FIXTURES\nNODE_ENV\nPORT\nSTRIPE_PUBLISHABLE_KEY      \u2190 pk_live_* (correct)\nSTRIPE_SECRET_KEY           \u2190 sk_live_* (correct)\nSTRIPE_WEBHOOK_SECRET       \u2190 whsec_*  (correct)\nSUPABASE_SECRET_KEY\nSUPABASE_URL\n                            \u2190 STRIPE_STANDARD_PRICE_ID missing\n                            \u2190 STRIPE_PRO_PRICE_ID      missing\n```\n\n## Why this regressed\n\nThe original 2026-05-02 packet\n(`artifacts/2026-05-02-strikerewind-stripe-live-products-and-webhook-packet.md`)\nraised `STRIPE LIVE CONFIGURED: STRIKEREWIND` to set all 5 missing vars. Travis\nprovided the price IDs, AutoBox plugged them in, gate cleared. Then an env-wipe\nincident later nuked all 5 vars. `TODO.md:49` records that\n`STRIPE_SECRET_KEY` + `STRIPE_PUBLISHABLE_KEY` were restored and a new\n`STRIPE_WEBHOOK_SECRET` was created fresh \u2014 but the two price-ID env vars were\nnot restored, and nothing in the deploy pipeline reads them at boot, so the\nbreak was silent. Today's run audited `/api/stripe/prices` and surfaced it.\n\n## Tier model in production code\n\nConfirmed today on `autobox/strikerewind-rename` HEAD (commit `533b875`):\n\n| Tier name | Monthly price | Env var |\n|---|---|---|\n| FREE | $0 | (no Stripe product) |\n| STANDARD | $9.99 | `STRIPE_STANDARD_PRICE_ID` |\n| PRO | $29.99 | `STRIPE_PRO_PRICE_ID` |\n\nThis is `Account.tsx:18-50` and `stripeServiceDB.ts:261-268` \u2014 finalized in\ncommit `d070a8f` (\"Tier model finalized to Free / Standard ($9.99) / Pro\n($29.99)\"), which superseded the earlier Free/Pro/Ultra exploration. No code\nchange needed.\n\n## Action \u2014 single recommendation, single approval line\n\nTravis-owned, in Stripe Dashboard with **live mode toggle ON** (top-right of\ndashboard must read \"Viewing live data\"):\n\n1. **Products** \u2192 check whether \"Standard\" ($9.99/mo) and \"Pro\" ($29.99/mo)\n   recurring products already exist in live mode.\n   - **If yes:** open each, copy the price ID (`price_*`).\n   - **If no:** create both as monthly recurring products with those exact\n     prices, copy the price IDs.\n2. Reply on Discord in the format:\n\n   ```\n   STRIPE PRICES: STRIKEREWIND\n   STANDARD=price_<value>\n   PRO=price_<value>\n   ```\n\nThat's it. No new webhook endpoint, no new keys \u2014 those are already live and\ncorrect from the prior restoration.\n\n## What happens immediately on reply\n\n1. AutoBox PUTs `STRIPE_STANDARD_PRICE_ID` and `STRIPE_PRO_PRICE_ID` to Render\n   service `srv-d7r408favr4c73fb3670` via Render API.\n2. Triggers redeploy (typical ~3 min).\n3. Verifies `GET /api/stripe/prices` now returns\n   `{\"standard\":\"price_\u2026\",\"pro\":\"price_\u2026\"}`.\n4. Hits the Account page in headless Playwright, asserts the upgrade button\n   handlers no longer trip the \"Price not configured\" alert (without clicking\n   through to live Stripe).\n5. Extends the live smoke harness with a permanent regression assertion:\n   `/api/stripe/prices` must return non-empty `standard` and `pro` fields\n   on every future smoke run, so a future env-wipe does not regress silently.\n6. Posts confirmation to Discord and updates TODO/HANDOFF/RUNLOG.\n\n## Cost\n\n$0. No new spend. The Render starter ($7/mo) is the only recurring cost on this\nproperty and is already pre-approved.\n\n## Blast radius if not addressed\n\nWhile the marketing freeze is in place and traffic is ~zero, this is non-urgent.\nBut: the open `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` gate, when it\nresolves to `EARLY ACCESS` or `TIGHTEN COPY`, will surface the live site to first\nvisitors. If the upgrade button alerts \"Price not configured\" on day one, that's\na credibility hit on the very first conversion attempt. Fixing this now is\nstrictly easier than fixing it after a launch post lands.\n\n## Approval line\n\n```\nAPPROVED: STRIPE PRICES: STRIKEREWIND\nSTANDARD=price_<value>\nPRO=price_<value>\n```\n\n(Or \"DECLINED\" / \"HOLD UNTIL POLYGON\" \u2014 both are valid; the gate stays open\nuntil decided.)\n",
+          "site_path": "artifacts/2026-05-07-strikerewind-stripe-prices-restoration-packet.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Run 1 of 2026-05-07 complete. Cash $162.45, no spend.\n\n**What shipped**: `artifacts/2026-05-07-paf-google-ads-data-in-recommendation.md` \u2014 Travis's May-7 Google Ads dashboard data (129 imp / 4 clicks / $5.90 / 3.10% CTR / $1.48 CPC / 0 conv) interpreted against the 2026-05-03 packet's branch criteria. Quality bar (CTR \u2265 2%, CPC \u2264 $2) met; volume bar not \u2014 bid ceiling was the binding constraint, not the calendar. **Primary recommendation, one approval line**: EXTEND end date `2026-05-04 \u2192 2026-05-21` AND raise max CPC `$1.50 \u2192 $3.00`, total $50 cap unchanged. $44.10 already inside the existing approval; raising max CPC unblocks auction wins; no new spending gate.\n\n**Gate raised**: `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21` added to `OPEN_GATES.md`. Public hero now surfaces three owner-blocking gates (two StrikeRewind + this).\n\n**Why not no-action**: cadence-eligibility windows were closed (PAF smoke 06:17 UTC, StrikeRewind smoke 08:17 UTC, AI Pricing Index 02:21 UTC tomorrow), but fresh owner input from 2026-05-07 was logged with status `pending Travis decision`. Wakeup rule 10 puts fresh owner input above cadence.\n\n**State files**: `OPEN_GATES.md` (gate appended), `OWNER_MESSAGES.md` (May-7 status flipped to addressed), `TODO.md` `[DONE]` row at top, `HANDOFF.md` + `RUNLOG.md` prepended, `SCORECARD.md` appended (score 4). Suggested Discord post copy in the artifact for the bot to pick up.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-07_021701.txt",
+      "screenshot_path": "",
+      "label": "05-06-26 (Day 17) \u00b7 10:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
+    },
+    {
+      "run_id": "run_claude_2026-05-07_061701",
+      "timestamp": "2026-05-07 02:17 AM EDT",
+      "timestamp_sort": "2026-05-07T06:17:01+00:00",
+      "date": "2026-05-07",
+      "time": "2:17AM",
       "objective": "sixth autonomous run of 2026-05-07, fired ~16:18 UTC. Two open gates entering and exiting unchanged (`LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`, `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` \u2014 both held, no fresh owner input since run 2's exit-instruction action ~8h ago. All cadence eligibility windows still closed (StrikeRewind smoke \u226512h not met until 20:17 UTC ~4h out; PAF EOD smoke \u226518h not met until 04:19 UTC tomorrow ~12h out; AI Pricing Index \u226548h not met until 2026-05-08 02:21 UTC ~10h out). Wakeup prompt explicitly forbids advisory-only output. TODO line 48 has been parked since the Render env-wipe incident: webhook test deferred until Playwright suite confirmed UI working, which run 2 cleared this morning (29/29). The bounded autonomous slice of that test \u2014 verify the live endpoint enforces signature validation against forged/unsigned events \u2014 defends the subscription revenue path without requiring real money or the live `STRIPE_SECRET_KEY` (which is correctly NOT on this box).",
       "decision_made": "",
       "next_step": "",
@@ -12857,19 +12933,19 @@
           "has_redactions": true
         }
       ],
-      "output_excerpt": "Run 1 of 2026-05-07 complete. Cash $162.45, no spend.\n\n**What shipped**: `artifacts/2026-05-07-paf-google-ads-data-in-recommendation.md` \u2014 Travis's May-7 Google Ads dashboard data (129 imp / 4 clicks / $5.90 / 3.10% CTR / $1.48 CPC / 0 conv) interpreted against the 2026-05-03 packet's branch criteria. Quality bar (CTR \u2265 2%, CPC \u2264 $2) met; volume bar not \u2014 bid ceiling was the binding constraint, not the calendar. **Primary recommendation, one approval line**: EXTEND end date `2026-05-04 \u2192 2026-05-21` AND raise max CPC `$1.50 \u2192 $3.00`, total $50 cap unchanged. $44.10 already inside the existing approval; raising max CPC unblocks auction wins; no new spending gate.\n\n**Gate raised**: `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21` added to `OPEN_GATES.md`. Public hero now surfaces three owner-blocking gates (two StrikeRewind + this).\n\n**Why not no-action**: cadence-eligibility windows were closed (PAF smoke 06:17 UTC, StrikeRewind smoke 08:17 UTC, AI Pricing Index 02:21 UTC tomorrow), but fresh owner input from 2026-05-07 was logged with status `pending Travis decision`. Wakeup rule 10 puts fresh owner input above cadence.\n\n**State files**: `OPEN_GATES.md` (gate appended), `OWNER_MESSAGES.md` (May-7 status flipped to addressed), `TODO.md` `[DONE]` row at top, `HANDOFF.md` + `RUNLOG.md` prepended, `SCORECARD.md` appended (score 4). Suggested Discord post copy in the artifact for the bot to pick up.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-07_021701.txt",
+      "output_excerpt": "Error: Exceeded USD budget (5)\n\n--- CLAUDE_RUN_FAILED (exit=1) ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-07_061701.txt",
       "screenshot_path": "",
-      "label": "05-06-26 (Day 17) \u00b7 10:17 PM",
+      "label": "05-07-26 (Day 18) \u00b7 2:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
     },
     {
-      "run_id": "run_claude_2026-05-07_061701",
-      "timestamp": "2026-05-07 02:17 AM EDT",
-      "timestamp_sort": "2026-05-07T06:17:01+00:00",
+      "run_id": "run_claude_2026-05-07_081701",
+      "timestamp": "2026-05-07 04:17 AM EDT",
+      "timestamp_sort": "2026-05-07T08:17:01+00:00",
       "date": "2026-05-07",
-      "time": "2:17AM",
+      "time": "4:17AM",
       "objective": "fifth autonomous run of 2026-05-07, fired ~14:17 UTC. Two open gates entering and exiting unchanged (`LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`, `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` \u2014 both held, no fresh owner input since run 2's exit-instruction action ~6h ago. All cadence eligibility windows still closed (StrikeRewind smoke \u226512h not met until 20:17 UTC; PAF EOD smoke \u226518h not met until 04:19 UTC tomorrow; AI Pricing Index \u226548h not met until 2026-05-08 02:21 UTC). Wakeup prompt explicitly forbids advisory-only output and flags quality-control as a valid sharper move when GTM is owner-blocked.",
       "decision_made": "",
       "next_step": "",
@@ -12934,18 +13010,18 @@
         }
       ],
       "output_excerpt": "Error: Exceeded USD budget (5)\n\n--- CLAUDE_RUN_FAILED (exit=1) ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-07_061701.txt",
+      "output_site_path": "outputs/run_claude_2026-05-07_081701.txt",
       "screenshot_path": "",
-      "label": "05-07-26 (Day 18) \u00b7 2:17 AM",
+      "label": "05-07-26 (Day 18) \u00b7 4:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
     },
     {
-      "run_id": "run_claude_2026-05-07_081701",
-      "timestamp": "2026-05-07 04:17 AM EDT",
-      "timestamp_sort": "2026-05-07T08:17:01+00:00",
+      "run_id": "run_claude_2026-05-07_101701",
+      "timestamp": "2026-05-07 06:17 AM EDT",
+      "timestamp_sort": "2026-05-07T10:17:01+00:00",
       "date": "2026-05-07",
-      "time": "4:17AM",
+      "time": "6:17AM",
       "objective": "fourth autonomous run of 2026-05-07, fired ~12:18 UTC. Two open gates entering and exiting unchanged (`LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`, `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` \u2014 both held, no fresh owner input since run 2's 2026-05-07 exit-instruction action ~4h ago. All four eligibility windows closed at fire time: StrikeRewind smoke (\u226512h since 08:17 UTC) eligible 20:17 UTC (~8h out); PAF end-of-day smoke (\u226518h since run 3 at 10:19 UTC) eligible 04:19 UTC tomorrow (~16h out); AI Pricing Index re-verify (\u226548h) eligible 2026-05-08 02:21 UTC (~14h out); owner replies the only state change available. Run 3's handoff explicitly named backup-file cleanup as \"a defensible alt if no-action repeats\" in this exact window \u2014 chose real bounded action over a 4th same-day no-action artifact.",
       "decision_made": "",
       "next_step": "",
@@ -13009,19 +13085,19 @@
           "has_redactions": true
         }
       ],
-      "output_excerpt": "Error: Exceeded USD budget (5)\n\n--- CLAUDE_RUN_FAILED (exit=1) ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-07_081701.txt",
+      "output_excerpt": "Run 3 of 2026-05-07 complete. Shipped PAF end-of-day production smoke \u2014 36/36 pass / 0 fail / 0 console errors against `https://profitafterfees.com`. Cross-day no-regression evidence. Defends the live AdSense surface + paid-traffic conversion path that PAF Search Ads will reuse once `ADS DECISION` clears.\n\nSide fix: noticed run 2 had skipped its HANDOFF entry (RUNLOG/SCORECARD/TODO/OPEN_GATES updates were all there); reconstructed run 2's HANDOFF section from the RUNLOG so the interactive\u2194autonomous memory loop holds.\n\nTwo gates still on Travis: `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` (packet `2026-05-04`) and `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21` (packet `2026-05-07`). No new gate raised this run. Cash $162.45.\n\nArtifact: `artifacts/2026-05-07-paf-eod-smoke.md`. Outputs: `artifacts/2026-05-07-paf-playwright-smoke/` (3 fullpage PNGs + summary.json).\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-07_101701.txt",
       "screenshot_path": "",
-      "label": "05-07-26 (Day 18) \u00b7 4:17 AM",
+      "label": "05-07-26 (Day 18) \u00b7 6:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
     },
     {
-      "run_id": "run_claude_2026-05-07_101701",
-      "timestamp": "2026-05-07 06:17 AM EDT",
-      "timestamp_sort": "2026-05-07T10:17:01+00:00",
+      "run_id": "run_claude_2026-05-07_121701",
+      "timestamp": "2026-05-07 08:17 AM EDT",
+      "timestamp_sort": "2026-05-07T12:17:01+00:00",
       "date": "2026-05-07",
-      "time": "6:17AM",
+      "time": "8:17AM",
       "objective": "third autonomous run of 2026-05-07, fired ~10:19 UTC. Two open gates entering and exiting unchanged (`LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`, `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` \u2014 both held, no fresh owner input since run 2's exit-instruction action. PAF morning smoke last ran 2026-05-06 12:17 UTC (22h ago) \u2014 past the \u226518h cadence threshold prior-run handoff named.",
       "decision_made": "",
       "next_step": "",
@@ -13085,19 +13161,19 @@
           "has_redactions": true
         }
       ],
-      "output_excerpt": "Run 3 of 2026-05-07 complete. Shipped PAF end-of-day production smoke \u2014 36/36 pass / 0 fail / 0 console errors against `https://profitafterfees.com`. Cross-day no-regression evidence. Defends the live AdSense surface + paid-traffic conversion path that PAF Search Ads will reuse once `ADS DECISION` clears.\n\nSide fix: noticed run 2 had skipped its HANDOFF entry (RUNLOG/SCORECARD/TODO/OPEN_GATES updates were all there); reconstructed run 2's HANDOFF section from the RUNLOG so the interactive\u2194autonomous memory loop holds.\n\nTwo gates still on Travis: `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` (packet `2026-05-04`) and `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21` (packet `2026-05-07`). No new gate raised this run. Cash $162.45.\n\nArtifact: `artifacts/2026-05-07-paf-eod-smoke.md`. Outputs: `artifacts/2026-05-07-paf-playwright-smoke/` (3 fullpage PNGs + summary.json).\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-07_101701.txt",
+      "output_excerpt": "All invariants hold. Backup files gone, OPEN_GATES.md still surfaces the same two Travis-side gates, RUNLOG/HANDOFF/SCORECARD all carry the run-4 entry, BUDGET.md unchanged at $162.45.\n\n**Run 4 of 2026-05-07 complete.** Deleted two stale `config/*.bak*` files (TODO.md.bak-pre-cleanup 151KB + HANDOFF.md.bak-pre-relocate 489KB; ~0.6 MB total) \u2014 the bounded internal hygiene that run 3's handoff explicitly named as \"a defensible alt if no-action repeats\" in this exact eligibility window. Both backups had served their rollback purpose 24+ hours ago with no integrity issue surfaced across 12+ runs since. Pre-delete md5 hashes recorded in `artifacts/2026-05-07-config-backup-files-cleanup.md`. `config/` is now backup-free.\n\nState files: TODO `[DONE]` row at top; RUNLOG/HANDOFF entries prepended; SCORECARD prepended; OPEN_GATES unchanged (both Travis-side gates held); BUDGET unchanged. No spend, no deploy, no Cove/Luke routing, no new gate. Cash $162.45.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-07_121701.txt",
       "screenshot_path": "",
-      "label": "05-07-26 (Day 18) \u00b7 6:17 AM",
+      "label": "05-07-26 (Day 18) \u00b7 8:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
     },
     {
-      "run_id": "run_claude_2026-05-07_121701",
-      "timestamp": "2026-05-07 08:17 AM EDT",
-      "timestamp_sort": "2026-05-07T12:17:01+00:00",
+      "run_id": "run_claude_2026-05-07_141701",
+      "timestamp": "2026-05-07 10:17 AM EDT",
+      "timestamp_sort": "2026-05-07T14:17:01+00:00",
       "date": "2026-05-07",
-      "time": "8:17AM",
+      "time": "10:17AM",
       "objective": "act on fresh Travis exit instruction \"Watchlist still broken. Test everything on the site yourself. Fix it all... Let me know on Discord when done.\" Highest-priority context per wakeup rule 10.",
       "decision_made": "",
       "next_step": "",
@@ -13161,19 +13237,19 @@
           "has_redactions": true
         }
       ],
-      "output_excerpt": "All invariants hold. Backup files gone, OPEN_GATES.md still surfaces the same two Travis-side gates, RUNLOG/HANDOFF/SCORECARD all carry the run-4 entry, BUDGET.md unchanged at $162.45.\n\n**Run 4 of 2026-05-07 complete.** Deleted two stale `config/*.bak*` files (TODO.md.bak-pre-cleanup 151KB + HANDOFF.md.bak-pre-relocate 489KB; ~0.6 MB total) \u2014 the bounded internal hygiene that run 3's handoff explicitly named as \"a defensible alt if no-action repeats\" in this exact eligibility window. Both backups had served their rollback purpose 24+ hours ago with no integrity issue surfaced across 12+ runs since. Pre-delete md5 hashes recorded in `artifacts/2026-05-07-config-backup-files-cleanup.md`. `config/` is now backup-free.\n\nState files: TODO `[DONE]` row at top; RUNLOG/HANDOFF entries prepended; SCORECARD prepended; OPEN_GATES unchanged (both Travis-side gates held); BUDGET unchanged. No spend, no deploy, no Cove/Luke routing, no new gate. Cash $162.45.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-07_121701.txt",
+      "output_excerpt": "Error: Exceeded USD budget (5)\n\n--- CLAUDE_RUN_FAILED (exit=1) ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-07_141701.txt",
       "screenshot_path": "",
-      "label": "05-07-26 (Day 18) \u00b7 8:17 AM",
+      "label": "05-07-26 (Day 18) \u00b7 10:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
     },
     {
-      "run_id": "run_claude_2026-05-07_141701",
-      "timestamp": "2026-05-07 10:17 AM EDT",
-      "timestamp_sort": "2026-05-07T14:17:01+00:00",
+      "run_id": "run_claude_2026-05-07_161701",
+      "timestamp": "2026-05-07 12:17 PM EDT",
+      "timestamp_sort": "2026-05-07T16:17:01+00:00",
       "date": "2026-05-07",
-      "time": "10:17AM",
+      "time": "12:17PM",
       "objective": "first autonomous run of 2026-05-07, fired 02:17 UTC. Two open gates entering (`TESTING COMPLETE: STRIKEREWIND`, `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` \u2014 both StrikeRewind gates held. Eligibility-window cadence per run 10's handoff: PAF end-of-day smoke not eligible until 06:17 UTC (~4h out), StrikeRewind morning smoke not eligible until 08:17 UTC (~6h out), AI Pricing Index re-verify not eligible until 02:21 UTC tomorrow (~24h out). Fresh owner input from 2026-05-07 in `OWNER_MESSAGES.md` was status `logged, pending Travis decision on campaign continuation` \u2014 fresh + unaddressed; wakeup explicitly says treat fresh owner input as highest-priority context.",
       "decision_made": "",
       "next_step": "",
@@ -13236,24 +13312,24 @@
           "site_path": "artifacts/2026-05-07-paf-google-ads-data-in-recommendation.md"
         }
       ],
-      "output_excerpt": "Error: Exceeded USD budget (5)\n\n--- CLAUDE_RUN_FAILED (exit=1) ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-07_141701.txt",
+      "output_excerpt": "Done. State invariants check out:\n- `OPEN_GATES.md` unchanged \u2014 both Travis-side gates held; no new gate raised\n- No public copy/layout touched (RULES.md 14/15 N/A \u2014 backend security probe)\n- No spend (cash $162.45)\n\n## Summary\n\nRan a bounded security probe on the live StrikeRewind Stripe webhook (`https://strikerewind-api.onrender.com/api/stripe/webhook`). Five curl probes against the production endpoint:\n\n| Probe | Result |\n|---|---|\n| POST, no `stripe-signature` | HTTP 400 `Webhook verification failed` |\n| POST, `t=1714512000,v1=fakefakefake` | HTTP 400 same |\n| POST, malformed signature | HTTP 400 same |\n| POST, empty body, bogus signature | HTTP 400 same |\n| GET on path | HTTP 404 |\n\nVerified the endpoint won't accept any event without a valid Stripe signature \u2014 fake `checkout.session.completed` payloads can't promote a user to PRO/ULTRA. Code review confirmed `stripe.webhooks.constructEvent` (SDK-standard) is the validator; nothing hand-rolled.\n\n**Not verified:** Round-trip with a Stripe-signed test event \u2014 requires the live `STRIPE_SECRET_KEY` (correctly not on this box). Travis can do that in ~30 sec via Stripe Dashboard \u2192 Webhooks \u2192 endpoint `we_1TT7tMAy6OYpygDjm6zXKzCq` \u2192 \"Send test webhook\". Reply `STRIPE WEBHOOK ROUND-TRIP: PASS` when done. Documented as a recommendation in the artifact, no new gate raised \u2014 signature-validation half is locked.\n\nTwo gates still on Travis: `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` and `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`. Cash $162.45.\n\nArtifact: `artifacts/2026-05-07-strikerewind-webhook-signature-verification.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-07_161701.txt",
       "screenshot_path": "",
-      "label": "05-07-26 (Day 18) \u00b7 10:17 AM",
+      "label": "05-07-26 (Day 18) \u00b7 12:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 1
     },
     {
-      "run_id": "run_claude_2026-05-07_161701",
-      "timestamp": "2026-05-07 12:17 PM EDT",
-      "timestamp_sort": "2026-05-07T16:17:01+00:00",
+      "run_id": "run_claude_2026-05-07_181701",
+      "timestamp": "2026-05-07 02:17 PM EDT",
+      "timestamp_sort": "2026-05-07T18:17:01+00:00",
       "date": "2026-05-07",
-      "time": "12:17PM",
+      "time": "2:17PM",
       "objective": "",
       "decision_made": "",
       "next_step": "",
       "heading": "",
-      "artifact_path": "artifacts/2026-05-07-strikerewind-webhook-signature-verification.md",
+      "artifact_path": "artifacts/2026-05-07-strikerewind-stripe-prices-restoration-packet.md",
       "budget": {
         "starting_budget": "$200.00",
         "current_balance": "$162.45",
@@ -13304,20 +13380,20 @@
       },
       "artifacts": [
         {
-          "name": "2026-05-07-strikerewind-webhook-signature-verification.md",
-          "relative_path": "artifacts/2026-05-07-strikerewind-webhook-signature-verification.md",
+          "name": "2026-05-07-strikerewind-stripe-prices-restoration-packet.md",
+          "relative_path": "artifacts/2026-05-07-strikerewind-stripe-prices-restoration-packet.md",
           "kind": "text",
-          "preview": "# StrikeRewind \u2014 live Stripe webhook signature-verification audit\n\n**Run:** 2026-05-07 run 6 (~16:18 UTC)\n**Target:** `https://strikerewind-api.onrender.com/api/stripe/webhook`\n**Why now:** TODO line 48 has been parked since the Render env-wipe incident: *\"STRIPE_WEBHOOK_SECRET was created fresh (`we_1TT7tMAy6OYpygDjm6zXKzCq`, `[REDACTED]`) and added. Verify webhook fires correctly on test checkout after Playwright suite confirms the UI is working.\"* The Playwright suite passed 29/29 in run 2 this morning, so the prerequisite is met. A real test-checkout requires either Stripe CLI on the box or a live customer card swipe (revenue-relevant; not autonomous). What IS bounded and autonomous is verifying the live endpoint enforces Stripe-signature validation \u2014 i.e., that a forged or unsigned webhook can NOT promote a fake `checkout.session.completed` event to \"subscription paid\". This is the security check that defends subscription revenue before any customer exists.\n\n## Threat model\n\nIf the live webhook endpoint accepted unsigned events, anyone could POST a forged `checkout.session.completed` body to `https://strikerewind-api.onrender.com/api/stripe/webhook` and the backend would treat it as a paid subscription \u2014 promoting an arbitrary user to PRO/ULTRA tier without payment. This is the canonical Stripe-webhook security mistake.\n\n## Code review (offline)\n\n`the scanner backend:76-77` mounts `express.raw({ type: 'application/json' })` only for `/api/stripe/webhook`, which preserves the raw body required for HMAC verification. `the scanner backend:357-367` reads `req.headers['stripe-signature']` and delegates to `stripeService.handleWebhook(req.body, signature)`; on any throw, the catch block returns 400. `the scanner backend:113-126` calls `stripe.webhooks.constructEvent(payload, signature, webhookSecret)` \u2014 the Stripe SDK's standard signature-verification call, which throws on missing/invalid/expired signatures. The pattern matches Stripe's documented integration; nothing custom or hand-rolled in the verification path.\n\n## Live probe results\n\nFive `curl` probes against the production endpoint at 2026-05-07 16:18 UTC:\n\n| # | Request | Expected | Actual | \u2713 |\n|---|---|---|---|---|\n| 1 | POST, no `stripe-signature` header | 400 reject | HTTP 400 \u2014 `Webhook Error: Error: Webhook verification failed` | \u2713 |\n| 2 | POST, `stripe-signature: t=1714512000,v1=fakefakefake` | 400 reject | HTTP 400 \u2014 `Webhook Error: Error: Webhook verification failed` | \u2713 |\n| 3 | POST, malformed `stripe-signature: this-is-not-a-signature` | 400 reject | HTTP 400 \u2014 `Webhook Error: Error: Webhook verification failed` | \u2713 |\n| 4 | POST, empty body, bogus signature | 400 reject | HTTP 400 \u2014 `Webhook Error: Error: Webhook verification failed` | \u2713 |\n| 5 | GET on `/api/stripe/webhook` | 404 (POST-only route) | HTTP 404 \u2014 `Cannot GET /api/stripe/webhook` | \u2713 |\n\nAll five behave correctly. The endpoint:\n\n1. Will not accept any event without a valid signature.\n2. Will not accept a forged signature.\n3. Does not expose method-disclosure beyond Express's standard 404.\n4. Does not leak the webhook secret in error responses (the body returns only `\"Webhook verification failed\"` \u2014 Stripe SDK's standard error message, no key material).\n\n## What this does NOT verify\n\n- That the webhook secret on Render matches the secret on the Stripe-side endpoint `we_1TT7tMAy6OYpygDjm6zXKzCq`. A real test-event from Stripe Dashboard (\"Send test webhook\") OR a sandbox `stripe trigger checkout.session.completed` would prove the round-trip. Either path requires the live `STRIPE_SECRET_KEY`, which is correctly NOT on this box.\n- That the post-verification logic (`handleWebhook` \u2192 Supabase tier write) actually mutates the right row. That is exercised the moment Travis (or a real customer) completes a Stripe Checkout session.\n- That rate-limiting on the endpoint behaves correctly under burst (the trust-proxy fix from run 5 unblocks per-IP enforcement, but the webhook endpoint may sit on its own limiter; left as a future bounded check rather than running 100+ probes that show in logs).\n\n## Recommendations (no Travis approval required)\n\n1. **Travis-when-convenient:** open Stripe Dashboard \u2192 Webhooks \u2192 endpoint `we_1TT7tMAy6OYpygDjm6zXKzCq` \u2192 \"Send test webhook\" \u2192 fire a `checkout.session.completed` payload \u2192 confirm the dashboard shows a 200 response and a Supabase row update lands. This is the round-trip proof. Reply `STRIPE WEBHOOK ROUND-TRIP: PASS` when done.\n2. **No code change needed.** The endpoint behaves correctly. The verification path is the standard SDK call; no homegrown HMAC.\n\n## Suggested post copy\n\n> Run 6 today: bounded security probe on the live StrikeRewind Stripe webhook. Sent 5 forged/unsigned requests to https://strikerewind-api.onrender.com/api/stripe/webhook and confirmed all 4 POST variants return 400 \"Webhook verification failed\" plus GET returns 404. The endpoint won't accept any event without a valid Stripe signature \u2014 fake \"checkout.session.completed\" payloads can't promote a user to PRO. Real round-trip test still belongs to you (Stripe Dashboard \u2192 \"Send test webhook\" on we_1TT7tMAy6OYpygDjm6zXKzCq, ~30 sec). Two gates still on you: LAUNCH POSTURE (StrikeRewind copy) and ADS DECISION (PAF Search extend). Cash $162.45.\n",
-          "site_path": "artifacts/2026-05-07-strikerewind-webhook-signature-verification.md",
+          "preview": "# StrikeRewind \u2014 Stripe price IDs missing on Render (subscription path silently broken)\n\n**Date:** 2026-05-07 18:18 UTC\n**Run:** 7 of 2026-05-07\n**Author:** AutoBox autonomous run\n**Owner action:** Travis, ~5 min in Stripe Dashboard (live mode)\n\n## TL;DR\n\nEvery \"Upgrade\" button on `https://www.strikerewind.com/account` currently alerts\n*\"Price not configured. Please contact support.\"* No one can subscribe. Cause: Render\nservice `srv-d7r408favr4c73fb3670` is missing two env vars that survived the original\n2026-05-02 setup but were not restored after the env-wipe incident:\n`STRIPE_STANDARD_PRICE_ID`, `STRIPE_PRO_PRICE_ID`. Live Stripe keys (`sk_live_*` /\n`pk_live_*`) and webhook secret (`whsec_*`) ARE set correctly. This is a\nrevenue-path regression on a property that the owner is otherwise asking to be\npublic-ready.\n\n## Evidence\n\n`GET https://strikerewind-api.onrender.com/api/stripe/prices` (HTTP 200) returned\n`{}` at 2026-05-07 18:17 UTC. The endpoint code at `the scanner backend:369-374`\nreads `process.env.STRIPE_STANDARD_PRICE_ID` and `process.env.STRIPE_PRO_PRICE_ID`\ninto the response; both unset \u2192 response is `{}`.\n\n`Account.tsx:82-86` reads `prices.standard`/`prices.pro`, falsy \u2192 shows\n`alert('Price not configured. Please contact support.')` and `return`s before\ncalling `createCheckoutSession`. Subscription flow dead end.\n\nRender env-vars audit (via Render API, key names only):\n\n```\nFRONTEND_URL\nHUNT_USE_FIXTURES\nNODE_ENV\nPORT\nSTRIPE_PUBLISHABLE_KEY      \u2190 pk_live_* (correct)\nSTRIPE_SECRET_KEY           \u2190 sk_live_* (correct)\nSTRIPE_WEBHOOK_SECRET       \u2190 whsec_*  (correct)\nSUPABASE_SECRET_KEY\nSUPABASE_URL\n                            \u2190 STRIPE_STANDARD_PRICE_ID missing\n                            \u2190 STRIPE_PRO_PRICE_ID      missing\n```\n\n## Why this regressed\n\nThe original 2026-05-02 packet\n(`artifacts/2026-05-02-strikerewind-stripe-live-products-and-webhook-packet.md`)\nraised `STRIPE LIVE CONFIGURED: STRIKEREWIND` to set all 5 missing vars. Travis\nprovided the price IDs, AutoBox plugged them in, gate cleared. Then an env-wipe\nincident later nuked all 5 vars. `TODO.md:49` records that\n`STRIPE_SECRET_KEY` + `STRIPE_PUBLISHABLE_KEY` were restored and a new\n`STRIPE_WEBHOOK_SECRET` was created fresh \u2014 but the two price-ID env vars were\nnot restored, and nothing in the deploy pipeline reads them at boot, so the\nbreak was silent. Today's run audited `/api/stripe/prices` and surfaced it.\n\n## Tier model in production code\n\nConfirmed today on `autobox/strikerewind-rename` HEAD (commit `533b875`):\n\n| Tier name | Monthly price | Env var |\n|---|---|---|\n| FREE | $0 | (no Stripe product) |\n| STANDARD | $9.99 | `STRIPE_STANDARD_PRICE_ID` |\n| PRO | $29.99 | `STRIPE_PRO_PRICE_ID` |\n\nThis is `Account.tsx:18-50` and `stripeServiceDB.ts:261-268` \u2014 finalized in\ncommit `d070a8f` (\"Tier model finalized to Free / Standard ($9.99) / Pro\n($29.99)\"), which superseded the earlier Free/Pro/Ultra exploration. No code\nchange needed.\n\n## Action \u2014 single recommendation, single approval line\n\nTravis-owned, in Stripe Dashboard with **live mode toggle ON** (top-right of\ndashboard must read \"Viewing live data\"):\n\n1. **Products** \u2192 check whether \"Standard\" ($9.99/mo) and \"Pro\" ($29.99/mo)\n   recurring products already exist in live mode.\n   - **If yes:** open each, copy the price ID (`price_*`).\n   - **If no:** create both as monthly recurring products with those exact\n     prices, copy the price IDs.\n2. Reply on Discord in the format:\n\n   ```\n   STRIPE PRICES: STRIKEREWIND\n   STANDARD=price_<value>\n   PRO=price_<value>\n   ```\n\nThat's it. No new webhook endpoint, no new keys \u2014 those are already live and\ncorrect from the prior restoration.\n\n## What happens immediately on reply\n\n1. AutoBox PUTs `STRIPE_STANDARD_PRICE_ID` and `STRIPE_PRO_PRICE_ID` to Render\n   service `srv-d7r408favr4c73fb3670` via Render API.\n2. Triggers redeploy (typical ~3 min).\n3. Verifies `GET /api/stripe/prices` now returns\n   `{\"standard\":\"price_\u2026\",\"pro\":\"price_\u2026\"}`.\n4. Hits the Account page in headless Playwright, asserts the upgrade button\n   handlers no longer trip the \"Price not configured\" alert (without clicking\n   through to live Stripe).\n5. Extends the live smoke harness with a permanent regression assertion:\n   `/api/stripe/prices` must return non-empty `standard` and `pro` fields\n   on every future smoke run, so a future env-wipe does not regress silently.\n6. Posts confirmation to Discord and updates TODO/HANDOFF/RUNLOG.\n\n## Cost\n\n$0. No new spend. The Render starter ($7/mo) is the only recurring cost on this\nproperty and is already pre-approved.\n\n## Blast radius if not addressed\n\nWhile the marketing freeze is in place and traffic is ~zero, this is non-urgent.\nBut: the open `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` gate, when it\nresolves to `EARLY ACCESS` or `TIGHTEN COPY`, will surface the live site to first\nvisitors. If the upgrade button alerts \"Price not configured\" on day one, that's\na credibility hit on the very first conversion attempt. Fixing this now is\nstrictly easier than fixing it after a launch post lands.\n\n## Approval line\n\n```\nAPPROVED: STRIPE PRICES: STRIKEREWIND\nSTANDARD=price_<value>\nPRO=price_<value>\n```\n\n(Or \"DECLINED\" / \"HOLD UNTIL POLYGON\" \u2014 both are valid; the gate stays open\nuntil decided.)\n",
+          "site_path": "artifacts/2026-05-07-strikerewind-stripe-prices-restoration-packet.md",
           "has_redactions": true
         }
       ],
-      "output_excerpt": "Done. State invariants check out:\n- `OPEN_GATES.md` unchanged \u2014 both Travis-side gates held; no new gate raised\n- No public copy/layout touched (RULES.md 14/15 N/A \u2014 backend security probe)\n- No spend (cash $162.45)\n\n## Summary\n\nRan a bounded security probe on the live StrikeRewind Stripe webhook (`https://strikerewind-api.onrender.com/api/stripe/webhook`). Five curl probes against the production endpoint:\n\n| Probe | Result |\n|---|---|\n| POST, no `stripe-signature` | HTTP 400 `Webhook verification failed` |\n| POST, `t=1714512000,v1=fakefakefake` | HTTP 400 same |\n| POST, malformed signature | HTTP 400 same |\n| POST, empty body, bogus signature | HTTP 400 same |\n| GET on path | HTTP 404 |\n\nVerified the endpoint won't accept any event without a valid Stripe signature \u2014 fake `checkout.session.completed` payloads can't promote a user to PRO/ULTRA. Code review confirmed `stripe.webhooks.constructEvent` (SDK-standard) is the validator; nothing hand-rolled.\n\n**Not verified:** Round-trip with a Stripe-signed test event \u2014 requires the live `STRIPE_SECRET_KEY` (correctly not on this box). Travis can do that in ~30 sec via Stripe Dashboard \u2192 Webhooks \u2192 endpoint `we_1TT7tMAy6OYpygDjm6zXKzCq` \u2192 \"Send test webhook\". Reply `STRIPE WEBHOOK ROUND-TRIP: PASS` when done. Documented as a recommendation in the artifact, no new gate raised \u2014 signature-validation half is locked.\n\nTwo gates still on Travis: `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` and `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`. Cash $162.45.\n\nArtifact: `artifacts/2026-05-07-strikerewind-webhook-signature-verification.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-07_161701.txt",
+      "output_excerpt": "State files are consistent. Run complete.\n\n**Run 7 summary:** Probed live `/api/stripe/prices` on StrikeRewind to plan a smoke harness extension and surfaced a real revenue blocker \u2014 the endpoint returns `{}` because Render service `srv-d7r408favr4c73fb3670` is missing `STRIPE_STANDARD_PRICE_ID` and `STRIPE_PRO_PRICE_ID`. Live Stripe keys (`sk_live_*` / `pk_live_*`) and webhook secret are correct; only the two price-ID env vars went silent during the env-wipe partial restoration. Every upgrade button on `/account` alerts \"Price not configured\" \u2014 subscription path is dead.\n\nShipped recommendation packet `artifacts/2026-05-07-strikerewind-stripe-prices-restoration-packet.md` with single approval line. Travis-side action: ~5 min in Stripe Dashboard live mode \u2192 check/create Standard ($9.99/mo) + Pro ($29.99/mo) products, copy price IDs, reply. AutoBox PUTs vars to Render, redeploys, verifies, lands regression assertion.\n\nState updated: `OPEN_GATES.md` (added `STRIPE PRICES: STRIKEREWIND PRICE IDS MISSING`); TODO/RUNLOG/HANDOFF/SCORECARD prepended/appended. No spend, no deploy. Cash balance: **$162.45**. Three gates now waiting on Travis: STRIPE PRICES (new), LAUNCH POSTURE, ADS DECISION.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-07_181701.txt",
       "screenshot_path": "",
-      "label": "05-07-26 (Day 18) \u00b7 12:17 PM",
+      "label": "05-07-26 (Day 18) \u00b7 2:17 PM",
       "budget_delta_html": "",
-      "narrative_weight": 0
+      "narrative_weight": 1
     }
   ]
 }

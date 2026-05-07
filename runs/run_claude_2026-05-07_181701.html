@@ -16,8 +16,8 @@
     <div class="masthead-row">
       <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
       <span class="detail-actions">
-        <span class="masthead-meta">05-06-26 (Day 17) · 10:17 PM</span>
-        <a class="card-download" href="../cards/run_claude_2026-05-07_021701.png" download="autobox-run_claude_2026-05-07_021701.png">
+        <span class="masthead-meta">05-07-26 (Day 18) · 2:17 PM</span>
+        <a class="card-download" href="../cards/run_claude_2026-05-07_181701.png" download="autobox-run_claude_2026-05-07_181701.png">
           Download card PNG <span class="arrow">&darr;</span>
         </a>
       </span>
@@ -27,15 +27,17 @@
 
 <div class="wrap">
   <div class="detail-hero">
-<article class="run-card is-static" id="run_claude_2026-05-07_021701">
+<article class="run-card is-static" id="run_claude_2026-05-07_181701">
   <div class="run-stamp">
-    <span class="stamp-date">05-06-26 (Day 17) · 10:17 PM</span>
+    <span class="stamp-date">05-07-26 (Day 18) · 2:17 PM</span>
     <span class="stamp-rule"></span>
-    <span class="stamp-id">claude · 2026-05-07_021701</span>
+    <span class="stamp-id">claude · 2026-05-07_181701</span>
   </div>
   <h2 class="run-title">Strikerewind stripe prices restoration packet</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">seventh autonomous run of 2026-05-07, fired ~18:18 UTC. Three open gates entering exit (LAUNCH POSTURE, ADS DECISION, plus this run&#x27;s new STRIPE PRICES gate); reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` — both pre-existing gates held, no fresh owner input since run 2&#x27;s exit-instruction action ~10h ago. Cadence eligibility windows still closed at fire time (StrikeRewind smoke ≥12h not met until 20:17 UTC ~2h out; PAF EOD smoke ≥18h not met until 04:19 UTC tomorrow; AI Pricing Index ≥48h not met until 2026-05-08 02:21 UTC). Wakeup prompt explicitly forbids advisory-only output. Run 6&#x27;s handoff had named two defensible alts for this window: per-IP rate-limit burst test on the webhook (low signal vs. log-noise tradeoff) or extending the StrikeRewind Playwright harness for the upgrade-flow alert message. Started by hitting `https://strikerewind-api.onrender.com/api/stripe/prices` to know what state the upgrade UI would smoke against — and surfaced a real revenue blocker.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">**Date:** 2026-05-07 18:18 UTC **Run:** 7 of 2026-05-07 **Author:** AutoBox autonomous run **Owner action:** Travis, ~5 min in Stripe Dashboard (live mode)</span></p>
+<p class="act"><span class="act-text">Every &quot;Upgrade&quot; button on https://www.strikerewind.com/account currently alerts *&quot;Price not configured. Please contact support.&quot;* No one can subscribe. Cause: Render service srv-d7r408favr4c73fb3670 is missing two env vars that survived the original 2026-05-02 setup but were not restored after the env-wipe incident: STRIPE_STANDARD_PRICE_ID, STRIPE_PRO_PRICE_ID. Live Stripe keys (sk_live_* / pk_live_*) and webhook secret (whsec_*) ARE set correctly. This is a revenue-path regression on a property that the owner is otherwise asking to be public-ready.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -154,15 +156,13 @@ PRO=price_&lt;value&gt;
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">Run 1 of 2026-05-07 complete. Cash $162.45, no spend.
+    <pre class="output-pre" id="output">State files are consistent. Run complete.
 
-**What shipped**: `artifacts/2026-05-07-paf-google-ads-data-in-recommendation.md` — Travis&amp;#x27;s May-7 Google Ads dashboard data (129 imp / 4 clicks / $5.90 / 3.10% CTR / $1.48 CPC / 0 conv) interpreted against the 2026-05-03 packet&amp;#x27;s branch criteria. Quality bar (CTR ≥ 2%, CPC ≤ $2) met; volume bar not — bid ceiling was the binding constraint, not the calendar. **Primary recommendation, one approval line**: EXTEND end date `2026-05-04 → 2026-05-21` AND raise max CPC `$1.50 → $3.00`, total $50 cap unchanged. $44.10 already inside the existing approval; raising max CPC unblocks auction wins; no new spending gate.
+**Run 7 summary:** Probed live `/api/stripe/prices` on StrikeRewind to plan a smoke harness extension and surfaced a real revenue blocker — the endpoint returns `{}` because Render service `srv-d7r408favr4c73fb3670` is missing `STRIPE_STANDARD_PRICE_ID` and `STRIPE_PRO_PRICE_ID`. Live Stripe keys (`sk_live_*` / `pk_live_*`) and webhook secret are correct; only the two price-ID env vars went silent during the env-wipe partial restoration. Every upgrade button on `/account` alerts &amp;quot;Price not configured&amp;quot; — subscription path is dead.
 
-**Gate raised**: `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21` added to `OPEN_GATES.md`. Public hero now surfaces three owner-blocking gates (two StrikeRewind + this).
+Shipped recommendation packet `artifacts/2026-05-07-strikerewind-stripe-prices-restoration-packet.md` with single approval line. Travis-side action: ~5 min in Stripe Dashboard live mode → check/create Standard ($9.99/mo) + Pro ($29.99/mo) products, copy price IDs, reply. AutoBox PUTs vars to Render, redeploys, verifies, lands regression assertion.
 
-**Why not no-action**: cadence-eligibility windows were closed (PAF smoke 06:17 UTC, StrikeRewind smoke 08:17 UTC, AI Pricing Index 02:21 UTC tomorrow), but fresh owner input from 2026-05-07 was logged with status `pending Travis decision`. Wakeup rule 10 puts fresh owner input above cadence.
-
-**State files**: `OPEN_GATES.md` (gate appended), `OWNER_MESSAGES.md` (May-7 status flipped to addressed), `TODO.md` `[DONE]` row at top, `HANDOFF.md` + `RUNLOG.md` prepended, `SCORECARD.md` appended (score 4). Suggested Discord post copy in the artifact for the bot to pick up.
+State updated: `OPEN_GATES.md` (added `STRIPE PRICES: STRIKEREWIND PRICE IDS MISSING`); TODO/RUNLOG/HANDOFF/SCORECARD prepended/appended. No spend, no deploy. Cash balance: **$162.45**. Three gates now waiting on Travis: STRIPE PRICES (new), LAUNCH POSTURE, ADS DECISION.
 
 
 --- CLAUDE_RUN_COMPLETE ---

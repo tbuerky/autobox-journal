@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind pivot commit 2 overnight scheduler &middot; AutoBox</title>
+<title>Strikerewind morning smoke &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,10 +33,9 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-08_121701</span>
   </div>
-  <h2 class="run-title">Strikerewind pivot commit 2 overnight scheduler</h2>
+  <h2 class="run-title">Strikerewind morning smoke</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">Travis just finished an interactive session today (2026-05-08 ET handoff) and explicitly told AutoBox the StrikeRewind app is &quot;ready for Travis e2e testing&quot; — meaning he owns the active QA window. Pile-on code work on StrikeRewind would risk false test failures during his window. PAF carries Google Ads + AdSense (live earning surface); silent regression on the apex calculator or the conversion fire would burn paid spend undetected. Last EOD smoke 2026-05-07 10:20 UTC; ~16h cadence cleared. Cheapest evidence that the earning asset is intact while Travis owns the StrikeRewind testing window.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">ran existing `workspace/paf_smoke.mjs` Playwright harness against `https://profitafterfees.com`. 36 assertions: apex 200 + form fields, conversion gtag fires-once + correct send_to + once-semantic across additional input, calculator math (net $40.84, revenue ex-VAT $75.00, Stripe $2.91, affiliate $22.50, verdict headline), 5 calculator pages (200 + scenario CTA carries `/?listPrice=` deep link), AI Model Pricing Index (200 + &quot;Last verified May 6, 2026&quot; + 6 model rows), AI Feature Cost Calculator (200), mobile 390px (no horizontal overflow + form visible), `/privacy/` (200), `/ads.txt` (200 + correct AdSense pub id).</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">third autonomous run of 2026-05-08, fired ~08:17 UTC. Reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md`: Travis hand-edited the file between yesterday&#x27;s run 9 and now — removed `STRIPE PRICES: STRIKEREWIND PRICE IDS MISSING` (resolved) and `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` (resolved), added `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`. Two gates standing entering and exiting: `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`, `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`. StrikeRewind ≥12h smoke cadence cleared exactly at fire time (run 8 of 2026-05-07 was 20:17 UTC). Run 9 of 2026-05-07 deployed the `trial_period_days` removal + trialing/active fix (`9e1184a`); this is the first morning smoke after that deploy.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -45,56 +44,34 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeRewind pivot — Commit 2: overnight scheduler job</h1>
-<p><strong>Run:</strong> 5 of 2026-05-08</p>
-<p><strong>Branch:</strong> <code>autobox/strikerewind-rename</code></p>
-<p><strong>Commit:</strong> <code>eed78fc</code></p>
-<p><strong>Status:</strong> shipped to GitHub; not yet wired into any cron; not yet executed against the live DB</p>
-<h2>What shipped</h2>
-<p><code>the scanner backend</code> (new file, 137 lines) plus <code>computeSpreadResults.test.ts</code> (14 deterministic tests). One small additive change to <code>the scanner backend</code> — extended <code>SpreadResultRow</code> with the optional pivot columns added in Commit 1b so the TS type matches the post-migration physical schema.</p>
-<h3>Pieces</h3>
-<p>1. <strong><code>winRateResultsToWarehouseRows(results, asOfDate)</code></strong> — pure mapping from <code>WinRateResult[]</code> to <code>SpreadResultRow[]</code>. Bridges:</p>
+    <div class="artifact-prose"><h1>StrikeRewind morning production smoke — 2026-05-08</h1>
+<p><strong>Run:</strong> 3 of 2026-05-08, fired ~08:17 UTC.</p>
+<p><strong>Target:</strong> <code>https://www.strikerewind.com</code></p>
+<p><strong>Result:</strong> <strong>35 / 35 PASS · 0 FAIL · 0 unfiltered console errors</strong></p>
+<p><strong>Bundle:</strong> <code>artifacts/2026-05-08-strikerewind-morning-smoke/</code> (9 fullpage PNGs + <code>summary.json</code>)</p>
+<h2>Why this run</h2>
 <ul>
-<li><code>direction</code> ∈ {<code>bull_put</code>,<code>bear_call</code>} → <code>spread_type</code> ∈ {<code>PUT</code>,<code>CALL</code>} (legacy NOT NULL)</li>
-<li><code>otmPct</code> (decimal) → <code>otm_percentage</code> (×100, two decimals; legacy NOT NULL)</li>
-<li><code>dteWeeks</code> → <code>timeframe_weeks</code> (legacy NOT NULL)</li>
-<li><code>winRate</code> → <code>win_rate</code> (decimal 0..1; pivot semantics; spec §5 expects <code>&gt;= 0.60</code> filter)</li>
-<li><code>minPremium100</code> → <code>premium</code> (legacy NOT NULL repurposed as the credit floor)</li>
-<li><code>observationCount</code> → <code>total_trades</code> (legacy NOT NULL repurposed as sample size)</li>
-<li>All eight new pivot columns populated: <code>otm_pct</code>, <code>dte_weeks</code>, <code>direction</code>, <code>observation_count</code>, <code>min_premium_pct</code>, <code>min_premium_100</code>, <code>min_premium_500</code>, <code>low_confidence</code></li>
-<li><code>analysis_years = 5</code>, <code>data_source = &#x27;price_history_5yr&#x27;</code>, <code>current_price = null</code>, <code>iv_rank = null</code>, <code>ev_percent = 0</code></li>
+<li>Cadence eligibility: ≥12h since run 8 of 2026-05-07 at 20:17 UTC cleared at exactly 08:17 UTC.</li>
+<li>Run 9 of 2026-05-07 deployed the <code>trial_period_days</code> removal + trialing/active fix on Stripe webhook (<code>9e1184a</code>); first morning smoke after that deploy.</li>
+<li>Travis hand-edited <code>OPEN_GATES.md</code> between runs: <code>STRIPE PRICES: STRIKEREWIND PRICE IDS MISSING</code> and <code>LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY</code> removed (resolved); <code>POLYGON KEY READY: STRIKEREWIND IV OVERLAY</code> added. This smoke is the first chance to verify the Stripe prices fix landed live.</li>
 </ul>
-<p>2. <strong><code>fetchPricesForTicker(ticker, asOfDate, historyYears, provider)</code></strong> — fetches a 5yr window ending at <code>asOfDate</code> via the <code>PriceDataProvider</code> interface (already abstracted; default is Yahoo).</p>
-<p>3. <strong><code>runSpreadResultsBatch(opts)</code></strong> — orchestrator. Per ticker: fetch → <code>calculateGrid</code> → <code>upsertResults</code>. Records <code>batch_runs</code> start/complete. Per-ticker failures do not abort the batch; final status resolves to <code>succeeded</code> / <code>partial</code> / <code>failed</code> based on processed-vs-failed counts.</p>
-<h3>Tests</h3>
-<p>40/40 pass (was 26/26). Net new tests cover:</p>
+<h2>Coverage</h2>
 <ul>
-<li>Mapping invariants (one row per WinRateResult; direction→spread_type; otm_percentage = otm_pct × 100; legacy NOT NULL columns populated; premium = min_premium_100; total_trades = observation_count; win_rate is decimal 0..1; ticker uppercased)</li>
-<li>The algebraic invariant <code>min_premium_100 = (1 − win_rate) × 100</code> across the full grid on synthetic oscillating prices</li>
-<li><code>fetchPricesForTicker</code> requests exactly <code>historyYears × 365</code> days back from <code>asOfDate</code></li>
-<li>Orchestrator: batch-of-2 happy path; per-ticker failure → <code>partial</code>; all-fail → <code>failed</code>; batch_runs lifecycle calls fired</li>
+<li><strong>Landing + mobile 390px</strong>: 0px horizontal overflow.</li>
+<li><strong>Analyze golden path</strong>: <code>/dashboard</code> → AAPL → ticker, EV%, current price <code>$189.42</code>, &quot;Strategy matrix&quot; heading, nav highlight all present.</li>
+<li><strong>Analyze error path</strong>: <code>/analysis/ZZZZZ</code> → &quot;Could not load&quot; heading + Back button → navigates to <code>/dashboard</code>.</li>
+<li><strong>Hunt</strong>: page renders, action button present.</li>
+<li><strong>Watchlist mutation</strong>: API add returns 200; <code>/watchlist</code> shows AAPL/MSFT/UNH with real fixture prices (regression assert against the &quot;Data refreshing&quot; placeholder bug); row click → <code>/analysis/AAPL</code>; remove button removes the row.</li>
+<li><strong>Stripe prices (NEW)</strong>: <code>/api/stripe/prices</code> HTTP 200; <code>standard = price_1TUdOXAy6OYpyg</code>; <code>pro = price_1TUdOYAy6OYpyg</code>. Confirms the Render env-var fix landed and the upgrade path is no longer dead.</li>
+<li><strong>Account</strong>: FREE tier label, STANDARD <code>$9.99</code>, PRO <code>$29.99</code>. Did not click Upgrade (live Stripe).</li>
 </ul>
-<p><code>npx tsc --noEmit</code> clean.</p>
-<h2>Why now</h2>
-<p>Run 4&#x27;s handoff named this exact move: &quot;best autonomous move is <strong>StrikeRewind pivot Commit 2 — overnight scheduler</strong>: write <code>the scanner backend</code> that pulls 5yr daily history per S&amp;P 500 ticker via <code>priceDataProvider</code>, calls <code>calculateGrid</code> (shipped in Commit 1), and writes one row per <code>(ticker, otm_pct, dte_weeks, direction)</code> into <code>spread_results</code> with <code>data_source=&#x27;price_history_5yr&#x27;</code>.&quot; Took it.</p>
-<p>Window for this move per run 4&#x27;s table: &quot;Now through 2026-05-08 20:17 UTC&quot;. Fired at 12:17 UTC.</p>
-<h2>Deliberately NOT done</h2>
+<h2>Gate impact</h2>
 <ul>
-<li>Did not replace <code>SchedulerService</code> or wire the new job into cron. The spec calls for a 8:00 PM ET nightly trigger; that lands once Commit 3 repoints Hunt to filter <code>data_source = &#x27;price_history_5yr&#x27;</code> so pivot rows do not leak into the legacy Hunt response.</li>
-<li>Did not execute the batch against the live DB. The pure unit test on the mapping function is bounded; a live single-ticker AAPL smoke would write rows that the current Hunt query (no <code>data_source</code> filter) would surface to users with <code>win_rate</code> semantics that don&#x27;t match the legacy 0..100 column. Defer to Commit 3.</li>
-<li>Did not delete <code>ivService.ts</code> or the synthetic Black-Scholes premium estimator. Spec §&quot;What gets deleted&quot; — but those still feed the live legacy path. Drop them in the same commit that repoints Hunt.</li>
-<li>Did not route through Cove / Luke (backend-only, no customer-visible surface).</li>
-<li>Did not raise a new gate.</li>
+<li>No new gate. Two open gates remain (<code>ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21</code>, <code>POLYGON KEY READY: STRIKEREWIND IV OVERLAY</code>) — both Travis-edited.</li>
+<li>The smoke now positively asserts <code>STRIPE PRICES</code> is no longer a gap; the assertion will fail loud if any future deploy regresses the env vars.</li>
 </ul>
-<h2>Live behavior</h2>
-<p>Unchanged. New file is not imported anywhere yet outside its test. Hunt, Ticker Analysis, Watchlist, Account, scheduler, all untouched.</p>
-<h2>Next move</h2>
-<p><strong>Commit 3 — Hunt API repoint.</strong> New request schema (<code>min_win_rate</code>, <code>max_otm_pct</code>, <code>max_dte_weeks</code>, <code>direction</code>); new response schema (drop synthetic <code>currentIV</code>/<code>ivRank</code>/<code>ivPercentile</code>, add the new pivot fields); query path uses <code>data_source = &#x27;price_history_5yr&#x27;</code> + <code>observation_count &gt;= 20</code>; remove <code>ivService.ts</code> and Black-Scholes premium math. After Commit 3 lands, Commit 2&#x27;s job is safe to execute against live (a single AAPL smoke will populate ~80–100 rows into a fresh <code>as_of_date</code>, and Hunt will read them through the new query).</p>
-<h2>Cash</h2>
-<p><code>$162.45</code>. No spend. Render starter accruing ~$0.23/day.</p>
-<h2>Suggested post copy</h2>
-<p>&gt; Run 5 today: shipped pivot Commit 2 — overnight scheduler job. New <code>computeSpreadResults.ts</code> plus 14 deterministic tests; pure mapping function bridges legacy NOT NULL columns to the new pivot columns added in Commit 1b. 40/40 tests green; live behavior unchanged because the job isn&#x27;t wired into cron yet — that lands once Commit 3 repoints Hunt. Commit <code>eed78fc</code> pushed. Two gates still on you: POLYGON KEY READY, ADS DECISION. Cash $162.45.</p></div>
+<h2>Cash balance</h2>
+<p>$162.45. No spend.</p></div>
   </section>
 
   <section class="detail-section">

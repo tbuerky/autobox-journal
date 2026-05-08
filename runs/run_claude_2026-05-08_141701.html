@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind pivot commit 3 deletion surface audit &middot; AutoBox</title>
+<title>Strikerewind pivot commit 3 prework mapper and query &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,11 +33,9 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-08_141701</span>
   </div>
-  <h2 class="run-title">Strikerewind pivot commit 3 deletion surface audit</h2>
+  <h2 class="run-title">Strikerewind pivot commit 3 prework mapper and query</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
-<p class="act"><span class="act-text">**Date**: 2026-05-08 14:17 UTC (run 6 of 2026-05-08) **Repo**: /home/autoproj/projects/StrikeSight **Branch**: autobox/strikerewind-rename **Scope**: read-only audit. No code changes. Goal: enumerate every file/line that references currentIV, ivRank, ivPercentile, estimateCreditSpreadPremium, IVService, or ivService so Commit 3 can be a mechanical change rather than a discovery exercise.</span></p>
-<p class="act"><span class="act-text">14 files contain at least one reference. Splits cleanly into:</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">seventh autonomous run of 2026-05-08. Reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` — two gates entering and exiting unchanged (`ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`, `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`); both Travis-side, no fresh owner input. Run 6&#x27;s deletion-surface audit had laid out an 8-step Commit 3 in two flavors: full Commit 3 OR steps 1–3 (validation + types + repointed route). Took the smallest defensible slice within budget — pure additive prework that closes the two open architectural questions Commit 3 needs answered (response shape, pivot query) without touching any live consumer.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -47,66 +45,72 @@
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
     <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeRewind pivot Commit 3 — deletion-surface audit</h1>
-<p><strong>Date</strong>: 2026-05-08 14:17 UTC (run 6 of 2026-05-08)</p>
-<p><strong>Repo</strong>: <code>/home/autoproj/projects/StrikeSight</code></p>
+    <div class="artifact-prose"><h1>StrikeRewind pivot — Commit 3 prework: pivot-side query + response mapper</h1>
+<p><strong>Date</strong>: 2026-05-08 (run 7 of 2026-05-08)</p>
 <p><strong>Branch</strong>: <code>autobox/strikerewind-rename</code></p>
-<p><strong>Scope</strong>: read-only audit. No code changes. Goal: enumerate every file/line that references <code>currentIV</code>, <code>ivRank</code>, <code>ivPercentile</code>, <code>estimateCreditSpreadPremium</code>, <code>IVService</code>, or <code>ivService</code> so Commit 3 can be a mechanical change rather than a discovery exercise.</p>
-<h2>Summary</h2>
-<p>14 files contain at least one reference. Splits cleanly into:</p>
+<p><strong>Commit</strong>: <code>4f841e0</code></p>
+<p><strong>Result</strong>: 53/53 backend tests pass; <code>tsc --noEmit</code> clean; pushed to origin; live behavior unchanged.</p>
+<h2>Why this slice now</h2>
+<p>Run 6&#x27;s audit (<code>artifacts/2026-05-08-strikerewind-pivot-commit-3-deletion-surface-audit.md</code>) laid out an 8-step Commit 3. Steps 1–7 touch live code paths; step 7 includes Watchlist row redesign that warrants Cove. Within the available budget I took the <strong>purely additive</strong> prework that closes the data-access + response-shape questions without touching any live consumer:</p>
+<p>1. New <code>getHuntSpreadResultsPivot</code> query method on the database service.</p>
+<p>2. New <code>huntPivotMapper.ts</code> module — pure functions that turn a pivot-shape <code>SpreadResultRow</code> into the response payload Commit 3&#x27;s repointed <code>/api/hunt</code> will return.</p>
+<p>Both are dead code today (no consumer imports them). When the next run executes Commit 3 step 2 (the <code>/api/hunt</code> rewrite), it picks them up and the rewrite becomes mechanical.</p>
+<h2>What shipped</h2>
+<h3><code>the scanner backend</code></h3>
+<p>Added <code>getHuntSpreadResultsPivot(opts)</code> — sister to the existing <code>getHuntSpreadResults</code>. Filters:</p>
 <ul>
-<li><strong>3 files to delete entirely</strong>: <code>ivService.ts</code>, plus the IV-only paths inside <code>analysisEngine.ts</code> / <code>newAnalysisEngine.ts</code> are deletable along with <code>analyzeStock</code>/<code>analyze</code> once <code>/api/hunt</code> is repointed at <code>getHuntSpreadResults</code>.</li>
-<li><strong>5 backend files to edit</strong>: <code>index.ts</code> (heaviest — hunt route, watchlist route, scheduler-shaped block), <code>types/index.ts</code>, <code>huntFixtureMode.ts</code>, <code>huntFixtureMode.test.ts</code>, <code>spreadResultsService.ts</code>, <code>spreadResultsService.test.ts</code>, <code>schedulerService.ts</code>.</li>
-<li><strong>4 frontend files to edit</strong>: <code>types/index.ts</code>, <code>pages/Hunt.tsx</code>, <code>pages/Watchlist.tsx</code>, <code>pages/Home.tsx</code>.</li>
+<li><code>data_source = &#x27;price_history_5yr&#x27;</code> — strictly the new pivot rows; never returns legacy synthetic-IV rows</li>
+<li><code>win_rate &gt;= opts.minWinRate</code> (decimal 0..1, pivot semantics)</li>
+<li><code>otm_pct &lt;= opts.maxOtmPct</code></li>
+<li><code>dte_weeks &lt;= opts.maxDteWeeks</code></li>
+<li><code>observation_count &gt;= opts.minObservationCount ?? 20</code> (suppress low-confidence by default)</li>
+<li><code>direction = opts.direction</code> unless <code>&#x27;BOTH&#x27;</code></li>
+<li>Optional <code>as_of_date</code> pin</li>
+<li>Order: <code>as_of_date DESC, win_rate DESC</code>; <code>LIMIT opts.limit</code></li>
 </ul>
-<p>The Hunt route as currently wired does NOT go through <code>getHuntSpreadResults</code> — it calls <code>analysisEngine.analyzeStock</code> per-ticker on every hunt request. Commit 3 must repoint the route, not just rename fields.</p>
-<h2>Backend — DELETE</h2>
-<h3><code>the scanner backend</code> (entire file)</h3>
-<p>All 100% Black-Scholes / synthetic IV math. No external imports beyond inside <code>analysisEngine.ts</code> and <code>newAnalysisEngine.ts</code>. Safe delete once those two engines stop importing it.</p>
-<h2>Backend — EDIT</h2>
-<h3><code>the scanner backend</code> — heaviest edit</h3>
-<p>| Line | Reference | Action |</p>
-<p>|---|---|---|</p>
-<p>| 127–129 | <code>result.ivRank/ivPercentile/currentIV = 0</code> (analysis route fallback) | Remove (analysis route can drop IV display entirely under pivot) |</p>
-<p>| 181–183, 190 | Same triple zeroing + <code>criteria.minIVRank</code> filter | Remove <code>minIVRank</code> from criteria entirely |</p>
-<p>| 271, 285 | <code>ivRank: showIV ? analysis.ivRank : 0</code> in analysis response | Remove |</p>
-<p>| 459, 465–467, 473, 481 | High-IV stocks aggregator (<code>/api/high-iv-stocks</code>?) | Delete the entire block — synthetic-IV ranking has no place under pivot |</p>
-<p>| 502, 508–510, 521, 529 | Scheduler-style aggregation block (duplicate) | Delete |</p>
-<p>| 547–710 | <code>/api/hunt</code> route — calls <code>analysisEngine.analyzeStock</code> per ticker, applies <code>criteria.minWinRate</code>, <code>criteria.maxTimeframe</code>, <code>criteria.minEvScore</code> | <strong>Rewrite to read from <code>dbService.getHuntSpreadResults</code> filtered by <code>data_source=&#x27;price_history_5yr&#x27;</code>, <code>win_rate &gt;= criteria.minWinRate</code>, <code>otm_pct &lt;= criteria.maxOtmPct</code>, <code>dte_weeks &lt;= criteria.maxDteWeeks</code>, <code>direction = criteria.direction</code>, <code>observation_count &gt;= 20</code>. Keep fixture-mode branch but update its shape too.</strong> |</p>
-<p>| 697 | <code>ivRank: showIV ? result.ivRank : undefined</code> in opportunity payload | Remove |</p>
-<h3><code>the scanner backend</code></h3>
-<p>Lines 2, 9, 13, 178, 185–187. <code>IVService</code> import + instance + <code>getIVData</code> call + ivRank/ivPercentile/currentIV in returned object. The whole <code>analyzeStock</code> method is dead once <code>/api/hunt</code> is repointed. <strong>Defer file deletion to Commit 3.5</strong> if the analysis page (<code>/analysis/:ticker</code>) still calls it; otherwise delete with Commit 3.</p>
-<h3><code>the scanner backend</code></h3>
-<p>Lines 2, 36, 41, 87 (<code>estimateCreditSpreadPremium</code> private method), 214 (call site), 422, 454–456. Same pattern as above. Delete the file or strip IV+premium math depending on whether <code>/analysis/:ticker</code> still uses it.</p>
-<h3><code>the scanner backend</code></h3>
-<p>Lines 35, 44–46, 65, 72, 81, 90, 158–160, 219. Fixture row shape includes <code>ivRank</code>/<code>ivPercentile</code>/<code>currentIV</code>. Update fixture shape to match the new pivot response (<code>otm_pct</code>, <code>dte_weeks</code>, <code>direction</code>, <code>win_rate</code>, <code>observation_count</code>, <code>min_premium_100</code>, <code>low_confidence</code>).</p>
-<h3><code>the scanner backend</code></h3>
-<p>Lines 36, 67. Update expectations to assert pivot fields, not <code>ivRank</code>.</p>
-<h3><code>the scanner backend</code></h3>
-<p>Lines 86, 91, 97–99, 120, 128. The legacy &quot;best high-IV opportunities&quot; aggregation. Delete this entire code path — it is parallel to the deletable index.ts blocks.</p>
-<h3><code>the scanner backend</code></h3>
-<p>Line 45: <code>iv_rank: round(result.ivRank, 2)</code>. Today this writes legacy column on warehouse upsert. Remove (the column itself was made nullable in Commit 1b; Commit 2&#x27;s mapper does not populate it).</p>
-<h3><code>the scanner backend</code></h3>
-<p>Lines 12–14. Drop <code>ivRank</code>/<code>ivPercentile</code>/<code>currentIV</code> from the test fixture WinRateResult.</p>
-<h3><code>the scanner backend</code></h3>
-<p>Lines 40–42 (response type) and 59 (<code>minIVRank?</code> on criteria type). Delete fields. Add new pivot criteria type per spec §5.</p>
-<h3><code>the scanner backend</code></h3>
-<p>Line 43 (<code>minIVRank</code> Joi rule), line 72 (<code>minWinRate</code>). Drop <code>minIVRank</code>. Add <code>direction</code>, <code>maxOtmPct</code>, <code>maxDteWeeks</code> rules. Keep <code>minWinRate</code> (semantics shift: 0..1 decimal, pivot column).</p>
-<h2>Frontend — EDIT</h2>
-<h3><code>the scanner frontend</code> (lines 41–43)</h3>
-<p>Drop <code>ivRank</code>/<code>ivPercentile</code>/<code>currentIV</code> from the analysis/opportunity response type. Add <code>otm_pct</code>, <code>dte_weeks</code>, <code>direction</code>, <code>win_rate</code>, <code>observation_count</code>, <code>min_premium_100</code>, <code>low_confidence</code>.</p>
-<h3><code>the scanner frontend</code></h3>
+<p>Index <code>spread_results_pivot_hunt_idx</code> (added in Commit 1b) covers the predicate set.</p>
+<h3><code>the scanner backend</code> (new file)</h3>
+<p>Three exports:</p>
 <ul>
-<li>Line 30: <code>ivRank?: number</code> on opportunity row type — remove.</li>
-<li>Lines 73, 212, 219–220: <code>criteria.minWinRate</code> slider — keep (semantics shift to decimal 0..1 over the wire, but UI can keep percent display).</li>
-<li>Lines 241, 248, etc: <code>criteria.minEvScore</code> — remove (not in pivot spec).</li>
-<li>Lines 261, 268: <code>criteria.maxTimeframe</code> — rename to <code>maxDteWeeks</code> to match new API.</li>
-<li>Lines 281, 288: <code>criteria.historicalYears</code> — remove (pivot is 5yr-only).</li>
-<li>Add <code>direction</code> select (PUT / CALL) and <code>maxOtmPct</code> slider.</li>
-<li>Update result row rendering to show OTM%, DTE, direction, win rate, min premium, observation count, low-confidence badge.</li>
+<li><code>pivotRowToHuntOpportunity(row)</code> — pure mapper. Throws <code>PivotRowMissingFieldsError(field, ticker)</code> when any required pivot field is null. Defaults <code>low_confidence=null</code> to <code>false</code>.</li>
+<li><code>isPivotRow(row)</code> — predicate. True iff <code>data_source === &#x27;price_history_5yr&#x27;</code> AND all five required pivot fields are non-null.</li>
+<li><code>HuntOpportunityPivot</code> interface — the shape Commit 3&#x27;s <code>/api/hunt</code> returns: <code>{ ticker, direction, otmPct, dteWeeks, winRate, observationCount, minPremium100, lowConfidence, asOfDate }</code>.</li>
 </ul>
-<h3><code>the scanner frontend</code></h3>
-<p>Line 22: <code>ivRank?: number</code> on a hero/sample row — remove (or replace with new p</p></div>
+<p>This pins the response-shape decision the audit left open and gives the next run a typed building block instead of inline-mapping in the route handler.</p>
+<h3><code>the scanner backend</code> (new file, 13 tests)</h3>
+<ul>
+<li>field-by-field mapping happy path (<code>AAPL</code>, <code>bull_put</code>, every field round-trips)</li>
+<li><code>low_confidence</code> null defaults to false</li>
+<li><code>bear_call</code> direction preserved</li>
+<li>explicit throws for each required missing field (<code>direction</code>, <code>otm_pct</code>, <code>dte_weeks</code>, <code>observation_count</code>, <code>min_premium_100</code>)</li>
+<li>error message includes ticker context for debugging</li>
+<li><code>isPivotRow</code> true on full row; false when <code>data_source</code> is <code>&#x27;polygon&#x27;</code>, undefined, or any pivot field is null</li>
+</ul>
+<h2>Verification</h2>
+<ul>
+<li><code>npx tsc --noEmit</code> clean</li>
+<li><code>npx tsx --test src/services/<em>.test.ts src/jobs/</em>.test.ts</code> → <strong>53/53 pass</strong> (was 40/40; +13 new)</li>
+<li>Commit <code>4f841e0</code>, pushed to <code>origin/autobox/strikerewind-rename</code></li>
+<li>No consumer wired; <code>/api/hunt</code> still calls <code>analysisEngine.analyzeStock</code> per ticker</li>
+<li>No deploy, no live behavior change</li>
+</ul>
+<h2>Why this is bounded</h2>
+<ul>
+<li>Both new symbols are dead code on <code>main</code>. Removing or renaming either is a one-line revert.</li>
+<li>The query method bypasses legacy rows by hard-pinning <code>data_source = &#x27;price_history_5yr&#x27;</code> — even if accidentally called against the live DB today, it would return zero rows (Commit 2 has not yet executed live).</li>
+<li>The mapper has no side effects and no I/O; tests are deterministic.</li>
+</ul>
+<h2>What remains in Commit 3</h2>
+<p>In execution order from the audit:</p>
+<p>1. ✅ (this run) Pivot-side query method + mapper</p>
+<p>2. Update <code>validation.ts</code> schema: drop <code>minIVRank</code> / <code>minEvScore</code>, add <code>direction</code> / <code>maxOtmPct</code> / <code>maxDteWeeks</code>. Update <code>types/index.ts</code> criteria type.</p>
+<p>3. Rewrite <code>/api/hunt</code> route to call <code>getHuntSpreadResultsPivot</code> + <code>pivotRowToHuntOpportunity</code>. Keep fixture branch but update its shape.</p>
+<p>4. Rewrite <code>huntFixtureMode.ts</code> shape; fix tests.</p>
+<p>5. Strip IV imports + blocks from <code>analysisEngine.ts</code>, <code>newAnalysisEngine.ts</code>, <code>schedulerService.ts</code>, <code>spreadResultsService.ts</code>.</p>
+<p>6. Delete <code>ivService.ts</code>.</p>
+<p>7. Delete the <code>/api/high-iv-stocks</code>-shaped block in <code>index.ts:459–529</code>.</p>
+<p>8. Frontend: <code>types/index.ts</code>, <code>Hunt.tsx</code>, <code>Watchlist.tsx</code>, <code>Home.tsx</code>, <code>api.ts</code>. Watchlist row redesign needs Cove.</p>
+<p>9. Single-AAPL <code>runSpreadResultsBatch</code> smoke against live DB; then deploy.</p></div>
   </section>
 
   <section class="detail-section">

@@ -13555,7 +13555,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-08 (run 9) \u2014 StrikeRewind pivot batch live execution attempt + Polygon Starter recommendation",
+      "heading": "2026-05-08 (run 10) \u2014 StrikeRewind end-of-day production smoke (35/35 pass)",
       "artifact_path": "artifacts/2026-05-08-paf-eod-smoke.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -13627,6 +13627,82 @@
       "timestamp_sort": "2026-05-08T06:17:01+00:00",
       "date": "2026-05-08",
       "time": "2:17AM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-08 (run 9) \u2014 StrikeRewind pivot batch live execution attempt + Polygon Starter recommendation",
+      "artifact_path": "artifacts/2026-05-08-strikerewind-pivot-commit-1-win-rate-calculator.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-08-strikerewind-pivot-commit-1-win-rate-calculator.md",
+          "relative_path": "artifacts/2026-05-08-strikerewind-pivot-commit-1-win-rate-calculator.md",
+          "kind": "text",
+          "preview": "# StrikeRewind pivot \u2014 Commit 1: win rate calculator\n\n**Date:** 2026-05-08\n**Branch:** `autobox/strikerewind-rename`\n**Commit:** `8bf752f` (pushed to origin)\n**Spec:** `artifacts/2026-05-08-strikerewind-price-history-pivot-spec.md`\n\n## What this is\nFirst of seven commits in the pivot from synthetic options data to a pure\nprice-history edge scanner. Adds the win rate calculator service \u2014 the\nload-bearing math the entire pivot sits on top of.\n\n## What shipped\n- `the scanner backend` (new)\n  - `calculateWinRate(input)` \u2014 walks Friday entries in a daily price\n    series, measures expiration-day outcomes against a strike defined by\n    `otmPct` + `direction`, returns empirical win rate plus\n    `minPremiumPct = 1 - winRate` and dollar floors for $100/$500-wide\n    spreads. Returns `null` if observations < 20. Flags\n    `lowConfidence: true` when 20 \u2264 observations < 40.\n  - Exports `OTM_GRID`, `DTE_WEEKS_GRID`, `DIRECTIONS`, and\n    `calculateGrid(ticker, prices)` for the overnight batch in Commit 2.\n- `the scanner backend` (new) \u2014 10\n  deterministic cases.\n\n## Verification\n- `npm run build` clean.\n- `node --test dist/services/winRateCalculator.test.js` \u2014 10/10 pass.\n- Existing backend tests (`priceDataProvider`, `huntFixtureMode`,\n  `spreadResultsService`) \u2014 16/16 pass; no regression.\n- 26/26 backend tests green.\n\n## Deliberately NOT done in this commit\n- Did NOT delete `ivService.ts` or Black-Scholes premium estimation \u2014\n  callers still depend on them; that removal is bundled with Commit 3\n  (Hunt API rewrite) so the diff stays coherent.\n- Did NOT add Supabase schema migration columns yet \u2014 written in a\n  separate Commit 1b once the calculator API is stable. No production\n  data depends on this commit.\n- Did NOT touch the scheduler \u2014 that is Commit 2.\n- Did NOT change Hunt response \u2014 that is Commit 3.\n- Did NOT route through Cove or Luke \u2014 backend-internal pure function,\n  no customer-visible surface.\n- Did NOT subscribe to Polygon \u2014 not in this commit's scope, and Travis\n  said in the addendum he handles that purchase manually.\n\n## Why push to origin\nThis commit is additive only \u2014 two new files, zero callers. Render\nauto-deploys the branch but live behavior is unchanged because nothing\nimports the new module yet. Safe to put it on the remote so the next\nautonomous run can build on it without re-stashing local state.\n\n## Next runnable steps\n1. **Commit 1b \u2014 Supabase schema migration** for `spread_results` (new\n   columns: `otm_pct`, `dte_weeks`, `direction`, `win_rate`,\n   `observation_count`, `min_premium_pct`, `min_premium_100`,\n   `min_premium_500`, `low_confidence`, `data_source`). Migration SQL\n   ready to apply via Supabase dashboard.\n2. **Commit 2 \u2014 Overnight scheduler** swap. Replace the existing\n   scheduler with a nightly price-history batch that calls\n   `calculateGrid()` per ticker and writes to `spread_results`.\n3. **First real batch run** to populate `spread_results` with actual\n   price-history results \u2014 per Travis's addendum, this is the move\n   that takes Hunt out of fixture mode for real.\n4. **Commit 3** \u2014 Hunt API rewrite + delete `ivService.ts` /\n   `estimateCreditSpreadPremium`.\n\n## Cash balance\n$162.45. No spend.\n",
+          "site_path": "artifacts/2026-05-08-strikerewind-pivot-commit-1-win-rate-calculator.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Run complete.\n\n**What I did:** Executed Commit 1 of the StrikeRewind price-history pivot \u2014 shipped `the scanner backend` + 10 deterministic tests. Calculator walks Friday entries across daily price history, derives empirical win rate + minimum premium floor (`1 - winRate` of spread width), and exports the OTM/DTE grid helper for the overnight batch.\n\n**Verification:** `npm run build` clean. 10/10 new tests pass. 16/16 prior backend tests unchanged. 26/26 total green.\n\n**Push posture:** Commit `8bf752f` pushed to `origin/autobox/strikerewind-rename` \u2014 additive only, zero callers, Render auto-deploy boots the same code path.\n\n**State:** TODO.md / RUNLOG.md / HANDOFF.md / SCORECARD.md updated. OPEN_GATES.md unchanged (no new gate raised; no gate resolved this run). BUDGET.md unchanged \u2014 $162.45.\n\n**Next runnable step:** Commit 1b \u2014 Supabase schema migration adding `otm_pct` / `dte_weeks` / `direction` / `win_rate` / `observation_count` / `min_premium_pct` / `min_premium_100` / `min_premium_500` / `low_confidence` / `data_source` columns to `spread_results`. Then Commit 2 (scheduler swap) + first real batch run to take Hunt out of fixture mode.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-08_061701.txt",
+      "screenshot_path": "",
+      "label": "05-08-26 (Day 19) \u00b7 2:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-05-08_081701",
+      "timestamp": "2026-05-08 04:17 AM EDT",
+      "timestamp_sort": "2026-05-08T08:17:01+00:00",
+      "date": "2026-05-08",
+      "time": "4:17AM",
       "objective": "eighth autonomous run of 2026-05-08, fired ~18:17 UTC. Reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` \u2014 two gates entering and exiting unchanged (`ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`, `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`); both Travis-side, no fresh owner input. StrikeRewind \u226512h smoke cadence not yet eligible (run 3 at 08:17 UTC; eligible 20:17 UTC, ~2h out). Run 7's handoff named the eligible move for this exact window: \"Best autonomous move is Commit 3 step 2 \u2014 `/api/hunt` repoint.\" Took it.",
       "decision_made": "",
       "next_step": "",
@@ -13690,19 +13766,19 @@
           "has_redactions": true
         }
       ],
-      "output_excerpt": "Run complete.\n\n**What I did:** Executed Commit 1 of the StrikeRewind price-history pivot \u2014 shipped `the scanner backend` + 10 deterministic tests. Calculator walks Friday entries across daily price history, derives empirical win rate + minimum premium floor (`1 - winRate` of spread width), and exports the OTM/DTE grid helper for the overnight batch.\n\n**Verification:** `npm run build` clean. 10/10 new tests pass. 16/16 prior backend tests unchanged. 26/26 total green.\n\n**Push posture:** Commit `8bf752f` pushed to `origin/autobox/strikerewind-rename` \u2014 additive only, zero callers, Render auto-deploy boots the same code path.\n\n**State:** TODO.md / RUNLOG.md / HANDOFF.md / SCORECARD.md updated. OPEN_GATES.md unchanged (no new gate raised; no gate resolved this run). BUDGET.md unchanged \u2014 $162.45.\n\n**Next runnable step:** Commit 1b \u2014 Supabase schema migration adding `otm_pct` / `dte_weeks` / `direction` / `win_rate` / `observation_count` / `min_premium_pct` / `min_premium_100` / `min_premium_500` / `low_confidence` / `data_source` columns to `spread_results`. Then Commit 2 (scheduler swap) + first real batch run to take Hunt out of fixture mode.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-08_061701.txt",
+      "output_excerpt": "**Run 3 of 2026-05-08 \u2014 StrikeRewind morning smoke complete.**\n\n- **Result:** 35 / 35 pass against `www.strikerewind.com` (vs 29/29 yesterday). Six new asserts on `/api/stripe/prices` all green: `standard=price_1TUdOXAy6OYpyg`, `pro=price_1TUdOYAy6OYpyg`. Travis's STRIPE PRICES env-var fix is positively confirmed live \u2014 upgrade path no longer dead.\n- **Gates reconciled:** Travis hand-edited `OPEN_GATES.md` to remove `STRIPE PRICES` and `LAUNCH POSTURE` (resolved) and add `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`. Preserved verbatim. Two gates standing.\n- **Artifacts:** `artifacts/2026-05-08-strikerewind-morning-smoke.md` + 9 PNGs + `summary.json`.\n- **State files updated:** TODO, RUNLOG, HANDOFF, SCORECARD. OPEN_GATES untouched. BUDGET unchanged.\n- **Cash:** $162.45. Spend $0.\n\nNext eligible move: StrikeRewind pivot Commit 1b (Supabase migration for `spread_results` schema per `artifacts/2026-05-08-strikerewind-price-history-pivot-spec.md`).\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-08_081701.txt",
       "screenshot_path": "",
-      "label": "05-08-26 (Day 19) \u00b7 2:17 AM",
+      "label": "05-08-26 (Day 19) \u00b7 4:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
     },
     {
-      "run_id": "run_claude_2026-05-08_081701",
-      "timestamp": "2026-05-08 04:17 AM EDT",
-      "timestamp_sort": "2026-05-08T08:17:01+00:00",
+      "run_id": "run_claude_2026-05-08_101701",
+      "timestamp": "2026-05-08 06:17 AM EDT",
+      "timestamp_sort": "2026-05-08T10:17:01+00:00",
       "date": "2026-05-08",
-      "time": "4:17AM",
+      "time": "6:17AM",
       "objective": "seventh autonomous run of 2026-05-08. Reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` \u2014 two gates entering and exiting unchanged (`ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`, `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`); both Travis-side, no fresh owner input. Run 6's deletion-surface audit had laid out an 8-step Commit 3 in two flavors: full Commit 3 OR steps 1\u20133 (validation + types + repointed route). Took the smallest defensible slice within budget \u2014 pure additive prework that closes the two open architectural questions Commit 3 needs answered (response shape, pivot query) without touching any live consumer.",
       "decision_made": "",
       "next_step": "",
@@ -13766,81 +13842,6 @@
           "has_redactions": true
         }
       ],
-      "output_excerpt": "**Run 3 of 2026-05-08 \u2014 StrikeRewind morning smoke complete.**\n\n- **Result:** 35 / 35 pass against `www.strikerewind.com` (vs 29/29 yesterday). Six new asserts on `/api/stripe/prices` all green: `standard=price_1TUdOXAy6OYpyg`, `pro=price_1TUdOYAy6OYpyg`. Travis's STRIPE PRICES env-var fix is positively confirmed live \u2014 upgrade path no longer dead.\n- **Gates reconciled:** Travis hand-edited `OPEN_GATES.md` to remove `STRIPE PRICES` and `LAUNCH POSTURE` (resolved) and add `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`. Preserved verbatim. Two gates standing.\n- **Artifacts:** `artifacts/2026-05-08-strikerewind-morning-smoke.md` + 9 PNGs + `summary.json`.\n- **State files updated:** TODO, RUNLOG, HANDOFF, SCORECARD. OPEN_GATES untouched. BUDGET unchanged.\n- **Cash:** $162.45. Spend $0.\n\nNext eligible move: StrikeRewind pivot Commit 1b (Supabase migration for `spread_results` schema per `artifacts/2026-05-08-strikerewind-price-history-pivot-spec.md`).\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-08_081701.txt",
-      "screenshot_path": "",
-      "label": "05-08-26 (Day 19) \u00b7 4:17 AM",
-      "budget_delta_html": "",
-      "narrative_weight": 0
-    },
-    {
-      "run_id": "run_claude_2026-05-08_101701",
-      "timestamp": "2026-05-08 06:17 AM EDT",
-      "timestamp_sort": "2026-05-08T10:17:01+00:00",
-      "date": "2026-05-08",
-      "time": "6:17AM",
-      "objective": "",
-      "decision_made": "",
-      "next_step": "",
-      "heading": "2026-05-08 (run 6) \u2014 StrikeRewind pivot Commit 3 \u2014 deletion-surface audit (read-only)",
-      "artifact_path": "artifacts/2026-05-08-strikerewind-pivot-commit-1b-supabase-schema.md",
-      "budget": {
-        "starting_budget": "$200.00",
-        "current_balance": "$162.45",
-        "recent_entries": [
-          {
-            "date": "2026-04-20",
-            "type": "starting_budget",
-            "amount": "+$200.00",
-            "balance_after": "$200.00",
-            "note": "Initial AutoBox experiment budget"
-          },
-          {
-            "date": "2026-04-21",
-            "type": "expense",
-            "amount": "-$11.25",
-            "balance_after": "$188.75",
-            "note": "Domain purchase"
-          },
-          {
-            "date": "2026-04-28",
-            "type": "expense",
-            "amount": "-$11.25",
-            "balance_after": "$177.50",
-            "note": "StrikeRewind.com domain purchase"
-          },
-          {
-            "date": "2026-04-28",
-            "type": "expense",
-            "amount": "-$15.05",
-            "balance_after": "$162.45",
-            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
-          },
-          {
-            "date": "2026-05-02",
-            "type": "recurring_started",
-            "amount": "$0.00",
-            "balance_after": "$162.45",
-            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
-          },
-          {
-            "date": "2026-05-03",
-            "type": "note",
-            "amount": "$0.00",
-            "balance_after": "$162.45",
-            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
-          }
-        ]
-      },
-      "artifacts": [
-        {
-          "name": "2026-05-08-strikerewind-pivot-commit-1b-supabase-schema.md",
-          "relative_path": "artifacts/2026-05-08-strikerewind-pivot-commit-1b-supabase-schema.md",
-          "kind": "text",
-          "preview": "# StrikeRewind pivot \u2014 Commit 1b: Supabase schema migration\n\n**Date:** 2026-05-08 (run 4)\n**Branch:** `autobox/strikerewind-rename`\n**Commit:** `117e41e`\n**Supabase project:** `hjfsapwessfvdcfytpuk`\n**Spec:** `artifacts/2026-05-08-strikerewind-price-history-pivot-spec.md` \u00a74\n\n## What landed\n\nMigration file: `backend/supabase-migration-pivot-1b-spread-results-pivot-columns.sql`\n\nApplied live via Supabase Management API\n(`POST /v1/projects/hjfsapwessfvdcfytpuk/database/query`, HTTP 201).\n\n### Columns added to `spread_results`\n\n| Column | Type | Notes |\n|---|---|---|\n| `otm_pct` | NUMERIC(8,4) | strike distance, positive=OTM, negative=ITM |\n| `dte_weeks` | INTEGER | DTE bucket in weeks |\n| `direction` | TEXT | CHECK \u2208 {`bull_put`, `bear_call`, NULL} |\n| `observation_count` | INTEGER | sample size |\n| `min_premium_pct` | NUMERIC(8,4) | premium floor as fraction of width |\n| `min_premium_100` | NUMERIC(10,4) | $/contract on $100-wide |\n| `min_premium_500` | NUMERIC(10,4) | $/contract on $500-wide |\n| `low_confidence` | BOOLEAN | true when 20 \u2264 obs < 40 |\n\n### Default change\n\n`data_source` default flipped from `'polygon'` \u2192 `'price_history_5yr'`.\nSpec called the prior default \"the lying default\" \u2014 no Polygon data ever\nflowed into this table. Existing rows keep whatever value they were\nwritten with; only new inserts pick up the new default.\n\n### Index added\n\n`spread_results_pivot_hunt_idx` on\n`(data_source, win_rate DESC, dte_weeks, otm_pct)` \u2014 supports the Hunt\nquery in spec \u00a75.\n\n## What was deliberately NOT done\n\n- **Did not drop or rename existing columns.** `otm_percentage`,\n  `timeframe_weeks`, `spread_type`, `total_trades`, `ev_percent`,\n  `premium`, `current_price`, `iv_rank`, `analysis_years` are all left\n  intact. Removing them is a later commit once consumer services are\n  repointed to the new columns. Additive only.\n- **Did not write any rows** to the new columns. Commit 2 (overnight\n  scheduler) populates them.\n- **Did not repoint Hunt or Ticker Analysis read paths** to the new\n  columns. Commits 3+ handle that.\n- **Did not route through Cove / Luke** \u2014 backend schema only, no\n  customer-visible surface.\n- **Did not raise a new gate** \u2014 autonomous and bounded.\n\n## Verification\n\n`information_schema.columns` query against the live DB returned all 8\nnew columns nullable + the new `data_source` default\n`'price_history_5yr'::text`. Index `spread_results_pivot_hunt_idx`\npresent in `pg_indexes`. 26/26 backend tests still pass via\n`npx tsx --test src/services/*.test.ts` (no test code changes \u2014 schema\ndelta is invisible to existing services).\n\n## Idempotency\n\nMigration uses `ADD COLUMN IF NOT EXISTS` and `CREATE INDEX IF NOT\nEXISTS`. Re-running is a no-op. Safe to bundle into a future\nDEPLOYMENT.md migration list.\n\n## Cash impact\n\nNone. No spend.\n\n## Next step in the pivot sequence\n\nCommit 2 \u2014 overnight scheduler that calls `calculateGrid` (shipped in\nCommit 1) for every S&P 500 ticker against 5yr yfinance history and\nwrites one row per (ticker, otm_pct, dte_weeks, direction) into\n`spread_results` with `data_source = 'price_history_5yr'`. Spec \u00a73.\n",
-          "site_path": "artifacts/2026-05-08-strikerewind-pivot-commit-1b-supabase-schema.md"
-        }
-      ],
       "output_excerpt": "State files done. OPEN_GATES.md unchanged (no new gate). BUDGET.md unchanged ($0 spend). All invariants hold.\n\n## Summary\n\n**Run 4 of 2026-05-08 \u2014 StrikeRewind pivot Commit 1b: Supabase schema migration applied live.**\n\n- New migration file `backend/supabase-migration-pivot-1b-spread-results-pivot-columns.sql` adds 8 pivot columns to `spread_results` (`otm_pct`, `dte_weeks`, `direction`, `observation_count`, `min_premium_pct`/`100`/`500`, `low_confidence`), flips the `data_source` default `'polygon'` \u2192 `'price_history_5yr'`, and creates `spread_results_pivot_hunt_idx`.\n- Applied live to project `hjfsapwessfvdcfytpuk` via Supabase Management API (HTTP 201). Verified via `information_schema.columns` + `pg_indexes`.\n- 26/26 backend tests still green. Commit `117e41e` pushed to `origin/autobox/strikerewind-rename`. Additive only \u2014 no consumer service repointed; live behavior unchanged.\n- Gates unchanged (two Travis-side: `ADS DECISION`, `POLYGON KEY READY`). No spend. Cash $162.45.\n- Artifact: `artifacts/2026-05-08-strikerewind-pivot-commit-1b-supabase-schema.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
       "output_site_path": "outputs/run_claude_2026-05-08_101701.txt",
       "screenshot_path": "",
@@ -13854,10 +13855,10 @@
       "timestamp_sort": "2026-05-08T12:17:01+00:00",
       "date": "2026-05-08",
       "time": "8:17AM",
-      "objective": "fifth autonomous run of 2026-05-08. Reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md`: two gates entering and exiting unchanged (`ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`, `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`); both Travis-side, no fresh owner input. Took the move run 4's handoff explicitly named for this fire window: \"best autonomous move is **StrikeRewind pivot Commit 2 \u2014 overnight scheduler**.\" Fired 12:17 UTC, well inside the \"Now through 2026-05-08 20:17 UTC\" window. Cadence smokes not yet eligible.",
+      "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-08 (run 5) \u2014 StrikeRewind pivot Commit 2 \u2014 overnight scheduler job (compute + upsert)",
+      "heading": "2026-05-08 (run 6) \u2014 StrikeRewind pivot Commit 3 \u2014 deletion-surface audit (read-only)",
       "artifact_path": "artifacts/2026-05-08-strikerewind-pivot-commit-2-overnight-scheduler.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -13930,6 +13931,82 @@
       "timestamp_sort": "2026-05-08T14:17:01+00:00",
       "date": "2026-05-08",
       "time": "10:17AM",
+      "objective": "fifth autonomous run of 2026-05-08. Reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md`: two gates entering and exiting unchanged (`ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`, `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`); both Travis-side, no fresh owner input. Took the move run 4's handoff explicitly named for this fire window: \"best autonomous move is **StrikeRewind pivot Commit 2 \u2014 overnight scheduler**.\" Fired 12:17 UTC, well inside the \"Now through 2026-05-08 20:17 UTC\" window. Cadence smokes not yet eligible.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-08 (run 5) \u2014 StrikeRewind pivot Commit 2 \u2014 overnight scheduler job (compute + upsert)",
+      "artifact_path": "artifacts/2026-05-08-strikerewind-pivot-commit-2-overnight-scheduler.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-08-strikerewind-pivot-commit-2-overnight-scheduler.md",
+          "relative_path": "artifacts/2026-05-08-strikerewind-pivot-commit-2-overnight-scheduler.md",
+          "kind": "text",
+          "preview": "# StrikeRewind pivot \u2014 Commit 2: overnight scheduler job\n\n**Run:** 5 of 2026-05-08\n**Branch:** `autobox/strikerewind-rename`\n**Commit:** `eed78fc`\n**Status:** shipped to GitHub; not yet wired into any cron; not yet executed against the live DB\n\n## What shipped\n\n`the scanner backend` (new file, 137 lines) plus `computeSpreadResults.test.ts` (14 deterministic tests). One small additive change to `the scanner backend` \u2014 extended `SpreadResultRow` with the optional pivot columns added in Commit 1b so the TS type matches the post-migration physical schema.\n\n### Pieces\n\n1. **`winRateResultsToWarehouseRows(results, asOfDate)`** \u2014 pure mapping from `WinRateResult[]` to `SpreadResultRow[]`. Bridges:\n   - `direction` \u2208 {`bull_put`,`bear_call`} \u2192 `spread_type` \u2208 {`PUT`,`CALL`} (legacy NOT NULL)\n   - `otmPct` (decimal) \u2192 `otm_percentage` (\u00d7100, two decimals; legacy NOT NULL)\n   - `dteWeeks` \u2192 `timeframe_weeks` (legacy NOT NULL)\n   - `winRate` \u2192 `win_rate` (decimal 0..1; pivot semantics; spec \u00a75 expects `>= 0.60` filter)\n   - `minPremium100` \u2192 `premium` (legacy NOT NULL repurposed as the credit floor)\n   - `observationCount` \u2192 `total_trades` (legacy NOT NULL repurposed as sample size)\n   - All eight new pivot columns populated: `otm_pct`, `dte_weeks`, `direction`, `observation_count`, `min_premium_pct`, `min_premium_100`, `min_premium_500`, `low_confidence`\n   - `analysis_years = 5`, `data_source = 'price_history_5yr'`, `current_price = null`, `iv_rank = null`, `ev_percent = 0`\n2. **`fetchPricesForTicker(ticker, asOfDate, historyYears, provider)`** \u2014 fetches a 5yr window ending at `asOfDate` via the `PriceDataProvider` interface (already abstracted; default is Yahoo).\n3. **`runSpreadResultsBatch(opts)`** \u2014 orchestrator. Per ticker: fetch \u2192 `calculateGrid` \u2192 `upsertResults`. Records `batch_runs` start/complete. Per-ticker failures do not abort the batch; final status resolves to `succeeded` / `partial` / `failed` based on processed-vs-failed counts.\n\n### Tests\n\n40/40 pass (was 26/26). Net new tests cover:\n- Mapping invariants (one row per WinRateResult; direction\u2192spread_type; otm_percentage = otm_pct \u00d7 100; legacy NOT NULL columns populated; premium = min_premium_100; total_trades = observation_count; win_rate is decimal 0..1; ticker uppercased)\n- The algebraic invariant `min_premium_100 = (1 \u2212 win_rate) \u00d7 100` across the full grid on synthetic oscillating prices\n- `fetchPricesForTicker` requests exactly `historyYears \u00d7 365` days back from `asOfDate`\n- Orchestrator: batch-of-2 happy path; per-ticker failure \u2192 `partial`; all-fail \u2192 `failed`; batch_runs lifecycle calls fired\n\n`npx tsc --noEmit` clean.\n\n## Why now\n\nRun 4's handoff named this exact move: \"best autonomous move is **StrikeRewind pivot Commit 2 \u2014 overnight scheduler**: write `the scanner backend` that pulls 5yr daily history per S&P 500 ticker via `priceDataProvider`, calls `calculateGrid` (shipped in Commit 1), and writes one row per `(ticker, otm_pct, dte_weeks, direction)` into `spread_results` with `data_source='price_history_5yr'`.\" Took it.\n\nWindow for this move per run 4's table: \"Now through 2026-05-08 20:17 UTC\". Fired at 12:17 UTC.\n\n## Deliberately NOT done\n\n- Did not replace `SchedulerService` or wire the new job into cron. The spec calls for a 8:00 PM ET nightly trigger; that lands once Commit 3 repoints Hunt to filter `data_source = 'price_history_5yr'` so pivot rows do not leak into the legacy Hunt response.\n- Did not execute the batch against the live DB. The pure unit test on the mapping function is bounded; a live single-ticker AAPL smoke would write rows that the current Hunt query (no `data_source` filter) would surface to users with `win_rate` semantics that don't match the legacy 0..100 column. Defer to Commit 3.\n- Did not delete `ivService.ts` or the synthetic Black-Scholes premium estimator. Spec \u00a7\"What gets deleted\" \u2014 but those still feed the live legacy path. Drop them in the same commit that repoints Hunt.\n- Did not route through Cove / Luke (backend-only, no customer-visible surface).\n- Did not raise a new gate.\n\n## Live behavior\n\nUnchanged. New file is not imported anywhere yet outside its test. Hunt, Ticker Analysis, Watchlist, Account, scheduler, all untouched.\n\n## Next move\n\n**Commit 3 \u2014 Hunt API repoint.** New request schema (`min_win_rate`, `max_otm_pct`, `max_dte_weeks`, `direction`); new response schema (drop synthetic `currentIV`/`ivRank`/`ivPercentile`, add the new pivot fields); query path uses `data_source = 'price_history_5yr'` + `observation_count >= 20`; remove `ivService.ts` and Black-Scholes premium math. After Commit 3 lands, Commit 2's job is safe to execute against live (a single AAPL smoke will populate ~80\u2013100 rows into a fresh `as_of_date`, and Hunt will read them through the new query).\n\n## Cash\n\n`$162.45`. No spend. Render starter accruing ~$0.23/day.\n\n## Suggested post copy\n\n> Run 5 today: shipped pivot Commit 2 \u2014 overnight scheduler job. New `computeSpreadResults.ts` plus 14 deterministic tests; pure mapping function bridges legacy NOT NULL columns to the new pivot columns added in Commit 1b. 40/40 tests green; live behavior unchanged because the job isn't wired into cron yet \u2014 that lands once Commit 3 repoints Hunt. Commit `eed78fc` pushed. Two gates still on you: POLYGON KEY READY, ADS DECISION. Cash $162.45.\n",
+          "site_path": "artifacts/2026-05-08-strikerewind-pivot-commit-2-overnight-scheduler.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "All state files updated. Run complete.\n\n**Run 6 of 2026-05-08 \u2014 StrikeRewind pivot Commit 3 deletion-surface audit (read-only)**\n\nTook the bounded audit path from run 5's playbook because Commit 3 changes API response shape AND Watchlist/Hunt frontend rendering \u2014 landing it half-coordinated would break the live site mid-marketing-freeze. The audit turns Commit 3 into a mechanical change for the next session.\n\n14 files enumerated. Three findings beyond the spec:\n1. `/api/hunt` does NOT route through `getHuntSpreadResults` today \u2014 it calls `analysisEngine.analyzeStock` per ticker synchronously. Commit 3 must repoint the route, not just rename fields.\n2. `Watchlist.tsx` renders `item.ivRank.toFixed(0)` in two cells \u2014 the only user-visible pivot field; bundle the fix and route the redesign through Cove.\n3. Dead-code blocks bigger than `ivService.ts`: `analysisEngine.ts`, `newAnalysisEngine.ts`, an `index.ts:459\u2013529` aggregator, and `schedulerService.ts:86\u2013128` all become deletable once the route flips.\n\nArtifact: `artifacts/2026-05-08-strikerewind-pivot-commit-3-deletion-surface-audit.md` (8-step execution order documented). State files updated. Two gates unchanged: `ADS DECISION`, `POLYGON KEY READY`. Cash $162.45.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-08_141701.txt",
+      "screenshot_path": "",
+      "label": "05-08-26 (Day 19) \u00b7 10:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-05-08_161701",
+      "timestamp": "2026-05-08 12:17 PM EDT",
+      "timestamp_sort": "2026-05-08T16:17:01+00:00",
+      "date": "2026-05-08",
+      "time": "12:17PM",
       "objective": "fourth autonomous run of 2026-05-08. Reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md`: two gates entering and exiting unchanged (`ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`, `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`); both Travis-side, no fresh owner input. Took the move run 3's handoff explicitly named for this fire window: \"Best autonomous move is StrikeRewind pivot Commit 1b \u2014 Supabase schema migration.\" Cadence smokes still under window (StrikeRewind eligible 20:17 UTC; PAF eligible 22:19 UTC).",
       "decision_made": "",
       "next_step": "",
@@ -13992,19 +14069,19 @@
           "site_path": "artifacts/2026-05-08-strikerewind-pivot-commit-1b-supabase-schema.md"
         }
       ],
-      "output_excerpt": "All state files updated. Run complete.\n\n**Run 6 of 2026-05-08 \u2014 StrikeRewind pivot Commit 3 deletion-surface audit (read-only)**\n\nTook the bounded audit path from run 5's playbook because Commit 3 changes API response shape AND Watchlist/Hunt frontend rendering \u2014 landing it half-coordinated would break the live site mid-marketing-freeze. The audit turns Commit 3 into a mechanical change for the next session.\n\n14 files enumerated. Three findings beyond the spec:\n1. `/api/hunt` does NOT route through `getHuntSpreadResults` today \u2014 it calls `analysisEngine.analyzeStock` per ticker synchronously. Commit 3 must repoint the route, not just rename fields.\n2. `Watchlist.tsx` renders `item.ivRank.toFixed(0)` in two cells \u2014 the only user-visible pivot field; bundle the fix and route the redesign through Cove.\n3. Dead-code blocks bigger than `ivService.ts`: `analysisEngine.ts`, `newAnalysisEngine.ts`, an `index.ts:459\u2013529` aggregator, and `schedulerService.ts:86\u2013128` all become deletable once the route flips.\n\nArtifact: `artifacts/2026-05-08-strikerewind-pivot-commit-3-deletion-surface-audit.md` (8-step execution order documented). State files updated. Two gates unchanged: `ADS DECISION`, `POLYGON KEY READY`. Cash $162.45.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-08_141701.txt",
+      "output_excerpt": "All state files updated. OPEN_GATES.md unchanged (both gates still Travis-side); BUDGET unchanged ($162.45); no new gates raised.\n\n**Summary**: Run 7 of 2026-05-08. Shipped a bounded, additive Commit 3 prework \u2014 `getHuntSpreadResultsPivot` query method on `supabaseDatabaseService.ts` plus a new `huntPivotMapper.ts` module (`pivotRowToHuntOpportunity` + `isPivotRow` + typed error) with 13 deterministic tests. 53/53 pass, `tsc --noEmit` clean. Commit `4f841e0` pushed. Both new symbols are dead code today \u2014 no consumer wired, live behavior unchanged. Pins the response-shape decision Commit 3 step 2 needed answered. Two Travis-side gates remain: `POLYGON KEY READY: STRIKEREWIND IV OVERLAY` and `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`. Cash $162.45.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-08_161701.txt",
       "screenshot_path": "",
-      "label": "05-08-26 (Day 19) \u00b7 10:17 AM",
+      "label": "05-08-26 (Day 19) \u00b7 12:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
     },
     {
-      "run_id": "run_claude_2026-05-08_161701",
-      "timestamp": "2026-05-08 12:17 PM EDT",
-      "timestamp_sort": "2026-05-08T16:17:01+00:00",
+      "run_id": "run_claude_2026-05-08_181702",
+      "timestamp": "2026-05-08 02:17 PM EDT",
+      "timestamp_sort": "2026-05-08T18:17:02+00:00",
       "date": "2026-05-08",
-      "time": "12:17PM",
+      "time": "2:17PM",
       "objective": "third autonomous run of 2026-05-08, fired ~08:17 UTC. Reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md`: Travis hand-edited the file between yesterday's run 9 and now \u2014 removed `STRIPE PRICES: STRIKEREWIND PRICE IDS MISSING` (resolved) and `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` (resolved), added `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`. Two gates standing entering and exiting: `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`, `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`. StrikeRewind \u226512h smoke cadence cleared exactly at fire time (run 8 of 2026-05-07 was 20:17 UTC). Run 9 of 2026-05-07 deployed the `trial_period_days` removal + trialing/active fix (`9e1184a`); this is the first morning smoke after that deploy.",
       "decision_made": "",
       "next_step": "",
@@ -14067,24 +14144,24 @@
           "site_path": "artifacts/2026-05-08-strikerewind-morning-smoke.md"
         }
       ],
-      "output_excerpt": "All state files updated. OPEN_GATES.md unchanged (both gates still Travis-side); BUDGET unchanged ($162.45); no new gates raised.\n\n**Summary**: Run 7 of 2026-05-08. Shipped a bounded, additive Commit 3 prework \u2014 `getHuntSpreadResultsPivot` query method on `supabaseDatabaseService.ts` plus a new `huntPivotMapper.ts` module (`pivotRowToHuntOpportunity` + `isPivotRow` + typed error) with 13 deterministic tests. 53/53 pass, `tsc --noEmit` clean. Commit `4f841e0` pushed. Both new symbols are dead code today \u2014 no consumer wired, live behavior unchanged. Pins the response-shape decision Commit 3 step 2 needed answered. Two Travis-side gates remain: `POLYGON KEY READY: STRIKEREWIND IV OVERLAY` and `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`. Cash $162.45.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-08_161701.txt",
+      "output_excerpt": "All state files updated. Run 8 complete.\n\n**Run 8 summary**: Repointed StrikeRewind `/api/hunt` live path from per-ticker `analysisEngine.analyzeStock` fan-out to a single `getHuntSpreadResultsPivot` + `pivotRowToHuntOpportunity` call. Fixture mode preserved so Travis's smoke path is unchanged. Universe filtering preserved via new `tickers[]` arg. `maxOtmPct` added as optional schema field. 53/53 tests pass, `tsc` clean, commit `f1aa576` pushed, `/api/health` HTTP 200. Live returns `[]` today (Commit 2 batch not run yet) \u2014 intentional null-effect architectural flip. Two Travis-side gates unchanged. Cash $162.45.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-08_181702.txt",
       "screenshot_path": "",
-      "label": "05-08-26 (Day 19) \u00b7 12:17 PM",
+      "label": "05-08-26 (Day 19) \u00b7 2:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
     },
     {
-      "run_id": "run_claude_2026-05-08_181702",
-      "timestamp": "2026-05-08 02:17 PM EDT",
-      "timestamp_sort": "2026-05-08T18:17:02+00:00",
+      "run_id": "run_claude_2026-05-08_195954",
+      "timestamp": "2026-05-08 03:59 PM EDT",
+      "timestamp_sort": "2026-05-08T19:59:54+00:00",
       "date": "2026-05-08",
-      "time": "2:17PM",
+      "time": "3:59PM",
       "objective": "Travis just finished an interactive session today (2026-05-08 ET handoff) and explicitly told AutoBox the StrikeRewind app is \"ready for Travis e2e testing\" \u2014 meaning he owns the active QA window. Pile-on code work on StrikeRewind would risk false test failures during his window. PAF carries Google Ads + AdSense (live earning surface); silent regression on the apex calculator or the conversion fire would burn paid spend undetected. Last EOD smoke 2026-05-07 10:20 UTC; ~16h cadence cleared. Cheapest evidence that the earning asset is intact while Travis owns the StrikeRewind testing window.",
       "decision_made": "ran existing `workspace/paf_smoke.mjs` Playwright harness against `https://profitafterfees.com`. 36 assertions: apex 200 + form fields, conversion gtag fires-once + correct send_to + once-semantic across additional input, calculator math (net $40.84, revenue ex-VAT $75.00, Stripe $2.91, affiliate $22.50, verdict headline), 5 calculator pages (200 + scenario CTA carries `/?listPrice=` deep link), AI Model Pricing Index (200 + \"Last verified May 6, 2026\" + 6 model rows), AI Feature Cost Calculator (200), mobile 390px (no horizontal overflow + form visible), `/privacy/` (200), `/ads.txt` (200 + correct AdSense pub id).",
       "next_step": "",
       "heading": "Run \u2014 2026-05-08 (run 1) \u2014 PAF end-of-day production smoke",
-      "artifact_path": "artifacts/2026-05-08-strikerewind-pivot-commit-3-step2-hunt-route-repoint.md",
+      "artifact_path": "artifacts/2026-05-08-strikerewind-eod-smoke.md",
       "budget": {
         "starting_budget": "$200.00",
         "current_balance": "$162.45",
@@ -14135,81 +14212,12 @@
       },
       "artifacts": [
         {
-          "name": "2026-05-08-strikerewind-pivot-commit-3-step2-hunt-route-repoint.md",
-          "relative_path": "artifacts/2026-05-08-strikerewind-pivot-commit-3-step2-hunt-route-repoint.md",
+          "name": "2026-05-08-strikerewind-eod-smoke.md",
+          "relative_path": "artifacts/2026-05-08-strikerewind-eod-smoke.md",
           "kind": "text",
-          "preview": "# StrikeRewind pivot \u2014 Commit 3 step 2: `/api/hunt` repoint to pivot query\n\n**Run 8 of 2026-05-08** \u00b7 commit `f1aa576` on `autobox/strikerewind-rename` \u00b7 pushed to origin \u00b7 backend tests 53/53 \u00b7 `tsc --noEmit` clean.\n\n## Summary\n\nLive-mode `/api/hunt` no longer fans out per-ticker `analysisEngine.analyzeStock` calls. The route now reads pre-computed pivot rows from `spread_results` (`data_source='price_history_5yr'`) via a single `getHuntSpreadResultsPivot` call, mapped through `pivotRowToHuntOpportunity`.\n\n## What changed\n\n- **`the scanner backend`**: extended `getHuntSpreadResultsPivot` opts with optional `tickers?: string[]` filter. When provided and non-empty, the query adds `.in('ticker', opts.tickers)` to scope results to the requested universe.\n- **`the scanner backend`**: added optional `maxOtmPct: Joi.number().min(0).max(100).default(30)` to `schemas.hunt.criteria`. Existing required fields untouched.\n- **`the scanner backend`**:\n  - imported `pivotRowToHuntOpportunity`.\n  - removed unused `const opportunities = []` declaration.\n  - replaced the per-ticker live-mode loop (was lines 649\u2013722, ~75 lines) with a single pivot read, mapper invocation, slice-to-20, cache, and JSON response.\n  - direction map: `PUT \u2192 bull_put`, `CALL \u2192 bear_call`, `BOTH \u2192 BOTH`.\n  - universe selection still applied via `tickersToScan` passed as the new `tickers` arg.\n  - log line cleaned of emojis.\n\n## What it does NOT change\n\n- **Fixture mode is untouched.** `isHuntFixtureModeEnabled()` short-circuits before the live block. `buildFixtureHuntOpportunities` still returns the legacy `HuntOpportunity` shape. Travis's Playwright smoke (`HUNT_USE_FIXTURES=true` in production per prior runs) hits this path.\n- **`analysisEngine` import remains** because it's still used by `/api/analyze`, `/api/scan`, batch warmer, and `/api/high-iv-stocks`.\n- **Schema still requires `minEvScore`** so existing frontend requests pass validation. The live path simply ignores it now.\n- **Frontend untouched.** Cannot consume the new `HuntOpportunityPivot` shape yet \u2014 bundled with Watchlist row redesign (Cove pass) in a follow-on slice.\n\n## Live behavior today\n\nProduction has zero rows in `spread_results` with `data_source='price_history_5yr'` because Commit 2's `runSpreadResultsBatch` job has not run live yet. So the live path returns `[]`. Frontend, in fixture mode, never reaches it. If a caller bypassed fixture mode, they would see the empty-state UI.\n\nThis is an intentional null-effect deploy \u2014 the architectural flip lands without behavior change so the next slice (frontend reshape + scheduler wiring + IV deletion) can land cleanly.\n\n## Verification\n\n- `npx tsc --noEmit` \u2192 clean.\n- `npx tsx --test src/services/*.test.ts src/jobs/*.test.ts` \u2192 **53/53 pass**.\n- `git push origin autobox/strikerewind-rename` succeeded (`4f841e0..f1aa576`).\n- `curl https://strikerewind-api.onrender.com/api/health` \u2192 HTTP 200 post-push.\n\n## Deliberately NOT done\n\n- Did not run `runSpreadResultsBatch` against live Supabase (would write rows; want to inspect once before first batch).\n- Did not delete `analysisEngine.ts` / `newAnalysisEngine.ts` / IV service (still load-bearing on other routes).\n- Did not delete the legacy code blocks at `index.ts:459\u2013529` (high-IV aggregator) or `schedulerService.ts:86\u2013128` (their deletion bundles with the IV strip).\n- Did not reshape frontend (`Hunt.tsx`, `Watchlist.tsx`, `Home.tsx`, `api.ts`, `types/index.ts`) \u2014 needs Cove pass on Watchlist row redesign first.\n- Did not route through Cove or Luke \u2014 backend logic, no customer-visible copy or layout changed.\n- Did not raise a new gate.\n\n## Next move\n\nFrontend reshape \u2014 add `HuntOpportunityPivot` to frontend types, update `api.ts` types, rewrite `Hunt.tsx` results table to render `direction`/`otmPct`/`dteWeeks`/`winRate`/`observationCount`/`minPremium100`, and run Cove on the new row layout (and on `Watchlist.tsx` lines 188/230 where `ivRank.toFixed(0)` still renders). After frontend lands, run `runSpreadResultsBatch` for AAPL on live, smoke against fixture-mode-off path.\n\n## Cash\n\n$162.45 \u2014 Render starter accruing ~$0.23/day. No spend this run.\n",
-          "site_path": "artifacts/2026-05-08-strikerewind-pivot-commit-3-step2-hunt-route-repoint.md",
-          "has_redactions": true
-        }
-      ],
-      "output_excerpt": "All state files updated. Run 8 complete.\n\n**Run 8 summary**: Repointed StrikeRewind `/api/hunt` live path from per-ticker `analysisEngine.analyzeStock` fan-out to a single `getHuntSpreadResultsPivot` + `pivotRowToHuntOpportunity` call. Fixture mode preserved so Travis's smoke path is unchanged. Universe filtering preserved via new `tickers[]` arg. `maxOtmPct` added as optional schema field. 53/53 tests pass, `tsc` clean, commit `f1aa576` pushed, `/api/health` HTTP 200. Live returns `[]` today (Commit 2 batch not run yet) \u2014 intentional null-effect architectural flip. Two Travis-side gates unchanged. Cash $162.45.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
-      "output_site_path": "outputs/run_claude_2026-05-08_181702.txt",
-      "screenshot_path": "",
-      "label": "05-08-26 (Day 19) \u00b7 2:17 PM",
-      "budget_delta_html": "",
-      "narrative_weight": 1
-    },
-    {
-      "run_id": "run_claude_2026-05-08_195954",
-      "timestamp": "2026-05-08 03:59 PM EDT",
-      "timestamp_sort": "2026-05-08T19:59:54+00:00",
-      "date": "2026-05-08",
-      "time": "3:59PM",
-      "objective": "today's INTERACTIVE-2 handoff approved the price-history pivot and instructed the next autonomous run to \"Execute the pivot spec. Start with Commit 1.\" The win rate calculator is the load-bearing math the entire pivot sits on top of. Bounded, code-only, additive, no consumer-side change \u2014 the right size for one run.",
-      "decision_made": "shipped `the scanner backend` + `the scanner backend`. Calculator walks every Friday entry across daily price data, measures expiration outcomes against `entry \u00d7 (1 \u00b1 otmPct)` per direction, returns `{ winRate, observationCount, minPremiumPct = 1 - winRate, minPremium100, minPremium500, lowConfidence }`. Suppresses results below 20 observations, flags `lowConfidence: true` between 20 and 39. Exports `OTM_GRID` (-10/-5/0/2/5/8/10/12/15/20%), `DTE_WEEKS_GRID` (4/8/13/17/24w), `DIRECTIONS` (bull_put, bear_call), and a `calculateGrid(ticker, prices)` helper that enumerates all 100 combinations per ticker for the overnight batch in Commit 2.",
-      "next_step": "",
-      "heading": "Run \u2014 2026-05-08 (run 2) \u2014 StrikeRewind pivot Commit 1: win rate calculator",
-      "artifact_path": "artifacts/2026-05-08-strikerewind-pivot-batch-yahoo-blocker-and-polygon-recommendation.md",
-      "budget": {
-        "starting_budget": "$200.00",
-        "current_balance": "$162.45",
-        "recent_entries": [
-          {
-            "date": "2026-04-20",
-            "type": "starting_budget",
-            "amount": "+$200.00",
-            "balance_after": "$200.00",
-            "note": "Initial AutoBox experiment budget"
-          },
-          {
-            "date": "2026-04-21",
-            "type": "expense",
-            "amount": "-$11.25",
-            "balance_after": "$188.75",
-            "note": "Domain purchase"
-          },
-          {
-            "date": "2026-04-28",
-            "type": "expense",
-            "amount": "-$11.25",
-            "balance_after": "$177.50",
-            "note": "StrikeRewind.com domain purchase"
-          },
-          {
-            "date": "2026-04-28",
-            "type": "expense",
-            "amount": "-$15.05",
-            "balance_after": "$162.45",
-            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
-          },
-          {
-            "date": "2026-05-02",
-            "type": "recurring_started",
-            "amount": "$0.00",
-            "balance_after": "$162.45",
-            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
-          },
-          {
-            "date": "2026-05-03",
-            "type": "note",
-            "amount": "$0.00",
-            "balance_after": "$162.45",
-            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
-          }
-        ]
-      },
-      "artifacts": [
+          "preview": "# StrikeRewind end-of-day production smoke \u2014 2026-05-08\n\n**Run**: 10 of 2026-05-08, fired ~20:17 UTC.\n**Cadence**: \u226512h since run 3's morning smoke at 08:17 UTC \u2014 eligible exactly at fire time.\n**Why this slice**: queued autonomous move from run 9's handoff for the now-eligible window. Run 8 deployed `f1aa576` which repointed `/api/hunt` to the pivot query; this smoke confirms fixture mode (active in prod) still short-circuits cleanly and Travis's path is unbroken even though the pivot live path returns `[]` (Polygon gate still pending \u2192 no source rows yet).\n\n## Result\n\n**35 / 35 pass** against `https://www.strikerewind.com`.\n\nScreenshots + `summary.json` in `artifacts/2026-05-08-strikerewind-playwright-smoke/`.\n\n## Coverage spot-checks (no regression vs run 3)\n\n- Analyze AAPL renders full result; ZZZZZ error path renders message + Back button.\n- Hunt: action button present, fixture tickers returned, result row navigates to `/analysis/MSFT`, no error shown.\n- Watchlist: AAPL/MSFT/UNH rows render with real fixture data (win rate, optimal DTE, IV rank), remove button works (before=1 \u2192 after=0). The \"Data refreshing\" placeholder regression Travis flagged on 2026-05-07 is still gone.\n- Stripe prices endpoint returns 200 with both `standard=price_1TUdOXAy6OYpyg` and `pro=price_1TUdOYAy6OYpyg` \u2014 the Travis-side STRIPE PRICES gate restoration from this morning is still live.\n- Account tab: FREE label + STANDARD + PRO plan cards render.\n- Mobile landing: no horizontal overflow.\n\n## What this proves about Commit 3 step 2 (`f1aa576`)\n\nThe repoint is invisible to users today, exactly as designed:\n- Fixture short-circuit at `index.ts:640` fires before the new pivot read.\n- Travis's harness path returns the legacy `HuntOpportunity` shape with no schema drift.\n- Live path's `[]` return (no `data_source='price_history_5yr'` rows yet) is hidden behind the fixture flag in prod.\n\nNet user-visible behavior change since run 3's morning smoke: zero. Architectural flip held.\n\n## Cash\n\n`$162.45` \u2014 no spend this run. Render starter still accruing ~$0.23/day.\n",
+          "site_path": "artifacts/2026-05-08-strikerewind-eod-smoke.md"
+        },
         {
           "name": "2026-05-08-strikerewind-pivot-batch-yahoo-blocker-and-polygon-recommendation.md",
           "relative_path": "artifacts/2026-05-08-strikerewind-pivot-batch-yahoo-blocker-and-polygon-recommendation.md",
@@ -14223,6 +14231,81 @@
       "output_site_path": "outputs/run_claude_2026-05-08_195954.txt",
       "screenshot_path": "",
       "label": "05-08-26 (Day 19) \u00b7 3:59 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
+    },
+    {
+      "run_id": "run_claude_2026-05-08_201701",
+      "timestamp": "2026-05-08 04:17 PM EDT",
+      "timestamp_sort": "2026-05-08T20:17:01+00:00",
+      "date": "2026-05-08",
+      "time": "4:17PM",
+      "objective": "today's INTERACTIVE-2 handoff approved the price-history pivot and instructed the next autonomous run to \"Execute the pivot spec. Start with Commit 1.\" The win rate calculator is the load-bearing math the entire pivot sits on top of. Bounded, code-only, additive, no consumer-side change \u2014 the right size for one run.",
+      "decision_made": "shipped `the scanner backend` + `the scanner backend`. Calculator walks every Friday entry across daily price data, measures expiration outcomes against `entry \u00d7 (1 \u00b1 otmPct)` per direction, returns `{ winRate, observationCount, minPremiumPct = 1 - winRate, minPremium100, minPremium500, lowConfidence }`. Suppresses results below 20 observations, flags `lowConfidence: true` between 20 and 39. Exports `OTM_GRID` (-10/-5/0/2/5/8/10/12/15/20%), `DTE_WEEKS_GRID` (4/8/13/17/24w), `DIRECTIONS` (bull_put, bear_call), and a `calculateGrid(ticker, prices)` helper that enumerates all 100 combinations per ticker for the overnight batch in Commit 2.",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-08 (run 2) \u2014 StrikeRewind pivot Commit 1: win rate calculator",
+      "artifact_path": "artifacts/2026-05-08-strikerewind-eod-smoke.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-08-strikerewind-eod-smoke.md",
+          "relative_path": "artifacts/2026-05-08-strikerewind-eod-smoke.md",
+          "kind": "text",
+          "preview": "# StrikeRewind end-of-day production smoke \u2014 2026-05-08\n\n**Run**: 10 of 2026-05-08, fired ~20:17 UTC.\n**Cadence**: \u226512h since run 3's morning smoke at 08:17 UTC \u2014 eligible exactly at fire time.\n**Why this slice**: queued autonomous move from run 9's handoff for the now-eligible window. Run 8 deployed `f1aa576` which repointed `/api/hunt` to the pivot query; this smoke confirms fixture mode (active in prod) still short-circuits cleanly and Travis's path is unbroken even though the pivot live path returns `[]` (Polygon gate still pending \u2192 no source rows yet).\n\n## Result\n\n**35 / 35 pass** against `https://www.strikerewind.com`.\n\nScreenshots + `summary.json` in `artifacts/2026-05-08-strikerewind-playwright-smoke/`.\n\n## Coverage spot-checks (no regression vs run 3)\n\n- Analyze AAPL renders full result; ZZZZZ error path renders message + Back button.\n- Hunt: action button present, fixture tickers returned, result row navigates to `/analysis/MSFT`, no error shown.\n- Watchlist: AAPL/MSFT/UNH rows render with real fixture data (win rate, optimal DTE, IV rank), remove button works (before=1 \u2192 after=0). The \"Data refreshing\" placeholder regression Travis flagged on 2026-05-07 is still gone.\n- Stripe prices endpoint returns 200 with both `standard=price_1TUdOXAy6OYpyg` and `pro=price_1TUdOYAy6OYpyg` \u2014 the Travis-side STRIPE PRICES gate restoration from this morning is still live.\n- Account tab: FREE label + STANDARD + PRO plan cards render.\n- Mobile landing: no horizontal overflow.\n\n## What this proves about Commit 3 step 2 (`f1aa576`)\n\nThe repoint is invisible to users today, exactly as designed:\n- Fixture short-circuit at `index.ts:640` fires before the new pivot read.\n- Travis's harness path returns the legacy `HuntOpportunity` shape with no schema drift.\n- Live path's `[]` return (no `data_source='price_history_5yr'` rows yet) is hidden behind the fixture flag in prod.\n\nNet user-visible behavior change since run 3's morning smoke: zero. Architectural flip held.\n\n## Cash\n\n`$162.45` \u2014 no spend this run. Render starter still accruing ~$0.23/day.\n",
+          "site_path": "artifacts/2026-05-08-strikerewind-eod-smoke.md"
+        }
+      ],
+      "output_excerpt": "All state files updated. Run complete.\n\n**Run 10 of 2026-05-08 \u2014 StrikeRewind end-of-day smoke: 35/35 pass.** Confirms run 8's `/api/hunt` pivot repoint (`f1aa576`) is invisible to users as designed \u2014 fixture short-circuit holds, Watchlist clean, Stripe prices live. Two open gates unchanged (Polygon Stocks approval pending, Ads appeal status-watch). No spend; cash $162.45.\n\nArtifact: `artifacts/2026-05-08-strikerewind-eod-smoke.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-08_201701.txt",
+      "screenshot_path": "",
+      "label": "05-08-26 (Day 19) \u00b7 4:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 2
     }

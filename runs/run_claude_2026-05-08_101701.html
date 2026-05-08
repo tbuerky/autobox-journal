@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind pivot commit 1b supabase schema &middot; AutoBox</title>
+<title>Strikerewind pivot commit 3 prework mapper and query &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,11 +33,9 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-08_101701</span>
   </div>
-  <h2 class="run-title">Strikerewind pivot commit 1b supabase schema</h2>
+  <h2 class="run-title">Strikerewind pivot commit 3 prework mapper and query</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
-<p class="act"><span class="act-text">**Date:** 2026-05-08 (run 4) **Branch:** autobox/strikerewind-rename **Commit:** 117e41e **Supabase project:** hjfsapwessfvdcfytpuk **Spec:** artifacts/2026-05-08-strikerewind-price-history-pivot-spec.md §4</span></p>
-<p class="act"><span class="act-text">Migration file: backend/supabase-migration-pivot-1b-spread-results-pivot-columns.sql</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">seventh autonomous run of 2026-05-08. Reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` — two gates entering and exiting unchanged (`ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`, `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`); both Travis-side, no fresh owner input. Run 6&#x27;s deletion-surface audit had laid out an 8-step Commit 3 in two flavors: full Commit 3 OR steps 1–3 (validation + types + repointed route). Took the smallest defensible slice within budget — pure additive prework that closes the two open architectural questions Commit 3 needs answered (response shape, pivot query) without touching any live consumer.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -46,77 +44,73 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <div class="artifact-prose"><h1>StrikeRewind pivot — Commit 1b: Supabase schema migration</h1>
-<p><strong>Date:</strong> 2026-05-08 (run 4)</p>
-<p><strong>Branch:</strong> <code>autobox/strikerewind-rename</code></p>
-<p><strong>Commit:</strong> <code>117e41e</code></p>
-<p><strong>Supabase project:</strong> <code>hjfsapwessfvdcfytpuk</code></p>
-<p><strong>Spec:</strong> <code>artifacts/2026-05-08-strikerewind-price-history-pivot-spec.md</code> §4</p>
-<h2>What landed</h2>
-<p>Migration file: <code>backend/supabase-migration-pivot-1b-spread-results-pivot-columns.sql</code></p>
-<p>Applied live via Supabase Management API</p>
-<p>(<code>POST /v1/projects/hjfsapwessfvdcfytpuk/database/query</code>, HTTP 201).</p>
-<h3>Columns added to <code>spread_results</code></h3>
-<p>| Column | Type | Notes |</p>
-<p>|---|---|---|</p>
-<p>| <code>otm_pct</code> | NUMERIC(8,4) | strike distance, positive=OTM, negative=ITM |</p>
-<p>| <code>dte_weeks</code> | INTEGER | DTE bucket in weeks |</p>
-<p>| <code>direction</code> | TEXT | CHECK ∈ {<code>bull_put</code>, <code>bear_call</code>, NULL} |</p>
-<p>| <code>observation_count</code> | INTEGER | sample size |</p>
-<p>| <code>min_premium_pct</code> | NUMERIC(8,4) | premium floor as fraction of width |</p>
-<p>| <code>min_premium_100</code> | NUMERIC(10,4) | $/contract on $100-wide |</p>
-<p>| <code>min_premium_500</code> | NUMERIC(10,4) | $/contract on $500-wide |</p>
-<p>| <code>low_confidence</code> | BOOLEAN | true when 20 ≤ obs &lt; 40 |</p>
-<h3>Default change</h3>
-<p><code>data_source</code> default flipped from <code>&#x27;polygon&#x27;</code> → <code>&#x27;price_history_5yr&#x27;</code>.</p>
-<p>Spec called the prior default &quot;the lying default&quot; — no Polygon data ever</p>
-<p>flowed into this table. Existing rows keep whatever value they were</p>
-<p>written with; only new inserts pick up the new default.</p>
-<h3>Index added</h3>
-<p><code>spread_results_pivot_hunt_idx</code> on</p>
-<p><code>(data_source, win_rate DESC, dte_weeks, otm_pct)</code> — supports the Hunt</p>
-<p>query in spec §5.</p>
-<h2>What was deliberately NOT done</h2>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>StrikeRewind pivot — Commit 3 prework: pivot-side query + response mapper</h1>
+<p><strong>Date</strong>: 2026-05-08 (run 7 of 2026-05-08)</p>
+<p><strong>Branch</strong>: <code>autobox/strikerewind-rename</code></p>
+<p><strong>Commit</strong>: <code>4f841e0</code></p>
+<p><strong>Result</strong>: 53/53 backend tests pass; <code>tsc --noEmit</code> clean; pushed to origin; live behavior unchanged.</p>
+<h2>Why this slice now</h2>
+<p>Run 6&#x27;s audit (<code>artifacts/2026-05-08-strikerewind-pivot-commit-3-deletion-surface-audit.md</code>) laid out an 8-step Commit 3. Steps 1–7 touch live code paths; step 7 includes Watchlist row redesign that warrants Cove. Within the available budget I took the <strong>purely additive</strong> prework that closes the data-access + response-shape questions without touching any live consumer:</p>
+<p>1. New <code>getHuntSpreadResultsPivot</code> query method on the database service.</p>
+<p>2. New <code>huntPivotMapper.ts</code> module — pure functions that turn a pivot-shape <code>SpreadResultRow</code> into the response payload Commit 3&#x27;s repointed <code>/api/hunt</code> will return.</p>
+<p>Both are dead code today (no consumer imports them). When the next run executes Commit 3 step 2 (the <code>/api/hunt</code> rewrite), it picks them up and the rewrite becomes mechanical.</p>
+<h2>What shipped</h2>
+<h3><code>the scanner backend</code></h3>
+<p>Added <code>getHuntSpreadResultsPivot(opts)</code> — sister to the existing <code>getHuntSpreadResults</code>. Filters:</p>
 <ul>
-<li><strong>Did not drop or rename existing columns.</strong> <code>otm_percentage</code>,</li>
+<li><code>data_source = &#x27;price_history_5yr&#x27;</code> — strictly the new pivot rows; never returns legacy synthetic-IV rows</li>
+<li><code>win_rate &gt;= opts.minWinRate</code> (decimal 0..1, pivot semantics)</li>
+<li><code>otm_pct &lt;= opts.maxOtmPct</code></li>
+<li><code>dte_weeks &lt;= opts.maxDteWeeks</code></li>
+<li><code>observation_count &gt;= opts.minObservationCount ?? 20</code> (suppress low-confidence by default)</li>
+<li><code>direction = opts.direction</code> unless <code>&#x27;BOTH&#x27;</code></li>
+<li>Optional <code>as_of_date</code> pin</li>
+<li>Order: <code>as_of_date DESC, win_rate DESC</code>; <code>LIMIT opts.limit</code></li>
 </ul>
-<p><code>timeframe_weeks</code>, <code>spread_type</code>, <code>total_trades</code>, <code>ev_percent</code>,</p>
-<p><code>premium</code>, <code>current_price</code>, <code>iv_rank</code>, <code>analysis_years</code> are all left</p>
-<p>intact. Removing them is a later commit once consumer services are</p>
-<p>repointed to the new columns. Additive only.</p>
+<p>Index <code>spread_results_pivot_hunt_idx</code> (added in Commit 1b) covers the predicate set.</p>
+<h3><code>the scanner backend</code> (new file)</h3>
+<p>Three exports:</p>
 <ul>
-<li><strong>Did not write any rows</strong> to the new columns. Commit 2 (overnight</li>
+<li><code>pivotRowToHuntOpportunity(row)</code> — pure mapper. Throws <code>PivotRowMissingFieldsError(field, ticker)</code> when any required pivot field is null. Defaults <code>low_confidence=null</code> to <code>false</code>.</li>
+<li><code>isPivotRow(row)</code> — predicate. True iff <code>data_source === &#x27;price_history_5yr&#x27;</code> AND all five required pivot fields are non-null.</li>
+<li><code>HuntOpportunityPivot</code> interface — the shape Commit 3&#x27;s <code>/api/hunt</code> returns: <code>{ ticker, direction, otmPct, dteWeeks, winRate, observationCount, minPremium100, lowConfidence, asOfDate }</code>.</li>
 </ul>
-<p>scheduler) populates them.</p>
+<p>This pins the response-shape decision the audit left open and gives the next run a typed building block instead of inline-mapping in the route handler.</p>
+<h3><code>the scanner backend</code> (new file, 13 tests)</h3>
 <ul>
-<li><strong>Did not repoint Hunt or Ticker Analysis read paths</strong> to the new</li>
-</ul>
-<p>columns. Commits 3+ handle that.</p>
-<ul>
-<li><strong>Did not route through Cove / Luke</strong> — backend schema only, no</li>
-</ul>
-<p>customer-visible surface.</p>
-<ul>
-<li><strong>Did not raise a new gate</strong> — autonomous and bounded.</li>
+<li>field-by-field mapping happy path (<code>AAPL</code>, <code>bull_put</code>, every field round-trips)</li>
+<li><code>low_confidence</code> null defaults to false</li>
+<li><code>bear_call</code> direction preserved</li>
+<li>explicit throws for each required missing field (<code>direction</code>, <code>otm_pct</code>, <code>dte_weeks</code>, <code>observation_count</code>, <code>min_premium_100</code>)</li>
+<li>error message includes ticker context for debugging</li>
+<li><code>isPivotRow</code> true on full row; false when <code>data_source</code> is <code>&#x27;polygon&#x27;</code>, undefined, or any pivot field is null</li>
 </ul>
 <h2>Verification</h2>
-<p><code>information_schema.columns</code> query against the live DB returned all 8</p>
-<p>new columns nullable + the new <code>data_source</code> default</p>
-<p><code>&#x27;price_history_5yr&#x27;::text</code>. Index <code>spread_results_pivot_hunt_idx</code></p>
-<p>present in <code>pg_indexes</code>. 26/26 backend tests still pass via</p>
-<p><code>npx tsx --test src/services/*.test.ts</code> (no test code changes — schema</p>
-<p>delta is invisible to existing services).</p>
-<h2>Idempotency</h2>
-<p>Migration uses <code>ADD COLUMN IF NOT EXISTS</code> and `CREATE INDEX IF NOT</p>
-<p>EXISTS`. Re-running is a no-op. Safe to bundle into a future</p>
-<p>DEPLOYMENT.md migration list.</p>
-<h2>Cash impact</h2>
-<p>None. No spend.</p>
-<h2>Next step in the pivot sequence</h2>
-<p>Commit 2 — overnight scheduler that calls <code>calculateGrid</code> (shipped in</p>
-<p>Commit 1) for every S&amp;P 500 ticker against 5yr yfinance history and</p>
-<p>writes one row per (ticker, otm_pct, dte_weeks, direction) into</p>
-<p><code>spread_results</code> with <code>data_source = &#x27;price_history_5yr&#x27;</code>. Spec §3.</p></div>
+<ul>
+<li><code>npx tsc --noEmit</code> clean</li>
+<li><code>npx tsx --test src/services/<em>.test.ts src/jobs/</em>.test.ts</code> → <strong>53/53 pass</strong> (was 40/40; +13 new)</li>
+<li>Commit <code>4f841e0</code>, pushed to <code>origin/autobox/strikerewind-rename</code></li>
+<li>No consumer wired; <code>/api/hunt</code> still calls <code>analysisEngine.analyzeStock</code> per ticker</li>
+<li>No deploy, no live behavior change</li>
+</ul>
+<h2>Why this is bounded</h2>
+<ul>
+<li>Both new symbols are dead code on <code>main</code>. Removing or renaming either is a one-line revert.</li>
+<li>The query method bypasses legacy rows by hard-pinning <code>data_source = &#x27;price_history_5yr&#x27;</code> — even if accidentally called against the live DB today, it would return zero rows (Commit 2 has not yet executed live).</li>
+<li>The mapper has no side effects and no I/O; tests are deterministic.</li>
+</ul>
+<h2>What remains in Commit 3</h2>
+<p>In execution order from the audit:</p>
+<p>1. ✅ (this run) Pivot-side query method + mapper</p>
+<p>2. Update <code>validation.ts</code> schema: drop <code>minIVRank</code> / <code>minEvScore</code>, add <code>direction</code> / <code>maxOtmPct</code> / <code>maxDteWeeks</code>. Update <code>types/index.ts</code> criteria type.</p>
+<p>3. Rewrite <code>/api/hunt</code> route to call <code>getHuntSpreadResultsPivot</code> + <code>pivotRowToHuntOpportunity</code>. Keep fixture branch but update its shape.</p>
+<p>4. Rewrite <code>huntFixtureMode.ts</code> shape; fix tests.</p>
+<p>5. Strip IV imports + blocks from <code>analysisEngine.ts</code>, <code>newAnalysisEngine.ts</code>, <code>schedulerService.ts</code>, <code>spreadResultsService.ts</code>.</p>
+<p>6. Delete <code>ivService.ts</code>.</p>
+<p>7. Delete the <code>/api/high-iv-stocks</code>-shaped block in <code>index.ts:459–529</code>.</p>
+<p>8. Frontend: <code>types/index.ts</code>, <code>Hunt.tsx</code>, <code>Watchlist.tsx</code>, <code>Home.tsx</code>, <code>api.ts</code>. Watchlist row redesign needs Cove.</p>
+<p>9. Single-AAPL <code>runSpreadResultsBatch</code> smoke against live DB; then deploy.</p></div>
   </section>
 
   <section class="detail-section">

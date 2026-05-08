@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind pivot batch yahoo blocker and polygon recommendation &middot; AutoBox</title>
+<title>Strikerewind eod smoke &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,10 +33,10 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-08_195954</span>
   </div>
-  <h2 class="run-title">Strikerewind pivot batch yahoo blocker and polygon recommendation</h2>
+  <h2 class="run-title">Strikerewind eod smoke</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">today&#x27;s INTERACTIVE-2 handoff approved the price-history pivot and instructed the next autonomous run to &quot;Execute the pivot spec. Start with Commit 1.&quot; The win rate calculator is the load-bearing math the entire pivot sits on top of. Bounded, code-only, additive, no consumer-side change — the right size for one run.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">shipped `the scanner backend` + `the scanner backend`. Calculator walks every Friday entry across daily price data, measures expiration outcomes against `entry × (1 ± otmPct)` per direction, returns `{ winRate, observationCount, minPremiumPct = 1 - winRate, minPremium100, minPremium500, lowConfidence }`. Suppresses results below 20 observations, flags `lowConfidence: true` between 20 and 39. Exports `OTM_GRID` (-10/-5/0/2/5/8/10/12/15/20%), `DTE_WEEKS_GRID` (4/8/13/17/24w), `DIRECTIONS` (bull_put, bear_call), and a `calculateGrid(ticker, prices)` helper that enumerates all 100 combinations per ticker for the overnight batch in Commit 2.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">Travis just finished an interactive session today (2026-05-08 ET handoff) and explicitly told AutoBox the StrikeRewind app is &quot;ready for Travis e2e testing&quot; — meaning he owns the active QA window. Pile-on code work on StrikeRewind would risk false test failures during his window. PAF carries Google Ads + AdSense (live earning surface); silent regression on the apex calculator or the conversion fire would burn paid spend undetected. Last EOD smoke 2026-05-07 10:20 UTC; ~16h cadence cleared. Cheapest evidence that the earning asset is intact while Travis owns the StrikeRewind testing window.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">ran existing `workspace/paf_smoke.mjs` Playwright harness against `https://profitafterfees.com`. 36 assertions: apex 200 + form fields, conversion gtag fires-once + correct send_to + once-semantic across additional input, calculator math (net $40.84, revenue ex-VAT $75.00, Stripe $2.91, affiliate $22.50, verdict headline), 5 calculator pages (200 + scenario CTA carries `/?listPrice=` deep link), AI Model Pricing Index (200 + &quot;Last verified May 6, 2026&quot; + 6 model rows), AI Feature Cost Calculator (200), mobile 390px (no horizontal overflow + form visible), `/privacy/` (200), `/ads.txt` (200 + correct AdSense pub id).</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -46,7 +46,32 @@
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
     <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeRewind pivot batch — Yahoo rate-limit blocker + Polygon Starter recommendation</h1>
+    <div class="artifact-prose"><h1>StrikeRewind end-of-day production smoke — 2026-05-08</h1>
+<p><strong>Run</strong>: 10 of 2026-05-08, fired ~20:17 UTC.</p>
+<p><strong>Cadence</strong>: ≥12h since run 3&#x27;s morning smoke at 08:17 UTC — eligible exactly at fire time.</p>
+<p><strong>Why this slice</strong>: queued autonomous move from run 9&#x27;s handoff for the now-eligible window. Run 8 deployed <code>f1aa576</code> which repointed <code>/api/hunt</code> to the pivot query; this smoke confirms fixture mode (active in prod) still short-circuits cleanly and Travis&#x27;s path is unbroken even though the pivot live path returns <code>[]</code> (Polygon gate still pending → no source rows yet).</p>
+<h2>Result</h2>
+<p><strong>35 / 35 pass</strong> against <code>https://www.strikerewind.com</code>.</p>
+<p>Screenshots + <code>summary.json</code> in <code>artifacts/2026-05-08-strikerewind-playwright-smoke/</code>.</p>
+<h2>Coverage spot-checks (no regression vs run 3)</h2>
+<ul>
+<li>Analyze AAPL renders full result; ZZZZZ error path renders message + Back button.</li>
+<li>Hunt: action button present, fixture tickers returned, result row navigates to <code>/analysis/MSFT</code>, no error shown.</li>
+<li>Watchlist: AAPL/MSFT/UNH rows render with real fixture data (win rate, optimal DTE, IV rank), remove button works (before=1 → after=0). The &quot;Data refreshing&quot; placeholder regression Travis flagged on 2026-05-07 is still gone.</li>
+<li>Stripe prices endpoint returns 200 with both <code>standard=price_1TUdOXAy6OYpyg</code> and <code>pro=price_1TUdOYAy6OYpyg</code> — the Travis-side STRIPE PRICES gate restoration from this morning is still live.</li>
+<li>Account tab: FREE label + STANDARD + PRO plan cards render.</li>
+<li>Mobile landing: no horizontal overflow.</li>
+</ul>
+<h2>What this proves about Commit 3 step 2 (<code>f1aa576</code>)</h2>
+<p>The repoint is invisible to users today, exactly as designed:</p>
+<ul>
+<li>Fixture short-circuit at <code>index.ts:640</code> fires before the new pivot read.</li>
+<li>Travis&#x27;s harness path returns the legacy <code>HuntOpportunity</code> shape with no schema drift.</li>
+<li>Live path&#x27;s <code>[]</code> return (no <code>data_source=&#x27;price_history_5yr&#x27;</code> rows yet) is hidden behind the fixture flag in prod.</li>
+</ul>
+<p>Net user-visible behavior change since run 3&#x27;s morning smoke: zero. Architectural flip held.</p>
+<h2>Cash</h2>
+<p><code>$162.45</code> — no spend this run. Render starter still accruing ~$0.23/day.</p><h1>StrikeRewind pivot batch — Yahoo rate-limit blocker + Polygon Starter recommendation</h1>
 <p>Run: 9 of 2026-05-08</p>
 <p>Author: AutoBox autonomous</p>
 <h2>Summary</h2>

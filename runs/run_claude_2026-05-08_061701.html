@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind pivot commit 3 step2 hunt route repoint &middot; AutoBox</title>
+<title>Strikerewind pivot commit 1 win rate calculator &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,9 +33,11 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-08_061701</span>
   </div>
-  <h2 class="run-title">Strikerewind pivot commit 3 step2 hunt route repoint</h2>
+  <h2 class="run-title">Strikerewind pivot commit 1 win rate calculator</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">eighth autonomous run of 2026-05-08, fired ~18:17 UTC. Reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` — two gates entering and exiting unchanged (`ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`, `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`); both Travis-side, no fresh owner input. StrikeRewind ≥12h smoke cadence not yet eligible (run 3 at 08:17 UTC; eligible 20:17 UTC, ~2h out). Run 7&#x27;s handoff named the eligible move for this exact window: &quot;Best autonomous move is Commit 3 step 2 — `/api/hunt` repoint.&quot; Took it.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">**Date:** 2026-05-08 **Branch:** autobox/strikerewind-rename **Commit:** 8bf752f (pushed to origin) **Spec:** artifacts/2026-05-08-strikerewind-price-history-pivot-spec.md</span></p>
+<p class="act"><span class="act-text">First of seven commits in the pivot from synthetic options data to a pure price-history edge scanner. Adds the win rate calculator service — the load-bearing math the entire pivot sits on top of.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -45,52 +47,85 @@
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
     <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeRewind pivot — Commit 3 step 2: <code>/api/hunt</code> repoint to pivot query</h1>
-<p><strong>Run 8 of 2026-05-08</strong> · commit <code>f1aa576</code> on <code>autobox/strikerewind-rename</code> · pushed to origin · backend tests 53/53 · <code>tsc --noEmit</code> clean.</p>
-<h2>Summary</h2>
-<p>Live-mode <code>/api/hunt</code> no longer fans out per-ticker <code>analysisEngine.analyzeStock</code> calls. The route now reads pre-computed pivot rows from <code>spread_results</code> (<code>data_source=&#x27;price_history_5yr&#x27;</code>) via a single <code>getHuntSpreadResultsPivot</code> call, mapped through <code>pivotRowToHuntOpportunity</code>.</p>
-<h2>What changed</h2>
+    <div class="artifact-prose"><h1>StrikeRewind pivot — Commit 1: win rate calculator</h1>
+<p><strong>Date:</strong> 2026-05-08</p>
+<p><strong>Branch:</strong> <code>autobox/strikerewind-rename</code></p>
+<p><strong>Commit:</strong> <code>8bf752f</code> (pushed to origin)</p>
+<p><strong>Spec:</strong> <code>artifacts/2026-05-08-strikerewind-price-history-pivot-spec.md</code></p>
+<h2>What this is</h2>
+<p>First of seven commits in the pivot from synthetic options data to a pure</p>
+<p>price-history edge scanner. Adds the win rate calculator service — the</p>
+<p>load-bearing math the entire pivot sits on top of.</p>
+<h2>What shipped</h2>
 <ul>
-<li><strong><code>the scanner backend</code></strong>: extended <code>getHuntSpreadResultsPivot</code> opts with optional <code>tickers?: string[]</code> filter. When provided and non-empty, the query adds <code>.in(&#x27;ticker&#x27;, opts.tickers)</code> to scope results to the requested universe.</li>
-<li><strong><code>the scanner backend</code></strong>: added optional <code>maxOtmPct: Joi.number().min(0).max(100).default(30)</code> to <code>schemas.hunt.criteria</code>. Existing required fields untouched.</li>
-<li><strong><code>the scanner backend</code></strong>:</li>
-<li>imported <code>pivotRowToHuntOpportunity</code>.</li>
-<li>removed unused <code>const opportunities = []</code> declaration.</li>
-<li>replaced the per-ticker live-mode loop (was lines 649–722, ~75 lines) with a single pivot read, mapper invocation, slice-to-20, cache, and JSON response.</li>
-<li>direction map: <code>PUT → bull_put</code>, <code>CALL → bear_call</code>, <code>BOTH → BOTH</code>.</li>
-<li>universe selection still applied via <code>tickersToScan</code> passed as the new <code>tickers</code> arg.</li>
-<li>log line cleaned of emojis.</li>
+<li><code>the scanner backend</code> (new)</li>
+<li><code>calculateWinRate(input)</code> — walks Friday entries in a daily price</li>
 </ul>
-<h2>What it does NOT change</h2>
+<p>series, measures expiration-day outcomes against a strike defined by</p>
+<p><code>otmPct</code> + <code>direction</code>, returns empirical win rate plus</p>
+<p><code>minPremiumPct = 1 - winRate</code> and dollar floors for $100/$500-wide</p>
+<p>spreads. Returns <code>null</code> if observations &lt; 20. Flags</p>
+<p><code>lowConfidence: true</code> when 20 ≤ observations &lt; 40.</p>
 <ul>
-<li><strong>Fixture mode is untouched.</strong> <code>isHuntFixtureModeEnabled()</code> short-circuits before the live block. <code>buildFixtureHuntOpportunities</code> still returns the legacy <code>HuntOpportunity</code> shape. Travis&#x27;s Playwright smoke (<code>HUNT_USE_FIXTURES=true</code> in production per prior runs) hits this path.</li>
-<li><strong><code>analysisEngine</code> import remains</strong> because it&#x27;s still used by <code>/api/analyze</code>, <code>/api/scan</code>, batch warmer, and <code>/api/high-iv-stocks</code>.</li>
-<li><strong>Schema still requires <code>minEvScore</code></strong> so existing frontend requests pass validation. The live path simply ignores it now.</li>
-<li><strong>Frontend untouched.</strong> Cannot consume the new <code>HuntOpportunityPivot</code> shape yet — bundled with Watchlist row redesign (Cove pass) in a follow-on slice.</li>
+<li>Exports <code>OTM_GRID</code>, <code>DTE_WEEKS_GRID</code>, <code>DIRECTIONS</code>, and</li>
 </ul>
-<h2>Live behavior today</h2>
-<p>Production has zero rows in <code>spread_results</code> with <code>data_source=&#x27;price_history_5yr&#x27;</code> because Commit 2&#x27;s <code>runSpreadResultsBatch</code> job has not run live yet. So the live path returns <code>[]</code>. Frontend, in fixture mode, never reaches it. If a caller bypassed fixture mode, they would see the empty-state UI.</p>
-<p>This is an intentional null-effect deploy — the architectural flip lands without behavior change so the next slice (frontend reshape + scheduler wiring + IV deletion) can land cleanly.</p>
+<p><code>calculateGrid(ticker, prices)</code> for the overnight batch in Commit 2.</p>
+<ul>
+<li><code>the scanner backend</code> (new) — 10</li>
+</ul>
+<p>deterministic cases.</p>
 <h2>Verification</h2>
 <ul>
-<li><code>npx tsc --noEmit</code> → clean.</li>
-<li><code>npx tsx --test src/services/<em>.test.ts src/jobs/</em>.test.ts</code> → <strong>53/53 pass</strong>.</li>
-<li><code>git push origin autobox/strikerewind-rename</code> succeeded (<code>4f841e0..f1aa576</code>).</li>
-<li><code>curl https://strikerewind-api.onrender.com/api/health</code> → HTTP 200 post-push.</li>
+<li><code>npm run build</code> clean.</li>
+<li><code>node --test dist/services/winRateCalculator.test.js</code> — 10/10 pass.</li>
+<li>Existing backend tests (<code>priceDataProvider</code>, <code>huntFixtureMode</code>,</li>
 </ul>
-<h2>Deliberately NOT done</h2>
+<p><code>spreadResultsService</code>) — 16/16 pass; no regression.</p>
 <ul>
-<li>Did not run <code>runSpreadResultsBatch</code> against live Supabase (would write rows; want to inspect once before first batch).</li>
-<li>Did not delete <code>analysisEngine.ts</code> / <code>newAnalysisEngine.ts</code> / IV service (still load-bearing on other routes).</li>
-<li>Did not delete the legacy code blocks at <code>index.ts:459–529</code> (high-IV aggregator) or <code>schedulerService.ts:86–128</code> (their deletion bundles with the IV strip).</li>
-<li>Did not reshape frontend (<code>Hunt.tsx</code>, <code>Watchlist.tsx</code>, <code>Home.tsx</code>, <code>api.ts</code>, <code>types/index.ts</code>) — needs Cove pass on Watchlist row redesign first.</li>
-<li>Did not route through Cove or Luke — backend logic, no customer-visible copy or layout changed.</li>
-<li>Did not raise a new gate.</li>
+<li>26/26 backend tests green.</li>
 </ul>
-<h2>Next move</h2>
-<p>Frontend reshape — add <code>HuntOpportunityPivot</code> to frontend types, update <code>api.ts</code> types, rewrite <code>Hunt.tsx</code> results table to render <code>direction</code>/<code>otmPct</code>/<code>dteWeeks</code>/<code>winRate</code>/<code>observationCount</code>/<code>minPremium100</code>, and run Cove on the new row layout (and on <code>Watchlist.tsx</code> lines 188/230 where <code>ivRank.toFixed(0)</code> still renders). After frontend lands, run <code>runSpreadResultsBatch</code> for AAPL on live, smoke against fixture-mode-off path.</p>
-<h2>Cash</h2>
-<p>$162.45 — Render starter accruing ~$0.23/day. No spend this run.</p></div>
+<h2>Deliberately NOT done in this commit</h2>
+<ul>
+<li>Did NOT delete <code>ivService.ts</code> or Black-Scholes premium estimation —</li>
+</ul>
+<p>callers still depend on them; that removal is bundled with Commit 3</p>
+<p>(Hunt API rewrite) so the diff stays coherent.</p>
+<ul>
+<li>Did NOT add Supabase schema migration columns yet — written in a</li>
+</ul>
+<p>separate Commit 1b once the calculator API is stable. No production</p>
+<p>data depends on this commit.</p>
+<ul>
+<li>Did NOT touch the scheduler — that is Commit 2.</li>
+<li>Did NOT change Hunt response — that is Commit 3.</li>
+<li>Did NOT route through Cove or Luke — backend-internal pure function,</li>
+</ul>
+<p>no customer-visible surface.</p>
+<ul>
+<li>Did NOT subscribe to Polygon — not in this commit&#x27;s scope, and Travis</li>
+</ul>
+<p>said in the addendum he handles that purchase manually.</p>
+<h2>Why push to origin</h2>
+<p>This commit is additive only — two new files, zero callers. Render</p>
+<p>auto-deploys the branch but live behavior is unchanged because nothing</p>
+<p>imports the new module yet. Safe to put it on the remote so the next</p>
+<p>autonomous run can build on it without re-stashing local state.</p>
+<h2>Next runnable steps</h2>
+<p>1. <strong>Commit 1b — Supabase schema migration</strong> for <code>spread_results</code> (new</p>
+<p>columns: <code>otm_pct</code>, <code>dte_weeks</code>, <code>direction</code>, <code>win_rate</code>,</p>
+<p><code>observation_count</code>, <code>min_premium_pct</code>, <code>min_premium_100</code>,</p>
+<p><code>min_premium_500</code>, <code>low_confidence</code>, <code>data_source</code>). Migration SQL</p>
+<p>ready to apply via Supabase dashboard.</p>
+<p>2. <strong>Commit 2 — Overnight scheduler</strong> swap. Replace the existing</p>
+<p>scheduler with a nightly price-history batch that calls</p>
+<p><code>calculateGrid()</code> per ticker and writes to <code>spread_results</code>.</p>
+<p>3. <strong>First real batch run</strong> to populate <code>spread_results</code> with actual</p>
+<p>price-history results — per Travis&#x27;s addendum, this is the move</p>
+<p>that takes Hunt out of fixture mode for real.</p>
+<p>4. <strong>Commit 3</strong> — Hunt API rewrite + delete <code>ivService.ts</code> /</p>
+<p><code>estimateCreditSpreadPremium</code>.</p>
+<h2>Cash balance</h2>
+<p>$162.45. No spend.</p></div>
   </section>
 
   <section class="detail-section">

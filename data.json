@@ -13545,6 +13545,81 @@
       "label": "05-07-26 (Day 18) \u00b7 6:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-05-08_021701",
+      "timestamp": "2026-05-07 10:17 PM EDT",
+      "timestamp_sort": "2026-05-08T02:17:01+00:00",
+      "date": "2026-05-07",
+      "time": "10:17PM",
+      "objective": "Travis just finished an interactive session today (2026-05-08 ET handoff) and explicitly told AutoBox the StrikeRewind app is \"ready for Travis e2e testing\" \u2014 meaning he owns the active QA window. Pile-on code work on StrikeRewind would risk false test failures during his window. PAF carries Google Ads + AdSense (live earning surface); silent regression on the apex calculator or the conversion fire would burn paid spend undetected. Last EOD smoke 2026-05-07 10:20 UTC; ~16h cadence cleared. Cheapest evidence that the earning asset is intact while Travis owns the StrikeRewind testing window.",
+      "decision_made": "ran existing `workspace/paf_smoke.mjs` Playwright harness against `https://profitafterfees.com`. 36 assertions: apex 200 + form fields, conversion gtag fires-once + correct send_to + once-semantic across additional input, calculator math (net $40.84, revenue ex-VAT $75.00, Stripe $2.91, affiliate $22.50, verdict headline), 5 calculator pages (200 + scenario CTA carries `/?listPrice=` deep link), AI Model Pricing Index (200 + \"Last verified May 6, 2026\" + 6 model rows), AI Feature Cost Calculator (200), mobile 390px (no horizontal overflow + form visible), `/privacy/` (200), `/ads.txt` (200 + correct AdSense pub id).",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-08 (run 1) \u2014 PAF end-of-day production smoke",
+      "artifact_path": "artifacts/2026-05-08-paf-eod-smoke.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-08-paf-eod-smoke.md",
+          "relative_path": "artifacts/2026-05-08-paf-eod-smoke.md",
+          "kind": "text",
+          "preview": "# PAF \u2014 end-of-day production smoke (2026-05-08)\n\n**Date:** 2026-05-08 02:19 UTC\n**Run:** autonomous, single task\n**Target:** https://profitafterfees.com (live apex)\n**Harness:** `workspace/paf_smoke.mjs` (Playwright headless Chromium)\n**Result:** **36 pass / 0 fail / 0 console errors**\n\n## Why this move\n\nCadence-appropriate baseline-defending check on the earning asset. Last EOD smoke was 2026-05-07 10:20 UTC (~16h prior). PAF carries Google Ads + AdSense; silent regressions on the apex calculator or the conversion fire would burn ad spend without anyone noticing. Smoke is the cheapest evidence that the live earning surface is intact while Travis owns the active StrikeRewind testing window.\n\nBoth open gates (`LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`, `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`) remain Travis-side. Reconciled at run start; no decision evidence in OWNER_MESSAGES / HANDOFF / BUDGET \u2014 both held.\n\n## What was checked (36 assertions)\n\n- Apex `/`: HTTP 200, `#calculator-form`, `listPrice` input\n- Conversion fire: `gtag('event','conversion', AW-18121518600/WxyuCLjh56McEIjcgcFD)` fires exactly once after submit, stays at 1 across additional input (once-semantic)\n- Result panel: net profit `$40.84`, revenue ex-VAT `$75.00`, Stripe fee `$2.91`, affiliate fee `$22.50`, verdict headline non-empty\n- Calculator pages (200 + scenario CTA carries `/?listPrice=` deep link): `/profit-margin-calculator/`, `/selling-price-calculator/`, `/selling-price-markup-calculator/`, `/break-even-price-calculator/`, `/digital-product-pricing-calculator/`\n- AI Model Pricing Index: 200, \"Last verified May 6, 2026\", all 6 model rows (Sonnet 4.6, Haiku 4.5, Opus 4.7, Gemini 2.5 Flash, Flash-Lite, Gemini 2.5 Pro)\n- AI Feature Cost Calculator: 200\n- Mobile 390px: no horizontal overflow, calculator form visible\n- `/privacy/`: 200; `/ads.txt`: 200, contains `pub-3560388500961643`\n- Console: zero unexpected errors\n\n## Outcome\n\nLive site healthy across the 36-assertion surface. No regressions vs prior EOD run. No deploy. No commit. No spend. Current cash balance: `$162.45`.\n\n## Next autonomous-runnable steps if approvals don't land soon\n\n1. StrikeRewind end-of-day smoke (\u226512h cadence; last was 2026-05-07 20:18 UTC, comes due ~08:18 UTC).\n2. `OptionsDataProvider` interface + fixture-backed implementation (additive scaffolding, no consumer-side change) \u2014 works regardless of which provider Travis picks.\n3. Data-provider single-recommendation packet (Polygon vs Intrinio Bronze vs Massive) \u2014 only if Travis explicitly asks; he is currently weighing on his own and a packet now is pile-on.\n4. PAF Google Ads close-out check \u2014 Travis-pulled numbers required.\n",
+          "site_path": "artifacts/2026-05-08-paf-eod-smoke.md"
+        }
+      ],
+      "output_excerpt": "PAF end-of-day production smoke ran clean: **36 pass / 0 fail / 0 console errors** against `https://profitafterfees.com`. No regressions on the live earning surface (apex calculator math, Google Ads conversion fire, calculator pages, AI Pricing Index, AdSense `/ads.txt`, mobile, `/privacy/`).\n\n**Why this move:** Travis closed today's interactive session with StrikeRewind at 35/35 smoke pass \u2014 he owns the active e2e testing window, so mid-flight StrikeRewind code work would risk false failures and pile-on packets against open Travis-side gates would churn. PAF carries live ad spend; ~16h since the last EOD smoke made cadence-appropriate baseline-defending the highest-leverage move.\n\n**Gates unchanged.** Both Travis-side: `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` and `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`.\n\n**State files:** TODO.md / RUNLOG.md / HANDOFF.md / SCORECARD.md updated. OPEN_GATES.md and BUDGET.md unchanged. Cash balance: **$162.45**. No spend. Artifact: `artifacts/2026-05-08-paf-eod-smoke.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-08_021701.txt",
+      "screenshot_path": "",
+      "label": "05-07-26 (Day 18) \u00b7 10:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

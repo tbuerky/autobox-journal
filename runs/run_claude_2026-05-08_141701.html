@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind pivot commit 3 deletion surface audit &middot; AutoBox</title>
+<title>Strikerewind morning smoke &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,10 +33,9 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-08_141701</span>
   </div>
-  <h2 class="run-title">Strikerewind pivot commit 3 deletion surface audit</h2>
+  <h2 class="run-title">Strikerewind morning smoke</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">Travis just finished an interactive session today (2026-05-08 ET handoff) and explicitly told AutoBox the StrikeRewind app is &quot;ready for Travis e2e testing&quot; — meaning he owns the active QA window. Pile-on code work on StrikeRewind would risk false test failures during his window. PAF carries Google Ads + AdSense (live earning surface); silent regression on the apex calculator or the conversion fire would burn paid spend undetected. Last EOD smoke 2026-05-07 10:20 UTC; ~16h cadence cleared. Cheapest evidence that the earning asset is intact while Travis owns the StrikeRewind testing window.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">ran existing `workspace/paf_smoke.mjs` Playwright harness against `https://profitafterfees.com`. 36 assertions: apex 200 + form fields, conversion gtag fires-once + correct send_to + once-semantic across additional input, calculator math (net $40.84, revenue ex-VAT $75.00, Stripe $2.91, affiliate $22.50, verdict headline), 5 calculator pages (200 + scenario CTA carries `/?listPrice=` deep link), AI Model Pricing Index (200 + &quot;Last verified May 6, 2026&quot; + 6 model rows), AI Feature Cost Calculator (200), mobile 390px (no horizontal overflow + form visible), `/privacy/` (200), `/ads.txt` (200 + correct AdSense pub id).</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">third autonomous run of 2026-05-08, fired ~08:17 UTC. Reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md`: Travis hand-edited the file between yesterday&#x27;s run 9 and now — removed `STRIPE PRICES: STRIKEREWIND PRICE IDS MISSING` (resolved) and `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` (resolved), added `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`. Two gates standing entering and exiting: `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`, `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`. StrikeRewind ≥12h smoke cadence cleared exactly at fire time (run 8 of 2026-05-07 was 20:17 UTC). Run 9 of 2026-05-07 deployed the `trial_period_days` removal + trialing/active fix (`9e1184a`); this is the first morning smoke after that deploy.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -45,67 +44,34 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeRewind pivot Commit 3 — deletion-surface audit</h1>
-<p><strong>Date</strong>: 2026-05-08 14:17 UTC (run 6 of 2026-05-08)</p>
-<p><strong>Repo</strong>: <code>/home/autoproj/projects/StrikeSight</code></p>
-<p><strong>Branch</strong>: <code>autobox/strikerewind-rename</code></p>
-<p><strong>Scope</strong>: read-only audit. No code changes. Goal: enumerate every file/line that references <code>currentIV</code>, <code>ivRank</code>, <code>ivPercentile</code>, <code>estimateCreditSpreadPremium</code>, <code>IVService</code>, or <code>ivService</code> so Commit 3 can be a mechanical change rather than a discovery exercise.</p>
-<h2>Summary</h2>
-<p>14 files contain at least one reference. Splits cleanly into:</p>
+    <div class="artifact-prose"><h1>StrikeRewind morning production smoke — 2026-05-08</h1>
+<p><strong>Run:</strong> 3 of 2026-05-08, fired ~08:17 UTC.</p>
+<p><strong>Target:</strong> <code>https://www.strikerewind.com</code></p>
+<p><strong>Result:</strong> <strong>35 / 35 PASS · 0 FAIL · 0 unfiltered console errors</strong></p>
+<p><strong>Bundle:</strong> <code>artifacts/2026-05-08-strikerewind-morning-smoke/</code> (9 fullpage PNGs + <code>summary.json</code>)</p>
+<h2>Why this run</h2>
 <ul>
-<li><strong>3 files to delete entirely</strong>: <code>ivService.ts</code>, plus the IV-only paths inside <code>analysisEngine.ts</code> / <code>newAnalysisEngine.ts</code> are deletable along with <code>analyzeStock</code>/<code>analyze</code> once <code>/api/hunt</code> is repointed at <code>getHuntSpreadResults</code>.</li>
-<li><strong>5 backend files to edit</strong>: <code>index.ts</code> (heaviest — hunt route, watchlist route, scheduler-shaped block), <code>types/index.ts</code>, <code>huntFixtureMode.ts</code>, <code>huntFixtureMode.test.ts</code>, <code>spreadResultsService.ts</code>, <code>spreadResultsService.test.ts</code>, <code>schedulerService.ts</code>.</li>
-<li><strong>4 frontend files to edit</strong>: <code>types/index.ts</code>, <code>pages/Hunt.tsx</code>, <code>pages/Watchlist.tsx</code>, <code>pages/Home.tsx</code>.</li>
+<li>Cadence eligibility: ≥12h since run 8 of 2026-05-07 at 20:17 UTC cleared at exactly 08:17 UTC.</li>
+<li>Run 9 of 2026-05-07 deployed the <code>trial_period_days</code> removal + trialing/active fix on Stripe webhook (<code>9e1184a</code>); first morning smoke after that deploy.</li>
+<li>Travis hand-edited <code>OPEN_GATES.md</code> between runs: <code>STRIPE PRICES: STRIKEREWIND PRICE IDS MISSING</code> and <code>LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY</code> removed (resolved); <code>POLYGON KEY READY: STRIKEREWIND IV OVERLAY</code> added. This smoke is the first chance to verify the Stripe prices fix landed live.</li>
 </ul>
-<p>The Hunt route as currently wired does NOT go through <code>getHuntSpreadResults</code> — it calls <code>analysisEngine.analyzeStock</code> per-ticker on every hunt request. Commit 3 must repoint the route, not just rename fields.</p>
-<h2>Backend — DELETE</h2>
-<h3><code>the scanner backend</code> (entire file)</h3>
-<p>All 100% Black-Scholes / synthetic IV math. No external imports beyond inside <code>analysisEngine.ts</code> and <code>newAnalysisEngine.ts</code>. Safe delete once those two engines stop importing it.</p>
-<h2>Backend — EDIT</h2>
-<h3><code>the scanner backend</code> — heaviest edit</h3>
-<p>| Line | Reference | Action |</p>
-<p>|---|---|---|</p>
-<p>| 127–129 | <code>result.ivRank/ivPercentile/currentIV = 0</code> (analysis route fallback) | Remove (analysis route can drop IV display entirely under pivot) |</p>
-<p>| 181–183, 190 | Same triple zeroing + <code>criteria.minIVRank</code> filter | Remove <code>minIVRank</code> from criteria entirely |</p>
-<p>| 271, 285 | <code>ivRank: showIV ? analysis.ivRank : 0</code> in analysis response | Remove |</p>
-<p>| 459, 465–467, 473, 481 | High-IV stocks aggregator (<code>/api/high-iv-stocks</code>?) | Delete the entire block — synthetic-IV ranking has no place under pivot |</p>
-<p>| 502, 508–510, 521, 529 | Scheduler-style aggregation block (duplicate) | Delete |</p>
-<p>| 547–710 | <code>/api/hunt</code> route — calls <code>analysisEngine.analyzeStock</code> per ticker, applies <code>criteria.minWinRate</code>, <code>criteria.maxTimeframe</code>, <code>criteria.minEvScore</code> | <strong>Rewrite to read from <code>dbService.getHuntSpreadResults</code> filtered by <code>data_source=&#x27;price_history_5yr&#x27;</code>, <code>win_rate &gt;= criteria.minWinRate</code>, <code>otm_pct &lt;= criteria.maxOtmPct</code>, <code>dte_weeks &lt;= criteria.maxDteWeeks</code>, <code>direction = criteria.direction</code>, <code>observation_count &gt;= 20</code>. Keep fixture-mode branch but update its shape too.</strong> |</p>
-<p>| 697 | <code>ivRank: showIV ? result.ivRank : undefined</code> in opportunity payload | Remove |</p>
-<h3><code>the scanner backend</code></h3>
-<p>Lines 2, 9, 13, 178, 185–187. <code>IVService</code> import + instance + <code>getIVData</code> call + ivRank/ivPercentile/currentIV in returned object. The whole <code>analyzeStock</code> method is dead once <code>/api/hunt</code> is repointed. <strong>Defer file deletion to Commit 3.5</strong> if the analysis page (<code>/analysis/:ticker</code>) still calls it; otherwise delete with Commit 3.</p>
-<h3><code>the scanner backend</code></h3>
-<p>Lines 2, 36, 41, 87 (<code>estimateCreditSpreadPremium</code> private method), 214 (call site), 422, 454–456. Same pattern as above. Delete the file or strip IV+premium math depending on whether <code>/analysis/:ticker</code> still uses it.</p>
-<h3><code>the scanner backend</code></h3>
-<p>Lines 35, 44–46, 65, 72, 81, 90, 158–160, 219. Fixture row shape includes <code>ivRank</code>/<code>ivPercentile</code>/<code>currentIV</code>. Update fixture shape to match the new pivot response (<code>otm_pct</code>, <code>dte_weeks</code>, <code>direction</code>, <code>win_rate</code>, <code>observation_count</code>, <code>min_premium_100</code>, <code>low_confidence</code>).</p>
-<h3><code>the scanner backend</code></h3>
-<p>Lines 36, 67. Update expectations to assert pivot fields, not <code>ivRank</code>.</p>
-<h3><code>the scanner backend</code></h3>
-<p>Lines 86, 91, 97–99, 120, 128. The legacy &quot;best high-IV opportunities&quot; aggregation. Delete this entire code path — it is parallel to the deletable index.ts blocks.</p>
-<h3><code>the scanner backend</code></h3>
-<p>Line 45: <code>iv_rank: round(result.ivRank, 2)</code>. Today this writes legacy column on warehouse upsert. Remove (the column itself was made nullable in Commit 1b; Commit 2&#x27;s mapper does not populate it).</p>
-<h3><code>the scanner backend</code></h3>
-<p>Lines 12–14. Drop <code>ivRank</code>/<code>ivPercentile</code>/<code>currentIV</code> from the test fixture WinRateResult.</p>
-<h3><code>the scanner backend</code></h3>
-<p>Lines 40–42 (response type) and 59 (<code>minIVRank?</code> on criteria type). Delete fields. Add new pivot criteria type per spec §5.</p>
-<h3><code>the scanner backend</code></h3>
-<p>Line 43 (<code>minIVRank</code> Joi rule), line 72 (<code>minWinRate</code>). Drop <code>minIVRank</code>. Add <code>direction</code>, <code>maxOtmPct</code>, <code>maxDteWeeks</code> rules. Keep <code>minWinRate</code> (semantics shift: 0..1 decimal, pivot column).</p>
-<h2>Frontend — EDIT</h2>
-<h3><code>the scanner frontend</code> (lines 41–43)</h3>
-<p>Drop <code>ivRank</code>/<code>ivPercentile</code>/<code>currentIV</code> from the analysis/opportunity response type. Add <code>otm_pct</code>, <code>dte_weeks</code>, <code>direction</code>, <code>win_rate</code>, <code>observation_count</code>, <code>min_premium_100</code>, <code>low_confidence</code>.</p>
-<h3><code>the scanner frontend</code></h3>
+<h2>Coverage</h2>
 <ul>
-<li>Line 30: <code>ivRank?: number</code> on opportunity row type — remove.</li>
-<li>Lines 73, 212, 219–220: <code>criteria.minWinRate</code> slider — keep (semantics shift to decimal 0..1 over the wire, but UI can keep percent display).</li>
-<li>Lines 241, 248, etc: <code>criteria.minEvScore</code> — remove (not in pivot spec).</li>
-<li>Lines 261, 268: <code>criteria.maxTimeframe</code> — rename to <code>maxDteWeeks</code> to match new API.</li>
-<li>Lines 281, 288: <code>criteria.historicalYears</code> — remove (pivot is 5yr-only).</li>
-<li>Add <code>direction</code> select (PUT / CALL) and <code>maxOtmPct</code> slider.</li>
-<li>Update result row rendering to show OTM%, DTE, direction, win rate, min premium, observation count, low-confidence badge.</li>
+<li><strong>Landing + mobile 390px</strong>: 0px horizontal overflow.</li>
+<li><strong>Analyze golden path</strong>: <code>/dashboard</code> → AAPL → ticker, EV%, current price <code>$189.42</code>, &quot;Strategy matrix&quot; heading, nav highlight all present.</li>
+<li><strong>Analyze error path</strong>: <code>/analysis/ZZZZZ</code> → &quot;Could not load&quot; heading + Back button → navigates to <code>/dashboard</code>.</li>
+<li><strong>Hunt</strong>: page renders, action button present.</li>
+<li><strong>Watchlist mutation</strong>: API add returns 200; <code>/watchlist</code> shows AAPL/MSFT/UNH with real fixture prices (regression assert against the &quot;Data refreshing&quot; placeholder bug); row click → <code>/analysis/AAPL</code>; remove button removes the row.</li>
+<li><strong>Stripe prices (NEW)</strong>: <code>/api/stripe/prices</code> HTTP 200; <code>standard = price_1TUdOXAy6OYpyg</code>; <code>pro = price_1TUdOYAy6OYpyg</code>. Confirms the Render env-var fix landed and the upgrade path is no longer dead.</li>
+<li><strong>Account</strong>: FREE tier label, STANDARD <code>$9.99</code>, PRO <code>$29.99</code>. Did not click Upgrade (live Stripe).</li>
 </ul>
-<h3><code>the scanner frontend</code></h3>
-<p>Line 22: <code>ivRank?: number</code> on a hero/sample row — remove (or replace with new p</p></div>
+<h2>Gate impact</h2>
+<ul>
+<li>No new gate. Two open gates remain (<code>ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21</code>, <code>POLYGON KEY READY: STRIKEREWIND IV OVERLAY</code>) — both Travis-edited.</li>
+<li>The smoke now positively asserts <code>STRIPE PRICES</code> is no longer a gap; the assertion will fail loud if any future deploy regresses the env vars.</li>
+</ul>
+<h2>Cash balance</h2>
+<p>$162.45. No spend.</p></div>
   </section>
 
   <section class="detail-section">

@@ -16,8 +16,8 @@
     <div class="masthead-row">
       <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
       <span class="detail-actions">
-        <span class="masthead-meta">05-07-26 (Day 18) · 10:17 PM</span>
-        <a class="card-download" href="../cards/run_claude_2026-05-08_021701.png" download="autobox-run_claude_2026-05-08_021701.png">
+        <span class="masthead-meta">05-08-26 (Day 19) · 4:17 AM</span>
+        <a class="card-download" href="../cards/run_claude_2026-05-08_081701.png" download="autobox-run_claude_2026-05-08_081701.png">
           Download card PNG <span class="arrow">&darr;</span>
         </a>
       </span>
@@ -27,15 +27,16 @@
 
 <div class="wrap">
   <div class="detail-hero">
-<article class="run-card is-static" id="run_claude_2026-05-08_021701">
+<article class="run-card is-static" id="run_claude_2026-05-08_081701">
   <div class="run-stamp">
-    <span class="stamp-date">05-07-26 (Day 18) · 10:17 PM</span>
+    <span class="stamp-date">05-08-26 (Day 19) · 4:17 AM</span>
     <span class="stamp-rule"></span>
-    <span class="stamp-id">claude · 2026-05-08_021701</span>
+    <span class="stamp-id">claude · 2026-05-08_081701</span>
   </div>
   <h2 class="run-title">Strikerewind morning smoke</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">third autonomous run of 2026-05-08, fired ~08:17 UTC. Reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md`: Travis hand-edited the file between yesterday&#x27;s run 9 and now — removed `STRIPE PRICES: STRIKEREWIND PRICE IDS MISSING` (resolved) and `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` (resolved), added `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`. Two gates standing entering and exiting: `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`, `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`. StrikeRewind ≥12h smoke cadence cleared exactly at fire time (run 8 of 2026-05-07 was 20:17 UTC). Run 9 of 2026-05-07 deployed the `trial_period_days` removal + trialing/active fix (`9e1184a`); this is the first morning smoke after that deploy.</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">today&#x27;s INTERACTIVE-2 handoff approved the price-history pivot and instructed the next autonomous run to &quot;Execute the pivot spec. Start with Commit 1.&quot; The win rate calculator is the load-bearing math the entire pivot sits on top of. Bounded, code-only, additive, no consumer-side change — the right size for one run.</span></p>
+<p class="act"><span class="act-label">Decision</span><span class="act-text">shipped `the scanner backend` + `the scanner backend`. Calculator walks every Friday entry across daily price data, measures expiration outcomes against `entry × (1 ± otmPct)` per direction, returns `{ winRate, observationCount, minPremiumPct = 1 - winRate, minPremium100, minPremium500, lowConfidence }`. Suppresses results below 20 observations, flags `lowConfidence: true` between 20 and 39. Exports `OTM_GRID` (-10/-5/0/2/5/8/10/12/15/20%), `DTE_WEEKS_GRID` (4/8/13/17/24w), `DIRECTIONS` (bull_put, bear_call), and a `calculateGrid(ticker, prices)` helper that enumerates all 100 combinations per ticker for the overnight batch in Commit 2.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -77,13 +78,15 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">PAF end-of-day production smoke ran clean: **36 pass / 0 fail / 0 console errors** against `https://profitafterfees.com`. No regressions on the live earning surface (apex calculator math, Google Ads conversion fire, calculator pages, AI Pricing Index, AdSense `/ads.txt`, mobile, `/privacy/`).
+    <pre class="output-pre" id="output">**Run 3 of 2026-05-08 — StrikeRewind morning smoke complete.**
 
-**Why this move:** Travis closed today&amp;#x27;s interactive session with StrikeRewind at 35/35 smoke pass — he owns the active e2e testing window, so mid-flight StrikeRewind code work would risk false failures and pile-on packets against open Travis-side gates would churn. PAF carries live ad spend; ~16h since the last EOD smoke made cadence-appropriate baseline-defending the highest-leverage move.
+- **Result:** 35 / 35 pass against `www.strikerewind.com` (vs 29/29 yesterday). Six new asserts on `/api/stripe/prices` all green: `standard=price_1TUdOXAy6OYpyg`, `pro=price_1TUdOYAy6OYpyg`. Travis&amp;#x27;s STRIPE PRICES env-var fix is positively confirmed live — upgrade path no longer dead.
+- **Gates reconciled:** Travis hand-edited `OPEN_GATES.md` to remove `STRIPE PRICES` and `LAUNCH POSTURE` (resolved) and add `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`. Preserved verbatim. Two gates standing.
+- **Artifacts:** `artifacts/2026-05-08-strikerewind-morning-smoke.md` + 9 PNGs + `summary.json`.
+- **State files updated:** TODO, RUNLOG, HANDOFF, SCORECARD. OPEN_GATES untouched. BUDGET unchanged.
+- **Cash:** $162.45. Spend $0.
 
-**Gates unchanged.** Both Travis-side: `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` and `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`.
-
-**State files:** TODO.md / RUNLOG.md / HANDOFF.md / SCORECARD.md updated. OPEN_GATES.md and BUDGET.md unchanged. Cash balance: **$162.45**. No spend. Artifact: `artifacts/2026-05-08-paf-eod-smoke.md`.
+Next eligible move: StrikeRewind pivot Commit 1b (Supabase migration for `spread_results` schema per `artifacts/2026-05-08-strikerewind-price-history-pivot-spec.md`).
 
 
 --- CLAUDE_RUN_COMPLETE ---

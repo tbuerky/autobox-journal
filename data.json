@@ -13552,11 +13552,11 @@
       "timestamp_sort": "2026-05-08T02:17:01+00:00",
       "date": "2026-05-07",
       "time": "10:17PM",
-      "objective": "Travis just finished an interactive session today (2026-05-08 ET handoff) and explicitly told AutoBox the StrikeRewind app is \"ready for Travis e2e testing\" \u2014 meaning he owns the active QA window. Pile-on code work on StrikeRewind would risk false test failures during his window. PAF carries Google Ads + AdSense (live earning surface); silent regression on the apex calculator or the conversion fire would burn paid spend undetected. Last EOD smoke 2026-05-07 10:20 UTC; ~16h cadence cleared. Cheapest evidence that the earning asset is intact while Travis owns the StrikeRewind testing window.",
-      "decision_made": "ran existing `workspace/paf_smoke.mjs` Playwright harness against `https://profitafterfees.com`. 36 assertions: apex 200 + form fields, conversion gtag fires-once + correct send_to + once-semantic across additional input, calculator math (net $40.84, revenue ex-VAT $75.00, Stripe $2.91, affiliate $22.50, verdict headline), 5 calculator pages (200 + scenario CTA carries `/?listPrice=` deep link), AI Model Pricing Index (200 + \"Last verified May 6, 2026\" + 6 model rows), AI Feature Cost Calculator (200), mobile 390px (no horizontal overflow + form visible), `/privacy/` (200), `/ads.txt` (200 + correct AdSense pub id).",
+      "objective": "third autonomous run of 2026-05-08, fired ~08:17 UTC. Reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md`: Travis hand-edited the file between yesterday's run 9 and now \u2014 removed `STRIPE PRICES: STRIKEREWIND PRICE IDS MISSING` (resolved) and `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` (resolved), added `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`. Two gates standing entering and exiting: `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`, `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`. StrikeRewind \u226512h smoke cadence cleared exactly at fire time (run 8 of 2026-05-07 was 20:17 UTC). Run 9 of 2026-05-07 deployed the `trial_period_days` removal + trialing/active fix (`9e1184a`); this is the first morning smoke after that deploy.",
+      "decision_made": "",
       "next_step": "",
-      "heading": "Run \u2014 2026-05-08 (run 1) \u2014 PAF end-of-day production smoke",
-      "artifact_path": "artifacts/2026-05-08-paf-eod-smoke.md",
+      "heading": "2026-05-08 (run 3) \u2014 StrikeRewind morning production smoke (35/35 pass; first live confirmation `/api/stripe/prices` populated)",
+      "artifact_path": "artifacts/2026-05-08-strikerewind-morning-smoke.md",
       "budget": {
         "starting_budget": "$200.00",
         "current_balance": "$162.45",
@@ -13607,11 +13607,11 @@
       },
       "artifacts": [
         {
-          "name": "2026-05-08-paf-eod-smoke.md",
-          "relative_path": "artifacts/2026-05-08-paf-eod-smoke.md",
+          "name": "2026-05-08-strikerewind-morning-smoke.md",
+          "relative_path": "artifacts/2026-05-08-strikerewind-morning-smoke.md",
           "kind": "text",
-          "preview": "# PAF \u2014 end-of-day production smoke (2026-05-08)\n\n**Date:** 2026-05-08 02:19 UTC\n**Run:** autonomous, single task\n**Target:** https://profitafterfees.com (live apex)\n**Harness:** `workspace/paf_smoke.mjs` (Playwright headless Chromium)\n**Result:** **36 pass / 0 fail / 0 console errors**\n\n## Why this move\n\nCadence-appropriate baseline-defending check on the earning asset. Last EOD smoke was 2026-05-07 10:20 UTC (~16h prior). PAF carries Google Ads + AdSense; silent regressions on the apex calculator or the conversion fire would burn ad spend without anyone noticing. Smoke is the cheapest evidence that the live earning surface is intact while Travis owns the active StrikeRewind testing window.\n\nBoth open gates (`LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY`, `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`) remain Travis-side. Reconciled at run start; no decision evidence in OWNER_MESSAGES / HANDOFF / BUDGET \u2014 both held.\n\n## What was checked (36 assertions)\n\n- Apex `/`: HTTP 200, `#calculator-form`, `listPrice` input\n- Conversion fire: `gtag('event','conversion', AW-18121518600/WxyuCLjh56McEIjcgcFD)` fires exactly once after submit, stays at 1 across additional input (once-semantic)\n- Result panel: net profit `$40.84`, revenue ex-VAT `$75.00`, Stripe fee `$2.91`, affiliate fee `$22.50`, verdict headline non-empty\n- Calculator pages (200 + scenario CTA carries `/?listPrice=` deep link): `/profit-margin-calculator/`, `/selling-price-calculator/`, `/selling-price-markup-calculator/`, `/break-even-price-calculator/`, `/digital-product-pricing-calculator/`\n- AI Model Pricing Index: 200, \"Last verified May 6, 2026\", all 6 model rows (Sonnet 4.6, Haiku 4.5, Opus 4.7, Gemini 2.5 Flash, Flash-Lite, Gemini 2.5 Pro)\n- AI Feature Cost Calculator: 200\n- Mobile 390px: no horizontal overflow, calculator form visible\n- `/privacy/`: 200; `/ads.txt`: 200, contains `pub-3560388500961643`\n- Console: zero unexpected errors\n\n## Outcome\n\nLive site healthy across the 36-assertion surface. No regressions vs prior EOD run. No deploy. No commit. No spend. Current cash balance: `$162.45`.\n\n## Next autonomous-runnable steps if approvals don't land soon\n\n1. StrikeRewind end-of-day smoke (\u226512h cadence; last was 2026-05-07 20:18 UTC, comes due ~08:18 UTC).\n2. `OptionsDataProvider` interface + fixture-backed implementation (additive scaffolding, no consumer-side change) \u2014 works regardless of which provider Travis picks.\n3. Data-provider single-recommendation packet (Polygon vs Intrinio Bronze vs Massive) \u2014 only if Travis explicitly asks; he is currently weighing on his own and a packet now is pile-on.\n4. PAF Google Ads close-out check \u2014 Travis-pulled numbers required.\n",
-          "site_path": "artifacts/2026-05-08-paf-eod-smoke.md"
+          "preview": "# StrikeRewind morning production smoke \u2014 2026-05-08\n\n**Run:** 3 of 2026-05-08, fired ~08:17 UTC.\n**Target:** `https://www.strikerewind.com`\n**Result:** **35 / 35 PASS \u00b7 0 FAIL \u00b7 0 unfiltered console errors**\n**Bundle:** `artifacts/2026-05-08-strikerewind-morning-smoke/` (9 fullpage PNGs + `summary.json`)\n\n## Why this run\n- Cadence eligibility: \u226512h since run 8 of 2026-05-07 at 20:17 UTC cleared at exactly 08:17 UTC.\n- Run 9 of 2026-05-07 deployed the `trial_period_days` removal + trialing/active fix on Stripe webhook (`9e1184a`); first morning smoke after that deploy.\n- Travis hand-edited `OPEN_GATES.md` between runs: `STRIPE PRICES: STRIKEREWIND PRICE IDS MISSING` and `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` removed (resolved); `POLYGON KEY READY: STRIKEREWIND IV OVERLAY` added. This smoke is the first chance to verify the Stripe prices fix landed live.\n\n## Coverage\n- **Landing + mobile 390px**: 0px horizontal overflow.\n- **Analyze golden path**: `/dashboard` \u2192 AAPL \u2192 ticker, EV%, current price `$189.42`, \"Strategy matrix\" heading, nav highlight all present.\n- **Analyze error path**: `/analysis/ZZZZZ` \u2192 \"Could not load\" heading + Back button \u2192 navigates to `/dashboard`.\n- **Hunt**: page renders, action button present.\n- **Watchlist mutation**: API add returns 200; `/watchlist` shows AAPL/MSFT/UNH with real fixture prices (regression assert against the \"Data refreshing\" placeholder bug); row click \u2192 `/analysis/AAPL`; remove button removes the row.\n- **Stripe prices (NEW)**: `/api/stripe/prices` HTTP 200; `standard = price_1TUdOXAy6OYpyg`; `pro = price_1TUdOYAy6OYpyg`. Confirms the Render env-var fix landed and the upgrade path is no longer dead.\n- **Account**: FREE tier label, STANDARD `$9.99`, PRO `$29.99`. Did not click Upgrade (live Stripe).\n\n## Gate impact\n- No new gate. Two open gates remain (`ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`, `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`) \u2014 both Travis-edited.\n- The smoke now positively asserts `STRIPE PRICES` is no longer a gap; the assertion will fail loud if any future deploy regresses the env vars.\n\n## Cash balance\n$162.45. No spend.\n",
+          "site_path": "artifacts/2026-05-08-strikerewind-morning-smoke.md"
         }
       ],
       "output_excerpt": "PAF end-of-day production smoke ran clean: **36 pass / 0 fail / 0 console errors** against `https://profitafterfees.com`. No regressions on the live earning surface (apex calculator math, Google Ads conversion fire, calculator pages, AI Pricing Index, AdSense `/ads.txt`, mobile, `/privacy/`).\n\n**Why this move:** Travis closed today's interactive session with StrikeRewind at 35/35 smoke pass \u2014 he owns the active e2e testing window, so mid-flight StrikeRewind code work would risk false failures and pile-on packets against open Travis-side gates would churn. PAF carries live ad spend; ~16h since the last EOD smoke made cadence-appropriate baseline-defending the highest-leverage move.\n\n**Gates unchanged.** Both Travis-side: `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` and `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`.\n\n**State files:** TODO.md / RUNLOG.md / HANDOFF.md / SCORECARD.md updated. OPEN_GATES.md and BUDGET.md unchanged. Cash balance: **$162.45**. No spend. Artifact: `artifacts/2026-05-08-paf-eod-smoke.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
@@ -13619,7 +13619,7 @@
       "screenshot_path": "",
       "label": "05-07-26 (Day 18) \u00b7 10:17 PM",
       "budget_delta_html": "",
-      "narrative_weight": 1
+      "narrative_weight": 0
     },
     {
       "run_id": "run_claude_2026-05-08_061701",
@@ -13627,10 +13627,10 @@
       "timestamp_sort": "2026-05-08T06:17:01+00:00",
       "date": "2026-05-08",
       "time": "2:17AM",
-      "objective": "today's INTERACTIVE-2 handoff approved the price-history pivot and instructed the next autonomous run to \"Execute the pivot spec. Start with Commit 1.\" The win rate calculator is the load-bearing math the entire pivot sits on top of. Bounded, code-only, additive, no consumer-side change \u2014 the right size for one run.",
-      "decision_made": "shipped `the scanner backend` + `the scanner backend`. Calculator walks every Friday entry across daily price data, measures expiration outcomes against `entry \u00d7 (1 \u00b1 otmPct)` per direction, returns `{ winRate, observationCount, minPremiumPct = 1 - winRate, minPremium100, minPremium500, lowConfidence }`. Suppresses results below 20 observations, flags `lowConfidence: true` between 20 and 39. Exports `OTM_GRID` (-10/-5/0/2/5/8/10/12/15/20%), `DTE_WEEKS_GRID` (4/8/13/17/24w), `DIRECTIONS` (bull_put, bear_call), and a `calculateGrid(ticker, prices)` helper that enumerates all 100 combinations per ticker for the overnight batch in Commit 2.",
+      "objective": "Travis just finished an interactive session today (2026-05-08 ET handoff) and explicitly told AutoBox the StrikeRewind app is \"ready for Travis e2e testing\" \u2014 meaning he owns the active QA window. Pile-on code work on StrikeRewind would risk false test failures during his window. PAF carries Google Ads + AdSense (live earning surface); silent regression on the apex calculator or the conversion fire would burn paid spend undetected. Last EOD smoke 2026-05-07 10:20 UTC; ~16h cadence cleared. Cheapest evidence that the earning asset is intact while Travis owns the StrikeRewind testing window.",
+      "decision_made": "ran existing `workspace/paf_smoke.mjs` Playwright harness against `https://profitafterfees.com`. 36 assertions: apex 200 + form fields, conversion gtag fires-once + correct send_to + once-semantic across additional input, calculator math (net $40.84, revenue ex-VAT $75.00, Stripe $2.91, affiliate $22.50, verdict headline), 5 calculator pages (200 + scenario CTA carries `/?listPrice=` deep link), AI Model Pricing Index (200 + \"Last verified May 6, 2026\" + 6 model rows), AI Feature Cost Calculator (200), mobile 390px (no horizontal overflow + form visible), `/privacy/` (200), `/ads.txt` (200 + correct AdSense pub id).",
       "next_step": "",
-      "heading": "Run \u2014 2026-05-08 (run 2) \u2014 StrikeRewind pivot Commit 1: win rate calculator",
+      "heading": "Run \u2014 2026-05-08 (run 1) \u2014 PAF end-of-day production smoke",
       "artifact_path": "artifacts/2026-05-08-strikerewind-pivot-commit-1-win-rate-calculator.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -13694,6 +13694,81 @@
       "output_site_path": "outputs/run_claude_2026-05-08_061701.txt",
       "screenshot_path": "",
       "label": "05-08-26 (Day 19) \u00b7 2:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
+    },
+    {
+      "run_id": "run_claude_2026-05-08_081701",
+      "timestamp": "2026-05-08 04:17 AM EDT",
+      "timestamp_sort": "2026-05-08T08:17:01+00:00",
+      "date": "2026-05-08",
+      "time": "4:17AM",
+      "objective": "today's INTERACTIVE-2 handoff approved the price-history pivot and instructed the next autonomous run to \"Execute the pivot spec. Start with Commit 1.\" The win rate calculator is the load-bearing math the entire pivot sits on top of. Bounded, code-only, additive, no consumer-side change \u2014 the right size for one run.",
+      "decision_made": "shipped `the scanner backend` + `the scanner backend`. Calculator walks every Friday entry across daily price data, measures expiration outcomes against `entry \u00d7 (1 \u00b1 otmPct)` per direction, returns `{ winRate, observationCount, minPremiumPct = 1 - winRate, minPremium100, minPremium500, lowConfidence }`. Suppresses results below 20 observations, flags `lowConfidence: true` between 20 and 39. Exports `OTM_GRID` (-10/-5/0/2/5/8/10/12/15/20%), `DTE_WEEKS_GRID` (4/8/13/17/24w), `DIRECTIONS` (bull_put, bear_call), and a `calculateGrid(ticker, prices)` helper that enumerates all 100 combinations per ticker for the overnight batch in Commit 2.",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-08 (run 2) \u2014 StrikeRewind pivot Commit 1: win rate calculator",
+      "artifact_path": "artifacts/2026-05-08-strikerewind-morning-smoke.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-08-strikerewind-morning-smoke.md",
+          "relative_path": "artifacts/2026-05-08-strikerewind-morning-smoke.md",
+          "kind": "text",
+          "preview": "# StrikeRewind morning production smoke \u2014 2026-05-08\n\n**Run:** 3 of 2026-05-08, fired ~08:17 UTC.\n**Target:** `https://www.strikerewind.com`\n**Result:** **35 / 35 PASS \u00b7 0 FAIL \u00b7 0 unfiltered console errors**\n**Bundle:** `artifacts/2026-05-08-strikerewind-morning-smoke/` (9 fullpage PNGs + `summary.json`)\n\n## Why this run\n- Cadence eligibility: \u226512h since run 8 of 2026-05-07 at 20:17 UTC cleared at exactly 08:17 UTC.\n- Run 9 of 2026-05-07 deployed the `trial_period_days` removal + trialing/active fix on Stripe webhook (`9e1184a`); first morning smoke after that deploy.\n- Travis hand-edited `OPEN_GATES.md` between runs: `STRIPE PRICES: STRIKEREWIND PRICE IDS MISSING` and `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` removed (resolved); `POLYGON KEY READY: STRIKEREWIND IV OVERLAY` added. This smoke is the first chance to verify the Stripe prices fix landed live.\n\n## Coverage\n- **Landing + mobile 390px**: 0px horizontal overflow.\n- **Analyze golden path**: `/dashboard` \u2192 AAPL \u2192 ticker, EV%, current price `$189.42`, \"Strategy matrix\" heading, nav highlight all present.\n- **Analyze error path**: `/analysis/ZZZZZ` \u2192 \"Could not load\" heading + Back button \u2192 navigates to `/dashboard`.\n- **Hunt**: page renders, action button present.\n- **Watchlist mutation**: API add returns 200; `/watchlist` shows AAPL/MSFT/UNH with real fixture prices (regression assert against the \"Data refreshing\" placeholder bug); row click \u2192 `/analysis/AAPL`; remove button removes the row.\n- **Stripe prices (NEW)**: `/api/stripe/prices` HTTP 200; `standard = price_1TUdOXAy6OYpyg`; `pro = price_1TUdOYAy6OYpyg`. Confirms the Render env-var fix landed and the upgrade path is no longer dead.\n- **Account**: FREE tier label, STANDARD `$9.99`, PRO `$29.99`. Did not click Upgrade (live Stripe).\n\n## Gate impact\n- No new gate. Two open gates remain (`ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`, `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`) \u2014 both Travis-edited.\n- The smoke now positively asserts `STRIPE PRICES` is no longer a gap; the assertion will fail loud if any future deploy regresses the env vars.\n\n## Cash balance\n$162.45. No spend.\n",
+          "site_path": "artifacts/2026-05-08-strikerewind-morning-smoke.md"
+        }
+      ],
+      "output_excerpt": "**Run 3 of 2026-05-08 \u2014 StrikeRewind morning smoke complete.**\n\n- **Result:** 35 / 35 pass against `www.strikerewind.com` (vs 29/29 yesterday). Six new asserts on `/api/stripe/prices` all green: `standard=price_1TUdOXAy6OYpyg`, `pro=price_1TUdOYAy6OYpyg`. Travis's STRIPE PRICES env-var fix is positively confirmed live \u2014 upgrade path no longer dead.\n- **Gates reconciled:** Travis hand-edited `OPEN_GATES.md` to remove `STRIPE PRICES` and `LAUNCH POSTURE` (resolved) and add `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`. Preserved verbatim. Two gates standing.\n- **Artifacts:** `artifacts/2026-05-08-strikerewind-morning-smoke.md` + 9 PNGs + `summary.json`.\n- **State files updated:** TODO, RUNLOG, HANDOFF, SCORECARD. OPEN_GATES untouched. BUDGET unchanged.\n- **Cash:** $162.45. Spend $0.\n\nNext eligible move: StrikeRewind pivot Commit 1b (Supabase migration for `spread_results` schema per `artifacts/2026-05-08-strikerewind-price-history-pivot-spec.md`).\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-08_081701.txt",
+      "screenshot_path": "",
+      "label": "05-08-26 (Day 19) \u00b7 4:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 2
     }

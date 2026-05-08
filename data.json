@@ -13620,6 +13620,82 @@
       "label": "05-07-26 (Day 18) \u00b7 10:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_claude_2026-05-08_061701",
+      "timestamp": "2026-05-08 02:17 AM EDT",
+      "timestamp_sort": "2026-05-08T06:17:01+00:00",
+      "date": "2026-05-08",
+      "time": "2:17AM",
+      "objective": "today's INTERACTIVE-2 handoff approved the price-history pivot and instructed the next autonomous run to \"Execute the pivot spec. Start with Commit 1.\" The win rate calculator is the load-bearing math the entire pivot sits on top of. Bounded, code-only, additive, no consumer-side change \u2014 the right size for one run.",
+      "decision_made": "shipped `the scanner backend` + `the scanner backend`. Calculator walks every Friday entry across daily price data, measures expiration outcomes against `entry \u00d7 (1 \u00b1 otmPct)` per direction, returns `{ winRate, observationCount, minPremiumPct = 1 - winRate, minPremium100, minPremium500, lowConfidence }`. Suppresses results below 20 observations, flags `lowConfidence: true` between 20 and 39. Exports `OTM_GRID` (-10/-5/0/2/5/8/10/12/15/20%), `DTE_WEEKS_GRID` (4/8/13/17/24w), `DIRECTIONS` (bull_put, bear_call), and a `calculateGrid(ticker, prices)` helper that enumerates all 100 combinations per ticker for the overnight batch in Commit 2.",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-08 (run 2) \u2014 StrikeRewind pivot Commit 1: win rate calculator",
+      "artifact_path": "artifacts/2026-05-08-strikerewind-pivot-commit-1-win-rate-calculator.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-08-strikerewind-pivot-commit-1-win-rate-calculator.md",
+          "relative_path": "artifacts/2026-05-08-strikerewind-pivot-commit-1-win-rate-calculator.md",
+          "kind": "text",
+          "preview": "# StrikeRewind pivot \u2014 Commit 1: win rate calculator\n\n**Date:** 2026-05-08\n**Branch:** `autobox/strikerewind-rename`\n**Commit:** `8bf752f` (pushed to origin)\n**Spec:** `artifacts/2026-05-08-strikerewind-price-history-pivot-spec.md`\n\n## What this is\nFirst of seven commits in the pivot from synthetic options data to a pure\nprice-history edge scanner. Adds the win rate calculator service \u2014 the\nload-bearing math the entire pivot sits on top of.\n\n## What shipped\n- `the scanner backend` (new)\n  - `calculateWinRate(input)` \u2014 walks Friday entries in a daily price\n    series, measures expiration-day outcomes against a strike defined by\n    `otmPct` + `direction`, returns empirical win rate plus\n    `minPremiumPct = 1 - winRate` and dollar floors for $100/$500-wide\n    spreads. Returns `null` if observations < 20. Flags\n    `lowConfidence: true` when 20 \u2264 observations < 40.\n  - Exports `OTM_GRID`, `DTE_WEEKS_GRID`, `DIRECTIONS`, and\n    `calculateGrid(ticker, prices)` for the overnight batch in Commit 2.\n- `the scanner backend` (new) \u2014 10\n  deterministic cases.\n\n## Verification\n- `npm run build` clean.\n- `node --test dist/services/winRateCalculator.test.js` \u2014 10/10 pass.\n- Existing backend tests (`priceDataProvider`, `huntFixtureMode`,\n  `spreadResultsService`) \u2014 16/16 pass; no regression.\n- 26/26 backend tests green.\n\n## Deliberately NOT done in this commit\n- Did NOT delete `ivService.ts` or Black-Scholes premium estimation \u2014\n  callers still depend on them; that removal is bundled with Commit 3\n  (Hunt API rewrite) so the diff stays coherent.\n- Did NOT add Supabase schema migration columns yet \u2014 written in a\n  separate Commit 1b once the calculator API is stable. No production\n  data depends on this commit.\n- Did NOT touch the scheduler \u2014 that is Commit 2.\n- Did NOT change Hunt response \u2014 that is Commit 3.\n- Did NOT route through Cove or Luke \u2014 backend-internal pure function,\n  no customer-visible surface.\n- Did NOT subscribe to Polygon \u2014 not in this commit's scope, and Travis\n  said in the addendum he handles that purchase manually.\n\n## Why push to origin\nThis commit is additive only \u2014 two new files, zero callers. Render\nauto-deploys the branch but live behavior is unchanged because nothing\nimports the new module yet. Safe to put it on the remote so the next\nautonomous run can build on it without re-stashing local state.\n\n## Next runnable steps\n1. **Commit 1b \u2014 Supabase schema migration** for `spread_results` (new\n   columns: `otm_pct`, `dte_weeks`, `direction`, `win_rate`,\n   `observation_count`, `min_premium_pct`, `min_premium_100`,\n   `min_premium_500`, `low_confidence`, `data_source`). Migration SQL\n   ready to apply via Supabase dashboard.\n2. **Commit 2 \u2014 Overnight scheduler** swap. Replace the existing\n   scheduler with a nightly price-history batch that calls\n   `calculateGrid()` per ticker and writes to `spread_results`.\n3. **First real batch run** to populate `spread_results` with actual\n   price-history results \u2014 per Travis's addendum, this is the move\n   that takes Hunt out of fixture mode for real.\n4. **Commit 3** \u2014 Hunt API rewrite + delete `ivService.ts` /\n   `estimateCreditSpreadPremium`.\n\n## Cash balance\n$162.45. No spend.\n",
+          "site_path": "artifacts/2026-05-08-strikerewind-pivot-commit-1-win-rate-calculator.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Run complete.\n\n**What I did:** Executed Commit 1 of the StrikeRewind price-history pivot \u2014 shipped `the scanner backend` + 10 deterministic tests. Calculator walks Friday entries across daily price history, derives empirical win rate + minimum premium floor (`1 - winRate` of spread width), and exports the OTM/DTE grid helper for the overnight batch.\n\n**Verification:** `npm run build` clean. 10/10 new tests pass. 16/16 prior backend tests unchanged. 26/26 total green.\n\n**Push posture:** Commit `8bf752f` pushed to `origin/autobox/strikerewind-rename` \u2014 additive only, zero callers, Render auto-deploy boots the same code path.\n\n**State:** TODO.md / RUNLOG.md / HANDOFF.md / SCORECARD.md updated. OPEN_GATES.md unchanged (no new gate raised; no gate resolved this run). BUDGET.md unchanged \u2014 $162.45.\n\n**Next runnable step:** Commit 1b \u2014 Supabase schema migration adding `otm_pct` / `dte_weeks` / `direction` / `win_rate` / `observation_count` / `min_premium_pct` / `min_premium_100` / `min_premium_500` / `low_confidence` / `data_source` columns to `spread_results`. Then Commit 2 (scheduler swap) + first real batch run to take Hunt out of fixture mode.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-08_061701.txt",
+      "screenshot_path": "",
+      "label": "05-08-26 (Day 19) \u00b7 2:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 2
     }
   ]
 }

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind pivot commit 3 prework mapper and query &middot; AutoBox</title>
+<title>Strikerewind morning smoke &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,10 +33,9 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-08_161701</span>
   </div>
-  <h2 class="run-title">Strikerewind pivot commit 3 prework mapper and query</h2>
+  <h2 class="run-title">Strikerewind morning smoke</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">Travis just finished an interactive session today (2026-05-08 ET handoff) and explicitly told AutoBox the StrikeRewind app is &quot;ready for Travis e2e testing&quot; — meaning he owns the active QA window. Pile-on code work on StrikeRewind would risk false test failures during his window. PAF carries Google Ads + AdSense (live earning surface); silent regression on the apex calculator or the conversion fire would burn paid spend undetected. Last EOD smoke 2026-05-07 10:20 UTC; ~16h cadence cleared. Cheapest evidence that the earning asset is intact while Travis owns the StrikeRewind testing window.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">ran existing `workspace/paf_smoke.mjs` Playwright harness against `https://profitafterfees.com`. 36 assertions: apex 200 + form fields, conversion gtag fires-once + correct send_to + once-semantic across additional input, calculator math (net $40.84, revenue ex-VAT $75.00, Stripe $2.91, affiliate $22.50, verdict headline), 5 calculator pages (200 + scenario CTA carries `/?listPrice=` deep link), AI Model Pricing Index (200 + &quot;Last verified May 6, 2026&quot; + 6 model rows), AI Feature Cost Calculator (200), mobile 390px (no horizontal overflow + form visible), `/privacy/` (200), `/ads.txt` (200 + correct AdSense pub id).</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">third autonomous run of 2026-05-08, fired ~08:17 UTC. Reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md`: Travis hand-edited the file between yesterday&#x27;s run 9 and now — removed `STRIPE PRICES: STRIKEREWIND PRICE IDS MISSING` (resolved) and `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` (resolved), added `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`. Two gates standing entering and exiting: `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`, `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`. StrikeRewind ≥12h smoke cadence cleared exactly at fire time (run 8 of 2026-05-07 was 20:17 UTC). Run 9 of 2026-05-07 deployed the `trial_period_days` removal + trialing/active fix (`9e1184a`); this is the first morning smoke after that deploy.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -45,73 +44,34 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeRewind pivot — Commit 3 prework: pivot-side query + response mapper</h1>
-<p><strong>Date</strong>: 2026-05-08 (run 7 of 2026-05-08)</p>
-<p><strong>Branch</strong>: <code>autobox/strikerewind-rename</code></p>
-<p><strong>Commit</strong>: <code>4f841e0</code></p>
-<p><strong>Result</strong>: 53/53 backend tests pass; <code>tsc --noEmit</code> clean; pushed to origin; live behavior unchanged.</p>
-<h2>Why this slice now</h2>
-<p>Run 6&#x27;s audit (<code>artifacts/2026-05-08-strikerewind-pivot-commit-3-deletion-surface-audit.md</code>) laid out an 8-step Commit 3. Steps 1–7 touch live code paths; step 7 includes Watchlist row redesign that warrants Cove. Within the available budget I took the <strong>purely additive</strong> prework that closes the data-access + response-shape questions without touching any live consumer:</p>
-<p>1. New <code>getHuntSpreadResultsPivot</code> query method on the database service.</p>
-<p>2. New <code>huntPivotMapper.ts</code> module — pure functions that turn a pivot-shape <code>SpreadResultRow</code> into the response payload Commit 3&#x27;s repointed <code>/api/hunt</code> will return.</p>
-<p>Both are dead code today (no consumer imports them). When the next run executes Commit 3 step 2 (the <code>/api/hunt</code> rewrite), it picks them up and the rewrite becomes mechanical.</p>
-<h2>What shipped</h2>
-<h3><code>the scanner backend</code></h3>
-<p>Added <code>getHuntSpreadResultsPivot(opts)</code> — sister to the existing <code>getHuntSpreadResults</code>. Filters:</p>
+    <div class="artifact-prose"><h1>StrikeRewind morning production smoke — 2026-05-08</h1>
+<p><strong>Run:</strong> 3 of 2026-05-08, fired ~08:17 UTC.</p>
+<p><strong>Target:</strong> <code>https://www.strikerewind.com</code></p>
+<p><strong>Result:</strong> <strong>35 / 35 PASS · 0 FAIL · 0 unfiltered console errors</strong></p>
+<p><strong>Bundle:</strong> <code>artifacts/2026-05-08-strikerewind-morning-smoke/</code> (9 fullpage PNGs + <code>summary.json</code>)</p>
+<h2>Why this run</h2>
 <ul>
-<li><code>data_source = &#x27;price_history_5yr&#x27;</code> — strictly the new pivot rows; never returns legacy synthetic-IV rows</li>
-<li><code>win_rate &gt;= opts.minWinRate</code> (decimal 0..1, pivot semantics)</li>
-<li><code>otm_pct &lt;= opts.maxOtmPct</code></li>
-<li><code>dte_weeks &lt;= opts.maxDteWeeks</code></li>
-<li><code>observation_count &gt;= opts.minObservationCount ?? 20</code> (suppress low-confidence by default)</li>
-<li><code>direction = opts.direction</code> unless <code>&#x27;BOTH&#x27;</code></li>
-<li>Optional <code>as_of_date</code> pin</li>
-<li>Order: <code>as_of_date DESC, win_rate DESC</code>; <code>LIMIT opts.limit</code></li>
+<li>Cadence eligibility: ≥12h since run 8 of 2026-05-07 at 20:17 UTC cleared at exactly 08:17 UTC.</li>
+<li>Run 9 of 2026-05-07 deployed the <code>trial_period_days</code> removal + trialing/active fix on Stripe webhook (<code>9e1184a</code>); first morning smoke after that deploy.</li>
+<li>Travis hand-edited <code>OPEN_GATES.md</code> between runs: <code>STRIPE PRICES: STRIKEREWIND PRICE IDS MISSING</code> and <code>LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY</code> removed (resolved); <code>POLYGON KEY READY: STRIKEREWIND IV OVERLAY</code> added. This smoke is the first chance to verify the Stripe prices fix landed live.</li>
 </ul>
-<p>Index <code>spread_results_pivot_hunt_idx</code> (added in Commit 1b) covers the predicate set.</p>
-<h3><code>the scanner backend</code> (new file)</h3>
-<p>Three exports:</p>
+<h2>Coverage</h2>
 <ul>
-<li><code>pivotRowToHuntOpportunity(row)</code> — pure mapper. Throws <code>PivotRowMissingFieldsError(field, ticker)</code> when any required pivot field is null. Defaults <code>low_confidence=null</code> to <code>false</code>.</li>
-<li><code>isPivotRow(row)</code> — predicate. True iff <code>data_source === &#x27;price_history_5yr&#x27;</code> AND all five required pivot fields are non-null.</li>
-<li><code>HuntOpportunityPivot</code> interface — the shape Commit 3&#x27;s <code>/api/hunt</code> returns: <code>{ ticker, direction, otmPct, dteWeeks, winRate, observationCount, minPremium100, lowConfidence, asOfDate }</code>.</li>
+<li><strong>Landing + mobile 390px</strong>: 0px horizontal overflow.</li>
+<li><strong>Analyze golden path</strong>: <code>/dashboard</code> → AAPL → ticker, EV%, current price <code>$189.42</code>, &quot;Strategy matrix&quot; heading, nav highlight all present.</li>
+<li><strong>Analyze error path</strong>: <code>/analysis/ZZZZZ</code> → &quot;Could not load&quot; heading + Back button → navigates to <code>/dashboard</code>.</li>
+<li><strong>Hunt</strong>: page renders, action button present.</li>
+<li><strong>Watchlist mutation</strong>: API add returns 200; <code>/watchlist</code> shows AAPL/MSFT/UNH with real fixture prices (regression assert against the &quot;Data refreshing&quot; placeholder bug); row click → <code>/analysis/AAPL</code>; remove button removes the row.</li>
+<li><strong>Stripe prices (NEW)</strong>: <code>/api/stripe/prices</code> HTTP 200; <code>standard = price_1TUdOXAy6OYpyg</code>; <code>pro = price_1TUdOYAy6OYpyg</code>. Confirms the Render env-var fix landed and the upgrade path is no longer dead.</li>
+<li><strong>Account</strong>: FREE tier label, STANDARD <code>$9.99</code>, PRO <code>$29.99</code>. Did not click Upgrade (live Stripe).</li>
 </ul>
-<p>This pins the response-shape decision the audit left open and gives the next run a typed building block instead of inline-mapping in the route handler.</p>
-<h3><code>the scanner backend</code> (new file, 13 tests)</h3>
+<h2>Gate impact</h2>
 <ul>
-<li>field-by-field mapping happy path (<code>AAPL</code>, <code>bull_put</code>, every field round-trips)</li>
-<li><code>low_confidence</code> null defaults to false</li>
-<li><code>bear_call</code> direction preserved</li>
-<li>explicit throws for each required missing field (<code>direction</code>, <code>otm_pct</code>, <code>dte_weeks</code>, <code>observation_count</code>, <code>min_premium_100</code>)</li>
-<li>error message includes ticker context for debugging</li>
-<li><code>isPivotRow</code> true on full row; false when <code>data_source</code> is <code>&#x27;polygon&#x27;</code>, undefined, or any pivot field is null</li>
+<li>No new gate. Two open gates remain (<code>ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21</code>, <code>POLYGON KEY READY: STRIKEREWIND IV OVERLAY</code>) — both Travis-edited.</li>
+<li>The smoke now positively asserts <code>STRIPE PRICES</code> is no longer a gap; the assertion will fail loud if any future deploy regresses the env vars.</li>
 </ul>
-<h2>Verification</h2>
-<ul>
-<li><code>npx tsc --noEmit</code> clean</li>
-<li><code>npx tsx --test src/services/<em>.test.ts src/jobs/</em>.test.ts</code> → <strong>53/53 pass</strong> (was 40/40; +13 new)</li>
-<li>Commit <code>4f841e0</code>, pushed to <code>origin/autobox/strikerewind-rename</code></li>
-<li>No consumer wired; <code>/api/hunt</code> still calls <code>analysisEngine.analyzeStock</code> per ticker</li>
-<li>No deploy, no live behavior change</li>
-</ul>
-<h2>Why this is bounded</h2>
-<ul>
-<li>Both new symbols are dead code on <code>main</code>. Removing or renaming either is a one-line revert.</li>
-<li>The query method bypasses legacy rows by hard-pinning <code>data_source = &#x27;price_history_5yr&#x27;</code> — even if accidentally called against the live DB today, it would return zero rows (Commit 2 has not yet executed live).</li>
-<li>The mapper has no side effects and no I/O; tests are deterministic.</li>
-</ul>
-<h2>What remains in Commit 3</h2>
-<p>In execution order from the audit:</p>
-<p>1. ✅ (this run) Pivot-side query method + mapper</p>
-<p>2. Update <code>validation.ts</code> schema: drop <code>minIVRank</code> / <code>minEvScore</code>, add <code>direction</code> / <code>maxOtmPct</code> / <code>maxDteWeeks</code>. Update <code>types/index.ts</code> criteria type.</p>
-<p>3. Rewrite <code>/api/hunt</code> route to call <code>getHuntSpreadResultsPivot</code> + <code>pivotRowToHuntOpportunity</code>. Keep fixture branch but update its shape.</p>
-<p>4. Rewrite <code>huntFixtureMode.ts</code> shape; fix tests.</p>
-<p>5. Strip IV imports + blocks from <code>analysisEngine.ts</code>, <code>newAnalysisEngine.ts</code>, <code>schedulerService.ts</code>, <code>spreadResultsService.ts</code>.</p>
-<p>6. Delete <code>ivService.ts</code>.</p>
-<p>7. Delete the <code>/api/high-iv-stocks</code>-shaped block in <code>index.ts:459–529</code>.</p>
-<p>8. Frontend: <code>types/index.ts</code>, <code>Hunt.tsx</code>, <code>Watchlist.tsx</code>, <code>Home.tsx</code>, <code>api.ts</code>. Watchlist row redesign needs Cove.</p>
-<p>9. Single-AAPL <code>runSpreadResultsBatch</code> smoke against live DB; then deploy.</p></div>
+<h2>Cash balance</h2>
+<p>$162.45. No spend.</p></div>
   </section>
 
   <section class="detail-section">

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind pivot commit 1 win rate calculator &middot; AutoBox</title>
+<title>Strikerewind morning smoke &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,10 +33,9 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-08_061701</span>
   </div>
-  <h2 class="run-title">Strikerewind pivot commit 1 win rate calculator</h2>
+  <h2 class="run-title">Strikerewind morning smoke</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">Travis just finished an interactive session today (2026-05-08 ET handoff) and explicitly told AutoBox the StrikeRewind app is &quot;ready for Travis e2e testing&quot; — meaning he owns the active QA window. Pile-on code work on StrikeRewind would risk false test failures during his window. PAF carries Google Ads + AdSense (live earning surface); silent regression on the apex calculator or the conversion fire would burn paid spend undetected. Last EOD smoke 2026-05-07 10:20 UTC; ~16h cadence cleared. Cheapest evidence that the earning asset is intact while Travis owns the StrikeRewind testing window.</span></p>
-<p class="act"><span class="act-label">Decision</span><span class="act-text">ran existing `workspace/paf_smoke.mjs` Playwright harness against `https://profitafterfees.com`. 36 assertions: apex 200 + form fields, conversion gtag fires-once + correct send_to + once-semantic across additional input, calculator math (net $40.84, revenue ex-VAT $75.00, Stripe $2.91, affiliate $22.50, verdict headline), 5 calculator pages (200 + scenario CTA carries `/?listPrice=` deep link), AI Model Pricing Index (200 + &quot;Last verified May 6, 2026&quot; + 6 model rows), AI Feature Cost Calculator (200), mobile 390px (no horizontal overflow + form visible), `/privacy/` (200), `/ads.txt` (200 + correct AdSense pub id).</span></p>
+<p class="act"><span class="act-label">Objective</span><span class="act-text">third autonomous run of 2026-05-08, fired ~08:17 UTC. Reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md`: Travis hand-edited the file between yesterday&#x27;s run 9 and now — removed `STRIPE PRICES: STRIKEREWIND PRICE IDS MISSING` (resolved) and `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` (resolved), added `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`. Two gates standing entering and exiting: `ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`, `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`. StrikeRewind ≥12h smoke cadence cleared exactly at fire time (run 8 of 2026-05-07 was 20:17 UTC). Run 9 of 2026-05-07 deployed the `trial_period_days` removal + trialing/active fix (`9e1184a`); this is the first morning smoke after that deploy.</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -45,84 +44,32 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeRewind pivot — Commit 1: win rate calculator</h1>
-<p><strong>Date:</strong> 2026-05-08</p>
-<p><strong>Branch:</strong> <code>autobox/strikerewind-rename</code></p>
-<p><strong>Commit:</strong> <code>8bf752f</code> (pushed to origin)</p>
-<p><strong>Spec:</strong> <code>artifacts/2026-05-08-strikerewind-price-history-pivot-spec.md</code></p>
-<h2>What this is</h2>
-<p>First of seven commits in the pivot from synthetic options data to a pure</p>
-<p>price-history edge scanner. Adds the win rate calculator service — the</p>
-<p>load-bearing math the entire pivot sits on top of.</p>
-<h2>What shipped</h2>
+    <div class="artifact-prose"><h1>StrikeRewind morning production smoke — 2026-05-08</h1>
+<p><strong>Run:</strong> 3 of 2026-05-08, fired ~08:17 UTC.</p>
+<p><strong>Target:</strong> <code>https://www.strikerewind.com</code></p>
+<p><strong>Result:</strong> <strong>35 / 35 PASS · 0 FAIL · 0 unfiltered console errors</strong></p>
+<p><strong>Bundle:</strong> <code>artifacts/2026-05-08-strikerewind-morning-smoke/</code> (9 fullpage PNGs + <code>summary.json</code>)</p>
+<h2>Why this run</h2>
 <ul>
-<li><code>the scanner backend</code> (new)</li>
-<li><code>calculateWinRate(input)</code> — walks Friday entries in a daily price</li>
+<li>Cadence eligibility: ≥12h since run 8 of 2026-05-07 at 20:17 UTC cleared at exactly 08:17 UTC.</li>
+<li>Run 9 of 2026-05-07 deployed the <code>trial_period_days</code> removal + trialing/active fix on Stripe webhook (<code>9e1184a</code>); first morning smoke after that deploy.</li>
+<li>Travis hand-edited <code>OPEN_GATES.md</code> between runs: <code>STRIPE PRICES: STRIKEREWIND PRICE IDS MISSING</code> and <code>LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY</code> removed (resolved); <code>POLYGON KEY READY: STRIKEREWIND IV OVERLAY</code> added. This smoke is the first chance to verify the Stripe prices fix landed live.</li>
 </ul>
-<p>series, measures expiration-day outcomes against a strike defined by</p>
-<p><code>otmPct</code> + <code>direction</code>, returns empirical win rate plus</p>
-<p><code>minPremiumPct = 1 - winRate</code> and dollar floors for $100/$500-wide</p>
-<p>spreads. Returns <code>null</code> if observations &lt; 20. Flags</p>
-<p><code>lowConfidence: true</code> when 20 ≤ observations &lt; 40.</p>
+<h2>Coverage</h2>
 <ul>
-<li>Exports <code>OTM_GRID</code>, <code>DTE_WEEKS_GRID</code>, <code>DIRECTIONS</code>, and</li>
+<li><strong>Landing + mobile 390px</strong>: 0px horizontal overflow.</li>
+<li><strong>Analyze golden path</strong>: <code>/dashboard</code> → AAPL → ticker, EV%, current price <code>$189.42</code>, &quot;Strategy matrix&quot; heading, nav highlight all present.</li>
+<li><strong>Analyze error path</strong>: <code>/analysis/ZZZZZ</code> → &quot;Could not load&quot; heading + Back button → navigates to <code>/dashboard</code>.</li>
+<li><strong>Hunt</strong>: page renders, action button present.</li>
+<li><strong>Watchlist mutation</strong>: API add returns 200; <code>/watchlist</code> shows AAPL/MSFT/UNH with real fixture prices (regression assert against the &quot;Data refreshing&quot; placeholder bug); row click → <code>/analysis/AAPL</code>; remove button removes the row.</li>
+<li><strong>Stripe prices (NEW)</strong>: <code>/api/stripe/prices</code> HTTP 200; <code>standard = price_1TUdOXAy6OYpyg</code>; <code>pro = price_1TUdOYAy6OYpyg</code>. Confirms the Render env-var fix landed and the upgrade path is no longer dead.</li>
+<li><strong>Account</strong>: FREE tier label, STANDARD <code>$9.99</code>, PRO <code>$29.99</code>. Did not click Upgrade (live Stripe).</li>
 </ul>
-<p><code>calculateGrid(ticker, prices)</code> for the overnight batch in Commit 2.</p>
+<h2>Gate impact</h2>
 <ul>
-<li><code>the scanner backend</code> (new) — 10</li>
+<li>No new gate. Two open gates remain (<code>ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21</code>, <code>POLYGON KEY READY: STRIKEREWIND IV OVERLAY</code>) — both Travis-edited.</li>
+<li>The smoke now positively asserts <code>STRIPE PRICES</code> is no longer a gap; the assertion will fail loud if any future deploy regresses the env vars.</li>
 </ul>
-<p>deterministic cases.</p>
-<h2>Verification</h2>
-<ul>
-<li><code>npm run build</code> clean.</li>
-<li><code>node --test dist/services/winRateCalculator.test.js</code> — 10/10 pass.</li>
-<li>Existing backend tests (<code>priceDataProvider</code>, <code>huntFixtureMode</code>,</li>
-</ul>
-<p><code>spreadResultsService</code>) — 16/16 pass; no regression.</p>
-<ul>
-<li>26/26 backend tests green.</li>
-</ul>
-<h2>Deliberately NOT done in this commit</h2>
-<ul>
-<li>Did NOT delete <code>ivService.ts</code> or Black-Scholes premium estimation —</li>
-</ul>
-<p>callers still depend on them; that removal is bundled with Commit 3</p>
-<p>(Hunt API rewrite) so the diff stays coherent.</p>
-<ul>
-<li>Did NOT add Supabase schema migration columns yet — written in a</li>
-</ul>
-<p>separate Commit 1b once the calculator API is stable. No production</p>
-<p>data depends on this commit.</p>
-<ul>
-<li>Did NOT touch the scheduler — that is Commit 2.</li>
-<li>Did NOT change Hunt response — that is Commit 3.</li>
-<li>Did NOT route through Cove or Luke — backend-internal pure function,</li>
-</ul>
-<p>no customer-visible surface.</p>
-<ul>
-<li>Did NOT subscribe to Polygon — not in this commit&#x27;s scope, and Travis</li>
-</ul>
-<p>said in the addendum he handles that purchase manually.</p>
-<h2>Why push to origin</h2>
-<p>This commit is additive only — two new files, zero callers. Render</p>
-<p>auto-deploys the branch but live behavior is unchanged because nothing</p>
-<p>imports the new module yet. Safe to put it on the remote so the next</p>
-<p>autonomous run can build on it without re-stashing local state.</p>
-<h2>Next runnable steps</h2>
-<p>1. <strong>Commit 1b — Supabase schema migration</strong> for <code>spread_results</code> (new</p>
-<p>columns: <code>otm_pct</code>, <code>dte_weeks</code>, <code>direction</code>, <code>win_rate</code>,</p>
-<p><code>observation_count</code>, <code>min_premium_pct</code>, <code>min_premium_100</code>,</p>
-<p><code>min_premium_500</code>, <code>low_confidence</code>, <code>data_source</code>). Migration SQL</p>
-<p>ready to apply via Supabase dashboard.</p>
-<p>2. <strong>Commit 2 — Overnight scheduler</strong> swap. Replace the existing</p>
-<p>scheduler with a nightly price-history batch that calls</p>
-<p><code>calculateGrid()</code> per ticker and writes to <code>spread_results</code>.</p>
-<p>3. <strong>First real batch run</strong> to populate <code>spread_results</code> with actual</p>
-<p>price-history results — per Travis&#x27;s addendum, this is the move</p>
-<p>that takes Hunt out of fixture mode for real.</p>
-<p>4. <strong>Commit 3</strong> — Hunt API rewrite + delete <code>ivService.ts</code> /</p>
-<p><code>estimateCreditSpreadPremium</code>.</p>
 <h2>Cash balance</h2>
 <p>$162.45. No spend.</p></div>
   </section>

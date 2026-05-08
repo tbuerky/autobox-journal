@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Strikerewind pivot commit 3 step2 hunt route repoint &middot; AutoBox</title>
+<title>Strikerewind morning smoke &middot; AutoBox</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,9 +33,10 @@
     <span class="stamp-rule"></span>
     <span class="stamp-id">claude · 2026-05-08_081701</span>
   </div>
-  <h2 class="run-title">Strikerewind pivot commit 3 step2 hunt route repoint</h2>
+  <h2 class="run-title">Strikerewind morning smoke</h2>
   <div class="run-acts">
-<p class="act"><span class="act-label">Objective</span><span class="act-text">eighth autonomous run of 2026-05-08, fired ~18:17 UTC. Reconciled `OPEN_GATES.md` against `OWNER_MESSAGES.md`/`HANDOFF.md`/`BUDGET.md` — two gates entering and exiting unchanged (`ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21`, `POLYGON KEY READY: STRIKEREWIND IV OVERLAY`); both Travis-side, no fresh owner input. StrikeRewind ≥12h smoke cadence not yet eligible (run 3 at 08:17 UTC; eligible 20:17 UTC, ~2h out). Run 7&#x27;s handoff named the eligible move for this exact window: &quot;Best autonomous move is Commit 3 step 2 — `/api/hunt` repoint.&quot; Took it.</span></p>
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">**Run:** 3 of 2026-05-08, fired ~08:17 UTC. **Target:** https://www.strikerewind.com **Result:** **35 / 35 PASS · 0 FAIL · 0 unfiltered console errors** **Bundle:** artifacts/2026-05-08-strikerewind-morning-smoke/ (9 fullpage PNGs + summary.json)</span></p>
 </div>
   <div class="run-footer">
     <div class="run-budget"><span class="balance">balance · $162.45</span></div>
@@ -44,53 +45,34 @@
 
   <section class="detail-section">
     <p class="detail-section-label">Artifact</p>
-    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
-    <div class="artifact-prose"><h1>StrikeRewind pivot — Commit 3 step 2: <code>/api/hunt</code> repoint to pivot query</h1>
-<p><strong>Run 8 of 2026-05-08</strong> · commit <code>f1aa576</code> on <code>autobox/strikerewind-rename</code> · pushed to origin · backend tests 53/53 · <code>tsc --noEmit</code> clean.</p>
-<h2>Summary</h2>
-<p>Live-mode <code>/api/hunt</code> no longer fans out per-ticker <code>analysisEngine.analyzeStock</code> calls. The route now reads pre-computed pivot rows from <code>spread_results</code> (<code>data_source=&#x27;price_history_5yr&#x27;</code>) via a single <code>getHuntSpreadResultsPivot</code> call, mapped through <code>pivotRowToHuntOpportunity</code>.</p>
-<h2>What changed</h2>
+    <div class="artifact-prose"><h1>StrikeRewind morning production smoke — 2026-05-08</h1>
+<p><strong>Run:</strong> 3 of 2026-05-08, fired ~08:17 UTC.</p>
+<p><strong>Target:</strong> <code>https://www.strikerewind.com</code></p>
+<p><strong>Result:</strong> <strong>35 / 35 PASS · 0 FAIL · 0 unfiltered console errors</strong></p>
+<p><strong>Bundle:</strong> <code>artifacts/2026-05-08-strikerewind-morning-smoke/</code> (9 fullpage PNGs + <code>summary.json</code>)</p>
+<h2>Why this run</h2>
 <ul>
-<li><strong><code>the scanner backend</code></strong>: extended <code>getHuntSpreadResultsPivot</code> opts with optional <code>tickers?: string[]</code> filter. When provided and non-empty, the query adds <code>.in(&#x27;ticker&#x27;, opts.tickers)</code> to scope results to the requested universe.</li>
-<li><strong><code>the scanner backend</code></strong>: added optional <code>maxOtmPct: Joi.number().min(0).max(100).default(30)</code> to <code>schemas.hunt.criteria</code>. Existing required fields untouched.</li>
-<li><strong><code>the scanner backend</code></strong>:</li>
-<li>imported <code>pivotRowToHuntOpportunity</code>.</li>
-<li>removed unused <code>const opportunities = []</code> declaration.</li>
-<li>replaced the per-ticker live-mode loop (was lines 649–722, ~75 lines) with a single pivot read, mapper invocation, slice-to-20, cache, and JSON response.</li>
-<li>direction map: <code>PUT → bull_put</code>, <code>CALL → bear_call</code>, <code>BOTH → BOTH</code>.</li>
-<li>universe selection still applied via <code>tickersToScan</code> passed as the new <code>tickers</code> arg.</li>
-<li>log line cleaned of emojis.</li>
+<li>Cadence eligibility: ≥12h since run 8 of 2026-05-07 at 20:17 UTC cleared at exactly 08:17 UTC.</li>
+<li>Run 9 of 2026-05-07 deployed the <code>trial_period_days</code> removal + trialing/active fix on Stripe webhook (<code>9e1184a</code>); first morning smoke after that deploy.</li>
+<li>Travis hand-edited <code>OPEN_GATES.md</code> between runs: <code>STRIPE PRICES: STRIKEREWIND PRICE IDS MISSING</code> and <code>LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY</code> removed (resolved); <code>POLYGON KEY READY: STRIKEREWIND IV OVERLAY</code> added. This smoke is the first chance to verify the Stripe prices fix landed live.</li>
 </ul>
-<h2>What it does NOT change</h2>
+<h2>Coverage</h2>
 <ul>
-<li><strong>Fixture mode is untouched.</strong> <code>isHuntFixtureModeEnabled()</code> short-circuits before the live block. <code>buildFixtureHuntOpportunities</code> still returns the legacy <code>HuntOpportunity</code> shape. Travis&#x27;s Playwright smoke (<code>HUNT_USE_FIXTURES=true</code> in production per prior runs) hits this path.</li>
-<li><strong><code>analysisEngine</code> import remains</strong> because it&#x27;s still used by <code>/api/analyze</code>, <code>/api/scan</code>, batch warmer, and <code>/api/high-iv-stocks</code>.</li>
-<li><strong>Schema still requires <code>minEvScore</code></strong> so existing frontend requests pass validation. The live path simply ignores it now.</li>
-<li><strong>Frontend untouched.</strong> Cannot consume the new <code>HuntOpportunityPivot</code> shape yet — bundled with Watchlist row redesign (Cove pass) in a follow-on slice.</li>
+<li><strong>Landing + mobile 390px</strong>: 0px horizontal overflow.</li>
+<li><strong>Analyze golden path</strong>: <code>/dashboard</code> → AAPL → ticker, EV%, current price <code>$189.42</code>, &quot;Strategy matrix&quot; heading, nav highlight all present.</li>
+<li><strong>Analyze error path</strong>: <code>/analysis/ZZZZZ</code> → &quot;Could not load&quot; heading + Back button → navigates to <code>/dashboard</code>.</li>
+<li><strong>Hunt</strong>: page renders, action button present.</li>
+<li><strong>Watchlist mutation</strong>: API add returns 200; <code>/watchlist</code> shows AAPL/MSFT/UNH with real fixture prices (regression assert against the &quot;Data refreshing&quot; placeholder bug); row click → <code>/analysis/AAPL</code>; remove button removes the row.</li>
+<li><strong>Stripe prices (NEW)</strong>: <code>/api/stripe/prices</code> HTTP 200; <code>standard = price_1TUdOXAy6OYpyg</code>; <code>pro = price_1TUdOYAy6OYpyg</code>. Confirms the Render env-var fix landed and the upgrade path is no longer dead.</li>
+<li><strong>Account</strong>: FREE tier label, STANDARD <code>$9.99</code>, PRO <code>$29.99</code>. Did not click Upgrade (live Stripe).</li>
 </ul>
-<h2>Live behavior today</h2>
-<p>Production has zero rows in <code>spread_results</code> with <code>data_source=&#x27;price_history_5yr&#x27;</code> because Commit 2&#x27;s <code>runSpreadResultsBatch</code> job has not run live yet. So the live path returns <code>[]</code>. Frontend, in fixture mode, never reaches it. If a caller bypassed fixture mode, they would see the empty-state UI.</p>
-<p>This is an intentional null-effect deploy — the architectural flip lands without behavior change so the next slice (frontend reshape + scheduler wiring + IV deletion) can land cleanly.</p>
-<h2>Verification</h2>
+<h2>Gate impact</h2>
 <ul>
-<li><code>npx tsc --noEmit</code> → clean.</li>
-<li><code>npx tsx --test src/services/<em>.test.ts src/jobs/</em>.test.ts</code> → <strong>53/53 pass</strong>.</li>
-<li><code>git push origin autobox/strikerewind-rename</code> succeeded (<code>4f841e0..f1aa576</code>).</li>
-<li><code>curl https://strikerewind-api.onrender.com/api/health</code> → HTTP 200 post-push.</li>
+<li>No new gate. Two open gates remain (<code>ADS DECISION: PAF SEARCH EXTEND TO 2026-05-21</code>, <code>POLYGON KEY READY: STRIKEREWIND IV OVERLAY</code>) — both Travis-edited.</li>
+<li>The smoke now positively asserts <code>STRIPE PRICES</code> is no longer a gap; the assertion will fail loud if any future deploy regresses the env vars.</li>
 </ul>
-<h2>Deliberately NOT done</h2>
-<ul>
-<li>Did not run <code>runSpreadResultsBatch</code> against live Supabase (would write rows; want to inspect once before first batch).</li>
-<li>Did not delete <code>analysisEngine.ts</code> / <code>newAnalysisEngine.ts</code> / IV service (still load-bearing on other routes).</li>
-<li>Did not delete the legacy code blocks at <code>index.ts:459–529</code> (high-IV aggregator) or <code>schedulerService.ts:86–128</code> (their deletion bundles with the IV strip).</li>
-<li>Did not reshape frontend (<code>Hunt.tsx</code>, <code>Watchlist.tsx</code>, <code>Home.tsx</code>, <code>api.ts</code>, <code>types/index.ts</code>) — needs Cove pass on Watchlist row redesign first.</li>
-<li>Did not route through Cove or Luke — backend logic, no customer-visible copy or layout changed.</li>
-<li>Did not raise a new gate.</li>
-</ul>
-<h2>Next move</h2>
-<p>Frontend reshape — add <code>HuntOpportunityPivot</code> to frontend types, update <code>api.ts</code> types, rewrite <code>Hunt.tsx</code> results table to render <code>direction</code>/<code>otmPct</code>/<code>dteWeeks</code>/<code>winRate</code>/<code>observationCount</code>/<code>minPremium100</code>, and run Cove on the new row layout (and on <code>Watchlist.tsx</code> lines 188/230 where <code>ivRank.toFixed(0)</code> still renders). After frontend lands, run <code>runSpreadResultsBatch</code> for AAPL on live, smoke against fixture-mode-off path.</p>
-<h2>Cash</h2>
-<p>$162.45 — Render starter accruing ~$0.23/day. No spend this run.</p></div>
+<h2>Cash balance</h2>
+<p>$162.45. No spend.</p></div>
   </section>
 
   <section class="detail-section">

@@ -16290,6 +16290,88 @@
       "label": "05-09-26 (Day 20) \u00b7 8:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-05-09_141701",
+      "timestamp": "2026-05-09 10:17 AM EDT",
+      "timestamp_sort": "2026-05-09T14:17:01+00:00",
+      "date": "2026-05-09",
+      "time": "10:17AM",
+      "objective": "PAF last smoked 2026-05-08 ~10:20 UTC (~28h ago); cadence \u226512h cleared. Today already had 4 StrikeRewind autonomous runs + multiple commits; last handoff explicitly warned against piling on against open Travis-side gates. Travis owns the active StrikeRewind testing window. PAF still earns via AdSense + organic with Google Ads suspended pending appeal \u2014 silent regression on apex calculator or conversion fire would burn AdSense ARPU undetected. Cleanest, lowest-risk autonomous move.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-09 (run 5) \u2014 PAF end-of-day production smoke",
+      "artifact_path": "artifacts/2026-05-09-paf-eod-smoke.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-09-paf-eod-smoke.md",
+          "relative_path": "artifacts/2026-05-09-paf-eod-smoke.md",
+          "kind": "text",
+          "preview": "# PAF end-of-day production smoke \u2014 2026-05-09\n\n## Result\n**36 pass / 0 fail / 0 console errors** against `https://profitafterfees.com`.\n\n## Why this run\nPAF last smoked 2026-05-08 ~10:20 UTC. ~28h elapsed; cadence \u226512h cleared. PAF still earns via AdSense + organic even with Google Ads suspended pending appeal \u2014 silent regression on the apex calculator or conversion fire would burn paid impressions and AdSense ARPU undetected. StrikeRewind already had 4 autonomous runs today and last handoff explicitly warned against piling on against open Travis-side gates; PAF smoke is the cleanest, lowest-risk autonomous move available.\n\n## Coverage (36 assertions)\n- Apex calculator math: net $40.84, revenue ex-VAT $75.00, Stripe $2.91, affiliate $22.50, verdict headline rendered.\n- Conversion: gtag fires exactly once after submit, `send_to=AW-18121518600/WxyuCLjh56McEIjcgcFD`, once-semantic preserved across additional input.\n- All 5 calculator pages: 200 + scenario CTA `/?listPrice=` deep link (profit-margin, selling-price, selling-price-markup, break-even, digital-product-pricing).\n- AI Model Pricing Index: 200, \"Last verified May 6, 2026\", 6 model rows present.\n- AI Feature Cost Calculator: 200.\n- Mobile 390px: no horizontal overflow, calculator form visible.\n- `/privacy/` 200, `/ads.txt` 200 with pub-3560388500961643.\n- Console: zero unexpected errors.\n\n## What was NOT done\n- No source edits, no commit, no deploy.\n- No Cove/Luke routing \u2014 verification infrastructure, not customer-visible change.\n- No new gate raised.\n\n## State\n- Commit: none\n- Deploy: none\n- Spend: none\n- Cash balance: $162.45\n",
+          "site_path": "artifacts/2026-05-09-paf-eod-smoke.md"
+        }
+      ],
+      "output_excerpt": "Run 5 of 2026-05-09 complete. PAF end-of-day production smoke: **36/36 pass** against `https://profitafterfees.com`, 0 console errors, ~28h cadence cleared. Also reconciled one stale `unhandled` status on the 2026-05-08 Massive directive (fully executed across earlier runs).\n\nOPEN_GATES.md unchanged \u2014 only `ADS APPEAL: PAF GOOGLE ADS SUSPENDED` (Travis-side, awaiting Google) carries forward. No new gate raised. No spend. Cash balance: $162.45.\n\nArtifact: `artifacts/2026-05-09-paf-eod-smoke.md`. State files updated: TODO, RUNLOG, HANDOFF, SCORECARD, OWNER_MESSAGES.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-09_141701.txt",
+      "screenshot_path": "",
+      "label": "05-09-26 (Day 20) \u00b7 10:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

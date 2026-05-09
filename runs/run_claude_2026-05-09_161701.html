@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Strikerewind data live testing readiness packet &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">05-09-26 (Day 20) · 12:17 PM</span>
+        <a class="card-download" href="../cards/run_claude_2026-05-09_161701.png" download="autobox-run_claude_2026-05-09_161701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_claude_2026-05-09_161701">
+  <div class="run-stamp">
+    <span class="stamp-date">05-09-26 (Day 20) · 12:17 PM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">claude · 2026-05-09_161701</span>
+  </div>
+  <h2 class="run-title">Strikerewind data live testing readiness packet</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Objective</span><span class="act-text">PAF last smoked 2026-05-08 ~10:20 UTC (~28h ago); cadence ≥12h cleared. Today already had 4 StrikeRewind autonomous runs + multiple commits; last handoff explicitly warned against piling on against open Travis-side gates. Travis owns the active StrikeRewind testing window. PAF still earns via AdSense + organic with Google Ads suspended pending appeal — silent regression on apex calculator or conversion fire would burn AdSense ARPU undetected. Cleanest, lowest-risk autonomous move.</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $162.45</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <div class="artifact-prose"><h1>StrikeRewind data-live testing readiness packet</h1>
+<p><strong>Date</strong>: 2026-05-09 16:20 UTC (run 5 of 2026-05-09)</p>
+<p><strong>Owner action</strong>: Travis to run a fresh testing pass on <code>https://www.strikerewind.com</code>. Reply on Discord with <code>TESTING COMPLETE: STRIKEREWIND DATA-LIVE</code> to lift the 2026-05-02 marketing freeze, or with specific bugs to fix.</p>
+<h2>Why this packet now</h2>
+<p>Travis&#x27;s 2026-05-02 directive: <em>&quot;block any public-facing moves toward traffic/marketing of StrikeRewind until I can do a full round of testing. Also, we have not turned on real data yet.&quot;</em></p>
+<p>Both halves of that directive have moved since:</p>
+<ul>
+<li><strong>Real data is on.</strong> Massive (rebranded Polygon) S3 flat-files wired 2026-05-08; first live S&amp;P 500 win-rate batch landed 51,020 rows that day; nightly cron at 06:00 ET has fired cleanly twice; latest pivot snapshot holds 35,000 rows for <code>as_of_date = 2026-05-09</code>. Fixture mode for the AAPL/MSFT/UNH demo path is preserved and untouched.</li>
+<li><strong>Hunt now reads real win rates.</strong> <code>/api/hunt</code> was repointed at the pivot warehouse on 2026-05-08 (commit <code>f1aa576</code>), with read-side belt-and-suspenders pinning to the latest <code>as_of_date</code> added today (commit <code>2b38dff</code>). Cross-day duplicates cannot leak even if a future prune fails.</li>
+<li><strong>Watchlist regression class fixed</strong> 2026-05-07.</li>
+<li><strong>Subscription path defended</strong> 2026-05-07: live Stripe webhook signature verification holds; trial-period bug removed; <code>trialing</code> status treated as entitled.</li>
+</ul>
+<p>The product Travis would test today is materially different from the product he last touched on 2026-05-02. A fresh testing pass is the bottleneck on lifting the marketing freeze.</p>
+<h2>Current live state</h2>
+<p>| Surface | Status |</p>
+<p>|---|---|</p>
+<p>| <code>https://www.strikerewind.com</code> | HTTP 200 |</p>
+<p>| <code>https://strikerewind-api.onrender.com/api/health</code> | HTTP 200, v1.0.1 |</p>
+<p>| Pivot rows in <code>spread_results</code> (<code>price_history_5yr</code>) | 35,000 rows / latest <code>as_of_date = 2026-05-09</code> (per run 4 today) |</p>
+<p>| Nightly batch | Render cron <code>0 6 <em> </em> *</code> America/Detroit, last success today |</p>
+<p>| Free-tier Hunt limit | 1 scan/day, gated server-side |</p>
+<p>| Stripe live keys | Configured; webhook verified; price IDs populated |</p>
+<h2>Suggested 30-minute testing checklist</h2>
+<p>The full playbook is at <code>artifacts/2026-05-03-strikerewind-testing-playbook.md</code>. The bounded version focused on what changed since 2026-05-02:</p>
+<p>1. <strong>Sign in, run one Hunt</strong> with default Free-tier criteria. Confirm results table populates with real tickers + win-rate column + OTM%/DTE/direction. Sort each column. Confirm row click navigates to <code>/analysis/:ticker</code>.</p>
+<p>2. <strong>Open Watchlist.</strong> Confirm rows render values, no &quot;Data refreshing&quot; placeholder anywhere.</p>
+<p>3. <strong>Run a second Hunt as Free.</strong> Confirm the daily limit gate fires and the upgrade prompt is honest, not aggressive.</p>
+<p>4. <strong>Hit <code>/account</code>.</strong> Confirm tier badge + plan cards render. Do NOT click Upgrade unless you want to actually transact (live Stripe).</p>
+<p>5. <strong>Phone test on <code>https://www.strikerewind.com</code>.</strong> Confirm no horizontal scroll, no broken cards, copy reads cleanly.</p>
+<p>6. <strong>Try a nonsense ticker (<code>ZZZZZ</code>)</strong> in Analyze. Confirm the error state renders with a recovery path, not a blank page.</p>
+<p>The Playwright suite covers (1)–(6) automatically and is green at 35/35 against production as of run 4 today, but Travis-as-human eyes is the decision-maker.</p>
+<h2>What lifts the freeze</h2>
+<p>A Discord reply of <code>TESTING COMPLETE: STRIKEREWIND DATA-LIVE</code> lifts the marketing freeze and unlocks:</p>
+<ul>
+<li>Founder-voice X launch post (pre-written, Luke-polished, sitting in <code>artifacts/2026-04-30-strikerewind-x-launch-post.md</code> — paste-ready under <code>Suggested post copy:</code>)</li>
+<li>Resumed work on the <code>LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY</code> decision (Option A/B/C from the 2026-05-04 packet)</li>
+<li>Outbound distribution experiments (small, bounded, separately-approved)</li>
+</ul>
+<p>A reply with specific bugs converts directly into the next run&#x27;s task list.</p>
+<h2>What does NOT need approval</h2>
+<ul>
+<li>Continued backend hygiene (legacy IV / <code>analysisEngine</code> deletion slice surfaced in run 6 of 2026-05-08 audit)</li>
+<li>PAF cadence smokes</li>
+<li>Anything internal-facing</li>
+</ul>
+<h2>Cash</h2>
+<p>$162.45. Recurring spend: Render starter $7/mo + Massive Stocks Starter $29/mo = $36/mo. Google Ads suspended pending appeal — out of scope per 2026-05-08 owner directive.</p>
+<h2>Suggested post copy</h2>
+<p>&gt; StrikeRewind has changed materially since you set the marketing freeze on May 2. Real S&amp;P 500 win-rate data now flows nightly via Massive — Hunt returns 35,000 real rows from yesterday&#x27;s snapshot, no synthetic IV anywhere. Watchlist regression is gone. Subscription path is hardened. When you can grab 30 minutes for a fresh testing pass on <code>https://www.strikerewind.com</code>, reply <code>TESTING COMPLETE: STRIKEREWIND DATA-LIVE</code> to lift the freeze and unlock the launch-post path. Bounded checklist in <code>artifacts/2026-05-09-strikerewind-data-live-testing-readiness-packet.md</code>. Cash $162.45.</p></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">Run complete. Shipped a readiness packet that converts the past week of engineering progress (Massive provider live, 51K real S&amp;amp;P 500 win-rate rows nightly, Hunt route on pivot, watchlist + Stripe path hardened) into a single owner-decision: a 30-min testing pass that lifts the 2026-05-02 marketing freeze and unlocks the pre-written X launch post.
+
+- Artifact: `artifacts/2026-05-09-strikerewind-data-live-testing-readiness-packet.md`
+- New gate: `TESTING COMPLETE: STRIKEREWIND DATA-LIVE`
+- State files updated: TODO, HANDOFF, RUNLOG, SCORECARD, OPEN_GATES
+- No commit, no deploy, no spend. Cash $162.45.
+- Blocked on Travis: testing pass (this gate) + Google Ads appeal (existing).
+
+
+--- CLAUDE_RUN_COMPLETE ---
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

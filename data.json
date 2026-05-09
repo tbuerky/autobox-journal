@@ -15887,7 +15887,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-09 (run 4) \u2014 StrikeRewind: pin Hunt pivot query to latest as_of_date",
+      "heading": "2026-05-09 (run 5) \u2014 StrikeRewind data-live testing readiness packet",
       "artifact_path": "artifacts/2026-05-09-strikerewind-pivot-data-quality-and-sp500-dedup.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -15970,7 +15970,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-09 (run 3) \u2014 StrikeRewind pivot snapshot prune fix + live cleanup",
+      "heading": "2026-05-09 (run 4) \u2014 StrikeRewind: pin Hunt pivot query to latest as_of_date",
       "artifact_path": "artifacts/2026-05-09-strikerewind-sp500-full-authoritative-audit.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16053,7 +16053,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-09 (run 2) \u2014 StrikeRewind full S&P 500 universe audit against authoritative source",
+      "heading": "2026-05-09 (run 3) \u2014 StrikeRewind pivot snapshot prune fix + live cleanup",
       "artifact_path": "artifacts/2026-05-09-strikerewind-pivot-snapshot-prune-fix.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16135,7 +16135,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-09 (run 1) \u2014 StrikeRewind pivot data quality probe + SP500 universe dedup",
+      "heading": "2026-05-09 (run 2) \u2014 StrikeRewind full S&P 500 universe audit against authoritative source",
       "artifact_path": "artifacts/2026-05-09-strikerewind-post-pivot-smoke.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16217,7 +16217,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "Run \u2014 2026-05-09 (run 4) \u2014 StrikeRewind production smoke post pivot data-quality work",
+      "heading": "2026-05-09 (run 1) \u2014 StrikeRewind pivot data quality probe + SP500 universe dedup",
       "artifact_path": "artifacts/2026-05-09-strikerewind-hunt-pivot-pin-latest-as-of-date.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16297,10 +16297,10 @@
       "timestamp_sort": "2026-05-09T14:17:01+00:00",
       "date": "2026-05-09",
       "time": "10:17AM",
-      "objective": "PAF last smoked 2026-05-08 ~10:20 UTC (~28h ago); cadence \u226512h cleared. Today already had 4 StrikeRewind autonomous runs + multiple commits; last handoff explicitly warned against piling on against open Travis-side gates. Travis owns the active StrikeRewind testing window. PAF still earns via AdSense + organic with Google Ads suspended pending appeal \u2014 silent regression on apex calculator or conversion fire would burn AdSense ARPU undetected. Cleanest, lowest-risk autonomous move.",
+      "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "Run \u2014 2026-05-09 (run 5) \u2014 PAF end-of-day production smoke",
+      "heading": "Run \u2014 2026-05-09 (run 4) \u2014 StrikeRewind production smoke post pivot data-quality work",
       "artifact_path": "artifacts/2026-05-09-paf-eod-smoke.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16372,6 +16372,88 @@
       "label": "05-09-26 (Day 20) \u00b7 10:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-05-09_161701",
+      "timestamp": "2026-05-09 12:17 PM EDT",
+      "timestamp_sort": "2026-05-09T16:17:01+00:00",
+      "date": "2026-05-09",
+      "time": "12:17PM",
+      "objective": "PAF last smoked 2026-05-08 ~10:20 UTC (~28h ago); cadence \u226512h cleared. Today already had 4 StrikeRewind autonomous runs + multiple commits; last handoff explicitly warned against piling on against open Travis-side gates. Travis owns the active StrikeRewind testing window. PAF still earns via AdSense + organic with Google Ads suspended pending appeal \u2014 silent regression on apex calculator or conversion fire would burn AdSense ARPU undetected. Cleanest, lowest-risk autonomous move.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-09 (run 5) \u2014 PAF end-of-day production smoke",
+      "artifact_path": "artifacts/2026-05-09-strikerewind-data-live-testing-readiness-packet.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-09-strikerewind-data-live-testing-readiness-packet.md",
+          "relative_path": "artifacts/2026-05-09-strikerewind-data-live-testing-readiness-packet.md",
+          "kind": "text",
+          "preview": "# StrikeRewind data-live testing readiness packet\n\n**Date**: 2026-05-09 16:20 UTC (run 5 of 2026-05-09)\n**Owner action**: Travis to run a fresh testing pass on `https://www.strikerewind.com`. Reply on Discord with `TESTING COMPLETE: STRIKEREWIND DATA-LIVE` to lift the 2026-05-02 marketing freeze, or with specific bugs to fix.\n\n## Why this packet now\n\nTravis's 2026-05-02 directive: *\"block any public-facing moves toward traffic/marketing of StrikeRewind until I can do a full round of testing. Also, we have not turned on real data yet.\"*\n\nBoth halves of that directive have moved since:\n\n- **Real data is on.** Massive (rebranded Polygon) S3 flat-files wired 2026-05-08; first live S&P 500 win-rate batch landed 51,020 rows that day; nightly cron at 06:00 ET has fired cleanly twice; latest pivot snapshot holds 35,000 rows for `as_of_date = 2026-05-09`. Fixture mode for the AAPL/MSFT/UNH demo path is preserved and untouched.\n- **Hunt now reads real win rates.** `/api/hunt` was repointed at the pivot warehouse on 2026-05-08 (commit `f1aa576`), with read-side belt-and-suspenders pinning to the latest `as_of_date` added today (commit `2b38dff`). Cross-day duplicates cannot leak even if a future prune fails.\n- **Watchlist regression class fixed** 2026-05-07.\n- **Subscription path defended** 2026-05-07: live Stripe webhook signature verification holds; trial-period bug removed; `trialing` status treated as entitled.\n\nThe product Travis would test today is materially different from the product he last touched on 2026-05-02. A fresh testing pass is the bottleneck on lifting the marketing freeze.\n\n## Current live state\n\n| Surface | Status |\n|---|---|\n| `https://www.strikerewind.com` | HTTP 200 |\n| `https://strikerewind-api.onrender.com/api/health` | HTTP 200, v1.0.1 |\n| Pivot rows in `spread_results` (`price_history_5yr`) | 35,000 rows / latest `as_of_date = 2026-05-09` (per run 4 today) |\n| Nightly batch | Render cron `0 6 * * *` America/Detroit, last success today |\n| Free-tier Hunt limit | 1 scan/day, gated server-side |\n| Stripe live keys | Configured; webhook verified; price IDs populated |\n\n## Suggested 30-minute testing checklist\n\nThe full playbook is at `artifacts/2026-05-03-strikerewind-testing-playbook.md`. The bounded version focused on what changed since 2026-05-02:\n\n1. **Sign in, run one Hunt** with default Free-tier criteria. Confirm results table populates with real tickers + win-rate column + OTM%/DTE/direction. Sort each column. Confirm row click navigates to `/analysis/:ticker`.\n2. **Open Watchlist.** Confirm rows render values, no \"Data refreshing\" placeholder anywhere.\n3. **Run a second Hunt as Free.** Confirm the daily limit gate fires and the upgrade prompt is honest, not aggressive.\n4. **Hit `/account`.** Confirm tier badge + plan cards render. Do NOT click Upgrade unless you want to actually transact (live Stripe).\n5. **Phone test on `https://www.strikerewind.com`.** Confirm no horizontal scroll, no broken cards, copy reads cleanly.\n6. **Try a nonsense ticker (`ZZZZZ`)** in Analyze. Confirm the error state renders with a recovery path, not a blank page.\n\nThe Playwright suite covers (1)\u2013(6) automatically and is green at 35/35 against production as of run 4 today, but Travis-as-human eyes is the decision-maker.\n\n## What lifts the freeze\n\nA Discord reply of `TESTING COMPLETE: STRIKEREWIND DATA-LIVE` lifts the marketing freeze and unlocks:\n\n- Founder-voice X launch post (pre-written, Luke-polished, sitting in `artifacts/2026-04-30-strikerewind-x-launch-post.md` \u2014 paste-ready under `Suggested post copy:`)\n- Resumed work on the `LAUNCH POSTURE: STRIKEREWIND PRE-LAUNCH DATA COPY` decision (Option A/B/C from the 2026-05-04 packet)\n- Outbound distribution experiments (small, bounded, separately-approved)\n\nA reply with specific bugs converts directly into the next run's task list.\n\n## What does NOT need approval\n\n- Continued backend hygiene (legacy IV / `analysisEngine` deletion slice surfaced in run 6 of 2026-05-08 audit)\n- PAF cadence smokes\n- Anything internal-facing\n\n## Cash\n\n$162.45. Recurring spend: Render starter $7/mo + Massive Stocks Starter $29/mo = $36/mo. Google Ads suspended pending appeal \u2014 out of scope per 2026-05-08 owner directive.\n\n## Suggested post copy\n\n> StrikeRewind has changed materially since you set the marketing freeze on May 2. Real S&P 500 win-rate data now flows nightly via Massive \u2014 Hunt returns 35,000 real rows from yesterday's snapshot, no synthetic IV anywhere. Watchlist regression is gone. Subscription path is hardened. When you can grab 30 minutes for a fresh testing pass on `https://www.strikerewind.com`, reply `TESTING COMPLETE: STRIKEREWIND DATA-LIVE` to lift the freeze and unlock the launch-post path. Bounded checklist in `artifacts/2026-05-09-strikerewind-data-live-testing-readiness-packet.md`. Cash $162.45.\n",
+          "site_path": "artifacts/2026-05-09-strikerewind-data-live-testing-readiness-packet.md"
+        }
+      ],
+      "output_excerpt": "Run complete. Shipped a readiness packet that converts the past week of engineering progress (Massive provider live, 51K real S&P 500 win-rate rows nightly, Hunt route on pivot, watchlist + Stripe path hardened) into a single owner-decision: a 30-min testing pass that lifts the 2026-05-02 marketing freeze and unlocks the pre-written X launch post.\n\n- Artifact: `artifacts/2026-05-09-strikerewind-data-live-testing-readiness-packet.md`\n- New gate: `TESTING COMPLETE: STRIKEREWIND DATA-LIVE`\n- State files updated: TODO, HANDOFF, RUNLOG, SCORECARD, OPEN_GATES\n- No commit, no deploy, no spend. Cash $162.45.\n- Blocked on Travis: testing pass (this gate) + Google Ads appeal (existing).\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-09_161701.txt",
+      "screenshot_path": "",
+      "label": "05-09-26 (Day 20) \u00b7 12:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

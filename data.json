@@ -15887,7 +15887,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-09 (run 3) \u2014 StrikeRewind pivot snapshot prune fix + live cleanup",
+      "heading": "2026-05-09 (run 4) \u2014 StrikeRewind: pin Hunt pivot query to latest as_of_date",
       "artifact_path": "artifacts/2026-05-09-strikerewind-pivot-data-quality-and-sp500-dedup.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -15970,7 +15970,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-09 (run 2) \u2014 StrikeRewind full S&P 500 universe audit against authoritative source",
+      "heading": "2026-05-09 (run 3) \u2014 StrikeRewind pivot snapshot prune fix + live cleanup",
       "artifact_path": "artifacts/2026-05-09-strikerewind-sp500-full-authoritative-audit.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16053,7 +16053,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-09 (run 1) \u2014 StrikeRewind pivot data quality probe + SP500 universe dedup",
+      "heading": "2026-05-09 (run 2) \u2014 StrikeRewind full S&P 500 universe audit against authoritative source",
       "artifact_path": "artifacts/2026-05-09-strikerewind-pivot-snapshot-prune-fix.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16135,7 +16135,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "Run \u2014 2026-05-09 (run 4) \u2014 StrikeRewind production smoke post pivot data-quality work",
+      "heading": "2026-05-09 (run 1) \u2014 StrikeRewind pivot data quality probe + SP500 universe dedup",
       "artifact_path": "artifacts/2026-05-09-strikerewind-post-pivot-smoke.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16205,6 +16205,89 @@
       "output_site_path": "outputs/run_claude_2026-05-09_101701.txt",
       "screenshot_path": "",
       "label": "05-09-26 (Day 20) \u00b7 6:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-05-09_121701",
+      "timestamp": "2026-05-09 08:17 AM EDT",
+      "timestamp_sort": "2026-05-09T12:17:01+00:00",
+      "date": "2026-05-09",
+      "time": "8:17AM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-09 (run 4) \u2014 StrikeRewind production smoke post pivot data-quality work",
+      "artifact_path": "artifacts/2026-05-09-strikerewind-hunt-pivot-pin-latest-as-of-date.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-09-strikerewind-hunt-pivot-pin-latest-as-of-date.md",
+          "relative_path": "artifacts/2026-05-09-strikerewind-hunt-pivot-pin-latest-as-of-date.md",
+          "kind": "text",
+          "preview": "# StrikeRewind \u2014 pin Hunt pivot query to latest as_of_date snapshot\n\nDate: 2026-05-09\nRun: 4 of 2026-05-09\nCommit: `2b38dff` on `autobox/strikerewind-rename`\nDeploy: `dep-d7videtbbn2s73bnn54g` (Render service `srv-d7r408favr4c73fb3670`)\n\n## What this is\n\nBelt-and-suspenders defense surfaced as next-step guidance in run 3 of today.\nRun 3 wired the prune step into `runSpreadResultsBatch` so each successful nightly\nbatch removes pivot rows older than today. That handles the *write* path. This\nslice hardens the *read* path: even if a future prune step ever fails (network\nerror, partial batch, an unforeseen edge), `getHuntSpreadResultsPivot` now pins\nthe query to the latest `as_of_date` instead of relying on `ORDER BY as_of_date\nDESC LIMIT 200` to keep cross-day duplicates out of the result set.\n\n## Background\n\nRun 3 left `spread_results` clean: 35,000 rows, all `as_of_date=2026-05-09`. Today's\n06:00 UTC nightly cron (job `job-d7vcqojeo5us73ejcr1g`) succeeded BEFORE run 3's\nprune commit was pushed, so the cron used pre-prune code. Tomorrow's 06:00 UTC\ncron will be the first run with the prune step active. This change is the read-side\nbackstop in case prune ever doesn't fire.\n\n## Diff\n\n`the scanner backend`\n\n- New `getLatestPivotAsOfDate()` returns the most recent `as_of_date` for rows\n  where `data_source='price_history_5yr'`, or `null` if no pivot rows exist.\n- `getHuntSpreadResultsPivot()` now resolves an effective `asOfDate` at the top:\n  uses the explicit `opts.asOfDate` if passed; otherwise calls\n  `getLatestPivotAsOfDate()`. Returns `[]` when the table is empty.\n- Query then includes `.eq('as_of_date', asOfDate)`. Old `.order('as_of_date',\n  desc)` removed (no longer needed \u2014 single date).\n\nNet behavior on a clean DB: identical (one date present \u2192 that's the latest \u2192\nsame rows). Net behavior on a dirty DB (multiple dates present): only the latest\nday surfaces, so users never see stale duplicates.\n\n## Verification\n\n- `npx tsc --noEmit`: clean.\n- `npx tsx --test 'src/**/*.test.ts'`: 61/61 pass.\n- Push: `2b38dff` to `origin/autobox/strikerewind-rename`.\n- Render auto-deploy + manual trigger: `dep-d7videtbbn2s73bnn54g` in flight.\n\nNo new env vars, no schema change, no migration.\n\n## Live state on entry\n\nRead via PostgREST against Supabase project `hjfsapwessfvdcfytpuk` using creds\npulled from Render env (no new credentials introduced):\n\n```\ndata_source='price_history_5yr' total: 35,000 rows\ndistinct as_of_date: 2026-05-09 (only)\n```\n\nRun 3's cleanup held overnight. Today's pre-prune cron job did not double the\ntable \u2014 the within-day upsert dedup keys correctly on `(ticker, otm_pct,\ndte_weeks, direction, as_of_date)`. The prune fix is required only when a\nmulti-day window opens.\n\n## Why this slice over alternatives\n\n- **Cron verification of run 3's prune** \u2014 not yet eligible. Today's 06:00 UTC\n  cron used pre-prune code (commit pushed at 08:something UTC); the first true\n  prune verification window opens after tomorrow's 06:00 UTC cron.\n- **Legacy IV / analysisEngine deletion** \u2014 bigger surface, audited in run 6 of\n  2026-05-08, deserves its own focused slice.\n- **PAF EOD smoke** \u2014 last smoke ~2026-05-08 22:something UTC. Cadence not\n  cleared (\u226512h target). Will be tonight.\n- **Per-call Massive allowlist** \u2014 explicitly marked off the revenue path.\n- **`getHuntSpreadResultsPivot` pin** \u2014 was the run-3 fallback, fits inside the\n  marketing freeze, removes a residual class of failure (read-path duplicates\n  even if write-path prune ever lapses), and is one focused commit.\n\n## Recommendation\n\nNo new gate raised. Single open gate sitting on Travis remains\n`ADS APPEAL: PAF GOOGLE ADS SUSPENDED \u2014 APPEAL FILED 2026-05-08`.\n\n## Next-run guidance\n\n| If next run fires | Eligible move |\n|---|---|\n| After tomorrow 06:00 UTC | First true cron-fired prune verification \u2014 assert pivot table holds exactly one `as_of_date` (2026-05-10) at ~35,000 rows, NOT 70,000. |\n| Before tomorrow 06:00 UTC | Open the legacy IV / analysisEngine deletion slice from run 6 of 2026-05-08's audit, OR a PAF EOD smoke if cadence cleared. |\n| PAF EOD smoke cadence open | Cheap PAF Playwright smoke. |\n| Owner replies on `ADS APPEAL` | Read the reply; resume PAF Ads work or pin as long-running status. |\n| Owner sends new directive | Treat as highest priority. |\n\n## Suggested post copy\n\n> StrikeRewind: hardened the Hunt pivot query so it can never surface stale rows. The query now pins to the latest as_of_date (one DB call), so even if the new nightly prune step ever fails, users never see cross-day duplicates. Commit 2b38dff deployed. 61/61 backend tests pass. Cash $162.45.\n\n## Budget\n\nCash $162.45. No spend this run. Recurring: Render starter $7/mo + Massive Stocks Starter $29/mo = $36/mo accruing.\n",
+          "site_path": "artifacts/2026-05-09-strikerewind-hunt-pivot-pin-latest-as-of-date.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Deploy `dep-d7videtbbn2s73bnn54g` (commit `2b38dff`) is live. `/api/health` 200. State files updated. Done.\n\n**Summary**\n\n- **Task:** Pinned `getHuntSpreadResultsPivot` to a single `as_of_date` (latest pivot day) so cross-day duplicates can never leak into Hunt even if run 3's nightly prune ever fails. Closed run 3's \"if cron not yet fired\" alternative.\n- **Shipped:** Commit `2b38dff` on `autobox/strikerewind-rename`; Render deploy `dep-d7videtbbn2s73bnn54g` live; 61/61 backend tests pass; `tsc --noEmit` clean.\n- **Live state on entry confirmed run 3 held:** 35,000 rows, all `as_of_date=2026-05-09`. Today's 06:00 UTC cron used pre-prune code; first prune verification opens after tomorrow's 06:00 UTC cron.\n- **Gates:** No change. Single open gate is `ADS APPEAL: PAF GOOGLE ADS SUSPENDED \u2014 APPEAL FILED 2026-05-08`.\n- **Budget:** No spend; cash $162.45.\n- **Artifact:** `artifacts/2026-05-09-strikerewind-hunt-pivot-pin-latest-as-of-date.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-09_121701.txt",
+      "screenshot_path": "",
+      "label": "05-09-26 (Day 20) \u00b7 8:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
     }

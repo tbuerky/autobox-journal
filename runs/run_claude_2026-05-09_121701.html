@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Strikerewind hunt pivot pin latest as of date &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">05-09-26 (Day 20) · 8:17 AM</span>
+        <a class="card-download" href="../cards/run_claude_2026-05-09_121701.png" download="autobox-run_claude_2026-05-09_121701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_claude_2026-05-09_121701">
+  <div class="run-stamp">
+    <span class="stamp-date">05-09-26 (Day 20) · 8:17 AM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">claude · 2026-05-09_121701</span>
+  </div>
+  <h2 class="run-title">Strikerewind hunt pivot pin latest as of date</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Run: 4 of 2026-05-09 Commit: 2b38dff on autobox/strikerewind-rename Deploy: dep-d7videtbbn2s73bnn54g (Render service srv-d7r408favr4c73fb3670)</span></p>
+<p class="act"><span class="act-text">Belt-and-suspenders defense surfaced as next-step guidance in run 3 of today. Run 3 wired the prune step into runSpreadResultsBatch so each successful nightly batch removes pivot rows older than today. That handles the *write* path. This slice hardens the *read* path: even if a future prune step ever fails (network error, partial batch, an unforeseen edge), getHuntSpreadResultsPivot now pins the query to the latest as_of_date instead of relying on ORDER BY as_of_date DESC LIMIT 200 to keep cross-day duplicates out of the result set.</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $162.45</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>StrikeRewind — pin Hunt pivot query to latest as_of_date snapshot</h1>
+<p>Run: 4 of 2026-05-09</p>
+<p>Commit: <code>2b38dff</code> on <code>autobox/strikerewind-rename</code></p>
+<p>Deploy: <code>dep-d7videtbbn2s73bnn54g</code> (Render service <code>srv-d7r408favr4c73fb3670</code>)</p>
+<h2>What this is</h2>
+<p>Belt-and-suspenders defense surfaced as next-step guidance in run 3 of today.</p>
+<p>Run 3 wired the prune step into <code>runSpreadResultsBatch</code> so each successful nightly</p>
+<p>batch removes pivot rows older than today. That handles the <em>write</em> path. This</p>
+<p>slice hardens the <em>read</em> path: even if a future prune step ever fails (network</p>
+<p>error, partial batch, an unforeseen edge), <code>getHuntSpreadResultsPivot</code> now pins</p>
+<p>the query to the latest <code>as_of_date</code> instead of relying on `ORDER BY as_of_date</p>
+<p>DESC LIMIT 200` to keep cross-day duplicates out of the result set.</p>
+<h2>Background</h2>
+<p>Run 3 left <code>spread_results</code> clean: 35,000 rows, all <code>as_of_date=2026-05-09</code>. Today&#x27;s</p>
+<p>06:00 UTC nightly cron (job <code>job-d7vcqojeo5us73ejcr1g</code>) succeeded BEFORE run 3&#x27;s</p>
+<p>prune commit was pushed, so the cron used pre-prune code. Tomorrow&#x27;s 06:00 UTC</p>
+<p>cron will be the first run with the prune step active. This change is the read-side</p>
+<p>backstop in case prune ever doesn&#x27;t fire.</p>
+<h2>Diff</h2>
+<p><code>the scanner backend</code></p>
+<ul>
+<li>New <code>getLatestPivotAsOfDate()</code> returns the most recent <code>as_of_date</code> for rows</li>
+</ul>
+<p>where <code>data_source=&#x27;price_history_5yr&#x27;</code>, or <code>null</code> if no pivot rows exist.</p>
+<ul>
+<li><code>getHuntSpreadResultsPivot()</code> now resolves an effective <code>asOfDate</code> at the top:</li>
+</ul>
+<p>uses the explicit <code>opts.asOfDate</code> if passed; otherwise calls</p>
+<p><code>getLatestPivotAsOfDate()</code>. Returns <code>[]</code> when the table is empty.</p>
+<ul>
+<li>Query then includes <code>.eq(&#x27;as_of_date&#x27;, asOfDate)</code>. Old `.order(&#x27;as_of_date&#x27;,</li>
+</ul>
+<p>desc)` removed (no longer needed — single date).</p>
+<p>Net behavior on a clean DB: identical (one date present → that&#x27;s the latest →</p>
+<p>same rows). Net behavior on a dirty DB (multiple dates present): only the latest</p>
+<p>day surfaces, so users never see stale duplicates.</p>
+<h2>Verification</h2>
+<ul>
+<li><code>npx tsc --noEmit</code>: clean.</li>
+<li><code>npx tsx --test &#x27;src/**/*.test.ts&#x27;</code>: 61/61 pass.</li>
+<li>Push: <code>2b38dff</code> to <code>origin/autobox/strikerewind-rename</code>.</li>
+<li>Render auto-deploy + manual trigger: <code>dep-d7videtbbn2s73bnn54g</code> in flight.</li>
+</ul>
+<p>No new env vars, no schema change, no migration.</p>
+<h2>Live state on entry</h2>
+<p>Read via PostgREST against Supabase project <code>hjfsapwessfvdcfytpuk</code> using creds</p>
+<p>pulled from Render env (no new credentials introduced):</p>
+<pre><code>data_source=&#x27;price_history_5yr&#x27; total: 35,000 rows
+distinct as_of_date: 2026-05-09 (only)
+</code></pre>
+<p>Run 3&#x27;s cleanup held overnight. Today&#x27;s pre-prune cron job did not double the</p>
+<p>table — the within-day upsert dedup keys correctly on `(ticker, otm_pct,</p>
+<p>dte_weeks, direction, as_of_date)`. The prune fix is required only when a</p>
+<p>multi-day window opens.</p>
+<h2>Why this slice over alternatives</h2>
+<ul>
+<li><strong>Cron verification of run 3&#x27;s prune</strong> — not yet eligible. Today&#x27;s 06:00 UTC</li>
+</ul>
+<p>cron used pre-prune code (commit pushed at 08:something UTC); the first true</p>
+<p>prune verification window opens after tomorrow&#x27;s 06:00 UTC cron.</p>
+<ul>
+<li><strong>Legacy IV / analysisEngine deletion</strong> — bigger surface, audited in run 6 of</li>
+</ul>
+<p>2026-05-08, deserves its own focused slice.</p>
+<ul>
+<li><strong>PAF EOD smoke</strong> — last smoke ~2026-05-08 22:something UTC. Cadence not</li>
+</ul>
+<p>cleared (≥12h target). Will be tonight.</p>
+<ul>
+<li><strong>Per-call Massive allowlist</strong> — explicitly marked off the revenue path.</li>
+<li><strong><code>getHuntSpreadResultsPivot</code> pin</strong> — was the run-3 fallback, fits inside the</li>
+</ul>
+<p>marketing freeze, removes a residual class of failure (read-path duplicates</p>
+<p>even if write-path prune ever lapses), and is one focused commit.</p>
+<h2>Recommendation</h2>
+<p>No new gate raised. Single open gate sitting on Travis remains</p>
+<p><code>ADS APPEAL: PAF GOOGLE ADS SUSPENDED — APPEAL FILED 2026-05-08</code>.</p>
+<h2>Next-run guidance</h2>
+<p>| If next run fires | Eligible move |</p>
+<p>|---|---|</p>
+<p>| After tomorrow 06:00 UTC | First true cron-fired prune verification — assert pivot table holds exactly one <code>as_of_date</code> (2026-05-10) at ~35,000 rows, NOT 70,000. |</p>
+<p>| Before tomorrow 06:00 UTC | Open the legacy IV / analysisEngine deletion slice from run 6 of 2026-05-08&#x27;s audit, OR a PAF EOD smoke if cadence cleared. |</p>
+<p>| PAF EOD smoke cadence open | Cheap PAF Playwright smoke. |</p>
+<p>| Owner replies on <code>ADS APPEAL</code> | Read the reply; resume PAF Ads work or pin as long-running status. |</p>
+<p>| Owner sends new directive | Treat as highest priority. |</p>
+<h2>Suggested post copy</h2>
+<p>&gt; StrikeRewind: hardened the Hunt pivot query so it can never surface stale rows. The query now pins to the latest as_of_date (one DB call), so even if the new nightly prune step ever fails, users never see cross-day duplicates. Commit 2b38dff deployed. 61/61 backend tests pass. Cash $162.45.</p>
+<h2>Budget</h2>
+<p>Cash $162.45. No spend this run. Recurring: Render starter $7/mo + Massive Stocks Starter $29/mo = $36/mo accruing.</p></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">Deploy `dep-d7videtbbn2s73bnn54g` (commit `2b38dff`) is live. `/api/health` 200. State files updated. Done.
+
+**Summary**
+
+- **Task:** Pinned `getHuntSpreadResultsPivot` to a single `as_of_date` (latest pivot day) so cross-day duplicates can never leak into Hunt even if run 3&amp;#x27;s nightly prune ever fails. Closed run 3&amp;#x27;s &amp;quot;if cron not yet fired&amp;quot; alternative.
+- **Shipped:** Commit `2b38dff` on `autobox/strikerewind-rename`; Render deploy `dep-d7videtbbn2s73bnn54g` live; 61/61 backend tests pass; `tsc --noEmit` clean.
+- **Live state on entry confirmed run 3 held:** 35,000 rows, all `as_of_date=2026-05-09`. Today&amp;#x27;s 06:00 UTC cron used pre-prune code; first prune verification opens after tomorrow&amp;#x27;s 06:00 UTC cron.
+- **Gates:** No change. Single open gate is `ADS APPEAL: PAF GOOGLE ADS SUSPENDED — APPEAL FILED 2026-05-08`.
+- **Budget:** No spend; cash $162.45.
+- **Artifact:** `artifacts/2026-05-09-strikerewind-hunt-pivot-pin-latest-as-of-date.md`.
+
+
+--- CLAUDE_RUN_COMPLETE ---
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

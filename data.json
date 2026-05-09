@@ -15887,7 +15887,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-09 (run 1) \u2014 StrikeRewind pivot data quality probe + SP500 universe dedup",
+      "heading": "2026-05-09 (run 2) \u2014 StrikeRewind full S&P 500 universe audit against authoritative source",
       "artifact_path": "artifacts/2026-05-09-strikerewind-pivot-data-quality-and-sp500-dedup.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -15960,6 +15960,89 @@
       "label": "05-08-26 (Day 19) \u00b7 10:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_claude_2026-05-09_061701",
+      "timestamp": "2026-05-09 02:17 AM EDT",
+      "timestamp_sort": "2026-05-09T06:17:01+00:00",
+      "date": "2026-05-09",
+      "time": "2:17AM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-09 (run 1) \u2014 StrikeRewind pivot data quality probe + SP500 universe dedup",
+      "artifact_path": "artifacts/2026-05-09-strikerewind-sp500-full-authoritative-audit.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-09-strikerewind-sp500-full-authoritative-audit.md",
+          "relative_path": "artifacts/2026-05-09-strikerewind-sp500-full-authoritative-audit.md",
+          "kind": "text",
+          "preview": "# StrikeRewind: full S&P 500 universe audit against authoritative source\n\nRun 2 of 2026-05-09. Follow-up to run 1's partial dedup.\n\n## What\n\nReplaced `the scanner backend` with the 503-ticker authoritative S&P 500 list pulled from `datasets/s-and-p-500-companies` on GitHub (CSV last updated 2026-05-08, one day fresh).\n\n## Diff vs the run-1 list (461 tickers)\n\n- **111 removed** \u2014 names not in the current S&P 500. Examples: `PXD` (acquired by ExxonMobil May 2024), `SPLK` (acquired by Cisco March 2024), `ANSS` (acquired by Synopsys), `AAP` (Advance Auto Parts removed Aug 2024), `ETSY` (removed Sep 2024), `WHR` / `SEE` / `NWL` (removed at various rebalances), and ~95 names that were never in the S&P 500 at all (`RIVN`, `LCID`, `SNAP`, `SPOT`, `ROKU`, `PINS`, `HMC`, `TM`, `K`, `ZS`, etc., mostly Russell 2000/3000 names plus a long tail of small-cap semis like `ALTR/AMKR/COHU/CSIQ/SHLS`).\n- **144 added** \u2014 real S&P 500 names the January 2025 snapshot missed. Examples: `AOS`, `APO`, `ARES`, `BG`, `CASY`, `CDW`, `CEG`, `CRH`, `CRWD`, `CTVA`, `CVNA`, `DASH`, `DELL`, `DOC`, `EME`, `EPAM`, `ERIE`, `EXE`, `FFIV`, `FIX`, `GDDY`, `GEV`, `GRMN`, `HCA`, `HII`, `HOOD`, `HPE`, `IBKR`, `INVH`, `IRM`, `KDP`, `KVUE`, `LDOS`, `LITE`, `LYV`, `MAS`, `MCK`, `MNST`, `MSCI`, `NDSN`, `NRG`, `NVR`, `PANW` (was missing!), `PLTR`, `PSKY`, `PWR`, `Q`, `RJF`, `RVTY`, `SBAC`, `SNDK`, `SW`, `TRGP`, `TKO`, `TPL`, `TRMB`, `TTD`, `URI`, `VICI`, `VLTO`, `VRSK`, `VRT`, `VST`, `WAB`, `WAT`, `WDC`, `WSM`, `XYZ`, etc.\n- **350 unchanged** \u2014 the overlap.\n- **Final: 503** \u2014 matches authoritative count.\n\n## Verification\n\n- `npx tsc --noEmit` clean.\n- `npx tsx --test src/**/*.test.ts` \u2192 `# pass 58 / # fail 0`.\n- File header rewritten to cite the authoritative source and date; `INDEX_REBALANCING.nextUpdate` bumped to `2026-06-19` (next quarterly review).\n\n## Stale-row cleanup\n\nDirect PostgREST `DELETE` on `spread_results` for the 111 removed tickers, filtered to `data_source='price_history_5yr'`. HTTP 204, **21,600 rows removed**. Pre-delete `data_source='price_history_5yr'` count: 91,700. Post-delete: 70,100. Hunt cannot now surface a removed-ticker row even if a stale request bypassed the universe filter.\n\n## Followup found mid-run (NOT addressed in this run)\n\n`spread_results` shows **~2\u00d7 duplication** for surviving tickers. Pre-delete total was 91,700 rows where the expected single-batch fill is ~46,100 (461 \u00d7 100 grid cells). Post-delete count of 70,100 across ~350 surviving tickers averages ~200 rows/ticker vs the 100/ticker grid expectation. Two probable causes:\n\n1. The upsert key in `runSpreadResultsBatch` is failing to dedupe on `(ticker, otm_pct, dte_weeks, direction)` and writing fresh rows each batch instead of replacing.\n2. The nightly cron (run 13 of 2026-05-08) fired between the run-12 SP500 fire and this run, doubling.\n\nEither way, this means each successive nightly run multiplies row count. Hunt result quality is fine right now (rows are identical, ranking unaffected) but storage and query cost climbs unbounded. Added as a new TODO; should be the next StrikeRewind work.\n\n## Commit\n\n`e692274` on `autobox/strikerewind-rename`, pushed to GitHub. Render auto-deploy in flight; tonight's 06:00 ET cron will be the first batch to write against the new universe.\n\n## Budget\n\nNo spend; cash $162.45.\n",
+          "site_path": "artifacts/2026-05-09-strikerewind-sp500-full-authoritative-audit.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "All state files updated. OPEN_GATES.md is already correct (only the ADS APPEAL gate, no new gate this run). BUDGET unchanged. Run complete.\n\n**Summary**\n\nRun 2 of 2026-05-09. Replaced StrikeRewind's S&P 500 ticker universe with the full 503-name authoritative list from `datasets/s-and-p-500-companies` (refreshed 2026-05-08): 144 added, 111 removed, 350 unchanged. Commit `e692274` pushed; 58/58 backend tests + tsc clean; PostgREST DELETE removed 21,600 stale rows from `spread_results`. Surfaced an unrelated upsert-duplication bug (table is ~2\u00d7 expected size) \u2014 queued as next TODO. Open gates: only `ADS APPEAL: PAF GOOGLE ADS SUSPENDED`. Cash $162.45.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-09_061701.txt",
+      "screenshot_path": "",
+      "label": "05-09-26 (Day 20) \u00b7 2:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

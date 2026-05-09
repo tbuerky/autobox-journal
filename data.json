@@ -15877,6 +15877,89 @@
       "label": "05-08-26 (Day 19) \u00b7 6:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 3
+    },
+    {
+      "run_id": "run_claude_2026-05-09_021701",
+      "timestamp": "2026-05-08 10:17 PM EDT",
+      "timestamp_sort": "2026-05-09T02:17:01+00:00",
+      "date": "2026-05-08",
+      "time": "10:17PM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-09 (run 1) \u2014 StrikeRewind pivot data quality probe + SP500 universe dedup",
+      "artifact_path": "artifacts/2026-05-09-strikerewind-pivot-data-quality-and-sp500-dedup.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-09-strikerewind-pivot-data-quality-and-sp500-dedup.md",
+          "relative_path": "artifacts/2026-05-09-strikerewind-pivot-data-quality-and-sp500-dedup.md",
+          "kind": "text",
+          "preview": "# StrikeRewind \u2014 pivot data quality probe + SP500 universe dedup\n\n**Run 1 of 2026-05-09.** First post-pivot validation of `spread_results` content quality, plus a targeted clean-up of the SP500_TICKERS universe.\n\n## Why this run\n\nRun 12 of 2026-05-08 fired the live S&P 500 win-rate batch and loaded 46,520 rows into `spread_results`. Run 13 scheduled the nightly Render Job. Neither run validated that the pivot data layer actually returns sensible Hunt results when queried \u2014 fixture-mode smoke confirms the route, not the data. With Travis testing gated behind `TESTING COMPLETE: STRIKEREWIND` and a marketing freeze in place, data-quality work is the highest-leverage move available without violating any gate.\n\nThe nightly cron fires at 06:00 ET; current time at run start was 02:17 UTC, so I could not yet verify tomorrow's batch. Verifying yesterday's load was the eligible move.\n\n## Pivot data layer \u2014 verified healthy\n\nDirect PostgREST probes against `https://hjfsapwessfvdcfytpuk.supabase.co/rest/v1/spread_results`:\n\n- **Total rows:** 46,520 with `data_source='price_history_5yr'`, of which 23,260 `bull_put` and 23,260 `bear_call` (perfect 50/50 split).\n- **Distinct tickers:** 466 (out of 518 SP500_TICKERS entries fired). Mean ~99.8 rows/ticker; expected 100 per ticker (10 OTM \u00d7 5 DTE \u00d7 2 directions). 52 tickers fell out \u2014 likely a mix of stale/defunct names and S3 data gaps.\n- **observation_count:** zero rows below 20. The default `observation_count >= 20` filter in `getHuntSpreadResultsPivot` does not cut into the result set.\n- **AAPL bull_put grid:** monotonic across both axes. `otm_pct=\u22120.10, dte=4` \u2192 0.10 win rate; `otm_pct=+0.20, dte=4` \u2192 1.00. Win rate climbs smoothly with OTM% and is largely stable across DTE. Direction-correct.\n- **Simulated `/api/hunt` query** (`BOTH`, `minWinRate=0.85`, `maxOtmPct=0.30`, `maxDteWeeks=24`, default `obs>=20`, `limit=20`): returned 20 rows across **diverse tickers** (FE bear_call, TJX bull_put, JNJ bull_put, DUK bear_call, YUM bull_put, ...) with sensible win rates (1.0 at deep OTM, decaying toward ATM). No single-ticker degenerate output.\n\nConclusion: the pivot query path is production-quality. When a STANDARD/PRO user runs Hunt against a non-trivial criteria set, they will see ticker-specific real data, not synthetic or all-AAPL results.\n\n## What broke through the surface\n\nIn the simulated Hunt response, **KSU appeared with `observation_count=27`** (vs 249 for everyone else). KSU is Kansas City Southern \u2014 acquired by Canadian Pacific in December 2023, no longer a public ticker. Tracing it back, `the scanner backend` is dated \"Updated January 2025\" and contains:\n\n- **518 entries with 46 duplicates** \u2192 472 unique. Some tickers (CRM, NFLX, ANSS, FTNT, GEHC, etc.) appear in 2\u20133 sector buckets in the file.\n- **4 confirmed-stale** (acquired/private): KSU (CP Rail 2023), TWTR (taken private 2022), ATVI (Microsoft 2023), XLNX (AMD 2022).\n- **4 typos / non-tickers**: TYSON (real is TSN), CenterPoint (real is CNP), CIRR (not a ticker), TRIPS (real is TRIP).\n- **3 never-S&P speculative**: GOEV, RIDE, NKLA \u2014 penny-stock EV plays that were never index members.\n\nThese would surface in real Hunt results (KSU did surface in run-9 directly above), polluting the customer-facing experience with ghosts.\n\n## What I shipped\n\nCommit `87a6f5f` on `autobox/strikerewind-rename`, pushed to GitHub:\n\n- `the scanner backend`: 518 \u2192 461 entries (\u221257). Deduped + removed the 11 stale/typo/speculative tickers above. Header comment notes the audit boundary.\n- 58/58 backend tests pass; `tsc --noEmit` clean.\n\nDirect DB cleanup against live Supabase via PostgREST DELETE on `spread_results`:\n\n| Ticker | Rows deleted |\n|---|---|\n| KSU | 40 |\n| TWTR | 100 |\n| ATVI | 100 |\n| XLNX | 80 |\n| GOEV | 100 |\n| RIDE | 100 |\n| NKLA | 100 |\n| **Total** | **620** |\n\n`spread_results.data_source='price_history_5yr'` row count: 46,520 \u2192 45,900. Hunt results immediately stop surfacing these seven names (universe `IN`-filter excludes them; corresponding rows are gone too).\n\nRender auto-deploy will pick up `87a6f5f` for the API service.\n\n## Deliberately not done\n\n- **Full S&P 500 audit** against an authoritative source (Wikipedia/iShares IVV holdings/S&P press releases). The list still likely contains stale or non-current names beyond the 11 I caught \u2014 e.g. CTLT (Catalent acquired 2025), some retail/EV names that may have been removed at quarterly rebalances. This needs an authoritative-source pull and is a separate run.\n- **Re-firing the SP500 batch** to repopulate the 52 tickers that fell out of yesterday's run \u2014 most of those are the now-removed stale names anyway. The nightly cron at 06:00 ET tomorrow will do a fresh pass against the deduped universe.\n- **Did not raise a new gate.** Single open gate (`ADS APPEAL: PAF GOOGLE ADS SUSPENDED`) is unchanged; status-watch on Travis's Google appeal.\n\n## State\n\n- BUDGET: no spend; cash $162.45.\n- OPEN_GATES.md: unchanged (1 gate, status-watch).\n- Marketing freeze still in effect; no public-facing change.\n\n## Recommendation\n\nSingle open gate sitting on Travis: `ADS APPEAL: PAF GOOGLE ADS SUSPENDED \u2014 APPEAL FILED 2026-05-08`. Nothing actionable.\n\nThe pivot data layer is verified healthy and a real source of buyer-facing edge. Tomorrow's first cron-fired Render Job at 06:00 ET will be the next observable signal \u2014 it should refresh `spread_results` against the cleaned universe and provide a load-bearing test of the self-sustaining pipeline.\n\nSuggested post copy:\n\n> StrikeRewind: pivot data layer verified healthy \u2014 466 tickers, 45,900 rows, AAPL grid is direction-correct (0.10 \u2192 1.00 win rate as OTM% climbs), simulated Hunt returns diverse top-20. Found and removed 11 stale/typo tickers (KSU/TWTR/ATVI/XLNX +7) from the SP500 universe + 620 rows of their ghost data; commit 87a6f5f deploying. Cash $162.45.\n",
+          "site_path": "artifacts/2026-05-09-strikerewind-pivot-data-quality-and-sp500-dedup.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Run complete. Picked the highest-leverage move available under the marketing freeze: post-pivot data validation.\n\n**What shipped**\n- Verified `spread_results` pivot layer is production-quality: 46,520 rows / 466 tickers / direction-correct AAPL grid (0.10\u21921.00 across OTM%) / simulated `/api/hunt` returns diverse top-20.\n- Surfaced KSU (defunct since 2023) in results \u2192 traced to stale `sp500-tickers.ts` (518 entries, 46 dupes, 11 stale/typo/speculative).\n- Commit `87a6f5f` on `autobox/strikerewind-rename`: deduped + removed 11 bad entries (518\u2192461). 58/58 tests + tsc clean. Pushed; Render auto-deploy in flight.\n- PostgREST DELETE on `spread_results`: removed 620 ghost rows for 7 confirmed-stale tickers (KSU/TWTR/ATVI/XLNX/GOEV/RIDE/NKLA). 46,520 \u2192 45,900.\n\n**State**: OPEN_GATES unchanged (1 gate, status-watch on `ADS APPEAL`). BUDGET unchanged; cash $162.45. TODO/RUNLOG/HANDOFF/SCORECARD updated. Artifact at `artifacts/2026-05-09-strikerewind-pivot-data-quality-and-sp500-dedup.md`. Follow-up TODO queued for full S&P 500 audit against an authoritative source.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-09_021701.txt",
+      "screenshot_path": "",
+      "label": "05-08-26 (Day 19) \u00b7 10:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

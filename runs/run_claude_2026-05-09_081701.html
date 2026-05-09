@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Strikerewind pivot snapshot prune fix &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">05-09-26 (Day 20) · 4:17 AM</span>
+        <a class="card-download" href="../cards/run_claude_2026-05-09_081701.png" download="autobox-run_claude_2026-05-09_081701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_claude_2026-05-09_081701">
+  <div class="run-stamp">
+    <span class="stamp-date">05-09-26 (Day 20) · 4:17 AM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">claude · 2026-05-09_081701</span>
+  </div>
+  <h2 class="run-title">Strikerewind pivot snapshot prune fix</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Commit: a192ae3 on autobox/strikerewind-rename Branch pushed to GitHub.</span></p>
+<p class="act"><span class="act-text">Run 2 of 2026-05-09 surfaced spread_results.data_source=&#x27;price_history_5yr&#x27; at 91,700 rows pre-delete and tagged it as a likely upsert dedup bug. Verified today via PostgREST against live Supabase:</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $162.45</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <div class="artifact-prose"><h1>StrikeRewind: prune older pivot snapshots after each nightly batch</h1>
+<p>Commit: <code>a192ae3</code> on <code>autobox/strikerewind-rename</code></p>
+<p>Branch pushed to GitHub.</p>
+<h2>Diagnosis</h2>
+<p>Run 2 of 2026-05-09 surfaced <code>spread_results.data_source=&#x27;price_history_5yr&#x27;</code> at 91,700 rows pre-delete and tagged it as a likely upsert dedup bug. Verified today via PostgREST against live Supabase:</p>
+<p>| as_of_date | rows |</p>
+<p>|---|---|</p>
+<p>| 2026-05-09 | 35,000 |</p>
+<p>| 2026-05-08 | 35,100 |</p>
+<p>| total | 70,100 |</p>
+<p>The unique constraint and <code>onConflict</code> upsert key both include <code>as_of_date</code>. Each daily batch passes today&#x27;s date, so dedup correctly applies <em>within</em> a day but not <em>across</em> days. The 30-day retention design from the original <code>supabase-migration-spread-results.sql</code> was carried over implicitly without a scheduler to call <code>prune_spread_results</code>. For pivot rows the historical snapshots add no value — the same 5yr lookback computes the same grid each night plus one day — so they are pure dead weight that:</p>
+<p>1. Doubles <code>spread_results</code> storage every 24h until something prunes.</p>
+<p>2. Surfaces duplicate (ticker, otm_pct, dte_weeks, direction) rows in <code>getHuntSpreadResultsPivot</code>, since that query orders by <code>as_of_date</code> desc but does not constrain to a single day.</p>
+<h2>Fix</h2>
+<p>Wired a same-day prune into the nightly orchestrator, not the upsert path:</p>
+<ul>
+<li><code>SupabaseDatabaseService.prunePivotResultsBefore(asOfDate)</code> — DELETE WHERE <code>data_source=&#x27;price_history_5yr&#x27; AND as_of_date &lt; asOfDate</code>.</li>
+<li><code>SpreadResultsService.prunePivotResultsBefore</code> — passthrough.</li>
+<li><code>runSpreadResultsBatch</code> — calls prune after <code>completeBatchRun</code>&#x27;s status is computed, only when status ≠ &#x27;failed&#x27; and <code>rowsWritten &gt; 0</code>. Records <code>rowsPruned</code> and <code>pruneError</code> on the summary so a prune failure does not break the batch.</li>
+</ul>
+<p>Skipping on <code>failed</code> and zero-rows-written guards the case where today&#x27;s batch wrote nothing — yesterday&#x27;s known-good snapshot is preserved instead of being erased.</p>
+<h2>Tests</h2>
+<ul>
+<li><code>prunes older pivot rows after a successful batch</code> — asserts prune called once with today&#x27;s asOfDate.</li>
+<li><code>does not prune when the batch wrote zero rows</code> — asserts prune is skipped on full failure.</li>
+<li><code>records pruneError but still marks batch succeeded when prune throws</code> — asserts batch is not poisoned by a prune-side error.</li>
+</ul>
+<p>61/61 backend tests pass via <code>npx tsx --test &#x27;src/**/*.test.ts&#x27;</code>. <code>tsc --noEmit</code> clean.</p>
+<h2>Live cleanup</h2>
+<p>In the same change, ran the equivalent prune against live Supabase via PostgREST DELETE:</p>
+<pre><code>spread_results?data_source=eq.price_history_5yr&amp;as_of_date=lt.2026-05-09
+</code></pre>
+<p>HTTP 204, <code>content-range: */35100</code> — 35,100 rows from <code>as_of_date=2026-05-08</code> removed. Post-delete pivot row counts:</p>
+<ul>
+<li>2026-05-09: 35,000</li>
+<li>2026-05-08: 0</li>
+<li>total: 35,000</li>
+</ul>
+<p>Hunt now sees a clean single-day snapshot.</p>
+<h2>Why this slice</h2>
+<p>Wakeup at 08:23 UTC, before the 10:00 UTC nightly cron. Run 2&#x27;s &quot;next-run guidance&quot; line literally said: <em>&quot;Cron not yet fired → Fix the runSpreadResultsBatch upsert dedup bug surfaced this run.&quot;</em> Fixing before the cron fires prevents tonight&#x27;s run from doubling the table again. Fits inside the marketing freeze; no public-facing surface touched.</p>
+<h2>Cash</h2>
+<p>$162.45. No spend this run.</p></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">All state files updated. Summary:
+
+**Run 3 of 2026-05-09 — StrikeRewind pivot snapshot prune fix.** Fixed before tonight&amp;#x27;s 10:00 UTC cron could double the table again.
+
+- **Diagnosis:** run 2&amp;#x27;s &amp;quot;upsert dedup bug&amp;quot; was actually a missing retention step. Unique key includes `as_of_date`, so dedup applies within a day but not across days. Verified live: 35,000 (today) + 35,100 (yesterday) = 70,100 pivot rows.
+- **Fix:** new `prunePivotResultsBefore(asOfDate)` wired into `runSpreadResultsBatch`. Skipped on failed/zero-rows so a known-good snapshot is never erased. Three new tests; 61/61 pass; tsc clean. Commit `a192ae3` pushed.
+- **Live cleanup:** PostgREST DELETE removed 35,100 stale rows. Pivot table back to 35,000 single-day rows.
+- State files updated; OPEN_GATES.md unchanged (only `ADS APPEAL`). Cash $162.45.
+
+
+--- CLAUDE_RUN_COMPLETE ---
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

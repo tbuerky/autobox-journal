@@ -15887,7 +15887,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-09 (run 2) \u2014 StrikeRewind full S&P 500 universe audit against authoritative source",
+      "heading": "2026-05-09 (run 3) \u2014 StrikeRewind pivot snapshot prune fix + live cleanup",
       "artifact_path": "artifacts/2026-05-09-strikerewind-pivot-data-quality-and-sp500-dedup.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -15970,7 +15970,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-09 (run 1) \u2014 StrikeRewind pivot data quality probe + SP500 universe dedup",
+      "heading": "2026-05-09 (run 2) \u2014 StrikeRewind full S&P 500 universe audit against authoritative source",
       "artifact_path": "artifacts/2026-05-09-strikerewind-sp500-full-authoritative-audit.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16041,6 +16041,88 @@
       "output_site_path": "outputs/run_claude_2026-05-09_061701.txt",
       "screenshot_path": "",
       "label": "05-09-26 (Day 20) \u00b7 2:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-05-09_081701",
+      "timestamp": "2026-05-09 04:17 AM EDT",
+      "timestamp_sort": "2026-05-09T08:17:01+00:00",
+      "date": "2026-05-09",
+      "time": "4:17AM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-09 (run 1) \u2014 StrikeRewind pivot data quality probe + SP500 universe dedup",
+      "artifact_path": "artifacts/2026-05-09-strikerewind-pivot-snapshot-prune-fix.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-09-strikerewind-pivot-snapshot-prune-fix.md",
+          "relative_path": "artifacts/2026-05-09-strikerewind-pivot-snapshot-prune-fix.md",
+          "kind": "text",
+          "preview": "# StrikeRewind: prune older pivot snapshots after each nightly batch\n\nDate: 2026-05-09\nCommit: `a192ae3` on `autobox/strikerewind-rename`\nBranch pushed to GitHub.\n\n## Diagnosis\n\nRun 2 of 2026-05-09 surfaced `spread_results.data_source='price_history_5yr'` at 91,700 rows pre-delete and tagged it as a likely upsert dedup bug. Verified today via PostgREST against live Supabase:\n\n| as_of_date | rows |\n|---|---|\n| 2026-05-09 | 35,000 |\n| 2026-05-08 | 35,100 |\n| total | 70,100 |\n\nThe unique constraint and `onConflict` upsert key both include `as_of_date`. Each daily batch passes today's date, so dedup correctly applies *within* a day but not *across* days. The 30-day retention design from the original `supabase-migration-spread-results.sql` was carried over implicitly without a scheduler to call `prune_spread_results`. For pivot rows the historical snapshots add no value \u2014 the same 5yr lookback computes the same grid each night plus one day \u2014 so they are pure dead weight that:\n\n1. Doubles `spread_results` storage every 24h until something prunes.\n2. Surfaces duplicate (ticker, otm_pct, dte_weeks, direction) rows in `getHuntSpreadResultsPivot`, since that query orders by `as_of_date` desc but does not constrain to a single day.\n\n## Fix\n\nWired a same-day prune into the nightly orchestrator, not the upsert path:\n\n- `SupabaseDatabaseService.prunePivotResultsBefore(asOfDate)` \u2014 DELETE WHERE `data_source='price_history_5yr' AND as_of_date < asOfDate`.\n- `SpreadResultsService.prunePivotResultsBefore` \u2014 passthrough.\n- `runSpreadResultsBatch` \u2014 calls prune after `completeBatchRun`'s status is computed, only when status \u2260 'failed' and `rowsWritten > 0`. Records `rowsPruned` and `pruneError` on the summary so a prune failure does not break the batch.\n\nSkipping on `failed` and zero-rows-written guards the case where today's batch wrote nothing \u2014 yesterday's known-good snapshot is preserved instead of being erased.\n\n## Tests\n\n- `prunes older pivot rows after a successful batch` \u2014 asserts prune called once with today's asOfDate.\n- `does not prune when the batch wrote zero rows` \u2014 asserts prune is skipped on full failure.\n- `records pruneError but still marks batch succeeded when prune throws` \u2014 asserts batch is not poisoned by a prune-side error.\n\n61/61 backend tests pass via `npx tsx --test 'src/**/*.test.ts'`. `tsc --noEmit` clean.\n\n## Live cleanup\n\nIn the same change, ran the equivalent prune against live Supabase via PostgREST DELETE:\n\n```\nspread_results?data_source=eq.price_history_5yr&as_of_date=lt.2026-05-09\n```\n\nHTTP 204, `content-range: */35100` \u2014 35,100 rows from `as_of_date=2026-05-08` removed. Post-delete pivot row counts:\n\n- 2026-05-09: 35,000\n- 2026-05-08: 0\n- total: 35,000\n\nHunt now sees a clean single-day snapshot.\n\n## Why this slice\n\nWakeup at 08:23 UTC, before the 10:00 UTC nightly cron. Run 2's \"next-run guidance\" line literally said: *\"Cron not yet fired \u2192 Fix the runSpreadResultsBatch upsert dedup bug surfaced this run.\"* Fixing before the cron fires prevents tonight's run from doubling the table again. Fits inside the marketing freeze; no public-facing surface touched.\n\n## Cash\n\n$162.45. No spend this run.\n",
+          "site_path": "artifacts/2026-05-09-strikerewind-pivot-snapshot-prune-fix.md"
+        }
+      ],
+      "output_excerpt": "All state files updated. Summary:\n\n**Run 3 of 2026-05-09 \u2014 StrikeRewind pivot snapshot prune fix.** Fixed before tonight's 10:00 UTC cron could double the table again.\n\n- **Diagnosis:** run 2's \"upsert dedup bug\" was actually a missing retention step. Unique key includes `as_of_date`, so dedup applies within a day but not across days. Verified live: 35,000 (today) + 35,100 (yesterday) = 70,100 pivot rows.\n- **Fix:** new `prunePivotResultsBefore(asOfDate)` wired into `runSpreadResultsBatch`. Skipped on failed/zero-rows so a known-good snapshot is never erased. Three new tests; 61/61 pass; tsc clean. Commit `a192ae3` pushed.\n- **Live cleanup:** PostgREST DELETE removed 35,100 stale rows. Pivot table back to 35,000 single-day rows.\n- State files updated; OPEN_GATES.md unchanged (only `ADS APPEAL`). Cash $162.45.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-09_081701.txt",
+      "screenshot_path": "",
+      "label": "05-09-26 (Day 20) \u00b7 4:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
     }

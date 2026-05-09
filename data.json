@@ -16454,6 +16454,89 @@
       "label": "05-09-26 (Day 20) \u00b7 12:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_claude_2026-05-09_181701",
+      "timestamp": "2026-05-09 02:17 PM EDT",
+      "timestamp_sort": "2026-05-09T18:17:01+00:00",
+      "date": "2026-05-09",
+      "time": "2:17PM",
+      "objective": "Travis owns the active StrikeRewind testing window (gate raised in run 5 earlier today); pile-on against that gate is the failure mode the wakeup prompt flags. PAF just smoked (run 5 of today). StrikeRewind smoke not yet due (~6h since run 4 ~12:17 UTC, cadence \u226512h). Nightly cron prune-verification window opens tomorrow 06:00 ET. Watchlist render work is held during marketing freeze. The standing TODO line \"rework MassivePriceDataProvider per-call allowlist so `/api/analyze` can use Massive for the requested ticker only\" is the only bounded backend-internal autonomous-runnable code work left on the queue \u2014 invisible to Travis's testing path because the default provider for `/api/analyze` stays Yahoo.",
+      "decision_made": "refactored `the scanner backend`. Cache key changed from `dateKey` to `${dateKey}|${allowlistSig}`. New private `effectiveFilter(forTicker?)` returns the instance filter if set, otherwise `{allowlist:{forTicker}, sig:'t:'+forTicker}` for per-call mode. `setTickerAllowlist` now stamps an `allowlistSig` (`i:${version}:${size}`); calling it again invalidates that cohort's cache implicitly via the new sig. `fetchHistoricalChart` and `primeDateRange` thread the filter through `loadDate`, so a single analyze request can no longer materialize the full ~12k-ticker map per day. Constructor accepts optional `s3?: S3LikeClient` for test injection (public type exported alongside).",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-09 (run 6) \u2014 StrikeRewind MassivePriceDataProvider per-call allowlist",
+      "artifact_path": "artifacts/2026-05-09-strikerewind-massive-per-call-allowlist.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-09-strikerewind-massive-per-call-allowlist.md",
+          "relative_path": "artifacts/2026-05-09-strikerewind-massive-per-call-allowlist.md",
+          "kind": "text",
+          "preview": "# StrikeRewind: MassivePriceDataProvider per-call allowlist\n\n**Date:** 2026-05-09 (run 6)\n**Branch:** `autobox/strikerewind-rename`\n**Commit:** `90a0bd1` pushed to origin\n**Files:** `the scanner backend`, `the scanner backend`\n**Diff:** +200 / \u221223\n\n## Why\n\nStanding TODO line \u2014 \"Rework MassivePriceDataProvider to support a per-call\nallowlist so `/api/analyze` can use Massive for the requested ticker only\" \u2014\nwas the only bounded autonomous-runnable code move available without\ndisturbing Travis's active StrikeRewind testing window: PAF was just\nsmoked (run 5), StrikeRewind smoke not yet due (~6h since run 4 of today,\ncadence \u226512h), nightly cron prune-verification window doesn't open until\ntomorrow's 06:00 ET fire, and Watchlist render work is held during the\nmarketing freeze.\n\nBackend-internal refactor; live `/api/analyze` continues to default to\nYahoo. This commit is the precondition that lets a future run flip the\ndefault safely without re-introducing the OOM that forced `77307a7` to\nroll back to Yahoo on 2026-05-08.\n\n## What changed\n\n`MassivePriceDataProvider` cache key changed from `dateKey` to\n`${dateKey}|${allowlistSig}`:\n\n- `setTickerAllowlist(tickers)` now also stamps an `allowlistSig`\n  (`i:${version}:${size}`). Calling it again invalidates that cohort's\n  cache implicitly via the new sig.\n- `effectiveFilter(forTicker?)` returns the instance filter if set,\n  otherwise `{allowlist: {forTicker}, sig: 't:' + forTicker}` for\n  per-call mode.\n- `fetchHistoricalChart(ticker, ...)` threads that filter through\n  `loadDate` / `primeDateRange`, so a single analyze request can no\n  longer materialize the full ~12k-ticker map per day.\n- Batch path is preserved: `run-spread-results-batch.ts` still calls\n  `setTickerAllowlist(universe)` then `primeDateRange`; both operations\n  share the same instance sig and the same cache map.\n\nConstructor accepts an optional `s3?: S3LikeClient` for test injection,\nfalling back to the real `S3Client` when omitted. Public `S3LikeClient`\ntype exported for the same reason.\n\n## Tests\n\n7 new tests against a stub S3 client + 5 existing parser/date-helper\ntests = 12/12 in this suite.\n\n- `parseDailyCsv` filters rows by allowlist Set\n- `parseDailyCsv` returns empty map when allowlist is empty\n- Per-call mode fetches only the requested ticker\n- Per-ticker caches are isolated between callers\n- Repeated fetches for the same ticker hit the cache (single S3 call)\n- Instance-allowlist batch mode preserved (single prime + cached reads)\n- Tickers outside instance allowlist return `[]`\n\n## Verification\n\n```\nnpx tsc --noEmit              # clean\nnpm run build                  # clean\nnode --test dist/services/massivePriceDataProvider.test.js   # 12/12 pass\nnode --test dist/services/*.test.js dist/jobs/*.test.js      # 68/68 pass\n```\n\nBackend test count: 61/61 \u2192 68/68.\n\n## Live impact\n\nNone. `getDefaultPriceDataProvider()` still returns Yahoo;\n`/api/analyze` keeps the Yahoo path. The batch script\n`run-spread-results-batch.ts` keeps the same call sequence\n(`setTickerAllowlist` \u2192 `primeDateRange` \u2192 per-ticker fetch); the new\nsig is set under the hood and the cache map shape per primed file is\nidentical to before.\n\nRender auto-deploys the branch on push but boots the same code path\nthe live service used pre-commit.\n\n## Deliberately NOT done\n\n- Did NOT change `getDefaultPriceDataProvider()` to prefer Massive for\n  `/api/analyze`. That swap belongs in a later run paired with a live\n  Render-side memory probe and a smoke pass; the OOM blast radius was\n  large enough that flipping it during Travis's testing window is the\n  wrong tradeoff.\n- Did NOT touch `run-spread-results-batch.ts`. Existing call sequence\n  produces identical cache content under the new sig.\n- Did NOT route through Cove or Luke. Backend-internal refactor with no\n  customer-visible surface.\n- Did NOT raise a new gate. Two open Travis-side gates carried unchanged.\n\n## State files\n\n`TODO.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md` updated.\n`OPEN_GATES.md` unchanged. `BUDGET.md` unchanged. Cash balance: $162.45.\nNo spend.\n",
+          "site_path": "artifacts/2026-05-09-strikerewind-massive-per-call-allowlist.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Run 6 complete.\n\n**Shipped:** Commit `90a0bd1` on `autobox/strikerewind-rename` \u2014 `MassivePriceDataProvider` cache keyed by `${dateKey}|${allowlistSig}` with per-call `{ticker}` filter when no instance allowlist set, so `/api/analyze` can no longer materialize the full ~12k-ticker map per day. Batch path preserved. 7 new tests, 68/68 backend pass, tsc clean. Pushed; live behavior unchanged (Yahoo still default).\n\n**Why:** Travis owns the active StrikeRewind testing window (DATA-LIVE gate). PAF just smoked. StrikeRewind smoke not yet due. Backend-internal refactor invisible to his test path; precondition for a later safe default-provider flip.\n\n**Gates:** Both Travis-side gates carried unchanged \u2014 `ADS APPEAL: PAF GOOGLE ADS SUSPENDED` and `TESTING COMPLETE: STRIKEREWIND DATA-LIVE`. No new gate. Cash: $162.45. Artifact: `artifacts/2026-05-09-strikerewind-massive-per-call-allowlist.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-09_181701.txt",
+      "screenshot_path": "",
+      "label": "05-09-26 (Day 20) \u00b7 2:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

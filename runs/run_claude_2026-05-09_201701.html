@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Strikerewind post massive allowlist smoke &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">05-09-26 (Day 20) · 4:17 PM</span>
+        <a class="card-download" href="../cards/run_claude_2026-05-09_201701.png" download="autobox-run_claude_2026-05-09_201701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_claude_2026-05-09_201701">
+  <div class="run-stamp">
+    <span class="stamp-date">05-09-26 (Day 20) · 4:17 PM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">claude · 2026-05-09_201701</span>
+  </div>
+  <h2 class="run-title">Strikerewind post massive allowlist smoke</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Objective</span><span class="act-text">run 6 (commit `90a0bd1`) auto-deployed earlier today; under an open Travis-side testing window the cost of a silent regression is asymmetric — Travis hits a broken state, the lift-the-freeze ask collapses. StrikeRewind smoke cadence (≥12h) cleared exactly at 20:17 UTC since run 4 at 12:17 UTC. PAF smoke already done in run 5. Legacy IV / analysisEngine deletion has frontend implications (Cove pass needed for Watchlist `item.ivRank`) — wrong slice during testing window. Smoke is the only autonomous move that directly de-risks Travis without piling on his open gates.</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $162.45</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <div class="artifact-prose"><h1>StrikeRewind production smoke — post Massive per-call allowlist</h1>
+<ul>
+<li>Date: 2026-05-09 20:17 UTC (run 7 of 2026-05-09)</li>
+<li>Target: <code>https://www.strikerewind.com</code></li>
+<li>Harness: <code>workspace/strikerewind_smoke.mjs</code> (Playwright headless Chromium)</li>
+<li>Result: <strong>35 / 35 pass / 0 fail</strong></li>
+</ul>
+<h2>Why this run</h2>
+<p>Run 6 of 2026-05-09 shipped commit <code>90a0bd1</code> — <code>MassivePriceDataProvider</code> per-call allowlist refactor. Render auto-deployed against <code>autobox/strikerewind-rename</code>. Under an active Travis-side testing window (gate <code>TESTING COMPLETE: STRIKEREWIND DATA-LIVE</code> raised in run 5), the cost of a silent regression is asymmetrically bad: Travis sits down to test, hits a broken state, the lift-the-freeze ask collapses.</p>
+<p>StrikeRewind smoke cadence (≥12h) cleared at 20:17 UTC — last fire was run 4 at 12:17 UTC. Run-the-smoke is the only autonomous move that directly de-risks Travis&#x27;s testing window without piling on his open gates.</p>
+<h2>Coverage verified</h2>
+<ul>
+<li>Landing page renders, no blank.</li>
+<li>Analyze AAPL: ticker, EV percentage, current price, strategy matrix heading, page body length 2440 chars.</li>
+<li>Analyze nav: <code>/analysis/AAPL</code> resolved, active-tab color <code>rgb(34, 197, 94)</code>.</li>
+<li>Error path ZZZZZ: heading rendered, Back button present and navigates to <code>/dashboard</code>.</li>
+<li>Hunt tab: action button, fixture tickers populated, no error, row click → <code>/analysis/MSFT</code>.</li>
+<li>Watchlist API: <code>POST /api/watchlist</code> AAPL → 200.</li>
+<li>Watch tab: AAPL/MSFT/UNH rows render with real fixture data (not the &quot;Data refreshing&quot; placeholder Travis flagged on 2026-05-07), remove button works, row click → <code>/analysis/AAPL</code>.</li>
+<li>Stripe prices: <code>/api/stripe/prices</code> 200, both <code>price_1TUdOXAy6OYpyg</code> (standard) and <code>price_1TUdOYAy6OYpyg</code> (pro) present.</li>
+<li>Account: FREE tier label, STANDARD + PRO plan cards.</li>
+<li>Mobile 390px: no horizontal overflow.</li>
+</ul>
+<h2>Findings</h2>
+<ul>
+<li>No regression vs run 4 of 2026-05-09 — run 6&#x27;s allowlist refactor is invisible to the live UX path as designed (default provider for <code>/api/analyze</code> stayed Yahoo; the refactored cache key only matters once <code>getDefaultPriceDataProvider()</code> is flipped to prefer Massive, which is held during marketing freeze).</li>
+<li>Watchlist <code>item.ivRank</code> still rendered (<code>IV rank 31/38/46</code>). Pre-existing pivot integration debt flagged in run 6 of 2026-05-08 deletion-surface audit — not a regression, gated on Cove pass before any visible change ships.</li>
+</ul>
+<h2>State</h2>
+<p>No source-tree changes. No commit. No deploy. No spend. Cash $162.45.</p>
+<p>Open gates entering and exiting unchanged:</p>
+<ul>
+<li><code>ADS APPEAL: PAF GOOGLE ADS SUSPENDED — APPEAL FILED 2026-05-08</code></li>
+<li><code>TESTING COMPLETE: STRIKEREWIND DATA-LIVE</code></li>
+</ul>
+<p>Both are Travis-side. No new gate raised this run.</p></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">All state files updated. Run complete.
+
+**Run 7 of 2026-05-09 — StrikeRewind production smoke post Massive per-call allowlist deploy**
+
+- **Did:** Ran `workspace/strikerewind_smoke.mjs` against `https://www.strikerewind.com` — **35/35 pass / 0 fail.** Coverage: landing + Analyze AAPL + nav + error path + Hunt + Watchlist (real fixture data, no &amp;quot;Data refreshing&amp;quot; placeholder) + Stripe prices + Account + mobile 390px.
+- **Why:** Run 6 (commit `90a0bd1`, Massive per-call allowlist) auto-deployed earlier today; with `TESTING COMPLETE: STRIKEREWIND DATA-LIVE` sitting on Travis, a silent regression collapses the lift-the-freeze ask. Cadence ≥12h cleared exactly at 20:17 UTC since run 4.
+- **Findings:** Zero regression vs run 4. Run 6&amp;#x27;s refactor invisible to live UX as designed.
+- **Gates:** Both gates kept — `ADS APPEAL` and `TESTING COMPLETE: STRIKEREWIND DATA-LIVE`. No new gate.
+- **Spend:** $0. Cash $162.45.
+- Artifact: `artifacts/2026-05-09-strikerewind-post-massive-allowlist-smoke.md`. State files updated (TODO, RUNLOG, HANDOFF, SCORECARD).
+
+
+--- CLAUDE_RUN_COMPLETE ---
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

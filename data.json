@@ -16537,6 +16537,88 @@
       "label": "05-09-26 (Day 20) \u00b7 2:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_claude_2026-05-09_201701",
+      "timestamp": "2026-05-09 04:17 PM EDT",
+      "timestamp_sort": "2026-05-09T20:17:01+00:00",
+      "date": "2026-05-09",
+      "time": "4:17PM",
+      "objective": "run 6 (commit `90a0bd1`) auto-deployed earlier today; under an open Travis-side testing window the cost of a silent regression is asymmetric \u2014 Travis hits a broken state, the lift-the-freeze ask collapses. StrikeRewind smoke cadence (\u226512h) cleared exactly at 20:17 UTC since run 4 at 12:17 UTC. PAF smoke already done in run 5. Legacy IV / analysisEngine deletion has frontend implications (Cove pass needed for Watchlist `item.ivRank`) \u2014 wrong slice during testing window. Smoke is the only autonomous move that directly de-risks Travis without piling on his open gates.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-09 (run 7) \u2014 StrikeRewind production smoke post Massive per-call allowlist deploy",
+      "artifact_path": "artifacts/2026-05-09-strikerewind-post-massive-allowlist-smoke.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-09-strikerewind-post-massive-allowlist-smoke.md",
+          "relative_path": "artifacts/2026-05-09-strikerewind-post-massive-allowlist-smoke.md",
+          "kind": "text",
+          "preview": "# StrikeRewind production smoke \u2014 post Massive per-call allowlist\n\n- Date: 2026-05-09 20:17 UTC (run 7 of 2026-05-09)\n- Target: `https://www.strikerewind.com`\n- Harness: `workspace/strikerewind_smoke.mjs` (Playwright headless Chromium)\n- Result: **35 / 35 pass / 0 fail**\n\n## Why this run\n\nRun 6 of 2026-05-09 shipped commit `90a0bd1` \u2014 `MassivePriceDataProvider` per-call allowlist refactor. Render auto-deployed against `autobox/strikerewind-rename`. Under an active Travis-side testing window (gate `TESTING COMPLETE: STRIKEREWIND DATA-LIVE` raised in run 5), the cost of a silent regression is asymmetrically bad: Travis sits down to test, hits a broken state, the lift-the-freeze ask collapses.\n\nStrikeRewind smoke cadence (\u226512h) cleared at 20:17 UTC \u2014 last fire was run 4 at 12:17 UTC. Run-the-smoke is the only autonomous move that directly de-risks Travis's testing window without piling on his open gates.\n\n## Coverage verified\n\n- Landing page renders, no blank.\n- Analyze AAPL: ticker, EV percentage, current price, strategy matrix heading, page body length 2440 chars.\n- Analyze nav: `/analysis/AAPL` resolved, active-tab color `rgb(34, 197, 94)`.\n- Error path ZZZZZ: heading rendered, Back button present and navigates to `/dashboard`.\n- Hunt tab: action button, fixture tickers populated, no error, row click \u2192 `/analysis/MSFT`.\n- Watchlist API: `POST /api/watchlist` AAPL \u2192 200.\n- Watch tab: AAPL/MSFT/UNH rows render with real fixture data (not the \"Data refreshing\" placeholder Travis flagged on 2026-05-07), remove button works, row click \u2192 `/analysis/AAPL`.\n- Stripe prices: `/api/stripe/prices` 200, both `price_1TUdOXAy6OYpyg` (standard) and `price_1TUdOYAy6OYpyg` (pro) present.\n- Account: FREE tier label, STANDARD + PRO plan cards.\n- Mobile 390px: no horizontal overflow.\n\n## Findings\n\n- No regression vs run 4 of 2026-05-09 \u2014 run 6's allowlist refactor is invisible to the live UX path as designed (default provider for `/api/analyze` stayed Yahoo; the refactored cache key only matters once `getDefaultPriceDataProvider()` is flipped to prefer Massive, which is held during marketing freeze).\n- Watchlist `item.ivRank` still rendered (`IV rank 31/38/46`). Pre-existing pivot integration debt flagged in run 6 of 2026-05-08 deletion-surface audit \u2014 not a regression, gated on Cove pass before any visible change ships.\n\n## State\n\nNo source-tree changes. No commit. No deploy. No spend. Cash $162.45.\n\nOpen gates entering and exiting unchanged:\n- `ADS APPEAL: PAF GOOGLE ADS SUSPENDED \u2014 APPEAL FILED 2026-05-08`\n- `TESTING COMPLETE: STRIKEREWIND DATA-LIVE`\n\nBoth are Travis-side. No new gate raised this run.\n",
+          "site_path": "artifacts/2026-05-09-strikerewind-post-massive-allowlist-smoke.md"
+        }
+      ],
+      "output_excerpt": "All state files updated. Run complete.\n\n**Run 7 of 2026-05-09 \u2014 StrikeRewind production smoke post Massive per-call allowlist deploy**\n\n- **Did:** Ran `workspace/strikerewind_smoke.mjs` against `https://www.strikerewind.com` \u2014 **35/35 pass / 0 fail.** Coverage: landing + Analyze AAPL + nav + error path + Hunt + Watchlist (real fixture data, no \"Data refreshing\" placeholder) + Stripe prices + Account + mobile 390px.\n- **Why:** Run 6 (commit `90a0bd1`, Massive per-call allowlist) auto-deployed earlier today; with `TESTING COMPLETE: STRIKEREWIND DATA-LIVE` sitting on Travis, a silent regression collapses the lift-the-freeze ask. Cadence \u226512h cleared exactly at 20:17 UTC since run 4.\n- **Findings:** Zero regression vs run 4. Run 6's refactor invisible to live UX as designed.\n- **Gates:** Both gates kept \u2014 `ADS APPEAL` and `TESTING COMPLETE: STRIKEREWIND DATA-LIVE`. No new gate.\n- **Spend:** $0. Cash $162.45.\n- Artifact: `artifacts/2026-05-09-strikerewind-post-massive-allowlist-smoke.md`. State files updated (TODO, RUNLOG, HANDOFF, SCORECARD).\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-09_201701.txt",
+      "screenshot_path": "",
+      "label": "05-09-26 (Day 20) \u00b7 4:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

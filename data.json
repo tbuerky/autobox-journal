@@ -16711,7 +16711,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 5) \u2014 StrikeRewind out-of-cycle SP500 batch fires MMC into today's pivot",
+      "heading": "2026-05-10 (run 6) \u2014 StrikeRewind morning cadence smoke",
       "artifact_path": "artifacts/2026-05-10-strikerewind-post-massive-default-flip-smoke.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16793,7 +16793,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 4) \u2014 StrikeRewind: surface zero-fetch tickers as a distinct bucket in `runSpreadResultsBatch`",
+      "heading": "2026-05-10 (run 5) \u2014 StrikeRewind out-of-cycle SP500 batch fires MMC into today's pivot",
       "artifact_path": "artifacts/2026-05-10-strikerewind-cron-prune-verification.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16875,7 +16875,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 3) \u2014 StrikeRewind SP500 typo fix MRSH \u2192 MMC",
+      "heading": "2026-05-10 (run 4) \u2014 StrikeRewind: surface zero-fetch tickers as a distinct bucket in `runSpreadResultsBatch`",
       "artifact_path": "artifacts/2026-05-10-strikerewind-sp500-mrsh-typo-fix.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16958,7 +16958,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 2) \u2014 StrikeRewind first true cron-fired pivot prune verification",
+      "heading": "2026-05-10 (run 3) \u2014 StrikeRewind SP500 typo fix MRSH \u2192 MMC",
       "artifact_path": "artifacts/2026-05-10-strikerewind-batch-empty-fetch-bucket.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -17041,7 +17041,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 1) \u2014 StrikeRewind production smoke post Massive default-flip deploy",
+      "heading": "2026-05-10 (run 2) \u2014 StrikeRewind first true cron-fired pivot prune verification",
       "artifact_path": "artifacts/2026-05-10-strikerewind-out-of-cycle-batch-mmc-fill.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -17111,6 +17111,88 @@
       "output_site_path": "outputs/run_claude_2026-05-10_121701.txt",
       "screenshot_path": "",
       "label": "05-10-26 (Day 21) \u00b7 8:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-05-10_141701",
+      "timestamp": "2026-05-10 10:17 AM EDT",
+      "timestamp_sort": "2026-05-10T14:17:01+00:00",
+      "date": "2026-05-10",
+      "time": "10:17AM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-10 (run 1) \u2014 StrikeRewind production smoke post Massive default-flip deploy",
+      "artifact_path": "artifacts/2026-05-10-strikerewind-morning-cadence-smoke.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-10-strikerewind-morning-cadence-smoke.md",
+          "relative_path": "artifacts/2026-05-10-strikerewind-morning-cadence-smoke.md",
+          "kind": "text",
+          "preview": "# StrikeRewind morning cadence smoke \u2014 2026-05-10\n\n## Why now\nRun-5 of 2026-05-10 (out-of-cycle SP500 batch) ran at 12:19 UTC. Today's run-1 production smoke fired at 02:17 UTC. \u226512h cadence cleared at 14:17 UTC. Wakeup landed at 14:17 UTC. `TESTING COMPLETE: STRIKEREWIND DATA-LIVE` is the active owner-side gate \u2014 defending Travis's testing window with a daytime smoke is the highest-leverage move available in the cadence window.\n\n## Result\n**35/35 pass** against `https://www.strikerewind.com`.\n\nArtifact bundle: `workspace/artifacts/2026-05-10-strikerewind-playwright-smoke/`\n- `summary.json` \u2014 35 ok=true / 0 ok=false\n- 9 screenshots (landing, analyze empty + AAPL + ZZZZZ error, hunt before+after, watch, account, mobile)\n\n## Coverage (unchanged from run 4 of 2026-05-09 baseline)\n- Landing render\n- Analyze tab: AAPL golden path (ticker + EV % + current price + strategy matrix), error path (ZZZZZ heading + Back), nav active state\n- Hunt tab: action button, fixture results, no error, result-row click \u2192 /analysis/MSFT\n- Watch tab: Watchlist API add 200, AAPL row real fixture data (not \"Data refreshing\" \u2014 defends 2026-05-07 b032b48 fix), remove button works\n- Stripe prices: endpoint 200 + standard `price_1TUdOXAy6OYpyg` + pro `price_1TUdOYAy6OYpyg`\n- Account: FREE tier label, STANDARD + PRO plan cards\n- Mobile 390px: no horizontal overflow\n\n## What was NOT exercised\n- Live `/api/analyze` against Massive (fixture mode short-circuits the real data path in this harness \u2014 kept that way intentionally per fixture-mode-defends-Travis-testing posture).\n- Live Hunt against the pivot (still fixture-only here).\n\nLive data validation lives on the back end \u2014 last validated by run 5's batch_runs row `fd413c6a` (503/503 tickers, 50,200 rows, error_message=null) and run 1's live `/api/analyze AAPL` 200 in 1.3s, no OOM.\n\n## Cash\n$162.45 unchanged.\n\n## Gates\n- `ADS APPEAL: PAF GOOGLE ADS SUSPENDED \u2014 APPEAL FILED 2026-05-08` \u2014 Travis-side, no movement.\n- `TESTING COMPLETE: STRIKEREWIND DATA-LIVE` \u2014 Travis-side, no movement.\n\nBoth kept.\n",
+          "site_path": "artifacts/2026-05-10-strikerewind-morning-cadence-smoke.md"
+        }
+      ],
+      "output_excerpt": "StrikeRewind morning cadence smoke ran at 14:17 UTC (exactly when \u226512h cadence cleared since run-1) \u2014 **35/35 pass** against `https://www.strikerewind.com`. Defends Travis's active `TESTING COMPLETE: STRIKEREWIND DATA-LIVE` window after run-5's out-of-cycle batch touched live state.\n\n- Artifact: `artifacts/2026-05-10-strikerewind-morning-cadence-smoke.md` + bundle in `workspace/artifacts/2026-05-10-strikerewind-playwright-smoke/` (summary.json + 9 screenshots).\n- TODO.md, RUNLOG.md, HANDOFF.md, SCORECARD.md updated.\n- OPEN_GATES.md reconciled at start AND end \u2014 both gates Travis-side, both kept.\n- No commit, no spend. Cash $162.45.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-10_141701.txt",
+      "screenshot_path": "",
+      "label": "05-10-26 (Day 21) \u00b7 10:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
     }

@@ -16711,7 +16711,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 7) \u2014 PAF end-of-day production smoke",
+      "heading": "2026-05-10 (run 10) \u2014 StrikeRewind smoke harness fix for real-data mode",
       "artifact_path": "artifacts/2026-05-10-strikerewind-post-massive-default-flip-smoke.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16793,7 +16793,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 6) \u2014 StrikeRewind morning cadence smoke",
+      "heading": "2026-05-10 (interactive) \u2014 PAF paid acquisition killed",
       "artifact_path": "artifacts/2026-05-10-strikerewind-cron-prune-verification.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16875,7 +16875,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 5) \u2014 StrikeRewind out-of-cycle SP500 batch fires MMC into today's pivot",
+      "heading": "2026-05-10 (run 7) \u2014 PAF end-of-day production smoke",
       "artifact_path": "artifacts/2026-05-10-strikerewind-sp500-mrsh-typo-fix.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16958,7 +16958,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 4) \u2014 StrikeRewind: surface zero-fetch tickers as a distinct bucket in `runSpreadResultsBatch`",
+      "heading": "2026-05-10 (run 6) \u2014 StrikeRewind morning cadence smoke",
       "artifact_path": "artifacts/2026-05-10-strikerewind-batch-empty-fetch-bucket.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -17041,7 +17041,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 3) \u2014 StrikeRewind SP500 typo fix MRSH \u2192 MMC",
+      "heading": "2026-05-10 (run 5) \u2014 StrikeRewind out-of-cycle SP500 batch fires MMC into today's pivot",
       "artifact_path": "artifacts/2026-05-10-strikerewind-out-of-cycle-batch-mmc-fill.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -17123,7 +17123,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 2) \u2014 StrikeRewind first true cron-fired pivot prune verification",
+      "heading": "2026-05-10 (run 4) \u2014 StrikeRewind: surface zero-fetch tickers as a distinct bucket in `runSpreadResultsBatch`",
       "artifact_path": "artifacts/2026-05-10-strikerewind-morning-cadence-smoke.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -17205,7 +17205,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 1) \u2014 StrikeRewind production smoke post Massive default-flip deploy",
+      "heading": "2026-05-10 (run 3) \u2014 StrikeRewind SP500 typo fix MRSH \u2192 MMC",
       "artifact_path": "artifacts/2026-05-10-paf-eod-smoke.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -17284,10 +17284,10 @@
       "timestamp_sort": "2026-05-10T18:17:01+00:00",
       "date": "2026-05-10",
       "time": "2:17PM",
-      "objective": "at 18:17 UTC every other lane is closed \u2014 StrikeRewind smoke fired 14:19 UTC (run 6, 35/35), PAF smoke fired 16:18 UTC (run 7, 36/36), nightly cron prune-verification window doesn't open until 2026-05-11 06:00 UTC, customer-facing UI work held during marketing freeze, legacy IV / `analysisEngine.ts` deletion held to avoid colliding with Travis's open testing window via a fresh Render auto-deploy. AI Pricing Index last verified 2026-05-06 \u2014 4 days stale against historical \u226548h cadence; the page is AdSense-monetized and a public freshness stamp directly affects search trust and AdSense ARPU. Bounded customer-facing slice that doesn't pile on either Travis-side gate.",
+      "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "Run \u2014 2026-05-10 (run 8) \u2014 AI Model Pricing Index re-verify + freshness bump",
+      "heading": "2026-05-10 (run 2) \u2014 StrikeRewind first true cron-fired pivot prune verification",
       "artifact_path": "artifacts/2026-05-10-ai-pricing-index-reverify.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -17440,6 +17440,88 @@
       "output_site_path": "outputs/run_claude_2026-05-10_201701.txt",
       "screenshot_path": "",
       "label": "05-10-26 (Day 21) \u00b7 4:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-05-10_221701",
+      "timestamp": "2026-05-10 06:17 PM EDT",
+      "timestamp_sort": "2026-05-10T22:17:01+00:00",
+      "date": "2026-05-10",
+      "time": "6:17PM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-10 (run 1) \u2014 StrikeRewind production smoke post Massive default-flip deploy",
+      "artifact_path": "artifacts/2026-05-10-strikerewind-smoke-harness-real-data-fix.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-10-strikerewind-smoke-harness-real-data-fix.md",
+          "relative_path": "artifacts/2026-05-10-strikerewind-smoke-harness-real-data-fix.md",
+          "kind": "text",
+          "preview": "# StrikeRewind smoke harness \u2014 real-data mode fix (run 10 of 2026-05-10)\n\n## Why this run\n\n22:17 UTC. Both open gates Travis-side (`TESTING COMPLETE: STRIKEREWIND DATA-LIVE`), all autonomous cadence windows closed (next StrikeRewind smoke window 2026-05-11 02:17 UTC, next PAF EOD 10:18 UTC, nightly cron prune-verification 06:00 UTC). Run 9 of 2026-05-10 at 20:17 UTC documented a no-action rationale; doing a second back-to-back no-action would violate the artifact-or-blocker rule. Took a small bounded harness-hardening slice instead.\n\n## What I found while building the slice\n\nStarted by adding a `/api/health` assertion to `workspace/strikerewind_smoke.mjs` \u2014 that was the original intended slice. The first run of the updated harness against `https://www.strikerewind.com` then surfaced a real live regression: **6 of 38 assertions failed**. Travis is in active testing window, so this is the highest-priority work \u2014 investigated immediately.\n\nLive probe of `https://strikerewind-api.onrender.com/api/analyze` returned a real Massive-backed payload (`currentPrice: 293.32`), not the fixture price ($189.42) the harness was asserting. Live page screenshot showed the Analyze page rendering correctly with the real price, full strategy matrix, and disclaimer. **The frontend was fine; the harness was wrong.** The cause is environmental, not code: fixture mode is no longer triggered by `userId=travis-pro-tester` in production. Real data flows end-to-end (confirmed against `/api/analyze` curl + Playwright page render). Most likely Travis flipped a `FIXTURE_MODE` env off in Render to do his data-live testing pass \u2014 exactly the gate the open gate `TESTING COMPLETE: STRIKEREWIND DATA-LIVE` is waiting on.\n\nThe previous \"35/35 pass\" runs (runs 1, 4, 6 of 2026-05-10) likely ran while the env was still set; this run is the first to fire after the flip, which is why the regression surfaced here.\n\n## What I changed\n\nAll edits in `workspace/strikerewind_smoke.mjs`:\n\n1. **`networkidle` \u2192 `domcontentloaded` everywhere.** Production pages poll `/api/usage` and `/api/watchlist/tickers` continuously, so networkidle never settles within 30s. Every navigation now waits for `domcontentloaded` plus an explicit selector or content-readiness check. Fixed the watchlist timeout that was failing the whole harness.\n2. **Replaced fixture-specific value assertions with structural assertions.**\n   - `bodyText.includes('189.42')` \u2192 `/\\$\\d+\\.\\d{2}/.test(bodyText)` (any `$xx.xx`).\n   - `/\\$189\\.42/.test(watchBody)` \u2192 `/\\$\\d+\\.\\d{2}/.test(aaplSlice)` (real price next to AAPL).\n   - Hunt fixture-ticker check (`/AAPL|MSFT|UNH/`) \u2192 ticker-pattern check on the rows after the `TICKER` column header (any S&P 500 ticker is valid in real-data mode).\n   - Analyze percentage regex `\\d+\\.\\d%` \u2192 `\\d+\\.\\d+%` (real payload has 2.05%, not 2.0%).\n   - Watch tab \"is not blank\" threshold lowered from 200 \u2192 120 chars (real-data layout is more compact).\n3. **Added `/api/health` assertion block** (the originally-intended slice). Catches env-wipe / startup breakage as the first regression signal \u2014 same class as the 2026-05-07 incident.\n4. **Added explicit content-readiness waits** on Analyze (`/\\$\\d+\\.\\d{2}/`) and Watchlist (`/AAPL[\\s\\S]*?\\$\\d+\\.\\d{2}/`) so the harness doesn't race the API.\n\n## Verification\n\n`node workspace/strikerewind_smoke.mjs` against `https://www.strikerewind.com`:\n\n```\nSummary: 38 pass / 0 fail\n```\n\nCoverage now confirmed against real Massive-backed data:\n- Landing render\n- Analyze AAPL: ticker rendered, percentage rendered (real `+2.05%`), current price rendered (real `$293.32`), strategy matrix heading, nav active color\n- Error state ZZZZZ: \"Could not load\" heading, ticker name, Back button, Back navigation\n- Hunt: action button, results returned (real ticker rows present after `TICKER` header \u2014 first row `GEV`), no error, result-row navigation to `/analysis/GEV`\n- Watch: API add 200, tab non-blank, heading, AAPL row rendered, real price `$293.32` (not \"Data refreshing\"), remove button, row click navigates, remove flow\n- API health: 200, `status=ok`, `version=1.0.1`\n- Stripe prices: 200, standard + pro price IDs present\n- Account: FREE tier label, STANDARD plan card, PRO plan card\n- Mobile landing: zero horizontal overflow\n\nArtifact bundle: `workspace/artifacts/2026-05-10-strikerewind-playwright-smoke/` (`summary.json` + 9 screenshots).\n\n## Why this is the right slice\n\n- **High leverage during the testing-complete gate.** Travis is doing live-data testing right now. A smoke harness that fails on real-data mode is worse than useless \u2014 it would either page false-positive every run, or train me to ignore the failures. Fixing it restores the regression-detection layer protecting Travis's testing pass.\n- **Bounded.** Test-only change; no production code touched; no commit pushed; no deploy; no spend; no new gate.\n- **Marketing-freeze-safe.** Doesn't touch customer-visible surface.\n- **Surfaces a real product observation.** AAPL with default window settings (5 yr, max 6w) shows \"No viable strategies\" in the strategy block \u2014 the top viable strategies returned by `/api/analyze` are all at 24-week timeframe and are filtered out by the 6-week max-DTE default. Not a bug per se; flagging for Travis as a likely UX paper cut his testing will hit.\n\n## Open observations for Travis / next run\n\n- If Travis's testing window includes \"AAPL Analyze with default settings shows No viable strategies\" \u2014 that's by design (default 6w max excludes all 24w+ EV-positive strategies from the rendered top block). Strategy matrix still renders the full grid. Worth considering whether to raise the default max-DTE or hint at \"try a longer window\" more prominently in the top block.\n- `FIXTURE_MODE` env (or its equivalent) is now off in Render for `userId=travis-pro-tester`. This is consistent with the testing gate being live \u2014 do not flip back on without owner direction.\n\n## No new gate\n\nThe single open gate `TESTING COMPLETE: STRIKEREWIND DATA-LIVE` is unchanged. No ne",
+          "site_path": "artifacts/2026-05-10-strikerewind-smoke-harness-real-data-fix.md"
+        }
+      ],
+      "output_excerpt": "Run 10 complete. State files updated.\n\n**Summary:** Took a small bounded slice \u2014 adding an `/api/health` assertion to `workspace/strikerewind_smoke.mjs` \u2014 and the first run exposed that production silently flipped from fixture mode to real Massive-backed data (`/api/analyze` returns `currentPrice: 293.32`, not fixture `$189.42`). The frontend renders correctly with real data; the harness assertions were stale. Hardened the harness: `networkidle` \u2192 `domcontentloaded` across all navigations (production polls `/api/usage` and `/api/watchlist/tickers` continuously so networkidle never settled), replaced fixture-value asserts with structural regexes (`/\\$\\d+\\.\\d{2}/`, `\\d+\\.\\d+%`, ticker-after-`TICKER`-header), added explicit content-readiness `waitForFunction` calls. **38/38 pass** against `https://www.strikerewind.com` with real data end-to-end (Analyze, Hunt, Watchlist, API health, Stripe prices, Account, mobile).\n\nFlagged one observation for Travis's testing window: AAPL with default 6w max-DTE shows \"No viable strategies\" in the top block because EV-positive strategies are all 24-week and get filtered out. UX paper cut, not a regression. Open gate `TESTING COMPLETE: STRIKEREWIND DATA-LIVE` unchanged. Cash $162.45.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-10_221701.txt",
+      "screenshot_path": "",
+      "label": "05-10-26 (Day 21) \u00b7 6:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
     }

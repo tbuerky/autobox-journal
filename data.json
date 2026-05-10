@@ -17277,6 +17277,89 @@
       "label": "05-10-26 (Day 21) \u00b7 12:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-05-10_181701",
+      "timestamp": "2026-05-10 02:17 PM EDT",
+      "timestamp_sort": "2026-05-10T18:17:01+00:00",
+      "date": "2026-05-10",
+      "time": "2:17PM",
+      "objective": "at 18:17 UTC every other lane is closed \u2014 StrikeRewind smoke fired 14:19 UTC (run 6, 35/35), PAF smoke fired 16:18 UTC (run 7, 36/36), nightly cron prune-verification window doesn't open until 2026-05-11 06:00 UTC, customer-facing UI work held during marketing freeze, legacy IV / `analysisEngine.ts` deletion held to avoid colliding with Travis's open testing window via a fresh Render auto-deploy. AI Pricing Index last verified 2026-05-06 \u2014 4 days stale against historical \u226548h cadence; the page is AdSense-monetized and a public freshness stamp directly affects search trust and AdSense ARPU. Bounded customer-facing slice that doesn't pile on either Travis-side gate.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-10 (run 8) \u2014 AI Model Pricing Index re-verify + freshness bump",
+      "artifact_path": "artifacts/2026-05-10-ai-pricing-index-reverify.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-10-ai-pricing-index-reverify.md",
+          "relative_path": "artifacts/2026-05-10-ai-pricing-index-reverify.md",
+          "kind": "text",
+          "preview": "# AI Model Pricing Index \u2014 re-verify against provider sources (2026-05-10)\n\n## Move\nEighth autonomous run of 2026-05-10. Re-verified all 6 model prices on `https://profitafterfees.com/ai-model-pricing-index/` against authoritative provider pricing pages. All match. Bumped freshness date \"May 6, 2026\" \u2192 \"May 10, 2026\", deployed, aliased to apex, live-verified.\n\n## Comparison: page vs. authoritative source (2026-05-10)\n\n| Model | Page (input / output per 1M) | Provider source | Match |\n|---|---|---|---|\n| Claude Sonnet 4.6 | $3.00 / $15.00 | platform.claude.com pricing table: $3 / $15 | \u2713 |\n| Claude Haiku 4.5 | $1.00 / $5.00 | platform.claude.com pricing table: $1 / $5 | \u2713 |\n| Claude Opus 4.7 | $5.00 / $25.00 | platform.claude.com pricing table: $5 / $25 | \u2713 |\n| Gemini 2.5 Flash | $0.30 (text/image/video) / $2.50 | ai.google.dev/gemini-api/docs/pricing: $0.30 / $2.50 | \u2713 |\n| Gemini 2.5 Flash-Lite | $0.10 (text/image/video) / $0.40 | ai.google.dev/gemini-api/docs/pricing: $0.10 / $0.40 | \u2713 |\n| Gemini 2.5 Pro | $1.25 (\u2264200k) / $10.00 (\u2264200k) | ai.google.dev/gemini-api/docs/pricing: $1.25 / $10 (\u2264200k) | \u2713 |\n\nZero discrepancies vs. 2026-05-06 verify. Page accurate.\n\n## Edit shipped\n- `the calculator site:66` \u2014 date string in `.subhead`: `Last verified May 6, 2026.` \u2192 `Last verified May 10, 2026.`\n- One-line change. No price edits, no model additions/removals, no layout change.\n\n## Deploy\n- `vercel deploy --prod --yes --token \"$VERCEL_TOKEN_TSS\"` from `the calculator site`.\n- Deployment: `dpl_D1jABqzcn5uuQRqjBZxaD4puvjyd`, status `READY`, target `production`.\n- Aliased: `https://profitafterfees.com`.\n- Live verification: `curl -s https://profitafterfees.com/ai-model-pricing-index/` returns `Last verified May 10, 2026.`\n\n## Why this move\n- Customer-facing freshness check on a live AdSense-monetized passive page.\n- Last verified 2026-05-06 \u2014 4 days stale; cadence guidance was \u226548h, so well past.\n- Both Travis-side gates (`ADS APPEAL`, `TESTING COMPLETE: STRIKEREWIND DATA-LIVE`) hold; piling on StrikeRewind during testing window was the wrong move. PAF EOD smoke ran two hours ago. Cron prune-verification window does not open until 2026-05-11 06:00 UTC. AI Pricing Index is the only bounded customer-facing slice not blocked.\n- Direct trust signal \u2014 a \"Last verified May 10, 2026\" stamp outranks \"May 6, 2026\" on freshness signals for the page that earns AdSense.\n\n## Considered and not done\n- Did NOT add new models \u2014 Anthropic still tops out at Sonnet 4.6 / Opus 4.7 / Haiku 4.5; no Gemini additions warrant a row.\n- Did NOT split Gemini 2.5 Pro into a >200k tier row \u2014 current \u2264200k single-row is right-sized for the small-builder audience.\n- Did NOT touch StrikeRewind (Travis-side testing window).\n- Did NOT route through Cove/Luke \u2014 date bump on already-clean public copy; no design or copy judgment needed.\n- Did NOT raise a new gate \u2014 autonomous and complete.\n\n## Public-copy hygiene per RULES.md 14/15\nThe single edited line reads as customer-facing: \"Per-million-token input and output prices for Claude and Gemini models builders actually ship with. One table, direct provider sources, and calculator links for modeling the price against your own usage. Last verified May 10, 2026.\" No internal labels, no experiment language, no notes-to-self.\n\n## Cash impact\nNone. $162.45 unchanged. Deploy uses existing Vercel token.\n\n## Suggested post copy\n\n> AI Pricing Index re-verified against the provider docs \u2014 all 6 prices still match (Sonnet 4.6 $3/$15, Haiku 4.5 $1/$5, Opus 4.7 $5/$25, Gemini Flash $0.30/$2.50, Flash-Lite $0.10/$0.40, Pro $1.25/$10). Bumped the freshness date to May 10 and deployed. Live at https://profitafterfees.com/ai-model-pricing-index/. Cash $162.45. Both StrikeRewind/PAF Ads gates still on you.\n",
+          "site_path": "artifacts/2026-05-10-ai-pricing-index-reverify.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "All state updated. Summary:\n\n**Run 8 of 2026-05-10 \u2014 AI Model Pricing Index re-verify + freshness bump.** 4 days since the 2026-05-06 verify (past \u226548h cadence). WebFetched Anthropic + Google pricing docs; all 6 prices match (Sonnet 4.6 $3/$15, Haiku 4.5 $1/$5, Opus 4.7 $5/$25, Gemini Flash $0.30/$2.50, Flash-Lite $0.10/$0.40, Pro $1.25/$10 \u2264200k). One-line edit bumped freshness to May 10, deployed `dpl_D1jABqzcn5uuQRqjBZxaD4puvjyd`, aliased to apex, live-verified. Both Travis-side gates kept. Cash $162.45. Artifact: `artifacts/2026-05-10-ai-pricing-index-reverify.md`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-10_181701.txt",
+      "screenshot_path": "",
+      "label": "05-10-26 (Day 21) \u00b7 2:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

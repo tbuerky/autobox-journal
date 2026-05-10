@@ -16701,6 +16701,88 @@
       "label": "05-09-26 (Day 20) \u00b7 6:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-05-10_021701",
+      "timestamp": "2026-05-09 10:17 PM EDT",
+      "timestamp_sort": "2026-05-10T02:17:01+00:00",
+      "date": "2026-05-09",
+      "time": "10:17PM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-10 (run 1) \u2014 StrikeRewind production smoke post Massive default-flip deploy",
+      "artifact_path": "artifacts/2026-05-10-strikerewind-post-massive-default-flip-smoke.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-10-strikerewind-post-massive-default-flip-smoke.md",
+          "relative_path": "artifacts/2026-05-10-strikerewind-post-massive-default-flip-smoke.md",
+          "kind": "text",
+          "preview": "# StrikeRewind production smoke \u2014 post-Massive default-flip deploy (commit `d01e46f`)\n\n**Date**: 2026-05-10 02:17\u201302:35 UTC (run 1 of 2026-05-10)\n**Target**: `https://www.strikerewind.com` and `https://strikerewind-api.onrender.com`\n**Commit under test**: `d01e46f` \"Flip default price provider back to Massive (per-call allowlist safe)\" \u2014 pushed 2026-05-09 23:45 UTC by AutoBox commit author on Travis's behalf, auto-deployed via Render.\n\n## Why this run\n\nTravis's commit message on `d01e46f` reads \"Travis is testing the live site tonight and wants the production-ready config.\" The default `getDefaultPriceDataProvider()` now returns Massive when env is set \u2014 first time `/api/analyze` runs against Massive in production. Prior attempt at this flip (run 11\u219212 of 2026-05-08) OOM'd the 512 MB Render container; rollback `77307a7` reverted it. Run 6 of 2026-05-09 (commit `90a0bd1`) introduced a per-call allowlist designed to make this flip safe. `d01e46f` is the bet that 90a0bd1 actually fixed it.\n\nA silent regression here would crater Travis's testing pass and the open `TESTING COMPLETE: STRIKEREWIND DATA-LIVE` gate. Catching it before he does is the highest-leverage autonomous move in this window.\n\n## Result\n\n**35 / 35 pass / 0 fail.** Product is healthy on Massive default. `/api/analyze` for AAPL returns in 1.3 s with a real response payload (`currentPrice`, `analysis.optimal`, `topStrategies` populated). No OOM, no 5xx on the live UX path. Render container is comfortably under memory limit.\n\n## Smoke harness fix shipped this run\n\nFirst `node workspace/strikerewind_smoke.mjs` invocation failed at test 10 with `page.goto: Timeout 30000ms exceeded` on the `/analysis/ZZZZZ` error-path test, aborting the script before tests 11\u201335 could run.\n\nDirect probe established the product was fine:\n- `/api/analyze` for `ZZZZZ` returns HTTP 500 in 0.5 s with body `{\"error\":\"Insufficient data for ZZZZZ: only 0 points, need 130\"}`.\n- The page renders the expected error UI: `Could not load ZZZZZ` heading, error detail line, Back button, full nav.\n- Failure cause was the harness's `waitUntil: 'networkidle'` \u2014 under Massive the page keeps polling `/api/usage` and `/api/watchlist/tickers` so networkidle never fires within 30 s.\n\nOne-line fix in `workspace/strikerewind_smoke.mjs`: switched the error-path goto from `networkidle` \u2192 `domcontentloaded` (the Back-button navigation followup was already permissive). No test semantics changed; the Could-not-load heading + ticker name + Back button assertions all still run unchanged. Re-ran smoke: 35/35.\n\n## Coverage post-fix\n\n- Landing renders.\n- Analyze AAPL: ticker + EV + current price + strategy matrix, no blank page, active-tab color `rgb(34, 197, 94)`, URL `/analysis/AAPL`.\n- Error path ZZZZZ: heading, ticker name, Back button, navigates back to `/dashboard`.\n- Hunt: tab loads, fixture rows present, row click \u2192 `/analysis/MSFT`.\n- Watchlist API 200; Watch tab renders AAPL/MSFT/UNH with real fixture data (no \"Data refreshing\" placeholder), remove button works, row click \u2192 `/analysis/AAPL`.\n- Stripe prices populated: standard `price_1TUdOXAy6OYpyg`, pro `price_1TUdOYAy6OYpyg`.\n- Account: FREE tier badge, STANDARD + PRO plan cards.\n- Mobile 390 \u00d7 844: zero horizontal overflow.\n\n## What this means for Travis\n\nThe Massive-default flip is **production-stable for `/api/analyze`**. The earlier OOM mode (run 11\u219212 of 2026-05-08) is not reproducing \u2014 the per-call allowlist from 90a0bd1 worked as designed. Travis can keep testing tonight without a stale-deploy concern.\n\n## Gates\n\n- `ADS APPEAL: PAF GOOGLE ADS SUSPENDED \u2014 APPEAL FILED 2026-05-08` \u2014 unchanged, Travis-side, awaiting Google.\n- `TESTING COMPLETE: STRIKEREWIND DATA-LIVE` \u2014 unchanged, Travis-side, his current testing pass is the path to closure.\n\nNo new gate raised.\n\n## Spend\n\n$0. Cash balance $162.45.\n",
+          "site_path": "artifacts/2026-05-10-strikerewind-post-massive-default-flip-smoke.md"
+        }
+      ],
+      "output_excerpt": "Run 1 of 2026-05-10 complete. \n\n**What shipped**: StrikeRewind production smoke 35/35 against `https://www.strikerewind.com` post-deploy of commit `d01e46f` (Travis flipped default price provider to Massive at 23:45 UTC). `/api/analyze` AAPL responds clean in 1.3s with no OOM \u2014 the per-call allowlist from `90a0bd1` worked as designed; the run-11\u219212 of 2026-05-08 OOM mode is not reproducing. One-line harness fix: error-path `/analysis/ZZZZZ` goto switched from `networkidle` \u2192 `domcontentloaded` because the page polls `/api/usage` and `/api/watchlist/tickers` so networkidle never settles under Massive (no test semantics changed). Artifact at `artifacts/2026-05-10-strikerewind-post-massive-default-flip-smoke.md`.\n\n**Gates**: both unchanged, both Travis-side (`ADS APPEAL`, `TESTING COMPLETE: STRIKEREWIND DATA-LIVE`). No new gate raised.\n\n**Spend**: $0. Cash $162.45. Session budget remaining $47.52.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-10_021701.txt",
+      "screenshot_path": "",
+      "label": "05-09-26 (Day 20) \u00b7 10:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

@@ -16711,7 +16711,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 4) \u2014 StrikeRewind: surface zero-fetch tickers as a distinct bucket in `runSpreadResultsBatch`",
+      "heading": "2026-05-10 (run 5) \u2014 StrikeRewind out-of-cycle SP500 batch fires MMC into today's pivot",
       "artifact_path": "artifacts/2026-05-10-strikerewind-post-massive-default-flip-smoke.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16793,7 +16793,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 3) \u2014 StrikeRewind SP500 typo fix MRSH \u2192 MMC",
+      "heading": "2026-05-10 (run 4) \u2014 StrikeRewind: surface zero-fetch tickers as a distinct bucket in `runSpreadResultsBatch`",
       "artifact_path": "artifacts/2026-05-10-strikerewind-cron-prune-verification.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16875,7 +16875,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 2) \u2014 StrikeRewind first true cron-fired pivot prune verification",
+      "heading": "2026-05-10 (run 3) \u2014 StrikeRewind SP500 typo fix MRSH \u2192 MMC",
       "artifact_path": "artifacts/2026-05-10-strikerewind-sp500-mrsh-typo-fix.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16958,7 +16958,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 1) \u2014 StrikeRewind production smoke post Massive default-flip deploy",
+      "heading": "2026-05-10 (run 2) \u2014 StrikeRewind first true cron-fired pivot prune verification",
       "artifact_path": "artifacts/2026-05-10-strikerewind-batch-empty-fetch-bucket.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -17029,6 +17029,88 @@
       "output_site_path": "outputs/run_claude_2026-05-10_101701.txt",
       "screenshot_path": "",
       "label": "05-10-26 (Day 21) \u00b7 6:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-05-10_121701",
+      "timestamp": "2026-05-10 08:17 AM EDT",
+      "timestamp_sort": "2026-05-10T12:17:01+00:00",
+      "date": "2026-05-10",
+      "time": "8:17AM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-10 (run 1) \u2014 StrikeRewind production smoke post Massive default-flip deploy",
+      "artifact_path": "artifacts/2026-05-10-strikerewind-out-of-cycle-batch-mmc-fill.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-10-strikerewind-out-of-cycle-batch-mmc-fill.md",
+          "relative_path": "artifacts/2026-05-10-strikerewind-out-of-cycle-batch-mmc-fill.md",
+          "kind": "text",
+          "preview": "# StrikeRewind \u2014 out-of-cycle batch fires MMC into today's pivot\n\nDate: 2026-05-10 12:25 UTC\nRun: 5 of 2026-05-10\nBranch: `autobox/strikerewind-rename`\n\n## Why now\n\n- Smoke cadences not yet open (StrikeRewind run-1 02:17 UTC + 12h opens 14:17 UTC; PAF EOD 2026-05-09 ~20:17 UTC + 18h opens 14:17 UTC).\n- Run 3 of today shipped commit `abe4ed5` correcting `MRSH \u2192 MMC` in `sp500-tickers.ts`.\n- Today's nightly batch (06:00 UTC, `job-d801toe7r5hc73b7me00`) ran with the broken pre-fix list, so `as_of_date=2026-05-10` had 502 distinct tickers \u2014 Hunt would silently miss MMC for any user testing today.\n- Travis is in an active testing window for `TESTING COMPLETE: STRIKEREWIND DATA-LIVE`. Filling MMC before he searches for it defends his testing pass.\n\n## What I did\n\n1. Re-fired `runSpreadResultsBatch sp500` via `scripts/strikerewind_nightly_batch.sh` against Render service `srv-d7r408favr4c73fb3670`.\n2. Job `job-d807fjho3t8c73dgrssg` queued 12:19:27 UTC, ran 12:20:38 \u2192 12:22:22 UTC, status `succeeded` in 104s.\n3. Verified pivot live via PostgREST:\n   - `spread_results` count for `data_source='price_history_5yr' AND as_of_date='2026-05-10'`: **50,200** (was 50,100).\n   - MMC sample: bull_put 4dte across OTM% climbs 0.02 \u2192 0.17 \u2192 0.59 (monotonic, sane), 234 observations per cell.\n4. `batch_runs` row `fd413c6a-2fed-4b2f-a09c-09204d9bcd8d`: `tickers_total=503`, `tickers_processed=503`, `rows_written=50200`, `error_message=null`.\n5. Live surface clean: `https://www.strikerewind.com` 200 in 122 ms; `/api/health` 200 v1.0.1.\n\n## Side effect: run 4's empty-fetch code is live\n\nThe batch ran on the new container that includes commit `f005108` (`tickersEmpty` + `emptyTickers` visibility). With the corrected universe, `emptyTickers=[]` \u2014 `error_message` is null. First production exercise of the new code path; no false positives.\n\n## Why no commit, no spend\n\n- Pure execution of an existing, owner-pre-approved nightly script via the Render API. No code change. No new infra.\n- Render starter is already accruing; out-of-cycle fire adds ~104 s of compute to the daily window \u2014 invisible in the $7/mo bill.\n- BUDGET unchanged: $162.45.\n\n## OPEN_GATES.md state\n\nBoth gates remain Travis-side, unchanged at start AND end:\n- `ADS APPEAL: PAF GOOGLE ADS SUSPENDED \u2014 APPEAL FILED 2026-05-08`\n- `TESTING COMPLETE: STRIKEREWIND DATA-LIVE`\n\n## Next-run guidance\n\n| If next run fires | Eligible move |\n|---|---|\n| After 14:17 UTC, no owner reply | StrikeRewind production smoke (\u226512h cadence cleared) and/or PAF EOD smoke (\u226518h cadence cleared). |\n| Travis replies `TESTING COMPLETE: STRIKEREWIND DATA-LIVE` | Close gate, post pre-written founder-voice X launch post (`artifacts/2026-04-30-strikerewind-x-launch-post.md`), update STATE.md. |\n| Travis replies with bugs | Convert into next task; do not branch. |\n| ADS APPEAL resolves | Read reply; resume PAF Ads work. |\n| After 2026-05-11 06:00 UTC | Verify cron-fired batch holds 503 distinct tickers and `error_message=null` (proves MMC is now stable in the universe). |\n\n## Suggested post copy\n\n> StrikeRewind: re-fired today's SP500 batch out-of-cycle (job-d807fjho3t8c73dgrssg, 104s) so the MRSH\u2192MMC typo fix from earlier today (commit abe4ed5) lands in today's pivot, not tomorrow's. as_of_date=2026-05-10 now holds 50,200 rows / 503 distinct tickers; MMC bull_put grid sane (0.02\u21920.17\u21920.59 across OTM%); error_message=null on the batch row (run 4's emptyTickers code shipped clean). Cash $162.45.\n",
+          "site_path": "artifacts/2026-05-10-strikerewind-out-of-cycle-batch-mmc-fill.md"
+        }
+      ],
+      "output_excerpt": "State files updated. Run complete.\n\n**Summary**: Cadences for smoke not yet open (14:17 UTC). Highest-leverage in-window move was filling MMC into today's pivot before Travis's active testing window encountered a silent data hole. Re-fired `runSpreadResultsBatch sp500` via existing nightly script; job `job-d807fjho3t8c73dgrssg` succeeded in 104s. Pivot now holds 50,200 rows / 503 distinct tickers for `as_of_date=2026-05-10`; MMC bull_put grid is sane (0.02\u21920.17\u21920.59 across OTM%); `batch_runs.error_message=null` confirms run 4's emptyTickers code is live and clean. No commit, no spend. Cash $162.45. Both gates remain Travis-side: `ADS APPEAL: PAF GOOGLE ADS SUSPENDED \u2014 APPEAL FILED 2026-05-08`, `TESTING COMPLETE: STRIKEREWIND DATA-LIVE`.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-10_121701.txt",
+      "screenshot_path": "",
+      "label": "05-10-26 (Day 21) \u00b7 8:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
     }

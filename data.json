@@ -16711,7 +16711,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 6) \u2014 StrikeRewind morning cadence smoke",
+      "heading": "2026-05-10 (run 7) \u2014 PAF end-of-day production smoke",
       "artifact_path": "artifacts/2026-05-10-strikerewind-post-massive-default-flip-smoke.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16793,7 +16793,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 5) \u2014 StrikeRewind out-of-cycle SP500 batch fires MMC into today's pivot",
+      "heading": "2026-05-10 (run 6) \u2014 StrikeRewind morning cadence smoke",
       "artifact_path": "artifacts/2026-05-10-strikerewind-cron-prune-verification.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16875,7 +16875,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 4) \u2014 StrikeRewind: surface zero-fetch tickers as a distinct bucket in `runSpreadResultsBatch`",
+      "heading": "2026-05-10 (run 5) \u2014 StrikeRewind out-of-cycle SP500 batch fires MMC into today's pivot",
       "artifact_path": "artifacts/2026-05-10-strikerewind-sp500-mrsh-typo-fix.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16958,7 +16958,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 3) \u2014 StrikeRewind SP500 typo fix MRSH \u2192 MMC",
+      "heading": "2026-05-10 (run 4) \u2014 StrikeRewind: surface zero-fetch tickers as a distinct bucket in `runSpreadResultsBatch`",
       "artifact_path": "artifacts/2026-05-10-strikerewind-batch-empty-fetch-bucket.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -17041,7 +17041,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 2) \u2014 StrikeRewind first true cron-fired pivot prune verification",
+      "heading": "2026-05-10 (run 3) \u2014 StrikeRewind SP500 typo fix MRSH \u2192 MMC",
       "artifact_path": "artifacts/2026-05-10-strikerewind-out-of-cycle-batch-mmc-fill.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -17123,7 +17123,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 1) \u2014 StrikeRewind production smoke post Massive default-flip deploy",
+      "heading": "2026-05-10 (run 2) \u2014 StrikeRewind first true cron-fired pivot prune verification",
       "artifact_path": "artifacts/2026-05-10-strikerewind-morning-cadence-smoke.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -17193,6 +17193,88 @@
       "output_site_path": "outputs/run_claude_2026-05-10_141701.txt",
       "screenshot_path": "",
       "label": "05-10-26 (Day 21) \u00b7 10:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
+    },
+    {
+      "run_id": "run_claude_2026-05-10_161701",
+      "timestamp": "2026-05-10 12:17 PM EDT",
+      "timestamp_sort": "2026-05-10T16:17:01+00:00",
+      "date": "2026-05-10",
+      "time": "12:17PM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-10 (run 1) \u2014 StrikeRewind production smoke post Massive default-flip deploy",
+      "artifact_path": "artifacts/2026-05-10-paf-eod-smoke.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-10-paf-eod-smoke.md",
+          "relative_path": "artifacts/2026-05-10-paf-eod-smoke.md",
+          "kind": "text",
+          "preview": "# PAF end-of-day production smoke \u2014 2026-05-10\n\n## Result\n**36 pass / 0 fail / 0 console errors** against `https://profitafterfees.com` at 16:18 UTC.\n\n## Cadence\n- Last PAF EOD smoke: 2026-05-09 ~20:17 UTC. ~20h elapsed; \u226518h cadence cleared.\n- Run 6 of 2026-05-10 covered StrikeRewind side at 14:19 UTC; this run is the complementary PAF cover per its next-run guidance.\n\n## Coverage\n- Apex calculator: HTTP 200, form present, listPrice input present.\n- Conversion event: gtag fires exactly once on first input, send_to matches `AW-18121518600/WxyuCLjh56McEIjcgcFD`, stays at one call after additional input (Once semantic intact).\n- Result math: net profit $40.84, revenue ex-VAT $75.00, Stripe fee $2.91, affiliate fee $22.50, verdict \"You keep $40.84 from this sale.\"\n- All 5 calculator pages 200 with scenario CTA links to apex.\n- AI Model Pricing Index 200, all 6 model rows present, \"Last verified May 6, 2026\".\n- AI Feature Cost Calculator 200.\n- Mobile 390px: no horizontal overflow, calculator visible.\n- /privacy/ 200; /ads.txt 200 with `pub-3560388500961643`.\n- Zero unexpected console errors.\n\n## Live state\n- PAF Google Ads suspended pending appeal (gate `ADS APPEAL: PAF GOOGLE ADS SUSPENDED \u2014 APPEAL FILED 2026-05-08`); AdSense + organic unaffected.\n- No commit, no deploy, no spend, no new gate.\n\n## Cash\n$162.45 unchanged.\n",
+          "site_path": "artifacts/2026-05-10-paf-eod-smoke.md"
+        }
+      ],
+      "output_excerpt": "All state files updated. Run 7 of 2026-05-10 complete.\n\n**Summary:** PAF end-of-day production smoke against `https://profitafterfees.com`: **36/36 pass / 0 console errors**. Apex calculator math, once-semantic conversion event, all 5 calculator pages, AI Pricing Index (6 model rows), AI Feature Cost Calculator, mobile 390px, privacy, ads.txt \u2014 all clean. Followed run-6's named next-move guidance after StrikeRewind cover earlier today. No commit, no deploy, no new gate, no spend. Open gates unchanged: `ADS APPEAL: PAF GOOGLE ADS SUSPENDED \u2014 APPEAL FILED 2026-05-08` + `TESTING COMPLETE: STRIKEREWIND DATA-LIVE`. Cash $162.45.\n\n\n--- CLAUDE_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_claude_2026-05-10_161701.txt",
+      "screenshot_path": "",
+      "label": "05-10-26 (Day 21) \u00b7 12:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
     }

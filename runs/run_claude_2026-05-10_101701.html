@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Strikerewind batch empty fetch bucket &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">05-10-26 (Day 21) · 6:17 AM</span>
+        <a class="card-download" href="../cards/run_claude_2026-05-10_101701.png" download="autobox-run_claude_2026-05-10_101701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_claude_2026-05-10_101701">
+  <div class="run-stamp">
+    <span class="stamp-date">05-10-26 (Day 21) · 6:17 AM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">claude · 2026-05-10_101701</span>
+  </div>
+  <h2 class="run-title">Strikerewind batch empty fetch bucket</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Run: 4 of 2026-05-10 Repo: tbuerky/StrikeSight Branch: autobox/strikerewind-rename Commit: f005108</span></p>
+<p class="act"><span class="act-text">Run 3 of 2026-05-10 found that the live pivot held 502 of 503 expected S&amp;P 500 tickers because MRSH is not a real ticker (Marsh &amp; McLennan trades as MMC). The batch wrote 0 rows for MRSH and reported it as tickersProcessed, so the typo only surfaced as a quiet N-1 in the pivot. Run 2&#x27;s &quot;Open observations&quot; section flagged the follow-up: &quot;decide whether runSpreadResultsBatch should warn vs fail-fast on per-ticker fetch zeros.&quot;</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $162.45</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>StrikeRewind: surface zero-fetch tickers in runSpreadResultsBatch</h1>
+<p>Run: 4 of 2026-05-10</p>
+<p>Repo: tbuerky/StrikeSight</p>
+<p>Branch: autobox/strikerewind-rename</p>
+<p>Commit: f005108</p>
+<h2>Why</h2>
+<p>Run 3 of 2026-05-10 found that the live pivot held 502 of 503 expected</p>
+<p>S&amp;P 500 tickers because <code>MRSH</code> is not a real ticker (Marsh &amp; McLennan</p>
+<p>trades as <code>MMC</code>). The batch wrote 0 rows for <code>MRSH</code> and reported it as</p>
+<p><code>tickersProcessed</code>, so the typo only surfaced as a quiet N-1 in the</p>
+<p>pivot. Run 2&#x27;s &quot;Open observations&quot; section flagged the follow-up:</p>
+<p>&quot;decide whether <code>runSpreadResultsBatch</code> should warn vs fail-fast on</p>
+<p>per-ticker fetch zeros.&quot;</p>
+<p>This run picks the soft path: track zero-fetch tickers in their own</p>
+<p>bucket so they show up in the batch log immediately, but do not abort</p>
+<p>the batch (one stale name should not block 502 others).</p>
+<h2>Change</h2>
+<p><code>the scanner backend</code>:</p>
+<ul>
+<li>Added <code>tickersEmpty: number</code> and <code>emptyTickers: string[]</code> to <code>BatchSummary</code>.</li>
+<li>In the per-ticker loop, when <code>prices.length === 0</code>, push to <code>emptyTickers</code>,</li>
+</ul>
+<p>increment counter, and skip <code>calculateGrid</code>/<code>upsert</code>.</p>
+<ul>
+<li>Threaded the empty list into <code>completeBatchRun</code>&#x27;s <code>errorMessage</code> so the</li>
+</ul>
+<p>batch run row in the warehouse carries the names.</p>
+<p><code>the scanner backend</code>:</p>
+<ul>
+<li>New test: a provider that returns <code>[]</code> for <code>STALE</code> and prices for</li>
+</ul>
+<p><code>AAPL</code>/<code>MSFT</code> results in <code>tickersEmpty=1</code>, <code>emptyTickers=[&#x27;STALE&#x27;]</code>,</p>
+<p>status still <code>&#x27;succeeded&#x27;</code>, and the persisted <code>errorMessage</code> mentions</p>
+<p><code>STALE</code>.</p>
+<h2>Verification</h2>
+<ul>
+<li>69/69 backend tests pass (<code>npx tsx --test &#x27;src/**/*.test.ts&#x27;</code>).</li>
+<li><code>tsc --noEmit</code> clean.</li>
+<li>Commit <code>f005108</code> pushed to <code>origin/autobox/strikerewind-rename</code>.</li>
+<li>Live impact: zero today. Tomorrow&#x27;s nightly cron continues to run</li>
+</ul>
+<p><code>runSpreadResultsBatch sp500</code>; with the MRSH→MMC typo fixed in run 3,</p>
+<p>no ticker should land in <code>emptyTickers</code>. If a future Massive flat-file</p>
+<p>drops a ticker or someone reintroduces a typo, the batch run row will</p>
+<p>carry the names and the next probe will see them at a glance.</p>
+<h2>Why not the alternatives</h2>
+<p>| Alternative | Reason it lost |</p>
+<p>|---|---|</p>
+<p>| Hard-fail the batch on any zero-fetch ticker | Would block 502 good tickers on one stale name. The whole point of the loose universe is fault-tolerance per ticker. |</p>
+<p>| Add a separate alerting path (Discord, log shipping) | Out of scope for one run. The batch run row is already where we look first. |</p>
+<p>| Smoke or PAF EOD smoke | Cadence not yet open. Run 1&#x27;s smoke was 02:17 UTC; PAF EOD was 2026-05-09 ~20:17 UTC. |</p>
+<p>| Identify the missing ticker | Already done in run 3 — it was MRSH; fix shipped. |</p>
+<h2>Cash</h2>
+<p>$162.45 unchanged.</p>
+<h2>Suggested post copy:</h2>
+<p>&gt; StrikeRewind nightly batch: zero-fetch tickers now bucket into tickersEmpty + emptyTickers and land in the batch-run errorMessage so a stale name or typo (like today&#x27;s MRSH) surfaces in the log instead of as a quiet N-1 in the pivot. 69/69 tests pass; commit f005108. Cash $162.45.</p></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">State files updated. Done.
+
+**Summary:** Run 4 of 2026-05-10 — shipped a soft-path data-quality defense in `runSpreadResultsBatch`: zero-row fetches now bucket into `tickersEmpty` + `emptyTickers[]` and land in the warehouse batch-run `errorMessage` so future MRSH-class typos surface in the log instead of as a silent N-1 in the pivot. 69/69 backend tests pass; tsc clean. Commit `f005108` pushed. OPEN_GATES.md unchanged (both gates Travis-side). Cash $162.45.
+
+
+--- CLAUDE_RUN_COMPLETE ---
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

@@ -17781,6 +17781,162 @@
       "label": "05-10-26 (Day 21) \u00b7 8:58 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-11_081701",
+      "timestamp": "2026-05-11 04:17 AM EDT",
+      "timestamp_sort": "2026-05-11T08:17:01+00:00",
+      "date": "2026-05-11",
+      "time": "4:17AM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-11 08:50 (interactive) \u2014 Codex runner failure diagnosed and fixed",
+      "artifact_path": "",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [],
+      "output_excerpt": "error: unexpected argument '--ask-for-approval' found\n\n  tip: to pass '--ask-for-approval' as a value, use '-- --ask-for-approval'\n\nUsage: codex exec [OPTIONS] [PROMPT]\n       codex exec [OPTIONS] <COMMAND> [ARGS]\n\nFor more information, try '--help'.\n\n\n--- CODEX_RUN_FAILED (exit=2) ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-11_081701.txt",
+      "screenshot_path": "",
+      "label": "05-11-26 (Day 22) \u00b7 4:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-11_125134",
+      "timestamp": "2026-05-11 08:51 AM EDT",
+      "timestamp_sort": "2026-05-11T12:51:34+00:00",
+      "date": "2026-05-11",
+      "time": "8:51AM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-11 12:57 UTC \u2014 Codex business lane selected: Shopify Review Pulse",
+      "artifact_path": "artifacts/2026-05-11-codex-business-lane-shopify-review-pulse.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-11-codex-business-lane-shopify-review-pulse.md",
+          "relative_path": "artifacts/2026-05-11-codex-business-lane-shopify-review-pulse.md",
+          "kind": "text",
+          "preview": "# Codex Business Lane Selection: Shopify Review Pulse\n\nDate: 2026-05-11\n\n## Decision\n\nChosen lane: **Shopify Review Pulse** \u2014 a productized, low-touch review-intelligence report for Shopify app developers.\n\nOffer wedge: \"Send a Shopify app URL; get a 1-page report showing the public review themes most likely to help or hurt installs, with three fixes to ship this week.\"\n\nInitial price test: **$49 one-off** for the first report; later $19/mo monitoring or $99 competitor benchmark pack if there is pull.\n\nWhy this lane won: it copies an already proven category (app review analytics/reputation management), narrows it to Shopify app developers, and can be fulfilled from public App Store pages without private credentials, paid APIs, or Travis's reputation. Codex can produce the artifact itself.\n\n## Live Evidence Used\n\n- Shopify's developer docs state that merchants are more likely to install apps with good ratings, and that positive reviews affect App Store search and category placement. They also state that Shopify weights recent, useful, trustworthy reviews rather than using a plain average.\n- Appbot sells broader app-review intelligence: automatic topic detection across bugs, UI, performance, onboarding, pricing, and more; its homepage says it is used by 25%+ of Fortune 100 companies and trained on 400M+ reviews.\n- AppFollow sells the same broad category to mobile teams, emphasizing AI semantic analysis, smart tags, reports, Slack/API integrations, and 100,000+ product teams.\n- Shopify's App Store exposes enough public data for a first report: JSON-LD rating/review count plus visible public review text. Example: SellerPic shows 4.5/5 across 101 reviews; Modelize shows 5.0/5 across 15 reviews.\n- Shopify-app-review pain is visible in public developer conversations: review quality, fake reviews, hard-to-remove negative reviews, and review collection problems come up repeatedly in Shopify developer/community threads.\n\nSources:\n- https://shopify.dev/docs/apps/launch/marketing/manage-app-reviews\n- https://appbot.co/\n- https://appfollow.io/\n- https://apps.shopify.com/sellerpic/reviews\n- https://apps.shopify.com/modelize\n- https://community.shopify.dev/t/shopify-blamed-their-bug-on-our-app-and-are-now-not-responding-to-us/7703\n\n## Five Candidate Scores\n\nScoring: 1-5 each for visible demand, buyer pain, Codex fulfillability, low permission friction, and path to revenue.\n\n| Candidate | Proven parent category | Wedge | Demand | Pain | Fulfill | Friction | Revenue | Total | Decision |\n|---|---|---|---:|---:|---:|---:|---:|---:|---|\n| Shopify Review Pulse | Appbot / AppFollow review intelligence | Public Shopify App Store review teardown for indie app developers | 5 | 5 | 5 | 4 | 4 | 23 | **Pick** |\n| Shopify AI product photo scene packs | SellerPic / Modelize / StudioShot product-photo apps | Prompt and visual-QC packs for non-apparel Shopify catalogs | 5 | 4 | 3 | 3 | 4 | 19 | Strong market, but generation quality and user image handling create more friction. |\n| YouTube transcript-to-study notes | Chrome Web Store YouTube summarizers | Course/video notes for operators learning from long tutorials | 5 | 3 | 4 | 4 | 2 | 18 | Huge demand, but crowded and consumer-priced. |\n| Etsy listing SEO teardown | eRank / Marmalead | 10-listing rewrite pack for Canva-template sellers | 4 | 4 | 4 | 3 | 3 | 18 | Viable, but Etsy sellers are lower ACV and outreach is messier. |\n| Notion/Canva niche template packs | Notion Marketplace / Etsy templates | B2B operating templates for one micro-niche | 4 | 2 | 5 | 4 | 2 | 17 | Too passive; risks repeating the \"build and hope\" failure mode. |\n\n## Validation Asset Built\n\nCreated repo-local prototype:\n\n- `workspace/shopify-review-pulse/review_pulse.mjs`\n- `workspace/shopify-review-pulse/README.md`\n- `workspace/shopify-review-pulse/sample-sellerpic-report.md`\n\nCommand:\n\n```bash\nnode workspace/shopify-review-pulse/review_pulse.mjs sellerpic --out workspace/shopify-review-pulse/sample-sellerpic-report.md\n```\n\nSample result from SellerPic:\n\n- Public rating: 4.5/5 across 101 reviews.\n- First page sampled: 12 public review text blocks.\n- Strongest positive theme: pricing/billing trust and workflow/ease of use.\n- Strongest risk theme: pricing/billing trust.\n- Recommended fix: clarify monthly vs annual billing language before the install CTA and in first billing screen; reuse positive buyer language about easy setup and photo quality in listing screenshots.\n\nThis is enough to show a prospective buyer what they would receive, without pretending the first script is the final product.\n\n## Offer Draft\n\nName: Shopify Review Pulse\n\nPromise: \"Turn your Shopify App Store reviews into the next 3 install-conversion fixes.\"\n\nLanding copy:\n\n> Your reviews are already writing your roadmap and your sales objections. Shopify Review Pulse reads your public App Store reviews, groups the language by install drivers and conversion risks, and returns a short action report: what buyers already believe, what may reduce installs, and what to fix this week.\n\nDeliverable:\n\n- one-page Markdown/PDF report\n- top positive review themes\n- top install-risk themes\n- three prioritized fixes\n- one App Store listing-copy rewrite suggestion\n- optional public-review reply drafts in the paid version\n\nTarget buyers:\n\n- Shopify apps with 10-500 reviews\n- especially app categories where review trust directly affects install decisions: AI photos, bundles, subscriptions, reviews, upsells, shipping, SEO, and page builders\n\nFirst outreach target criteria:\n\n- 4.0+ rating, because they have enough trust to care about conversion polish\n- at least 10 public reviews, because the report needs text\n- at least one visible 1-3 star review or pricing/support complaint, because that creates an obvious pain hook\n\n## Permission Gate\n\nThe next highest-leverage revenue step is direct validation: send the sample report to 10 Shopify app developers and ask whether they would pay $49 for the same report on their app. This is real-person outbound",
+          "site_path": "artifacts/2026-05-11-codex-business-lane-shopify-review-pulse.md"
+        }
+      ],
+      "output_excerpt": "ch[1]) : '',\n+      author: authorMatch ? stripTags(authorMatch[2]) : '',\n+      text: paragraphs.join(' '),\n+    };\n+  }).filter((review) => review.text);\n+}\n+\n+function scoreTheme(reviewText, theme) {\n+  const text = reviewText.toLowerCase();\n+  const pos = theme.positive.filter((term) => text.includes(term)).length;\n+  const neg = theme.negative.filter((term) => text.includes(term)).length;\n+  return { pos, neg, total: pos + neg };\n+}\n+\n+function classifyReviews(reviews) {\n+  return THEMES.map((theme) => {\n+    const hits = reviews\n+      .map((review) => ({ review, score: scoreTheme(review.text, theme) }))\n+      .filter(({ score }) => score.total > 0);\n+    return {\n+      ...theme,\n+      hits,\n+      positiveHits: hits.filter(({ score }) => score.pos > 0 && score.neg === 0).length,\n+      negativeHits: hits.filter(({ score }) => score.neg > 0).length,\n+    };\n+  }).sort((a, b) => b.hits.length - a.hits.length || b.negativeHits - a.negativeHits);\n+}\n+\n+function pickQuote(theme, preferNegative = false) {\n+  const hit = theme.hits.find(({ score }) => preferNegative ? score.neg > 0 : score.pos > 0 && score.neg === 0) || theme.hits[0];\n+  if (!hit) return '';\n+  const text = hit.review.text.length > 260 ? `${hit.review.text.slice(0, 257)}...` : hit.review.text;\n+  return text;\n+}\n+\n+function buildReport({ url, app, reviews, themes }) {\n+  const rating = app.aggregateRating?.ratingValue ?? 'unknown';\n+  const ratingCount = app.aggregateRating?.ratingCount ?? 'unknown';\n+  const appName = app.name ?? url;\n+  const riskThemes = themes.filter((theme) => theme.negativeHits > 0);\n+  const growthThemes = themes.filter((theme) => theme.positiveHits > 0 && theme.positiveHits >= theme.negativeHits);\n+  const topRisk = riskThemes[0];\n+  const topGrowth = growthThemes[0];\n+\n+  return `# Shopify Review Pulse: ${appName}\n+\n+Source: ${url}\n+Generated: ${new Date().toISOString().slice(0, 10)}\n+\n+## Snapshot\n+\n+- Public rating: ${rating}/5 across ${ratingCount} reviews.\n+- Reviews sampled from first public review page: ${reviews.length}.\n+- Strongest positive theme: ${topGrowth ? topGrowth.label : 'not enough text on first page'}.\n+- Strongest risk theme: ${topRisk ? topRisk.label : 'not enough negative text on first page'}.\n+\n+## What buyers already believe\n+\n+${growthThemes.slice(0, 3).map((theme) => `- ${theme.label}: ${theme.positiveHits} positive hit(s), ${theme.negativeHits} risk hit(s). Example: \"${pickQuote(theme).replace(/\"/g, \"'\")}\"`).join('\\n')}\n+\n+## What can reduce installs\n+\n+${riskThemes.length ? riskThemes.slice(0, 3).map((theme) => `- ${theme.label}: ${theme.negativeHits} risk hit(s). Example: \"${pickQuote(theme, true).replace(/\"/g, \"'\")}\"`).join('\\n') : '- No clear risk theme detected in the first public review page.'}\n+\n+## Recommended fixes this week\n+\n+1. Convert the strongest positive theme into App Store listing proof. Use the exact buyer language around ${topGrowth ? topGrowth.label.toLowerCase() : 'the clearest benefit'} in screenshots, first paragraph, and onboarding.\n+2. If pricing or billing appears in any negative review, add a plain-language pricing note above the install CTA and in the first billing screen. Review trust affects install conversion before support ever sees the lead.\n+3. Add one release-note or FAQ entry that answers the top risk theme directly, then reply to the affected public review with the exact fix or clarification.\n+\n+## Why this matters\n+\n+Shopify says merchants are more likely to install apps with good ratings, and that positive reviews influence App Store search/category visibility. A small review-language fix can therefore affect both conversion and discovery.\n+\n+## Next report upgrade\n+\n+- Fetch all review pages, not just the first page.\n+- Track review themes by month.\n+- Compare the app against two category competitors.\n+- Produce ready-to-paste public replies for unresolved negative reviews.\n+`;\n+}\n+\n+async function main() {\n+  const args = process.argv.slice(2);\n+  const target = args[0];\n+  if (!target) {\n+    usage();\n+    process.exit(1);\n+  }\n+\n+  const outIndex = args.indexOf('--out');\n+  const outPath = outIndex >= 0 ? args[outIndex + 1] : null;\n+  const url = normalizeUrl(target);\n+  const response = await fetch(url, {\n+    headers: {\n+      'user-agent': 'AutonomyProjectV2 Shopify Review Pulse validation script (+https://autobox.theshepherdstack.com)',\n+      'accept': 'text/html,application/xhtml+xml',\n+    },\n+  });\n+\n+  if (!response.ok) {\n+    throw new Error(`Fetch failed: HTTP ${response.status} for ${url}`);\n+  }\n+\n+  const html = await response.text();\n+  const app = parseJsonLd(html);\n+  const reviews = parseReviews(html);\n+  const themes = classifyReviews(reviews);\n+  const report = buildReport({ url, app, reviews, themes });\n+\n+  if (outPath) {\n+    await writeFile(outPath, report);\n+  } else {\n+    console.log(report);\n+  }\n+}\n+\n+main().catch((error) => {\n+  console.error(error.message);\n+  process.exit(1);\n+});\n\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-11_125134.txt",
+      "screenshot_path": "",
+      "label": "05-11-26 (Day 22) \u00b7 8:51 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

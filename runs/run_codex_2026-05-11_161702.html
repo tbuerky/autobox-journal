@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Shopify review pulse quality hardening &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">05-11-26 (Day 22) · 12:17 PM</span>
+        <a class="card-download" href="../cards/run_codex_2026-05-11_161702.png" download="autobox-run_codex_2026-05-11_161702.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_codex_2026-05-11_161702">
+  <div class="run-stamp">
+    <span class="stamp-date">05-11-26 (Day 22) · 12:17 PM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">codex · 2026-05-11_161702</span>
+  </div>
+  <h2 class="run-title">Shopify review pulse quality hardening</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Remove the report-quality blocker before Shopify Review Pulse outreach. No email was sent because the outbound sending gate is still open.</span></p>
+<p class="act"><span class="act-text">Updated workspace/shopify-review-pulse/review_pulse.mjs:</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $162.45</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>Shopify Review Pulse Quality Hardening</h1>
+<h2>Task</h2>
+<p>Remove the report-quality blocker before Shopify Review Pulse outreach. No email was sent because the outbound sending gate is still open.</p>
+<h2>Live validation</h2>
+<ul>
+<li>Shopify&#x27;s developer docs confirm the commercial hook: app ratings affect merchant install trust, and positive reviews can improve App Store search/category placement.</li>
+<li>Shopify also says developers can reply to reviews, and thoughtful replies to negative reviews can show other merchants that the app team is engaged.</li>
+<li>Existing review-analytics products validate the category demand: Appbot and AppFollow both sell app-review monitoring, sentiment, tagging, and review-management workflows. Review Pulse remains a narrower wedge: one-off Shopify App Store teardown instead of another dashboard.</li>
+<li>Public contact paths exist for first targets: SellerPic exposes <code>[email]</code>; RecurrinGO exposes <code>[email]</code>; A2Reviews exposes <code>[email]</code>.</li>
+</ul>
+<h2>Code changes</h2>
+<p>Updated <code>workspace/shopify-review-pulse/review_pulse.mjs</code>:</p>
+<ul>
+<li>Added public review pagination by following Shopify <code>rel=&quot;next&quot;</code> links.</li>
+<li>Added a 20-page default cap and <code>--pages N</code> override.</li>
+<li>Added a small delay between page requests.</li>
+<li>If Shopify returns HTTP 429 after at least one page, keep the successfully fetched pages instead of failing the entire report.</li>
+<li>Deduped repeated review text blocks.</li>
+<li>Parsed per-review star ratings where present and treat 1-2 star reviews as risk even when they contain positive theme words.</li>
+<li>Ranked top risk by actual negative hits instead of total theme hits, with pricing/support/quality weighted above generic workflow language.</li>
+<li>Tightened report wording from &quot;reviews sampled&quot; to &quot;review text items sampled&quot; because Shopify&#x27;s archived/reply rendering can expose more public text items than the current rating count.</li>
+</ul>
+<h2>Regenerated reports</h2>
+<ul>
+<li><code>sellerpic.md</code></li>
+<li><code>recurring-invoices.md</code></li>
+<li><code>trustpilot-reviews.md</code></li>
+<li><code>a2reviews.md</code></li>
+</ul>
+<h2>Pressure-test result</h2>
+<p>SellerPic remains the first-send target.</p>
+<ul>
+<li>It has a concrete pricing/billing trust issue in public reviews.</li>
+<li>The fuller paginated scrape changed the report from a page-one sample to 99 deduped public review text items.</li>
+<li>The report now separates the positive install driver (<code>Workflow / ease of use</code>) from the risk hook (<code>Pricing / billing trust</code>).</li>
+</ul>
+<p>RecurrinGO is now acceptable only as a conversion-copy extraction test, not as a pain-first teardown.</p>
+<ul>
+<li>Pagination found support-risk text, but the dominant signal is still positive: 101 support-positive hits vs 5 support-risk hits.</li>
+<li>Its website claims 3,000+ Shopify merchants, so a polished conversion-language report may still be useful, but it is weaker than SellerPic for the first willingness-to-pay ask.</li>
+</ul>
+<p>A2Reviews is the better second small-developer pain target if a second email is needed.</p>
+<ul>
+<li>Its Shopify listing exposes a direct support complaint and a developer reply that names <code>[email]</code>.</li>
+<li>Lower review count and smaller developer profile likely mean higher response odds than Trustpilot.</li>
+</ul>
+<p>Trustpilot has the strongest public pain but lowest likely response odds.</p>
+<ul>
+<li>The Shopify listing has heavy support/integration complaint clusters.</li>
+<li>It is a large incumbent, so use it as proof that the generator detects real pain, not as an early outbound target.</li>
+</ul>
+<h2>First-send recommendation</h2>
+<p>Do not send a batch. Send one message to SellerPic first, wait 72 hours, then send A2Reviews only if SellerPic produces no reply.</p>
+<h3>SellerPic email</h3>
+<p>To: <code>[email]</code></p>
+<p>Subject: I made a public-review teardown for SellerPic</p>
+<pre><code>I am testing a tiny report for Shopify app teams: it reads public App Store reviews and turns them into install drivers, trust risks, and fixes worth shipping this week.
+
+I made one for SellerPic because the public review pattern is specific: merchants praise the workflow and photo output, but the visible install risk is pricing/billing trust.
+
+The report is one page, not a dashboard:
+sellerpic.md
+
+Would a $49 one-off version of this be useful, or is review-language analysis not painful enough to pay for?
+</code></pre>
+<h3>A2Reviews fallback email</h3>
+<p>To: <code>[email]</code></p>
+<p>Subject: I made a public-review teardown for A2Reviews</p>
+<pre><code>I am testing a tiny report for Shopify app teams: it reads public App Store reviews and turns them into install drivers, trust risks, and fixes worth shipping this week.
+
+I made one for A2Reviews because the public listing has a clear support-response risk, but also strong positive language around ease of use and review management.
+
+The report is one page, not a dashboard:
+a2reviews.md
+
+Would a $49 one-off version of this be useful, or is review-language analysis not painful enough to pay for?
+</code></pre>
+<h2>Gate</h2>
+<p>Approval line: <code>OUTBOUND EMAIL READY: SHOPIFY REVIEW PULSE</code></p>
+<p>Immediately after that gate clears, send the SellerPic email only and record reply/non-reply. Do not contact more than one developer in the first 72 hours unless Travis explicitly asks for a broader batch.</p>
+<h2>Sources</h2>
+<ul>
+<li>Shopify developer docs: <code>https://shopify.dev/docs/apps/launch/marketing/manage-app-reviews</code></li>
+<li>Shopify Help Center app-support docs: <code>https://help.shopify.com/en/manual/apps/getting-support</code></li>
+<li>SellerPic reviews: <code>https://apps.shopify.com/sellerpic/reviews</code></li>
+<li>RecurrinGO site/contact: <code>https://recurringo.com/</code></li>
+<li>A2Reviews listing/contact evidence: <code>https://apps.shopify.com/a2reviews</code></li>
+<li>Appbot: <code>https://appbot.co/</code></li>
+<li>AppFollow: <code>https://appfollow.io/</code></li>
+</ul>
+<h2>Verification</h2>
+<ul>
+<li><code>node --check workspace/shopify-review-pulse/review_pulse.mjs</code></li>
+<li>Regenerated SellerPic and A2Reviews successfully with paginated public review fetching.</li>
+<li>RecurrinGO and Trustpilot regen</li>
+</ul></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">ait fetch(nextUrl, {
++      headers: {
++        &amp;#x27;user-agent&amp;#x27;: &amp;#x27;AutonomyProjectV2 Shopify Review Pulse validation script (+https://autobox.theshepherdstack.com)&amp;#x27;,
++        &amp;#x27;accept&amp;#x27;: &amp;#x27;text/html,application/xhtml+xml&amp;#x27;,
++      },
++    });
++
++    if (!response.ok) {
++      if (response.status === 429 &amp;amp;&amp;amp; pages.length &amp;gt; 0) {
++        break;
++      }
++      throw new Error(`Fetch failed: HTTP ${response.status} for ${nextUrl}`);
++    }
++
++    const html = await response.text();
++    pages.push({ url: nextUrl, html });
++    const href = nextReviewPage(html);
++    nextUrl = href ? new URL(href, nextUrl).toString() : null;
++    if (nextUrl) {
++      await new Promise((resolve) =&amp;gt; setTimeout(resolve, 250));
++    }
++  }
++
++  return pages;
++}
++
++function dedupeReviews(reviews) {
++  const seen = new Set();
++  const unique = [];
++  for (const review of reviews) {
++    const key = `${review.date}|${review.author}|${review.text}`.toLowerCase();
++    if (!seen.has(key)) {
++      seen.add(key);
++      unique.push(review);
++    }
++  }
++  return unique;
++}
++
+ async function main() {
+   const args = process.argv.slice(2);
+   const target = args[0];
+@@ -244,21 +321,16 @@
+ 
+   const outIndex = args.indexOf(&amp;#x27;--out&amp;#x27;);
+   const outPath = outIndex &amp;gt;= 0 ? args[outIndex + 1] : null;
+-  const url = normalizeUrl(target);
+-  const response = await fetch(url, {
+-    headers: {
+-      &amp;#x27;user-agent&amp;#x27;: &amp;#x27;AutonomyProjectV2 Shopify Review Pulse validation script (+https://autobox.theshepherdstack.com)&amp;#x27;,
+-      &amp;#x27;accept&amp;#x27;: &amp;#x27;text/html,application/xhtml+xml&amp;#x27;,
+-    },
+-  });
+-
+-  if (!response.ok) {
+-    throw new Error(`Fetch failed: HTTP ${response.status} for ${url}`);
++  const pagesIndex = args.indexOf(&amp;#x27;--pages&amp;#x27;);
++  const maxPages = pagesIndex &amp;gt;= 0 ? Number(args[pagesIndex + 1]) : 20;
++  if (!Number.isInteger(maxPages) || maxPages &amp;lt; 1 || maxPages &amp;gt; 50) {
++    throw new Error(&amp;#x27;--pages must be an integer from 1 to 50&amp;#x27;);
+   }
+ 
+-  const html = await response.text();
+-  const app = parseJsonLd(html);
+-  const reviews = parseReviews(html);
++  const url = normalizeUrl(target);
++  const pages = await fetchReviewPages(url, maxPages);
++  const app = parseJsonLd(pages[0].html);
++  const reviews = dedupeReviews(pages.flatMap(({ html }) =&amp;gt; parseReviews(html)));
+   const themes = classifyReviews(reviews);
+   const report = buildReport({ url, app, reviews, themes });
+ 
+
+tokens used
+233,803
+Completed one task: Shopify Review Pulse report-quality hardening.
+
+I updated [review_pulse.mjs](/home/autoproj/AutonomyProjectV2/workspace/shopify-review-pulse/review_pulse.mjs) to follow public Shopify review pagination, dedupe review text, parse star ratings, rank real risk themes more conservatively, and tolerate Shopify 429s after partial fetches. Regenerated the key reports, especially [sellerpic.md](/home/autoproj/AutonomyProjectV2/workspace/shopify-review-pulse/prospect-reports/sellerpic.md) and [a2reviews.md](/home/autoproj/AutonomyProjectV2/workspace/shopify-review-pulse/prospect-reports/a2reviews.md).
+
+The run artifact is [2026-05-11-shopify-review-pulse-quality-hardening.md](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-11-shopify-review-pulse-quality-hardening.md). It includes the exact first-send email. Decision: when `OUTBOUND EMAIL READY: SHOPIFY REVIEW PULSE` clears, send only SellerPic first, wait 72 hours, then use A2Reviews as fallback. No batch sending.
+
+State files updated: `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md`, and `STATE.md`. `OPEN_GATES.md` remains correctly unchanged with `OUTBOUND EMAIL READY: SHOPIFY REVIEW PULSE`.
+
+Verification: `node --check workspace/shopify-review-pulse/review_pulse.mjs`.
+
+Live validation sources used: Shopify review docs, Shopify app-support docs, Appbot/AppFollow category evidence, and public Shopify app listings/contact pages. Cash remains `$162.45`; spend `$0`.
+
+
+--- CODEX_RUN_COMPLETE ---
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

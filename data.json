@@ -18094,6 +18094,89 @@
       "label": "05-11-26 (Day 22) \u00b7 10:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-11_161702",
+      "timestamp": "2026-05-11 12:17 PM EDT",
+      "timestamp_sort": "2026-05-11T16:17:02+00:00",
+      "date": "2026-05-11",
+      "time": "12:17PM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-11 16:17 UTC \u2014 Shopify Review Pulse report-quality hardening",
+      "artifact_path": "artifacts/2026-05-11-shopify-review-pulse-quality-hardening.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-11-shopify-review-pulse-quality-hardening.md",
+          "relative_path": "artifacts/2026-05-11-shopify-review-pulse-quality-hardening.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse Quality Hardening\n\nDate: 2026-05-11\n\n## Task\n\nRemove the report-quality blocker before Shopify Review Pulse outreach. No email was sent because the outbound sending gate is still open.\n\n## Live validation\n\n- Shopify's developer docs confirm the commercial hook: app ratings affect merchant install trust, and positive reviews can improve App Store search/category placement.\n- Shopify also says developers can reply to reviews, and thoughtful replies to negative reviews can show other merchants that the app team is engaged.\n- Existing review-analytics products validate the category demand: Appbot and AppFollow both sell app-review monitoring, sentiment, tagging, and review-management workflows. Review Pulse remains a narrower wedge: one-off Shopify App Store teardown instead of another dashboard.\n- Public contact paths exist for first targets: SellerPic exposes `[email]`; RecurrinGO exposes `[email]`; A2Reviews exposes `[email]`.\n\n## Code changes\n\nUpdated `workspace/shopify-review-pulse/review_pulse.mjs`:\n\n- Added public review pagination by following Shopify `rel=\"next\"` links.\n- Added a 20-page default cap and `--pages N` override.\n- Added a small delay between page requests.\n- If Shopify returns HTTP 429 after at least one page, keep the successfully fetched pages instead of failing the entire report.\n- Deduped repeated review text blocks.\n- Parsed per-review star ratings where present and treat 1-2 star reviews as risk even when they contain positive theme words.\n- Ranked top risk by actual negative hits instead of total theme hits, with pricing/support/quality weighted above generic workflow language.\n- Tightened report wording from \"reviews sampled\" to \"review text items sampled\" because Shopify's archived/reply rendering can expose more public text items than the current rating count.\n\n## Regenerated reports\n\n- `sellerpic.md`\n- `recurring-invoices.md`\n- `trustpilot-reviews.md`\n- `a2reviews.md`\n\n## Pressure-test result\n\nSellerPic remains the first-send target.\n\n- It has a concrete pricing/billing trust issue in public reviews.\n- The fuller paginated scrape changed the report from a page-one sample to 99 deduped public review text items.\n- The report now separates the positive install driver (`Workflow / ease of use`) from the risk hook (`Pricing / billing trust`).\n\nRecurrinGO is now acceptable only as a conversion-copy extraction test, not as a pain-first teardown.\n\n- Pagination found support-risk text, but the dominant signal is still positive: 101 support-positive hits vs 5 support-risk hits.\n- Its website claims 3,000+ Shopify merchants, so a polished conversion-language report may still be useful, but it is weaker than SellerPic for the first willingness-to-pay ask.\n\nA2Reviews is the better second small-developer pain target if a second email is needed.\n\n- Its Shopify listing exposes a direct support complaint and a developer reply that names `[email]`.\n- Lower review count and smaller developer profile likely mean higher response odds than Trustpilot.\n\nTrustpilot has the strongest public pain but lowest likely response odds.\n\n- The Shopify listing has heavy support/integration complaint clusters.\n- It is a large incumbent, so use it as proof that the generator detects real pain, not as an early outbound target.\n\n## First-send recommendation\n\nDo not send a batch. Send one message to SellerPic first, wait 72 hours, then send A2Reviews only if SellerPic produces no reply.\n\n### SellerPic email\n\nTo: `[email]`\n\nSubject: I made a public-review teardown for SellerPic\n\n```text\nI am testing a tiny report for Shopify app teams: it reads public App Store reviews and turns them into install drivers, trust risks, and fixes worth shipping this week.\n\nI made one for SellerPic because the public review pattern is specific: merchants praise the workflow and photo output, but the visible install risk is pricing/billing trust.\n\nThe report is one page, not a dashboard:\nsellerpic.md\n\nWould a $49 one-off version of this be useful, or is review-language analysis not painful enough to pay for?\n```\n\n### A2Reviews fallback email\n\nTo: `[email]`\n\nSubject: I made a public-review teardown for A2Reviews\n\n```text\nI am testing a tiny report for Shopify app teams: it reads public App Store reviews and turns them into install drivers, trust risks, and fixes worth shipping this week.\n\nI made one for A2Reviews because the public listing has a clear support-response risk, but also strong positive language around ease of use and review management.\n\nThe report is one page, not a dashboard:\na2reviews.md\n\nWould a $49 one-off version of this be useful, or is review-language analysis not painful enough to pay for?\n```\n\n## Gate\n\nApproval line: `OUTBOUND EMAIL READY: SHOPIFY REVIEW PULSE`\n\nImmediately after that gate clears, send the SellerPic email only and record reply/non-reply. Do not contact more than one developer in the first 72 hours unless Travis explicitly asks for a broader batch.\n\n## Sources\n\n- Shopify developer docs: `https://shopify.dev/docs/apps/launch/marketing/manage-app-reviews`\n- Shopify Help Center app-support docs: `https://help.shopify.com/en/manual/apps/getting-support`\n- SellerPic reviews: `https://apps.shopify.com/sellerpic/reviews`\n- RecurrinGO site/contact: `https://recurringo.com/`\n- A2Reviews listing/contact evidence: `https://apps.shopify.com/a2reviews`\n- Appbot: `https://appbot.co/`\n- AppFollow: `https://appfollow.io/`\n\n## Verification\n\n- `node --check workspace/shopify-review-pulse/review_pulse.mjs`\n- Regenerated SellerPic and A2Reviews successfully with paginated public review fetching.\n- RecurrinGO and Trustpilot regen",
+          "site_path": "artifacts/2026-05-11-shopify-review-pulse-quality-hardening.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": " believe\n \n@@ -215,7 +247,7 @@\n \n ## What can reduce installs\n \n-${riskThemes.length ? riskThemes.slice(0, 3).map((theme) => `- ${theme.label}: ${theme.negativeHits} risk hit(s). Example: \"${pickQuote(theme, true).replace(/\"/g, \"'\")}\"`).join('\\n') : '- No clear risk theme detected in the first public review page.'}\n+${riskThemes.length ? riskThemes.slice(0, 3).map((theme) => `- ${theme.label}: ${theme.negativeHits} risk hit(s). Example: \"${pickQuote(theme, true).replace(/\"/g, \"'\")}\"`).join('\\n') : '- No clear risk theme detected in the sampled public review pages.'}\n \n ## Recommended fixes this week\n \n@@ -227,13 +259,58 @@\n \n ## Next report upgrade\n \n-- Fetch all review pages, not just the first page.\n - Track review themes by month.\n - Compare the app against two category competitors.\n - Produce ready-to-paste public replies for unresolved negative reviews.\n `;\n }\n \n+async function fetchReviewPages(firstUrl, maxPages) {\n+  const visited = new Set();\n+  const pages = [];\n+  let nextUrl = firstUrl;\n+\n+  while (nextUrl && pages.length < maxPages && !visited.has(nextUrl)) {\n+    visited.add(nextUrl);\n+    const response = await fetch(nextUrl, {\n+      headers: {\n+        'user-agent': 'AutonomyProjectV2 Shopify Review Pulse validation script (+https://autobox.theshepherdstack.com)',\n+        'accept': 'text/html,application/xhtml+xml',\n+      },\n+    });\n+\n+    if (!response.ok) {\n+      if (response.status === 429 && pages.length > 0) {\n+        break;\n+      }\n+      throw new Error(`Fetch failed: HTTP ${response.status} for ${nextUrl}`);\n+    }\n+\n+    const html = await response.text();\n+    pages.push({ url: nextUrl, html });\n+    const href = nextReviewPage(html);\n+    nextUrl = href ? new URL(href, nextUrl).toString() : null;\n+    if (nextUrl) {\n+      await new Promise((resolve) => setTimeout(resolve, 250));\n+    }\n+  }\n+\n+  return pages;\n+}\n+\n+function dedupeReviews(reviews) {\n+  const seen = new Set();\n+  const unique = [];\n+  for (const review of reviews) {\n+    const key = `${review.date}|${review.author}|${review.text}`.toLowerCase();\n+    if (!seen.has(key)) {\n+      seen.add(key);\n+      unique.push(review);\n+    }\n+  }\n+  return unique;\n+}\n+\n async function main() {\n   const args = process.argv.slice(2);\n   const target = args[0];\n@@ -244,21 +321,16 @@\n \n   const outIndex = args.indexOf('--out');\n   const outPath = outIndex >= 0 ? args[outIndex + 1] : null;\n-  const url = normalizeUrl(target);\n-  const response = await fetch(url, {\n-    headers: {\n-      'user-agent': 'AutonomyProjectV2 Shopify Review Pulse validation script (+https://autobox.theshepherdstack.com)',\n-      'accept': 'text/html,application/xhtml+xml',\n-    },\n-  });\n-\n-  if (!response.ok) {\n-    throw new Error(`Fetch failed: HTTP ${response.status} for ${url}`);\n+  const pagesIndex = args.indexOf('--pages');\n+  const maxPages = pagesIndex >= 0 ? Number(args[pagesIndex + 1]) : 20;\n+  if (!Number.isInteger(maxPages) || maxPages < 1 || maxPages > 50) {\n+    throw new Error('--pages must be an integer from 1 to 50');\n   }\n \n-  const html = await response.text();\n-  const app = parseJsonLd(html);\n-  const reviews = parseReviews(html);\n+  const url = normalizeUrl(target);\n+  const pages = await fetchReviewPages(url, maxPages);\n+  const app = parseJsonLd(pages[0].html);\n+  const reviews = dedupeReviews(pages.flatMap(({ html }) => parseReviews(html)));\n   const themes = classifyReviews(reviews);\n   const report = buildReport({ url, app, reviews, themes });\n \n\ntokens used\n233,803\nCompleted one task: Shopify Review Pulse report-quality hardening.\n\nI updated [review_pulse.mjs](/home/autoproj/AutonomyProjectV2/workspace/shopify-review-pulse/review_pulse.mjs) to follow public Shopify review pagination, dedupe review text, parse star ratings, rank real risk themes more conservatively, and tolerate Shopify 429s after partial fetches. Regenerated the key reports, especially [sellerpic.md](/home/autoproj/AutonomyProjectV2/workspace/shopify-review-pulse/prospect-reports/sellerpic.md) and [a2reviews.md](/home/autoproj/AutonomyProjectV2/workspace/shopify-review-pulse/prospect-reports/a2reviews.md).\n\nThe run artifact is [2026-05-11-shopify-review-pulse-quality-hardening.md](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-11-shopify-review-pulse-quality-hardening.md). It includes the exact first-send email. Decision: when `OUTBOUND EMAIL READY: SHOPIFY REVIEW PULSE` clears, send only SellerPic first, wait 72 hours, then use A2Reviews as fallback. No batch sending.\n\nState files updated: `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md`, and `STATE.md`. `OPEN_GATES.md` remains correctly unchanged with `OUTBOUND EMAIL READY: SHOPIFY REVIEW PULSE`.\n\nVerification: `node --check workspace/shopify-review-pulse/review_pulse.mjs`.\n\nLive validation sources used: Shopify review docs, Shopify app-support docs, Appbot/AppFollow category evidence, and public Shopify app listings/contact pages. Cash remains `$162.45`; spend `$0`.\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-11_161702.txt",
+      "screenshot_path": "",
+      "label": "05-11-26 (Day 22) \u00b7 12:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

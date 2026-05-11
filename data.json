@@ -17937,6 +17937,89 @@
       "label": "05-11-26 (Day 22) \u00b7 8:51 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-11_141701",
+      "timestamp": "2026-05-11 10:17 AM EDT",
+      "timestamp_sort": "2026-05-11T14:17:01+00:00",
+      "date": "2026-05-11",
+      "time": "10:17AM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-11 14:19 UTC \u2014 Shopify Review Pulse prospect prep",
+      "artifact_path": "artifacts/2026-05-11-shopify-review-pulse-prospect-prep.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-11-shopify-review-pulse-prospect-prep.md",
+          "relative_path": "artifacts/2026-05-11-shopify-review-pulse-prospect-prep.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse Prospect Prep\n\nDate: 2026-05-11\n\n## Outcome\n\nBuilt the non-gated outbound prep for Shopify Review Pulse. No one was contacted.\n\nThe outreach gate is still the bottleneck:\n\n`APPROVED: CONTACT 10 SHOPIFY APP DEVELOPERS WITH REVIEW PULSE SAMPLE`\n\n## What Changed\n\n- Tightened `workspace/shopify-review-pulse/review_pulse.mjs` so generic praise like \"great support\" no longer gets misclassified as a support risk.\n- Generated prospect reports under `workspace/shopify-review-pulse/prospect-reports/`.\n- Created a ranked 10-prospect target list below, using public Shopify App Store review pages and live search results.\n\n## Prospect List\n\nRanked for likely response value: enough public review text, visible install-risk hook, and plausible pain around App Store conversion.\n\n| Rank | App | Shopify reviews page | Public rating / count | Hook for outreach | Report |\n|---:|---|---|---|---|---|\n| 1 | SellerPic: Ads & Product Photos | https://apps.shopify.com/sellerpic/reviews | 4.5 / 101 | Clear pricing and annual-billing trust risk visible in recent reviews; concrete $49 report sample already exists. | `sellerpic.md` |\n| 2 | RecurrinGO! Subscriptions App | https://apps.shopify.com/recurring-invoices/reviews | 4.8 / 143 | Subscription apps are high-trust purchases; first-page signal includes pricing/billing trust. | `recurring-invoices.md` |\n| 3 | Trustpilot Reviews | https://apps.shopify.com/trustpilot-reviews/reviews | 1.9 / 171 from live search result | Severe public review pain: slow support, no reply, pricing/annual-plan complaints, integration failures. Large company, but the Shopify listing has urgent reputation damage. | `trustpilot-reviews.md` |\n| 4 | Tapcart - Mobile App Builder | https://apps.shopify.com/shopify-mobile-apps/reviews | 4.6 / 339 | Expensive app-builder category; even small App Store conversion gains matter. | `shopify-mobile-apps.md` |\n| 5 | Qikify Contact Form Builder | https://apps.shopify.com/contact-form-by-qikify/reviews | 4.9 / 420 | Mid-sized app with enough reviews for a useful language report and a clear workflow/customer-inquiry promise. | `contact-form-by-qikify.md` |\n| 6 | EasyReviews - Product Reviews | https://apps.shopify.com/easyreviews/reviews | 4.8 / 54 | Small enough that the developer may still care about scrappy conversion help; review text includes setup/widget friction. | `easyreviews.md` |\n| 7 | A2Reviews - Product Reviews | https://apps.shopify.com/a2reviews/reviews | 4.1 / 23 | Low review count but clear review-quality gap; cheap first validation target. | `a2reviews.md` |\n| 8 | Subi Subscriptions App | https://apps.shopify.com/subi-subscriptions-memberships/reviews | 4.9 / 863 | Just above the original 10-500 range, but subscription category has enough buyer value to justify a test. | `subi-subscriptions-memberships.md` |\n| 9 | Stamped Reviews & Loyalty | https://apps.shopify.com/product-reviews-addon/reviews | 4.7 / 3,632 | Very large incumbent; useful if the outreach angle is \"sample report found export/support complaint clusters.\" Lower response odds. | `product-reviews-addon.md` |\n| 10 | Postscript SMS Marketing | https://apps.shopify.com/postscript-sms-marketing/reviews | 4.7 / 1,139 | High-ACV SMS category and visible billing complaint in live result; worth a lower-priority test. | `postscript-sms-marketing.md` |\n\n## Lower-Priority Reports Also Generated\n\n- `air-reviews.md`\n- `better-price-beat-any-price.md`\n- `chatty.md`\n- `judgeme.md`\n- `rivo-loyalty.md`\n- `rivyo-product-review.md`\n- `subscriptions-by-appstle.md`\n- `yotpo-social-reviews.md`\n\nThese are coherent reports, but they are weaker first outreach targets because they are either very large incumbents, have mostly positive first-page review text, or have lower obvious willingness-to-pay for a lightweight teardown.\n\n## Live Evidence Used\n\n- Shopify app review pages remain publicly fetchable and expose enough text for a lightweight report.\n- Shopify's own developer docs say app ratings and positive reviews affect merchant install decisions and App Store placement: https://shopify.dev/docs/apps/launch/marketing/manage-app-reviews\n- Search result evidence surfaced fresh review counts and pain hooks for EasyReviews, Qikify, Trustpilot Reviews, Subi, Tapcart, RecurrinGO, Postscript, and others.\n\nKey public pages:\n\n- https://apps.shopify.com/sellerpic/reviews\n- https://apps.shopify.com/recurring-invoices/reviews\n- https://apps.shopify.com/trustpilot-reviews/reviews\n- https://apps.shopify.com/shopify-mobile-apps/reviews\n- https://apps.shopify.com/contact-form-by-qikify/reviews\n- https://apps.shopify.com/easyreviews/reviews\n- https://apps.shopify.com/a2reviews/reviews\n- https://apps.shopify.com/subi-subscriptions-memberships/reviews\n- https://apps.shopify.com/product-reviews-addon/reviews\n- https://apps.shopify.com/postscript-sms-marketing/reviews\n\n## Outreach Copy Ready After Approval\n\nUse one message per app. Do not send before approval.\n\n```text\nSubject: I made a public-review teardown for [APP NAME]\n\nI am testing a tiny report for Shopify app teams: it reads public App Store reviews and turns them into install drivers, trust ",
+          "site_path": "artifacts/2026-05-11-shopify-review-pulse-prospect-prep.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "g/TODO.md\n+++ b/the project's TODO.md config\n@@ -10,7 +10,8 @@\n      + artifact pointer; full narratives remain in HANDOFF.md and artifacts/. Backup at\n      the project's TODO.md config.bak-pre-cleanup. Non-DONE items preserved verbatim. -->\n \n-- [ACTIVE] Shopify Review Pulse validation: chosen Codex lane is a productized public-review intelligence report for Shopify app developers. Next highest-leverage move is gated: on `APPROVED: CONTACT 10 SHOPIFY APP DEVELOPERS WITH REVIEW PULSE SAMPLE`, build a 10-app prospect list, generate 2 tailored mini-reports, send the sample + $49 willingness-to-pay ask, and record replies/non-replies. Do not contact real people before approval.\n+- [ACTIVE] Shopify Review Pulse validation: chosen Codex lane is a productized public-review intelligence report for Shopify app developers. Non-gated prep is now done: 10-prospect list + tailored report batch live in `artifacts/2026-05-11-shopify-review-pulse-prospect-prep.md` and `workspace/shopify-review-pulse/prospect-reports/`. Next highest-leverage move remains gated: on `APPROVED: CONTACT 10 SHOPIFY APP DEVELOPERS WITH REVIEW PULSE SAMPLE`, send the first two tailored messages (SellerPic + RecurrinGO), then continue through the ranked list and record replies/non-replies. Do not contact real people before approval.\n+- [DONE] Shopify Review Pulse outbound prep built while approval gate remained open (run 2026-05-11; tightened review-theme classifier, generated prospect reports for 18 Shopify apps, ranked 10 first-contact targets, and wrote approval-ready outreach copy; no one contacted) 2026-05-11 \u2014 artifact `artifacts/2026-05-11-shopify-review-pulse-prospect-prep.md`\n - [DONE] Codex first business lane selected and validation asset built (run 2026-05-11; live research produced 5 candidates, scored them, chose Shopify Review Pulse, built `workspace/shopify-review-pulse/review_pulse.mjs`, generated `workspace/shopify-review-pulse/sample-sellerpic-report.md`, and raised the outreach approval gate) 2026-05-11 \u2014 artifact `artifacts/2026-05-11-codex-business-lane-shopify-review-pulse.md`\n - [DONE] Original AutoBox startup guardrails restored for Codex (interactive 2026-05-11; sourced from `prompts/bootstrap_prompt.md`, `2026-04-20-bootstrap-plan-summary.md`, and `the project's PROJECT.md config`; added hard rules against analysis drift/repeated broad research and forced first Codex run toward 5 candidates \u2192 score \u2192 choose \u2192 validation motion) 2026-05-11 \u2014 artifact `artifacts/2026-05-11-codex-groundrules-revenue-motion.md`\n - [DONE] Codex takeover live; Claude paused for autonomy loop (interactive 2026-05-11; crontab autonomy cadence switched to `run_autonomy_codex.sh`, Discord `!run` and bare mention chat switched to Codex, AutoBox Discord send-path tested with message `1503195544648945748`, Codex PreCompact handoff hook verified and added to wakeup recovery path) 2026-05-11 \u2014 artifact `artifacts/2026-05-11-codex-takeover-live.md`\ndiff --git review_pulse.mjs review_pulse.mjs\nindex 22f80fcd10c6e7693fa7372df249f86465c7600a..c8fbd765f32fe4ba1dd4400053d9ae9b4c67e8e3\n--- review_pulse.mjs\n+++ review_pulse.mjs\n@@ -13,13 +13,13 @@\n     id: 'support',\n     label: 'Support experience',\n     positive: ['support', 'responsive', 'helpful', 'customer service'],\n-    negative: ['copy-and-paste', 'no accountability', 'not responding', 'support'],\n+    negative: ['copy-and-paste', 'no accountability', 'not responding', 'no reply', 'slow support', 'unresponsive'],\n   },\n   {\n     id: 'quality',\n     label: 'Output quality',\n     positive: ['quality', 'realistic', 'professional', 'clean', 'natural', 'best'],\n-    negative: ['not perfect', 'inaccuracies', 'problem', 'bad', 'poor'],\n+    negative: ['not perfect', 'inaccuracies', 'bad quality', 'poor quality', 'buggy', 'slow'],\n   },\n   {\n     id: 'workflow',\n\ntokens used\n176,051\nCompleted one task: Shopify Review Pulse outbound prep.\n\nI tightened the report classifier in [review_pulse.mjs](/home/autoproj/AutonomyProjectV2/workspace/shopify-review-pulse/review_pulse.mjs), generated 18 prospect reports under [prospect-reports](/home/autoproj/AutonomyProjectV2/workspace/shopify-review-pulse/prospect-reports), and wrote the ranked 10-prospect packet at [2026-05-11-shopify-review-pulse-prospect-prep.md](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-11-shopify-review-pulse-prospect-prep.md).\n\nNo outreach was sent and no money was spent. Current cash remains `$162.45`.\n\nI updated `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, and `SCORECARD.md`. `OPEN_GATES.md` is unchanged; the revenue move is still gated on:\n\n`APPROVED: CONTACT 10 SHOPIFY APP DEVELOPERS WITH REVIEW PULSE SAMPLE`\n\nSources used included Shopify\u2019s review docs and public Shopify App Store review pages such as SellerPic, RecurrinGO, Trustpilot Reviews, Tapcart, Qikify, EasyReviews, A2Reviews, Subi, Stamped, and Postscript.\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-11_141701.txt",
+      "screenshot_path": "",
+      "label": "05-11-26 (Day 22) \u00b7 10:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

@@ -17618,7 +17618,7 @@
       "decision_made": "switched the active crontab autonomy cadence from `scripts/run_autonomy.sh` to `scripts/run_autonomy_codex.sh`. Left the StrikeRewind nightly SP500 batch untouched.",
       "next_step": "",
       "heading": "2026-05-11 00:46 (interactive) \u2014 Codex takeover live and Discord role mention fixed",
-      "artifact_path": "artifacts/2026-05-11-codex-takeover-live.md",
+      "artifact_path": "artifacts/2026-05-11-codex-groundrules-revenue-motion.md",
       "budget": {
         "starting_budget": "$200.00",
         "current_balance": "$162.45",
@@ -17676,6 +17676,14 @@
       },
       "artifacts": [
         {
+          "name": "2026-05-11-codex-groundrules-revenue-motion.md",
+          "relative_path": "artifacts/2026-05-11-codex-groundrules-revenue-motion.md",
+          "kind": "text",
+          "preview": "# Codex Groundrules: Revenue Motion Over Polishing\n\nDate: 2026-05-11\n\n## Why this exists\n\nTravis asked to recover the original AutoBox startup instructions because they explicitly guarded against the operator collapsing into endless research, maintenance, or polish. Codex is now the scheduled operator, so those rules need to live in the Codex wakeup path and canonical state files.\n\n## Source instructions found\n\n- `prompts/bootstrap_prompt.md`\n- `2026-04-20-bootstrap-plan-summary.md`\n- `the project's PROJECT.md config`\n\nKey source language preserved:\n\n- \"Do not mistake analysis for progress.\"\n- \"Every work session must produce an artifact or a blocker with evidence.\"\n- \"Default to discoverable, buildable, low-support opportunities.\"\n- \"Begin by surveying live categories of small online businesses currently making money now. Then produce 5 candidates, score them, choose 1, and move immediately toward validation.\"\n\n## Codex operating contract\n\n1. The mission is to start over, not maintain Claude's StrikeRewind/PAF backlog by default.\n2. The first Codex business run must use live research to produce 5 evidence-backed candidates, score them, choose 1 risky-but-plausible lane, and create the next validation/build/sales step.\n3. Broad research is capped: no second broad research-only cycle unless fresh owner input changes the mission.\n4. After lane choice, each run should move toward users, traffic, revenue, or direct willingness-to-pay evidence.\n5. Polishing only counts when it removes a launch, conversion, payment, or fulfillment blocker.\n6. If an action is permission-gated, Codex should produce a recommendation packet with one clear approval line rather than avoiding the issue.\n\n## Files updated\n\n- `prompts/codex_wakeup_prompt.md`\n- `the project's RULES.md config`\n- `the project's STATE.md config`\n- `the project's TODO.md config`\n- `the project's HANDOFF.md config`\n- `the project's RUNLOG.md config`\n- `the project's SCORECARD.md config`\n\n## Next scheduled run\n\nExecute the first Codex business-selection task: market scan, 5 candidates, scored decision, one chosen lane, and a concrete validation artifact or permission-gated recommendation. Do not run another setup or maintenance pass unless the Codex loop itself breaks.\n",
+          "site_path": "artifacts/2026-05-11-codex-groundrules-revenue-motion.md",
+          "has_redactions": true
+        },
+        {
           "name": "2026-05-11-codex-takeover-live.md",
           "relative_path": "artifacts/2026-05-11-codex-takeover-live.md",
           "kind": "text",
@@ -17688,6 +17696,89 @@
       "output_site_path": "outputs/run_codex_2026-05-11_004600.txt",
       "screenshot_path": "",
       "label": "05-10-26 (Day 21) \u00b7 8:46 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-11_005800",
+      "timestamp": "2026-05-10 08:58 PM EDT",
+      "timestamp_sort": "2026-05-11T00:58:00+00:00",
+      "date": "2026-05-10",
+      "time": "8:58PM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-11 00:58 (interactive) \u2014 Original startup guardrails restored for Codex",
+      "artifact_path": "artifacts/2026-05-11-codex-groundrules-revenue-motion.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-11-codex-groundrules-revenue-motion.md",
+          "relative_path": "artifacts/2026-05-11-codex-groundrules-revenue-motion.md",
+          "kind": "text",
+          "preview": "# Codex Groundrules: Revenue Motion Over Polishing\n\nDate: 2026-05-11\n\n## Why this exists\n\nTravis asked to recover the original AutoBox startup instructions because they explicitly guarded against the operator collapsing into endless research, maintenance, or polish. Codex is now the scheduled operator, so those rules need to live in the Codex wakeup path and canonical state files.\n\n## Source instructions found\n\n- `prompts/bootstrap_prompt.md`\n- `2026-04-20-bootstrap-plan-summary.md`\n- `the project's PROJECT.md config`\n\nKey source language preserved:\n\n- \"Do not mistake analysis for progress.\"\n- \"Every work session must produce an artifact or a blocker with evidence.\"\n- \"Default to discoverable, buildable, low-support opportunities.\"\n- \"Begin by surveying live categories of small online businesses currently making money now. Then produce 5 candidates, score them, choose 1, and move immediately toward validation.\"\n\n## Codex operating contract\n\n1. The mission is to start over, not maintain Claude's StrikeRewind/PAF backlog by default.\n2. The first Codex business run must use live research to produce 5 evidence-backed candidates, score them, choose 1 risky-but-plausible lane, and create the next validation/build/sales step.\n3. Broad research is capped: no second broad research-only cycle unless fresh owner input changes the mission.\n4. After lane choice, each run should move toward users, traffic, revenue, or direct willingness-to-pay evidence.\n5. Polishing only counts when it removes a launch, conversion, payment, or fulfillment blocker.\n6. If an action is permission-gated, Codex should produce a recommendation packet with one clear approval line rather than avoiding the issue.\n\n## Files updated\n\n- `prompts/codex_wakeup_prompt.md`\n- `the project's RULES.md config`\n- `the project's STATE.md config`\n- `the project's TODO.md config`\n- `the project's HANDOFF.md config`\n- `the project's RUNLOG.md config`\n- `the project's SCORECARD.md config`\n\n## Next scheduled run\n\nExecute the first Codex business-selection task: market scan, 5 candidates, scored decision, one chosen lane, and a concrete validation artifact or permission-gated recommendation. Do not run another setup or maintenance pass unless the Codex loop itself breaks.\n",
+          "site_path": "artifacts/2026-05-11-codex-groundrules-revenue-motion.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Codex interactive update: original AutoBox revenue-motion guardrails restored.\n\nFresh owner input:\n- Travis asked to reference the original AutoBox startup instructions because they had explicit guardrails against endless polishing/research and forced movement toward actual revenue.\n\nWhat changed:\n- Found the original guardrails in `prompts/bootstrap_prompt.md`, `2026-04-20-bootstrap-plan-summary.md`, and `the project's PROJECT.md config`.\n- Added those guardrails to `prompts/codex_wakeup_prompt.md`.\n- Added canonical rules to `the project's RULES.md config`: no analysis drift, no repeated broad research cycles, and post-lane-choice movement toward users, traffic, revenue, or direct willingness-to-pay evidence.\n- Updated `the project's STATE.md config`, `the project's TODO.md config`, `the project's HANDOFF.md config`, `the project's RUNLOG.md config`, and `the project's SCORECARD.md config`.\n- Created `artifacts/2026-05-11-codex-groundrules-revenue-motion.md`.\n\nNext autonomous Codex run:\n- Use live research to produce 5 evidence-backed active business candidates.\n- Score them.\n- Pick 1 risky-but-plausible lane.\n- Create the next concrete validation/build/sales step.\n\nCash unchanged: $162.45.\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-11_005800.txt",
+      "screenshot_path": "",
+      "label": "05-10-26 (Day 21) \u00b7 8:58 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
     }

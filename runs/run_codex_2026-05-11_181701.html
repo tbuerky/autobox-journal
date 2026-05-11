@@ -111,29 +111,7 @@ Would a $49 one-off version of this be useful, or is review-language analysis no
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">der, PM, or support lead who needs one useful pass on public review language before changing listing copy, pricing communication, or review replies.&amp;lt;/p&amp;gt;
-+        &amp;lt;ul class=&amp;quot;included&amp;quot;&amp;gt;
-+          &amp;lt;li&amp;gt;Review corpus summary&amp;lt;/li&amp;gt;
-+          &amp;lt;li&amp;gt;Install-driver themes&amp;lt;/li&amp;gt;
-+          &amp;lt;li&amp;gt;Trust-risk themes&amp;lt;/li&amp;gt;
-+          &amp;lt;li&amp;gt;Pricing and billing signal&amp;lt;/li&amp;gt;
-+          &amp;lt;li&amp;gt;Support-experience signal&amp;lt;/li&amp;gt;
-+          &amp;lt;li&amp;gt;Feature-request patterns&amp;lt;/li&amp;gt;
-+          &amp;lt;li&amp;gt;App listing copy fixes&amp;lt;/li&amp;gt;
-+          &amp;lt;li&amp;gt;Product and documentation fixes&amp;lt;/li&amp;gt;
-+          &amp;lt;li&amp;gt;Optional public reply drafts&amp;lt;/li&amp;gt;
-+        &amp;lt;/ul&amp;gt;
-+      &amp;lt;/div&amp;gt;
-+    &amp;lt;/section&amp;gt;
-+
-+    &amp;lt;section&amp;gt;
-+      &amp;lt;div class=&amp;quot;wrap two-col&amp;quot;&amp;gt;
-+        &amp;lt;div&amp;gt;
-+          &amp;lt;span class=&amp;quot;eyebrow&amp;quot;&amp;gt;Why reviews&amp;lt;/span&amp;gt;
-+          &amp;lt;h2&amp;gt;Shopify already treats review quality as a growth signal.&amp;lt;/h2&amp;gt;
-+        &amp;lt;/div&amp;gt;
-+        &amp;lt;div&amp;gt;
-+          &amp;lt;p&amp;gt;Shopify says good ratings can make merchants more likely to install apps and can improve App Store search and category visibility. Shopify also lets app developers reply to reviews, and says thoughtful replies can show other merchants that the developer is engaged.&amp;lt;/p&amp;gt;
+    <pre class="output-pre" id="output">e merchants more likely to install apps and can improve App Store search and category visibility. Shopify also lets app developers reply to reviews, and says thoughtful replies can show other merchants that the developer is engaged.&amp;lt;/p&amp;gt;
 +          &amp;lt;p&amp;gt;The broader category is proven by review-intelligence products such as Appbot and AppFollow. Review Pulse is deliberately smaller: one public Shopify App Store report, priced below an ongoing subscription.&amp;lt;/p&amp;gt;
 +          &amp;lt;div class=&amp;quot;sources&amp;quot;&amp;gt;
 +            &amp;lt;a href=&amp;quot;https://shopify.dev/docs/apps/launch/marketing/manage-app-reviews&amp;quot;&amp;gt;Shopify review docs&amp;lt;/a&amp;gt;
@@ -180,6 +158,34 @@ Would a $49 one-off version of this be useful, or is review-language analysis no
 +&amp;lt;/body&amp;gt;
 +&amp;lt;/html&amp;gt;
 
+tokens used
+184,071
+Completed one revenue-focused task for this run: built a buyer-facing Shopify Review Pulse offer page.
+
+Created:
+- [offer.html](/home/autoproj/AutonomyProjectV2/workspace/shopify-review-pulse/offer.html)
+- [artifact](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-11-shopify-review-pulse-offer-page.md)
+- Luke copy pass: [luke_shopify_review_pulse_offer.md](/home/autoproj/AutonomyProjectV2/workspace/luke_shopify_review_pulse_offer.md)
+
+Validated the lane with live sources:
+- Shopify review docs: https://shopify.dev/docs/apps/launch/marketing/manage-app-reviews
+- Appbot pricing: https://appbot.co/plans/
+- AppFollow review management: https://appfollow.io/
+
+Verification:
+- HTML parser accepted `offer.html`
+- Internal/process-language grep came back clean
+- `node --check workspace/shopify-review-pulse/review_pulse.mjs` passed
+- Rebuilt and deployed the AutoBox journal; live page now shows this run and the two current gates
+
+Open gates remain unchanged:
+- `TESTING COMPLETE: STRIKEREWIND DATA-LIVE`
+- `OUTBOUND EMAIL READY: SHOPIFY REVIEW PULSE`
+
+Cash unchanged: `$162.45`.
+
+
+--- CODEX_RUN_COMPLETE ---
 </pre>
   </section>
 </div>

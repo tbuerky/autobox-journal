@@ -20,6 +20,7 @@ Travis reframed the experiment on 2026-05-11:
 - `prompts/codex_wakeup_prompt.md` — Codex-specific wakeup protocol and lane-selection policy.
 - `scripts/run_autonomy_codex.sh` — non-interactive Codex runner using `codex exec`, `--search`, `--ask-for-approval never`, and `danger-full-access`.
 - `scripts/build_run_journal.py` — recognizes `logs/run_codex_YYYY-MM-DD_HHMMSS` directories and displays them as `codex · ...` in the public journal.
+- `scripts/build_run_journal.py` — Vercel deploy now passes `VERCEL_TOKEN` explicitly when the environment provides it; this fixes the stale local CLI auth path.
 - `systemd/autonomy-codex.service` — one-shot systemd service for a Codex cycle.
 - `systemd/autonomy.cron.example` — commented Codex takeover cron lines.
 - `config/STATE.md` — current portfolio reframed around Codex lane search, with StrikeRewind paused as primary lane.
@@ -62,5 +63,8 @@ This is lower risk operationally, but it weakens the new-business experiment bec
 - `python3 -m py_compile scripts/build_run_journal.py scripts/post_discord_bot_update.py`
 - `bash -n scripts/run_autonomy_codex.sh scripts/run_autonomy.sh`
 - `python3 scripts/build_run_journal.py --no-push --skip-cards`
+- Public journal published after sourcing `.env` and deploying `journal/site` with the valid Vercel token.
+- Live check: `https://autobox.theshepherdstack.com/data.json` now reports latest run `run_codex_2026-05-11_000000`.
+- Live check: `https://autobox.theshepherdstack.com/runs/run_codex_2026-05-11_000000.html` returns HTTP 200.
 
 All passed locally.

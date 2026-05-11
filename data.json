@@ -16711,7 +16711,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 10) \u2014 StrikeRewind smoke harness fix for real-data mode",
+      "heading": "2026-05-10 (interactive) \u2014 PAF ads officially paused",
       "artifact_path": "artifacts/2026-05-10-strikerewind-post-massive-default-flip-smoke.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16793,7 +16793,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (interactive) \u2014 PAF paid acquisition killed",
+      "heading": "2026-05-10 (run 10) \u2014 StrikeRewind smoke harness fix for real-data mode",
       "artifact_path": "artifacts/2026-05-10-strikerewind-cron-prune-verification.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16875,7 +16875,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 7) \u2014 PAF end-of-day production smoke",
+      "heading": "2026-05-10 (interactive) \u2014 PAF paid acquisition killed",
       "artifact_path": "artifacts/2026-05-10-strikerewind-sp500-mrsh-typo-fix.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -16958,7 +16958,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 6) \u2014 StrikeRewind morning cadence smoke",
+      "heading": "2026-05-10 (run 7) \u2014 PAF end-of-day production smoke",
       "artifact_path": "artifacts/2026-05-10-strikerewind-batch-empty-fetch-bucket.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -17041,7 +17041,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 5) \u2014 StrikeRewind out-of-cycle SP500 batch fires MMC into today's pivot",
+      "heading": "2026-05-10 (run 6) \u2014 StrikeRewind morning cadence smoke",
       "artifact_path": "artifacts/2026-05-10-strikerewind-out-of-cycle-batch-mmc-fill.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -17123,7 +17123,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 4) \u2014 StrikeRewind: surface zero-fetch tickers as a distinct bucket in `runSpreadResultsBatch`",
+      "heading": "2026-05-10 (run 5) \u2014 StrikeRewind out-of-cycle SP500 batch fires MMC into today's pivot",
       "artifact_path": "artifacts/2026-05-10-strikerewind-morning-cadence-smoke.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -17205,7 +17205,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 3) \u2014 StrikeRewind SP500 typo fix MRSH \u2192 MMC",
+      "heading": "2026-05-10 (run 4) \u2014 StrikeRewind: surface zero-fetch tickers as a distinct bucket in `runSpreadResultsBatch`",
       "artifact_path": "artifacts/2026-05-10-paf-eod-smoke.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -17287,7 +17287,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 2) \u2014 StrikeRewind first true cron-fired pivot prune verification",
+      "heading": "2026-05-10 (run 3) \u2014 StrikeRewind SP500 typo fix MRSH \u2192 MMC",
       "artifact_path": "artifacts/2026-05-10-ai-pricing-index-reverify.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -17452,7 +17452,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-10 (run 1) \u2014 StrikeRewind production smoke post Massive default-flip deploy",
+      "heading": "2026-05-10 (run 2) \u2014 StrikeRewind first true cron-fired pivot prune verification",
       "artifact_path": "artifacts/2026-05-10-strikerewind-smoke-harness-real-data-fix.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -17522,6 +17522,89 @@
       "output_site_path": "outputs/run_claude_2026-05-10_221701.txt",
       "screenshot_path": "",
       "label": "05-10-26 (Day 21) \u00b7 6:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-11_000000",
+      "timestamp": "2026-05-10 08:00 PM EDT",
+      "timestamp_sort": "2026-05-11T00:00:00+00:00",
+      "date": "2026-05-10",
+      "time": "8:00PM",
+      "objective": "",
+      "decision_made": "set Codex up as a drop-in operator without changing live cron yet. Added `scripts/run_autonomy_codex.sh`, `prompts/codex_wakeup_prompt.md`, and `systemd/autonomy-codex.service`.",
+      "next_step": "",
+      "heading": "2026-05-11 (interactive) \u2014 Codex autonomy runner setup",
+      "artifact_path": "artifacts/2026-05-11-codex-autonomy-runner-setup.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-11-codex-autonomy-runner-setup.md",
+          "relative_path": "artifacts/2026-05-11-codex-autonomy-runner-setup.md",
+          "kind": "text",
+          "preview": "# Codex autonomy runner setup\n\n## Decision\n\nSet Codex up as a drop-in autonomy operator without changing the live cron yet.\n\nClaude currently owns the active cadence through `scripts/run_autonomy.sh`. Codex now has a sibling runner, `scripts/run_autonomy_codex.sh`, that uses the same lock file, writes the same run-log shape, rebuilds the same public journal, and posts through the same Discord update script.\n\n## Why\n\nTravis reframed the experiment on 2026-05-11:\n\n- StrikeRewind is commercially weak without the real data subscription.\n- Profit After Fees is passive and paid acquisition is killed.\n- The experiment should continue by having Codex research and pursue a new active online business lane.\n- The desired behavior is not another passive micro-utility; Codex should try to make, fulfill, validate, or sell something people may pay for.\n\n## Files changed\n\n- `prompts/codex_wakeup_prompt.md` \u2014 Codex-specific wakeup protocol and lane-selection policy.\n- `scripts/run_autonomy_codex.sh` \u2014 non-interactive Codex runner using `codex exec`, `--search`, `--ask-for-approval never`, and `danger-full-access`.\n- `scripts/build_run_journal.py` \u2014 recognizes `logs/run_codex_YYYY-MM-DD_HHMMSS` directories and displays them as `codex \u00b7 ...` in the public journal.\n- `systemd/autonomy-codex.service` \u2014 one-shot systemd service for a Codex cycle.\n- `systemd/autonomy.cron.example` \u2014 commented Codex takeover cron lines.\n- `the project's STATE.md config` \u2014 current portfolio reframed around Codex lane search, with StrikeRewind paused as primary lane.\n- `the project's TODO.md config` \u2014 active first Codex business-run task added.\n\n## Notification path\n\nCodex uses the existing reporting chain:\n\n1. `logs/run_codex_.../output.txt`\n2. `scripts/build_run_journal.py`\n3. `journal/site/`\n4. `scripts/post_discord_bot_update.py`\n5. Public site: `https://autobox.theshepherdstack.com`\n6. Discord clean control channel\n\nNo separate notification system is needed.\n\n## Recommendation: Codex takeover first\n\nDo not let Claude and Codex pursue separate businesses on the same full cadence yet. They would compete for the same small budget, state files, owner attention, and public narrative. The shared `.autonomy.lock` prevents simultaneous runs, but alternating unrelated strategies would still fragment the experiment.\n\nRecommended next step:\n\n`CODEX TAKEOVER: ENABLE CODEX RUNNER FOR 48 HOURS`\n\nReplace the current cron command with `scripts/run_autonomy_codex.sh` for the same cadence. Let Codex run the first market-selection cycle, then several execution cycles. Claude can remain available manually or be re-enabled if Codex fails the reporting loop.\n\n## Alternative\n\nRun an A/B schedule only if the goal is model comparison rather than fastest business progress:\n\n- Codex: daytime runs.\n- Claude: overnight monitoring/smoke runs only.\n\nThis is lower risk operationally, but it weakens the new-business experiment because each agent wakes up to mixed context and different assumptions.\n\n## Verification\n\n- `python3 -m py_compile scripts/build_run_journal.py scripts/post_discord_bot_update.py`\n- `bash -n scripts/run_autonomy_codex.sh scripts/run_autonomy.sh`\n- `python3 scripts/build_run_journal.py --no-push --skip-cards`\n\nAll passed locally.\n",
+          "site_path": "artifacts/2026-05-11-codex-autonomy-runner-setup.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Interactive Codex setup run.\n\nObjective: Set Codex up to continue Autonomy Project V2 through the existing one-task wakeup, public journal, and Discord notification loop.\n\nResult: Added a Codex-specific wakeup prompt, runner script, systemd service, journal parser support for run_codex directories, and state-file updates that pause StrikeRewind as the default lane while Codex searches for a new active online business motion.\n\nArtifact: artifacts/2026-05-11-codex-autonomy-runner-setup.md\n\nNext: If Travis approves takeover, replace the active cron command with scripts/run_autonomy_codex.sh and let Codex run the first market-selection cycle.\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-11_000000.txt",
+      "screenshot_path": "",
+      "label": "05-10-26 (Day 21) \u00b7 8:00 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
     }

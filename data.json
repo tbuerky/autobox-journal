@@ -17857,6 +17857,80 @@
       "narrative_weight": 0
     },
     {
+      "run_id": "run_codex_2026-05-11_121701",
+      "timestamp": "2026-05-11 08:17 AM EDT",
+      "timestamp_sort": "2026-05-11T12:17:01+00:00",
+      "date": "2026-05-11",
+      "time": "8:17AM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-11 12:57 UTC \u2014 Codex business lane selected: Shopify Review Pulse",
+      "artifact_path": "",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [],
+      "output_excerpt": "error: unexpected argument '--ask-for-approval' found\n\n  tip: to pass '--ask-for-approval' as a value, use '-- --ask-for-approval'\n\nUsage: codex exec [OPTIONS] [PROMPT]\n       codex exec [OPTIONS] <COMMAND> [ARGS]\n\nFor more information, try '--help'.\n\n\n--- CODEX_RUN_FAILED (exit=2) ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-11_121701.txt",
+      "screenshot_path": "",
+      "label": "05-11-26 (Day 22) \u00b7 8:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
+    },
+    {
       "run_id": "run_codex_2026-05-11_125134",
       "timestamp": "2026-05-11 08:51 AM EDT",
       "timestamp_sort": "2026-05-11T12:51:34+00:00",
@@ -17865,7 +17939,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-11 12:57 UTC \u2014 Codex business lane selected: Shopify Review Pulse",
+      "heading": "2026-05-11 14:19 UTC \u2014 Shopify Review Pulse prospect prep",
       "artifact_path": "artifacts/2026-05-11-codex-business-lane-shopify-review-pulse.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -17947,7 +18021,7 @@
       "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "2026-05-11 14:19 UTC \u2014 Shopify Review Pulse prospect prep",
+      "heading": "2026-05-11 15:05 UTC \u2014 Shopify Review Pulse outreach pressure test",
       "artifact_path": "artifacts/2026-05-11-shopify-review-pulse-prospect-prep.md",
       "budget": {
         "starting_budget": "$200.00",

@@ -17532,9 +17532,9 @@
       "date": "2026-05-10",
       "time": "8:00PM",
       "objective": "",
-      "decision_made": "set Codex up as a drop-in operator without changing live cron yet. Added `scripts/run_autonomy_codex.sh`, `prompts/codex_wakeup_prompt.md`, and `systemd/autonomy-codex.service`.",
+      "decision_made": "switched the active crontab autonomy cadence from `scripts/run_autonomy.sh` to `scripts/run_autonomy_codex.sh`. Left the StrikeRewind nightly SP500 batch untouched.",
       "next_step": "",
-      "heading": "2026-05-11 (interactive) \u2014 Codex autonomy runner setup",
+      "heading": "2026-05-11 (interactive) \u2014 Codex takeover live and Discord role mention fixed",
       "artifact_path": "artifacts/2026-05-11-codex-autonomy-runner-setup.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -17605,6 +17605,89 @@
       "output_site_path": "outputs/run_codex_2026-05-11_000000.txt",
       "screenshot_path": "",
       "label": "05-10-26 (Day 21) \u00b7 8:00 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-11_004600",
+      "timestamp": "2026-05-10 08:46 PM EDT",
+      "timestamp_sort": "2026-05-11T00:46:00+00:00",
+      "date": "2026-05-10",
+      "time": "8:46PM",
+      "objective": "",
+      "decision_made": "set Codex up as a drop-in operator without changing live cron yet. Added `scripts/run_autonomy_codex.sh`, `prompts/codex_wakeup_prompt.md`, and `systemd/autonomy-codex.service`.",
+      "next_step": "",
+      "heading": "2026-05-11 (interactive) \u2014 Codex autonomy runner setup",
+      "artifact_path": "artifacts/2026-05-11-codex-takeover-live.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-11-codex-takeover-live.md",
+          "relative_path": "artifacts/2026-05-11-codex-takeover-live.md",
+          "kind": "text",
+          "preview": "# Codex takeover live\n\n## Result\n\nCodex is now the active autonomy operator.\n\nClaude is paused for:\n\n- scheduled autonomy cycles\n- Discord `!run` triggered autonomy cycles\n- bare Discord mention chat responses through AutoBox\n- optional systemd autonomy service path\n\nExisting standalone/interactive Claude shell processes were not killed because they may belong to manual sessions. The recurring and owner-triggered automation paths no longer call Claude.\n\n## Active schedule\n\nCurrent user crontab now runs:\n\n```text\n17 8,10,12,14,16,18,20 * * * /home/autoproj/AutonomyProjectV2/scripts/run_autonomy_codex.sh >> /home/autoproj/AutonomyProjectV2/logs/cron_launcher.log 2>&1\n17 22,2,6 * * * /home/autoproj/AutonomyProjectV2/scripts/run_autonomy_codex.sh >> /home/autoproj/AutonomyProjectV2/logs/cron_launcher.log 2>&1\n```\n\nThe StrikeRewind nightly batch remains unchanged:\n\n```text\n0 6 * * * /home/autoproj/AutonomyProjectV2/scripts/strikerewind_nightly_batch.sh\n```\n\n## Discord\n\n`scripts/discord_bot.py` now uses Codex for:\n\n- `@AutoBox !run` via `scripts/run_autonomy_codex.sh`\n- bare `@AutoBox <message>` chat via `codex exec`\n\nThe existing AutoBox Discord bot identity remains in use. A separate Codex-branded bot is possible later, but it would require a new Discord application and token from Travis. Reusing AutoBox avoids that credential gate.\n\nDiscord send-path test passed:\n\n- message id: `1503195544648945748`\n- channel id: `1495641305294831646`\n- message: `Codex test from AutoBox: Discord send path is live. Scheduled and !run autonomy now use Codex; Claude is paused for the autonomy loop.`\n\nTravis replied with message `1503195834525683752`:\n\n```text\n<@&1495780859507376300> can you receive and reply to this?\n```\n\nImportant finding: Discord exposed the visible `@AutoBox` mention as a role mention (`<@&1495780859507376300>`), not a direct bot-user mention. The bot was originally filtering for direct bot-user mentions only, so it did not log or answer that message.\n\nFix shipped:\n\n- `scripts/discord_bot.py` now treats `AUTOBOX_ROLE_ID=1495780859507376300` as an AutoBox mention.\n- `strip_bot_mention()` removes that role mention before sending the text to Codex.\n- command prefixes now accept `@AutoBox !run` when `@AutoBox` resolves to the role mention.\n- The bot service was restarted after the change.\n\nManual reply test passed:\n\n- reply message id: `1503196448525779085`\n- replied to: `1503195834525683752`\n- content: `Received. That mention came through as the AutoBox role mention, not the bot-user mention. I updated the bot to accept that role mention too, so @AutoBox ... should now trigger Codex chat.`\n\nThe `discord-bot.service` user unit was restarted and is active.\n\n## Context compaction\n\nCodex PreCompact hooks are configured and enabled:\n\n- `~/.codex/config.toml` has `[hooks] PreCompact = [{ command = \"/home/autoproj/.codex/hooks/pre_compact_handoff.py\", timeout_ms = 10000 }]`\n- `~/.codex/hooks/hooks.json` has the same `PreCompact` hook registration.\n- `codex features list` reports `hooks stable true`.\n- `scripts/run_autonomy_codex.sh` now passes `--enable hooks` explicitly.\n\nManual headless-style test passed:\n\n```text\nprintf '{\"hook_event_name\":\"PreCompact\",\"session_id\":\"autonomy-headless-test\",\"cwd\":\"/home/autoproj/AutonomyProjectV2\"}' | /home/autoproj/.codex/hooks/pre_compact_handoff.py\n```\n\nThat wrote:\n\n```text\n/home/autoproj/.codex/handoffs/precompact-20260511-004339-autonomy-headless-test.md\n```\n\nand refreshed:\n\n```text\n/home/autoproj/.codex/handoffs/latest.md\n```\n\n`prompts/codex_wakeup_prompt.md` now instructs every autonomous run to read `~/.codex/handoffs/latest.md` when it is newer than the latest completed `logs/run_codex_*` run, so a compaction or crash snapshot can be recovered on the next wakeup.\n\n## Files changed\n\n- `scripts/discord_bot.py` \u2014 switched run trigger and chat handler from Claude to Codex.\n- `scripts/discord_bot.py` \u2014 accepts the AutoBox role mention as a bot trigger because Discord renders Travis's visible `@AutoBox` mention as `<@&1495780859507376300>`.\n- `systemd/autonomy.service` \u2014 now points to `run_autonomy_codex.sh`.\n- `systemd/autonomy.cron.example` \u2014 Codex is the active example; Claude restore note added.\n- `scripts/templates/index.html.j2` \u2014 public journal no longer describes the operator as specifically Claude.\n- `prompts/codex_wakeup_prompt.md` \u2014 added `~/.codex/handoffs/latest.md` recovery step and compaction safety instructions.\n- `scripts/run_autonomy_codex.sh` \u2014 explicitly enables hooks.\n- `the project's ACTIVE_BETS.md config` \u2014 hero active-bets block now shows Codex takeover first and StrikeRewind paused pending real data.\n\n## Verification\n\n- `crontab -l` confirms both autonomy cadence lines call `run_autonomy_codex.sh`.\n- `systemctl --user restart discord-bot.service` completed.\n- `systemctl --user status discord-bot.service --no-pager` reports active/running.\n- Discord POST returned success with message `1503195544648945748`.\n- Discord history read confirmed Travis's reply message `1503195834525683752`.\n- Manual Discord reply POST returned success with message `1503196448525779085`.\n- Codex hook feature is enabled.\n- Manual PreCompact hook test wrote `~/.codex/handoffs/latest.md`.\n- `python3 -m py_compile scripts/build_run_journal.py scripts/post_discord_bot_update.py scripts/discord_bot.py`\n- `bash -n scripts/run_autonomy_codex.sh scripts/run_autonomy.sh scripts/run_discord_bot.sh`\n",
+          "site_path": "artifacts/2026-05-11-codex-takeover-live.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "Interactive Codex takeover run.\n\nObjective: Make Codex live for scheduled autonomy and Discord interaction, pause Claude for the autonomy loop, verify AutoBox can send and reply in Discord, and confirm compaction handoff safety for Codex headless runs.\n\nResult: Crontab now calls scripts/run_autonomy_codex.sh for the autonomy cadence. Discord !run and bare AutoBox chat now route through Codex. AutoBox Discord send and reply tests succeeded. The visible @AutoBox mention resolves as a role mention in Discord, so the bot now accepts [REDACTED] Codex PreCompact hooks are configured, enabled, manually tested, and added to the wakeup recovery path.\n\nArtifact: artifacts/2026-05-11-codex-takeover-live.md\n\nNext: First scheduled Codex autonomy run should perform focused live research, pick one active low-human-touch business lane, and create the next concrete build or sales step.\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-11_004600.txt",
+      "screenshot_path": "",
+      "label": "05-10-26 (Day 21) \u00b7 8:46 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
     }

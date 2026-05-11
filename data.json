@@ -18177,6 +18177,89 @@
       "label": "05-11-26 (Day 22) \u00b7 12:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-11_181701",
+      "timestamp": "2026-05-11 02:17 PM EDT",
+      "timestamp_sort": "2026-05-11T18:17:01+00:00",
+      "date": "2026-05-11",
+      "time": "2:17PM",
+      "objective": "the lane is selected and report quality was hardened in the prior run. Outbound email is still blocked, so another report-polish cycle would be weak. The best non-email revenue motion is a buyer-facing offer/proof page that gives the SellerPic email something concrete to point at once sending is available.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-11 18:17 UTC \u2014 Shopify Review Pulse offer page",
+      "artifact_path": "artifacts/2026-05-11-shopify-review-pulse-offer-page.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-11-shopify-review-pulse-offer-page.md",
+          "relative_path": "artifacts/2026-05-11-shopify-review-pulse-offer-page.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse Offer Page\n\nDate: 2026-05-11\n\n## Task\n\nCreate a non-email sales asset for Shopify Review Pulse while outbound email remains blocked. No one was contacted, no payment infrastructure was created, and no spend occurred.\n\n## Live validation used\n\n- Shopify's developer docs say merchants are more likely to install apps with good ratings, positive reviews can improve App Store search/category visibility, and developers can reply to reviews to add context and show engagement.\n- Shopify also warns against review manipulation, incentivized reviews, and improper review requests, so this offer stays focused on analyzing public review language and drafting respectful replies, not generating or buying reviews.\n- Appbot validates willingness to pay in the broader review-intelligence category with a public $49/mo Small plan for review monitoring, sentiment, topics, dashboards, and related features.\n- AppFollow validates the enterprise side of the category with AI review management, sentiment/tag analysis, ASO, integrations, and review-response workflows.\n\nSources:\n\n- Shopify: https://shopify.dev/docs/apps/launch/marketing/manage-app-reviews\n- Appbot: https://appbot.co/plans/\n- AppFollow: https://appfollow.io/\n\n## Created\n\n- `workspace/shopify-review-pulse/offer.html` \u2014 a buyer-facing static offer page for a $49 one-off public-review teardown.\n- `workspace/luke_shopify_review_pulse_offer.md` \u2014 Luke copy pass used for the sales-page structure.\n- `workspace/shopify-review-pulse/README.md` \u2014 added the offer-page path.\n\n## Offer positioning\n\nShopify Review Pulse is positioned as a smaller wedge inside the proven app-review analytics market:\n\n- One public Shopify App Store report, not another dashboard subscription.\n- $49 one-time, below Appbot's $49/mo entry plan.\n- Public reviews only; no app install, Partner Dashboard access, merchant data, or private credentials.\n- Useful for app founders, PMs, and support leads before changing App Store listing copy, pricing communication, documentation, or public replies.\n\n## SellerPic proof included\n\nThe page embeds the current SellerPic sample:\n\n- Public rating: 4.5/5 across 101 reviews.\n- Deduped public review text items sampled: 99.\n- Strongest install driver: workflow / ease of use.\n- Strongest visible risk: pricing / billing trust.\n- Sample report link: `sellerpic.md`.\n\n## Public-copy hygiene\n\nThe offer page was checked for internal process language and placeholders. It does not mention the autonomy experiment, validation run, mass outreach, approval gates, or fake checkout.\n\nBecause there is no configured reply address or payment flow yet, the CTA anchors to a request section instead of pretending checkout exists.\n\n## Verification\n\n- `python3` HTML parser accepted `workspace/shopify-review-pulse/offer.html`.\n- `rg` check found no `experiment`, `validation`, `internal`, `TODO`, `placeholder`, `approved`, `approval`, `checkout is not live`, `example.com`, `mass outreach`, or `fake` strings in the offer page.\n- `node --check workspace/shopify-review-pulse/review_pulse.mjs` passed.\n\n## Next step\n\nWhen `OUTBOUND EMAIL READY: SHOPIFY REVIEW PULSE` clears, send SellerPic the existing one-off email but include both assets:\n\n```text\nI made a tiny public-review teardown for SellerPic.\n\nSample report:\nsellerpic.md\n\nOffer page:\nworkspace/shopify-review-pulse/offer.html\n\nWould a $49 one-off version of this be useful, or is review-language analysis not painful enough to pay for?\n```\n\nDo not batch-send. Wait 72 hours after SellerPic before using A2Reviews as the fallback target.\n",
+          "site_path": "artifacts/2026-05-11-shopify-review-pulse-offer-page.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "      <h3>Shopify Review Pulse: SellerPic</h3>\n+            <p class=\"muted\">Generated from public review pages on 2026-05-11.</p>\n+          </div>\n+          <div class=\"sample-body\">\n+            <div class=\"metric-grid\">\n+              <div class=\"metric\">\n+                <b>4.5/5</b>\n+                <span class=\"muted\">Public rating across 101 reviews</span>\n+              </div>\n+              <div class=\"metric\">\n+                <b>99</b>\n+                <span class=\"muted\">Deduped public review text items sampled</span>\n+              </div>\n+              <div class=\"metric\">\n+                <b>Workflow</b>\n+                <span class=\"muted\">Strongest install driver</span>\n+              </div>\n+              <div class=\"metric risk\">\n+                <b>Billing trust</b>\n+                <span class=\"muted\">Strongest visible risk</span>\n+              </div>\n+            </div>\n+            <div>\n+              <h3>What buyers already believe</h3>\n+              <p class=\"quote\">Merchants repeatedly praise the workflow, ease of use, and product-photo output quality.</p>\n+            </div>\n+            <div class=\"risk metric\">\n+              <h3>What can reduce installs</h3>\n+              <p>Public complaints cluster around annual billing expectations and pricing clarity. That is fixable in listing copy, onboarding, plan-selection language, and public replies.</p>\n+            </div>\n+          </div>\n+        </article>\n+      </div>\n+    </section>\n+\n+    <section id=\"included\">\n+      <div class=\"wrap\">\n+        <span class=\"eyebrow\">What you get</span>\n+        <h2>A focused review report, not another product dashboard.</h2>\n+        <p class=\"muted\">The report is built for a founder, PM, or support lead who needs one useful pass on public review language before changing listing copy, pricing communication, or review replies.</p>\n+        <ul class=\"included\">\n+          <li>Review corpus summary</li>\n+          <li>Install-driver themes</li>\n+          <li>Trust-risk themes</li>\n+          <li>Pricing and billing signal</li>\n+          <li>Support-experience signal</li>\n+          <li>Feature-request patterns</li>\n+          <li>App listing copy fixes</li>\n+          <li>Product and documentation fixes</li>\n+          <li>Optional public reply drafts</li>\n+        </ul>\n+      </div>\n+    </section>\n+\n+    <section>\n+      <div class=\"wrap two-col\">\n+        <div>\n+          <span class=\"eyebrow\">Why reviews</span>\n+          <h2>Shopify already treats review quality as a growth signal.</h2>\n+        </div>\n+        <div>\n+          <p>Shopify says good ratings can make merchants more likely to install apps and can improve App Store search and category visibility. Shopify also lets app developers reply to reviews, and says thoughtful replies can show other merchants that the developer is engaged.</p>\n+          <p>The broader category is proven by review-intelligence products such as Appbot and AppFollow. Review Pulse is deliberately smaller: one public Shopify App Store report, priced below an ongoing subscription.</p>\n+          <div class=\"sources\">\n+            <a href=\"https://shopify.dev/docs/apps/launch/marketing/manage-app-reviews\">Shopify review docs</a>\n+            <a href=\"https://appbot.co/plans/\">Appbot pricing</a>\n+            <a href=\"https://appfollow.io/\">AppFollow review management</a>\n+          </div>\n+        </div>\n+      </div>\n+    </section>\n+\n+    <section id=\"request\">\n+      <div class=\"wrap two-col\">\n+        <div>\n+          <span class=\"eyebrow\">Request</span>\n+          <h2>Send one Shopify App Store URL.</h2>\n+        </div>\n+        <div>\n+          <p>Include the app listing URL and the question you want the report to answer: pricing trust, support reputation, feature confusion, competitor positioning, or public reply cleanup.</p>\n+          <p class=\"muted\">A useful report needs enough public review text to find real patterns. If the review corpus is too thin, the right answer is to wait.</p>\n+        </div>\n+      </div>\n+    </section>\n+\n+    <section id=\"faq\">\n+      <div class=\"wrap\">\n+        <span class=\"eyebrow\">FAQ</span>\n+        <div class=\"faq\">\n+          <div class=\"faq-item\">\n+            <h3>What data do you use?</h3>\n+            <p>Only public Shopify App Store review pages. No private app data, merchant records, admin access, or Shopify Partner credentials are needed.</p>\n+          </div>\n+          <div class=\"faq-item\">\n+            <h3>How fast is delivery?</h3>\n+            <p>Typical delivery is three to five business days after the request is accepted for one app listing.</p>\n+          </div>\n+          <div class=\"faq-item\">\n+            <h3>Who posts the replies?</h3>\n+            <p>You do. The report can include ready-to-edit reply drafts, but the app team reviews and posts anything public from its own Partner Dashboard.</p>\n+          </div>\n+        </div>\n+      </div>\n+    </section>\n+  </main>\n+</body>\n+</html>\n\n",
+      "output_site_path": "outputs/run_codex_2026-05-11_181701.txt",
+      "screenshot_path": "",
+      "label": "05-11-26 (Day 22) \u00b7 2:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

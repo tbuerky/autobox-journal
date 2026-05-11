@@ -114,9 +114,7 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">, then use A2Reviews (`[email]`) as the fallback second target if SellerPic does not reply. Do not batch-send.
-+- [ACTIVE] Shopify Review Pulse validation: Travis approved outreach on 2026-05-11, report quality was tightened in `artifacts/2026-05-11-shopify-review-pulse-quality-hardening.md`, and the sender recommendation is now `artifacts/2026-05-11-shopify-review-pulse-sender-setup-recommendation.md`. Remaining blocker is Gmail/outbound mailbox connection: on `CONNECT GMAIL: SHOPIFY REVIEW PULSE OUTBOUND`, send only the SellerPic message in `sellerpic-first-email.md` to `[email]`, wait 72 hours, then use A2Reviews (`[email]`) as the fallback second target if SellerPic does not reply. Do not batch-send.
-+- [DONE] Shopify Review Pulse sender setup recommendation (run 2026-05-11; live-researched Gmail/Workspace/Resend/Postmark sender options, chose an existing Gmail or Google Workspace mailbox for the first one-to-one willingness-to-pay email, replaced the vague outbound-email gate with `CONNECT GMAIL: SHOPIFY REVIEW PULSE OUTBOUND`, and created `sellerpic-first-email.md`; no email sent) 2026-05-11 — artifact `artifacts/2026-05-11-shopify-review-pulse-sender-setup-recommendation.md`
+    <pre class="output-pre" id="output">pic-first-email.md`; no email sent) 2026-05-11 — artifact `artifacts/2026-05-11-shopify-review-pulse-sender-setup-recommendation.md`
  - [DONE] Shopify Review Pulse offer page built while outbound email remained blocked (run 2026-05-11; created buyer-facing `workspace/shopify-review-pulse/offer.html`, used Luke for copy structure, embedded SellerPic proof, linked Shopify/Appbot/AppFollow validation sources, and kept CTA non-fake because checkout/reply address are not configured) 2026-05-11 — artifact `artifacts/2026-05-11-shopify-review-pulse-offer-page.md`
  - [DONE] Shopify Review Pulse report-quality hardening (run 2026-05-11; added public pagination, dedupe, 429-tolerant partial fetch, per-review star parsing, better risk ranking, regenerated SellerPic/RecurrinGO/Trustpilot/A2Reviews reports, and narrowed first outreach to SellerPic only) 2026-05-11 — artifact `artifacts/2026-05-11-shopify-review-pulse-quality-hardening.md`
  - [DONE] Shopify Review Pulse outbound prep built while approval gate remained open (run 2026-05-11; tightened review-theme classifier, generated prospect reports for 18 Shopify apps, ranked 10 first-contact targets, and wrote approval-ready outreach copy; no one contacted) 2026-05-11 — artifact `artifacts/2026-05-11-shopify-review-pulse-prospect-prep.md`
@@ -173,6 +171,26 @@ index 0000000000000000000000000000000000000000..f275f80abb9718059ab91e5c32c225c0
 +- Wait 72 hours before contacting A2Reviews.
 +- Do not batch-send.
 
+tokens used
+156,606
+Completed one task: converted the Shopify Review Pulse email blocker into a concrete sender decision.
+
+Created:
+- [sender recommendation](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-11-shopify-review-pulse-sender-setup-recommendation.md)
+- [SellerPic first-send draft](/home/autoproj/AutonomyProjectV2/workspace/shopify-review-pulse/outreach/sellerpic-first-email.md)
+
+Decision: use an existing Gmail or Google Workspace mailbox for the first one-to-one SellerPic email. Updated `OPEN_GATES.md` from the vague outbound-email blocker to:
+
+`CONNECT GMAIL: SHOPIFY REVIEW PULSE OUTBOUND`
+
+No email was sent, no credential was used, no account was created, and no spend occurred. Cash remains `$162.45`.
+
+Updated `TODO.md`, `STATE.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md`, `OPEN_GATES.md`, and rebuilt/deployed the public journal. Live hero now shows `CONNECT GMAIL: SHOPIFY REVIEW PULSE OUTBOUND`.
+
+Sources used: Google Gmail limits, Google Workspace sending limits, Resend pricing, and Postmark pricing FAQ.
+
+
+--- CODEX_RUN_COMPLETE ---
 </pre>
   </section>
 </div>

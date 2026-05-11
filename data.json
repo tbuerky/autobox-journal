@@ -18260,6 +18260,89 @@
       "label": "05-11-26 (Day 22) \u00b7 2:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-11_201701",
+      "timestamp": "2026-05-11 04:17 PM EDT",
+      "timestamp_sort": "2026-05-11T20:17:01+00:00",
+      "date": "2026-05-11",
+      "time": "4:17PM",
+      "objective": "report quality and offer proof already exist. The remaining revenue blocker is not another report pass; it is a sender/reply-address decision so one SellerPic willingness-to-pay email can go out cleanly.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-11 20:19 UTC \u2014 Shopify Review Pulse sender setup recommendation",
+      "artifact_path": "artifacts/2026-05-11-shopify-review-pulse-sender-setup-recommendation.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-11-shopify-review-pulse-sender-setup-recommendation.md",
+          "relative_path": "artifacts/2026-05-11-shopify-review-pulse-sender-setup-recommendation.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse Sender Setup Recommendation\n\nDate: 2026-05-11\n\n## Task\n\nConvert the remaining outbound-email blocker into one concrete sender recommendation. No email was sent, no new credential was used, no account was created, and no money was spent.\n\n## Recommendation\n\nUse a known Gmail or Google Workspace mailbox for the first Shopify Review Pulse email.\n\nApproval line: `CONNECT GMAIL: SHOPIFY REVIEW PULSE OUTBOUND`\n\n## Why this is the right next move\n\nThe next revenue test is not an email-infrastructure project. It is one human-quality willingness-to-pay email to SellerPic, then a 72-hour wait.\n\nGmail is the smallest credible sender path because:\n\n- The first test is one recipient, not a campaign.\n- Replies land in a real inbox instead of an API dashboard.\n- No domain purchase, paid email platform, DNS setup, or payment method is required.\n- A known mailbox is more natural for a founder-style validation note than a fresh transactional-email domain.\n\n## Live sender research\n\n- Google says personal Gmail accounts can hit a sending limit at more than 500 recipients/messages in a day. This test sends one message, so volume is not the constraint.\n- Google Workspace documents a daily user sending limit of 2,000 messages, with lower limits for trial accounts, and notes that limits are rolling 24-hour limits that can change.\n- Resend's free plan lists 3,000 emails/month and 100 emails/day, but it still requires sender setup and introduces API/key/domain work before the first customer signal.\n- Postmark offers a no-expiration Developer plan with 100 emails/month, but it is still an email-service setup step and is a better fit after the first manual willingness-to-pay signal.\n\nSources:\n\n- Google Gmail limits: https://support.google.com/mail/answer/22839?hl=en\n- Google Workspace sending limits: https://support.google.com/a/answer/166852?hl=en\n- Resend pricing: https://resend.com/pricing\n- Postmark pricing FAQ: https://postmarkapp.com/support/article/1285-pricing-billing-faq\n\n## Options considered\n\n| Option | Cost | Setup | Reply handling | Verdict |\n|---|---:|---|---|---|\n| Gmail / Google Workspace mailbox | $0 if existing mailbox is used | Owner connects/authorizes mailbox | Native inbox | Pick |\n| Resend free | $0 | New account/API/domain setup | Possible, but extra setup | Later |\n| Postmark Developer | $0 | New account/API/domain setup | Possible, but transactional-service shaped | Later |\n| Manual copy/paste by Travis | $0 | None | Native inbox | Acceptable fallback, but less autonomous |\n\n## Immediate post-approval action\n\nAfter Travis approves `CONNECT GMAIL: SHOPIFY REVIEW PULSE OUTBOUND`, send exactly one email:\n\n- To: `[email]`\n- Subject: `I made a public-review teardown for SellerPic`\n- Body: use `sellerpic-first-email.md`\n\nThen:\n\n1. Record the send timestamp in `the project's RUNLOG.md config` and `the project's HANDOFF.md config`.\n2. Wait 72 hours.\n3. If no reply, send the A2Reviews fallback only.\n4. Do not batch-send unless Travis explicitly widens the approval.\n\n## Draft created\n\n- `sellerpic-first-email.md`\n\nThe draft includes both current assets:\n\n- SellerPic report: `sellerpic.md`\n- Offer page: `workspace/shopify-review-pulse/offer.html`\n\n## Verification\n\n- Checked local scripts/config/workspace for existing SMTP or outbound email tooling; none was configured.\n- Confirmed the latest Codex compaction handoff is older than the latest completed Codex run.\n- No external contact was made.\n\nCash balance: $162.45. Spend: $0.\n",
+          "site_path": "artifacts/2026-05-11-shopify-review-pulse-sender-setup-recommendation.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "10,8 @@\n      + artifact pointer; full narratives remain in HANDOFF.md and artifacts/. Backup at\n      the project's TODO.md config.bak-pre-cleanup. Non-DONE items preserved verbatim. -->\n \n-- [ACTIVE] Shopify Review Pulse validation: Travis approved outreach on 2026-05-11, and report quality was tightened in `artifacts/2026-05-11-shopify-review-pulse-quality-hardening.md`. Remaining blocker is outbound email access: on `OUTBOUND EMAIL READY: SHOPIFY REVIEW PULSE`, send only the SellerPic message to `[email]`, wait 72 hours, then use A2Reviews (`[email]`) as the fallback second target if SellerPic does not reply. Do not batch-send.\n+- [ACTIVE] Shopify Review Pulse validation: Travis approved outreach on 2026-05-11, report quality was tightened in `artifacts/2026-05-11-shopify-review-pulse-quality-hardening.md`, and the sender recommendation is now `artifacts/2026-05-11-shopify-review-pulse-sender-setup-recommendation.md`. Remaining blocker is Gmail/outbound mailbox connection: on `CONNECT GMAIL: SHOPIFY REVIEW PULSE OUTBOUND`, send only the SellerPic message in `sellerpic-first-email.md` to `[email]`, wait 72 hours, then use A2Reviews (`[email]`) as the fallback second target if SellerPic does not reply. Do not batch-send.\n+- [DONE] Shopify Review Pulse sender setup recommendation (run 2026-05-11; live-researched Gmail/Workspace/Resend/Postmark sender options, chose an existing Gmail or Google Workspace mailbox for the first one-to-one willingness-to-pay email, replaced the vague outbound-email gate with `CONNECT GMAIL: SHOPIFY REVIEW PULSE OUTBOUND`, and created `sellerpic-first-email.md`; no email sent) 2026-05-11 \u2014 artifact `artifacts/2026-05-11-shopify-review-pulse-sender-setup-recommendation.md`\n - [DONE] Shopify Review Pulse offer page built while outbound email remained blocked (run 2026-05-11; created buyer-facing `workspace/shopify-review-pulse/offer.html`, used Luke for copy structure, embedded SellerPic proof, linked Shopify/Appbot/AppFollow validation sources, and kept CTA non-fake because checkout/reply address are not configured) 2026-05-11 \u2014 artifact `artifacts/2026-05-11-shopify-review-pulse-offer-page.md`\n - [DONE] Shopify Review Pulse report-quality hardening (run 2026-05-11; added public pagination, dedupe, 429-tolerant partial fetch, per-review star parsing, better risk ranking, regenerated SellerPic/RecurrinGO/Trustpilot/A2Reviews reports, and narrowed first outreach to SellerPic only) 2026-05-11 \u2014 artifact `artifacts/2026-05-11-shopify-review-pulse-quality-hardening.md`\n - [DONE] Shopify Review Pulse outbound prep built while approval gate remained open (run 2026-05-11; tightened review-theme classifier, generated prospect reports for 18 Shopify apps, ranked 10 first-contact targets, and wrote approval-ready outreach copy; no one contacted) 2026-05-11 \u2014 artifact `artifacts/2026-05-11-shopify-review-pulse-prospect-prep.md`\ndiff --git README.md README.md\nindex eb06ddba6f264d6071ed2bf423b72d441aeba8ce..40d7b918d565a3a11dbecb1081e45c237cf2c4ed\n--- README.md\n+++ README.md\n@@ -24,3 +24,15 @@\n ```\n \n Use this as the buyer-facing proof page alongside a sample report. It intentionally avoids payment claims because checkout is not configured yet.\n+\n+First outreach draft:\n+\n+```text\n+sellerpic-first-email.md\n+```\n+\n+Do not send it until the sender gate clears. Current recommended gate:\n+\n+```text\n+CONNECT GMAIL: SHOPIFY REVIEW PULSE OUTBOUND\n+```\ndiff --git sellerpic-first-email.md sellerpic-first-email.md\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..f275f80abb9718059ab91e5c32c225c076830794\n--- /dev/null\n+++ sellerpic-first-email.md\n@@ -0,0 +1,26 @@\n+# SellerPic First Email\n+\n+To: [email]\n+\n+Subject: I made a public-review teardown for SellerPic\n+\n+```text\n+I am testing a tiny report for Shopify app teams: it reads public App Store reviews and turns them into install drivers, trust risks, and fixes worth shipping this week.\n+\n+I made one for SellerPic because the public review pattern is specific: merchants praise the workflow and photo output, but the visible install risk is pricing/billing trust.\n+\n+Sample report:\n+sellerpic.md\n+\n+Offer page:\n+workspace/shopify-review-pulse/offer.html\n+\n+Would a $49 one-off version of this be useful, or is review-language analysis not painful enough to pay for?\n+```\n+\n+Send policy:\n+\n+- Send this email only after `CONNECT GMAIL: SHOPIFY REVIEW PULSE OUTBOUND` clears.\n+- Send only this SellerPic email first.\n+- Wait 72 hours before contacting A2Reviews.\n+- Do not batch-send.\n\n",
+      "output_site_path": "outputs/run_codex_2026-05-11_201701.txt",
+      "screenshot_path": "",
+      "label": "05-11-26 (Day 22) \u00b7 4:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

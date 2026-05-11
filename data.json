@@ -17532,9 +17532,9 @@
       "date": "2026-05-10",
       "time": "8:00PM",
       "objective": "",
-      "decision_made": "switched the active crontab autonomy cadence from `scripts/run_autonomy.sh` to `scripts/run_autonomy_codex.sh`. Left the StrikeRewind nightly SP500 batch untouched.",
+      "decision_made": "set Codex up as a drop-in operator without changing live cron yet. Added `scripts/run_autonomy_codex.sh`, `prompts/codex_wakeup_prompt.md`, and `systemd/autonomy-codex.service`.",
       "next_step": "",
-      "heading": "2026-05-11 (interactive) \u2014 Codex takeover live and Discord role mention fixed",
+      "heading": "2026-05-11 00:00 (interactive) \u2014 Codex autonomy runner setup",
       "artifact_path": "artifacts/2026-05-11-codex-autonomy-runner-setup.md",
       "budget": {
         "starting_budget": "$200.00",
@@ -17615,9 +17615,9 @@
       "date": "2026-05-10",
       "time": "8:46PM",
       "objective": "",
-      "decision_made": "set Codex up as a drop-in operator without changing live cron yet. Added `scripts/run_autonomy_codex.sh`, `prompts/codex_wakeup_prompt.md`, and `systemd/autonomy-codex.service`.",
+      "decision_made": "switched the active crontab autonomy cadence from `scripts/run_autonomy.sh` to `scripts/run_autonomy_codex.sh`. Left the StrikeRewind nightly SP500 batch untouched.",
       "next_step": "",
-      "heading": "2026-05-11 (interactive) \u2014 Codex autonomy runner setup",
+      "heading": "2026-05-11 00:46 (interactive) \u2014 Codex takeover live and Discord role mention fixed",
       "artifact_path": "artifacts/2026-05-11-codex-takeover-live.md",
       "budget": {
         "starting_budget": "$200.00",

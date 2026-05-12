@@ -110,17 +110,7 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">FY REVIEW PULSE FOUNDER POST`. No post, outreach, payment setup, or spend.
- - Notification path stays the same as Claude: journal updates to `https://autobox.theshepherdstack.com` via `scripts/build_run_journal.py`, and concise Discord updates via `scripts/post_discord_bot_update.py`.
- - Runner prepared: `scripts/run_autonomy_codex.sh`, using `prompts/codex_wakeup_prompt.md`, writes logs under `logs/run_codex_YYYY-MM-DD_HHMMSS/`.
- 
-diff --git a/the project&amp;#x27;s TODO.md config b/the project&amp;#x27;s TODO.md config
-index 7d6dcf826fe25edc7fe0315fd830836c3a467063..0a75133c6440840bd6a5a97223742f629f68b27b
---- a/the project&amp;#x27;s TODO.md config
-+++ b/the project&amp;#x27;s TODO.md config
-@@ -12,6 +12,8 @@
- 
- - [ACTIVE] Shopify Review Pulse validation: Travis approved outreach on 2026-05-11. Public landing and locked SellerPic teaser are deployed at `https://shopify-review-pulse.vercel.app/offer.html` and `https://shopify-review-pulse.vercel.app/sellerpic-teardown.html`; the SellerPic first-send kit now includes `sellerpic-first-email.eml` (`artifacts/2026-05-12-shopify-review-pulse-sellerpic-send-kit.md`). Remaining blocker is exact mailbox setup: on `CREATE/CONNECT MAILBOX: [email] FOR SHOPIFY REVIEW PULSE OUTBOUND`, send only the SellerPic message to `[email]`, wait 72 hours, then use A2Reviews (`[email]`) as the fallback second target if SellerPic does not reply. Do not batch-send.
+    <pre class="output-pre" id="output">HOPIFY REVIEW PULSE OUTBOUND`, send only the SellerPic message to `[email]`, wait 72 hours, then use A2Reviews (`[email]`) as the fallback second target if SellerPic does not reply. Do not batch-send.
  - [ACTIVE] Shopify Review Pulse payment collection: `artifacts/2026-05-12-shopify-review-pulse-payment-link-recommendation.md` recommends a single Stripe Payment Link for the $49 one-off report. On `CREATE STRIPE PAYMENT LINK: SHOPIFY REVIEW PULSE $49 ONE-OFF REPORT`, add the live Stripe link to `workspace/shopify-review-pulse/offer.html`, optionally add it to the SellerPic email path after the mailbox exists, redeploy, and update the send kit. Do not create checkout/payment infrastructure without owner approval.
 +- [ACTIVE] Shopify Review Pulse first public traffic motion: `artifacts/2026-05-12-shopify-review-pulse-founder-post-packet.md` contains a copy-paste-ready founder post under `Suggested post copy:`. On `APPROVED: PUBLISH SHOPIFY REVIEW PULSE FOUNDER POST`, publish it from the approved owner/project account after the mailbox is connected, or publish sooner only if Travis will collect replies/DMs manually. Do not post without explicit approval.
 +- [DONE] Shopify Review Pulse founder-post packet (run 2026-05-12; used live Shopify ecosystem/review research and Luke copy direction, corrected the offer back to $49, created copy-paste-ready public post + short reply follow-up, and raised the publish approval gate; no post, no outreach, no spend) 2026-05-12 — artifact `artifacts/2026-05-12-shopify-review-pulse-founder-post-packet.md`
@@ -128,6 +118,30 @@ index 7d6dcf826fe25edc7fe0315fd830836c3a467063..0a75133c6440840bd6a5a97223742f62
  - [DONE] Shopify Review Pulse SellerPic send kit (run 2026-05-12; live-rechecked SellerPic public reviews and live preview URLs, created importable `sellerpic-first-email.eml`, and documented the one-recipient send procedure while keeping the mailbox gate unchanged; no outreach sent, no spend) 2026-05-12 — artifact `artifacts/2026-05-12-shopify-review-pulse-sellerpic-send-kit.md`
  - [DONE] Shopify Review Pulse public landing + locked teaser/paywall pass (run 2026-05-12; rebuilt `offer.html`, replaced `sellerpic-teardown.html` with a noindex locked preview, generated desktop/mobile Playwright screenshots, deployed to Vercel, produced domain/email recommendation, and tightened the mailbox gate) 2026-05-12 — artifact `artifacts/2026-05-12-shopify-review-pulse-design-paywall.md`
 
+tokens used
+151,861
+Completed one task: created the first public traffic packet for Shopify Review Pulse.
+
+Artifact: [founder-post packet](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-12-shopify-review-pulse-founder-post-packet.md)
+
+What changed:
+- Added copy-paste-ready `Suggested post copy:` for Travis/project-account publishing.
+- Added short reply/DM follow-up copy.
+- Raised gate: `APPROVED: PUBLISH SHOPIFY REVIEW PULSE FOUNDER POST`
+- Updated `TODO.md`, `STATE.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md`, and `OPEN_GATES.md`.
+- Rebuilt and deployed the journal; live data shows this run at `https://autobox.theshepherdstack.com`.
+
+I used live validation from Shopify review docs, Shopify’s 2026 ecosystem writeup, Shopify App Store docs, StoreCensus, and StackDex:
+- https://shopify.dev/docs/apps/launch/marketing/manage-app-reviews
+- https://www.shopify.com/news/billion-dollar-ecosystem
+- https://shopify.dev/docs/apps/launch/app-store-review
+- https://www.storecensus.com/stats
+- https://www.stackdex.io/research/state-of-shopify-apps-2026
+
+No post published, no outreach sent, no payment infrastructure created, no spend. Cash remains `$162.45`.
+
+
+--- CODEX_RUN_COMPLETE ---
 </pre>
   </section>
 </div>

@@ -22249,6 +22249,103 @@
       "label": "05-12-26 (Day 23) \u00b7 12:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_codex_2026-05-12_181701",
+      "timestamp": "2026-05-12 02:17 PM EDT",
+      "timestamp_sort": "2026-05-12T18:17:01+00:00",
+      "date": "2026-05-12",
+      "time": "2:17PM",
+      "objective": "the first-send assets, payment recommendation, founder post, and fulfillment kit already exist. Building more collateral would be advisory drift; the useful one-task output was a fresh blocker check with evidence.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-12 18:20 UTC \u2014 Shopify Review Pulse outbound gate recheck",
+      "artifact_path": "artifacts/2026-05-12-shopify-review-pulse-outbound-gate-recheck.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. Active recurring spend is now Render only ($7/mo), subject to any prorated Massive charge outside this ledger."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation \u2014 Travis reported expected cost `$7/mo`."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-12-shopify-review-pulse-outbound-gate-recheck.md",
+          "relative_path": "artifacts/2026-05-12-shopify-review-pulse-outbound-gate-recheck.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse Outbound Gate Recheck\n\nCreated: 2026-05-12 18:20 UTC\n\n## Decision\n\nDo not create more Shopify Review Pulse collateral right now. The one-email validation path is ready; the remaining blocker is still owner-side Google sign-in/outbound access for `[email]`.\n\nCurrent approval line:\n\n`VERIFY GOOGLE SIGN-IN: [email] OUTBOUND ACCESS`\n\n## Fresh Evidence\n\n- `theshepherdstack.com` MX still points to Google: `1 smtp.google.com.`\n- `smtp.gmail.com:587` timed out or failed from this host after 8 seconds.\n- `smtp.gmail.com:465` timed out or failed from this host after 8 seconds.\n- Public landing is live: `https://shopify-review-pulse-eta.vercel.app/offer.html` returned HTTP 200.\n- SellerPic locked preview is live and noindexed: `https://shopify-review-pulse-eta.vercel.app/sellerpic-teardown.html` returned HTTP 200 with `x-robots-tag: noindex, nofollow`.\n- A2Reviews locked fallback preview is live and noindexed: `https://shopify-review-pulse-eta.vercel.app/a2reviews-teardown.html` returned HTTP 200 with `x-robots-tag: noindex, nofollow`.\n- SellerPic `.eml` parses with:\n  - To: `[email]`\n  - From: `[email]`\n  - Subject: `Locked public-review report preview for SellerPic`\n- A2Reviews `.eml` parses with:\n  - To: `[email]`\n  - From: `Shopify Review Pulse <[email]>`\n  - Subject: `Locked public-review report preview for A2Reviews`\n\n## What This Means\n\nThe next revenue-generating action is not another design, report, lead-list, or copy pass. It is sending exactly one SellerPic email after Gmail access clears.\n\n## Exact Next Step After Gate Clears\n\n1. Sign in to Gmail for `[email]`.\n2. Complete the phone/security challenge or admin-side login challenge bypass.\n3. Send only `sellerpic-first-email.md` to `[email]` from Gmail web UI if SMTP still fails.\n4. Record the sent timestamp.\n5. Wait 72 hours before using the A2Reviews fallback.\n\n## Blocker Status\n\nBlocked on owner-side Google verification only. No outreach was sent, no checkout/payment infrastructure was created, no public post was published, and no spend changed.\n",
+          "site_path": "artifacts/2026-05-12-shopify-review-pulse-outbound-gate-recheck.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": " owner clears Google verification. Cash $162.45. |\n | 2026-05-12 | Shopify Review Pulse A2Reviews fallback kit | 4 | `artifacts/2026-05-12-shopify-review-pulse-a2reviews-fallback-kit.md`; `https://shopify-review-pulse-eta.vercel.app/a2reviews-teardown.html` | Created the second-contact fallback asset inside the active revenue lane: regenerated live A2Reviews report, built/deployed a noindex locked preview, created Markdown + `.eml` fallback emails, scrubbed SellerPic public-copy leakage, and updated send kits to the accessible Vercel alias. Score 4: concrete outbound readiness, but real willingness-to-pay remains mailbox/payment gated. Cash $162.45. |\n | 2026-05-12 | Shopify Review Pulse paid-report fulfillment kit | 4 | `artifacts/2026-05-12-shopify-review-pulse-fulfillment-kit.md`; `workspace/shopify-review-pulse/fulfillment/` | Created private fulfillment assets for the first paid or explicitly approved sample report: paid-report template, SellerPic paid-report draft, delivery checklist, and explicit Vercel exclusion for `fulfillment/`. Score 4: concrete revenue-fulfillment readiness, but actual willingness-to-pay and payment remain owner-gated. Cash $162.45. |\ndiff --git a/the project's TODO.md config b/the project's TODO.md config\nindex 143b49e0c021f212811919afb0658ef1843062a1..554bd7947e0a9cedd06c7ed43095f29d66c0528d\n--- a/the project's TODO.md config\n+++ b/the project's TODO.md config\n@@ -11,6 +11,7 @@\n      the project's TODO.md config.bak-pre-cleanup. Non-DONE items preserved verbatim. -->\n \n - [ACTIVE] Shopify Review Pulse validation: Travis approved outreach on 2026-05-11 and confirmed on 2026-05-12 that the one-email test should run using the new Google Workspace user (`$7/mo`). Public landing and locked previews are deployed at `https://shopify-review-pulse-eta.vercel.app/offer.html`, `https://shopify-review-pulse-eta.vercel.app/sellerpic-teardown.html`, and `https://shopify-review-pulse-eta.vercel.app/a2reviews-teardown.html`; the SellerPic first-send kit includes `sellerpic-first-email.eml` (`artifacts/2026-05-12-shopify-review-pulse-sellerpic-send-kit.md`), the A2Reviews fallback kit includes `a2reviews-fallback-email.eml` (`artifacts/2026-05-12-shopify-review-pulse-a2reviews-fallback-kit.md`), and the private paid-report fulfillment kit lives in `workspace/shopify-review-pulse/fulfillment/` (`artifacts/2026-05-12-shopify-review-pulse-fulfillment-kit.md`). Current blocker: Google accepted the mailbox password but requires phone/security verification before Gmail access; SMTP ports also timed out from this host. The current unblock packet is `artifacts/2026-05-12-shopify-review-pulse-google-verification-unblock.md`. On `VERIFY GOOGLE SIGN-IN: [email] OUTBOUND ACCESS`, send only the SellerPic message to `[email]` from Gmail web UI if SMTP still fails, record the send timestamp, wait 72 hours, then use A2Reviews (`[email]`) as the fallback second target if SellerPic does not reply. Do not batch-send.\n+- [DONE] Shopify Review Pulse outbound gate recheck (run 2026-05-12 18:20 UTC; live-rechecked Google MX, Gmail SMTP reachability, live offer/locked-preview URLs, and both ready `.eml` files; confirmed no gate cleared and no more collateral should be built before `VERIFY GOOGLE SIGN-IN` clears; no outreach, checkout, public post, or spend) 2026-05-12 \u2014 artifact `artifacts/2026-05-12-shopify-review-pulse-outbound-gate-recheck.md`\n - [DONE] Shopify Review Pulse Google verification unblock packet (run 2026-05-12; live-rechecked MX, Gmail SMTP reachability, offer/locked-preview URLs, and official Google Workspace security/app-password/SMTP guidance; updated the first-send instructions to the current verification gate and documented manual Gmail send as the fastest path after verification; no outreach, checkout, or spend) 2026-05-12 \u2014 artifact `artifacts/2026-05-12-shopify-review-pulse-google-verification-unblock.md`\n - [DONE] Shopify Review Pulse A2Reviews fallback kit (run 2026-05-12; regenerated the live A2Reviews public-review report, created the noindex locked fallback preview at `https://shopify-review-pulse-eta.vercel.app/a2reviews-teardown.html`, created Markdown + `.eml` fallback outreach assets, scrubbed SellerPic teaser checkout/validation leakage, and updated send kits to the accessible Vercel alias; no outreach, checkout, or spend) 2026-05-12 \u2014 artifact `artifacts/2026-05-12-shopify-review-pulse-a2reviews-fallback-kit.md`\n - [ACTIVE] Shopify Review Pulse payment collection: `artifacts/2026-05-12-shopify-review-pulse-payment-link-recommendation.md` recommends a single Stripe Payment Link for the $49 one-off report. On `CREATE STRIPE PAYMENT LINK: SHOPIFY REVIEW PULSE $49 ONE-OFF REPORT`, add the live Stripe link to `workspace/shopify-review-pulse/offer.html`, optionally add it to the SellerPic email path after the mailbox exists, redeploy, and update the send kit. Do not create checkout/payment infrastructure without owner approval.\n\n",
+      "output_site_path": "outputs/run_codex_2026-05-12_181701.txt",
+      "screenshot_path": "",
+      "label": "05-12-26 (Day 23) \u00b7 2:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

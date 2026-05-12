@@ -20362,6 +20362,96 @@
       "label": "05-12-26 (Day 23) \u00b7 6:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 2
+    },
+    {
+      "run_id": "run_codex_2026-05-12_121701",
+      "timestamp": "2026-05-12 08:17 AM EDT",
+      "timestamp_sort": "2026-05-12T12:17:01+00:00",
+      "date": "2026-05-12",
+      "time": "8:17AM",
+      "objective": "outbound, payment, and public posting are all owner-gated. The useful non-gated move was fulfillment readiness: make sure a positive reply or paid request can turn into a credible $49 report without another strategy pass.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-12 12:21 UTC \u2014 Shopify Review Pulse paid-report fulfillment kit",
+      "artifact_path": "artifacts/2026-05-12-shopify-review-pulse-fulfillment-kit.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. Active recurring spend is now Render only ($7/mo), subject to any prorated Massive charge outside this ledger."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-12-shopify-review-pulse-fulfillment-kit.md",
+          "relative_path": "artifacts/2026-05-12-shopify-review-pulse-fulfillment-kit.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse fulfillment kit\n\nDate: 2026-05-12\n\n## Task\n\nCreate the private paid-report fulfillment kit so the first positive reply or $49 payment can be served without another strategy, copy, or workflow pass.\n\n## Why this was the right non-gated move\n\nThe current revenue blockers are owner gates:\n\n- `CREATE/CONNECT MAILBOX: [email] FOR SHOPIFY REVIEW PULSE OUTBOUND`\n- `CREATE STRIPE PAYMENT LINK: SHOPIFY REVIEW PULSE $49 ONE-OFF REPORT`\n- `APPROVED: PUBLISH SHOPIFY REVIEW PULSE FOUNDER POST`\n\nAnother landing-page or teaser polish pass would not create more leverage. The remaining autonomous gap was fulfillment readiness: if Travis creates the mailbox, creates the Stripe link, or publishes the founder post and someone replies, Review Pulse needs to deliver a credible paid report quickly.\n\n## Live validation used\n\n- Shopify says merchants are more likely to install apps with good ratings, and positive reviews can affect App Store search/category visibility.\n- Shopify lets developers reply to public app reviews, so reply drafts are a useful deliverable.\n- Shopify partner guidance says review replies should build trust, stay specific, and avoid creating a negative merchant experience.\n- AppFollow's current review-management positioning validates that teams pay for review tagging, metrics, templates, and review workflow.\n\n## Built\n\n- `paid-report-template.md`\n  - Private template for a paid one-off report.\n  - Sections: executive read, install drivers, trust risks, App Store page edits, public reply drafts, one-week action plan, and compliance checks.\n\n- `sellerpic-paid-report-draft.md`\n  - Private paid-report version for SellerPic.\n  - Converts the generated public-review sample into concrete deliverables: listing copy, pricing clarity text, support/reply drafts, and a three-step action plan.\n  - This file must not be published or attached to the locked teaser before payment or explicit sample approval.\n\n- `delivery-checklist.md`\n  - Step-by-step first fulfillment workflow.\n  - Includes regeneration command, evidence spot-check, compliance pass, delivery package, and delivery email template.\n\n- `workspace/shopify-review-pulse/README.md`\n  - Documents the private fulfillment kit and warns not to deploy or expose it.\n\n- `workspace/shopify-review-pulse/.vercelignore`\n  - Explicitly excludes `fulfillment/` in addition to the existing Markdown/source/outreach/prospect exclusions.\n\n## Verification\n\n- `node --check workspace/shopify-review-pulse/review_pulse.mjs` passed.\n- `find workspace/shopify-review-pulse/fulfillment -type f -maxdepth 1 -print -exec wc -w {} \\;` confirmed three private fulfillment files exist:\n  - `delivery-checklist.md`\n  - `paid-report-template.md`\n  - `sellerpic-paid-report-draft.md`\n- `.vercelignore` now explicitly excludes `fulfillment/`, so these private paid-report files are not part of the public Vercel deployment.\n\n## No-gate actions avoided\n\n- No outreach sent.\n- No checkout or payment infrastructure created.\n- No public post made.\n- No spend.\n- No StrikeRewind or PAF work.\n\n## Next move\n\nIf the mailbox gate clears first, send exactly one SellerPic message using the existing `.eml`. If the Stripe Payment Link gate clears first, add that payment link to the public offer page before sending. If the publish gate clears first, publish the founder post only after reply handling is ready.\n\n## Sources\n\n- Shopify review management docs: https://shopify.dev/docs/apps/launch/marketing/manage-app-reviews\n- Shopify partner review-reply guidance: https://www.shopify.com/partners/blog/reply-to-reviews/\n- AppFollow review management page: https://get.appfollow.io/app-review-management\n",
+          "site_path": "artifacts/2026-05-12-shopify-review-pulse-fulfillment-kit.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "headline: \"Start with one product. Generate listing-ready images in minutes.\"\n+- Social-proof line: \"Merchants use SellerPic when they need product photos that look cleaner, faster, and easier to ship.\"\n+\n+## 2. Trust risks that can reduce installs\n+\n+| Risk | Evidence count | Visible symptom | Fix owner |\n+|---|---:|---|---|\n+| Pricing / billing trust | 2 risk hits | Reviews say the monthly price presentation made an annual charge feel unexpected | Listing/pricing copy, plan UI |\n+| Support accountability | 2 risk hits | Reviews say the reply felt templated or did not take responsibility | Support macro, public reply |\n+| Workflow ambiguity | 1 risk hit | Pricing confusion spills into general \"confusing\" language | Pricing page, install flow |\n+\n+### Risk interpretation\n+\n+This does not mean most merchants distrust SellerPic. The public review base is still strongly positive. The issue is that low-star reviews are visible at the exact moment a merchant is deciding whether to install an app that handles creative assets and billing. Pricing confusion is a high-friction concern because it makes the trial/install step feel risky.\n+\n+## 3. App Store page edits\n+\n+### Above-the-fold rewrite\n+\n+Current problem: the strongest merchant praise is easy workflow and image quality, but low-star billing concerns can make the install feel risky.\n+\n+Proposed text:\n+\n+> Create professional Shopify product images in minutes. SellerPic helps merchants generate cleaner product photos for listings, ads, and store pages without a complicated design workflow.\n+\n+### Pricing or plan clarity\n+\n+Current problem: reviews mention monthly pricing and annual billing confusion.\n+\n+Proposed text:\n+\n+> Plans are billed according to the option selected at checkout. If you choose annual billing, the full year is charged upfront. Review the billing term before confirming your subscription.\n+\n+Shorter version:\n+\n+> Annual plans are charged upfront. Monthly plans renew monthly. You can review the billing term before confirming.\n+\n+### Social proof line\n+\n+Current problem: positive review language is useful but not concentrated into a compact proof line.\n+\n+Proposed text:\n+\n+> Merchants praise SellerPic for fast setup, cleaner product images, and an easier way to create listing-ready visuals.\n+\n+## 4. Public review reply drafts\n+\n+Use these only if they match the current product and billing policy. Do not promise a refund or plan change unless the team has approved it.\n+\n+### Review cluster: annual billing confusion\n+\n+Reply draft:\n+\n+> Thanks for calling this out. We understand how important billing clarity is before choosing a plan. We are reviewing the wording around monthly and annual options so the billing term is clear before checkout. If you have not already, please contact support with your account details so we can review what happened on your subscription.\n+\n+### Review cluster: support felt templated\n+\n+Reply draft:\n+\n+> We are sorry the support response felt generic. That is not the experience we want merchants to have, especially on a billing question. We are reviewing this case internally and tightening our support guidance so plan and billing questions get a clearer answer.\n+\n+### Review cluster: positive workflow praise\n+\n+Reply draft:\n+\n+> Thank you for the review. We built SellerPic to make product-image creation faster for Shopify merchants, so it is helpful to hear that the workflow felt simple and useful for your store.\n+\n+## 5. One-week action plan\n+\n+| Priority | Action | Why now | Owner | Done when |\n+|---:|---|---|---|---|\n+| 1 | Add explicit annual/monthly billing copy near pricing and checkout entry points | The top visible risk is billing surprise | Product/listing owner | Billing term is visible before plan confirmation |\n+| 2 | Add one App Store line that turns easy workflow into proof | Positive review language is strong but underused | Listing owner | First paragraph or screenshot caption uses \"listing-ready images in minutes\" framing |\n+| 3 | Replace billing support macro with a specific empathy + next-step reply | The support complaint worsens the billing concern | Support owner | Billing macro names the issue, explains next step, and avoids generic wording |\n+\n+## 6. What not to do\n+\n+- Do not hide the annual billing detail in FAQ-only copy.\n+- Do not reply to billing complaints with legalistic or defensive language.\n+- Do not over-index the listing on AI novelty; reviews sell ease, speed, and practical product images.\n+- Do not claim conversion-rate lift unless SellerPic has its own measured data.\n+\n+## Sources checked\n+\n+- Shopify App Store public reviews for SellerPic: https://apps.shopify.com/sellerpic/reviews\n+- Shopify review-management docs: https://shopify.dev/docs/apps/launch/marketing/manage-app-reviews\n+- Shopify partner guidance on replying to reviews: https://www.shopify.com/partners/blog/reply-to-reviews/\n+- AppFollow review-management positioning: https://get.appfollow.io/app-review-management\n\n",
+      "output_site_path": "outputs/run_codex_2026-05-12_121701.txt",
+      "screenshot_path": "",
+      "label": "05-12-26 (Day 23) \u00b7 8:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

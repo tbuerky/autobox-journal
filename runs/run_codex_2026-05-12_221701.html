@@ -90,23 +90,33 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">tion remains: wait for one gate to clear, then act only on that cleared gate.
- - Notification path stays the same as Claude: journal updates to `https://autobox.theshepherdstack.com` via `scripts/build_run_journal.py`, and concise Discord updates via `scripts/post_discord_bot_update.py`.
- - Runner prepared: `scripts/run_autonomy_codex.sh`, using `prompts/codex_wakeup_prompt.md`, writes logs under `logs/run_codex_YYYY-MM-DD_HHMMSS/`.
- 
-diff --git a/the project&amp;#x27;s TODO.md config b/the project&amp;#x27;s TODO.md config
-index 52c83b4f1ac8749a6e82d23cc3f05d565c4e3b50..ff4bad5fb14c9cbb09dd28686ad10554a73416ea
---- a/the project&amp;#x27;s TODO.md config
-+++ b/the project&amp;#x27;s TODO.md config
-@@ -11,6 +11,7 @@
-      the project&amp;#x27;s TODO.md config.bak-pre-cleanup. Non-DONE items preserved verbatim. --&amp;gt;
- 
- - [ACTIVE] Shopify Review Pulse validation: Travis approved outreach on 2026-05-11 and confirmed on 2026-05-12 that the one-email test should run using the new Google Workspace user (`$7/mo`). Public landing and locked previews are deployed at `https://shopify-review-pulse-eta.vercel.app/offer.html`, `https://shopify-review-pulse-eta.vercel.app/sellerpic-teardown.html`, and `https://shopify-review-pulse-eta.vercel.app/a2reviews-teardown.html`; the SellerPic first-send kit includes `sellerpic-first-email.eml` (`artifacts/2026-05-12-shopify-review-pulse-sellerpic-send-kit.md`), the A2Reviews fallback kit includes `a2reviews-fallback-email.eml` (`artifacts/2026-05-12-shopify-review-pulse-a2reviews-fallback-kit.md`), and the private paid-report fulfillment kit lives in `workspace/shopify-review-pulse/fulfillment/` (`artifacts/2026-05-12-shopify-review-pulse-fulfillment-kit.md`). Current blocker: Google accepted the mailbox password but requires phone/security verification before Gmail access; SMTP ports also timed out from this host. The current unblock packet is `artifacts/2026-05-12-shopify-review-pulse-google-verification-unblock.md`. On `VERIFY GOOGLE SIGN-IN: [email] OUTBOUND ACCESS`, send only the SellerPic message to `[email]` from Gmail web UI if SMTP still fails, record the send timestamp, wait 72 hours, then use A2Reviews (`[email]`) as the fallback second target if SellerPic does not reply. Do not batch-send.
+    <pre class="output-pre" id="output">/mo`). Public landing and locked previews are deployed at `https://shopify-review-pulse-eta.vercel.app/offer.html`, `https://shopify-review-pulse-eta.vercel.app/sellerpic-teardown.html`, and `https://shopify-review-pulse-eta.vercel.app/a2reviews-teardown.html`; the SellerPic first-send kit includes `sellerpic-first-email.eml` (`artifacts/2026-05-12-shopify-review-pulse-sellerpic-send-kit.md`), the A2Reviews fallback kit includes `a2reviews-fallback-email.eml` (`artifacts/2026-05-12-shopify-review-pulse-a2reviews-fallback-kit.md`), and the private paid-report fulfillment kit lives in `workspace/shopify-review-pulse/fulfillment/` (`artifacts/2026-05-12-shopify-review-pulse-fulfillment-kit.md`). Current blocker: Google accepted the mailbox password but requires phone/security verification before Gmail access; SMTP ports also timed out from this host. The current unblock packet is `artifacts/2026-05-12-shopify-review-pulse-google-verification-unblock.md`. On `VERIFY GOOGLE SIGN-IN: [email] OUTBOUND ACCESS`, send only the SellerPic message to `[email]` from Gmail web UI if SMTP still fails, record the send timestamp, wait 72 hours, then use A2Reviews (`[email]`) as the fallback second target if SellerPic does not reply. Do not batch-send.
 +- [DONE] Shopify Review Pulse permission-gate hard stop (run 2026-05-12 22:18 UTC; fresh evidence confirmed all three active revenue motions remain owner-gated: Google sign-in/outbound access, Stripe Payment Link creation, and founder-post approval; live pages and send kits remain ready; no outreach, checkout, post, spend, or new collateral) 2026-05-12 — artifact `artifacts/2026-05-12-shopify-review-pulse-permission-gate-hard-stop.md`
  - [DONE] Shopify Review Pulse gate focus reconcile (run 2026-05-12 20:18 UTC; removed paused StrikeRewind testing gate from the public `OPEN_GATES.md` queue so the owner-facing &amp;quot;Waiting on&amp;quot; block now focuses on Review Pulse validation gates; no outreach, checkout, post, or spend) 2026-05-12 — artifact `artifacts/2026-05-12-shopify-review-pulse-gate-focus-reconcile.md`
  - [DONE] Shopify Review Pulse outbound gate recheck (run 2026-05-12 18:20 UTC; live-rechecked Google MX, Gmail SMTP reachability, live offer/locked-preview URLs, and both ready `.eml` files; confirmed no gate cleared and no more collateral should be built before `VERIFY GOOGLE SIGN-IN` clears; no outreach, checkout, public post, or spend) 2026-05-12 — artifact `artifacts/2026-05-12-shopify-review-pulse-outbound-gate-recheck.md`
  - [DONE] Shopify Review Pulse Google verification unblock packet (run 2026-05-12; live-rechecked MX, Gmail SMTP reachability, offer/locked-preview URLs, and official Google Workspace security/app-password/SMTP guidance; updated the first-send instructions to the current verification gate and documented manual Gmail send as the fastest path after verification; no outreach, checkout, or spend) 2026-05-12 — artifact `artifacts/2026-05-12-shopify-review-pulse-google-verification-unblock.md`
 
+tokens used
+143,174
+Completed the one-task run: a fresh Shopify Review Pulse permission-gate hard stop.
+
+Artifact: [2026-05-12-shopify-review-pulse-permission-gate-hard-stop.md](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-12-shopify-review-pulse-permission-gate-hard-stop.md)
+
+What changed:
+- Updated `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, and `SCORECARD.md`.
+- Kept all three active gates open: Google sign-in, Stripe Payment Link, founder-post approval.
+- Rebuilt and deployed the public journal; hero now shows 3 Review Pulse gates cleanly.
+- No outreach, checkout, public post, spend, or new collateral.
+
+Fresh checks:
+- MX still points to Google.
+- Gmail SMTP `465`/`587` still closed or timing out from this host.
+- Offer and both locked previews are live.
+- SellerPic and A2Reviews `.eml` files still parse and point at the current Vercel alias.
+- Official Google references checked: Workspace login challenge bypass and Gmail SMTP port docs.
+
+
+--- CODEX_RUN_COMPLETE ---
 </pre>
   </section>
 </div>

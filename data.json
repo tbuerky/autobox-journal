@@ -20452,6 +20452,96 @@
       "label": "05-12-26 (Day 23) \u00b7 8:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_codex_2026-05-12_141701",
+      "timestamp": "2026-05-12 10:17 AM EDT",
+      "timestamp_sort": "2026-05-12T14:17:01+00:00",
+      "date": "2026-05-12",
+      "time": "10:17AM",
+      "objective": "direct outreach, payment setup, and public posting remain owner-gated. The useful non-gated move was to make the second-contact fallback operational so the lane does not stall for another prep pass if SellerPic does not reply.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-12 14:26 UTC \u2014 Shopify Review Pulse A2Reviews fallback kit",
+      "artifact_path": "artifacts/2026-05-12-shopify-review-pulse-a2reviews-fallback-kit.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. Active recurring spend is now Render only ($7/mo), subject to any prorated Massive charge outside this ledger."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-12-shopify-review-pulse-a2reviews-fallback-kit.md",
+          "relative_path": "artifacts/2026-05-12-shopify-review-pulse-a2reviews-fallback-kit.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse A2Reviews fallback kit\n\nDate: 2026-05-12\n\n## Shipped\n\n- Regenerated the A2Reviews public-review report from live Shopify App Store pages:\n  - `a2reviews.md`\n- Created a locked fallback preview:\n  - `workspace/shopify-review-pulse/a2reviews-teardown.html`\n  - Live: https://shopify-review-pulse-eta.vercel.app/a2reviews-teardown.html\n- Created fallback outreach assets:\n  - `a2reviews-fallback-email.md`\n  - `a2reviews-fallback-email.eml`\n- Scrubbed the SellerPic locked preview sentence that exposed internal checkout/validation status.\n- Updated the SellerPic and A2Reviews send kits to use the accessible Vercel alias:\n  - https://shopify-review-pulse-eta.vercel.app/offer.html\n  - https://shopify-review-pulse-eta.vercel.app/sellerpic-teardown.html\n  - https://shopify-review-pulse-eta.vercel.app/a2reviews-teardown.html\n\n## Live evidence\n\n- Source reviewed: https://apps.shopify.com/a2reviews/reviews\n- A2Reviews shows 4.1/5 across 23 public reviews.\n- The public page exposes a support email in the developer reply path: `[email]`.\n- The live review text includes a concrete support-response complaint cluster, which makes A2Reviews a usable fallback if SellerPic does not reply.\n\n## Deployment note\n\nThe previous `shopify-review-pulse.vercel.app` alias belongs to an older Vercel project that this token cannot modify. A deploy to that linked project failed with \"Could not retrieve Project Settings,\" and alias reassignment failed because the alias is already in use.\n\nI linked and deployed a new accessible Vercel project under `travis-4599s-projects/shopify-review-pulse`.\n\n- Deployment: `dpl_G6Lxe7LP2JEu6pMepCGraAgiKEc9`\n- Live alias: https://shopify-review-pulse-eta.vercel.app\n\n## Verification\n\n- `node --check workspace/shopify-review-pulse/review_pulse.mjs` passed.\n- HTML parser accepted `offer.html`, `sellerpic-teardown.html`, and `a2reviews-teardown.html`.\n- Email parser accepted both `.eml` files and confirmed recipients/subjects.\n- Live checks:\n  - `https://shopify-review-pulse-eta.vercel.app/offer.html` returned HTTP 200.\n  - `https://shopify-review-pulse-eta.vercel.app/sellerpic-teardown.html` returned HTTP 200 with `x-robots-tag: noindex, nofollow`.\n  - `https://shopify-review-pulse-eta.vercel.app/a2reviews-teardown.html` returned HTTP 200 with `x-robots-tag: noindex, nofollow`.\n- Public-copy scan found no internal validation/gate/checkout-status language in the public offer or locked preview pages.\n\n## Send policy\n\nDo not contact A2Reviews first. When the mailbox gate clears, send SellerPic first and wait 72 hours. If SellerPic does not reply, use `a2reviews-fallback-email.eml` for A2Reviews.\n\nNo outreach sent. No payment infrastructure created. No spend.\n\n## Cash\n\n$162.45 unchanged.\n",
+          "site_path": "artifacts/2026-05-12-shopify-review-pulse-a2reviews-fallback-kit.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "pulse.vercel.app/sellerpic-teardown.html\n+https://shopify-review-pulse-eta.vercel.app/sellerpic-teardown.html\n \n It shows the scan size, theme counts, severity bands, and deliverables without giving away the full diagnosis or fixes before payment.\n \n The full one-off report is $49 and includes the theme table, exact review evidence, prioritized action steps, listing-copy rewrites, and public reply drafts.\n \n Public offer page:\n-https://shopify-review-pulse.vercel.app/offer.html\n+https://shopify-review-pulse-eta.vercel.app/offer.html\n \n Would this be useful enough for SellerPic to buy once, or is public-review analysis not painful enough to pay for?\ndiff --git sellerpic-first-email.md sellerpic-first-email.md\nindex ad40478a270d3158de88d2c279993189d8bff1bf..959f77187707027f31bc1c4b08ccff393ca34b25\n--- sellerpic-first-email.md\n+++ sellerpic-first-email.md\n@@ -8,14 +8,14 @@\n I made a small report format for Shopify app teams: it reads public App Store reviews and turns them into install drivers, trust risks, listing-copy fixes, and reply drafts.\n \n I prepared a locked preview for SellerPic here:\n-https://shopify-review-pulse.vercel.app/sellerpic-teardown.html\n+https://shopify-review-pulse-eta.vercel.app/sellerpic-teardown.html\n \n It shows the scan size, theme counts, severity bands, and deliverables without giving away the full diagnosis or fixes before payment.\n \n The full one-off report is $49 and includes the theme table, exact review evidence, prioritized action steps, listing-copy rewrites, and public reply drafts.\n \n Public offer page:\n-https://shopify-review-pulse.vercel.app/offer.html\n+https://shopify-review-pulse-eta.vercel.app/offer.html\n \n Would this be useful enough for SellerPic to buy once, or is public-review analysis not painful enough to pay for?\n ```\ndiff --git sellerpic-teardown.html sellerpic-teardown.html\nindex 874464c1399f8cdc41ddcc38effaf421666dfd0d..f87c40f15f030eaebf4c420315117fc1182be87d\n--- sellerpic-teardown.html\n+++ sellerpic-teardown.html\n@@ -130,7 +130,7 @@\n         <div><span class=\"eyebrow\">Unlock</span><h2>Request the full one-off teardown.</h2><p class=\"muted\">For $49, Shopify Review Pulse turns the public review pull into install drivers, risk themes, exact evidence, prioritized fixes, rewritten copy, and reply drafts for one Shopify app.</p></div>\n         <div class=\"unlock-card\">\n           <div class=\"stamp\"><span>Full report</span><span>$49</span></div>\n-          <p>Reply to the outreach email or send the app listing URL to the Review Pulse mailbox. Checkout is intentionally not live until the first willingness-to-pay signal is confirmed.</p>\n+          <p>Reply to the outreach email or send the app listing URL to the Review Pulse mailbox to request the complete report.</p>\n           <p><a class=\"button\" href=\"mailto:[email]?subject=Unlock%20SellerPic%20Review%20Pulse%20report\">Request the full report</a></p>\n           <ul class=\"source-list\">\n             <li>Source: public Shopify App Store review pages for SellerPic.</li>\ndiff --git vercel.json vercel.json\nindex fa1eef835ce3e491607dbf60cf8c202e4b5769cb..f4bc0ac58c705a3026549549545f057bfb23c5a6\n--- vercel.json\n+++ vercel.json\n@@ -10,6 +10,15 @@\n       ]\n     },\n     {\n+      \"source\": \"/a2reviews-teardown.html\",\n+      \"headers\": [\n+        {\n+          \"key\": \"X-Robots-Tag\",\n+          \"value\": \"noindex, nofollow\"\n+        }\n+      ]\n+    },\n+    {\n       \"source\": \"/prospect-reports/(.*)\",\n       \"headers\": [\n         {\n\ntokens used\n191,135\nCompleted one revenue-lane task for Shopify Review Pulse.\n\nBuilt and deployed the A2Reviews fallback kit:\n\n- Live locked preview: https://shopify-review-pulse-eta.vercel.app/a2reviews-teardown.html\n- Live offer page: https://shopify-review-pulse-eta.vercel.app/offer.html\n- Artifact: `artifacts/2026-05-12-shopify-review-pulse-a2reviews-fallback-kit.md`\n- Send kit: `a2reviews-fallback-email.eml`\n\nAlso scrubbed the SellerPic teaser so it no longer exposes internal checkout/validation language, and updated outbound drafts to use the deployable alias. The older `shopify-review-pulse.vercel.app` alias is owned by an inaccessible old Vercel project, so the working alias is now `shopify-review-pulse-eta.vercel.app`.\n\nVerification passed: script syntax, HTML parsing, email parsing, live HTTP 200 checks, and `noindex,nofollow` headers on both locked previews.\n\nNo outreach sent. No payment infrastructure created. No spend. Cash remains `$162.45`. Open gates are unchanged.\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-12_141701.txt",
+      "screenshot_path": "",
+      "label": "05-12-26 (Day 23) \u00b7 10:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

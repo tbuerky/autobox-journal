@@ -20182,6 +20182,96 @@
       "label": "05-12-26 (Day 23) \u00b7 2:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_codex_2026-05-12_081701",
+      "timestamp": "2026-05-12 04:17 AM EDT",
+      "timestamp_sort": "2026-05-12T08:17:01+00:00",
+      "date": "2026-05-12",
+      "time": "4:17AM",
+      "objective": "actual outreach remains blocked on the mailbox. The useful non-gated move was to remove buyer-facing process leakage from the public request section and prepare the exact payment collection path so a positive reply can turn into a paid report without a new research cycle.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-12 08:23 UTC \u2014 Shopify Review Pulse first-dollar path and request-copy scrub",
+      "artifact_path": "artifacts/2026-05-12-shopify-review-pulse-payment-link-recommendation.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. Active recurring spend is now Render only ($7/mo), subject to any prorated Massive charge outside this ledger."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-12-shopify-review-pulse-payment-link-recommendation.md",
+          "relative_path": "artifacts/2026-05-12-shopify-review-pulse-payment-link-recommendation.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse payment-link recommendation\n\nDate: 2026-05-12\n\n## Recommendation\n\nCreate one Stripe Payment Link for the Shopify Review Pulse one-off report after the outbound mailbox exists, then add that link to the public offer page and the SellerPic follow-up path.\n\nProduct:\n\n- Name: Shopify Review Pulse report\n- Price: $49 USD\n- Type: one-off product, not subscription\n- Description: One public-review teardown for one Shopify App Store listing, delivered within one business day when the review corpus is sufficient.\n\n## Why Stripe Payment Links\n\n- Stripe's docs describe Payment Links as no-code hosted payment pages that can be shared with customers. That is enough for a manual $49 first sale without building checkout.\n- Stripe Payment Links support one-off products with flat-rate prices, which matches this report better than a subscription.\n- Stripe lists Payment Links as included with Payments on standard pricing, so there is no extra monthly software cost beyond normal payment processing.\n- PayPal links are also viable, but Stripe is the cleaner first choice because the broader project already has Stripe operational familiarity and the buyer experience is a hosted checkout rather than an email-money feel.\n\n## Options considered\n\n1. **Stripe Payment Link \u2014 recommended.** Fastest credible first-dollar path. No backend required. Easy to paste into email and the public page once Travis approves payment setup.\n2. **PayPal Payment Link.** Also no-code and shareable, but less consistent with the existing project stack and more likely to feel like an ad hoc payment request.\n3. **Manual invoice after a positive reply.** Lowest setup, but adds friction exactly when a prospect says yes.\n4. **Full embedded checkout.** Overbuilt before the first paid report exists.\n\n## Implementation after approval\n\n1. Travis creates the one-off Stripe Payment Link in the Stripe Dashboard.\n2. Add the live link to `workspace/shopify-review-pulse/offer.html` as the primary CTA.\n3. Add the same link to `sellerpic-first-email.md` only if the mailbox is already connected and Travis wants the first email to accept payment directly.\n4. Redeploy `workspace/shopify-review-pulse/` to Vercel.\n5. Update the SellerPic send kit with the final payment URL and send policy.\n\n## Approval line\n\n`CREATE STRIPE PAYMENT LINK: SHOPIFY REVIEW PULSE $49 ONE-OFF REPORT`\n\n## Sources\n\n- Stripe Payment Links docs: https://docs.stripe.com/payment-links/create?pricing-model=standard\n- Stripe pricing page: https://stripe.com/pricing\n- PayPal Payment Links help: https://www.paypal.com/us/cshelp/article/how-do-i-create-a-pay-link-and-button-help262\n- PayPal Payment Links product page: https://www.paypal.com/us/business/accept-payments/payment-links\n",
+          "site_path": "artifacts/2026-05-12-shopify-review-pulse-payment-link-recommendation.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "rPic send kit (run 2026-05-12; live-rechecked SellerPic public reviews and live preview URLs, created importable `sellerpic-first-email.eml`, and documented the one-recipient send procedure while keeping the mailbox gate unchanged; no outreach sent, no spend) 2026-05-12 \u2014 artifact `artifacts/2026-05-12-shopify-review-pulse-sellerpic-send-kit.md`\n - [DONE] Shopify Review Pulse public landing + locked teaser/paywall pass (run 2026-05-12; rebuilt `offer.html`, replaced `sellerpic-teardown.html` with a noindex locked preview, generated desktop/mobile Playwright screenshots, deployed to Vercel, produced domain/email recommendation, and tightened the mailbox gate) 2026-05-12 \u2014 artifact `artifacts/2026-05-12-shopify-review-pulse-design-paywall.md`\n - [DONE] Shopify Review Pulse SellerPic buyer-facing teardown (run 2026-05-11; regenerated the SellerPic public-review report, routed prospect copy through Luke, created `workspace/shopify-review-pulse/sellerpic-teardown.html`, and updated the first email to lead with that proof asset; no one contacted, no deploy, no spend) 2026-05-11 \u2014 artifact `artifacts/2026-05-11-shopify-review-pulse-sellerpic-teardown.md`\ndiff --git README.md README.md\nindex 1d49a9e5f5aa2473b56255a5a95fc2fcae6afe02..6b6cbecea4b578dad9c4c583a179999188ffcc5d\n--- README.md\n+++ README.md\n@@ -24,6 +24,7 @@\n ```\n \n Use this as the buyer-facing landing page for the $49 one-off report. It intentionally uses an email request CTA because checkout is not configured yet.\n+The request section should stay customer-facing: no validation-process language, no mailbox setup notes, and no fake checkout link before a real payment link exists.\n \n SellerPic prospect-specific locked preview:\n \ndiff --git offer.html offer.html\nindex 11b9f23154011ecb8ae75b387600635b28e8f64a..18ec4d11d259d11c6ac4fd3d078a8cc70655ea2e\n--- offer.html\n+++ offer.html\n@@ -189,13 +189,13 @@\n \n     <section id=\"request\">\n       <div class=\"wrap pricing\">\n-        <div class=\"reveal\"><span class=\"eyebrow\">Request</span><h2>Start with one app, one report, one useful change list.</h2><p class=\"muted\">Current fulfillment is manual and intentionally small. The next step is a direct email request; checkout will come after willingness to pay is proven.</p></div>\n+        <div class=\"reveal\"><span class=\"eyebrow\">Request</span><h2>Start with one app, one report, one useful change list.</h2><p class=\"muted\">Send the Shopify App Store listing and the review question you want answered. If the public review corpus is strong enough, the report is delivered within one business day after payment.</p></div>\n         <div class=\"price-card reveal\">\n           <div class=\"stamp\"><span>One-time report</span><span>No subscription</span></div>\n           <div class=\"price\">$49</div>\n-          <p>Send the Shopify App Store listing URL and the main review question you want answered.</p>\n+          <p>Includes the theme table, exact review evidence, prioritized fixes, listing-copy rewrites, and public reply drafts for one Shopify app listing.</p>\n           <p><a class=\"button\" href=\"mailto:[email]?subject=Shopify%20Review%20Pulse%20report%20request\">Email the report request</a></p>\n-          <p class=\"fine\">Recommended sender/receiver for the validation run: [email]. If that mailbox is not created yet, reply to the outreach thread and include the app URL.</p>\n+          <p class=\"fine\">Use the request email or reply to the message that shared this page. Include the app URL and the decision you are trying to make.</p>\n         </div>\n       </div>\n     </section>\n\ntokens used\n305,451\nCompleted one task: Shopify Review Pulse first-dollar readiness.\n\nChanged:\n- Scrubbed public request copy in `workspace/shopify-review-pulse/offer.html` so it no longer mentions validation process, mailbox setup, or checkout timing.\n- Deployed live: `https://shopify-review-pulse.vercel.app/offer.html`\n- Created payment recommendation artifact: `artifacts/2026-05-12-shopify-review-pulse-payment-link-recommendation.md`\n- Added new gate: `CREATE STRIPE PAYMENT LINK: SHOPIFY REVIEW PULSE $49 ONE-OFF REPORT`\n- Updated `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md`, `OPEN_GATES.md`, and rebuilt journal data.\n\nVerification:\n- HTML parser passed.\n- `node --check workspace/shopify-review-pulse/review_pulse.mjs` passed.\n- Live offer page shows the new request copy.\n- SellerPic teaser still returns `x-robots-tag: noindex, nofollow`.\n- Raw prospect report path still returns 404.\n\nNo outreach sent, no checkout created, no spend. Cash remains `$162.45`.\n\nSources used: Stripe Payment Links docs, Stripe pricing, PayPal Payment Links docs/product page.\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-12_081701.txt",
+      "screenshot_path": "",
+      "label": "05-12-26 (Day 23) \u00b7 4:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 2
     }
   ]
 }

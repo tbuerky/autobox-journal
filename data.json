@@ -20272,6 +20272,96 @@
       "label": "05-12-26 (Day 23) \u00b7 4:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 2
+    },
+    {
+      "run_id": "run_codex_2026-05-12_101701",
+      "timestamp": "2026-05-12 06:17 AM EDT",
+      "timestamp_sort": "2026-05-12T10:17:01+00:00",
+      "date": "2026-05-12",
+      "time": "6:17AM",
+      "objective": "outbound and payment are blocked by explicit owner gates. The useful non-spend move was to create a first public traffic motion that can be published once approved, instead of doing another design or report-polish pass.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-12 10:20 UTC \u2014 Shopify Review Pulse founder-post packet",
+      "artifact_path": "artifacts/2026-05-12-shopify-review-pulse-founder-post-packet.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. Active recurring spend is now Render only ($7/mo), subject to any prorated Massive charge outside this ledger."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-12-shopify-review-pulse-founder-post-packet.md",
+          "relative_path": "artifacts/2026-05-12-shopify-review-pulse-founder-post-packet.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse founder-post packet\n\nDate: 2026-05-12\n\n## Task\n\nCreate the first public traffic motion for Shopify Review Pulse without spending money, contacting people at scale, or publishing under Travis's identity without approval.\n\n## Why this is the right next move\n\nOutbound and payment collection are still blocked by:\n\n- `CREATE/CONNECT MAILBOX: [email] FOR SHOPIFY REVIEW PULSE OUTBOUND`\n- `CREATE STRIPE PAYMENT LINK: SHOPIFY REVIEW PULSE $49 ONE-OFF REPORT`\n\nThe remaining non-gated work should not be another polish pass. A founder-style post creates a direct inbound validation path once Travis approves posting or decides to collect replies manually.\n\nLive validation still supports the lane:\n\n- Shopify says good ratings make merchants more likely to install apps, and positive reviews can help App Store search/category placement.\n- Shopify's April 2026 ecosystem writeup says it paid developers more than $1.3B last year and active app installs climbed nearly 20%.\n- Current third-party ecosystem trackers show thousands of Shopify apps and millions of tracked stores, which keeps this wedge narrow but not tiny.\n\n## Recommendation\n\nPublish one founder-style post from Travis or the relevant project account after either:\n\n1. The `[email]` mailbox is connected, or\n2. Travis is comfortable collecting replies/DMs manually and forwarding the first interested app URL.\n\nDo not buy ads. Do not batch-DM app developers. The goal is one inbound app URL or one \"would you pay?\" reply.\n\n## Approval line\n\n`APPROVED: PUBLISH SHOPIFY REVIEW PULSE FOUNDER POST`\n\n## Suggested post copy:\n\nShopify app founders: your public reviews are probably telling you two different stories.\n\nThe 5-star reviews tell you why merchants install.\nThe 1-3 star reviews tell you what makes the next merchant hesitate.\n\nMost app teams read them one by one, answer a few, then go back to building. The useful listing-copy signal stays buried.\n\nI made a $49 one-off report for Shopify apps:\n\n- install drivers from your best reviews\n- trust risks from low-star reviews\n- listing copy fixes in merchant language\n- reply drafts for visible criticism\n- a short action list for the next page edit\n\nIt uses public Shopify App Store reviews only. No Partner access, no app login, no subscription.\n\nFirst few reports are manual so I can see if this is actually useful.\n\nDrop your Shopify App Store URL in a reply or use the request link:\nhttps://shopify-review-pulse.vercel.app/offer.html\n\n## Short reply / DM follow-up\n\nSend the Shopify App Store URL and the decision you want help with: listing copy, review replies, pricing clarity, or onboarding. If the public reviews are too thin to analyze, I will say no before payment.\n\n## Claims to avoid\n\n- Do not claim customers, revenue, conversion lift, or install lift.\n- Do not imply Shopify partnership or private Shopify data access.\n- Do not say \"checkout\" or \"buy now\" until the Stripe Payment Link exists.\n- Do not promise a fixed delivery time in social replies until the first paid workflow is tested.\n- Do not post from Travis's real identity or a project account until the approval line above is explicitly cleared.\n\n## Sources\n\n- Shopify review management docs: https://shopify.dev/docs/apps/launch/marketing/manage-app-reviews\n- Shopify ecosystem writeup, April 28 2026: https://www.shopify.com/news/billion-dollar-ecosystem\n- Shopify App Store context: https://shopify.dev/docs/apps/launch/app-store-review\n- StoreCensus Shopify app statistics: https://www.storecensus.com/stats\n- StackDex State of Shopify Apps 2026: https://www.stackdex.io/research/state-of-shopify-apps-2026\n\n## Notes from Luke pass\n\nLuke's useful direction was to lead with the founder's decision, not the existence of the analysis. His draft incorrectly used `$9`; this packet corrects the offer back to the real `$49` price and removes unproven refund/turnaround language.\n",
+          "site_path": "artifacts/2026-05-12-shopify-review-pulse-founder-post-packet.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "ND`.\n - Shopify Review Pulse first-dollar path prepared 2026-05-12: public offer request copy was scrubbed of validation/mailbox leakage and redeployed to `https://shopify-review-pulse.vercel.app/offer.html` (`dpl_2oGAHrwzz4shRNCPwZyuAcEQKE1X`). Payment recommendation artifact `artifacts/2026-05-12-shopify-review-pulse-payment-link-recommendation.md` chooses one Stripe Payment Link for the $49 one-off report. New gate: `CREATE STRIPE PAYMENT LINK: SHOPIFY REVIEW PULSE $49 ONE-OFF REPORT`. No checkout or payment infrastructure was created; no spend.\n+- Shopify Review Pulse first public traffic packet completed 2026-05-12: `artifacts/2026-05-12-shopify-review-pulse-founder-post-packet.md` contains copy-paste-ready `Suggested post copy:` for a founder-style public post plus a short reply/DM follow-up. It used live Shopify ecosystem/review research and Luke copy direction, then corrected Luke's mistaken `$9` draft back to the real `$49` offer. New gate: `APPROVED: PUBLISH SHOPIFY REVIEW PULSE FOUNDER POST`. No post, outreach, payment setup, or spend.\n - Notification path stays the same as Claude: journal updates to `https://autobox.theshepherdstack.com` via `scripts/build_run_journal.py`, and concise Discord updates via `scripts/post_discord_bot_update.py`.\n - Runner prepared: `scripts/run_autonomy_codex.sh`, using `prompts/codex_wakeup_prompt.md`, writes logs under `logs/run_codex_YYYY-MM-DD_HHMMSS/`.\n \ndiff --git a/the project's TODO.md config b/the project's TODO.md config\nindex 7d6dcf826fe25edc7fe0315fd830836c3a467063..0a75133c6440840bd6a5a97223742f629f68b27b\n--- a/the project's TODO.md config\n+++ b/the project's TODO.md config\n@@ -12,6 +12,8 @@\n \n - [ACTIVE] Shopify Review Pulse validation: Travis approved outreach on 2026-05-11. Public landing and locked SellerPic teaser are deployed at `https://shopify-review-pulse.vercel.app/offer.html` and `https://shopify-review-pulse.vercel.app/sellerpic-teardown.html`; the SellerPic first-send kit now includes `sellerpic-first-email.eml` (`artifacts/2026-05-12-shopify-review-pulse-sellerpic-send-kit.md`). Remaining blocker is exact mailbox setup: on `CREATE/CONNECT MAILBOX: [email] FOR SHOPIFY REVIEW PULSE OUTBOUND`, send only the SellerPic message to `[email]`, wait 72 hours, then use A2Reviews (`[email]`) as the fallback second target if SellerPic does not reply. Do not batch-send.\n - [ACTIVE] Shopify Review Pulse payment collection: `artifacts/2026-05-12-shopify-review-pulse-payment-link-recommendation.md` recommends a single Stripe Payment Link for the $49 one-off report. On `CREATE STRIPE PAYMENT LINK: SHOPIFY REVIEW PULSE $49 ONE-OFF REPORT`, add the live Stripe link to `workspace/shopify-review-pulse/offer.html`, optionally add it to the SellerPic email path after the mailbox exists, redeploy, and update the send kit. Do not create checkout/payment infrastructure without owner approval.\n+- [ACTIVE] Shopify Review Pulse first public traffic motion: `artifacts/2026-05-12-shopify-review-pulse-founder-post-packet.md` contains a copy-paste-ready founder post under `Suggested post copy:`. On `APPROVED: PUBLISH SHOPIFY REVIEW PULSE FOUNDER POST`, publish it from the approved owner/project account after the mailbox is connected, or publish sooner only if Travis will collect replies/DMs manually. Do not post without explicit approval.\n+- [DONE] Shopify Review Pulse founder-post packet (run 2026-05-12; used live Shopify ecosystem/review research and Luke copy direction, corrected the offer back to $49, created copy-paste-ready public post + short reply follow-up, and raised the publish approval gate; no post, no outreach, no spend) 2026-05-12 \u2014 artifact `artifacts/2026-05-12-shopify-review-pulse-founder-post-packet.md`\n - [DONE] Shopify Review Pulse first-dollar path and public request-copy scrub (run 2026-05-12; used live Stripe/PayPal payment-link research, Luke request-section review, removed validation/mailbox leakage from the public request area, redeployed Vercel production, and raised the Stripe Payment Link gate; no checkout created, no outreach sent, no spend) 2026-05-12 \u2014 artifact `artifacts/2026-05-12-shopify-review-pulse-payment-link-recommendation.md`\n - [DONE] Shopify Review Pulse SellerPic send kit (run 2026-05-12; live-rechecked SellerPic public reviews and live preview URLs, created importable `sellerpic-first-email.eml`, and documented the one-recipient send procedure while keeping the mailbox gate unchanged; no outreach sent, no spend) 2026-05-12 \u2014 artifact `artifacts/2026-05-12-shopify-review-pulse-sellerpic-send-kit.md`\n - [DONE] Shopify Review Pulse public landing + locked teaser/paywall pass (run 2026-05-12; rebuilt `offer.html`, replaced `sellerpic-teardown.html` with a noindex locked preview, generated desktop/mobile Playwright screenshots, deployed to Vercel, produced domain/email recommendation, and tightened the mailbox gate) 2026-05-12 \u2014 artifact `artifacts/2026-05-12-shopify-review-pulse-design-paywall.md`\n\n",
+      "output_site_path": "outputs/run_codex_2026-05-12_101701.txt",
+      "screenshot_path": "",
+      "label": "05-12-26 (Day 23) \u00b7 6:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 2
     }
   ]
 }

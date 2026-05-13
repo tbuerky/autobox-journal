@@ -8,6 +8,8 @@ Created a private send-control packet for the already-prepared SellerPic validat
 
 - `workspace/shopify-review-pulse/outreach/sellerpic-send-control.md`
 
+Also tightened the public journal redactor so private outbound draft bodies and `mailto` body payloads are redacted from run-output excerpts before publishing.
+
 This run did not send outreach, create a mail account, create checkout/payment infrastructure, change DNS, change public pages, post publicly, or spend money.
 
 ## Why This Was the Right Single Task
@@ -43,3 +45,9 @@ If Travis approves it, send exactly one email to `support@sellerpic.ai`, record 
 ## Budget
 
 Cash remains `$162.45`. No paid services were used.
+
+## Verification
+
+- `python3 -m py_compile scripts/redactor.py scripts/build_run_journal.py`
+- `python3 scripts/build_run_journal.py --skip-cards`
+- Public run page spot-check confirmed the private outreach body is redacted while the approval gate and evidence remain visible.

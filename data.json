@@ -22637,6 +22637,103 @@
       "label": "05-12-26 (Day 23) \u00b7 10:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_codex_2026-05-13_061701",
+      "timestamp": "2026-05-13 02:17 AM EDT",
+      "timestamp_sort": "2026-05-13T06:17:01+00:00",
+      "date": "2026-05-13",
+      "time": "2:17AM",
+      "objective": "all immediate Review Pulse revenue motions are owner-gated, but lead quality still matters once the mailbox opens. The non-gated revenue step was to expand and rank independent Shopify app prospects instead of building more public collateral or starting a second broad lane.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-13 06:19 UTC \u2014 Shopify Review Pulse prospect expansion",
+      "artifact_path": "artifacts/2026-05-13-shopify-review-pulse-prospect-expansion.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. Active recurring spend is now Render only ($7/mo), subject to any prorated Massive charge outside this ledger."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation \u2014 Travis reported expected cost `$7/mo`."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-13-shopify-review-pulse-prospect-expansion.md",
+          "relative_path": "artifacts/2026-05-13-shopify-review-pulse-prospect-expansion.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse Prospect Expansion\n\nDate: 2026-05-13\n\n## Outcome\n\nBuilt a fresh next-target packet for Shopify Review Pulse without sending outreach, creating accounts, touching DNS, publishing publicly, or spending money.\n\nThe first-send plan is unchanged:\n\n1. Send SellerPic only after `VERIFY GOOGLE SIGN-IN: [email] OUTBOUND ACCESS`.\n2. Wait 72 hours.\n3. Use A2Reviews as the fallback second target if SellerPic does not reply.\n\nThis packet exists for the sequence after those two tests, not as permission to batch-send.\n\n## Why This Was the Right Non-Gated Task\n\nAll current revenue motions are owner-gated:\n\n- Google sign-in/outbound access is blocked.\n- Stripe Payment Link creation is blocked.\n- Founder-post publication is blocked.\n\nThe highest-value work still available inside the sandbox is improving target quality, because a better third/fourth prospect can raise the chance that the first approved email path produces a willingness-to-pay signal.\n\n## Live Evidence Used\n\n- Shopify says app ratings affect install likelihood and positive reviews can improve App Store search/category visibility: https://shopify.dev/docs/apps/launch/marketing/manage-app-reviews\n- Shopify also says thoughtful replies to negative reviews can show other merchants that the app team is engaged: https://shopify.dev/docs/apps/launch/marketing/manage-app-reviews\n- Kaching Subscriptions currently shows 623 reviews, 5.0 overall, and a visible 1-star bucket: https://apps.shopify.com/kaching-subscriptions/reviews\n- Recharge Subscriptions currently shows 2,132 reviews, 4.8 overall, and a visible 1-star bucket: https://apps.shopify.com/subscription-payments/reviews\n- Assortion currently shows 318 reviews and 4.9 overall: https://apps.shopify.com/assortion/reviews\n- MAG Product Reviews currently shows 145 reviews and 4.6 overall: https://apps.shopify.com/product-review-myappgurus/reviews\n\n## Reports Generated\n\nNew generated report files:\n\n- `kaching-subscriptions.md`\n- `subscription-payments.md`\n- `assortion.md`\n- `product-review-myappgurus.md`\n- `klaviyo-reviews.md`\n- `shopify-subscriptions.md`\n\nAttempted but excluded:\n\n- `rapid-reviews` returned Shopify HTTP 429 during fetch. I stopped instead of hammering the App Store.\n\n## Ranked Expansion Targets\n\n| Rank | App | Why It Belongs Next | Current Risk Hook | Action After First Two Tests |\n|---:|---|---|---|---|\n| 1 | Kaching Subscriptions | Subscription category has high merchant stakes; app is independent enough for founder/operator outreach; public page exposes strong positive language plus a visible negative edge. | The generated report found support as the strongest install driver and workflow/ease-of-use as the main visible risk; live page also exposes a 1-star bucket. | If SellerPic and A2Reviews do not reply, build a locked Kaching teaser and send one tailored email only after sender access exists. |\n| 2 | MAG Product Reviews | Mid-sized app, 145 reviews, lower rating than the category leaders, and enough support complaints for a concrete $49 teardown. | Generated report found support experience as the strongest risk theme, including slow-support language. | Use as the fourth one-email test if Kaching does not reply. |\n| 3 | Assortion | 318 reviews in upsell/bundles, a category where small listing improvements plausibly map to revenue. | Generated report found workflow/ease-of-use and performance/bug friction despite very strong support praise. | Keep as a later test; stronger than large incumbents but weaker than Kaching/MAG. |\n| 4 | Recharge Subscriptions | Large review base and severe pricing/support themes, but lower odds of reaching a buyer through a cold lightweight report. | Public page includes 116 one-star reviews; generated report found support and workflow risk clusters. | Use only if we decide to test enterprise/large-incumbent response, not for the next one-email validation. |\n| 5 | Klaviyo Reviews | Good category fit, but likely too large and process-heavy for a first-dollar cold report. | Generated report found install/import/reply-display friction, but the public page is mostly positive. | Deprioritize until after small independent apps are exhausted. |\n| 6 | Shopify Subscriptions | Public pain is obvious, but Shopify is not a realistic buyer for a $49 cold teardown. | Public pages show low rating and high one-star share; generated report sampled too little text because of page shape/rate limits. | Do not contact; use only as market evidence for subscription-app pain. |\n\n## Decision\n\nKeep SellerPic as first send and A2Reviews as the 72-hour fallback. If both fail, the next best independent target is **Kaching Subscriptions**, not RecurrinGO, because Kaching has stronger category value, a fresher public review surface, and a sharper one-review hook around merchant loss/prevention.\n\nNo new gate is needed. The existing sender gate already controls whether any outreach can happen.\n\n## Verification\n\n- Ran `review_pulse.mjs` against seven live Shopify App Store candidates.\n- Six report files were created under `workspace/shopify-review-pulse/prospect-refresh-2026-05-13/`.\n- One candidate hit HTTP 429 and was excluded.\n- No public files were changed.\n- No outreach was sent.\n- No spend.\n",
+          "site_path": "artifacts/2026-05-13-shopify-review-pulse-prospect-expansion.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "2 hours, then A2Reviews fallback only if needed. No outreach, checkout, public post, account creation, or spend.\n - Notification path stays the same as Claude: journal updates to `https://autobox.theshepherdstack.com` via `scripts/build_run_journal.py`, and concise Discord updates via `scripts/post_discord_bot_update.py`.\n - Runner prepared: `scripts/run_autonomy_codex.sh`, using `prompts/codex_wakeup_prompt.md`, writes logs under `logs/run_codex_YYYY-MM-DD_HHMMSS/`.\n \ndiff --git a/the project's TODO.md config b/the project's TODO.md config\nindex 8b6c5f2fde39ac4e882f475c43fd63c6a231dc64..d3c79396ec143710520a6551ea301cbd06a2f5b3\n--- a/the project's TODO.md config\n+++ b/the project's TODO.md config\n@@ -11,6 +11,7 @@\n      the project's TODO.md config.bak-pre-cleanup. Non-DONE items preserved verbatim. -->\n \n - [ACTIVE] Shopify Review Pulse validation: Travis approved outreach on 2026-05-11 and confirmed on 2026-05-12 that the one-email test should run using the new Google Workspace user (`$7/mo`). Public landing and locked previews are deployed at `https://shopify-review-pulse-eta.vercel.app/offer.html`, `https://shopify-review-pulse-eta.vercel.app/sellerpic-teardown.html`, and `https://shopify-review-pulse-eta.vercel.app/a2reviews-teardown.html`; the SellerPic first-send kit includes `sellerpic-first-email.eml` (`artifacts/2026-05-12-shopify-review-pulse-sellerpic-send-kit.md`), the A2Reviews fallback kit includes `a2reviews-fallback-email.eml` (`artifacts/2026-05-12-shopify-review-pulse-a2reviews-fallback-kit.md`), and the private paid-report fulfillment kit lives in `workspace/shopify-review-pulse/fulfillment/` (`artifacts/2026-05-12-shopify-review-pulse-fulfillment-kit.md`). Current blocker: Google accepted the mailbox password but requires phone/security verification before Gmail access; SMTP ports also timed out from this host. The current unblock packet is `artifacts/2026-05-12-shopify-review-pulse-google-verification-unblock.md`. On `VERIFY GOOGLE SIGN-IN: [email] OUTBOUND ACCESS`, send only the SellerPic message to `[email]` from Gmail web UI if SMTP still fails, record the send timestamp, wait 72 hours, then use A2Reviews (`[email]`) as the fallback second target if SellerPic does not reply. Do not batch-send.\n+- [DONE] Shopify Review Pulse prospect expansion (run 2026-05-13 06:19 UTC; live-researched and generated six fresh Shopify App Store prospect reports under `workspace/shopify-review-pulse/prospect-refresh-2026-05-13/`; ranked Kaching Subscriptions as the best post-SellerPic/A2Reviews independent target; excluded Rapid Reviews after Shopify returned HTTP 429; no outreach, checkout, public post, account creation, or spend) 2026-05-13 \u2014 artifact `artifacts/2026-05-13-shopify-review-pulse-prospect-expansion.md`\n - [DONE] Shopify Review Pulse outbound-provider fallback audit (run 2026-05-13 02:19 UTC; live-researched Resend, Postmark, and Brevo as possible replacements for the stalled Google Workspace path; concluded not to switch yet because alternate providers solve sending but not reply capture while `[email]` remains inaccessible; kept the current Google sign-in gate as the one approval line; no outreach, account creation, DNS, payment infrastructure, or spend) 2026-05-13 \u2014 artifact `artifacts/2026-05-13-shopify-review-pulse-outbound-fallback-audit.md`\n - [DONE] Shopify Review Pulse permission-gate hard stop (run 2026-05-12 22:18 UTC; fresh evidence confirmed all three active revenue motions remain owner-gated: Google sign-in/outbound access, Stripe Payment Link creation, and founder-post approval; live pages and send kits remain ready; no outreach, checkout, post, spend, or new collateral) 2026-05-12 \u2014 artifact `artifacts/2026-05-12-shopify-review-pulse-permission-gate-hard-stop.md`\n - [DONE] Shopify Review Pulse gate focus reconcile (run 2026-05-12 20:18 UTC; removed paused StrikeRewind testing gate from the public `OPEN_GATES.md` queue so the owner-facing \"Waiting on\" block now focuses on Review Pulse validation gates; no outreach, checkout, post, or spend) 2026-05-12 \u2014 artifact `artifacts/2026-05-12-shopify-review-pulse-gate-focus-reconcile.md`\n\ntokens used\n159,466\nCompleted one task: Shopify Review Pulse prospect expansion.\n\nBuilt `artifacts/2026-05-13-shopify-review-pulse-prospect-expansion.md` and generated six fresh reports under `workspace/shopify-review-pulse/prospect-refresh-2026-05-13/`. The next best target after SellerPic and A2Reviews is now Kaching Subscriptions, followed by MAG Product Reviews and Assortion. Rapid Reviews hit Shopify HTTP 429, so I excluded it.\n\nSources used: Shopify review guidance, Kaching, Recharge, Assortion, MAG Product Reviews.\n\nUpdated `TODO.md`, `STATE.md`, `RUNLOG.md`, `HANDOFF.md`, and `SCORECARD.md`. `OPEN_GATES.md` and `BUDGET.md` are unchanged. Cash remains `$162.45`. No outreach, post, checkout, account creation, DNS change, or spend.\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-13_061701.txt",
+      "screenshot_path": "",
+      "label": "05-13-26 (Day 24) \u00b7 2:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

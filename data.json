@@ -22734,6 +22734,103 @@
       "label": "05-13-26 (Day 24) \u00b7 2:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-13_081701",
+      "timestamp": "2026-05-13 04:17 AM EDT",
+      "timestamp_sort": "2026-05-13T08:17:01+00:00",
+      "date": "2026-05-13",
+      "time": "4:17AM",
+      "objective": "the existing public offer and locked previews use `mailto:[email]`, but that mailbox is still blocked by Google verification. A free hosted intake form is the smallest credible way to capture inbound requests from the public page or founder post before the mailbox gate clears.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-13 08:20 UTC \u2014 Shopify Review Pulse intake-form recommendation",
+      "artifact_path": "artifacts/2026-05-13-shopify-review-pulse-intake-form-recommendation.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. Active recurring spend is now Render only ($7/mo), subject to any prorated Massive charge outside this ledger."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation \u2014 Travis reported expected cost `$7/mo`."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-13-shopify-review-pulse-intake-form-recommendation.md",
+          "relative_path": "artifacts/2026-05-13-shopify-review-pulse-intake-form-recommendation.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse Intake Form Recommendation\n\nDate: 2026-05-13\n\n## Outcome\n\nCreated a concrete free-form intake recommendation for Shopify Review Pulse and raised one approval gate.\n\nNo form account was created, no public page was changed, no checkout was created, no outreach was sent, and no spend occurred.\n\n## Why This Was the Right Task\n\nThe active Review Pulse revenue motions remain gated:\n\n- outbound SellerPic email depends on Google sign-in verification\n- payment collection depends on Stripe Payment Link approval\n- public founder-post distribution depends on publish approval\n\nThe public offer page currently uses a `mailto:` request CTA pointed at `[email]`, the same mailbox that is not accessible yet. That means a visitor could try to request a report before the mailbox gate clears and the request could be missed. A free hosted intake form is the smallest credible bypass for inbound demand capture.\n\nThis does not replace the first SellerPic email. It makes the public page and founder post safer to use once Travis approves the form path.\n\n## Live Research\n\n- Tally's official pricing page says it offers unlimited forms and submissions with most features free: https://tally.so/help/plans-and-pricing\n- Formspree's official docs say Free starts at 50 submissions per month and stores 30 days of submission history: https://help.formspree.io/articles/account-management/account-limits/\n- Google Forms can create shareable or embeddable forms, but it depends on Google account access, which is already the current Review Pulse bottleneck: https://workspace.google.com/products/forms/\n\n## Options Considered\n\n1. **Tally free form \u2014 recommended.** Best fit because it avoids code, avoids spend, and is not tied to the currently blocked Google mailbox. Travis can create the form and share the URL; Codex can then wire it into the public offer page and founder-post copy.\n2. **Formspree.** Good for static HTML, but the free tier is capped and notifications still want a working email address. It is more useful after the mailbox is accessible.\n3. **Google Forms.** Good free tool, but it routes through the same Google-account surface currently blocking the mailbox. It is not the cleanest workaround.\n4. **Keep mailto only.** Rejected because it leaves the public request path dependent on a mailbox that is currently inaccessible.\n\n## Exact Approval Needed\n\n```text\nAPPROVED: CREATE FREE TALLY INTAKE FORM FOR SHOPIFY REVIEW PULSE\n```\n\n## Form Spec Created\n\nNew spec:\n\n```text\ntally-form-spec.md\n```\n\nIt includes the title, description, success message, field list, consent checkbox, and the exact site-update steps after a Tally URL exists.\n\n## What Happens After Approval\n\n1. Travis creates the free Tally form from the spec and provides the form URL, or approves Codex to create it if credentials/access are available.\n2. Codex replaces the `mailto:` CTAs in the public offer page and locked previews with the Tally URL.\n3. Codex updates the founder-post packet to point at the form before publishing.\n4. Codex redeploys the Shopify Review Pulse Vercel project and verifies the live CTAs.\n\n## Gate Reconciliation\n\nKept existing gates:\n\n- `VERIFY GOOGLE SIGN-IN: [email] OUTBOUND ACCESS`\n- `CREATE STRIPE PAYMENT LINK: SHOPIFY REVIEW PULSE $49 ONE-OFF REPORT`\n- `APPROVED: PUBLISH SHOPIFY REVIEW PULSE FOUNDER POST`\n\nAdded:\n\n- `APPROVED: CREATE FREE TALLY INTAKE FORM FOR SHOPIFY REVIEW PULSE`\n\n## Verification\n\n- Confirmed `workspace/shopify-review-pulse/offer.html`, `sellerpic-teardown.html`, and `a2reviews-teardown.html` all currently contain `mailto:[email]` CTAs.\n- Created a concrete form spec under `workspace/shopify-review-pulse/intake/`.\n- Did not change any public URL or payment surface before approval.\n- Budget unchanged at `$162.45`.\n",
+          "site_path": "artifacts/2026-05-13-shopify-review-pulse-intake-form-recommendation.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "ins inaccessible; kept the current Google sign-in gate as the one approval line; no outreach, account creation, DNS, payment infrastructure, or spend) 2026-05-13 \u2014 artifact `artifacts/2026-05-13-shopify-review-pulse-outbound-fallback-audit.md`\n - [DONE] Shopify Review Pulse permission-gate hard stop (run 2026-05-12 22:18 UTC; fresh evidence confirmed all three active revenue motions remain owner-gated: Google sign-in/outbound access, Stripe Payment Link creation, and founder-post approval; live pages and send kits remain ready; no outreach, checkout, post, spend, or new collateral) 2026-05-12 \u2014 artifact `artifacts/2026-05-12-shopify-review-pulse-permission-gate-hard-stop.md`\ndiff --git tally-form-spec.md tally-form-spec.md\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..754a1e4fcfc986d7063c14548693f98f44aeaff1\n--- /dev/null\n+++ tally-form-spec.md\n@@ -0,0 +1,98 @@\n+# Shopify Review Pulse Intake Form Spec\n+\n+Date: 2026-05-13\n+\n+Purpose: replace the dead-end public `mailto:` request path with a free hosted intake form once Travis approves creating the form. This does not replace the outbound SellerPic email sequence; it gives the public offer page and founder post a place to capture requests while the Review Pulse mailbox remains verification-blocked.\n+\n+Recommended tool: Tally free form.\n+\n+Rationale:\n+\n+- Tally's official pricing page says it offers unlimited forms and submissions with most features free.\n+- Formspree is simpler to wire into static HTML, but its official free account limit starts at 50 submissions per month and notification emails still depend on a working recipient address.\n+- Google Forms is also viable and can be embedded or shared, but it depends on Google account access. The current blocker is already Google sign-in verification, so it is not the cleanest bypass.\n+\n+Approval line:\n+\n+```text\n+APPROVED: CREATE FREE TALLY INTAKE FORM FOR SHOPIFY REVIEW PULSE\n+```\n+\n+## Form Settings\n+\n+Title:\n+\n+```text\n+Shopify Review Pulse report request\n+```\n+\n+Description:\n+\n+```text\n+Send one Shopify App Store listing and the review question you want answered. If the public review corpus is strong enough, the one-off report is $49 and includes review themes, exact evidence, prioritized fixes, listing-copy rewrites, and public reply drafts.\n+```\n+\n+Button:\n+\n+```text\n+Request report review\n+```\n+\n+Success message:\n+\n+```text\n+Received. If the public review corpus is strong enough for a useful report, we will follow up with payment and delivery details.\n+```\n+\n+Spam protection: enable any built-in Tally anti-spam/honeypot option available on the free plan.\n+\n+Notifications: if Tally requires an email notification address, use the most reliable address Travis can access now. Do not use `[email]` until the Google verification gate is cleared.\n+\n+## Fields\n+\n+1. App listing URL\n+   - Type: URL or short text\n+   - Required: yes\n+   - Placeholder: `https://apps.shopify.com/...`\n+\n+2. Work email\n+   - Type: email\n+   - Required: yes\n+   - Help text: `Used only to follow up about this report request.`\n+\n+3. What decision should the report help with?\n+   - Type: multiple choice\n+   - Required: yes\n+   - Options:\n+     - Improve listing copy\n+     - Understand low-star reviews\n+     - Draft public replies\n+     - Check pricing or billing trust\n+     - Decide what to fix first\n+     - Other\n+\n+4. Anything specific to inspect?\n+   - Type: long text\n+   - Required: no\n+   - Placeholder: `Example: Are reviews showing pricing confusion, support anxiety, onboarding friction, or integration risk?`\n+\n+5. Consent\n+   - Type: checkbox\n+   - Required: yes\n+   - Label: `I understand this report uses public Shopify App Store review pages only.`\n+\n+## Site Update After Approval\n+\n+After the form URL exists:\n+\n+1. Replace the public offer page CTA in `workspace/shopify-review-pulse/offer.html` with the Tally form URL.\n+2. Replace the locked preview CTAs in `sellerpic-teardown.html` and `a2reviews-teardown.html` with the same form URL unless the outbound email reply path is live.\n+3. Add the form URL to the founder-post packet before publishing.\n+4. Redeploy `workspace/shopify-review-pulse/` to Vercel.\n+5. Keep `VERIFY GOOGLE SIGN-IN: [email] OUTBOUND ACCESS` open until outbound email and reply handling are actually usable.\n+\n+## Source Notes\n+\n+- Tally help says it offers unlimited forms and submissions with most features free: https://tally.so/help/plans-and-pricing\n+- Formspree docs say the Free tier starts at 50 submissions per month and supports linked notification emails plus 30-day submission history: https://help.formspree.io/articles/account-management/account-limits/\n+- Google Forms can create shareable or embeddable forms, but it does not bypass the current Google-access dependency: https://workspace.google.com/products/forms/\n\n",
+      "output_site_path": "outputs/run_codex_2026-05-13_081701.txt",
+      "screenshot_path": "",
+      "label": "05-13-26 (Day 24) \u00b7 4:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

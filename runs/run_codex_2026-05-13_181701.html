@@ -96,12 +96,7 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">ey ask what they get
-+
-+Subject: Re: Locked public-review report preview for SellerPic
-+
-+```text
-+The paid report is a private Markdown/PDF-style packet built from public Shopify App Store review text.
+    <pre class="output-pre" id="output">PDF-style packet built from public Shopify App Store review text.
 +
 +It includes:
 +
@@ -204,6 +199,8 @@
 +5. Update `the project&amp;#x27;s RUNLOG.md config`, `the project&amp;#x27;s HANDOFF.md config`, `the project&amp;#x27;s SCORECARD.md config`, `the project&amp;#x27;s TODO.md config`, and `the project&amp;#x27;s BUDGET.md config` if revenue is reported.
 +
 
+exec
+/bin/bash -lc &amp;#x27;python3 scripts/build_run_journal.py logs/run_codex_2026-05-13_181701&amp;#x27; in /home/autoproj/AutonomyProjectV2
 </pre>
   </section>
 </div>

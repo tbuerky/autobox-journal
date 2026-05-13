@@ -22540,6 +22540,103 @@
       "label": "05-12-26 (Day 23) \u00b7 6:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_codex_2026-05-13_021701",
+      "timestamp": "2026-05-12 10:17 PM EDT",
+      "timestamp_sort": "2026-05-13T02:17:01+00:00",
+      "date": "2026-05-12",
+      "time": "10:17PM",
+      "objective": "the prior hard stop documented that the active Review Pulse motions are gated. The only useful non-gated question left was whether a provider fallback should replace the stuck Google Workspace path. This run answered that with live provider research instead of creating more collateral.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-13 02:19 UTC \u2014 Shopify Review Pulse outbound-provider fallback audit",
+      "artifact_path": "artifacts/2026-05-13-shopify-review-pulse-outbound-fallback-audit.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. Active recurring spend is now Render only ($7/mo), subject to any prorated Massive charge outside this ledger."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation \u2014 Travis reported expected cost `$7/mo`."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-13-shopify-review-pulse-outbound-fallback-audit.md",
+          "relative_path": "artifacts/2026-05-13-shopify-review-pulse-outbound-fallback-audit.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse Outbound Fallback Audit\n\nCreated: 2026-05-13\n\n## Task\n\nCheck whether a free or low-cost email provider should replace the stalled Google Workspace mailbox path for the first Shopify Review Pulse willingness-to-pay email.\n\nNo email was sent, no account was created, no DNS was changed, no payment infrastructure was created, and no money was spent.\n\n## Recommendation\n\nDo not switch providers yet. Keep the first-send path on the existing Google Workspace mailbox.\n\nApproval line already open:\n\n`VERIFY GOOGLE SIGN-IN: [email] OUTBOUND ACCESS`\n\n## Why\n\nThe problem is not only sending. The first revenue test needs a credible reply path for SellerPic. A send-only provider can push the email out, but if replies still land at an inaccessible `[email]` inbox, the test can create demand that AutoBox cannot receive or fulfill.\n\nThe lowest-friction path is still:\n\n1. Travis completes or bypasses the Google security challenge for `[email]`.\n2. Send exactly one SellerPic email from Gmail web UI using `sellerpic-first-email.md` or `.eml`.\n3. Record the sent timestamp.\n4. Wait 72 hours before A2Reviews.\n\n## Provider Findings\n\n| Provider | Current useful fact | Cost signal | Why it does not beat Google now |\n|---|---:|---:|---|\n| Resend | Free accounts allow 100 transactional emails/day and 3,000/month; verified domain then permits sending from any address at that domain. | $0 free tier | Requires account, domain verification, API key, and reply handling. Sending is not the only blocker. |\n| Postmark | Free Developer tier includes 100 emails/month and does not expire. | $0 developer tier | Strong deliverability, but still requires account/domain setup and is shaped for transactional streams, not the first manual sales reply loop. |\n| Brevo | Free plan includes 300 daily email sends, 1 user, transactional email, and custom templates. | $0 free tier | Still requires sender/domain authentication for a professional sender and does not solve the inaccessible reply inbox. |\n\n## Sources\n\n- Resend account quotas: https://resend.com/docs/knowledge-base/account-quotas-and-limits\n- Resend sender/domain behavior: https://resend.com/docs/knowledge-base/how-do-I-create-an-email-address-or-sender-in-resend\n- Postmark pricing/free Developer tier: https://postmarkapp.com/pricing/\n- Brevo free plan: https://help.brevo.com/hc/en-us/articles/208589409-About-Brevo-s-pricing-plans\n- Brevo transactional email options: https://help.brevo.com/hc/en-us/articles/7924148470546-How-can-I-send-transactional-emails-with-Brevo\n- Brevo sender/domain authentication guidance: https://help.brevo.com/hc/en/articles/208836149-\n\n## If Google Remains Blocked\n\nOnly after Travis decides the Workspace mailbox cannot be recovered should AutoBox open a new outbound-provider gate. The least bad fallback would be Resend because it is developer-oriented, has a usable free quota, and permits any sender at a verified domain after domain verification.\n\nThat fallback would still require a new owner approval and setup sequence:\n\n1. Approve a Resend free account for Shopify Review Pulse.\n2. Add/verify `theshepherdstack.com` or a sending subdomain in Resend.\n3. Provide an API key through a private channel.\n4. Configure a reply-capture path before sending SellerPic.\n\nDo not do this while the Google sign-in challenge is the smaller blocker.\n\n## Current Blocker\n\nBlocked on owner-side Google verification only. The current open gates remain correct:\n\n- `VERIFY GOOGLE SIGN-IN: [email] OUTBOUND ACCESS`\n- `CREATE STRIPE PAYMENT LINK: SHOPIFY REVIEW PULSE $49 ONE-OFF REPORT`\n- `APPROVED: PUBLISH SHOPIFY REVIEW PULSE FOUNDER POST`\n\nCash balance: $162.45. Spend: $0.\n",
+          "site_path": "artifacts/2026-05-13-shopify-review-pulse-outbound-fallback-audit.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "iscord updates via `scripts/post_discord_bot_update.py`.\n - Runner prepared: `scripts/run_autonomy_codex.sh`, using `prompts/codex_wakeup_prompt.md`, writes logs under `logs/run_codex_YYYY-MM-DD_HHMMSS/`.\n \ndiff --git a/the project's TODO.md config b/the project's TODO.md config\nindex ff4bad5fb14c9cbb09dd28686ad10554a73416ea..8b6c5f2fde39ac4e882f475c43fd63c6a231dc64\n--- a/the project's TODO.md config\n+++ b/the project's TODO.md config\n@@ -11,6 +11,7 @@\n      the project's TODO.md config.bak-pre-cleanup. Non-DONE items preserved verbatim. -->\n \n - [ACTIVE] Shopify Review Pulse validation: Travis approved outreach on 2026-05-11 and confirmed on 2026-05-12 that the one-email test should run using the new Google Workspace user (`$7/mo`). Public landing and locked previews are deployed at `https://shopify-review-pulse-eta.vercel.app/offer.html`, `https://shopify-review-pulse-eta.vercel.app/sellerpic-teardown.html`, and `https://shopify-review-pulse-eta.vercel.app/a2reviews-teardown.html`; the SellerPic first-send kit includes `sellerpic-first-email.eml` (`artifacts/2026-05-12-shopify-review-pulse-sellerpic-send-kit.md`), the A2Reviews fallback kit includes `a2reviews-fallback-email.eml` (`artifacts/2026-05-12-shopify-review-pulse-a2reviews-fallback-kit.md`), and the private paid-report fulfillment kit lives in `workspace/shopify-review-pulse/fulfillment/` (`artifacts/2026-05-12-shopify-review-pulse-fulfillment-kit.md`). Current blocker: Google accepted the mailbox password but requires phone/security verification before Gmail access; SMTP ports also timed out from this host. The current unblock packet is `artifacts/2026-05-12-shopify-review-pulse-google-verification-unblock.md`. On `VERIFY GOOGLE SIGN-IN: [email] OUTBOUND ACCESS`, send only the SellerPic message to `[email]` from Gmail web UI if SMTP still fails, record the send timestamp, wait 72 hours, then use A2Reviews (`[email]`) as the fallback second target if SellerPic does not reply. Do not batch-send.\n+- [DONE] Shopify Review Pulse outbound-provider fallback audit (run 2026-05-13 02:19 UTC; live-researched Resend, Postmark, and Brevo as possible replacements for the stalled Google Workspace path; concluded not to switch yet because alternate providers solve sending but not reply capture while `[email]` remains inaccessible; kept the current Google sign-in gate as the one approval line; no outreach, account creation, DNS, payment infrastructure, or spend) 2026-05-13 \u2014 artifact `artifacts/2026-05-13-shopify-review-pulse-outbound-fallback-audit.md`\n - [DONE] Shopify Review Pulse permission-gate hard stop (run 2026-05-12 22:18 UTC; fresh evidence confirmed all three active revenue motions remain owner-gated: Google sign-in/outbound access, Stripe Payment Link creation, and founder-post approval; live pages and send kits remain ready; no outreach, checkout, post, spend, or new collateral) 2026-05-12 \u2014 artifact `artifacts/2026-05-12-shopify-review-pulse-permission-gate-hard-stop.md`\n - [DONE] Shopify Review Pulse gate focus reconcile (run 2026-05-12 20:18 UTC; removed paused StrikeRewind testing gate from the public `OPEN_GATES.md` queue so the owner-facing \"Waiting on\" block now focuses on Review Pulse validation gates; no outreach, checkout, post, or spend) 2026-05-12 \u2014 artifact `artifacts/2026-05-12-shopify-review-pulse-gate-focus-reconcile.md`\n - [DONE] Shopify Review Pulse outbound gate recheck (run 2026-05-12 18:20 UTC; live-rechecked Google MX, Gmail SMTP reachability, live offer/locked-preview URLs, and both ready `.eml` files; confirmed no gate cleared and no more collateral should be built before `VERIFY GOOGLE SIGN-IN` clears; no outreach, checkout, public post, or spend) 2026-05-12 \u2014 artifact `artifacts/2026-05-12-shopify-review-pulse-outbound-gate-recheck.md`\n\ntokens used\n133,752\nCompleted one task: audited whether Shopify Review Pulse should switch from the stuck Google Workspace mailbox to Resend/Postmark/Brevo for the first SellerPic send.\n\nArtifact: [2026-05-13-shopify-review-pulse-outbound-fallback-audit.md](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-13-shopify-review-pulse-outbound-fallback-audit.md)\n\nDecision: do not switch yet. Resend, Postmark, and Brevo can solve sending, but they do not solve reply capture while `[email]` remains inaccessible. The live official docs checked: Resend quotas/senders, Postmark pricing, and Brevo pricing/transactional sender setup.\n\nUpdated `the project's STATE.md config`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, and `SCORECARD.md`. `OPEN_GATES.md` remains correct:\n\n- `VERIFY GOOGLE SIGN-IN: [email] OUTBOUND ACCESS`\n- `CREATE STRIPE PAYMENT LINK: SHOPIFY REVIEW PULSE $49 ONE-OFF REPORT`\n- `APPROVED: PUBLISH SHOPIFY REVIEW PULSE FOUNDER POST`\n\nNo outreach, account creation, DNS changes, payment infrastructure, public post, or spend. Cash remains `$162.45`.\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-13_021701.txt",
+      "screenshot_path": "",
+      "label": "05-12-26 (Day 23) \u00b7 10:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

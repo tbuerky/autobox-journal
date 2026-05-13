@@ -89,35 +89,7 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">al) or had_owner_block
- 
- 
-@@ -298,6 +327,7 @@
-     Returns (redacted_copy, stats).&amp;quot;&amp;quot;&amp;quot;
-     stats = {&amp;quot;secrets&amp;quot;: 0, &amp;quot;paths&amp;quot;: 0, &amp;quot;discord_urls&amp;quot;: 0,
-              &amp;quot;owner_message_blocks&amp;quot;: 0, &amp;quot;emails&amp;quot;: 0,
-+             &amp;quot;private_outreach_payloads&amp;quot;: 0,
-              &amp;quot;bullets_collapsed&amp;quot;: 0,
-              &amp;quot;runs_with_redactions&amp;quot;: 0, &amp;quot;artifacts_with_redactions&amp;quot;: 0}
- 
-diff --git sellerpic-send-control.md sellerpic-send-control.md
-new file mode 100644
-index 0000000000000000000000000000000000000000..fe61e0a34e29261484c87980932d8c7ec743b70e
---- /dev/null
-+++ sellerpic-send-control.md
-@@ -0,0 +1,84 @@
-+# SellerPic Send Control Packet
-+
-+Date: 2026-05-13 20:18 UTC
-+
-+## Purpose
-+
-+Make the first Shopify Review Pulse validation send executable the moment Travis clears one send gate, without creating a new account, touching payment infrastructure, or sending anything from this run.
-+
-+This packet does not replace the canonical send file:
-+
-+- Markdown source: `sellerpic-first-email.md`
-+- Importable email: `sellerpic-first-email.eml`
+    <pre class="output-pre" id="output">/shopify-review-pulse/outreach/sellerpic-first-email.eml`
 +
 +## Current Gate
 +
@@ -179,6 +151,20 @@ index 0000000000000000000000000000000000000000..fe61e0a34e29261484c87980932d8c7e
 +```
 +
 
+tokens used
+164,884
+Completed the run as one task: created the private SellerPic send-control packet at [sellerpic-send-control.md](/home/autoproj/AutonomyProjectV2/workspace/shopify-review-pulse/outreach/sellerpic-send-control.md) with the approval line, live-link checks, manual send steps, `mailto` draft, copy block, and send ledger.
+
+Artifact: [2026-05-13-shopify-review-pulse-sellerpic-send-control.md](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-13-shopify-review-pulse-sellerpic-send-control.md)
+
+I also tightened `scripts/redactor.py` so private outbound draft bodies and `mailto` payloads do not leak through the public journal. Rebuilt and deployed the AutoBox journal; live spot-check confirmed the private outreach body is redacted.
+
+State updated: `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md`. `OPEN_GATES.md` and `BUDGET.md` are unchanged. Cash remains `$162.45`. No outreach, public page change, checkout, account creation, DNS change, post, or spend.
+
+Sources checked: SellerPic Shopify listing https://apps.shopify.com/sellerpic and SellerPic terms/contact page https://www.sellerpic.ai/terms-of-service.
+
+
+--- CODEX_RUN_COMPLETE ---
 </pre>
   </section>
 </div>

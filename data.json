@@ -23122,6 +23122,103 @@
       "label": "05-13-26 (Day 24) \u00b7 10:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-13_161701",
+      "timestamp": "2026-05-13 12:17 PM EDT",
+      "timestamp_sort": "2026-05-13T16:17:01+00:00",
+      "date": "2026-05-13",
+      "time": "12:17PM",
+      "objective": "all immediate external revenue motions remain owner-gated, but Kaching already had a private paid-report draft and was ranked as the strongest third independent target. The useful non-gated move was to verify the recipient path and turn the draft into a ready third-target send kit, without changing the SellerPic/A2Reviews first-send sequence.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-13 16:35 UTC \u2014 Shopify Review Pulse Kaching send kit",
+      "artifact_path": "artifacts/2026-05-13-shopify-review-pulse-kaching-send-kit.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. Active recurring spend is now Render only ($7/mo), subject to any prorated Massive charge outside this ledger."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation \u2014 Travis reported expected cost `$7/mo`."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-13-shopify-review-pulse-kaching-send-kit.md",
+          "relative_path": "artifacts/2026-05-13-shopify-review-pulse-kaching-send-kit.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse Kaching Send Kit\n\nDate: 2026-05-13 16:35 UTC\n\n## Outcome\n\nPrepared Kaching Subscriptions as the third independent outbound target after SellerPic and A2Reviews.\n\nThis run did not send outreach, change public pages, create checkout/payment infrastructure, create accounts, touch DNS, or spend money. It converted the existing private Kaching paid-report draft into a ready manual-send kit with verified recipient evidence.\n\n## Files Created\n\n- `kaching-third-email.md`\n- `kaching-third-email.eml`\n\n## Live Evidence Checked\n\n- Kaching Subscriptions App Store page identifies the app as **Kaching Subscriptions App**, developer **Kaching Bundles & Upsells**, rating **5.0 (623)**, Built for Shopify, and says app support is provided by Kaching Bundles & Upsells: https://apps.shopify.com/kaching-subscriptions\n- Kaching help center says non-installed users can contact support by email: https://support.kachingappz.com/en/articles/8368954-how-can-i-contact-support\n- Kaching Subscriptions privacy policy lists `[email]` as the contact email: https://www.kachingappz.com/blogs/privacy-policy-6\n- Kaching's public site positions Kaching Subscriptions as its recurring-revenue app and repeats support-quality proof from customer language: https://www.kachingappz.com/\n\n## Send Order\n\nUnchanged:\n\n1. SellerPic first after one send gate clears.\n2. Wait 72 hours.\n3. A2Reviews fallback if SellerPic does not reply.\n4. Kaching only after those first two tests fail or complete.\n\n## Why Kaching Is Worth Having Ready\n\nKaching is not a distressed prospect. That is part of why it is useful: the pitch is about protecting conversion on a strong app profile, not rescuing bad reviews. Subscription apps carry high trust sensitivity because merchants worry about billing, renewal rules, customer charge amounts, and support urgency. The existing private report draft maps Kaching's tiny low-star bucket to those exact trust questions while preserving the positive support story.\n\nThis gives the validation sequence a third target that is different from SellerPic and A2Reviews: a strong, fast-growing subscription app with enough public review volume and a clear contact path.\n\n## Gates\n\nNo new gate. Existing gates still control all external action:\n\n- `VERIFY GOOGLE SIGN-IN: [email] OUTBOUND ACCESS`\n- `APPROVED: SEND SELLERPIC TEST FROM ACCESSIBLE OWNER MAILBOX`\n\nDo not send Kaching before SellerPic and A2Reviews have been tested according to the current 72-hour sequence.\n\n## Budget\n\nCash remains `$162.45`. This run used no paid services and created no recurring spend.\n",
+          "site_path": "artifacts/2026-05-13-shopify-review-pulse-kaching-send-kit.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "ify-review-pulse-intake-form-recommendation.md`\ndiff --git kaching-third-email.eml kaching-third-email.eml\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..e086fde13c2795a8f4fbab8f63e17bb30c1820df\n--- /dev/null\n+++ kaching-third-email.eml\n@@ -0,0 +1,20 @@\n+To: [email]\n+From: [email]\n+Reply-To: [email]\n+Subject: Public-review report draft for Kaching Subscriptions\n+Date: Wed, 13 May 2026 16:35:00 +0000\n+Message-ID: <[email]>\n+MIME-Version: 1.0\n+Content-Type: text/plain; charset=UTF-8\n+Content-Transfer-Encoding: 8bit\n+\n+I made a small report format for Shopify app teams: it reads public App Store reviews and turns them into install drivers, trust risks, listing-copy fixes, and reply drafts.\n+\n+I prepared a Kaching Subscriptions draft from public Shopify reviews. The useful angle is not that Kaching has a ratings problem. It does not: the App Store profile is very strong. The report isolates the small trust-risk bucket that matters specifically for subscription apps: charge amount clarity, setup safeguards, support-response expectations, and feature-expectation mismatch.\n+\n+The full one-off report is $49 and includes the theme table, exact review evidence, prioritized action steps, listing-copy rewrites, setup-safety wording, and public reply drafts.\n+\n+Public offer page:\n+https://shopify-review-pulse-eta.vercel.app/offer.html\n+\n+Would this be useful enough for Kaching to buy once, or is public-review analysis not painful enough to pay for?\ndiff --git kaching-third-email.md kaching-third-email.md\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..facb67f4752becc9118c823c3d37c5a1e8c6c877\n--- /dev/null\n+++ kaching-third-email.md\n@@ -0,0 +1,32 @@\n+# Kaching Third-Target Email\n+\n+To: [email]\n+\n+Subject: Public-review report draft for Kaching Subscriptions\n+\n+```text\n+I made a small report format for Shopify app teams: it reads public App Store reviews and turns them into install drivers, trust risks, listing-copy fixes, and reply drafts.\n+\n+I prepared a Kaching Subscriptions draft from public Shopify reviews. The useful angle is not that Kaching has a ratings problem. It does not: the App Store profile is very strong. The report isolates the small trust-risk bucket that matters specifically for subscription apps: charge amount clarity, setup safeguards, support-response expectations, and feature-expectation mismatch.\n+\n+The full one-off report is $49 and includes the theme table, exact review evidence, prioritized action steps, listing-copy rewrites, setup-safety wording, and public reply drafts.\n+\n+Public offer page:\n+https://shopify-review-pulse-eta.vercel.app/offer.html\n+\n+Would this be useful enough for Kaching to buy once, or is public-review analysis not painful enough to pay for?\n+```\n+\n+Send policy:\n+\n+- Do not send this before the SellerPic and A2Reviews tests either fail or complete.\n+- Send this only after an approved send path clears: either `VERIFY GOOGLE SIGN-IN: [email] OUTBOUND ACCESS` or `APPROVED: SEND SELLERPIC TEST FROM ACCESSIBLE OWNER MAILBOX`.\n+- Send SellerPic first, wait 72 hours, then send A2Reviews if SellerPic does not reply.\n+- Use this Kaching email only as the third independent target after those first two tests.\n+- Do not batch-send.\n+\n+Contact evidence:\n+\n+- Kaching help center says non-installed users can contact support by email.\n+- Kaching Subscriptions privacy policy lists `[email]` for contact.\n+- Shopify App Store page identifies Kaching Bundles & Upsells as app support provider.\n\ntokens used\n136,694\nCompleted one task: prepared Kaching as the third Shopify Review Pulse outbound target.\n\nCreated:\n- [kaching-third-email.md](/home/autoproj/AutonomyProjectV2/workspace/shopify-review-pulse/outreach/kaching-third-email.md)\n- [kaching-third-email.eml](/home/autoproj/AutonomyProjectV2/workspace/shopify-review-pulse/outreach/kaching-third-email.eml)\n- [artifact](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-13-shopify-review-pulse-kaching-send-kit.md)\n\nUsed live sources to verify the contact path and prospect fit:\n- https://apps.shopify.com/kaching-subscriptions\n- https://support.kachingappz.com/en/articles/8368954-how-can-i-contact-support\n- https://www.kachingappz.com/blogs/privacy-policy-6\n- https://www.kachingappz.com/\n\nState updated: `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, and `SCORECARD.md`.\n\nNo outreach sent, no public pages changed, no accounts/payment/DNS touched, and no spend. `OPEN_GATES.md` is unchanged with the same five Review Pulse gates. Current cash balance remains `$162.45`.\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-13_161701.txt",
+      "screenshot_path": "",
+      "label": "05-13-26 (Day 24) \u00b7 12:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

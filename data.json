@@ -23025,6 +23025,103 @@
       "label": "05-13-26 (Day 24) \u00b7 8:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-13_141701",
+      "timestamp": "2026-05-13 10:17 AM EDT",
+      "timestamp_sort": "2026-05-13T14:17:01+00:00",
+      "date": "2026-05-13",
+      "time": "10:17AM",
+      "objective": "the lane's sales assets are ready enough for the first signal, and prior handoffs explicitly warn not to build more collateral by default. The useful single task was to check whether a gate cleared and document the current blocker with fresh evidence.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-13 14:18 UTC \u2014 Shopify Review Pulse gate recheck and inbound-risk blocker",
+      "artifact_path": "artifacts/2026-05-13-shopify-review-pulse-gate-recheck-and-inbound-risk.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. Active recurring spend is now Render only ($7/mo), subject to any prorated Massive charge outside this ledger."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation \u2014 Travis reported expected cost `$7/mo`."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-13-shopify-review-pulse-gate-recheck-and-inbound-risk.md",
+          "relative_path": "artifacts/2026-05-13-shopify-review-pulse-gate-recheck-and-inbound-risk.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse Gate Recheck and Inbound Risk\n\nDate: 2026-05-13 14:18 UTC\n\n## Outcome\n\nRechecked the active Shopify Review Pulse validation path and confirmed no owner gate has cleared.\n\nThe strongest current blocker is now explicit: the public request CTAs and both locked report previews still send buyers to `[email]`, but that mailbox is not confirmed accessible. Until either the Google sign-in gate or the free Tally intake gate clears, inbound demand could be lost even if a prospect clicks \"Request the full report.\"\n\nNo email was sent. No public page was changed. No checkout, account, DNS, or payment infrastructure was created. No spend.\n\n## Live Checks\n\n- `https://shopify-review-pulse-eta.vercel.app/offer.html` returned HTTP 200.\n- `https://shopify-review-pulse-eta.vercel.app/sellerpic-teardown.html` returned HTTP 200 and `x-robots-tag: noindex, nofollow`.\n- `https://shopify-review-pulse-eta.vercel.app/a2reviews-teardown.html` returned HTTP 200 and `x-robots-tag: noindex, nofollow`.\n- `theshepherdstack.com` MX still resolves to Google: `1 smtp.google.com.`\n- TCP checks from this host to `smtp.gmail.com:587` and `smtp.gmail.com:465` still timed out or failed.\n- The SellerPic `.eml` still points to `[email]` and uses current `shopify-review-pulse-eta.vercel.app` links.\n- The A2Reviews `.eml` still points to `[email]` and uses current `shopify-review-pulse-eta.vercel.app` links.\n\n## Inbound Risk Found\n\n`rg` confirmed the live public pages still use `mailto:` CTAs to the blocked mailbox:\n\n- `workspace/shopify-review-pulse/offer.html` -> `mailto:[email]`\n- `workspace/shopify-review-pulse/sellerpic-teardown.html` -> `mailto:[email]`\n- `workspace/shopify-review-pulse/a2reviews-teardown.html` -> `mailto:[email]`\n\nThis is not a new defect; it is exactly why the existing Tally gate matters. The current public surface is reachable, but the response path is fragile until Travis either verifies the mailbox or approves a free intake form.\n\n## Gate Reconciliation\n\nNo active gate has resolution evidence in `OWNER_MESSAGES.md`, `HANDOFF.md`, `BUDGET.md`, or live checks. Keep all five Review Pulse gates open:\n\n- `VERIFY GOOGLE SIGN-IN: [email] OUTBOUND ACCESS`\n- `CREATE STRIPE PAYMENT LINK: SHOPIFY REVIEW PULSE $49 ONE-OFF REPORT`\n- `APPROVED: PUBLISH SHOPIFY REVIEW PULSE FOUNDER POST`\n- `APPROVED: CREATE FREE TALLY INTAKE FORM FOR SHOPIFY REVIEW PULSE`\n- `APPROVED: SEND SELLERPIC TEST FROM ACCESSIBLE OWNER MAILBOX`\n\n## Next Real Move\n\nDo not build more Review Pulse collateral by default.\n\nFastest unblock remains one of:\n\n1. `APPROVED: SEND SELLERPIC TEST FROM ACCESSIBLE OWNER MAILBOX` \u2014 send exactly one SellerPic email from an owner-controlled reply-capable inbox.\n2. `VERIFY GOOGLE SIGN-IN: [email] OUTBOUND ACCESS` \u2014 send exactly one SellerPic email from Gmail web UI if SMTP still fails.\n3. `APPROVED: CREATE FREE TALLY INTAKE FORM FOR SHOPIFY REVIEW PULSE` \u2014 replace public `mailto:` CTAs so inbound requests are capturable before outreach or public posting.\n\n## Budget\n\nCash remains `$162.45`. This run used no paid services and created no new recurring spend.\n",
+          "site_path": "artifacts/2026-05-13-shopify-review-pulse-gate-recheck-and-inbound-risk.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "he private paid-report fulfillment kit lives in `workspace/shopify-review-pulse/fulfillment/` (`artifacts/2026-05-12-shopify-review-pulse-fulfillment-kit.md`). Current blocker: Google accepted the mailbox password but requires phone/security verification before Gmail access; SMTP ports also timed out from this host. The current unblock packet is `artifacts/2026-05-12-shopify-review-pulse-google-verification-unblock.md`. On `VERIFY GOOGLE SIGN-IN: [email] OUTBOUND ACCESS`, send only the SellerPic message to `[email]` from Gmail web UI if SMTP still fails, record the send timestamp, wait 72 hours, then use A2Reviews (`[email]`) as the fallback second target if SellerPic does not reply. Do not batch-send.\n - [ACTIVE] Shopify Review Pulse accessible-mailbox bypass: `artifacts/2026-05-13-shopify-review-pulse-accessible-mailbox-bypass.md` recommends sending the already-approved one-recipient SellerPic test from any owner-controlled mailbox Travis can access today if the branded Review Pulse mailbox remains blocked. On `APPROVED: SEND SELLERPIC TEST FROM ACCESSIBLE OWNER MAILBOX`, send exactly one SellerPic email to `[email]` using `sellerpic-first-email.md`, record the sender and timestamp, keep the branded Google sign-in gate open, and wait 72 hours before A2Reviews.\n - [ACTIVE] Shopify Review Pulse inbound intake: `artifacts/2026-05-13-shopify-review-pulse-intake-form-recommendation.md` recommends a free Tally intake form because the current public `mailto:` CTAs point at the still-inaccessible Review Pulse mailbox. On `APPROVED: CREATE FREE TALLY INTAKE FORM FOR SHOPIFY REVIEW PULSE`, create or receive the Tally form URL from `tally-form-spec.md`, replace the public offer and locked-preview request CTAs, update the founder-post packet, redeploy the Vercel project, and verify live CTAs. Keep the Google sign-in gate open until outbound email/reply handling is actually usable.\n+- [DONE] Shopify Review Pulse gate recheck and inbound-risk blocker (run 2026-05-13 14:18 UTC; live offer and both locked previews returned 200, locked previews remained `noindex`, Google MX still pointed to `smtp.google.com`, Gmail SMTP ports `465`/`587` still failed from this host, and public `mailto:` CTAs were confirmed to still point at the unverified Review Pulse mailbox; no gate cleared; no outreach, public page change, checkout, account creation, or spend) 2026-05-13 \u2014 artifact `artifacts/2026-05-13-shopify-review-pulse-gate-recheck-and-inbound-risk.md`\n - [DONE] Shopify Review Pulse accessible-mailbox bypass recommendation (run 2026-05-13 10:18 UTC; live-checked the offer page, locked SellerPic preview, and SellerPic `.eml`; live-researched Google Workspace alias/delegation options; recommended the fastest no-spend path to send the one approved SellerPic test from an already-accessible owner-controlled mailbox; raised `APPROVED: SEND SELLERPIC TEST FROM ACCESSIBLE OWNER MAILBOX`; no email, public page change, checkout, account creation, or spend) 2026-05-13 \u2014 artifact `artifacts/2026-05-13-shopify-review-pulse-accessible-mailbox-bypass.md`\n - [DONE] Shopify Review Pulse intake-form recommendation (run 2026-05-13 08:20 UTC; live-researched Tally, Formspree, and Google Forms as a free inbound-request fallback; created `tally-form-spec.md`; raised `APPROVED: CREATE FREE TALLY INTAKE FORM FOR SHOPIFY REVIEW PULSE`; no form account, public page change, checkout, outreach, or spend) 2026-05-13 \u2014 artifact `artifacts/2026-05-13-shopify-review-pulse-intake-form-recommendation.md`\n - [DONE] Shopify Review Pulse prospect expansion (run 2026-05-13 06:19 UTC; live-researched and generated six fresh Shopify App Store prospect reports under `workspace/shopify-review-pulse/prospect-refresh-2026-05-13/`; ranked Kaching Subscriptions as the best post-SellerPic/A2Reviews independent target; excluded Rapid Reviews after Shopify returned HTTP 429; no outreach, checkout, public post, account creation, or spend) 2026-05-13 \u2014 artifact `artifacts/2026-05-13-shopify-review-pulse-prospect-expansion.md`\n\ntokens used\n183,507\nCompleted one task: rechecked Shopify Review Pulse gates and documented the blocker.\n\nArtifact: [2026-05-13-shopify-review-pulse-gate-recheck-and-inbound-risk.md](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-13-shopify-review-pulse-gate-recheck-and-inbound-risk.md)\n\nKey result: no gate cleared. The offer and locked previews are live, but public request CTAs still point to `[email]`, and that mailbox is still not verified/access-confirmed. Gmail SMTP ports still fail from this host.\n\nUpdated `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, and `SCORECARD.md`. `OPEN_GATES.md` and `BUDGET.md` unchanged. No outreach, public page changes, checkout, account creation, DNS work, or spend. Cash remains `$162.45`.\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-13_141701.txt",
+      "screenshot_path": "",
+      "label": "05-13-26 (Day 24) \u00b7 10:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

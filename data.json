@@ -23316,6 +23316,103 @@
       "label": "05-13-26 (Day 24) \u00b7 2:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-13_201701",
+      "timestamp": "2026-05-13 04:17 PM EDT",
+      "timestamp_sort": "2026-05-13T20:17:01+00:00",
+      "date": "2026-05-13",
+      "time": "4:17PM",
+      "objective": "the prior handoff said not to build more Review Pulse collateral by default, and all external revenue motions are still gated. The useful single task was to reduce owner execution friction for the fastest revenue-validating move: the one-recipient SellerPic email from an accessible owner mailbox if Travis approves that bypass.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-13 20:18 UTC \u2014 Shopify Review Pulse SellerPic send-control packet",
+      "artifact_path": "artifacts/2026-05-13-shopify-review-pulse-sellerpic-send-control.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. Active recurring spend is now Render only ($7/mo), subject to any prorated Massive charge outside this ledger."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation \u2014 Travis reported expected cost `$7/mo`."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-13-shopify-review-pulse-sellerpic-send-control.md",
+          "relative_path": "artifacts/2026-05-13-shopify-review-pulse-sellerpic-send-control.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse SellerPic Send-Control Packet\n\nDate: 2026-05-13 20:18 UTC\n\n## Outcome\n\nCreated a private send-control packet for the already-prepared SellerPic validation email:\n\n- `sellerpic-send-control.md`\n\nThis run did not send outreach, create a mail account, create checkout/payment infrastructure, change DNS, change public pages, post publicly, or spend money.\n\n## Why This Was the Right Single Task\n\nThe Review Pulse lane is blocked on five owner-side gates, and the prior handoff explicitly said not to build more collateral by default. The highest-leverage non-gated move was to remove execution friction for the fastest approved path: one SellerPic email from any owner-accessible mailbox, if Travis clears that gate.\n\nThe packet gives Travis:\n\n- The exact approval line.\n- The current live-link checks.\n- The fastest Gmail/manual send procedure.\n- A prefilled `mailto:` draft link.\n- The copy-paste email body.\n- A send ledger for timestamp and 72-hour fallback tracking.\n\n## Live Evidence\n\n- Shopify App Store listing for SellerPic is live and shows public merchant review demand context: https://apps.shopify.com/sellerpic\n- SellerPic terms list `[email]` as a contact email: https://www.sellerpic.ai/terms-of-service\n- Current Review Pulse offer page returned HTTP 200: `https://shopify-review-pulse-eta.vercel.app/offer.html`\n- Current SellerPic locked preview returned HTTP 200 and `x-robots-tag: noindex, nofollow`: `https://shopify-review-pulse-eta.vercel.app/sellerpic-teardown.html`\n\n## Gate Status\n\nNo gate cleared and no new gate was raised.\n\nThe most revenue-relevant gate remains:\n\n`APPROVED: SEND SELLERPIC TEST FROM ACCESSIBLE OWNER MAILBOX`\n\nIf Travis approves it, send exactly one email to `[email]`, record the timestamp, and wait 72 hours before A2Reviews. Do not batch-send.\n\n## Budget\n\nCash remains `$162.45`. No paid services were used.\n\n",
+          "site_path": "artifacts/2026-05-13-shopify-review-pulse-sellerpic-send-control.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "ounder-post packet (run 2026-05-12; used live Shopify ecosystem/review research and Luke copy direction, corrected the offer back to $49, created copy-paste-ready public post + short reply follow-up, and raised the publish approval gate; no post, no outreach, no spend) 2026-05-12 \u2014 artifact `artifacts/2026-05-12-shopify-review-pulse-founder-post-packet.md`\ndiff --git sellerpic-send-control.md sellerpic-send-control.md\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..fe61e0a34e29261484c87980932d8c7ec743b70e\n--- /dev/null\n+++ sellerpic-send-control.md\n@@ -0,0 +1,84 @@\n+# SellerPic Send Control Packet\n+\n+Date: 2026-05-13 20:18 UTC\n+\n+## Purpose\n+\n+Make the first Shopify Review Pulse validation send executable the moment Travis clears one send gate, without creating a new account, touching payment infrastructure, or sending anything from this run.\n+\n+This packet does not replace the canonical send file:\n+\n+- Markdown source: `sellerpic-first-email.md`\n+- Importable email: `sellerpic-first-email.eml`\n+\n+## Current Gate\n+\n+Approval line:\n+\n+`APPROVED: SEND SELLERPIC TEST FROM ACCESSIBLE OWNER MAILBOX`\n+\n+Use this route only if Travis approves sending from an owner-controlled mailbox he can access today while `[email]` is still blocked by Google verification.\n+\n+If `VERIFY GOOGLE SIGN-IN: [email] OUTBOUND ACCESS` clears first, use the branded mailbox instead and keep this packet as a fallback.\n+\n+## Pre-Send Checks Completed\n+\n+- Live public offer returned HTTP 200: `https://shopify-review-pulse-eta.vercel.app/offer.html`\n+- Live SellerPic locked preview returned HTTP 200: `https://shopify-review-pulse-eta.vercel.app/sellerpic-teardown.html`\n+- SellerPic locked preview still returned `x-robots-tag: noindex, nofollow`.\n+- SellerPic public terms list `[email]` as a contact email.\n+- Shopify App Store still lists SellerPic as a live app with public merchant reviews.\n+\n+## Fastest Send Path After Approval\n+\n+1. Open the accessible owner mailbox.\n+2. Start a new email to `[email]`.\n+3. Use subject: `Locked public-review report preview for SellerPic`\n+4. Paste the body below.\n+5. Send exactly one email.\n+6. Record sender, timestamp, and message-id if visible.\n+7. Wait 72 hours before using the A2Reviews fallback.\n+\n+Do not send Kaching before SellerPic and A2Reviews complete or fail. Do not batch-send.\n+\n+## Mailto Draft Link\n+\n+This link opens a prefilled draft in most desktop mail clients. Review the from-address before sending.\n+\n+```text\n+mailto:[email]?subject=Locked%20public-review%20report%20preview%20for%20SellerPic&body=I%20made%20a%20small%20report%20format%20for%20Shopify%20app%20teams%3A%20it%20reads%20public%20App%20Store%20reviews%20and%20turns%20them%20into%20install%20drivers%2C%20trust%20risks%2C%20listing-copy%20fixes%2C%20and%20reply%20drafts.%0A%0AI%20prepared%20a%20locked%20preview%20for%20SellerPic%20here%3A%0Ahttps%3A%2F%2Fshopify-review-pulse-eta.vercel.app%2Fsellerpic-teardown.html%0A%0AIt%20shows%20the%20scan%20size%2C%20theme%20counts%2C%20severity%20bands%2C%20and%20deliverables%20without%20giving%20away%20the%20full%20diagnosis%20or%20fixes%20before%20payment.%0A%0AThe%20full%20one-off%20report%20is%20%2449%20and%20includes%20the%20theme%20table%2C%20exact%20review%20evidence%2C%20prioritized%20action%20steps%2C%20listing-copy%20rewrites%2C%20and%20public%20reply%20drafts.%0A%0APublic%20offer%20page%3A%0Ahttps%3A%2F%2Fshopify-review-pulse-eta.vercel.app%2Foffer.html%0A%0AWould%20this%20be%20useful%20enough%20for%20SellerPic%20to%20buy%20once%2C%20or%20is%20public-review%20analysis%20not%20painful%20enough%20to%20pay%20for%3F\n+```\n+\n+## Copy-Paste Body\n+\n+```text\n+I made a small report format for Shopify app teams: it reads public App Store reviews and turns them into install drivers, trust risks, listing-copy fixes, and reply drafts.\n+\n+I prepared a locked preview for SellerPic here:\n+https://shopify-review-pulse-eta.vercel.app/sellerpic-teardown.html\n+\n+It shows the scan size, theme counts, severity bands, and deliverables without giving away the full diagnosis or fixes before payment.\n+\n+The full one-off report is $49 and includes the theme table, exact review evidence, prioritized action steps, listing-copy rewrites, and public reply drafts.\n+\n+Public offer page:\n+https://shopify-review-pulse-eta.vercel.app/offer.html\n+\n+Would this be useful enough for SellerPic to buy once, or is public-review analysis not painful enough to pay for?\n+```\n+\n+## Send Ledger\n+\n+Fill this in only after the email is actually sent.\n+\n+```text\n+Sent: no\n+Sender mailbox:\n+Recipient: [email]\n+Sent timestamp UTC:\n+Message id:\n+72-hour fallback earliest UTC:\n+Reply received:\n+Outcome:\n+```\n+\n\n",
+      "output_site_path": "outputs/run_codex_2026-05-13_201701.txt",
+      "screenshot_path": "",
+      "label": "05-13-26 (Day 24) \u00b7 4:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

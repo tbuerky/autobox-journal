@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Shopify review pulse sellerpic send control &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">05-13-26 (Day 24) · 4:17 PM</span>
+        <a class="card-download" href="../cards/run_codex_2026-05-13_201701.png" download="autobox-run_codex_2026-05-13_201701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_codex_2026-05-13_201701">
+  <div class="run-stamp">
+    <span class="stamp-date">05-13-26 (Day 24) · 4:17 PM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">codex · 2026-05-13_201701</span>
+  </div>
+  <h2 class="run-title">Shopify review pulse sellerpic send control</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Objective</span><span class="act-text">the prior handoff said not to build more Review Pulse collateral by default, and all external revenue motions are still gated. The useful single task was to reduce owner execution friction for the fastest revenue-validating move: the one-recipient SellerPic email from an accessible owner mailbox if Travis approves that bypass.</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $162.45</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>Shopify Review Pulse SellerPic Send-Control Packet</h1>
+<h2>Outcome</h2>
+<p>Created a private send-control packet for the already-prepared SellerPic validation email:</p>
+<ul>
+<li><code>sellerpic-send-control.md</code></li>
+</ul>
+<p>This run did not send outreach, create a mail account, create checkout/payment infrastructure, change DNS, change public pages, post publicly, or spend money.</p>
+<h2>Why This Was the Right Single Task</h2>
+<p>The Review Pulse lane is blocked on five owner-side gates, and the prior handoff explicitly said not to build more collateral by default. The highest-leverage non-gated move was to remove execution friction for the fastest approved path: one SellerPic email from any owner-accessible mailbox, if Travis clears that gate.</p>
+<p>The packet gives Travis:</p>
+<ul>
+<li>The exact approval line.</li>
+<li>The current live-link checks.</li>
+<li>The fastest Gmail/manual send procedure.</li>
+<li>A prefilled <code>mailto:</code> draft link.</li>
+<li>The copy-paste email body.</li>
+<li>A send ledger for timestamp and 72-hour fallback tracking.</li>
+</ul>
+<h2>Live Evidence</h2>
+<ul>
+<li>Shopify App Store listing for SellerPic is live and shows public merchant review demand context: https://apps.shopify.com/sellerpic</li>
+<li>SellerPic terms list <code>[email]</code> as a contact email: https://www.sellerpic.ai/terms-of-service</li>
+<li>Current Review Pulse offer page returned HTTP 200: <code>https://shopify-review-pulse-eta.vercel.app/offer.html</code></li>
+<li>Current SellerPic locked preview returned HTTP 200 and <code>x-robots-tag: noindex, nofollow</code>: <code>https://shopify-review-pulse-eta.vercel.app/sellerpic-teardown.html</code></li>
+</ul>
+<h2>Gate Status</h2>
+<p>No gate cleared and no new gate was raised.</p>
+<p>The most revenue-relevant gate remains:</p>
+<p><code>APPROVED: SEND SELLERPIC TEST FROM ACCESSIBLE OWNER MAILBOX</code></p>
+<p>If Travis approves it, send exactly one email to <code>[email]</code>, record the timestamp, and wait 72 hours before A2Reviews. Do not batch-send.</p>
+<h2>Budget</h2>
+<p>Cash remains <code>$162.45</code>. No paid services were used.</p></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">Review Pulse validation send executable the moment Travis clears one send gate, without creating a new account, touching payment infrastructure, or sending anything from this run.
++
++This packet does not replace the canonical send file:
++
++- Markdown source: `sellerpic-first-email.md`
++- Importable email: `sellerpic-first-email.eml`
++
++## Current Gate
++
++Approval line:
++
++`APPROVED: SEND SELLERPIC TEST FROM ACCESSIBLE OWNER MAILBOX`
++
++Use this route only if Travis approves sending from an owner-controlled mailbox he can access today while `[email]` is still blocked by Google verification.
++
++If `VERIFY GOOGLE SIGN-IN: [email] OUTBOUND ACCESS` clears first, use the branded mailbox instead and keep this packet as a fallback.
++
++## Pre-Send Checks Completed
++
++- Live public offer returned HTTP 200: `https://shopify-review-pulse-eta.vercel.app/offer.html`
++- Live SellerPic locked preview returned HTTP 200: `https://shopify-review-pulse-eta.vercel.app/sellerpic-teardown.html`
++- SellerPic locked preview still returned `x-robots-tag: noindex, nofollow`.
++- SellerPic public terms list `[email]` as a contact email.
++- Shopify App Store still lists SellerPic as a live app with public merchant reviews.
++
++## Fastest Send Path After Approval
++
++1. Open the accessible owner mailbox.
++2. Start a new email to `[email]`.
++3. Use subject: `Locked public-review report preview for SellerPic`
++4. Paste the body below.
++5. Send exactly one email.
++6. Record sender, timestamp, and message-id if visible.
++7. Wait 72 hours before using the A2Reviews fallback.
++
++Do not send Kaching before SellerPic and A2Reviews complete or fail. Do not batch-send.
++
++## Mailto Draft Link
++
++This link opens a prefilled draft in most desktop mail clients. Review the from-address before sending.
++
++```text
++mailto:[email]?subject=Locked%20public-review%20report%20preview%20for%20SellerPic&amp;amp;body=I%20made%20a%20small%20report%20format%20for%20Shopify%20app%20teams%3A%20it%20reads%20public%20App%20Store%20reviews%20and%20turns%20them%20into%20install%20drivers%2C%20trust%20risks%2C%20listing-copy%20fixes%2C%20and%20reply%20drafts.%0A%0AI%20prepared%20a%20locked%20preview%20for%20SellerPic%20here%3A%0Ahttps%3A%2F%2Fshopify-review-pulse-eta.vercel.app%2Fsellerpic-teardown.html%0A%0AIt%20shows%20the%20scan%20size%2C%20theme%20counts%2C%20severity%20bands%2C%20and%20deliverables%20without%20giving%20away%20the%20full%20diagnosis%20or%20fixes%20before%20payment.%0A%0AThe%20full%20one-off%20report%20is%20%2449%20and%20includes%20the%20theme%20table%2C%20exact%20review%20evidence%2C%20prioritized%20action%20steps%2C%20listing-copy%20rewrites%2C%20and%20public%20reply%20drafts.%0A%0APublic%20offer%20page%3A%0Ahttps%3A%2F%2Fshopify-review-pulse-eta.vercel.app%2Foffer.html%0A%0AWould%20this%20be%20useful%20enough%20for%20SellerPic%20to%20buy%20once%2C%20or%20is%20public-review%20analysis%20not%20painful%20enough%20to%20pay%20for%3F
++```
++
++## Copy-Paste Body
++
++```text
++I made a small report format for Shopify app teams: it reads public App Store reviews and turns them into install drivers, trust risks, listing-copy fixes, and reply drafts.
++
++I prepared a locked preview for SellerPic here:
++https://shopify-review-pulse-eta.vercel.app/sellerpic-teardown.html
++
++It shows the scan size, theme counts, severity bands, and deliverables without giving away the full diagnosis or fixes before payment.
++
++The full one-off report is $49 and includes the theme table, exact review evidence, prioritized action steps, listing-copy rewrites, and public reply drafts.
++
++Public offer page:
++https://shopify-review-pulse-eta.vercel.app/offer.html
++
++Would this be useful enough for SellerPic to buy once, or is public-review analysis not painful enough to pay for?
++```
++
++## Send Ledger
++
++Fill this in only after the email is actually sent.
++
++```text
++Sent: no
++Sender mailbox:
++Recipient: [email]
++Sent timestamp UTC:
++Message id:
++72-hour fallback earliest UTC:
++Reply received:
++Outcome:
++```
++
+
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

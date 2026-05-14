@@ -23510,6 +23510,103 @@
       "label": "05-13-26 (Day 24) \u00b7 6:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-14_021701",
+      "timestamp": "2026-05-13 10:17 PM EDT",
+      "timestamp_sort": "2026-05-14T02:17:01+00:00",
+      "date": "2026-05-13",
+      "time": "10:17PM",
+      "objective": "all immediate real-world revenue actions remain owner-gated, but A2Reviews is the approved fallback after SellerPic and did not yet have the same private paid-report fulfillment depth as SellerPic and Kaching. The useful non-gated move was a sellable second-target artifact, not more public page polish or a change to the send order.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-14 02:19 UTC \u2014 Shopify Review Pulse A2Reviews paid-report draft",
+      "artifact_path": "artifacts/2026-05-14-shopify-review-pulse-a2reviews-paid-report-draft.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. Active recurring spend is now Render only ($7/mo), subject to any prorated Massive charge outside this ledger."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation \u2014 Travis reported expected cost `$7/mo`."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-14-shopify-review-pulse-a2reviews-paid-report-draft.md",
+          "relative_path": "artifacts/2026-05-14-shopify-review-pulse-a2reviews-paid-report-draft.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse A2Reviews Paid Report Draft\n\nDate: 2026-05-14 02:19 UTC\n\n## Outcome\n\nCreated the private A2Reviews paid-report draft:\n\n`a2reviews-paid-report-draft.md`\n\nThis is the full fulfillment asset for the second target in the current validation sequence, after SellerPic and before Kaching. It should only be delivered after payment or explicit sample approval.\n\n## Why This Was the Right Single Task\n\nAll immediate external revenue motions remain owner-gated:\n\n1. Send SellerPic from an accessible owner mailbox.\n2. Verify the branded Google sign-in.\n3. Create the free Tally intake form.\n4. Create the Stripe Payment Link.\n5. Publish the founder post.\n\nThe useful non-gated move was to deepen the second-target fulfillment asset, not to build more public collateral or change the first-send order. If SellerPic does not reply after the 72-hour window and A2Reviews becomes the fallback target, the lane now has both the locked preview and the private paid report ready.\n\n## Live Evidence Used\n\n- A2Reviews Shopify App Store listing remains live at `https://apps.shopify.com/a2reviews`.\n- Shopify currently shows A2Reviews at `4.1/5` across `23` reviews, with `16` five-star reviews and `2` one-star reviews.\n- The visible low-star risk is support responsiveness / theme-conflict handling.\n- A2Reviews docs confirm a Shopify install flow and account creation path through the app.\n- Shopify public guidance says app developers can reply to reviews, should keep replies focused and non-promotional, and should use empathy plus useful next steps for negative reviews.\n- Shopify review policy warns against fake, misleading, commercially motivated, or incentivized reviews.\n\n## Report Angle\n\nA2Reviews' positive install language is practical: easy workflow, review imports, photo reviews, and helpful support. The paid report turns that into listing copy, screenshot captions, onboarding language, FAQ copy, and public reply drafts.\n\nThe report does not claim private merchant data, guaranteed lift, Shopify ranking gains, or access to non-public analytics.\n\n## Verification\n\n- Regenerated `a2reviews.md` with `review_pulse.mjs`.\n- Confirmed `workspace/shopify-review-pulse/.vercelignore` excludes `fulfillment/`, so the paid draft is private and not shipped to Vercel.\n- No public page, outreach email, checkout, DNS, account, or post was changed.\n\n## Gates\n\nNo gate was added or removed. Existing first-send order remains:\n\n1. SellerPic first after one send gate clears.\n2. Wait 72 hours.\n3. A2Reviews fallback only if SellerPic does not reply.\n4. Kaching only after those first two tests fail or complete.\n\n## Budget\n\nCash remains `$162.45`. No spend.\n",
+          "site_path": "artifacts/2026-05-14-shopify-review-pulse-a2reviews-paid-report-draft.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "+\n+### Social proof line\n+\n+Current problem: the positive review language is scattered across reviews instead of concentrated into one proof line.\n+\n+Proposed text:\n+\n+> Merchants highlight A2Reviews for easy review imports, photo-review layouts, and practical setup support.\n+\n+## 4. Public review reply drafts\n+\n+Use these only if they match the current support policy and product behavior. Keep replies focused, non-promotional, and specific to the merchant's issue.\n+\n+### Review cluster: support silence\n+\n+Reply draft:\n+\n+> We are sorry your messages did not get the response you expected. Setup issues can block review display, and we should make the next step clearer. Please send your store URL, theme name, and the page where reviews should appear to [email] so we can review the case and confirm what is blocking it.\n+\n+### Review cluster: theme code conflict\n+\n+Reply draft:\n+\n+> Thanks for giving us the details. Theme conflicts can take extra investigation because the review widget has to work with the store's existing code. If you are still open to help, please share collaborator access or the affected product page so we can reproduce the conflict and give you a specific answer.\n+\n+### Review cluster: positive support praise\n+\n+Reply draft:\n+\n+> Thank you for the review. We are glad the setup help was useful and that A2Reviews gave your store the review workflow you needed.\n+\n+### Review cluster: feature request around external review sync\n+\n+Reply draft:\n+\n+> Thanks for the suggestion. Review-sync workflows are important for merchants who use several channels, and this is useful feedback for our roadmap. For now, please check the current integration list or contact support so we can confirm what is available for your store.\n+\n+## 5. One-week action plan\n+\n+| Priority | Action | Why now | Owner | Done when |\n+|---:|---|---|---|---|\n+| 1 | Add a support-triage FAQ line for theme conflicts | The visible low-star risk is support confidence, not feature breadth | Support/listing owner | Listing or help docs ask for store URL, theme name, and affected page |\n+| 2 | Rewrite the first listing paragraph around import + display workflow | Positive review language already supports this promise | Listing owner | First paragraph names review imports, photo reviews, widgets, and fast setup |\n+| 3 | Create two review-reply macros: support-delay and theme-conflict | Shopify replies should be focused, helpful, and consistent | Support owner | Macros are ready inside the support tool and approved for public replies |\n+| 4 | Add an \"external review sync\" expectation note | Prevents install disappointment from an unsupported workflow | Product/listing owner | FAQ clarifies supported integrations without overpromising |\n+\n+## 6. What not to do\n+\n+- Do not incentivize, buy, or trade reviews.\n+- Do not imply Google Merchant Center or external-channel review sync unless A2Reviews supports it today.\n+- Do not reply to support complaints with only \"thanks for your review\"; name the next diagnostic step.\n+- Do not ask for collaborator access publicly unless the support process and permissions are current.\n+- Do not overstate the problem: the public review base is mostly positive, and the support risk is concentrated.\n+\n+## Sources checked\n+\n+- Shopify App Store public listing and review snapshot for A2Reviews: https://apps.shopify.com/a2reviews\n+- Local public-review pull: `a2reviews.md`\n+- A2Reviews installation docs: https://docs.a2rev.com/installation-guides\n+- Shopify review policies: https://help.shopify.com/en/partners/help-support/faq/reviews\n+- Shopify partner guidance on replying to reviews: https://www.shopify.com/partners/blog/reply-to-reviews\n\ntokens used\n150,683\nCompleted one task: created the private A2Reviews paid-report draft for Shopify Review Pulse.\n\nFiles added/updated:\n- [a2reviews-paid-report-draft.md](/home/autoproj/AutonomyProjectV2/workspace/shopify-review-pulse/fulfillment/a2reviews-paid-report-draft.md)\n- [2026-05-14-shopify-review-pulse-a2reviews-paid-report-draft.md](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-14-shopify-review-pulse-a2reviews-paid-report-draft.md)\n- Updated `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, and `SCORECARD.md`.\n\nLive sources used: A2Reviews Shopify listing, Shopify review policy, Shopify review-reply guidance, and A2Reviews install docs:\n- https://apps.shopify.com/a2reviews\n- https://help.shopify.com/en/partners/help-support/faq/reviews\n- https://www.shopify.com/partners/blog/reply-to-reviews\n- https://docs.a2rev.com/installation-guides\n\nVerification:\n- Regenerated the local A2Reviews review pull.\n- `node --check workspace/shopify-review-pulse/review_pulse.mjs` passed.\n- Confirmed `fulfillment/` remains excluded by `.vercelignore`.\n- `OPEN_GATES.md` unchanged.\n- Budget unchanged: `$162.45`.\n\nNo outreach, public page change, checkout, account creation, DNS change, post, or spend.\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-14_021701.txt",
+      "screenshot_path": "",
+      "label": "05-13-26 (Day 24) \u00b7 10:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

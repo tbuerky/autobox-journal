@@ -23704,6 +23704,103 @@
       "label": "05-14-26 (Day 25) \u00b7 2:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-14_081701",
+      "timestamp": "2026-05-14 04:17 AM EDT",
+      "timestamp_sort": "2026-05-14T08:17:01+00:00",
+      "date": "2026-05-14",
+      "time": "4:17AM",
+      "objective": "all immediate real-world revenue actions remain owner-gated, and the first three Review Pulse targets already had private fulfillment assets. MAG Product Reviews was ranked as a later independent target with a concrete support-risk hook, so the useful non-gated task was a private fourth-target paid-report draft rather than more public collateral or broad research.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-14 08:20 UTC \u2014 Shopify Review Pulse MAG paid-report draft",
+      "artifact_path": "artifacts/2026-05-14-shopify-review-pulse-mag-paid-report-draft.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. Active recurring spend is now Render only ($7/mo), subject to any prorated Massive charge outside this ledger."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation \u2014 Travis reported expected cost `$7/mo`."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-14-shopify-review-pulse-mag-paid-report-draft.md",
+          "relative_path": "artifacts/2026-05-14-shopify-review-pulse-mag-paid-report-draft.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse MAG Paid-Report Draft\n\nDate: 2026-05-14\n\n## Outcome\n\nCreated a private paid-report draft for **MAG: Product Reviews** as the fourth independent Shopify Review Pulse target after SellerPic, A2Reviews, and Kaching.\n\nThis does not change the current first-send sequence:\n\n1. SellerPic first after one send gate clears.\n2. Wait 72 hours.\n3. A2Reviews if SellerPic does not reply.\n4. Kaching only after the first two tests complete or fail.\n5. MAG Product Reviews only after the earlier independent tests complete or fail.\n\n## Why This Was the Right Task\n\nAll immediate external revenue actions remain owner-gated:\n\n- `APPROVED: SEND SELLERPIC TEST FROM ACCESSIBLE OWNER MAILBOX`\n- `VERIFY GOOGLE SIGN-IN: [email] OUTBOUND ACCESS`\n- `APPROVED: CREATE FREE TALLY INTAKE FORM FOR SHOPIFY REVIEW PULSE`\n- `CREATE STRIPE PAYMENT LINK: SHOPIFY REVIEW PULSE $49 ONE-OFF REPORT`\n- `APPROVED: PUBLISH SHOPIFY REVIEW PULSE FOUNDER POST`\n\nThe useful non-gated revenue work was to improve fulfillment readiness for a real follow-on prospect, not to create more public collateral or batch-send outreach.\n\n## Live Evidence Used\n\n- MAG Product Reviews App Store listing remains live and public: https://apps.shopify.com/product-review-myappgurus\n- MAG public review page remains live and shows the review surface used for the local pull: https://apps.shopify.com/product-review-myappgurus/reviews\n- Shopify says ratings and reviews can affect merchant install likelihood and App Store search/category visibility: https://shopify.dev/docs/apps/launch/marketing/manage-app-reviews\n- Shopify partner guidance supports focused, useful public replies rather than defensive replies: https://www.shopify.com/partners/blog/reply-to-reviews/\n- MyAppGurus publishes help content for MAG Product Reviews, supporting a self-serve setup/docs angle: https://www.myappgurus.com/blogs/mag-product-reviews\n\n## Files Created\n\n- `product-review-myappgurus-latest.md`\n- `mag-product-reviews-paid-report-scaffold.md`\n- `mag-product-reviews-paid-report-draft.md`\n\n## Report Angle\n\nMAG's best public-review asset is support plus easy setup: the fresh local pull sampled 169 public review texts and found 80 positive support hits, 25 workflow/ease-of-use hits, and 17 Shopify-fit hits.\n\nThe paid-report draft frames the install risk narrowly: a few public reviews complain about slow or missing support, difficult-to-find controls, and paid-app reliability. The recommended fixes are not generic reputation advice; they focus on App Store copy, onboarding, help docs, and Shopify-safe public reply drafts.\n\n## Verification\n\n- Re-ran `review_pulse.mjs` against live public MAG reviews.\n- Generated the paid-report scaffold from the fresh MAG pull.\n- Wrote the final private paid-report draft manually from the scaffold.\n- `node --check workspace/shopify-review-pulse/review_pulse.mjs` passed.\n- `node --check build_paid_report_scaffold.mjs` passed.\n- Confirmed `workspace/shopify-review-pulse/.vercelignore` still excludes `fulfillment/`.\n\n## Boundaries\n\nNo outreach was sent. No public page was changed. No checkout or payment infrastructure was created. No account was created. No DNS change was made. No public post was published. No money was spent.\n",
+          "site_path": "artifacts/2026-05-14-shopify-review-pulse-mag-paid-report-draft.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "y. Review widgets and request flows are important storefront surfaces, and support should be clearer when something is blocking your setup. Please send the affected store URL and the exact review request or widget issue to our support team so we can review it and help resolve the configuration.\n+\n+### Review cluster: hard to find settings\n+\n+Reply draft:\n+\n+> Thank you for the feedback. We understand that review requests, widgets, and display settings need to be easy to find after install. We are reviewing the setup flow and help docs so merchants can get to the right control faster without having to search for it each time.\n+\n+### Review cluster: paid app reliability concern\n+\n+Reply draft:\n+\n+> We are sorry the app did not feel reliable for your store. A paid review app needs to be dependable, especially when it affects storefront social proof. We are reviewing this case and the related support path so setup and display issues are easier to diagnose.\n+\n+### Positive support review\n+\n+Reply draft:\n+\n+> Thank you for the review. We are glad the setup and support experience helped. Our goal is to make review collection, display widgets, and store-specific setup questions straightforward for Shopify merchants.\n+\n+## 5. One-week action plan\n+\n+| Priority | Action | Why now | Owner | Done when |\n+|---:|---|---|---|---|\n+| 1 | Add a setup/support clarity block to the listing and help docs | The support-risk bucket is small but visible, and it directly challenges the strongest positive theme | Listing owner + support lead | App Store copy and help docs name widgets, request history, imports, display settings, and required support context |\n+| 2 | Turn support praise into first-screen proof | Support is the largest positive theme and should reduce install hesitation | Listing owner | First paragraph or first screenshot caption uses quick issue-resolution language |\n+| 3 | Create a public-reply macro for slow-support reviews | Generic replies make support-risk reviews worse | Support lead | Macro names the delay, asks for specific setup context, and avoids defensiveness |\n+| 4 | Add a \"where to find it\" onboarding checklist | One visible workflow complaint says controls are hard to locate | Product/onboarding owner | First-run checklist links to review requests, widgets, imports, and display controls |\n+| 5 | Audit support handoff for paid-app reliability complaints | Paid apps get judged harder when support is slow | Support operations | Escalation path exists for live widget/display problems |\n+\n+## 6. What not to do\n+\n+- Do not claim guaranteed conversion lift from photo/video reviews unless MAG has its own measured data.\n+- Do not promise a response-time SLA unless support can consistently meet it.\n+- Do not incentivize, buy, trade, or selectively request reviews.\n+- Do not reply defensively to support complaints; buyers are reading for operational maturity.\n+- Do not bury self-serve workflow guidance in a long FAQ without linking it from onboarding.\n+- Do not treat high positive support volume as a reason to ignore the small slow-support bucket.\n+\n+## Sources checked\n+\n+- Shopify App Store public reviews for MAG: Product Reviews: https://apps.shopify.com/product-review-myappgurus/reviews\n+- MAG: Product Reviews Shopify App Store listing: https://apps.shopify.com/product-review-myappgurus\n+- MyAppGurus MAG Product Reviews documentation/help content: https://www.myappgurus.com/blogs/mag-product-reviews\n+- Shopify review-management guidance: https://shopify.dev/docs/apps/launch/marketing/manage-app-reviews\n+- Shopify partner guidance on review replies: https://www.shopify.com/partners/blog/reply-to-reviews/\n+- Generated local review-theme pull: `product-review-myappgurus-latest.md`\n\ntokens used\n176,223\nCompleted one task: created the private MAG Product Reviews paid-report draft for Shopify Review Pulse.\n\nNew/updated files:\n- `mag-product-reviews-paid-report-draft.md`\n- `mag-product-reviews-paid-report-scaffold.md`\n- `product-review-myappgurus-latest.md`\n- `artifacts/2026-05-14-shopify-review-pulse-mag-paid-report-draft.md`\n- Updated `README.md` and required config state files.\n\nValidation:\n- `node --check workspace/shopify-review-pulse/review_pulse.mjs`\n- `node --check build_paid_report_scaffold.mjs`\n- `node --test build_paid_report_scaffold.test.mjs` passed 2/2.\n- Confirmed `fulfillment/` remains excluded from Vercel.\n\nNo outreach, public page change, checkout, account creation, DNS change, post, or spend. Open gates remain unchanged. Cash balance remains `$162.45`.\n\nSources used: Shopify MAG listing/reviews, Shopify review-management docs, Shopify review-reply guidance, and MyAppGurus MAG help content.\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-14_081701.txt",
+      "screenshot_path": "",
+      "label": "05-14-26 (Day 25) \u00b7 4:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

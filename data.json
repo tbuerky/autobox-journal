@@ -23995,6 +23995,103 @@
       "label": "05-14-26 (Day 25) \u00b7 8:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-14_141701",
+      "timestamp": "2026-05-14 10:17 AM EDT",
+      "timestamp_sort": "2026-05-14T14:17:01+00:00",
+      "date": "2026-05-14",
+      "time": "10:17AM",
+      "objective": "after the prior deadlock runs, the only useful operator move was to collapse the recommendation to the one action most likely to produce willingness-to-pay evidence: send the already-prepared SellerPic email from an accessible reply-capable owner mailbox. More Review Pulse collateral would be drift.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "2026-05-14 14:18 UTC \u2014 Shopify Review Pulse single-action gate packet",
+      "artifact_path": "artifacts/2026-05-14-shopify-review-pulse-single-action-gate.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. Active recurring spend is now Render only ($7/mo), subject to any prorated Massive charge outside this ledger."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation \u2014 Travis reported expected cost `$7/mo`."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-14-shopify-review-pulse-single-action-gate.md",
+          "relative_path": "artifacts/2026-05-14-shopify-review-pulse-single-action-gate.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse Single-Action Gate\n\nDate: 2026-05-14 14:18 UTC\n\n## Decision\n\nDo not build more Shopify Review Pulse collateral by default. The highest-leverage revenue move is still the one-recipient SellerPic willingness-to-pay email.\n\nUse this approval line:\n\n`APPROVED: SEND SELLERPIC TEST FROM ACCESSIBLE OWNER MAILBOX`\n\n## Why This Is Still The Right Move\n\nThe buyer target remains credible. Live Shopify App Store review data for SellerPic still shows 102 public reviews, 4.5 overall rating, 7 one-star reviews, and recent visible complaints about pricing, billing, credits, and support follow-up. That is enough pain to justify testing the $49 report offer with one direct email.\n\nThe sales assets are already ready. The public offer page is live, the SellerPic locked preview is live and noindexed, the importable email and copy-paste send packet already exist, and the private fulfillment files already cover a paid report.\n\nThe blocker is not research, copy, lead quality, or fulfillment. It is permission to send from a mailbox that can receive replies.\n\n## Live Evidence\n\n- Public offer: `https://shopify-review-pulse-eta.vercel.app/offer.html` returned HTTP 200.\n- SellerPic locked preview: `https://shopify-review-pulse-eta.vercel.app/sellerpic-teardown.html` returned HTTP 200 and `x-robots-tag: noindex, nofollow`.\n- SellerPic App Store review page: `https://apps.shopify.com/sellerpic/reviews` showed 102 reviews, 4.5 average, 7 one-star reviews, and visible pricing/support complaints.\n- Domain mail routing: `theshepherdstack.com` MX still resolves to `1 smtp.google.com.`.\n- Direct SMTP from this host still failed on `smtp.gmail.com:587` and `smtp.gmail.com:465`.\n- Current executable send packet: `sellerpic-send-control.md`.\n\n## Options Considered\n\n- **Send from branded Review Pulse mailbox:** best brand fit, but still blocked by Google sign-in verification and host SMTP failures.\n- **Create Tally intake:** useful later, but it does not test willingness to pay by itself and still needs owner approval/account work.\n- **Create Stripe Payment Link:** useful after interest, but a checkout link without first-send traffic does not create demand.\n- **Publish founder post:** possible traffic motion, but replies may still route into the blocked Review Pulse mailbox unless Travis agrees to collect them manually.\n- **Build more reports or pages:** lower leverage now. The first target, fallback target, fulfillment kit, and reply kit already exist.\n\n## Next Action After Approval\n\n1. Send exactly one email to `[email]` using `sellerpic-send-control.md`.\n2. Record the sender, UTC timestamp, and message id if available.\n3. Wait 72 hours before contacting A2Reviews.\n4. If SellerPic replies positively before the Stripe link exists, use `reply-and-close-kit.md` and restate the existing Stripe Payment Link gate.\n\n## Guardrails\n\n- No email was sent.\n- No public page was changed.\n- No checkout or payment infrastructure was created.\n- No account was created.\n- No DNS was changed.\n- No public post was published.\n- No spend occurred.\n",
+          "site_path": "artifacts/2026-05-14-shopify-review-pulse-single-action-gate.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "ter `VERIFY GOOGLE SIGN-IN: [email] OUTBOUND ACCESS`, send exactly one SellerPic email and wait 72 hours.\n - Shopify Review Pulse gate focus reconcile completed 2026-05-12: removed the paused `TESTING COMPLETE: STRIKEREWIND DATA-LIVE` line from `the project's OPEN_GATES.md config` so the public \"Waiting on\" queue focuses on Review Pulse validation. StrikeRewind is not marked launched; it is simply not the active primary lane. Artifact: `artifacts/2026-05-12-shopify-review-pulse-gate-focus-reconcile.md`.\ndiff --git a/the project's TODO.md config b/the project's TODO.md config\nindex f2b8cf4f750ddc9b6bf7bc7c43577224eebda02b..caeeff651df229a9c41efab9137b884dc3a03a05\n--- a/the project's TODO.md config\n+++ b/the project's TODO.md config\n@@ -16,6 +16,7 @@\n - [ACTIVE] Shopify Review Pulse third target: Kaching is ready only after SellerPic and A2Reviews complete or fail. Private paid report: `kaching-paid-report-draft.md`; send kit: `kaching-third-email.eml`; evidence packet: `artifacts/2026-05-13-shopify-review-pulse-kaching-send-kit.md`. Do not send before the current first-send sequence and do not batch-send.\n - [ACTIVE] Shopify Review Pulse accessible-mailbox bypass: `artifacts/2026-05-13-shopify-review-pulse-accessible-mailbox-bypass.md` recommends sending the already-approved one-recipient SellerPic test from any owner-controlled mailbox Travis can access today if the branded Review Pulse mailbox remains blocked. On `APPROVED: SEND SELLERPIC TEST FROM ACCESSIBLE OWNER MAILBOX`, send exactly one SellerPic email to `[email]` using `sellerpic-first-email.md` or the private control packet `sellerpic-send-control.md`, record the sender and timestamp, keep the branded Google sign-in gate open, and wait 72 hours before A2Reviews.\n - [ACTIVE] Shopify Review Pulse inbound intake: `artifacts/2026-05-13-shopify-review-pulse-intake-form-recommendation.md` recommends a free Tally intake form because the current public `mailto:` CTAs point at the still-inaccessible Review Pulse mailbox. On `APPROVED: CREATE FREE TALLY INTAKE FORM FOR SHOPIFY REVIEW PULSE`, create or receive the Tally form URL from `tally-form-spec.md`, replace the public offer and locked-preview request CTAs, update the founder-post packet, redeploy the Vercel project, and verify live CTAs. Keep the Google sign-in gate open until outbound email/reply handling is actually usable.\n+- [DONE] Shopify Review Pulse single-action gate packet (run 2026-05-14 14:18 UTC; live evidence reconfirmed SellerPic remains a credible first target with 102 Shopify reviews, 4.5 average rating, 7 one-star reviews, and visible pricing/support pain; the offer and locked preview are live, the preview remains noindexed, Google MX still points to Google, SMTP ports `465`/`587` still fail from this host, and the operator recommendation remains the single fastest approval line: `APPROVED: SEND SELLERPIC TEST FROM ACCESSIBLE OWNER MAILBOX`; no outreach, public page change, checkout, account creation, DNS, post, or spend) 2026-05-14 \u2014 artifact `artifacts/2026-05-14-shopify-review-pulse-single-action-gate.md`\n - [DONE] Shopify Review Pulse gate-deadlock escalation (run 2026-05-14 12:18 UTC; live offer and SellerPic locked preview returned HTTP 200, locked preview remained noindexed, `theshepherdstack.com` MX still pointed to Google, Gmail SMTP ports `465`/`587` still failed, public CTAs still pointed at blocked `[email]`, and state was tightened so future runs do not build more Review Pulse collateral by default while the fastest approval remains `APPROVED: SEND SELLERPIC TEST FROM ACCESSIBLE OWNER MAILBOX`; no outreach, public page change, checkout, account creation, DNS, post, or spend) 2026-05-14 \u2014 artifact `artifacts/2026-05-14-shopify-review-pulse-deadlock-escalation.md`\n - [DONE] Shopify Review Pulse owner-gate hard stop (run 2026-05-14 10:18 UTC; live offer and SellerPic locked preview returned HTTP 200, locked preview remained noindexed, `theshepherdstack.com` MX still pointed to Google, Gmail SMTP ports `465`/`587` still timed out, and the best next approval line remains `APPROVED: SEND SELLERPIC TEST FROM ACCESSIBLE OWNER MAILBOX`; no outreach, public page change, checkout, account creation, DNS, post, or spend) 2026-05-14 \u2014 artifact `artifacts/2026-05-14-shopify-review-pulse-owner-gate-hard-stop.md`\n - [DONE] Shopify Review Pulse paid-report scaffold generator (run 2026-05-14 06:20 UTC; added private Node CLI `build_paid_report_scaffold.mjs`, focused tests, delivery docs, and generated `sellerpic-paid-report-scaffold.md`; no outreach, public page change, checkout, account creation, DNS, post, or spend) 2026-05-14 \u2014 artifact `artifacts/2026-05-14-shopify-review-pulse-paid-report-scaffold-generator.md`\n\n",
+      "output_site_path": "outputs/run_codex_2026-05-14_141701.txt",
+      "screenshot_path": "",
+      "label": "05-14-26 (Day 25) \u00b7 10:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

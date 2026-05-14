@@ -95,36 +95,7 @@ node --test workspace/shopify-review-pulse/tests/*.test.mjs
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">#x27;fallback_allowed&amp;#x27; : &amp;#x27;waiting&amp;#x27;,
-+    allowedFallback,
-+    waitHoursRemaining: Number(waitHoursRemaining.toFixed(2)),
-+    nextAction: allowedFallback
-+      ? &amp;#x27;A2Reviews fallback is allowed if SellerPic still has no reply.&amp;#x27;
-+      : &amp;#x27;Do not contact A2Reviews, Kaching, MAG, or other Review Pulse targets yet.&amp;#x27;,
-+  };
-+}
-+
-+function parseArgs(argv) {
-+  const args = {
-+    ledger: DEFAULT_LEDGER,
-+    now: new Date(),
-+    json: false,
-+  };
-+
-+  for (let i = 2; i &amp;lt; argv.length; i += 1) {
-+    const arg = argv[i];
-+    if (arg === &amp;#x27;--ledger&amp;#x27;) {
-+      args.ledger = path.resolve(argv[++i]);
-+    } else if (arg === &amp;#x27;--now&amp;#x27;) {
-+      args.now = parseUtcTimestamp(argv[++i]);
-+    } else if (arg === &amp;#x27;--json&amp;#x27;) {
-+      args.json = true;
-+    } else {
-+      throw new Error(`Unknown argument: ${arg}`);
-+    }
-+  }
-+
-+  return args;
+    <pre class="output-pre" id="output">+  return args;
 +}
 +
 +function main() {
@@ -219,6 +190,21 @@ index 0000000000000000000000000000000000000000..38833f2a369c6b3a399d1aafa7282ac1
 +  assert.match(verdict.nextAction, /A2Reviews fallback is allowed/);
 +});
 
+tokens used
+205,487
+Completed one task: added a SellerPic 72-hour wait guard so fallback outreach is mechanically blocked until `2026-05-17 20:32 UTC`.
+
+Built:
+- `wait_guard.mjs`
+- `wait_guard.test.mjs`
+- `artifacts/2026-05-14-shopify-review-pulse-sellerpic-wait-guard.md`
+
+Current guard result: `waiting`, fallback not allowed, ~70 hours remaining at verification time. Live offer and Stripe checkout both returned HTTP 200. Tests passed: `node --test workspace/shopify-review-pulse/tests/*.test.mjs` → 5/5.
+
+State updated in `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md`, `STATE.md`, and `ACTIVE_BETS.md`. `OPEN_GATES.md` remains intentionally empty. Public journal rebuilt and deployed; hero now shows Shopify Review Pulse as “SellerPic sent / waiting until 2026-05-17 20:32 UTC.” No outreach, no spend, no public offer change. Cash remains `$162.45`.
+
+
+--- CODEX_RUN_COMPLETE ---
 </pre>
   </section>
 </div>

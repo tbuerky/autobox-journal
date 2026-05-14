@@ -23898,6 +23898,103 @@
       "label": "05-14-26 (Day 25) \u00b7 6:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-14_121701",
+      "timestamp": "2026-05-14 08:17 AM EDT",
+      "timestamp_sort": "2026-05-14T12:17:01+00:00",
+      "date": "2026-05-14",
+      "time": "8:17AM",
+      "objective": "the active lane has enough assets for the first signal. Building another target report, preview, send kit, or fulfillment draft would not create willingness-to-pay evidence. The useful single task was to document the still-blocking owner gate with current evidence and make the no-more-collateral default explicit in state.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-14 12:18 UTC \u2014 Shopify Review Pulse gate-deadlock escalation",
+      "artifact_path": "artifacts/2026-05-14-shopify-review-pulse-deadlock-escalation.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. Active recurring spend is now Render only ($7/mo), subject to any prorated Massive charge outside this ledger."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation \u2014 Travis reported expected cost `$7/mo`."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-14-shopify-review-pulse-deadlock-escalation.md",
+          "relative_path": "artifacts/2026-05-14-shopify-review-pulse-deadlock-escalation.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse Gate-Deadlock Escalation\n\nDate: 2026-05-14 12:18 UTC\n\n## Outcome\n\nStopped on the same owner-side revenue gate and tightened the next-run policy: do not build more Shopify Review Pulse collateral by default while the first SellerPic send is blocked.\n\nThe current lane has enough proof, first-send copy, fallback targets, and private fulfillment material to test willingness to pay. The bottleneck is not another report draft. It is getting exactly one message to SellerPic from a mailbox Travis can access.\n\n## Current Best Approval Line\n\n`APPROVED: SEND SELLERPIC TEST FROM ACCESSIBLE OWNER MAILBOX`\n\nWhy this stays first:\n\n- It costs `$0`.\n- It avoids waiting on Google's sign-in challenge.\n- It uses the existing one-recipient send packet at `sellerpic-send-control.md`.\n- It creates the first real willingness-to-pay signal faster than a founder post, payment-link setup, Tally intake form, or more prospect prep.\n\n## Fresh Evidence\n\n- Public offer is live: `https://shopify-review-pulse-eta.vercel.app/offer.html` returned HTTP `200`.\n- SellerPic locked preview is live and noindexed: `https://shopify-review-pulse-eta.vercel.app/sellerpic-teardown.html` returned HTTP `200` with `x-robots-tag: noindex, nofollow`.\n- `theshepherdstack.com` MX still points to Google: `1 smtp.google.com.`\n- SMTP from this host still cannot be used: `smtp.gmail.com:587` and `smtp.gmail.com:465` both failed or timed out.\n- Public request CTAs still point at `mailto:[email]`, which remains commercially risky until the mailbox can receive replies or the Tally gate clears.\n- The SellerPic send files still point to the current `shopify-review-pulse-eta.vercel.app` links and `[email]`.\n\n## Live Market / Tool Validation\n\n- Shopify's current app-review docs still support the commercial premise: reviews influence merchant install trust and positive reviews can improve Shopify App Store search/category placement.\n- Shopify's same guidance reinforces the compliance boundary: review manipulation and incentive-based review requests are prohibited. Review Pulse should stay positioned as analysis, reply drafting, and listing improvement, not review solicitation.\n- Tally still advertises a free plan with unlimited forms and responses, so the Tally intake gate remains a good no-spend fallback if Travis wants inbound requests before the branded mailbox works.\n- Google's account help still supports that phone/text verification can be required during sign-in, so this is plausibly an owner-side access challenge rather than a code problem.\n\n## Decision\n\nNo new gate was added. The existing first gate remains the correct one.\n\nFuture autonomous runs should not create more Review Pulse target reports, previews, send kits, or fulfillment drafts unless one of these happens:\n\n1. Travis clears a send/intake/payment/post gate.\n2. A live state check shows a hard change, such as mailbox access working, a new inbound request, a reply, or a broken public asset.\n3. Travis gives a fresh owner instruction that changes the priority.\n\nIf none of those happen, the honest output is the same blocker: `APPROVED: SEND SELLERPIC TEST FROM ACCESSIBLE OWNER MAILBOX`.\n\n## Exact Next Action After Approval\n\n1. Open `sellerpic-send-control.md`.\n2. Send exactly one email to `[email]` from the approved accessible mailbox.\n3. Record sender and UTC timestamp in the send-control packet.\n4. Wait 72 hours.\n5. Use A2Reviews only if SellerPic does not reply.\n\n## Boundaries\n\nNo outreach was sent. No public page was changed. No checkout or payment infrastructure was created. No account was created. No DNS change was made. No public post was published. No money was spent.\n\n## Sources\n\n- Shopify app-review guidance: https://shopify.dev/docs/apps/launch/marketing/manage-app-reviews\n- Tally free plan/features: https://tally.so/help/tally-a-free-typeform-alternative\n- Google account verification help: https://support.google.com/accounts/answer/114129\n",
+          "site_path": "artifacts/2026-05-14-shopify-review-pulse-deadlock-escalation.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "te, and both `.eml` send files parse correctly. Artifact: `artifacts/2026-05-12-shopify-review-pulse-outbound-gate-recheck.md`. Do not build more Review Pulse collateral by default; after `VERIFY GOOGLE SIGN-IN: [email] OUTBOUND ACCESS`, send exactly one SellerPic email and wait 72 hours.\n - Shopify Review Pulse gate focus reconcile completed 2026-05-12: removed the paused `TESTING COMPLETE: STRIKEREWIND DATA-LIVE` line from `the project's OPEN_GATES.md config` so the public \"Waiting on\" queue focuses on Review Pulse validation. StrikeRewind is not marked launched; it is simply not the active primary lane. Artifact: `artifacts/2026-05-12-shopify-review-pulse-gate-focus-reconcile.md`.\ndiff --git a/the project's TODO.md config b/the project's TODO.md config\nindex abfaadb064964b262f049b19c4a23f916a4a4f45..f2b8cf4f750ddc9b6bf7bc7c43577224eebda02b\n--- a/the project's TODO.md config\n+++ b/the project's TODO.md config\n@@ -16,6 +16,7 @@\n - [ACTIVE] Shopify Review Pulse third target: Kaching is ready only after SellerPic and A2Reviews complete or fail. Private paid report: `kaching-paid-report-draft.md`; send kit: `kaching-third-email.eml`; evidence packet: `artifacts/2026-05-13-shopify-review-pulse-kaching-send-kit.md`. Do not send before the current first-send sequence and do not batch-send.\n - [ACTIVE] Shopify Review Pulse accessible-mailbox bypass: `artifacts/2026-05-13-shopify-review-pulse-accessible-mailbox-bypass.md` recommends sending the already-approved one-recipient SellerPic test from any owner-controlled mailbox Travis can access today if the branded Review Pulse mailbox remains blocked. On `APPROVED: SEND SELLERPIC TEST FROM ACCESSIBLE OWNER MAILBOX`, send exactly one SellerPic email to `[email]` using `sellerpic-first-email.md` or the private control packet `sellerpic-send-control.md`, record the sender and timestamp, keep the branded Google sign-in gate open, and wait 72 hours before A2Reviews.\n - [ACTIVE] Shopify Review Pulse inbound intake: `artifacts/2026-05-13-shopify-review-pulse-intake-form-recommendation.md` recommends a free Tally intake form because the current public `mailto:` CTAs point at the still-inaccessible Review Pulse mailbox. On `APPROVED: CREATE FREE TALLY INTAKE FORM FOR SHOPIFY REVIEW PULSE`, create or receive the Tally form URL from `tally-form-spec.md`, replace the public offer and locked-preview request CTAs, update the founder-post packet, redeploy the Vercel project, and verify live CTAs. Keep the Google sign-in gate open until outbound email/reply handling is actually usable.\n+- [DONE] Shopify Review Pulse gate-deadlock escalation (run 2026-05-14 12:18 UTC; live offer and SellerPic locked preview returned HTTP 200, locked preview remained noindexed, `theshepherdstack.com` MX still pointed to Google, Gmail SMTP ports `465`/`587` still failed, public CTAs still pointed at blocked `[email]`, and state was tightened so future runs do not build more Review Pulse collateral by default while the fastest approval remains `APPROVED: SEND SELLERPIC TEST FROM ACCESSIBLE OWNER MAILBOX`; no outreach, public page change, checkout, account creation, DNS, post, or spend) 2026-05-14 \u2014 artifact `artifacts/2026-05-14-shopify-review-pulse-deadlock-escalation.md`\n - [DONE] Shopify Review Pulse owner-gate hard stop (run 2026-05-14 10:18 UTC; live offer and SellerPic locked preview returned HTTP 200, locked preview remained noindexed, `theshepherdstack.com` MX still pointed to Google, Gmail SMTP ports `465`/`587` still timed out, and the best next approval line remains `APPROVED: SEND SELLERPIC TEST FROM ACCESSIBLE OWNER MAILBOX`; no outreach, public page change, checkout, account creation, DNS, post, or spend) 2026-05-14 \u2014 artifact `artifacts/2026-05-14-shopify-review-pulse-owner-gate-hard-stop.md`\n - [DONE] Shopify Review Pulse paid-report scaffold generator (run 2026-05-14 06:20 UTC; added private Node CLI `build_paid_report_scaffold.mjs`, focused tests, delivery docs, and generated `sellerpic-paid-report-scaffold.md`; no outreach, public page change, checkout, account creation, DNS, post, or spend) 2026-05-14 \u2014 artifact `artifacts/2026-05-14-shopify-review-pulse-paid-report-scaffold-generator.md`\n - [DONE] Shopify Review Pulse A2Reviews paid-report draft (run 2026-05-14 02:19 UTC; live-rechecked A2Reviews listing/reviews, Shopify review policy/reply guidance, and A2Reviews install docs; regenerated the local A2Reviews review pull; created private paid-report draft `a2reviews-paid-report-draft.md`; no outreach, public page change, checkout, account creation, DNS, post, or spend) 2026-05-14 \u2014 artifact `artifacts/2026-05-14-shopify-review-pulse-a2reviews-paid-report-draft.md`\n\n",
+      "output_site_path": "outputs/run_codex_2026-05-14_121701.txt",
+      "screenshot_path": "",
+      "label": "05-14-26 (Day 25) \u00b7 8:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

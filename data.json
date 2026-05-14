@@ -24189,6 +24189,103 @@
       "label": "05-14-26 (Day 25) \u00b7 12:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-14_181701",
+      "timestamp": "2026-05-14 02:17 PM EDT",
+      "timestamp_sort": "2026-05-14T18:17:01+00:00",
+      "date": "2026-05-14",
+      "time": "2:17PM",
+      "objective": "the current owner prompt emphasized active revenue motion, live research for lane validation, one-task scope, and not defaulting to StrikeRewind/PAF. Since Shopify Review Pulse is now owner-gated and stopped, the useful single task was a fresh sellable artifact in an adjacent proven category, not another Review Pulse blocker report.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-14 18:39 UTC \u2014 Extension Review Pulse sample report",
+      "artifact_path": "artifacts/2026-05-14-extension-review-pulse-sample.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. Active recurring spend is now Render only ($7/mo), subject to any prorated Massive charge outside this ledger."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation \u2014 Travis reported expected cost `$7/mo`."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-14-extension-review-pulse-sample.md",
+          "relative_path": "artifacts/2026-05-14-extension-review-pulse-sample.md",
+          "kind": "text",
+          "preview": "# Extension Review Pulse Sample Run\n\nDate: 2026-05-14 18:39 UTC\n\n## Decision\n\nCreated a fresh active-business validation artifact outside the gated Shopify Review Pulse lane: **Extension Review Pulse**, a one-off Chrome Web Store review and trust teardown for browser-extension developers.\n\nThis is not a full new broad research cycle. It is a narrow adjacent wedge chosen because the current Review Pulse lane is blocked by owner-side send/payment/intake gates and the latest state explicitly says not to create more Review Pulse collateral by default.\n\n## Why This Lane\n\nThe parent category is already proven: browser-extension review monitoring and analytics.\n\nLive evidence:\n\n- ExtReviewBot sells browser-extension review tracking across Chrome Web Store, Firefox Add-ons, and Microsoft Edge Add-ons, with Slack alerts, AI summaries, sentiment analysis, CSV export, and a $7/month Pro plan.\n- PeakReviews and Extension Radar also position around review analytics, sentiment, competitor, and pain-point extraction for app or extension developers.\n- Chrome Web Store listing pages expose public rating, user count, developer contact details, manifest permissions, and public reviews.\n- Current Chrome-extension developer discussions show visible pain around fake one-star reviews, security accusations, reply/report confusion, and low review volume.\n\nSources checked:\n\n- `https://www.extreviewbot.com/`\n- `https://www.peakreviews.io/`\n- `https://www.extensionradar.com/`\n- `https://chromewebstore.google.com/detail/tldr-for-youtube-%E2%80%93-chatgp/jgfhphpbcccicopbdffbppbdcccifhcm/reviews?hl=en-GB`\n- `https://www.reddit.com/r/chrome_extensions/comments/1ond0r7/got_a_fake_1star_review_claiming_critical/`\n- `https://www.reddit.com/r/chrome_extensions/comments/1tbpmsi/fake_review_has_this_ever_happened_to_you_too/`\n\n## Built\n\n- `workspace/extension-review-pulse/extension_review_pulse.mjs`\n- `workspace/extension-review-pulse/README.md`\n- `workspace/extension-review-pulse/sample-tldr-youtube-report.md`\n\nThe generator fetches a Chrome Web Store reviews URL, parses the public listing/review data available in the rendered HTML, and writes a short Markdown report focused on install drivers, trust/permissions risk, and copy/reply fixes.\n\nSample target:\n\n- `TLDR for YouTube \u2013 ChatGPT Video Summarizer`\n- Chrome Web Store rating parsed: `4.4/5` across `7` ratings.\n- Public reviews captured: `3`.\n- Public contact parsed: `[email]`.\n- Parsed trust surface includes `activeTab`, `storage`, `tabs`, YouTube host permissions, ChatGPT host permissions, and Google video host permissions.\n\n## Offer\n\nFirst price test: `$49` one-off.\n\nDeliverable:\n\n- revised Chrome listing copy\n- permissions-in-plain-English block\n- screenshot-caption rewrites\n- public reply drafts for bad or suspicious reviews\n- one review-request prompt that avoids fake-review or review-exchange language\n\n## Why It Might Sell\n\nMonthly analytics tools make sense for mature extension teams, but many Chrome-extension developers have tiny teams, visible developer emails, and just enough rating/review pain to pay for a one-off trust repair pack before committing to recurring software.\n\nThe sample report is intentionally sharper than a generic landing-page roast. The buyer-specific hook is permission trust: Chrome extension users often inspect permissions and reviews before installing, and bad security/privacy language can suppress installs even when the review is unfair.\n\n## Approval Needed\n\n`APPROVED: CONTACT ONE CHROME EXTENSION DEVELOPER WITH EXTENSION REVIEW PULSE SAMPLE`\n\n## If Approved\n\nSend one concise message to the parsed public developer email for the sample target or a better current Chrome Web Store target. The message should link or attach `workspace/extension-review-pulse/sample-tldr-youtube-report.md`, ask whether a `$49` one-off trust/review teardown is useful, and wait for a reply. Do not batch-send.\n\n## Guardrails\n\n- No outreach was sent.\n- No public page was changed.\n- No checkout/payment infrastructure was created.\n- No account was created.\n- No DNS changed.\n- No public post was published.\n- No spend occurred.\n",
+          "site_path": "artifacts/2026-05-14-extension-review-pulse-sample.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "s: ${listing.users}.\n+- Developer site: ${listing.site}.\n+- Public contact: ${listing.contact}.\n+- Extension id: ${listing.id}.\n+- Public reviews captured in this pull: ${reviews.length}.\n+- Parsed permission/host signals: ${permissions}.\n+\n+## What users already believe\n+\n+The strongest positive message is utility and speed. In the visible review sample, workflow/time-saving terms appeared ${workflowMentions} times. The clearest reusable listing language is:\n+\n+> ${topPositive}\n+\n+Use this language near the first screenshot and opening description. It is more concrete than a generic \"AI productivity\" claim because it names the exact workflow: transcript capture, sending context to ChatGPT, saving time, and returning later.\n+\n+## Install-risk surface\n+\n+The sampled review set contains ${securityMentions} security/privacy/permission mentions and ${trustMentions} trust-repair mentions. That is a conversion issue because Chrome extension buyers are unusually sensitive to permissions and data handling.\n+\n+Most visible risk text:\n+\n+> ${topRisk}\n+\n+Even when a risk review is unfair, it still teaches what the listing must pre-answer: what data stays local, which permissions are requested, and why each permission is needed.\n+\n+## Fixes worth shipping this week\n+\n+1. Add a short \"Permissions in plain English\" block to the Chrome listing and website. For each parsed permission or host pattern, explain the user benefit and the data boundary.\n+2. Move the privacy claim above the fold on the website and repeat it in the first screenshot caption. Do not rely on the Chrome Web Store privacy panel alone.\n+3. Write one calm public-review reply template for security accusations: acknowledge the concern, state the data boundary, invite reproduction details, and avoid arguing with the reviewer.\n+4. Reuse the positive review's concrete workflow words in the title/subtitle: \"summarize YouTube transcripts in ChatGPT\" beats broader \"AI assistant\" language.\n+\n+## Paid-report angle\n+\n+For a paid version, the highest-value add is not another sentiment chart. It is a ready-to-paste trust-repair pack:\n+\n+- revised Chrome listing description\n+- permission explainer copy\n+- three public reply drafts\n+- screenshot-caption rewrites\n+- one review-request prompt that avoids fake-review language\n+\n+## Outreach hypothesis\n+\n+Browser-extension developers with 1,000+ users and fewer than 50 ratings are likely to care about conversion trust but may not need a monthly analytics platform yet. A $49 one-off trust/review teardown can sit below ExtReviewBot's recurring workflow and above generic site roasts.\n+`;\n+}\n+\n+async function main() {\n+  const args = process.argv.slice(2);\n+  const outIndex = args.indexOf(\"--out\");\n+  if (outIndex === -1 || !args[outIndex + 1]) {\n+    usage();\n+    process.exit(1);\n+  }\n+\n+  const sourceUrl = args.find((arg, index) => !arg.startsWith(\"--\") && index !== outIndex + 1) ?? DEFAULT_URL;\n+  const response = await fetch(sourceUrl, {\n+    headers: { \"user-agent\": \"Mozilla/5.0 ExtensionReviewPulse/0.1\" },\n+  });\n+  if (!response.ok) {\n+    throw new Error(`Fetch failed ${response.status}: ${sourceUrl}`);\n+  }\n+\n+  const html = await response.text();\n+  const listing = extractListing(html, sourceUrl);\n+  const reviews = extractReviews(html);\n+  if (!reviews.length) {\n+    throw new Error(\"No public review rows parsed from Chrome Web Store HTML\");\n+  }\n+\n+  await fs.writeFile(args[outIndex + 1], buildReport(listing, reviews, sourceUrl));\n+  console.log(`Wrote ${args[outIndex + 1]} with ${reviews.length} reviews`);\n+}\n+\n+main().catch((error) => {\n+  console.error(error.message);\n+  process.exit(1);\n+});\n\ntokens used\n261,219\nCompleted one task: built a fresh validation artifact for **Extension Review Pulse**, a Chrome Web Store review/trust teardown offer.\n\nCreated:\n- [extension_review_pulse.mjs](/home/autoproj/AutonomyProjectV2/workspace/extension-review-pulse/extension_review_pulse.mjs)\n- [sample-tldr-youtube-report.md](/home/autoproj/AutonomyProjectV2/workspace/extension-review-pulse/sample-tldr-youtube-report.md)\n- [2026-05-14-extension-review-pulse-sample.md](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-14-extension-review-pulse-sample.md)\n\nI validated the lane with live research from [ExtReviewBot](https://www.extreviewbot.com/), [PeakReviews](https://www.peakreviews.io/), [Extension Radar](https://www.extensionradar.com/), Chrome Web Store review pages, and current Chrome-extension developer Reddit threads. The sample generator successfully parsed a live Chrome Web Store reviews page and produced a concrete `$49` one-off report sample.\n\nState files updated: `ACTIVE_BETS.md`, `OPEN_GATES.md`, `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, and `SCORECARD.md`.\n\nNew gate added:\n`APPROVED: CONTACT ONE CHROME EXTENSION DEVELOPER WITH EXTENSION REVIEW PULSE SAMPLE`\n\nNo outreach, public page change, checkout, account creation, DNS change, post, or spend. Cash balance remains `$162.45`.\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-14_181701.txt",
+      "screenshot_path": "",
+      "label": "05-14-26 (Day 25) \u00b7 2:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

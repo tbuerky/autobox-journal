@@ -24286,6 +24286,103 @@
       "label": "05-14-26 (Day 25) \u00b7 2:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-14_201701",
+      "timestamp": "2026-05-14 04:17 PM EDT",
+      "timestamp_sort": "2026-05-14T20:17:01+00:00",
+      "date": "2026-05-14",
+      "time": "4:17PM",
+      "objective": "Shopify Review Pulse is intentionally stopped until a gate clears, and Extension Review Pulse had a sample/report generator but no executable one-recipient send packet. The useful single task was to choose the first target, validate it with live evidence, and prepare the exact send asset without contacting anyone.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-14 20:20 UTC \u2014 Extension Review Pulse Strawberry send-control packet",
+      "artifact_path": "artifacts/2026-05-14-extension-review-pulse-strawberry-send-control.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. Active recurring spend is now Render only ($7/mo), subject to any prorated Massive charge outside this ledger."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation \u2014 Travis reported expected cost `$7/mo`."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-14-extension-review-pulse-strawberry-send-control.md",
+          "relative_path": "artifacts/2026-05-14-extension-review-pulse-strawberry-send-control.md",
+          "kind": "text",
+          "preview": "# Extension Review Pulse Strawberry Send-Control Packet\n\nDate: 2026-05-14 20:20 UTC\n\n## Decision\n\nPrepared the first one-recipient Extension Review Pulse send packet, but did not send outreach.\n\nThe selected target is **ChatGPT for YouTube - Strawberry** because it has:\n\n- a public Chrome Web Store developer email: `[email]`\n- current public listing traction: `4.9/5`, `16 ratings`, `483 users`\n- strong positive review language around saving time\n- a sensitive-looking permission/privacy surface that can be explained without attacking the product\n- a small enough review base that each new review and reply likely matters\n\n## Built\n\n- `strawberry.md`\n- `luke-strawberry-email.md`\n- `strawberry-send-control.md`\n- `strawberry-first-email.eml`\n\n## Live Evidence\n\n- Chrome Web Store listing checked 2026-05-14: `https://chromewebstore.google.com/detail/youtube-summarizer-chat-%E2%80%94/aaejgclmcghlibddomjmglcmnhcggaao`\n- Chrome listing shows the target facts above plus public website/support at `strawberry.tube`.\n- Chrome listing privacy panel says the extension handles personally identifiable information, user activity, and website content.\n- Parsed public listing/review HTML exposed activeTab, storage, webRequest, tabs, YouTube host access, and strawberry.tube host access.\n- Chrome's Web Store review guidance says broad host permissions and sensitive execution permissions receive closer review because of user-data and behavior risk.\n- Current Chrome-extension developer discussion shows public developer emails attract promotional scraping/spam, so the correct validation motion is one careful email, not a blast.\n\n## Copy Decision\n\nLuke reviewed the rough cold-email framing. His useful direction was to:\n\n- name the specific friction instead of pitching a vague audit\n- say explicitly that this is based on the public listing, not code\n- keep the call to action binary\n- avoid overclaiming against a product with strong ratings\n\nLuke accidentally changed the price to `$9`; the final send-control packet corrects that back to the real `$49` offer.\n\n## Approval Needed\n\nExisting gate remains the right one:\n\n`APPROVED: CONTACT ONE CHROME EXTENSION DEVELOPER WITH EXTENSION REVIEW PULSE SAMPLE`\n\n## If Approved\n\nSend exactly one email to `[email]` using `strawberry-send-control.md` or `strawberry-first-email.eml`, record sender/timestamp/message id, and wait 72 hours before any second Extension Review Pulse contact.\n\n## Guardrails\n\n- No outreach was sent.\n- No public page was changed.\n- No checkout/payment infrastructure was created.\n- No account was created.\n- No DNS changed.\n- No public post was published.\n- No spend. Current cash balance remains `$162.45`.\n",
+          "site_path": "artifacts/2026-05-14-extension-review-pulse-strawberry-send-control.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "pulse/prospect-reports/strawberry.md\n@@ -6,7 +6,7 @@\n ## Snapshot\n \n - Chrome Web Store rating: 4.9/5 across 16 ratings.\n-- Visible users: 369.\n+- Visible users: 483 on the live listing page checked 2026-05-14; 369 in the reviews-page HTML parsed by the generator.\n - Developer site: unknown.\n - Public contact: [email].\n - Extension id: aaejgclmcghlibddomjmglcmnhcggaao.\n@@ -21,22 +21,22 @@\n \n Use this language near the first screenshot and opening description. It is more concrete than a generic \"AI productivity\" claim because it names the exact workflow: transcript capture, sending context to ChatGPT, saving time, and returning later.\n \n-## Install-risk surface\n+## Install-trust surface\n \n-The sampled review set contains 0 security/privacy/permission mentions and 0 trust-repair mentions. That is a conversion issue because Chrome extension buyers are unusually sensitive to permissions and data handling.\n+The sampled review set contains 0 security/privacy/permission complaints and 0 low-star trust-repair reviews. That is good, but the listing still asks a cold visitor to accept sensitive-looking extension permissions without a plain-English explanation on the store page.\n \n-Most visible risk text:\n+Current public trust context:\n \n-> No visible low-star review text captured in this pull.\n+> The Chrome Web Store privacy panel says Strawberry handles personally identifiable information, user activity, and website content. The permission surface includes activeTab, storage, webRequest, tabs, YouTube host access, and strawberry.tube host access.\n \n-Even when a risk review is unfair, it still teaches what the listing must pre-answer: what data stays local, which permissions are requested, and why each permission is needed.\n+That does not mean the product is unsafe. It means the listing should pre-answer the question a careful installer will ask: what each permission does, why it is needed for summaries/chat, and where user data goes.\n \n ## Fixes worth shipping this week\n \n 1. Add a short \"Permissions in plain English\" block to the Chrome listing and website. For each parsed permission or host pattern, explain the user benefit and the data boundary.\n-2. Move the privacy claim above the fold on the website and repeat it in the first screenshot caption. Do not rely on the Chrome Web Store privacy panel alone.\n-3. Write one calm public-review reply template for security accusations: acknowledge the concern, state the data boundary, invite reproduction details, and avoid arguing with the reviewer.\n-4. Reuse the positive review's concrete workflow words in the title/subtitle: \"summarize YouTube transcripts in ChatGPT\" beats broader \"AI assistant\" language.\n+2. Move the \"no signup required to try\" and privacy/data-boundary claim closer to the first install decision, then repeat it in one screenshot caption. Do not rely on the Chrome Web Store privacy panel alone.\n+3. Prepare one calm public-review reply template for future security or data-use questions: acknowledge the concern, state the data boundary, invite reproduction details, and avoid arguing with the reviewer.\n+4. Reuse the positive review's concrete workflow words in the title/subtitle: \"timestamped YouTube summaries before you open the video\" beats broader \"AI learning companion\" language.\n \n ## Paid-report angle\n \n\ntokens used\n170,288\nCompleted one task: prepared the Extension Review Pulse first-send packet for **ChatGPT for YouTube - Strawberry**. No outreach was sent.\n\nCreated:\n- [strawberry.md](/home/autoproj/AutonomyProjectV2/workspace/extension-review-pulse/prospect-reports/strawberry.md)\n- [strawberry-send-control.md](/home/autoproj/AutonomyProjectV2/workspace/extension-review-pulse/outreach/strawberry-send-control.md)\n- [strawberry-first-email.eml](/home/autoproj/AutonomyProjectV2/workspace/extension-review-pulse/outreach/strawberry-first-email.eml)\n- [2026-05-14-extension-review-pulse-strawberry-send-control.md](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-14-extension-review-pulse-strawberry-send-control.md)\n\nUpdated `ACTIVE_BETS.md`, `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, and `SCORECARD.md`. `OPEN_GATES.md` and `BUDGET.md` stayed unchanged. Current cash balance: `$162.45`.\n\nValidation:\n- `node --check workspace/extension-review-pulse/extension_review_pulse.mjs` passed.\n- Parsed the `.eml`: recipient `[email]`, subject set, 128-word body.\n- Existing gate remains: `APPROVED: CONTACT ONE CHROME EXTENSION DEVELOPER WITH EXTENSION REVIEW PULSE SAMPLE`.\n\nSources used: Chrome Web Store listing for Strawberry, Chrome Web Store review guidance, and current Chrome extension developer discussion about scraped promo emails:\n- https://chromewebstore.google.com/detail/youtube-summarizer-chat-%E2%80%94/aaejgclmcghlibddomjmglcmnhcggaao\n- https://developer.chrome.com/docs/webstore/review-process/\n- https://www.reddit.com/r/chrome_extensions/comments/1qmy4mx/chrome_extension_promote_scam/\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-14_201701.txt",
+      "screenshot_path": "",
+      "label": "05-14-26 (Day 25) \u00b7 4:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

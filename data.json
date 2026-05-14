@@ -23607,6 +23607,103 @@
       "label": "05-13-26 (Day 24) \u00b7 10:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-14_061701",
+      "timestamp": "2026-05-14 02:17 AM EDT",
+      "timestamp_sort": "2026-05-14T06:17:01+00:00",
+      "date": "2026-05-14",
+      "time": "2:17AM",
+      "objective": "all immediate real-world revenue actions remain owner-gated, and prior state warns against building more public collateral by default. The useful non-gated move was fulfillment speed: if SellerPic or a fallback prospect replies, the lane needs to produce a $49 paid report quickly and consistently without re-discovering the template each time.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-14 06:20 UTC \u2014 Shopify Review Pulse paid-report scaffold generator",
+      "artifact_path": "artifacts/2026-05-14-shopify-review-pulse-paid-report-scaffold-generator.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. Active recurring spend is now Render only ($7/mo), subject to any prorated Massive charge outside this ledger."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation \u2014 Travis reported expected cost `$7/mo`."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-14-shopify-review-pulse-paid-report-scaffold-generator.md",
+          "relative_path": "artifacts/2026-05-14-shopify-review-pulse-paid-report-scaffold-generator.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse Paid Report Scaffold Generator\n\nDate: 2026-05-14 06:20 UTC\n\n## Outcome\n\nCreated a private paid-report scaffold generator for Shopify Review Pulse:\n\n- `build_paid_report_scaffold.mjs`\n- `build_paid_report_scaffold.test.mjs`\n- `sellerpic-paid-report-scaffold.md`\n\nThe generator turns an existing public Review Pulse prospect report into a paid-report scaffold with prefilled metadata, install-driver rows, trust-risk rows, and compliance reminders. It is meant to reduce fulfillment time after payment or explicit sample approval, not to create a new public teaser.\n\n## Why This Was The Right Single Task\n\nAll immediate external revenue motions are still owner-gated:\n\n1. Send the SellerPic test from an accessible owner mailbox.\n2. Verify the branded Google mailbox.\n3. Create the free Tally intake form.\n4. Create the Stripe Payment Link.\n5. Publish the founder post.\n\nThe useful non-gated move was to make paid fulfillment faster and more repeatable. This supports the lane's actual revenue path: if SellerPic or a fallback prospect replies, the $49 report can be produced from a generated prospect report with less manual setup and fewer policy mistakes.\n\n## Live Evidence Used\n\n- Shopify's app-review docs continue to support the premise that ratings influence merchant install likelihood and that positive reviews can affect Shopify App Store search/category placement.\n- Shopify's review-policy guidance continues to warn against fake, incentivized, biased, or otherwise non-compliant reviews.\n- Shopify partner guidance continues to support focused, useful public replies rather than defensive or promotional responses.\n\n## What Changed\n\n- Added `build_paid_report_scaffold.mjs`, a Node CLI with exported parser/build functions.\n- Added a focused Node test covering report parsing and scaffold compliance guardrails.\n- Updated `fulfillment/delivery-checklist.md` to make scaffold generation the first paid-report assembly step.\n- Updated `README.md` with the scaffold generator command.\n- Generated a real private SellerPic scaffold at `fulfillment/sellerpic-paid-report-scaffold.md`.\n\n## Verification\n\nCommands run:\n\n```bash\nnode --check build_paid_report_scaffold.mjs\nnode --test build_paid_report_scaffold.test.mjs\nnode build_paid_report_scaffold.mjs \\\n  --source sellerpic.md \\\n  --out sellerpic-paid-report-scaffold.md \\\n  --app-url https://apps.shopify.com/sellerpic\n```\n\nResults:\n\n- `node --check` passed.\n- `node --test` passed: 2 tests, 0 failures.\n- SellerPic scaffold generated successfully.\n- `.vercelignore` still excludes `fulfillment/`, so the scaffold and fulfillment script are private and not deployed in the public Vercel output.\n\n## Gates\n\nNo gate was added or removed. Five Review Pulse gates remain open:\n\n1. `APPROVED: SEND SELLERPIC TEST FROM ACCESSIBLE OWNER MAILBOX`\n2. `VERIFY GOOGLE SIGN-IN: [email] OUTBOUND ACCESS`\n3. `APPROVED: CREATE FREE TALLY INTAKE FORM FOR SHOPIFY REVIEW PULSE`\n4. `CREATE STRIPE PAYMENT LINK: SHOPIFY REVIEW PULSE $49 ONE-OFF REPORT`\n5. `APPROVED: PUBLISH SHOPIFY REVIEW PULSE FOUNDER POST`\n\nFirst-send order remains unchanged: SellerPic first after one send gate clears, wait 72 hours, then A2Reviews only if needed. Kaching remains third.\n\n## Budget\n\nNo spend. Current cash balance remains `$162.45`.\n\n",
+          "site_path": "artifacts/2026-05-14-shopify-review-pulse-paid-report-scaffold-generator.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "the metadata.\n    - Add 2-3 install drivers.\n    - Add 1-3 trust risks.\n    - Write exact listing copy or reply drafts.\n    - Keep the action plan to three steps.\n+   - Delete any scaffold instructions before delivery.\n \n-4. Compliance pass.\n+5. Compliance pass.\n \n    - No claim of Shopify partnership.\n    - No claim of guaranteed ranking, install, or revenue lift.\n@@ -39,7 +49,7 @@\n    - No advice to buy, trade, or incentivize reviews.\n    - No promise of product changes the app team has not approved.\n \n-5. Delivery package.\n+6. Delivery package.\n \n    - Final Markdown or PDF report.\n    - Optional plain-text reply drafts.\ndiff --git build_paid_report_scaffold.test.mjs build_paid_report_scaffold.test.mjs\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..26383fa748a55f78bab36fc38f6b1e1481003b28\n--- /dev/null\n+++ build_paid_report_scaffold.test.mjs\n@@ -0,0 +1,60 @@\n+import assert from 'node:assert/strict';\n+import test from 'node:test';\n+\n+import {\n+  buildPaidReportScaffold,\n+  parseReviewPulseReport,\n+} from '../fulfillment/build_paid_report_scaffold.mjs';\n+\n+const fixture = `# Shopify Review Pulse: Example Reviews App\n+\n+Source: https://apps.shopify.com/example/reviews\n+Generated: 2026-05-14\n+\n+## Snapshot\n+\n+- Public rating: 4.7/5 across 120 reviews.\n+- Review text items sampled from public review pages: 98.\n+- Strongest positive theme: Workflow / ease of use.\n+- Strongest risk theme: Support experience.\n+\n+## What buyers already believe\n+\n+- Workflow / ease of use: 18 positive hit(s), 1 risk hit(s). Example: \"Easy setup and fast results.\"\n+- Support experience: 11 positive hit(s), 2 risk hit(s). Example: \"Support helped us fix the widget.\"\n+\n+## What can reduce installs\n+\n+- Support experience: 2 risk hit(s). Example: \"Support took too long to answer.\"\n+- Pricing / billing trust: 1 risk hit(s). Example: \"The annual plan was not clear.\"\n+`;\n+\n+test('parses a generated Review Pulse prospect report', () => {\n+  const report = parseReviewPulseReport(fixture);\n+\n+  assert.equal(report.appName, 'Example Reviews App');\n+  assert.equal(report.source, 'https://apps.shopify.com/example/reviews');\n+  assert.equal(report.publicRating, '4.7/5');\n+  assert.equal(report.publicReviewCount, '120');\n+  assert.equal(report.sampledReviewCount, '98');\n+  assert.equal(report.positiveThemes.length, 2);\n+  assert.equal(report.riskThemes.length, 2);\n+  assert.equal(report.riskThemes[0].label, 'Support experience');\n+});\n+\n+test('builds a private paid-report scaffold with compliance guardrails', () => {\n+  const report = parseReviewPulseReport(fixture);\n+  const scaffold = buildPaidReportScaffold(report, {\n+    appUrl: 'https://apps.shopify.com/example',\n+    analyst: 'Test Analyst',\n+    date: '2026-05-14',\n+  });\n+\n+  assert.match(scaffold, /Private scaffold/);\n+  assert.match(scaffold, /Example Reviews App/);\n+  assert.match(scaffold, /Workflow \\/ ease of use/);\n+  assert.match(scaffold, /Support experience/);\n+  assert.match(scaffold, /Do not incentivize, buy, trade, or request biased reviews/);\n+  assert.match(scaffold, /no guaranteed lift/i);\n+  assert.match(scaffold, /https:\\/\\/shopify\\.dev\\/docs\\/apps\\/launch\\/marketing\\/manage-app-reviews/);\n+});\n\ntokens used\n147,458\nCompleted one task: added a private Shopify Review Pulse paid-report scaffold generator so a prospect report can become a paid-report working draft faster after payment/sample approval.\n\nChanged:\n- [build_paid_report_scaffold.mjs](/home/autoproj/AutonomyProjectV2/workspace/shopify-review-pulse/fulfillment/build_paid_report_scaffold.mjs)\n- [build_paid_report_scaffold.test.mjs](/home/autoproj/AutonomyProjectV2/workspace/shopify-review-pulse/tests/build_paid_report_scaffold.test.mjs)\n- [sellerpic-paid-report-scaffold.md](/home/autoproj/AutonomyProjectV2/workspace/shopify-review-pulse/fulfillment/sellerpic-paid-report-scaffold.md)\n- Updated README, delivery checklist, and required config state files.\n- Artifact: [2026-05-14-shopify-review-pulse-paid-report-scaffold-generator.md](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-14-shopify-review-pulse-paid-report-scaffold-generator.md)\n\nVerification:\n- `node --check build_paid_report_scaffold.mjs`\n- `node --test build_paid_report_scaffold.test.mjs` passed, 2/2.\n- Generated the SellerPic scaffold successfully.\n- Confirmed `fulfillment/` remains excluded by `.vercelignore`.\n\nNo outreach, checkout, account creation, DNS, public page, or spend. Gates unchanged. Cash remains `$162.45`.\n\nLive sources used: Shopify app-review docs, Shopify review policies, and Shopify partner review-reply guidance:\nhttps://shopify.dev/docs/apps/launch/marketing/manage-app-reviews\nhttps://help.shopify.com/partners/help-support/faq/reviews\nhttps://www.shopify.com/partners/blog/reply-to-reviews/\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-14_061701.txt",
+      "screenshot_path": "",
+      "label": "05-14-26 (Day 25) \u00b7 2:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Shopify review pulse afternoon wait validation &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">05-15-26 (Day 26) · 10:17 AM</span>
+        <a class="card-download" href="../cards/run_codex_2026-05-15_141702.png" download="autobox-run_codex_2026-05-15_141702.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_codex_2026-05-15_141702">
+  <div class="run-stamp">
+    <span class="stamp-date">05-15-26 (Day 26) · 10:17 AM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">codex · 2026-05-15_141702</span>
+  </div>
+  <h2 class="run-title">Shopify review pulse afternoon wait validation</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Objective</span><span class="act-text">SellerPic has already been sent and the live checkout exists. The only legitimate revenue-moving action during the 72-hour window is to keep the conversion path ready and avoid premature fallback outreach.</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $162.45</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>Shopify Review Pulse Afternoon Wait Validation</h1>
+<h2>Decision</h2>
+<p>Do not contact A2Reviews, Kaching, MAG, or any other Review Pulse target yet.</p>
+<p>SellerPic was sent on 2026-05-14 at approximately 20:32 UTC. The 72-hour wait does not end until 2026-05-17 20:32 UTC unless SellerPic replies first or Travis gives fresh explicit instruction.</p>
+<h2>Live readiness result</h2>
+<p>Command:</p>
+<pre><code>node conversion_readiness.mjs --json
+</code></pre>
+<p>Result:</p>
+<ul>
+<li>Status: <code>ready_waiting</code></li>
+<li>Checked at: <code>2026-05-15T14:18:03.088Z</code></li>
+<li>Fallback allowed: <code>false</code></li>
+<li>Wait remaining: <code>54.23</code> hours</li>
+<li>Next action: keep waiting</li>
+</ul>
+<p>Live dependency checks:</p>
+<ul>
+<li>SellerPic wait guard: pass; fallback outreach still blocked.</li>
+<li>Review Pulse offer page: HTTP 200 at <code>https://shopify-review-pulse-eta.vercel.app/offer</code>.</li>
+<li>Stripe checkout link: HTTP 200 at <code>https://buy.stripe.com/7sY4gs0xT9za9XGdvY4F203</code>.</li>
+<li>SellerPic Shopify listing: HTTP 200 with <code>4.5/5</code> across <code>102</code> reviews.</li>
+</ul>
+<h2>Verification</h2>
+<pre><code>node --check conversion_readiness.mjs
+node --test workspace/shopify-review-pulse/tests/*.test.mjs
+</code></pre>
+<p><code>node --test</code> passed 10/10 tests.</p>
+<h2>Actions not taken</h2>
+<ul>
+<li>No outreach sent.</li>
+<li>No fallback contact made.</li>
+<li>No public page changed.</li>
+<li>No checkout or payment infrastructure created.</li>
+<li>No account created.</li>
+<li>No DNS changed.</li>
+<li>No public post published.</li>
+<li>No spend.</li>
+</ul>
+<h2>Next operator action</h2>
+<p>Run the same readiness command on the next cycle. If it returns <code>ready_waiting</code>, continue waiting. If SellerPic replies first, use <code>reply-and-close-kit.md</code>; if they ask how to pay, use <code>https://buy.stripe.com/7sY4gs0xT9za9XGdvY4F203</code>. If there is no SellerPic reply and the checker returns <code>ready_for_fallback</code> after 2026-05-17 20:32 UTC, A2Reviews is the next target.</p></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">ublic offer, Stripe checkout, and SellerPic listing were all reachable. Artifact: `artifacts/2026-05-15-shopify-review-pulse-wait-window-validation.md`. No outreach, fallback contact, public page change, checkout/payment infrastructure, account creation, DNS change, post, or spend.
+diff --git a/the project&amp;#x27;s TODO.md config b/the project&amp;#x27;s TODO.md config
+index 651ab7b37d2ac075ac7708a6a2746f6c876c2e63..cde8186d6f2c252f1dfab6f05b9852a61e166390
+--- a/the project&amp;#x27;s TODO.md config
++++ b/the project&amp;#x27;s TODO.md config
+@@ -11,6 +11,7 @@
+      the project&amp;#x27;s TODO.md config.bak-pre-cleanup. Non-DONE items preserved verbatim. --&amp;gt;
+ 
+ - [ACTIVE] Shopify Review Pulse 72-hour wait: SellerPic was sent by Travis from `[email]` on 2026-05-14 at approximately 20:32 UTC using sender persona Mara Ellis and subject `SellerPic review notes`. Do not build more Review Pulse collateral or contact A2Reviews/Kaching/MAG before 2026-05-17 20:32 UTC unless SellerPic replies first, a live dependency breaks, or Travis gives fresh instruction. The SellerPic ledger is `sellerpic-send-control.md`.
++- [DONE] Shopify Review Pulse afternoon wait validation (run 2026-05-15 14:18 UTC; live `conversion_readiness` returned `ready_waiting`, fallback blocked with 54.23 hours left, public offer HTTP 200, Stripe checkout HTTP 200, SellerPic listing HTTP 200 with `4.5/5` across `102` reviews; tests 10/10 passed; no outreach, public page change, checkout/payment infrastructure creation, account creation, DNS, post, or spend) 2026-05-15 — artifact `artifacts/2026-05-15-shopify-review-pulse-afternoon-wait-validation.md`
+ - [DONE] Shopify Review Pulse midday wait validation (run 2026-05-15 12:17 UTC; live `conversion_readiness` returned `ready_waiting`, fallback blocked with 56.24 hours left, public offer HTTP 200, Stripe checkout HTTP 200, SellerPic listing HTTP 200 with `4.5/5` across `102` reviews; tests 10/10 passed; no outreach, public page change, checkout/payment infrastructure creation, account creation, DNS, post, or spend) 2026-05-15 — artifact `artifacts/2026-05-15-shopify-review-pulse-midday-wait-validation.md`
+ - [DONE] Shopify Review Pulse readiness fallback status (run 2026-05-15 10:18 UTC; updated `conversion_readiness.mjs` so post-wait allowed fallback returns `ready_for_fallback` instead of `attention_needed`, added `ready_for_reply` coverage, documented statuses in README, live current check returned `ready_waiting` with 58.22 hours left, simulated 2026-05-17 20:32:01 UTC returned `ready_for_fallback`; tests 10/10 passed; no outreach, public page change, checkout/payment infrastructure creation, account creation, DNS, post, or spend) 2026-05-15 — artifact `artifacts/2026-05-15-shopify-review-pulse-readiness-fallback-status.md`
+ - [DONE] Shopify Review Pulse wait-window validation (run 2026-05-15 08:18 UTC; live `conversion_readiness` returned `ready_waiting`, fallback blocked with 60.23 hours left, public offer HTTP 200, Stripe checkout HTTP 200, SellerPic listing HTTP 200 with `4.5/5` across `102` reviews; no outreach, public page change, checkout/payment infrastructure creation, account creation, DNS, post, or spend) 2026-05-15 — artifact `artifacts/2026-05-15-shopify-review-pulse-wait-window-validation.md`
+
+tokens used
+99,833
+Completed one task: Shopify Review Pulse afternoon wait validation.
+
+Result: `conversion_readiness` is still `ready_waiting`. The offer page, Stripe checkout, and SellerPic listing are reachable, but fallback outreach remains blocked for `54.23` hours as of `2026-05-15T14:18:03Z`.
+
+Created artifact: `artifacts/2026-05-15-shopify-review-pulse-afternoon-wait-validation.md`
+
+Updated required state files: `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, and `SCORECARD.md`. `OPEN_GATES.md` remains intentionally empty. Budget unchanged at `$162.45`.
+
+Verification passed:
+`node --check conversion_readiness.mjs`
+`node --test workspace/shopify-review-pulse/tests/*.test.mjs` passed 10/10.
+
+
+--- CODEX_RUN_COMPLETE ---
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

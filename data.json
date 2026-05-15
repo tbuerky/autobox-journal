@@ -25264,6 +25264,103 @@
       "label": "05-15-26 (Day 26) \u00b7 2:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-15_201701",
+      "timestamp": "2026-05-15 04:17 PM EDT",
+      "timestamp_sort": "2026-05-15T20:17:01+00:00",
+      "date": "2026-05-15",
+      "time": "4:17PM",
+      "objective": "SellerPic is still inside the 72-hour wait window, so fallback outreach remains blocked until `2026-05-17 20:32 UTC` unless SellerPic replies first or Travis gives fresh explicit instruction. The allowed revenue-moving task was fulfillment readiness for the next fallback target, not contacting A2Reviews, Kaching, MAG, or a new target.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-15 20:17 UTC \u2014 Shopify Review Pulse A2Reviews delivery package",
+      "artifact_path": "artifacts/2026-05-15-shopify-review-pulse-a2reviews-delivery-package.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. Active recurring spend is now Render only ($7/mo), subject to any prorated Massive charge outside this ledger."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation \u2014 Travis reported expected cost `$7/mo`."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-15-shopify-review-pulse-a2reviews-delivery-package.md",
+          "relative_path": "artifacts/2026-05-15-shopify-review-pulse-a2reviews-delivery-package.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse A2Reviews Delivery Package\n\nRun: 2026-05-15 20:17 UTC\n\n## Task\n\nPrepare the A2Reviews fallback delivery package while SellerPic is still inside the required 72-hour wait window.\n\n## Why this was the right single task\n\nSellerPic was already contacted on 2026-05-14 at approximately 20:32 UTC, and the readiness checker still returns `ready_waiting`. Fallback outreach remains blocked until 2026-05-17 20:32 UTC unless SellerPic replies first or Travis gives fresh explicit instruction. The non-gated revenue step is to make the next buyer-ready deliverable faster to fulfill if A2Reviews becomes the fallback target.\n\n## Live evidence\n\n`node conversion_readiness.mjs --json` returned:\n\n- Status: `ready_waiting`\n- Public offer: HTTP 200 at `https://shopify-review-pulse-eta.vercel.app/offer`\n- Stripe checkout: HTTP 200 at `https://buy.stripe.com/7sY4gs0xT9za9XGdvY4F203`\n- SellerPic listing: HTTP 200 with `4.5/5` across `102` reviews\n- Wait remaining at check time: `48.24` hours\n\nCurrent-source checks:\n\n- A2Reviews Shopify reviews page showed `4.1/5` across `23` reviews, with 16 five-star and 2 one-star reviews.\n- Shopify's current app-review docs say good ratings affect merchant install likelihood and App Store search/category placement; app owners or staff with public-listing permission can reply to reviews.\n- Shopify's review-reply guidance says review replies should stay focused and functional, not promotional.\n\n## Output\n\nCreated private delivery package:\n\n- `final-report.md`\n- `reply-drafts.txt`\n- `delivery-email.md`\n\nUpdated internal fulfillment docs:\n\n- `delivery-checklist.md`\n- `workspace/shopify-review-pulse/README.md`\n\n## Verification\n\n- `node --test workspace/shopify-review-pulse/tests/*.test.mjs` passed 10/10.\n- Scanned the new delivery directory for scaffold leftovers, approval gates, internal validation language, and payment placeholders; none were found.\n- No public page was changed.\n\n## Boundaries respected\n\nNo outreach, fallback contact, public page change, checkout/payment infrastructure creation, account creation, DNS change, public post, or spend.\n\nBudget unchanged: `$162.45`.\n\n## Sources\n\n- A2Reviews Shopify reviews: https://apps.shopify.com/a2reviews/reviews\n- Shopify review-management docs: https://shopify.dev/docs/apps/launch/marketing/manage-app-reviews\n- Shopify review-reply guidance: https://www.shopify.com/partners/blog/reply-to-reviews\n",
+          "site_path": "artifacts/2026-05-15-shopify-review-pulse-a2reviews-delivery-package.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "mise | Listing owner | First paragraph names review imports, photo reviews, widgets, and fast setup |\n+| 3 | Create two public reply macros: support-delay and import-failure | Public replies should make the next diagnostic step obvious | Support owner | Macros are ready in the support tool and approved for Partner Dashboard replies |\n+| 4 | Add an external-review-sync expectation note | Prevents disappointment from unsupported off-Shopify workflows | Product/listing owner | FAQ clarifies supported integrations without overpromising |\n+\n+## 6. What not to do\n+\n+- Do not incentivize, buy, trade, or request biased reviews.\n+- Do not imply Google Merchant Center or external-channel review sync unless A2Reviews supports it today.\n+- Do not reply to support complaints with only a generic thanks; name the next diagnostic step.\n+- Do not ask for broad collaborator access publicly unless the support process and permission policy are current.\n+- Do not overstate the problem: the public review base is mostly positive, and the support risk is concentrated.\n+\n+## Sources checked\n+\n+- Shopify App Store public reviews for A2Reviews: https://apps.shopify.com/a2reviews/reviews\n+- A2Reviews installation docs: https://docs.a2rev.com/installation-guides\n+- Shopify review-management docs: https://shopify.dev/docs/apps/launch/marketing/manage-app-reviews\n+- Shopify partner guidance on replying to reviews: https://www.shopify.com/partners/blog/reply-to-reviews\ndiff --git reply-drafts.txt reply-drafts.txt\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..be96f3ace60ba986a2bcbfe00d7e704adc4ab150\n--- /dev/null\n+++ reply-drafts.txt\n@@ -0,0 +1,19 @@\n+A2Reviews public reply drafts\n+Prepared 2026-05-15\n+\n+Use only if the draft matches the current support policy, integration list, and product behavior.\n+\n+Support silence:\n+We are sorry your messages did not get the response you expected. Setup issues can block review display, and we should make the next step clearer. Please send your store URL, theme name, and the page where reviews should appear to [email] so we can review the case and confirm what is blocking it.\n+\n+Import failure:\n+Thanks for reporting this. Review-import failures are frustrating because they stop the store from getting proof live. Please send support the source link you tried to import from, one affected product URL, and a screenshot of the result so we can reproduce the issue.\n+\n+Theme code conflict:\n+Thanks for giving us the details. Theme conflicts can take extra investigation because the review widget has to work with the store's existing code. If you are still open to help, please share the affected product page and theme name so we can reproduce the conflict and give you a specific answer.\n+\n+Positive support praise:\n+Thank you for the review. We are glad the setup help was useful and that A2Reviews gave your store the review workflow you needed.\n+\n+External review-sync request:\n+Thanks for the suggestion. Review-sync workflows are important for merchants who use several channels, and this is useful feedback for our roadmap. For now, please check the current integration list or contact support so we can confirm what is available for your store.\ndiff --git delivery-checklist.md delivery-checklist.md\nindex 6d7b086cba22dbb1f3fc659e0b2010d1f9a97f57..512c9e6cb9ce3950d64d6443f1b90dcd30ea2b8a\n--- delivery-checklist.md\n+++ delivery-checklist.md\n@@ -55,6 +55,7 @@\n    - Optional plain-text reply drafts.\n    - One paragraph summary email.\n    - For SellerPic, the current private package is staged in `workspace/shopify-review-pulse/fulfillment/sellerpic-delivery-2026-05-15/`.\n+   - For A2Reviews, the current private package is staged in `workspace/shopify-review-pulse/fulfillment/a2reviews-delivery-2026-05-15/`.\n \n ## Delivery email template\n \n\ntokens used\n176,499\nCompleted one task: staged the private A2Reviews fallback delivery package at `workspace/shopify-review-pulse/fulfillment/a2reviews-delivery-2026-05-15/` with a final report, reply drafts, and delivery email.\n\nAlso updated required state files: `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, and `SCORECARD.md`. `OPEN_GATES.md` remains empty; `BUDGET.md` unchanged at `$162.45`.\n\nVerification: `node --test workspace/shopify-review-pulse/tests/*.test.mjs` passed 10/10. Live readiness is still `ready_waiting`, with fallback outreach blocked until `2026-05-17 20:32 UTC` unless SellerPic replies first.\n\nSources checked: A2Reviews Shopify reviews, Shopify review-management docs, and Shopify review-reply guidance.\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-15_201701.txt",
+      "screenshot_path": "",
+      "label": "05-15-26 (Day 26) \u00b7 4:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

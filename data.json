@@ -25167,6 +25167,103 @@
       "label": "05-15-26 (Day 26) \u00b7 12:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-15_181701",
+      "timestamp": "2026-05-15 02:17 PM EDT",
+      "timestamp_sort": "2026-05-15T18:17:01+00:00",
+      "date": "2026-05-15",
+      "time": "2:17PM",
+      "objective": "SellerPic is inside the 72-hour wait window. The revenue-preserving move is to keep the conversion path healthy and avoid contaminating the one-recipient test with premature fallback outreach.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-15 18:17 UTC \u2014 Shopify Review Pulse evening wait validation",
+      "artifact_path": "artifacts/2026-05-15-shopify-review-pulse-evening-wait-validation.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. Active recurring spend is now Render only ($7/mo), subject to any prorated Massive charge outside this ledger."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation \u2014 Travis reported expected cost `$7/mo`."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-15-shopify-review-pulse-evening-wait-validation.md",
+          "relative_path": "artifacts/2026-05-15-shopify-review-pulse-evening-wait-validation.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse Evening Wait Validation\n\nRun time: 2026-05-15 18:17 UTC\n\n## Task\n\nValidate the live Shopify Review Pulse conversion path during the active SellerPic 72-hour wait, then document the blocker with evidence instead of contacting a fallback prospect or creating more collateral.\n\n## Why this task\n\nSellerPic was sent by Travis on 2026-05-14 at approximately 20:32 UTC. The live lane rule is still: wait 72 hours before contacting A2Reviews, Kaching, MAG, or any other fallback target unless SellerPic replies first or Travis gives fresh explicit instruction.\n\n## Live validation\n\n`node conversion_readiness.mjs --json` returned `ready_waiting` at `2026-05-15T18:17:53.037Z`.\n\n- SellerPic wait guard: ok; do not contact fallback targets yet.\n- Review Pulse offer page: HTTP 200 at `https://shopify-review-pulse-eta.vercel.app/offer`.\n- Stripe checkout link: HTTP 200 at `https://buy.stripe.com/7sY4gs0xT9za9XGdvY4F203`.\n- SellerPic Shopify listing: HTTP 200 with `4.5/5` across `102` reviews.\n- Wait remaining: `50.24` hours.\n\nCurrent-source validation:\n\n- Shopify's current app-review docs say ratings and reviews affect merchant install trust and Shopify App Store search/category placement, and app teams can reply to reviews with the right account permission.\n- Stripe's current Payment Links material supports the existing checkout path as a no-code, shareable payment page suitable for email or website conversion.\n\nSources:\n\n- https://shopify.dev/docs/apps/launch/marketing/manage-app-reviews\n- https://stripe.com/payments/payment-links\n\n## Decision\n\nDo not contact A2Reviews, Kaching, MAG, Extension Review Pulse, or any other fallback target before `2026-05-17 20:32 UTC` unless SellerPic replies first or Travis gives fresh explicit instruction.\n\nIf SellerPic replies, use `reply-and-close-kit.md`; if they ask how to pay, send `https://buy.stripe.com/7sY4gs0xT9za9XGdvY4F203`; if they pay, deliver `workspace/shopify-review-pulse/fulfillment/sellerpic-delivery-2026-05-15/`.\n\n## Verification\n\n- `node conversion_readiness.mjs --json` returned `ready_waiting`.\n- `node --test workspace/shopify-review-pulse/tests/*.test.mjs` passed 10/10.\n\n## Boundaries\n\nNo outreach, fallback contact, public page change, checkout/payment infrastructure creation, account creation, DNS change, public post, or spend.\n\nBudget unchanged: `$162.45`.\n",
+          "site_path": "artifacts/2026-05-15-shopify-review-pulse-evening-wait-validation.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": ", or spend.\n - Shopify Review Pulse afternoon wait validation completed 2026-05-15 14:18 UTC: live readiness returned `ready_waiting`; fallback remains blocked with `54.23` hours left at check time, while the public offer, Stripe checkout, and SellerPic listing were all reachable. Artifact: `artifacts/2026-05-15-shopify-review-pulse-afternoon-wait-validation.md`. No outreach, fallback contact, public page change, checkout/payment infrastructure, account creation, DNS change, post, or spend.\n - Shopify Review Pulse midday wait validation completed 2026-05-15 12:17 UTC: live readiness returned `ready_waiting`; fallback remains blocked with `56.24` hours left at check time, while the public offer, Stripe checkout, and SellerPic listing were all reachable. Artifact: `artifacts/2026-05-15-shopify-review-pulse-midday-wait-validation.md`. No outreach, fallback contact, public page change, checkout/payment infrastructure, account creation, DNS change, post, or spend.\ndiff --git a/the project's TODO.md config b/the project's TODO.md config\nindex ae27b15a67619541d1c8c5746c85d6335902e5a9..4ee5d4d2c07b3ca26e4ec14062586208b6274d84\n--- a/the project's TODO.md config\n+++ b/the project's TODO.md config\n@@ -11,6 +11,7 @@\n      the project's TODO.md config.bak-pre-cleanup. Non-DONE items preserved verbatim. -->\n \n - [ACTIVE] Shopify Review Pulse 72-hour wait: SellerPic was sent by Travis from `[email]` on 2026-05-14 at approximately 20:32 UTC using sender persona Mara Ellis and subject `SellerPic review notes`. Do not build more Review Pulse collateral or contact A2Reviews/Kaching/MAG before 2026-05-17 20:32 UTC unless SellerPic replies first, a live dependency breaks, or Travis gives fresh instruction. The SellerPic ledger is `sellerpic-send-control.md`.\n+- [DONE] Shopify Review Pulse evening wait validation (run 2026-05-15 18:17 UTC; live `conversion_readiness` returned `ready_waiting`, fallback blocked with 50.24 hours left, public offer HTTP 200, Stripe checkout HTTP 200, SellerPic listing HTTP 200 with `4.5/5` across `102` reviews; tests 10/10 passed; no outreach, fallback contact, public page change, checkout/payment infrastructure creation, account creation, DNS, post, or spend) 2026-05-15 \u2014 artifact `artifacts/2026-05-15-shopify-review-pulse-evening-wait-validation.md`\n - [DONE] Shopify Review Pulse SellerPic delivery package (run 2026-05-15 16:18 UTC; staged a private customer-ready delivery folder with final SellerPic report, reply drafts, and delivery email; live `conversion_readiness` returned `ready_waiting`, fallback blocked with 52.23 hours left, public offer HTTP 200, Stripe checkout HTTP 200, SellerPic listing HTTP 200 with `4.5/5` across `102` reviews; tests 10/10 passed; no outreach, fallback contact, public page change, checkout/payment infrastructure creation, account creation, DNS, post, or spend) 2026-05-15 \u2014 artifact `artifacts/2026-05-15-shopify-review-pulse-sellerpic-delivery-package.md`\n - [DONE] Shopify Review Pulse afternoon wait validation (run 2026-05-15 14:18 UTC; live `conversion_readiness` returned `ready_waiting`, fallback blocked with 54.23 hours left, public offer HTTP 200, Stripe checkout HTTP 200, SellerPic listing HTTP 200 with `4.5/5` across `102` reviews; tests 10/10 passed; no outreach, public page change, checkout/payment infrastructure creation, account creation, DNS, post, or spend) 2026-05-15 \u2014 artifact `artifacts/2026-05-15-shopify-review-pulse-afternoon-wait-validation.md`\n - [DONE] Shopify Review Pulse midday wait validation (run 2026-05-15 12:17 UTC; live `conversion_readiness` returned `ready_waiting`, fallback blocked with 56.24 hours left, public offer HTTP 200, Stripe checkout HTTP 200, SellerPic listing HTTP 200 with `4.5/5` across `102` reviews; tests 10/10 passed; no outreach, public page change, checkout/payment infrastructure creation, account creation, DNS, post, or spend) 2026-05-15 \u2014 artifact `artifacts/2026-05-15-shopify-review-pulse-midday-wait-validation.md`\n\ntokens used\n175,450\nCompleted one task: live conversion-path validation for Shopify Review Pulse during the SellerPic 72-hour wait.\n\nCreated artifact: [2026-05-15-shopify-review-pulse-evening-wait-validation.md](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-15-shopify-review-pulse-evening-wait-validation.md)\n\nResult: `ready_waiting`. Public offer is 200, Stripe checkout is 200, SellerPic listing is 200 with `4.5/5` across `102` reviews, and fallback outreach remains blocked until `2026-05-17 20:32 UTC` unless SellerPic replies first or Travis explicitly redirects.\n\nUpdated `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, and `SCORECARD.md`. `OPEN_GATES.md` remains intentionally empty. Budget unchanged at `$162.45`.\n\nVerification: `node --test workspace/shopify-review-pulse/tests/*.test.mjs` passed 10/10.\n\nSources used: Shopify app review docs: https://shopify.dev/docs/apps/launch/marketing/manage-app-reviews and Stripe Payment Links: https://stripe.com/payments/payment-links\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-15_181701.txt",
+      "screenshot_path": "",
+      "label": "05-15-26 (Day 26) \u00b7 2:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Shopify review pulse evening wait validation &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">05-15-26 (Day 26) · 2:17 PM</span>
+        <a class="card-download" href="../cards/run_codex_2026-05-15_181701.png" download="autobox-run_codex_2026-05-15_181701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_codex_2026-05-15_181701">
+  <div class="run-stamp">
+    <span class="stamp-date">05-15-26 (Day 26) · 2:17 PM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">codex · 2026-05-15_181701</span>
+  </div>
+  <h2 class="run-title">Shopify review pulse evening wait validation</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Objective</span><span class="act-text">SellerPic is inside the 72-hour wait window. The revenue-preserving move is to keep the conversion path healthy and avoid contaminating the one-recipient test with premature fallback outreach.</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $162.45</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>Shopify Review Pulse Evening Wait Validation</h1>
+<p>Run time: 2026-05-15 18:17 UTC</p>
+<h2>Task</h2>
+<p>Validate the live Shopify Review Pulse conversion path during the active SellerPic 72-hour wait, then document the blocker with evidence instead of contacting a fallback prospect or creating more collateral.</p>
+<h2>Why this task</h2>
+<p>SellerPic was sent by Travis on 2026-05-14 at approximately 20:32 UTC. The live lane rule is still: wait 72 hours before contacting A2Reviews, Kaching, MAG, or any other fallback target unless SellerPic replies first or Travis gives fresh explicit instruction.</p>
+<h2>Live validation</h2>
+<p><code>node conversion_readiness.mjs --json</code> returned <code>ready_waiting</code> at <code>2026-05-15T18:17:53.037Z</code>.</p>
+<ul>
+<li>SellerPic wait guard: ok; do not contact fallback targets yet.</li>
+<li>Review Pulse offer page: HTTP 200 at <code>https://shopify-review-pulse-eta.vercel.app/offer</code>.</li>
+<li>Stripe checkout link: HTTP 200 at <code>https://buy.stripe.com/7sY4gs0xT9za9XGdvY4F203</code>.</li>
+<li>SellerPic Shopify listing: HTTP 200 with <code>4.5/5</code> across <code>102</code> reviews.</li>
+<li>Wait remaining: <code>50.24</code> hours.</li>
+</ul>
+<p>Current-source validation:</p>
+<ul>
+<li>Shopify&#x27;s current app-review docs say ratings and reviews affect merchant install trust and Shopify App Store search/category placement, and app teams can reply to reviews with the right account permission.</li>
+<li>Stripe&#x27;s current Payment Links material supports the existing checkout path as a no-code, shareable payment page suitable for email or website conversion.</li>
+</ul>
+<p>Sources:</p>
+<ul>
+<li>https://shopify.dev/docs/apps/launch/marketing/manage-app-reviews</li>
+<li>https://stripe.com/payments/payment-links</li>
+</ul>
+<h2>Decision</h2>
+<p>Do not contact A2Reviews, Kaching, MAG, Extension Review Pulse, or any other fallback target before <code>2026-05-17 20:32 UTC</code> unless SellerPic replies first or Travis gives fresh explicit instruction.</p>
+<p>If SellerPic replies, use <code>reply-and-close-kit.md</code>; if they ask how to pay, send <code>https://buy.stripe.com/7sY4gs0xT9za9XGdvY4F203</code>; if they pay, deliver <code>workspace/shopify-review-pulse/fulfillment/sellerpic-delivery-2026-05-15/</code>.</p>
+<h2>Verification</h2>
+<ul>
+<li><code>node conversion_readiness.mjs --json</code> returned <code>ready_waiting</code>.</li>
+<li><code>node --test workspace/shopify-review-pulse/tests/*.test.mjs</code> passed 10/10.</li>
+</ul>
+<h2>Boundaries</h2>
+<p>No outreach, fallback contact, public page change, checkout/payment infrastructure creation, account creation, DNS change, public post, or spend.</p>
+<p>Budget unchanged: <code>$162.45</code>.</p></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">t&amp;#x27;s TODO.md config
+index ae27b15a67619541d1c8c5746c85d6335902e5a9..4ee5d4d2c07b3ca26e4ec14062586208b6274d84
+--- a/the project&amp;#x27;s TODO.md config
++++ b/the project&amp;#x27;s TODO.md config
+@@ -11,6 +11,7 @@
+      the project&amp;#x27;s TODO.md config.bak-pre-cleanup. Non-DONE items preserved verbatim. --&amp;gt;
+ 
+ - [ACTIVE] Shopify Review Pulse 72-hour wait: SellerPic was sent by Travis from `[email]` on 2026-05-14 at approximately 20:32 UTC using sender persona Mara Ellis and subject `SellerPic review notes`. Do not build more Review Pulse collateral or contact A2Reviews/Kaching/MAG before 2026-05-17 20:32 UTC unless SellerPic replies first, a live dependency breaks, or Travis gives fresh instruction. The SellerPic ledger is `sellerpic-send-control.md`.
++- [DONE] Shopify Review Pulse evening wait validation (run 2026-05-15 18:17 UTC; live `conversion_readiness` returned `ready_waiting`, fallback blocked with 50.24 hours left, public offer HTTP 200, Stripe checkout HTTP 200, SellerPic listing HTTP 200 with `4.5/5` across `102` reviews; tests 10/10 passed; no outreach, fallback contact, public page change, checkout/payment infrastructure creation, account creation, DNS, post, or spend) 2026-05-15 — artifact `artifacts/2026-05-15-shopify-review-pulse-evening-wait-validation.md`
+ - [DONE] Shopify Review Pulse SellerPic delivery package (run 2026-05-15 16:18 UTC; staged a private customer-ready delivery folder with final SellerPic report, reply drafts, and delivery email; live `conversion_readiness` returned `ready_waiting`, fallback blocked with 52.23 hours left, public offer HTTP 200, Stripe checkout HTTP 200, SellerPic listing HTTP 200 with `4.5/5` across `102` reviews; tests 10/10 passed; no outreach, fallback contact, public page change, checkout/payment infrastructure creation, account creation, DNS, post, or spend) 2026-05-15 — artifact `artifacts/2026-05-15-shopify-review-pulse-sellerpic-delivery-package.md`
+ - [DONE] Shopify Review Pulse afternoon wait validation (run 2026-05-15 14:18 UTC; live `conversion_readiness` returned `ready_waiting`, fallback blocked with 54.23 hours left, public offer HTTP 200, Stripe checkout HTTP 200, SellerPic listing HTTP 200 with `4.5/5` across `102` reviews; tests 10/10 passed; no outreach, public page change, checkout/payment infrastructure creation, account creation, DNS, post, or spend) 2026-05-15 — artifact `artifacts/2026-05-15-shopify-review-pulse-afternoon-wait-validation.md`
+ - [DONE] Shopify Review Pulse midday wait validation (run 2026-05-15 12:17 UTC; live `conversion_readiness` returned `ready_waiting`, fallback blocked with 56.24 hours left, public offer HTTP 200, Stripe checkout HTTP 200, SellerPic listing HTTP 200 with `4.5/5` across `102` reviews; tests 10/10 passed; no outreach, public page change, checkout/payment infrastructure creation, account creation, DNS, post, or spend) 2026-05-15 — artifact `artifacts/2026-05-15-shopify-review-pulse-midday-wait-validation.md`
+
+tokens used
+175,450
+Completed one task: live conversion-path validation for Shopify Review Pulse during the SellerPic 72-hour wait.
+
+Created artifact: [2026-05-15-shopify-review-pulse-evening-wait-validation.md](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-15-shopify-review-pulse-evening-wait-validation.md)
+
+Result: `ready_waiting`. Public offer is 200, Stripe checkout is 200, SellerPic listing is 200 with `4.5/5` across `102` reviews, and fallback outreach remains blocked until `2026-05-17 20:32 UTC` unless SellerPic replies first or Travis explicitly redirects.
+
+Updated `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, and `SCORECARD.md`. `OPEN_GATES.md` remains intentionally empty. Budget unchanged at `$162.45`.
+
+Verification: `node --test workspace/shopify-review-pulse/tests/*.test.mjs` passed 10/10.
+
+Sources used: Shopify app review docs: https://shopify.dev/docs/apps/launch/marketing/manage-app-reviews and Stripe Payment Links: https://stripe.com/payments/payment-links
+
+
+--- CODEX_RUN_COMPLETE ---
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+# Shopify Review Pulse evening wait validation
+
+Run time: 2026-05-17 18:17 UTC
+
+## Task
+
+Check whether the SellerPic first-touch test has matured into reply handling or A2Reviews fallback, using current inbox evidence, the live readiness checker, and live web validation.
+
+## Decision
+
+Keep waiting. Do not contact A2Reviews, Kaching, MAG, Extension Review Pulse, or any other fallback target before 2026-05-17 20:32 UTC unless SellerPic replies first or Travis gives fresh explicit instruction.
+
+## Evidence
+
+- Connected Gmail profile: `tbuerky@gmail.com`.
+- Gmail searches returned no matching message IDs for SellerPic, `support@sellerpic.ai`, `SellerPic review notes`, `reviewpulse`, `Review Pulse`, messages from `support@sellerpic.ai`, or messages addressed to `reviewpulse@theshepherdstack.com` over the last 14 days.
+- Caveat: this only checks the connected Gmail account. It does not prove the separate `reviewpulse@theshepherdstack.com` inbox has no reply unless forwarding into `tbuerky@gmail.com` exists.
+- `node workspace/shopify-review-pulse/outreach/conversion_readiness.mjs --json` returned `ready_waiting`.
+- At `2026-05-17T18:17:46.577Z`, fallback outreach was still blocked with `2.24` hours remaining.
+- Review Pulse offer: HTTP 200 at `https://shopify-review-pulse-eta.vercel.app/offer`.
+- Stripe checkout: HTTP 200 at `https://buy.stripe.com/7sY4gs0xT9za9XGdvY4F203`.
+- SellerPic listing check: HTTP 200, parsed as `4.5/5` across `101` reviews.
+- Live web search surfaced SellerPic's Shopify App Store review surface at `4.5` overall rating with `103` reviews, still above Shopify's 100-review AI-summary threshold.
+- Live web search also revalidated A2Reviews as the post-wait fallback target: Shopify listing `4.1` rating across `23` reviews, visible `support@a2rev.com` collaborator/support contact path, and a review-management positioning that matches the prepared no-link first-touch.
+
+## Source links
+
+- SellerPic Shopify App Store review surface: https://apps.shopify.com/sellerpic/reviews
+- SellerPic Shopify listing checked by the readiness script: https://apps.shopify.com/sellerpic
+- A2Reviews Shopify App Store listing: https://apps.shopify.com/a2reviews
+- A2Reviews Shopify App Store review surface: https://apps.shopify.com/a2reviews/reviews
+- Review Pulse offer: https://shopify-review-pulse-eta.vercel.app/offer
+- Stripe checkout: https://buy.stripe.com/7sY4gs0xT9za9XGdvY4F203
+
+## Verification
+
+```text
+date -u '+%Y-%m-%dT%H:%M:%SZ'
+2026-05-17T18:17:33Z
+
+node workspace/shopify-review-pulse/outreach/conversion_readiness.mjs --json
+status: ready_waiting
+waitHoursRemaining: 2.24
+offer: 200
+checkout: 200
+SellerPic listing: 200 rating 4.5/5 across 101 reviews
+
+node --test workspace/shopify-review-pulse/tests/*.test.mjs
+tests: 10
+pass: 10
+fail: 0
+```
+
+## Actions not taken
+
+No outreach was sent. No fallback contact was made. No public page was changed. No checkout or payment infrastructure was created. No account was created. DNS was not touched. Nothing was posted publicly. No money was spent.
+
+## Next action
+
+Run `node workspace/shopify-review-pulse/outreach/conversion_readiness.mjs --json` after 2026-05-17 20:32 UTC. If it returns `ready_for_fallback` and no SellerPic reply has arrived, use `workspace/shopify-review-pulse/outreach/a2reviews-send-control.md` to send exactly one no-link A2Reviews first-touch email. If SellerPic replies first, use `workspace/shopify-review-pulse/fulfillment/reply-and-close-kit.md`; if they ask how to pay, send `https://buy.stripe.com/7sY4gs0xT9za9XGdvY4F203`; if they pay, deliver `workspace/shopify-review-pulse/fulfillment/sellerpic-delivery-2026-05-15/`.

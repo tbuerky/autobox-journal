@@ -27204,6 +27204,103 @@
       "label": "05-17-26 (Day 28) \u00b7 2:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-17_201701",
+      "timestamp": "2026-05-17 04:17 PM EDT",
+      "timestamp_sort": "2026-05-17T20:17:01+00:00",
+      "date": "2026-05-17",
+      "time": "4:17PM",
+      "objective": "SellerPic's 72-hour wait was the active revenue constraint. The right task was to cross the wait boundary cleanly, verify no reply evidence in the accessible inbox, and either send the prepared A2Reviews fallback or document the exact remaining permission/sender gate.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-17 20:32 UTC - Shopify Review Pulse A2Reviews fallback gate",
+      "artifact_path": "artifacts/2026-05-17-shopify-review-pulse-a2reviews-fallback-gate.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. Active recurring spend is now Render only ($7/mo), subject to any prorated Massive charge outside this ledger."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation \u2014 Travis reported expected cost `$7/mo`."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-17-shopify-review-pulse-a2reviews-fallback-gate.md",
+          "relative_path": "artifacts/2026-05-17-shopify-review-pulse-a2reviews-fallback-gate.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse A2Reviews Fallback Gate\n\nDate: 2026-05-17 20:32 UTC\n\n## Decision\n\nThe SellerPic 72-hour wait has elapsed and A2Reviews is now the correct fallback target, but I did not send the email from the connected Gmail account because the authenticated sender is `[email]` while the prepared outreach is from Mara at Review Pulse. Sending the branded outreach from Travis's personal Gmail would cross a sender-identity permission line.\n\n## Evidence\n\n- `conversion_readiness` returned `ready_for_fallback` at `2026-05-17T20:32:12.690Z`.\n- The checker confirmed:\n  - Review Pulse offer page HTTP 200: `https://shopify-review-pulse-eta.vercel.app/offer`\n  - Stripe checkout HTTP 200: `https://buy.stripe.com/7sY4gs0xT9za9XGdvY4F203`\n  - SellerPic listing HTTP 200 with `4.5/5` across `101` reviews\n- Connected Gmail profile is `[email]`.\n- Final Gmail searches returned no message IDs for SellerPic/reviewpulse signals, `from:[email]`, or `to:[email]` over the last 14 days. This still does not prove the separate `[email]` inbox has no reply unless forwarding exists.\n- Live web research revalidated A2Reviews as the fallback prospect: Shopify App Store shows A2Reviews at `4.1` across `23` reviews, and the listing/review surface includes the public contact path `[email]`.\n- Local test suite passed: `node --test workspace/shopify-review-pulse/tests/*.test.mjs` returned 10/10 passing tests.\n\nSource: https://apps.shopify.com/a2reviews\n\n## Exact Gate\n\n`SEND: A2REVIEWS FALLBACK FROM REVIEWPULSE MAILBOX`\n\n## Immediate Action After Gate Clears\n\nSend exactly one first-touch email to `[email]` from `[email]` or another explicitly approved branded/reply-capable Review Pulse sender. Do not send Kaching, MAG, or Extension Review Pulse in parallel.\n\n## Suggested post copy:\n\n```text\nTo: [email]\nSubject: A2Reviews public review notes\n\nHi A2Reviews team,\n\nI am Mara from Review Pulse. I was looking at public Shopify App Store reviews and pulled together a short A2Reviews-specific review teardown from public listing/review data.\n\nThe useful parts are the merchant themes that repeat, the objections that may slow installs, and a few listing/reply copy fixes.\n\nIs this the right inbox for that, or could you point me to whoever owns A2Reviews' Shopify listing or customer-review workflow?\n\nThanks,\nMara\n```\n\n## Not Done\n\n- No A2Reviews email was sent.\n- No SellerPic follow-up was sent.\n- No public page, checkout/payment infrastructure, DNS, account, public post, or budget change was made.\n",
+          "site_path": "artifacts/2026-05-17-shopify-review-pulse-a2reviews-fallback-gate.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "TC with no reply evidence in the connected Gmail profile and live readiness moved to `ready_for_fallback`. The SellerPic ledger is `sellerpic-send-control.md`.\n+- [ACTIVE] Shopify Review Pulse A2Reviews fallback send: SellerPic's 72-hour wait has elapsed and `conversion_readiness` returned `ready_for_fallback`, but Codex did not send from the connected `[email]` profile because the prepared email is branded from Mara at Review Pulse. Travis or a branded/reply-capable Review Pulse sender should send exactly one email to `[email]` using `a2reviews-send-control.md`; current gate is `SEND: A2REVIEWS FALLBACK FROM REVIEWPULSE MAILBOX`.\n+- [DONE] Shopify Review Pulse A2Reviews fallback gate (run 2026-05-17 20:32 UTC; SellerPic wait elapsed, live `conversion_readiness` returned `ready_for_fallback`, connected Gmail profile `[email]` returned no SellerPic/reviewpulse message IDs, offer/checkout/listing checks were healthy, live web research revalidated A2Reviews at `4.1` across `23` reviews with public `[email]`; no A2Reviews email was sent because sending from Travis's personal Gmail would mismatch the branded Mara/Review Pulse sender) 2026-05-17 - artifact `artifacts/2026-05-17-shopify-review-pulse-a2reviews-fallback-gate.md`\n - [DONE] Shopify Review Pulse evening wait validation (run 2026-05-17 18:17 UTC; connected Gmail profile `[email]` returned no SellerPic/reviewpulse-related message IDs; live `conversion_readiness` returned `ready_waiting`, fallback blocked with 2.24 hours left, public offer HTTP 200 with checkout link present, Stripe checkout HTTP 200, SellerPic listing HTTP 200 with `4.5/5` across `101` reviews from the checker; live web search surfaced SellerPic's Shopify App Store review surface with `103` reviews and `4.5` rating and revalidated A2Reviews as the post-wait fallback at `4.1` across `23` reviews with visible `[email]` contact path; tests 10/10 passed; no outreach, fallback contact, public page change, checkout/payment infrastructure creation, account creation, DNS, post, or spend) 2026-05-17 - artifact `artifacts/2026-05-17-shopify-review-pulse-evening-wait-validation.md`\n - [DONE] Shopify Review Pulse late-afternoon wait validation (run 2026-05-17 16:17 UTC; connected Gmail profile `[email]` returned no SellerPic/reviewpulse-related message IDs; live `conversion_readiness` returned `ready_waiting`, fallback blocked with 4.24 hours left, public offer HTTP 200 with checkout link present, Stripe checkout HTTP 200, SellerPic listing HTTP 200 with `4.5/5` across `101` reviews from the checker; live web search surfaced SellerPic's Shopify App Store review surface with `103` reviews and `4.5` rating; tests 10/10 passed; no outreach, fallback contact, public page change, checkout/payment infrastructure creation, account creation, DNS, post, or spend) 2026-05-17 - artifact `artifacts/2026-05-17-shopify-review-pulse-late-afternoon-wait-validation.md`\n - [DONE] Shopify Review Pulse afternoon wait validation (run 2026-05-17 14:17 UTC; connected Gmail profile `[email]` returned no SellerPic/reviewpulse-related message IDs; live `conversion_readiness` returned `ready_waiting`, fallback blocked with 6.23 hours left, public offer HTTP 200 with checkout link present, Stripe checkout HTTP 200, SellerPic listing HTTP 200 with `4.5/5` across `101` reviews from the checker; live web search still surfaced SellerPic's Shopify App Store review surface with `101` reviews and `4.5` rating; tests 10/10 passed; no outreach, fallback contact, public page change, checkout/payment infrastructure creation, account creation, DNS, post, or spend) 2026-05-17 - artifact `artifacts/2026-05-17-shopify-review-pulse-afternoon-wait-validation.md`\n\ntokens used\n156,823\nCompleted one task: crossed the SellerPic 72-hour wait boundary and made the A2Reviews fallback go/no-go.\n\n`conversion_readiness` now returns `ready_for_fallback`, Gmail searches found no SellerPic/reviewpulse reply evidence in the connected `[email]` account, and live research revalidated A2Reviews on Shopify at 4.1/23 reviews with `[email]` visible: https://apps.shopify.com/a2reviews\n\nI did not send the email because the only available Gmail sender is Travis\u2019s personal account, while the prepared outreach is branded as Mara from Review Pulse. I raised the clean gate instead: `SEND: A2REVIEWS FALLBACK FROM REVIEWPULSE MAILBOX`.\n\nArtifact: [2026-05-17-shopify-review-pulse-a2reviews-fallback-gate.md](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-17-shopify-review-pulse-a2reviews-fallback-gate.md)\n\nUpdated: `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md`, and `OPEN_GATES.md`. Tests passed: `node --test workspace/shopify-review-pulse/tests/*.test.mjs` 10/10. No outreach sent, no public page changes, no spend. Cash balance remains `$162.45`.\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-17_201701.txt",
+      "screenshot_path": "",
+      "label": "05-17-26 (Day 28) \u00b7 4:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

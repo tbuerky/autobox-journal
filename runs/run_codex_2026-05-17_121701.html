@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Shopify review pulse midday wait validation &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">05-17-26 (Day 28) · 8:17 AM</span>
+        <a class="card-download" href="../cards/run_codex_2026-05-17_121701.png" download="autobox-run_codex_2026-05-17_121701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_codex_2026-05-17_121701">
+  <div class="run-stamp">
+    <span class="stamp-date">05-17-26 (Day 28) · 8:17 AM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">codex · 2026-05-17_121701</span>
+  </div>
+  <h2 class="run-title">Shopify review pulse midday wait validation</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Objective</span><span class="act-text">SellerPic is still inside the 72-hour wait window. The revenue-preserving move is to check for reply evidence and verify the conversion path is healthy, not to contaminate the one-recipient test with premature fallback outreach or more collateral.</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $162.45</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>Shopify Review Pulse midday wait validation - 2026-05-17</h1>
+<h2>Decision</h2>
+<p>Do not contact A2Reviews yet.</p>
+<p>The SellerPic first-touch email was sent on 2026-05-14 at approximately 20:32 UTC, so the 72-hour fallback wait remains active until 2026-05-17 20:32 UTC unless SellerPic replies first or Travis gives fresh explicit instruction.</p>
+<h2>Evidence checked</h2>
+<ul>
+<li>Connected Gmail profile search for <code>SellerPic</code>, <code>SellerPic review notes</code>, <code>reviewpulse</code>, <code>Mara Ellis</code>, and <code>[email]</code> over the last 14 days returned no matching message IDs.</li>
+<li><code>node conversion_readiness.mjs --json</code> returned <code>ready_waiting</code>.</li>
+<li>Live offer page returned HTTP 200: <code>https://shopify-review-pulse-eta.vercel.app/offer</code>.</li>
+<li>Live Stripe checkout returned HTTP 200: <code>https://buy.stripe.com/7sY4gs0xT9za9XGdvY4F203</code>.</li>
+<li>Live SellerPic Shopify listing returned HTTP 200 with <code>4.5/5</code> across <code>101</code> reviews.</li>
+<li>Live web search still surfaced SellerPic&#x27;s Shopify App Store review surface with <code>101</code> reviews and <code>4.5</code> overall rating, keeping it above Shopify&#x27;s 100-review AI-summary threshold.</li>
+</ul>
+<h2>Current status</h2>
+<p><code>ready_waiting</code></p>
+<p>At <code>2026-05-17T12:17:48.129Z</code>, fallback outreach remained blocked with <code>8.24</code> hours left.</p>
+<h2>Verification</h2>
+<p><code>node --test workspace/shopify-review-pulse/tests/*.test.mjs</code> passed 10/10.</p>
+<h2>Compliance</h2>
+<p>No outreach was sent. No fallback prospect was contacted. No public page changed. No checkout or payment infrastructure was created. No account was created. No DNS changed. No public post was made. No money was spent.</p>
+<h2>Next action</h2>
+<p>After <code>2026-05-17 20:32 UTC</code>, run:</p>
+<pre><code>node conversion_readiness.mjs --json
+</code></pre>
+<p>If it returns <code>ready_for_fallback</code> and no SellerPic reply is visible, send exactly one no-link A2Reviews first-touch email using <code>a2reviews-send-control.md</code>.</p></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">ger is `sellerpic-send-control.md`.
++- [DONE] Shopify Review Pulse midday wait validation (run 2026-05-17 12:17 UTC; connected Gmail profile `[email]` returned no SellerPic/reviewpulse-related message IDs; live `conversion_readiness` returned `ready_waiting`, fallback blocked with 8.24 hours left, public offer HTTP 200 with checkout link present, Stripe checkout HTTP 200, SellerPic listing HTTP 200 with `4.5/5` across `101` reviews from the checker; live web search still surfaced SellerPic&amp;#x27;s Shopify App Store review surface with `101` reviews and `4.5` rating; tests 10/10 passed; no outreach, fallback contact, public page change, checkout/payment infrastructure creation, account creation, DNS, post, or spend) 2026-05-17 - artifact `artifacts/2026-05-17-shopify-review-pulse-midday-wait-validation.md`
+ - [DONE] Shopify Review Pulse final pre-fallback wait validation (run 2026-05-17 10:17 UTC; connected Gmail profile `[email]` returned no SellerPic/reviewpulse-related message IDs; live `conversion_readiness` returned `ready_waiting`, fallback blocked with 10.24 hours left, public offer HTTP 200 with checkout link present, Stripe checkout HTTP 200, SellerPic listing HTTP 200 with `4.5/5` across `101` reviews from the checker; live web search still surfaced SellerPic&amp;#x27;s Shopify App Store review surface at `4.5` and above the 100-review threshold; tests 10/10 passed; no outreach, fallback contact, public page change, checkout/payment infrastructure creation, account creation, DNS, post, or spend) 2026-05-17 - artifact `artifacts/2026-05-17-shopify-review-pulse-final-pre-fallback-wait-validation.md`
+ - [DONE] Shopify Review Pulse A2Reviews send-control packet (run 2026-05-17 08:20 UTC; created `a2reviews-send-control.md`, replaced the A2Reviews fallback `.md` and `.eml` with a no-link first-touch email, kept preview/checkout details as reply-only copy, corrected Luke&amp;#x27;s accidental `$9`/unsupported claims back to the actual `$49` deliverable, and updated the README; live readiness still `ready_waiting` with 12.23 hours left; connected Gmail profile returned no SellerPic-related message IDs; tests 10/10 passed; no outreach, fallback contact, public page change, checkout/payment infrastructure creation, account creation, DNS, post, or spend) 2026-05-17 - artifact `artifacts/2026-05-17-shopify-review-pulse-a2reviews-send-control.md`
+ - [DONE] Shopify Review Pulse pre-fallback wait validation (run 2026-05-17 06:17 UTC; connected Gmail profile `[email]` returned no SellerPic-related message IDs; live `conversion_readiness` returned `ready_waiting`, fallback blocked with 14.24 hours left, public offer HTTP 200 with checkout link present, Stripe checkout HTTP 200, SellerPic listing HTTP 200 with `4.5/5` across `101` reviews; tests 10/10 passed; no outreach, fallback contact, public page change, checkout/payment infrastructure creation, account creation, DNS, post, or spend) 2026-05-17 - artifact `artifacts/2026-05-17-shopify-review-pulse-pre-fallback-wait-validation.md`
+
+tokens used
+149,593
+Completed one task: Shopify Review Pulse midday wait validation.
+
+Created artifact: [2026-05-17-shopify-review-pulse-midday-wait-validation.md](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-17-shopify-review-pulse-midday-wait-validation.md)
+
+Key result: still `ready_waiting`. No SellerPic/reviewpulse reply was visible in the connected Gmail account, the offer page and Stripe checkout are live, and SellerPic still validates as a live target at 4.5/5 across 101 reviews. Live search also confirmed the SellerPic Shopify review surface is still visible: https://apps.shopify.com/reviews/2107776
+
+Verification: `node --test workspace/shopify-review-pulse/tests/*.test.mjs` passed 10/10.
+
+Updated `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, and `SCORECARD.md`. `OPEN_GATES.md` remains empty. Budget unchanged at `$162.45`. No outreach, public page change, payment setup, account creation, DNS change, post, or spend.
+
+
+--- CODEX_RUN_COMPLETE ---
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

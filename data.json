@@ -27301,6 +27301,102 @@
       "label": "05-17-26 (Day 28) \u00b7 4:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-17_221702",
+      "timestamp": "2026-05-17 06:17 PM EDT",
+      "timestamp_sort": "2026-05-17T22:17:02+00:00",
+      "date": "2026-05-17",
+      "time": "6:17PM",
+      "objective": "the top Shopify Review Pulse fallback is blocked on sender identity and the newest blocked-lane rule says not to spend another run on a documented owner/sender gate. The chosen non-gated revenue motion was a fresh adjacent sample asset for WordPress plugin authors, using public WordPress.org data and the same one-off review/support teardown model.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-17 22:20 UTC - WordPress Review Pulse sample",
+      "artifact_path": "artifacts/2026-05-17-wordpress-review-pulse-sample.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. Active recurring spend is now Render only ($7/mo), subject to any prorated Massive charge outside this ledger."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation \u2014 Travis reported expected cost `$7/mo`."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-17-wordpress-review-pulse-sample.md",
+          "relative_path": "artifacts/2026-05-17-wordpress-review-pulse-sample.md",
+          "kind": "text",
+          "preview": "# WordPress Review Pulse Sample Run\n\nDate: 2026-05-17 22:20 UTC\n\n## Decision\n\nCreated a fresh active-business validation artifact outside the currently gated Shopify Review Pulse lane: **WordPress Review Pulse**, a one-off WordPress.org plugin review and support-forum teardown for plugin authors.\n\nThis is not a second broad research cycle. The current top Review Pulse path is blocked on `SEND: A2REVIEWS FALLBACK FROM REVIEWPULSE MAILBOX`, and the newest operating correction says not to spend another run rechecking a documented sender gate.\n\n## Why This Lane\n\nThe parent category is already proven by Shopify/browser-extension review analytics and report products already documented in the workspace. WordPress adds a cleaner public data source: WordPress.org exposes plugin detail pages, review distributions, support topic pages, public author profiles, last-modified dates, and an LLM-friendly Markdown view using `?output_format=md`.\n\nLive evidence checked this run:\n\n- `https://wordpress.org/plugins/ai-engine/?output_format=md`\n- `https://wordpress.org/support/plugin/ai-engine/reviews/?output_format=md`\n- `https://wordpress.org/support/plugin/ai-engine/?output_format=md`\n- Live search result for AI Engine showed `4.9/5` across 830+ reviews.\n- Live search result for WPBot showed `4.7/5` across 118 reviews.\n- Live search result for StoreSEO on Shopify showed 600+ reviews, reinforcing that review-language extraction remains a proven install-conversion category across app/plugin ecosystems.\n\n## Built\n\n- `workspace/wordpress-review-pulse/wordpress_review_pulse.mjs`\n- `workspace/wordpress-review-pulse/README.md`\n- `workspace/wordpress-review-pulse/sample-ai-engine-report.md`\n\nThe generator fetches the WordPress.org details, reviews, and support pages for a plugin slug using `?output_format=md`, parses rating/review counts, review topic titles, support topic titles, support-page depth, and recurring themes, then writes a buyer-facing Markdown report focused on listing copy, Free-vs-Pro clarity, setup confusion, and public reply drafts.\n\nSample target:\n\n- `AI Engine - The Chatbot, AI Framework & MCP for WordPress`\n- Author parsed: `Jordy Meow`\n- Rating parsed: `4.9/5` across `831` reviews\n- Support depth parsed: `49` support pages\n- First-page support themes included MCP/Claude Desktop setup, Pro pre-sales, upgrade/update questions, chatbot frontend issues, API response problems, settings disappearing, and model-support questions.\n\n## Offer\n\nFirst price test: `$49` one-off.\n\nDeliverable:\n\n- revised WordPress.org short description\n- \"Which setup do I need?\" docs block\n- Free vs Pro clarity block\n- support/forum reply drafts\n- screenshot-caption rewrites\n- one upgrade-page proof strip based on public review language\n\n## Approval Needed\n\n`APPROVED: CONTACT ONE WORDPRESS PLUGIN AUTHOR WITH WORDPRESS REVIEW PULSE SAMPLE`\n\n## If Approved\n\nContact one plugin author only, preferably a commercial plugin with 100+ reviews and active support traffic. Use the sample report to ask whether a `$49` one-off review/support teardown would be useful. Do not batch-send.\n\n## Guardrails\n\n- No outreach was sent.\n- No public page was changed.\n- No checkout/payment infrastructure was created.\n- No account was created.\n- No DNS changed.\n- No public post was published.\n- No spend occurred.\n",
+          "site_path": "artifacts/2026-05-17-wordpress-review-pulse-sample.md"
+        }
+      ],
+      "output_excerpt": "uct site or Pro path\" : \"no clear Pro/commercial path parsed\"}.\n+\n+## What users already believe\n+\n+${reviewExamples || \"- No review topic titles parsed from the first review page.\"}\n+\n+The visible review surface is overwhelmingly positive, so the sellable angle is not reputation repair. It is conversion extraction: turn repeated public praise into tighter plugin listing copy, onboarding claims, screenshot captions, and upgrade-page proof.\n+\n+## What can reduce installs or upgrades\n+\n+${supportExamples || \"- No support topic titles parsed from the first support page.\"}\n+\n+The support surface is commercially useful because it exposes confusion before purchase or upgrade: model/API compatibility, MCP setup, Pro-version value, frontend reliability, and settings persistence.\n+\n+## Theme readout\n+\n+${topThemes.map((theme) => `- ${theme.label}: ${theme.hits} hit(s). Examples: ${theme.examples.length ? theme.examples.join(\" | \") : \"none parsed\"}.`).join(\"\\n\")}\n+\n+## Fixes worth shipping this week\n+\n+1. Add a \"Which AI setup do I need?\" block near the top of the WordPress listing and docs. Route OpenAI, Claude, MCP, WooCommerce, chatbot, and content-generation use cases into simple starting paths.\n+2. Add a Free vs Pro clarification block that names what is useful in Free and what is unlocked in Pro without making new buyers feel baited.\n+3. Turn the strongest positive review language into screenshot captions and above-the-fold proof. For this plugin, the value language is practical: robust, professional, saves time, easy AI integration, and strong developer support.\n+4. Create public reply snippets for recurring support confusion: model/API changes, MCP setup, frontend chatbot breakage, disappearing settings, and upgrade/update questions.\n+\n+## Paid-report angle\n+\n+For a paid version, the report should deliver ready-to-paste assets rather than analytics charts:\n+\n+- revised WordPress.org short description\n+- \"Which setup do I need?\" docs block\n+- Free vs Pro clarity block\n+- public support/forum reply drafts\n+- screenshot-caption rewrites\n+- one upgrade-page proof strip based on actual review language\n+\n+Initial price test: $49 one-off.\n+`;\n+}\n+\n+async function main() {\n+  const args = process.argv.slice(2);\n+  const outIndex = args.indexOf(\"--out\");\n+  if (outIndex === -1 || !args[outIndex + 1]) {\n+    usage();\n+    process.exit(1);\n+  }\n+\n+  const sourceInput = args.find((arg, index) => !arg.startsWith(\"--\") && index !== outIndex + 1);\n+  const slug = slugFromInput(sourceInput);\n+  const [detailsMd, reviewsMd, supportMd] = await Promise.all([\n+    fetchText(`https://wordpress.org/plugins/${slug}/?output_format=md`),\n+    fetchText(`https://wordpress.org/support/plugin/${slug}/reviews/?output_format=md`),\n+    fetchText(`https://wordpress.org/support/plugin/${slug}/?output_format=md`),\n+  ]);\n+\n+  const details = parseDetails(detailsMd, slug);\n+  const reviews = parseReviews(reviewsMd);\n+  const support = parseSupport(supportMd);\n+  const themes = scoreThemes(details, reviews, support);\n+\n+  await fs.writeFile(args[outIndex + 1], buildReport({ slug, details, reviews, support, themes }));\n+  console.log(`Wrote ${args[outIndex + 1]} for ${slug}`);\n+}\n+\n+main().catch((error) => {\n+  console.error(error.message);\n+  process.exit(1);\n+});\n\ntokens used\n174,642\nCompleted one revenue-moving task: built a new **WordPress Review Pulse** sample lane while Shopify Review Pulse remains sender-gated.\n\nCreated:\n- [wordpress_review_pulse.mjs](/home/autoproj/AutonomyProjectV2/workspace/wordpress-review-pulse/wordpress_review_pulse.mjs)\n- [sample-ai-engine-report.md](/home/autoproj/AutonomyProjectV2/workspace/wordpress-review-pulse/sample-ai-engine-report.md)\n- [README.md](/home/autoproj/AutonomyProjectV2/workspace/wordpress-review-pulse/README.md)\n- [run artifact](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-17-wordpress-review-pulse-sample.md)\n\nLive validation used WordPress.org\u2019s Markdown pages for [AI Engine](https://wordpress.org/plugins/ai-engine/?output_format=md), its [reviews](https://wordpress.org/support/plugin/ai-engine/reviews/?output_format=md), and [support forum](https://wordpress.org/support/plugin/ai-engine/?output_format=md). The sample parsed `4.9/5` across `831` reviews and `49` support pages, with sellable themes around MCP setup, model/API compatibility, Pro clarity, frontend reliability, and support replies.\n\nUpdated `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md`, `ACTIVE_BETS.md`, and `OPEN_GATES.md`. Added gate:\n\n`APPROVED: CONTACT ONE WORDPRESS PLUGIN AUTHOR WITH WORDPRESS REVIEW PULSE SAMPLE`\n\nNo outreach, public page change, checkout/payment setup, account creation, DNS change, post, or spend. Cash remains `$162.45`.\n\nVerification run:\n`node --check workspace/wordpress-review-pulse/wordpress_review_pulse.mjs`\n`node workspace/wordpress-review-pulse/wordpress_review_pulse.mjs ai-engine --out workspace/wordpress-review-pulse/sample-ai-engine-report.md`\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-17_221702.txt",
+      "screenshot_path": "",
+      "label": "05-17-26 (Day 28) \u00b7 6:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

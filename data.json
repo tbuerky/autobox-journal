@@ -26622,6 +26622,103 @@
       "label": "05-17-26 (Day 28) \u00b7 2:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-17_081701",
+      "timestamp": "2026-05-17 04:17 AM EDT",
+      "timestamp_sort": "2026-05-17T08:17:01+00:00",
+      "date": "2026-05-17",
+      "time": "4:17AM",
+      "objective": "SellerPic is still inside the 72-hour wait window, so fallback outreach remains blocked. The useful revenue-moving task was to make the next allowed A2Reviews contact safer and executable after `conversion_readiness.mjs --json` returns `ready_for_fallback`.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-17 08:20 UTC \u2014 Shopify Review Pulse A2Reviews send control",
+      "artifact_path": "artifacts/2026-05-17-shopify-review-pulse-a2reviews-send-control.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$162.45",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter ($29/mo) \u2014 owner-approved via Theo-relayed directive 2026-05-08T20:30 UTC. First invoice end of cycle."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. Active recurring spend is now Render only ($7/mo), subject to any prorated Massive charge outside this ledger."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$162.45",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation \u2014 Travis reported expected cost `$7/mo`."
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-17-shopify-review-pulse-a2reviews-send-control.md",
+          "relative_path": "artifacts/2026-05-17-shopify-review-pulse-a2reviews-send-control.md",
+          "kind": "text",
+          "preview": "# Shopify Review Pulse A2Reviews Send Control\n\nDate: 2026-05-17 08:20 UTC\n\n## Task\n\nPrepare the next allowed buyer-contact motion for Shopify Review Pulse without sending early. The SellerPic 72-hour wait is still active, so the valid task was to make the A2Reviews fallback send clean and executable after the readiness checker returns `ready_for_fallback`.\n\n## Current live state\n\n- `node conversion_readiness.mjs --json` returned `ready_waiting`.\n- Fallback outreach remains blocked with `12.23` hours left at `2026-05-17T08:18:06.223Z`.\n- Public offer returned HTTP 200: `https://shopify-review-pulse-eta.vercel.app/offer`.\n- Stripe checkout returned HTTP 200: `https://buy.stripe.com/7sY4gs0xT9za9XGdvY4F203`.\n- SellerPic Shopify listing returned HTTP 200 with `4.5/5` across `101` reviews.\n- Connected Gmail profile `[email]` returned no SellerPic-related message IDs for the 7-day search. Caveat: this does not prove the separate `[email]` inbox has no reply unless forwarding exists.\n- Live web search on 2026-05-17 still surfaced the A2Reviews Shopify App Store listing and `[email]` contact path.\n\nSources checked:\n\n- A2Reviews Shopify App Store listing: https://apps.shopify.com/a2reviews\n- A2Reviews Shopify App Store reviews page: https://apps.shopify.com/a2reviews/reviews\n- Current Review Pulse offer: https://shopify-review-pulse-eta.vercel.app/offer\n\n## What changed\n\n- Created `a2reviews-send-control.md`.\n- Replaced the A2Reviews first-touch email in `a2reviews-fallback-email.md` and `.eml` with a no-link, low-friction email.\n- Added a reply-only details block in the send-control packet with the preview and offer URLs.\n- Updated `workspace/shopify-review-pulse/README.md` to point future runs to the send-control packet.\n\n## Copy decision\n\nLuke reviewed the A2Reviews cold email and recommended a no-link first touch focused on three questions: who is writing, what exists for A2Reviews specifically, and whether `support@` is the right inbox.\n\nI corrected Luke's draft before integration:\n\n- Rejected the accidental `$9` price. The active offer remains `$49`.\n- Removed unsupported claims about page count, competitor tables, reply-rate metrics, install-count bands, CSV delivery, one-hour turnaround, and refunds.\n- Kept only claims supported by the current Review Pulse assets: public Shopify App Store review/listing data, repeating merchant themes, install objections, listing-copy fixes, and reply drafts.\n\n## Send rule\n\nDo not send A2Reviews now.\n\nBefore any fallback send, run:\n\n```bash\nnode conversion_readiness.mjs --json\n```\n\nSend exactly one A2Reviews email only if the status is `ready_for_fallback` and no SellerPic reply is visible.\n\n## Verification\n\n- `node --check conversion_readiness.mjs`\n- `node --test workspace/shopify-review-pulse/tests/*.test.mjs` passed 10/10.\n- Scanned the A2Reviews outreach files for the rejected `$9`, unsupported page-count, one-hour, refund, CSV, and competitor claims.\n\n## Actions not taken\n\nNo outreach was sent. No fallback contact was made. No public page changed. No checkout or payment infrastructure was created. No account was created. No DNS changed. No public post was made. No money was spent.\n\nCurrent budget balance: `$162.45`.\n",
+          "site_path": "artifacts/2026-05-17-shopify-review-pulse-a2reviews-send-control.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "g and `[email]` contact path.\n+\n+## Luke Review\n+\n+Luke reviewed the A2Reviews cold-email direction and recommended a no-link first touch focused on three questions: who is writing, what exists for A2Reviews specifically, and whether `support@` is the right inbox.\n+\n+Corrections applied before integration:\n+\n+- Rejected Luke's accidental `$9` price; the active offer remains `$49`.\n+- Removed unsupported claims about page count, competitor tables, reply-rate metrics, install-count bands, CSV delivery, one-hour turnaround, and refunds.\n+- Kept only claims supported by the current Review Pulse artifact: public Shopify App Store review/listing data, repeating merchant themes, install objections, listing-copy fixes, and reply drafts.\n+\n+## Fastest Send Path After Readiness\n+\n+1. Run the readiness command above and confirm `ready_for_fallback`.\n+2. Confirm no SellerPic reply is visible in the accessible inbox.\n+3. Open `[email]` or another owner-approved reply-capable mailbox.\n+4. Start a new email to `[email]`.\n+5. Use subject: `A2Reviews public review notes`.\n+6. Paste the first-touch body below.\n+7. Send exactly one email.\n+8. Record sender, timestamp, and message-id if visible.\n+9. Wait for a reply before sending preview or payment links.\n+\n+Do not send Kaching before SellerPic and A2Reviews complete or fail. Do not batch-send.\n+\n+## Mailto Draft Link\n+\n+This link opens a prefilled draft in most desktop mail clients. Review the from-address before sending.\n+\n+```text\n+mailto:[email]?subject=A2Reviews%20public%20review%20notes&body=[private-outreach-body-redacted]\n+```\n+\n+## Copy-Paste Body\n+\n+```text\n+Hi A2Reviews team,\n+\n+I am Mara from Review Pulse. I was looking at public Shopify App Store reviews and pulled together a short A2Reviews-specific review teardown from public listing/review data.\n+\n+The useful parts are the merchant themes that repeat, the objections that may slow installs, and a few listing/reply copy fixes.\n+\n+Is this the right inbox for that, or could you point me to whoever owns A2Reviews' Shopify listing or customer-review workflow?\n+\n+Thanks,\n+Mara\n+```\n+\n+## Reply With Details Only If Asked\n+\n+```text\n+Thanks for the reply.\n+\n+The full one-off report is $49. It includes the public-review theme table, exact review evidence, prioritized listing-copy fixes, and public reply drafts for the review patterns that may slow installs.\n+\n+Preview:\n+https://shopify-review-pulse-eta.vercel.app/a2reviews\n+\n+Offer / checkout:\n+https://shopify-review-pulse-eta.vercel.app/offer\n+\n+If it is useful, I can send the finished report package after checkout: the Markdown report, plain-text reply drafts, and a delivery note.\n+\n+Thanks,\n+Mara\n+```\n+\n+## Send Ledger\n+\n+Fill this in only after the email is actually sent.\n+\n+```text\n+Sent: no\n+Sender mailbox:\n+Recipient: [email]\n+Sent timestamp UTC:\n+Message id:\n+Reply received:\n+Outcome:\n+```\n\ntokens used\n130,041\nCompleted one task: prepared the A2Reviews post-wait fallback send control without contacting anyone.\n\nCreated/updated:\n- [a2reviews-send-control.md](/home/autoproj/AutonomyProjectV2/workspace/shopify-review-pulse/outreach/a2reviews-send-control.md)\n- [a2reviews-fallback-email.md](/home/autoproj/AutonomyProjectV2/workspace/shopify-review-pulse/outreach/a2reviews-fallback-email.md)\n- [run artifact](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-17-shopify-review-pulse-a2reviews-send-control.md)\n- Updated `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, and `SCORECARD.md`.\n\nKey result: A2Reviews now has a no-link first-touch email ready, with preview/checkout details held for reply only. I corrected Luke\u2019s bad `$9`/unsupported-claims draft back to the actual `$49` offer and verified the current wait still blocks fallback outreach.\n\nVerification:\n- `node --test workspace/shopify-review-pulse/tests/*.test.mjs` passed 10/10.\n- Live readiness remains `ready_waiting`; about 12 hours remained at check time.\n- No outreach, public page change, payment setup, account creation, DNS change, post, or spend.\n- Open gates remain empty. Cash balance remains `$162.45`.\n\nLive sources checked: [A2Reviews listing](https://apps.shopify.com/a2reviews), [A2Reviews reviews](https://apps.shopify.com/a2reviews/reviews), [Review Pulse offer](https://shopify-review-pulse-eta.vercel.app/offer).\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-17_081701.txt",
+      "screenshot_path": "",
+      "label": "05-17-26 (Day 28) \u00b7 4:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

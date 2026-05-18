@@ -33361,6 +33361,124 @@
       "label": "05-17-26 (Day 28) \u00b7 6:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_codex_2026-05-18_021701",
+      "timestamp": "2026-05-17 10:17 PM EDT",
+      "timestamp_sort": "2026-05-18T02:17:01+00:00",
+      "date": "2026-05-17",
+      "time": "10:17PM",
+      "objective": "the active Shopify and WordPress external motions are contact/sender-gated, so the non-gated revenue move was to make the WordPress lane executable immediately after approval by selecting one target and preparing a one-recipient send-control packet.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-18 02:19 UTC - WordPress Review Pulse SEOPress send-control packet",
+      "artifact_path": "artifacts/2026-05-18-wordpress-review-pulse-seopress-send-control.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$57.18",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-18-wordpress-review-pulse-seopress-send-control.md",
+          "relative_path": "artifacts/2026-05-18-wordpress-review-pulse-seopress-send-control.md",
+          "kind": "text",
+          "preview": "# WordPress Review Pulse SEOPress Send-Control Packet\n\nDate: 2026-05-18\n\n## Task\n\nMake the WordPress Review Pulse lane more executable while the current contact approval gate remains open. No outreach was sent.\n\n## Target Chosen\n\nSEOPress (`wp-seopress`) is the first target.\n\n## Live Evidence\n\n- WordPress.org lists SEOPress as a commercial plugin with paid upgrades/support, `300,000+` active installs, and a visible `4.8/5` rating distribution with `1,150` five-star reviews and `28` one-star reviews.\n- The listing is actively positioned around AI search, llms.txt, Agent Readiness, and the 9.8 React/DataViews rebuild.\n- The official SEOPress homepage claims `+350,000` active installs, `+1200` five-star reviews, and `+23,000` premium customers.\n- The official support page surfaces frequent issues including title/meta mismatch, update authorization, XML sitemap errors, and `429 error with AI`; the parsed WordPress.org support forum adds current 9.8 friction around metabox visibility, settings persistence, redirections, sitemap images, and target-keyword loss.\n- The official contact page allows sales/contact messages and includes selectable subjects such as `Feedback`, `Partnership`, and `Misc`.\n\nSources:\n\n- https://wordpress.org/plugins/wp-seopress/\n- https://www.seopress.org/\n- https://www.seopress.org/support/\n- https://www.seopress.org/contact-us/\n\n## Artifacts Created\n\n- `seopress.md`\n- `seopress-send-control.md`\n- `seopress-first-email.eml`\n\n## Recommendation\n\nIf Travis approves the existing gate, submit exactly one SEOPress contact-form message using `seopress-send-control.md`.\n\nApproval line:\n\n`APPROVED: CONTACT ONE WORDPRESS PLUGIN AUTHOR WITH WORDPRESS REVIEW PULSE SAMPLE`\n\n## Controls\n\nNo email, contact form submission, public post, payment infrastructure change, account creation, DNS change, or spend occurred.\n\nCurrent cash balance: `$57.18`.\n",
+          "site_path": "artifacts/2026-05-18-wordpress-review-pulse-seopress-send-control.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "one target. Do not batch-send to other plugin authors.\n+\n+## Suggested Contact Form Message\n+\n+Name: Mara Ellis\n+\n+Email: [email]\n+\n+Subject: Feedback\n+\n+Message:\n+\n+Hi Benjamin,\n+\n+I pulled a short sample report from public WordPress.org review and support threads for SEOPress. The useful signal is not reputation repair; your review surface is already strong. The opportunity I found is conversion extraction around the 9.8 interface shift: metabox visibility, settings persistence, redirections sorting, sitemap/media expectations, and target-keyword confusion.\n+\n+The paid version would be a $49 one-off report with ready-to-paste assets:\n+\n+- a tighter WordPress.org description/positioning block\n+- a \"What changed in 9.8?\" docs block\n+- Free vs PRO/Insights clarity copy\n+- public support reply drafts for recurring support topics\n+- screenshot captions and a pricing proof strip using actual review language\n+\n+I can send the sample I already generated if this would be useful.\n+\n+Mara\n+\n+## Local Sample Report\n+\n+Use this local file as the source sample:\n+\n+`seopress.md`\n+\n+If the contact form does not allow attaching or linking a local file, paste the Snapshot, \"What can reduce installs or upgrades\", and \"Fixes worth shipping this week\" sections into the message body or send them only after a positive reply.\n+\n+## Send Ledger\n+\n+- Sender:\n+- Channel:\n+- Sent at UTC:\n+- Public/contact URL:\n+- Reply status:\ndiff --git seopress.md seopress.md\nindex df9558881b50905c8937cd85b7453378dbe90668..fb6a53f7d6642d676247ab3b530b7ab965404c7c\n--- seopress.md\n+++ seopress.md\n@@ -1,6 +1,6 @@\n # WordPress Review Pulse Sample: SEOPress \u2013 AI SEO Plugin & On-site SEO\n \n-Date: 2026-05-17\n+Date: 2026-05-18\n Source plugin: https://wordpress.org/plugins/wp-seopress/\n Reviews: https://wordpress.org/support/plugin/wp-seopress/reviews/\n Support: https://wordpress.org/support/plugin/wp-seopress/\n@@ -40,7 +40,7 @@\n - UX Issue: \u201cRemove SEO from Admin Bar\u201d Also Hides Noindex Warning\n - Target Keywords Vanish After Updating Post\n \n-The support surface is commercially useful because it exposes confusion before purchase or upgrade: model/API compatibility, MCP setup, Pro-version value, frontend reliability, and settings persistence.\n+The support surface is commercially useful because it exposes conversion friction around the current 9.8 interface shift: React settings polish, SEO metabox visibility, saving reliability, redirection sorting, sitemap/media expectations, and target-keyword persistence.\n \n ## Theme readout\n \n@@ -51,20 +51,20 @@\n \n ## Fixes worth shipping this week\n \n-1. Add a \"Which AI setup do I need?\" block near the top of the WordPress listing and docs. Route OpenAI, Claude, MCP, WooCommerce, chatbot, and content-generation use cases into simple starting paths.\n-2. Add a Free vs Pro clarification block that names what is useful in Free and what is unlocked in Pro without making new buyers feel baited.\n-3. Turn the strongest positive review language into screenshot captions and above-the-fold proof. For this plugin, the value language is practical: robust, professional, saves time, easy AI integration, and strong developer support.\n-4. Create public reply snippets for recurring support confusion: model/API changes, MCP setup, frontend chatbot breakage, disappearing settings, and upgrade/update questions.\n+1. Add a \"What changed in 9.8?\" block near the top of the WordPress listing and support center. Route React settings, SEO metabox, redirections, sitemaps, AI, and target-keyword questions into simple starting paths.\n+2. Add a Free vs PRO/Insights clarification block that keeps the strong value claim but separates \"free SEO fundamentals\" from \"paid workflow acceleration\" and \"paid monitoring.\"\n+3. Turn the strongest review language into screenshot captions and proof strips. For SEOPress, the value language is affordability, white-label control, broad feature coverage, reasonable pricing, and fast updates.\n+4. Create public reply snippets for recurring support confusion: metabox disappeared, settings not saving, target keywords gone after saving, redirection sorting, sitemap images, and 9.8 rollback/update questions.\n \n ## Paid-report angle\n \n For a paid version, the report should deliver ready-to-paste assets rather than analytics charts:\n \n - revised WordPress.org short description\n-- \"Which setup do I need?\" docs block\n-- Free vs Pro clarity block\n+- \"What changed in 9.8?\" docs block\n+- Free vs PRO/Insights clarity block\n - public support/forum reply drafts\n - screenshot-caption rewrites\n-- one upgrade-page proof strip based on actual review language\n+- one pricing/upgrade proof strip based on actual review language\n \n Initial price test: $49 one-off.\n\n",
+      "output_site_path": "outputs/run_codex_2026-05-18_021701.txt",
+      "screenshot_path": "",
+      "label": "05-17-26 (Day 28) \u00b7 10:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

@@ -33950,6 +33950,124 @@
       "label": "05-18-26 (Day 29) \u00b7 8:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-18_141701",
+      "timestamp": "2026-05-18 10:17 AM EDT",
+      "timestamp_sort": "2026-05-18T14:17:01+00:00",
+      "date": "2026-05-18",
+      "time": "10:17AM",
+      "objective": "both direct external contact paths remain gated, and the WordPress offer, locked preview, send-control packet, and SEOPress fulfillment package are already ready. The useful non-gated revenue move was to prepare one public distribution motion for owner approval instead of building more collateral or repeating blocker checks.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-18 14:20 UTC - WordPress Review Pulse X post packet",
+      "artifact_path": "artifacts/2026-05-18-wordpress-review-pulse-x-post-packet.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$57.18",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-18-wordpress-review-pulse-x-post-packet.md",
+          "relative_path": "artifacts/2026-05-18-wordpress-review-pulse-x-post-packet.md",
+          "kind": "text",
+          "preview": "# WordPress Review Pulse X Post Packet\n\nRun: 2026-05-18 14:20 UTC\n\n## Task\n\nPrepare one owner-approved public distribution move for WordPress Review Pulse while direct SEOPress contact remains gated.\n\n## Why this task\n\nBoth current direct sales motions are blocked:\n\n- `SEND: A2REVIEWS FALLBACK FROM REVIEWPULSE MAILBOX`\n- `APPROVED: CONTACT ONE WORDPRESS PLUGIN AUTHOR WITH WORDPRESS REVIEW PULSE SAMPLE`\n\nThe non-gated revenue move was to prepare public demand generation for the already-live WordPress Review Pulse offer. Publishing under Travis's public identity still requires approval, so this packet adds one clean publish gate and includes copy ready to paste after approval.\n\n## Live validation used\n\n- WordPress.org plugin directory guidance says hosted plugins can receive user feedback/reviews and provide support through a forum: https://developer.wordpress.org/plugins/wordpress-org/\n- WordPress.org forum guidance says plugin developers get access to support forums and reviews, but commercial-support boundaries matter: https://developer.wordpress.org/plugins/wordpress-org/using-the-forums/\n- Learn WordPress teaches evaluators to review star rating, author information, and support forums before choosing plugins: https://learn.wordpress.org/lesson-plan/choosing-and-installing-plugins/\n- Queryra's recent analysis of paid WordPress plugin reviews argues paid blog reviews often do not visibly move WordPress.org active installs for small/medium plugins, which supports a sharper owned-message test before spending on paid promotion: https://queryra.com/blog/paid-plugin-reviews-roi-research\n\n## Luke review\n\nLuke reviewed the public-post angle. His useful diagnosis was that the reader's pain is not \"review analytics\"; it is that their public reviews and support threads already contain the next useful listing/docs/support fixes, but nobody has time to read them all.\n\nCorrections applied before using the copy:\n\n- Luke accidentally changed the price to `$9`; corrected back to the actual `$49` offer.\n- Removed `changelog` because the current WordPress Review Pulse parser/report is built around public reviews and support threads.\n- Removed unsupported claims about detecting unresolved threads specifically.\n- Softened over-strong claims like identifying the exact line costing installs.\n\nLuke raw output is stored at `workspace/luke_wordpress_review_pulse_x_post.md`.\n\n## Recommendation\n\nPublish exactly one founder-style X post pointing to the locked SEOPress preview and the public offer page. This is lower-risk than another cold contact because it does not target a specific person, does not batch-send, and does not spend money. It tests whether the offer frame attracts visible interest from WordPress plugin builders before we expand contact volume or create more fulfillment assets.\n\n## Options considered\n\n- Submit the SEOPress contact form now: rejected because the one-contact approval gate is still open.\n- Send the A2Reviews fallback now: rejected because the branded Review Pulse sender gate is still open.\n- Build more WordPress Review Pulse fulfillment collateral: rejected because SEOPress already has the live offer, locked preview, send-control packet, and paid-delivery package.\n- Publish one public post after approval: chosen because it creates a real traffic path without spending money or contacting people manually at scale.\n\n## Specific approval needed\n\n`APPROVED: PUBLISH WORDPRESS REVIEW PULSE X POST`\n\n## Suggested post copy:\n\nIf you run a commercial WordPress plugin, your WordPress.org reviews and support threads are probably the cheapest product research you have.\n\nThey show where buyers hesitate before install, which Pro boundaries are unclear, which docs questions repeat, and which praise belongs on the listing.\n\nI built WordPress Review Pulse for that.\n\nSend one plugin slug. It reads only public WordPress.org reviews and support threads. No wp-admin, no private tickets, no analytics, no customer data.\n\nYou get a $49 one-off report with:\n\n- listing copy fixes\n- docs blocks for repeated confusion\n- upgrade-page proof pulled from public review language\n- public reply drafts your team can edit and post\n\nLocked SEOPress preview:\nhttps://wordpress-review-pulse.vercel.app/seopress-preview\n\nOffer:\nhttps://wordpress-review-pulse.vercel.app/\n\n## What happens after approval\n\nTravis publishes the post once from the owner account he chooses. After publication, capture the post URL, timestamp, visible replies, reposts, likes, clicks if available, and any inbound email to `[email]`. Do not contact plugin authors in parallel unless the existing one-contact gate clears.\n\n## Safety\n\nNo post was published. No SEOPress contact form was submitted. No A2Reviews fallback was sent. No payment infrastructure, account, DNS, or public site was changed. No spend occurred.\n\n",
+          "site_path": "artifacts/2026-05-18-wordpress-review-pulse-x-post-packet.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "hange, account, DNS, post, or spend) 2026-05-18 - artifact `artifacts/2026-05-18-wordpress-review-pulse-proof-copy-tightening.md`\n - [DONE] WordPress Review Pulse crawl scaffolding (run 2026-05-18 08:19 UTC; added and deployed `robots.txt` plus `sitemap.xml` for the live offer page at `https://wordpress-review-pulse.vercel.app/`; deployment `dpl_6EbsRrjNquqSZUNxbLZ38iX4n5Ly`; live checks confirmed offer, robots, and sitemap HTTP 200, sitemap lists only the public offer URL, locked SEOPress preview remains HTTP 200 with `X-Robots-Tag: noindex, nofollow`, and private prospect markdown remains HTTP 404; no outreach, contact-form submission, checkout/payment infrastructure change, account, DNS, post, or spend) 2026-05-18 - artifact `artifacts/2026-05-18-wordpress-review-pulse-crawl-scaffolding.md`\n@@ -18,6 +19,7 @@\n - [DONE] WordPress Review Pulse SEOPress send-control packet (run 2026-05-18 02:19 UTC; selected SEOPress as the first one-contact WordPress target using live WordPress.org/SEOPress evidence, created `seopress.md`, `seopress-send-control.md`, and `seopress-first-email.eml`; target has commercial Pro path, active AI-search/9.8 positioning, large install/review base, official contact-form route, and public support friction; no outreach/contact-form submission/public page/checkout/account/DNS/post/spend) 2026-05-18 - artifact `artifacts/2026-05-18-wordpress-review-pulse-seopress-send-control.md`\n - [DONE] WordPress Review Pulse sample (run 2026-05-17 22:20 UTC; live-validated a new adjacent WordPress plugin review/support teardown lane while A2Reviews is blocked on sender identity; created `workspace/wordpress-review-pulse/wordpress_review_pulse.mjs`, `workspace/wordpress-review-pulse/README.md`, and `workspace/wordpress-review-pulse/sample-ai-engine-report.md`; sample AI Engine report parsed `4.9/5` across `831` reviews, `49` support pages, and recurring MCP/model/API/Pro/frontend-support themes; raised one gate for a single approved WordPress plugin author contact; no outreach, public page, checkout/payment, account, DNS, post, or spend) 2026-05-17 - artifact `artifacts/2026-05-17-wordpress-review-pulse-sample.md`\n - [ACTIVE] WordPress Review Pulse one-contact validation: after approval, contact exactly one WordPress plugin author using `seopress-send-control.md`, pointing to the live offer page `https://wordpress-review-pulse.vercel.app/` and locked SEOPress preview `https://wordpress-review-pulse.vercel.app/seopress-preview`, and ask whether a `$49` one-off review/support teardown would be useful. If SEOPress replies positively or asks for the full report, deliver `workspace/wordpress-review-pulse/fulfillment/seopress-delivery-2026-05-18/`. Current gate: `APPROVED: CONTACT ONE WORDPRESS PLUGIN AUTHOR WITH WORDPRESS REVIEW PULSE SAMPLE`.\n+- [ACTIVE] WordPress Review Pulse public distribution: after approval, publish exactly one owner-approved X post using the `Suggested post copy:` block in `artifacts/2026-05-18-wordpress-review-pulse-x-post-packet.md`; then capture post URL, timestamp, visible replies/engagement, click data if available, and inbound email. Current gate: `APPROVED: PUBLISH WORDPRESS REVIEW PULSE X POST`.\n - [DONE] Shopify Review Pulse 72-hour wait completed: SellerPic was sent by Travis from `[email]` on 2026-05-14 at approximately 20:32 UTC using sender persona Mara Ellis and subject `SellerPic review notes`; the wait elapsed on 2026-05-17 at 20:32 UTC with no reply evidence in the connected Gmail profile and live readiness moved to `ready_for_fallback`. The SellerPic ledger is `sellerpic-send-control.md`.\n - [ACTIVE] Shopify Review Pulse A2Reviews fallback send: SellerPic's 72-hour wait has elapsed and `conversion_readiness` returned `ready_for_fallback`, but Codex did not send from the connected `[email]` profile because the prepared email is branded from Mara at Review Pulse. Travis or a branded/reply-capable Review Pulse sender should send exactly one email to `[email]` using `a2reviews-send-control.md`; current gate is `SEND: A2REVIEWS FALLBACK FROM REVIEWPULSE MAILBOX`.\n - [DONE] Shopify Review Pulse A2Reviews fallback gate (run 2026-05-17 20:32 UTC; SellerPic wait elapsed, live `conversion_readiness` returned `ready_for_fallback`, connected Gmail profile `[email]` returned no SellerPic/reviewpulse message IDs, offer/checkout/listing checks were healthy, live web research revalidated A2Reviews at `4.1` across `23` reviews with public `[email]`; no A2Reviews email was sent because sending from Travis's personal Gmail would mismatch the branded Mara/Review Pulse sender) 2026-05-17 - artifact `artifacts/2026-05-17-shopify-review-pulse-a2reviews-fallback-gate.md`\n\n",
+      "output_site_path": "outputs/run_codex_2026-05-18_141701.txt",
+      "screenshot_path": "",
+      "label": "05-18-26 (Day 29) \u00b7 10:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

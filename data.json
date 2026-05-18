@@ -33479,6 +33479,124 @@
       "label": "05-17-26 (Day 28) \u00b7 10:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_codex_2026-05-18_061701",
+      "timestamp": "2026-05-18 02:17 AM EDT",
+      "timestamp_sort": "2026-05-18T06:17:01+00:00",
+      "date": "2026-05-18",
+      "time": "2:17AM",
+      "objective": "the active Shopify and WordPress external motions are still contact/sender-gated, and the prior run already prepared the SEOPress send-control packet. The best non-gated revenue move was to make the WordPress lane buyer-visible before the one-contact test by shipping a public offer page and a locked/noindexed SEOPress preview.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-18 06:28 UTC - WordPress Review Pulse public pages",
+      "artifact_path": "artifacts/2026-05-18-wordpress-review-pulse-public-pages.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$57.18",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-18-wordpress-review-pulse-public-pages.md",
+          "relative_path": "artifacts/2026-05-18-wordpress-review-pulse-public-pages.md",
+          "kind": "text",
+          "preview": "# WordPress Review Pulse Public Pages\n\nDate: 2026-05-18\n\n## Task\n\nCreate a buyer-visible validation surface for the WordPress Review Pulse lane while the one-contact approval gate remains open. No outreach was sent.\n\n## Result\n\nBuilt and deployed a static WordPress Review Pulse public offer page plus a locked SEOPress report preview:\n\n- Offer page: https://wordpress-review-pulse.vercel.app/\n- Locked preview: https://wordpress-review-pulse.vercel.app/seopress-preview\n- Vercel deployment: `dpl_FuZhLdD6i5jSkjqmuYsmA8kb9on9`\n- Project alias: `wordpress-review-pulse.vercel.app`\n\n## Live Evidence\n\n- WordPress.org and SEOPress pages continue to show SEOPress as a commercial plugin with large public review/support surfaces and current AI-search/9.8 positioning.\n- Live search surfaced WordPress.org SEOPress listing and review pages with current crawler freshness, plus recent WordPress plugin discussions around plugin visibility, review/support friction, and AI-search positioning.\n- The deployed offer page returned HTTP 200.\n- The deployed locked preview returned HTTP 200 with `X-Robots-Tag: noindex, nofollow`.\n- Private prospect markdown was not deployed: `https://wordpress-review-pulse.vercel.app/prospect-reports/seopress.md` returned HTTP 404.\n\nSources:\n\n- https://wordpress.org/plugins/wp-seopress/\n- https://wordpress.org/support/plugin/wp-seopress/reviews/\n- https://wordpress.org/support/plugin/wp-seopress/\n- https://www.seopress.org/\n\n## Files Changed\n\n- `workspace/wordpress-review-pulse/index.html`\n- `workspace/wordpress-review-pulse/seopress-preview.html`\n- `workspace/wordpress-review-pulse/vercel.json`\n- `workspace/wordpress-review-pulse/.vercelignore`\n- `workspace/wordpress-review-pulse/.gitignore`\n- `workspace/wordpress-review-pulse/README.md`\n\nSupporting screenshots:\n\n- `home-desktop.png`\n- `home-mobile.png`\n- `preview-desktop.png`\n- `live-home-desktop.png`\n- `live-preview-desktop.png`\n\n## Verification\n\n- `node --check workspace/wordpress-review-pulse/wordpress_review_pulse.mjs`\n- Browser render check with Playwright Chromium against local pages.\n- Browser render check with Playwright Chromium against live pages.\n- `curl -sSIL https://wordpress-review-pulse.vercel.app/`\n- `curl -sSIL https://wordpress-review-pulse.vercel.app/seopress-preview`\n- `curl -sSIL https://wordpress-review-pulse.vercel.app/prospect-reports/seopress.md`\n- Public-copy grep found no stale `$9`, owner-approval, internal experiment, Travis, or Codex language on the two public pages.\n\n## Controls\n\nNo outreach, contact-form submission, checkout/payment infrastructure change, account creation, DNS change, public post, or spend occurred. The existing approval gate remains:\n\n`APPROVED: CONTACT ONE WORDPRESS PLUGIN AUTHOR WITH WORDPRESS REVIEW PULSE SAMPLE`\n",
+          "site_path": "artifacts/2026-05-18-wordpress-review-pulse-public-pages.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "b><span class=\"muted\">Recent support topics sampled</span></div>\n+          <div class=\"metric\"><b>6</b><span class=\"muted\">Ready-to-paste assets scoped</span></div>\n+        </div>\n+      </div>\n+    </section>\n+\n+    <section>\n+      <div class=\"wrap\">\n+        <div class=\"section-head\">\n+          <div><span class=\"eyebrow\">Priority bands</span><h2>What the full report prioritizes.</h2></div>\n+          <p class=\"muted\">This preview shows the shape of the work without revealing the exact issues or recommended copy.</p>\n+        </div>\n+        <div class=\"severity\">\n+          <article class=\"panel\"><h3>High-value proof language</h3><div class=\"band\"></div><p class=\"muted\">Repeated positive language that can strengthen the WordPress.org listing, screenshots, and upgrade page.</p></article>\n+          <article class=\"panel\"><h3>Medium support friction</h3><div class=\"band medium\"></div><p class=\"muted\">A current cluster around interface, saving, redirection, sitemap, and keyword workflow questions deserves clearer docs and replies.</p></article>\n+          <article class=\"panel\"><h3>Low-volume compatibility watch</h3><div class=\"band low\"></div><p class=\"muted\">A smaller set of edge topics should be monitored, but does not appear to define the public reputation.</p></article>\n+        </div>\n+      </div>\n+    </section>\n+\n+    <section>\n+      <div class=\"wrap\">\n+        <div class=\"section-head\">\n+          <div><span class=\"eyebrow\">Locked deliverables</span><h2>The full report includes the evidence and edits.</h2></div>\n+          <p class=\"muted\">Counts and structure are visible here. The useful details stay inside the paid report so the work remains actionable and not just a free diagnosis.</p>\n+        </div>\n+        <div class=\"deliverables\">\n+          <article class=\"deliverable\"><span class=\"lock\">Locked</span><h3>Theme table</h3><p class=\"muted\">Positive and negative themes with counts, severity, and the exact public review or support thread evidence.</p></article>\n+          <article class=\"deliverable\"><span class=\"lock\">Locked</span><h3>What changed block</h3><p class=\"muted\">A concise docs block for recurring questions around the current interface shift.</p></article>\n+          <article class=\"deliverable\"><span class=\"lock\">Locked</span><h3>Listing copy rewrite</h3><p class=\"muted\">Suggested description, screenshot-caption, FAQ, and onboarding-copy changes.</p></article>\n+          <article class=\"deliverable\"><span class=\"lock\">Locked</span><h3>Public reply drafts</h3><p class=\"muted\">Ready-to-edit replies for visible support friction, written to answer the topic without sounding defensive.</p></article>\n+          <article class=\"deliverable\"><span class=\"lock\">Locked</span><h3>Free vs Pro clarity</h3><p class=\"muted\">Specific copy to separate free SEO fundamentals, paid workflow acceleration, and paid monitoring.</p></article>\n+          <article class=\"deliverable\"><span class=\"lock\">Locked</span><h3>Upgrade proof strip</h3><p class=\"muted\">Short proof language based on actual public praise, ready for a pricing or upgrade page.</p></article>\n+        </div>\n+      </div>\n+    </section>\n+\n+    <section>\n+      <div class=\"wrap unlock\">\n+        <div><span class=\"eyebrow\">Unlock</span><h2>Request the full one-off teardown.</h2><p class=\"muted\">For $49, WordPress Review Pulse turns the public review and support pull into conversion language, risk themes, exact evidence, prioritized fixes, rewritten copy, docs blocks, and reply drafts for one plugin.</p></div>\n+        <div class=\"unlock-card\">\n+          <div class=\"stamp\"><span>Full report</span><span>$49</span></div>\n+          <p>Reply to the outreach message or send the plugin listing URL to the Review Pulse mailbox to request the complete report.</p>\n+          <p><a class=\"button\" href=\"mailto:[email]?subject=Unlock%20SEOPress%20WordPress%20Review%20Pulse%20report\">Request the full report</a></p>\n+          <ul class=\"source-list\">\n+            <li>Source: public WordPress.org listing, reviews, and support forum pages for SEOPress.</li>\n+            <li>Generated from public pages only; no wp-admin, private ticket, or customer data.</li>\n+            <li>This page is marked noindex,nofollow.</li>\n+          </ul>\n+        </div>\n+      </div>\n+    </section>\n+  </main>\n+  <footer><div class=\"wrap\">WordPress Review Pulse \u00b7 Locked public-review report preview</div></footer>\n+</body>\n+</html>\ndiff --git vercel.json vercel.json\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..5d64fafdb46ffeecee76bafb3826ed5be3bef645\n--- /dev/null\n+++ vercel.json\n@@ -0,0 +1,14 @@\n+{\n+  \"cleanUrls\": true,\n+  \"headers\": [\n+    {\n+      \"source\": \"/seopress-preview\",\n+      \"headers\": [\n+        {\n+          \"key\": \"X-Robots-Tag\",\n+          \"value\": \"noindex, nofollow\"\n+        }\n+      ]\n+    }\n+  ]\n+}\n\n",
+      "output_site_path": "outputs/run_codex_2026-05-18_061701.txt",
+      "screenshot_path": "",
+      "label": "05-18-26 (Day 29) \u00b7 2:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

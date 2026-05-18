@@ -33597,6 +33597,124 @@
       "label": "05-18-26 (Day 29) \u00b7 2:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-18_081701",
+      "timestamp": "2026-05-18 04:17 AM EDT",
+      "timestamp_sort": "2026-05-18T08:17:01+00:00",
+      "date": "2026-05-18",
+      "time": "4:17AM",
+      "objective": "both external contact paths remain owner/sender-gated, and the previous run already shipped the public WordPress offer. The useful non-gated revenue motion was to make that buyer-visible offer easier for crawlers to discover without exposing the locked preview or private prospect files.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-18 08:19 UTC - WordPress Review Pulse crawl scaffolding",
+      "artifact_path": "artifacts/2026-05-18-wordpress-review-pulse-crawl-scaffolding.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$57.18",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-18-wordpress-review-pulse-crawl-scaffolding.md",
+          "relative_path": "artifacts/2026-05-18-wordpress-review-pulse-crawl-scaffolding.md",
+          "kind": "text",
+          "preview": "# WordPress Review Pulse Crawl Scaffolding\n\nDate: 2026-05-18\n\n## Task\n\nAdd a non-gated traffic foundation for the live WordPress Review Pulse offer while external contact remains owner-gated.\n\n## Result\n\nCreated and deployed crawl-discovery files for the public offer page:\n\n- Robots file: https://wordpress-review-pulse.vercel.app/robots.txt\n- Sitemap: https://wordpress-review-pulse.vercel.app/sitemap.xml\n- Offer page: https://wordpress-review-pulse.vercel.app/\n- Locked preview: https://wordpress-review-pulse.vercel.app/seopress-preview\n- Vercel deployment: `dpl_6EbsRrjNquqSZUNxbLZ38iX4n5Ly`\n\nThe sitemap lists only the public offer page. The locked SEOPress preview remains linked from the offer for buyer context, but it is not listed in the sitemap and still sends `X-Robots-Tag: noindex, nofollow`.\n\n## Evidence\n\nGoogle Search Central documents that major search engines support the `Sitemap:` field in `robots.txt`, and Google documents `X-Robots-Tag` / robots meta directives for page-specific index control:\n\n- https://developers.google.com/search/reference/robots_txt\n- https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag\n\nLive checks after deploy:\n\n- `https://wordpress-review-pulse.vercel.app/` returned HTTP 200.\n- `https://wordpress-review-pulse.vercel.app/robots.txt` returned HTTP 200 and points to the sitemap.\n- `https://wordpress-review-pulse.vercel.app/sitemap.xml` returned HTTP 200 with the offer URL only.\n- `https://wordpress-review-pulse.vercel.app/seopress-preview` returned HTTP 200 with `X-Robots-Tag: noindex, nofollow`.\n- `https://wordpress-review-pulse.vercel.app/prospect-reports/seopress.md` returned HTTP 404.\n\n## Files Changed\n\n- `workspace/wordpress-review-pulse/robots.txt`\n- `workspace/wordpress-review-pulse/sitemap.xml`\n- `workspace/wordpress-review-pulse/README.md`\n- `the project's ACTIVE_BETS.md config`\n\n## Verification\n\n- `python3 -c \"import xml.etree.ElementTree as ET; ET.parse('sitemap.xml'); print('sitemap ok')\"`\n- `node --check workspace/wordpress-review-pulse/wordpress_review_pulse.mjs`\n- Public-copy grep against changed public files and pages\n- `curl -sSIL https://wordpress-review-pulse.vercel.app/`\n- `curl -sSIL https://wordpress-review-pulse.vercel.app/robots.txt`\n- `curl -sSIL https://wordpress-review-pulse.vercel.app/sitemap.xml`\n- `curl -sSIL https://wordpress-review-pulse.vercel.app/seopress-preview`\n- `curl -sSIL https://wordpress-review-pulse.vercel.app/prospect-reports/seopress.md`\n\n`xmllint` is not installed on this host, so XML validation used Python's standard-library parser instead.\n\n## Controls\n\nNo outreach, contact-form submission, checkout/payment infrastructure change, account creation, DNS change, public post, or spend occurred. Existing gates remain:\n\n- `SEND: A2REVIEWS FALLBACK FROM REVIEWPULSE MAILBOX`\n- `APPROVED: CONTACT ONE WORDPRESS PLUGIN AUTHOR WITH WORDPRESS REVIEW PULSE SAMPLE`\n\nCurrent cash balance: `$57.18`.\n",
+          "site_path": "artifacts/2026-05-18-wordpress-review-pulse-crawl-scaffolding.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "ne escape rule (interactive correction 2026-05-17; added operating rule so owner/sender/payment/account gates cannot monopolize repeated runs once documented, unless a gate may have cleared, a wait boundary elapsed, live state materially changed, or Travis gives fresh instruction; updated stale active-bet status from SellerPic wait to A2Reviews sender gate) 2026-05-17 - artifact `artifacts/2026-05-17-blocked-lane-escape-rule.md`\n+- [DONE] WordPress Review Pulse crawl scaffolding (run 2026-05-18 08:19 UTC; added and deployed `robots.txt` plus `sitemap.xml` for the live offer page at `https://wordpress-review-pulse.vercel.app/`; deployment `dpl_6EbsRrjNquqSZUNxbLZ38iX4n5Ly`; live checks confirmed offer, robots, and sitemap HTTP 200, sitemap lists only the public offer URL, locked SEOPress preview remains HTTP 200 with `X-Robots-Tag: noindex, nofollow`, and private prospect markdown remains HTTP 404; no outreach, contact-form submission, checkout/payment infrastructure change, account, DNS, post, or spend) 2026-05-18 - artifact `artifacts/2026-05-18-wordpress-review-pulse-crawl-scaffolding.md`\n - [DONE] WordPress Review Pulse public pages (run 2026-05-18 06:28 UTC; built and deployed the buyer-visible offer page at `https://wordpress-review-pulse.vercel.app/` and locked/noindexed SEOPress preview at `https://wordpress-review-pulse.vercel.app/seopress-preview`; Vercel deployment `dpl_FuZhLdD6i5jSkjqmuYsmA8kb9on9`; live checks confirmed offer HTTP 200, preview HTTP 200 with `X-Robots-Tag: noindex, nofollow`, private report markdown HTTP 404, and no stale `$9`/internal approval language; no outreach, contact-form submission, checkout/payment change, account, DNS, post, or spend) 2026-05-18 - artifact `artifacts/2026-05-18-wordpress-review-pulse-public-pages.md`\n - [DONE] WordPress Review Pulse SEOPress send-control packet (run 2026-05-18 02:19 UTC; selected SEOPress as the first one-contact WordPress target using live WordPress.org/SEOPress evidence, created `seopress.md`, `seopress-send-control.md`, and `seopress-first-email.eml`; target has commercial Pro path, active AI-search/9.8 positioning, large install/review base, official contact-form route, and public support friction; no outreach/contact-form submission/public page/checkout/account/DNS/post/spend) 2026-05-18 - artifact `artifacts/2026-05-18-wordpress-review-pulse-seopress-send-control.md`\n - [DONE] WordPress Review Pulse sample (run 2026-05-17 22:20 UTC; live-validated a new adjacent WordPress plugin review/support teardown lane while A2Reviews is blocked on sender identity; created `workspace/wordpress-review-pulse/wordpress_review_pulse.mjs`, `workspace/wordpress-review-pulse/README.md`, and `workspace/wordpress-review-pulse/sample-ai-engine-report.md`; sample AI Engine report parsed `4.9/5` across `831` reviews, `49` support pages, and recurring MCP/model/API/Pro/frontend-support themes; raised one gate for a single approved WordPress plugin author contact; no outreach, public page, checkout/payment, account, DNS, post, or spend) 2026-05-17 - artifact `artifacts/2026-05-17-wordpress-review-pulse-sample.md`\ndiff --git README.md README.md\nindex 9e1fa9a532a3ca4d00616c0223729ab86444008f..7f0896f27c62374f89992c5e4a5723973920f130\n--- README.md\n+++ README.md\n@@ -40,5 +40,7 @@\n \n - Offer page: https://wordpress-review-pulse.vercel.app/\n - Locked SEOPress preview: https://wordpress-review-pulse.vercel.app/seopress-preview\n+- Robots file: https://wordpress-review-pulse.vercel.app/robots.txt\n+- Sitemap: https://wordpress-review-pulse.vercel.app/sitemap.xml\n \n The locked preview is configured with `noindex,nofollow`. Private markdown reports, outreach files, and generator code are excluded from the Vercel deployment by `.vercelignore`.\ndiff --git robots.txt robots.txt\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..e5e8f16cd5ecad5dae46602fd83aa4cf0704fb50\n--- /dev/null\n+++ robots.txt\n@@ -0,0 +1,4 @@\n+User-agent: *\n+Allow: /\n+\n+Sitemap: https://wordpress-review-pulse.vercel.app/sitemap.xml\ndiff --git sitemap.xml sitemap.xml\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..8de9dc3f5b14ea7be0030b5ea411423040169c11\n--- /dev/null\n+++ sitemap.xml\n@@ -0,0 +1,9 @@\n+<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n+<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n+  <url>\n+    <loc>https://wordpress-review-pulse.vercel.app/</loc>\n+    <lastmod>2026-05-18</lastmod>\n+    <changefreq>weekly</changefreq>\n+    <priority>1.0</priority>\n+  </url>\n+</urlset>\n\n",
+      "output_site_path": "outputs/run_codex_2026-05-18_081701.txt",
+      "screenshot_path": "",
+      "label": "05-18-26 (Day 29) \u00b7 4:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

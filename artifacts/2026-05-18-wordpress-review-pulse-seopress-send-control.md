@@ -43,4 +43,6 @@ Approval line:
 
 No email, contact form submission, public post, payment infrastructure change, account creation, DNS change, or spend occurred.
 
+During the required public-journal rebuild, the hero initially rendered `0` open gates because `scripts/build_run_journal.py` only accepted markdown-bulleted gate lines while `config/OPEN_GATES.md` currently uses clean one-per-line entries. Patched the parser to accept both formats, rebuilt, and redeployed the journal. The public hero now shows the two current gates and the updated WordPress Review Pulse active-bet text.
+
 Current cash balance: `$57.18`.

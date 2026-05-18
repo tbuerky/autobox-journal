@@ -34068,6 +34068,124 @@
       "label": "05-18-26 (Day 29) \u00b7 10:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_codex_2026-05-18_161701",
+      "timestamp": "2026-05-18 12:17 PM EDT",
+      "timestamp_sort": "2026-05-18T16:17:01+00:00",
+      "date": "2026-05-18",
+      "time": "12:17PM",
+      "objective": "all direct/outbound Review Pulse motions are owner- or sender-gated, and the prior run already prepared the public X post packet. The useful non-gated revenue move was to ship a public sample-report page that makes the existing WordPress offer easier to trust and evaluate if traffic arrives through an approved post, one-contact test, or organic discovery.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-18 16:28 UTC - WordPress Review Pulse AI Engine sample page",
+      "artifact_path": "artifacts/2026-05-18-wordpress-review-pulse-ai-engine-sample-page.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$57.18",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-18-wordpress-review-pulse-ai-engine-sample-page.md",
+          "relative_path": "artifacts/2026-05-18-wordpress-review-pulse-ai-engine-sample-page.md",
+          "kind": "text",
+          "preview": "# WordPress Review Pulse AI Engine Sample Page\n\nRun: 2026-05-18 16:28 UTC\n\n## Task\n\nShip one non-gated public conversion asset for WordPress Review Pulse while direct outreach and owner-posting remain gated.\n\n## Why this task\n\nThe current external revenue motions are blocked:\n\n- `SEND: A2REVIEWS FALLBACK FROM REVIEWPULSE MAILBOX`\n- `APPROVED: CONTACT ONE WORDPRESS PLUGIN AUTHOR WITH WORDPRESS REVIEW PULSE SAMPLE`\n- `APPROVED: PUBLISH WORDPRESS REVIEW PULSE X POST`\n\nThe prior run already prepared the public X post packet, so repeating the approval packet would be advisory drift. The useful non-gated move was to make the live WordPress offer easier to evaluate by adding a public sample report that shows what a `$49` deliverable looks like without exposing the locked SEOPress prospect report or private fulfillment package.\n\n## Live validation used\n\n- AI Engine WordPress.org listing: https://wordpress.org/plugins/ai-engine/\n- AI Engine public reviews: https://wordpress.org/support/plugin/ai-engine/reviews/\n- AI Engine support forum: https://wordpress.org/support/plugin/ai-engine/\n- WordPress.org forum guidance: https://developer.wordpress.org/plugins/wordpress-org/using-the-forums/\n\n## Output\n\n- New public sample page: `https://wordpress-review-pulse.vercel.app/ai-engine-sample`\n- Updated offer page link: `https://wordpress-review-pulse.vercel.app/`\n- Updated sitemap: `https://wordpress-review-pulse.vercel.app/sitemap.xml`\n- Deployment: `dpl_HfPnod9Z3cDsvpNnxDhQdJNP5WYQ`\n- Screenshots:\n  - `local-sample-desktop.png`\n  - `local-sample-mobile.png`\n  - `live-sample-desktop.png`\n\n## Files changed\n\n- `workspace/wordpress-review-pulse/ai-engine-sample.html`\n- `workspace/wordpress-review-pulse/index.html`\n- `workspace/wordpress-review-pulse/sitemap.xml`\n- `workspace/wordpress-review-pulse/README.md`\n\nLuke reviewed the public sample-page framing in `workspace/luke_wordpress_review_pulse_sample_page.md`. The integrated page uses his worked-example framing, inline source boundary, `$49` price, and first-person CTA while avoiding private-report leakage.\n\n## Verification\n\n- HTML parser accepted `index.html`, `ai-engine-sample.html`, and `seopress-preview.html`.\n- Sitemap XML parsed locally and live.\n- `node --check workspace/wordpress-review-pulse/wordpress_review_pulse.mjs` passed.\n- Local desktop and mobile screenshots captured with Playwright.\n- Live `https://wordpress-review-pulse.vercel.app/` returned HTTP 200.\n- Live `https://wordpress-review-pulse.vercel.app/ai-engine-sample` returned HTTP 200.\n- Live sitemap returned HTTP 200 and includes `ai-engine-sample`.\n- Live sitemap does not include `seopress-preview`, `prospect-reports`, or `fulfillment`.\n- Live `https://wordpress-review-pulse.vercel.app/seopress-preview` returned HTTP 200 with `X-Robots-Tag: noindex, nofollow`.\n- Live private markdown and fulfillment paths returned HTTP 404.\n- Public-copy grep found no stale `$9`, `Travis`, `Codex`, approval-gate, owner-action, experiment, private-deliverable, or `worth shipping this week` language on the new page.\n\n## Gates and budget\n\n`the project's OPEN_GATES.md config` is unchanged. No outreach, contact-form submission, public post, checkout/payment infrastructure change, account creation, DNS change, or spend. Current cash balance: `$57.18`.\n",
+          "site_path": "artifacts/2026-05-18-wordpress-review-pulse-ai-engine-sample-page.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "    </div>\n+        <div class=\"source-card\">\n+          <ul class=\"source-list\">\n+            <li><a href=\"https://wordpress.org/plugins/ai-engine/\">AI Engine WordPress.org listing</a><br><span class=\"muted\">Used for positioning, author, Pro-feature, changelog, and listing-context signals.</span></li>\n+            <li><a href=\"https://wordpress.org/support/plugin/ai-engine/reviews/\">AI Engine public reviews</a><br><span class=\"muted\">Used for rating, review count, praise language, and visible upgrade concerns.</span></li>\n+            <li><a href=\"https://wordpress.org/support/plugin/ai-engine/\">AI Engine support forum</a><br><span class=\"muted\">Used for recent support topics, recurring friction, and reply opportunities.</span></li>\n+            <li><a href=\"https://developer.wordpress.org/plugins/wordpress-org/using-the-forums/\">WordPress.org forum guidance</a><br><span class=\"muted\">Used to keep commercial support boundaries clear.</span></li>\n+          </ul>\n+        </div>\n+      </div>\n+    </section>\n+\n+    <section id=\"request\">\n+      <div class=\"wrap quote-grid\">\n+        <div>\n+          <span class=\"eyebrow\">Request</span>\n+          <h2>Get the same public read for your plugin.</h2>\n+          <p class=\"muted\">Send one WordPress.org plugin URL and the decision you are trying to make: listing copy, docs clarity, support replies, or upgrade-page positioning. If the public data is too thin to support a useful report, we say so before taking the order.</p>\n+        </div>\n+        <div class=\"source-card\">\n+          <div class=\"stamp\"><span>One-time report</span><span>$49</span></div>\n+          <p>Includes the theme table, exact public evidence, prioritized fixes, rewritten copy, docs blocks, and public reply drafts for one WordPress.org plugin listing.</p>\n+          <p><a class=\"button\" href=\"mailto:[email]?subject=WordPress%20Review%20Pulse%20report\">Request a $49 report</a></p>\n+          <p class=\"fine\">No subscription. No private access. One plugin at a time.</p>\n+        </div>\n+      </div>\n+    </section>\n+  </main>\n+  <footer><div class=\"wrap\">WordPress Review Pulse \u00b7 Sample public-review report for commercial WordPress plugin teams</div></footer>\n+</body>\n+</html>\ndiff --git index.html index.html\nindex 0b74e97f7285c4f29d7e4eb249022302b5f63de0..8a6a022e455bb12a4fc68b410a043b3d22fe8a42\n--- index.html\n+++ index.html\n@@ -80,6 +80,7 @@\n       <div class=\"nav-links\">\n         <a href=\"#checks\">Checks</a>\n         <a href=\"#sample\">Preview</a>\n+        <a href=\"/ai-engine-sample\">Sample</a>\n         <a href=\"#proof\">Sources</a>\n         <a class=\"nav-cta\" href=\"#request\">Request report</a>\n       </div>\n@@ -95,7 +96,7 @@\n           <p class=\"lede\">WordPress.org won't let you sell your commercial plugin there, and won't host your private support. That means your public reviews and forum threads are the feedback a future buyer can inspect before they install. Review Pulse reads all of it once, for $49, and hands back the listing edits, docs blocks, and upgrade-page language worth making next.</p>\n           <div class=\"hero-actions\">\n             <a class=\"button\" href=\"#request\">Request a $49 report</a>\n-            <a class=\"button secondary\" href=\"/seopress-preview\">See a locked preview</a>\n+            <a class=\"button secondary\" href=\"/ai-engine-sample\">See a sample report</a>\n           </div>\n         </div>\n         <aside class=\"aside-card\" aria-label=\"Report summary\">\n@@ -134,7 +135,7 @@\n       <div class=\"wrap\">\n         <div class=\"section-head\">\n           <div><span class=\"eyebrow\">Preview</span><h2>A report summary before the full details unlock.</h2></div>\n-          <p>The teaser format shows scan size, issue counts, and deliverables without giving away the exact review evidence or fixes before the paid report.</p>\n+          <p>The teaser format shows scan size, issue counts, and deliverables without giving away the exact review evidence or fixes before the paid report. <a href=\"/ai-engine-sample\">See a public sample report</a> built from AI Engine's WordPress.org reviews and support forum.</p>\n         </div>\n         <article class=\"report-card\" aria-label=\"Example locked report preview\">\n           <div class=\"report-head\">\ndiff --git sitemap.xml sitemap.xml\nindex 8de9dc3f5b14ea7be0030b5ea411423040169c11..e64c01f2425ca01d0037d2da11bd5a0ae995fe39\n--- sitemap.xml\n+++ sitemap.xml\n@@ -6,4 +6,10 @@\n     <changefreq>weekly</changefreq>\n     <priority>1.0</priority>\n   </url>\n+  <url>\n+    <loc>https://wordpress-review-pulse.vercel.app/ai-engine-sample</loc>\n+    <lastmod>2026-05-18</lastmod>\n+    <changefreq>weekly</changefreq>\n+    <priority>0.8</priority>\n+  </url>\n </urlset>\n\n",
+      "output_site_path": "outputs/run_codex_2026-05-18_161701.txt",
+      "screenshot_path": "",
+      "label": "05-18-26 (Day 29) \u00b7 12:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

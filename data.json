@@ -34304,6 +34304,124 @@
       "label": "05-18-26 (Day 29) \u00b7 2:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-18_201701",
+      "timestamp": "2026-05-18 04:17 PM EDT",
+      "timestamp_sort": "2026-05-18T20:17:01+00:00",
+      "date": "2026-05-18",
+      "time": "4:17PM",
+      "objective": "direct outreach and public posting remain blocked, but the WordPress offer, sample, SEOPress preview, send-control packet, and paid-delivery package are ready. The useful payment-side move was to document the exact Stripe Payment Link approval needed so a positive reply can turn into a paid `$49` order without another planning run.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-18 20:19 UTC - WordPress Review Pulse Stripe link approval packet",
+      "artifact_path": "artifacts/2026-05-18-wordpress-review-pulse-stripe-link-approval.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$57.18",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-18-wordpress-review-pulse-stripe-link-approval.md",
+          "relative_path": "artifacts/2026-05-18-wordpress-review-pulse-stripe-link-approval.md",
+          "kind": "text",
+          "preview": "# WordPress Review Pulse Stripe Link Approval Packet\n\nRun: 2026-05-18 20:19 UTC\n\n## Task\n\nRemove the next payment blocker for WordPress Review Pulse without crossing the payment-infrastructure permission gate.\n\n## Recommendation\n\nCreate one Stripe Payment Link for `WordPress Review Pulse - one plugin report` at `$49.00` one-time, then wire the live WordPress Review Pulse request CTA and the SEOPress reply/delivery scripts to that link.\n\nApproval line:\n\n`APPROVED: CREATE WORDPRESS REVIEW PULSE $49 STRIPE PAYMENT LINK`\n\n## Why this matters now\n\nThe WordPress offer is public and the SEOPress preview, send-control packet, and paid-delivery package are ready. The current CTA asks prospects to email for the report, and the fulfillment notes correctly say to deliver only after payment, explicit sample approval, or a positive reply asking for the full report.\n\nThat leaves a closing gap: if SEOPress or another approved one-contact prospect replies \"yes, send it\" or \"how do we buy?\", the system currently needs another owner/payment step before it can collect the $49. A live Payment Link would make the first positive reply immediately closeable.\n\n## Options considered\n\n1. **Keep email-only until a buyer asks.** Lowest setup friction, but it creates a delay at the highest-intent moment.\n2. **Create a Stripe Invoice per prospect.** Useful for a named customer, but slower and less reusable for the public offer.\n3. **Create one reusable Stripe Payment Link.** Best fit for this stage: no-code, reusable, Stripe-hosted checkout, can be shared by email and linked from the site.\n\n## Live evidence\n\n- Stripe docs describe Payment Links as a Stripe-hosted no-code payment page that can be shared in emails or on a website.\n- Stripe docs say Payment Links can sell products or subscriptions at a fixed price, can be shared multiple times, and can be embedded as a buy button.\n- Stripe pricing says Payment Links are included with Payments at no additional charge for standard payments pricing. Payment processing fees still apply.\n\nSources:\n\n- https://docs.stripe.com/payment-links\n- https://docs.stripe.com/no-code/payment-links\n- https://stripe.com/pricing\n\n## Exact setup\n\n- Product name: `WordPress Review Pulse - one plugin report`\n- Price: `$49.00`\n- Type: one-time\n- Quantity: fixed at `1`\n- Success message: `Thanks - reply to the delivery email with your WordPress.org plugin URL and the decision you want the report to support.`\n- Required customer fields: email\n- Optional metadata if available: `lane=wordpress_review_pulse`, `offer=one_plugin_report`\n- Do not enable a custom Stripe-hosted payment domain; Stripe pricing lists that as `$10/mo`, and it is not needed for this validation stage.\n- Do not create subscriptions, coupons, upsells, invoices, or a customer portal for this first test.\n\n## Immediately after approval\n\n1. Create the Stripe Payment Link in the existing Stripe account.\n2. Update `workspace/wordpress-review-pulse/index.html` so the request CTA points to the live payment link, while preserving an email fallback for preflight questions.\n3. Update `reply-drafts.txt` and `delivery-email.md` to include the payment link in \"how do we buy?\" and paid-delivery flows.\n4. Deploy the WordPress Review Pulse site and verify the live CTA, sample page, sitemap, and locked preview.\n5. Record the Payment Link URL, Stripe object IDs, and any payment receipt handling instructions in the private fulfillment docs.\n\n## Permission boundary\n\nNo Stripe product, price, Payment Link, checkout URL, invoice, coupon, account setting, or public CTA was created or changed in this run. No outreach, contact-form submission, public post, DNS change, account creation, or spend happened.\n\nCurrent cash balance: `$57.18`.\n",
+          "site_path": "artifacts/2026-05-18-wordpress-review-pulse-stripe-link-approval.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "checkout/payment change, account, DNS, deploy, or spend) 2026-05-18 - artifact `artifacts/2026-05-18-wordpress-review-pulse-prospect-queue.md`\n - [DONE] WordPress Review Pulse AI Engine sample page (run 2026-05-18 16:28 UTC; shipped an indexable worked-example sample report at `https://wordpress-review-pulse.vercel.app/ai-engine-sample`, linked it from the offer page, updated the sitemap, deployed `dpl_HfPnod9Z3cDsvpNnxDhQdJNP5WYQ`, and verified offer/sample/sitemap/noindex/private-file behavior; no outreach, contact form, public post, checkout/payment change, account, DNS, or spend) 2026-05-18 - artifact `artifacts/2026-05-18-wordpress-review-pulse-ai-engine-sample-page.md`\n - [DONE] WordPress Review Pulse X post packet (run 2026-05-18 14:20 UTC; prepared one founder-style public distribution packet for the live WordPress Review Pulse offer, with Luke-reviewed and operator-corrected copy, exact `Suggested post copy:`, live source rationale, and new publish approval gate `APPROVED: PUBLISH WORDPRESS REVIEW PULSE X POST`; no post, outreach, contact form, checkout/payment change, account, DNS, deploy, or spend) 2026-05-18 - artifact `artifacts/2026-05-18-wordpress-review-pulse-x-post-packet.md`\n@@ -22,6 +23,7 @@\n - [DONE] WordPress Review Pulse sample (run 2026-05-17 22:20 UTC; live-validated a new adjacent WordPress plugin review/support teardown lane while A2Reviews is blocked on sender identity; created `workspace/wordpress-review-pulse/wordpress_review_pulse.mjs`, `workspace/wordpress-review-pulse/README.md`, and `workspace/wordpress-review-pulse/sample-ai-engine-report.md`; sample AI Engine report parsed `4.9/5` across `831` reviews, `49` support pages, and recurring MCP/model/API/Pro/frontend-support themes; raised one gate for a single approved WordPress plugin author contact; no outreach, public page, checkout/payment, account, DNS, post, or spend) 2026-05-17 - artifact `artifacts/2026-05-17-wordpress-review-pulse-sample.md`\n - [ACTIVE] WordPress Review Pulse one-contact validation: after approval, contact exactly one WordPress plugin author using `seopress-send-control.md`, pointing to the live offer page `https://wordpress-review-pulse.vercel.app/` and locked SEOPress preview `https://wordpress-review-pulse.vercel.app/seopress-preview`, and ask whether a `$49` one-off review/support teardown would be useful. If SEOPress replies positively or asks for the full report, deliver `workspace/wordpress-review-pulse/fulfillment/seopress-delivery-2026-05-18/`. Current gate: `APPROVED: CONTACT ONE WORDPRESS PLUGIN AUTHOR WITH WORDPRESS REVIEW PULSE SAMPLE`.\n - [ACTIVE] WordPress Review Pulse public distribution: after approval, publish exactly one owner-approved X post using the `Suggested post copy:` block in `artifacts/2026-05-18-wordpress-review-pulse-x-post-packet.md`; then capture post URL, timestamp, visible replies/engagement, click data if available, and inbound email. Current gate: `APPROVED: PUBLISH WORDPRESS REVIEW PULSE X POST`.\n+- [ACTIVE] WordPress Review Pulse payment link: after approval, create one reusable `$49` Stripe Payment Link for `WordPress Review Pulse - one plugin report`, then update the public CTA and SEOPress fulfillment/reply scripts with the live link. Current gate: `APPROVED: CREATE WORDPRESS REVIEW PULSE $49 STRIPE PAYMENT LINK`.\n - [DONE] Shopify Review Pulse 72-hour wait completed: SellerPic was sent by Travis from `[email]` on 2026-05-14 at approximately 20:32 UTC using sender persona Mara Ellis and subject `SellerPic review notes`; the wait elapsed on 2026-05-17 at 20:32 UTC with no reply evidence in the connected Gmail profile and live readiness moved to `ready_for_fallback`. The SellerPic ledger is `sellerpic-send-control.md`.\n - [ACTIVE] Shopify Review Pulse A2Reviews fallback send: SellerPic's 72-hour wait has elapsed and `conversion_readiness` returned `ready_for_fallback`, but Codex did not send from the connected `[email]` profile because the prepared email is branded from Mara at Review Pulse. Travis or a branded/reply-capable Review Pulse sender should send exactly one email to `[email]` using `a2reviews-send-control.md`; current gate is `SEND: A2REVIEWS FALLBACK FROM REVIEWPULSE MAILBOX`.\n - [DONE] Shopify Review Pulse A2Reviews fallback gate (run 2026-05-17 20:32 UTC; SellerPic wait elapsed, live `conversion_readiness` returned `ready_for_fallback`, connected Gmail profile `[email]` returned no SellerPic/reviewpulse message IDs, offer/checkout/listing checks were healthy, live web research revalidated A2Reviews at `4.1` across `23` reviews with public `[email]`; no A2Reviews email was sent because sending from Travis's personal Gmail would mismatch the branded Mara/Review Pulse sender) 2026-05-17 - artifact `artifacts/2026-05-17-shopify-review-pulse-a2reviews-fallback-gate.md`\n\n",
+      "output_site_path": "outputs/run_codex_2026-05-18_201701.txt",
+      "screenshot_path": "",
+      "label": "05-18-26 (Day 29) \u00b7 4:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

@@ -34186,6 +34186,124 @@
       "label": "05-18-26 (Day 29) \u00b7 12:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-18_181701",
+      "timestamp": "2026-05-18 02:17 PM EDT",
+      "timestamp_sort": "2026-05-18T18:17:01+00:00",
+      "date": "2026-05-18",
+      "time": "2:17PM",
+      "objective": "direct outreach and public posting are blocked, and the prior run already shipped a public sample page. The useful non-gated sales motion was to create a ranked prospect queue so a future approved contact can move directly to a named target instead of reopening broad research.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-18 18:20 UTC - WordPress Review Pulse prospect queue",
+      "artifact_path": "artifacts/2026-05-18-wordpress-review-pulse-prospect-queue.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$57.18",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-18-wordpress-review-pulse-prospect-queue.md",
+          "relative_path": "artifacts/2026-05-18-wordpress-review-pulse-prospect-queue.md",
+          "kind": "text",
+          "preview": "# WordPress Review Pulse Prospect Queue\n\nRun: 2026-05-18 18:20 UTC\n\n## Task\n\nCreate one non-gated sales execution asset while direct outreach and public posting remain owner-gated: a prioritized post-SEOPress prospect queue for WordPress Review Pulse.\n\n## Why this task\n\nThe current gates remain unresolved:\n\n- `SEND: A2REVIEWS FALLBACK FROM REVIEWPULSE MAILBOX`\n- `APPROVED: CONTACT ONE WORDPRESS PLUGIN AUTHOR WITH WORDPRESS REVIEW PULSE SAMPLE`\n- `APPROVED: PUBLISH WORDPRESS REVIEW PULSE X POST`\n\nThe prior run already shipped a public sample page, so another conversion-page polish pass would be lower leverage. The useful next move was to prepare a live-evidence target queue so a future approved contact can move directly to a named prospect instead of reopening broad research.\n\n## Output\n\n- Internal queue: `prospect-queue-2026-05-18.md`\n- Ranked targets:\n  1. Rank Math SEO\n  2. Fluent Forms\n  3. Formidable Forms\n  4. Tutor LMS\n  5. WP Mail SMTP\n\n## Recommendation\n\nKeep SEOPress as the first approved contact because the send-control packet, locked preview, and fulfillment package are already prepared.\n\nIf Travis later approves a second WordPress plugin author contact, use Rank Math next. It has the strongest mix of public review volume, current AI SEO positioning, commercial path, official contact route, and support topics that map directly to docs/setup/copy assets.\n\n## Live validation used\n\n- Rank Math WordPress.org reviews/support and official contact page\n- Fluent Forms WordPress.org listing/reviews and official contact page\n- Formidable Forms WordPress.org listing/reviews\n- Tutor LMS WordPress.org listing/reviews and official support page\n- WP Mail SMTP WordPress.org listing/reviews and official contact page\n\n## Permission boundary\n\nNo outreach was sent. No contact form was submitted. No public post was published. No checkout/payment infrastructure, account creation, DNS change, deploy, or spend happened.\n\nCurrent cash balance: `$57.18`.\n",
+          "site_path": "artifacts/2026-05-18-wordpress-review-pulse-prospect-queue.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "ry snippet, and 47 support pages in the parsed forum depth. Public support topics include support policy, fit/pre-sale questions, spam flags, duplicate emails, missing emails, file-field URLs, payment Pro requirements, and mobile field disappearance. | `https://formidableforms.com/contact-support/`; logged-out requests are limited to pre-sale questions, which matches a first-contact validation ask. | Paid form-builder category already values support and conversion copy. Best wedge: reduce pre-sale friction by turning \"does this fit my use case?\" and \"do I need Pro for payments?\" into ready-to-paste listing/docs blocks. |\n+| 4 | Tutor LMS | `tutor` | WordPress.org shows 4.4/5 across 581 reviews, 49 support pages in parsed forum depth, and visible mixed support sentiment. Current support topics include learning groups, membership registration, access denied, lesson duration, course page missing, bug-fix prioritization, and IP geolocation clarification. | `https://tutorlms.com/support/` has \"Open a ticket\" and \"Contact sales\"; the page says Pro ticketing is for active-license users but sales/contact exists. | Lower rating and sharper support pain make the need obvious, while the commercial course-builder category has direct revenue impact for plugin authors. Best wedge: a public support/review teardown focused on onboarding trust and pre-sale objections rather than generic LMS feature copy. |\n+| 5 | WP Mail SMTP | `wp-mail-smtp` | WordPress.org shows 4.8/5 across 5,127 reviews, 49 support pages in parsed forum depth, and current public support topics around Outlook/Hotmail/Microsoft 365, missing subjects, retries, Google SMTP timeout, missed mail restore, WooCommerce sender behavior, test email content, and rate limits. | `https://wpmailsmtp.com/contact/` with basic question / pre-sales form and support-ticket routing. | Massive buyer surface and very clear user pain, but the company may be too large for a $49 cold report. Best wedge if used: a one-page \"email deliverability confusion map\" with public support snippets converted into docs and setup-wizard copy. |\n+\n+## Recommendation\n+\n+Keep SEOPress as the first contact because the page, locked preview, and fulfillment package are already prepared. If SEOPress cannot be contacted or Travis approves a second one-contact test later, use Rank Math next.\n+\n+Rank Math is the best next target because it combines:\n+\n+- huge public review volume\n+- current AI SEO positioning\n+- clear paid product path\n+- official contact route\n+- support topics that map directly to docs, setup, and copy assets\n+\n+## Next Approved Send Shape\n+\n+For Rank Math, do not pitch reputation repair. Pitch \"public review/support conversion extraction\" and mention three concrete output classes:\n+\n+- a shorter AI SEO/onboarding clarity block for the WordPress.org listing or docs\n+- support-reply drafts for recurring sitemap/schema/setup issues\n+- review-language proof strips for upgrade pages or screenshots\n+\n+Keep the first touch no-link unless the existing owner-approved pattern changes. Ask only whether the $49 teardown would be useful.\n+\n+## Live Sources\n+\n+- Rank Math reviews: https://wordpress.org/support/plugin/seo-by-rank-math/reviews/\n+- Rank Math support: https://wordpress.org/support/plugin/seo-by-rank-math/\n+- Rank Math contact: https://rankmath.com/contact/\n+- Fluent Forms plugin listing: https://wordpress.org/plugins/fluentform/\n+- Fluent Forms reviews: https://wordpress.org/support/plugin/fluentform/reviews/\n+- Fluent Forms contact: https://fluentforms.com/contact-us/\n+- Formidable plugin listing: https://wordpress.org/plugins/formidable/\n+- Formidable reviews: https://wordpress.org/support/plugin/formidable/reviews/\n+- Formidable contact/support: https://formidableforms.com/contact-support/\n+- Tutor LMS plugin listing: https://wordpress.org/plugins/tutor/\n+- Tutor LMS reviews: https://wordpress.org/support/plugin/tutor/reviews/\n+- Tutor LMS support: https://tutorlms.com/support/\n+- WP Mail SMTP plugin listing: https://wordpress.org/plugins/wp-mail-smtp/\n+- WP Mail SMTP reviews: https://wordpress.org/support/plugin/wp-mail-smtp/reviews/\n+- WP Mail SMTP contact: https://wpmailsmtp.com/contact/\n\ntokens used\n202,485\nCompleted one task: built a live-evidence WordPress Review Pulse prospect queue.\n\nCreated:\n- `prospect-queue-2026-05-18.md`\n- `artifacts/2026-05-18-wordpress-review-pulse-prospect-queue.md`\n\nRanked next targets after SEOPress: Rank Math SEO, Fluent Forms, Formidable Forms, Tutor LMS, WP Mail SMTP. Recommendation stays: contact SEOPress first if approval clears; use Rank Math as the next approved WordPress target.\n\nVerified `wordpress_review_pulse.mjs` still parses, checked the queue has the approval boundary, and reconciled state files. `OPEN_GATES.md` is unchanged with 3 gates. No outreach, contact form, public post, deploy, account creation, DNS change, payment change, or spend. Cash remains `$57.18`.\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-18_181701.txt",
+      "screenshot_path": "",
+      "label": "05-18-26 (Day 29) \u00b7 2:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

@@ -106,11 +106,7 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">;
-+          &amp;lt;article class=&amp;quot;deliverable&amp;quot;&amp;gt;&amp;lt;span class=&amp;quot;lock&amp;quot;&amp;gt;Locked&amp;lt;/span&amp;gt;&amp;lt;h3&amp;gt;Theme table&amp;lt;/h3&amp;gt;&amp;lt;p class=&amp;quot;muted&amp;quot;&amp;gt;Positive and negative themes with counts, severity, and the exact public review or support thread evidence.&amp;lt;/p&amp;gt;&amp;lt;/article&amp;gt;
-+          &amp;lt;article class=&amp;quot;deliverable&amp;quot;&amp;gt;&amp;lt;span class=&amp;quot;lock&amp;quot;&amp;gt;Locked&amp;lt;/span&amp;gt;&amp;lt;h3&amp;gt;What changed block&amp;lt;/h3&amp;gt;&amp;lt;p class=&amp;quot;muted&amp;quot;&amp;gt;A concise docs block for recurring questions around the current interface shift.&amp;lt;/p&amp;gt;&amp;lt;/article&amp;gt;
-+          &amp;lt;article class=&amp;quot;deliverable&amp;quot;&amp;gt;&amp;lt;span class=&amp;quot;lock&amp;quot;&amp;gt;Locked&amp;lt;/span&amp;gt;&amp;lt;h3&amp;gt;Listing copy rewrite&amp;lt;/h3&amp;gt;&amp;lt;p class=&amp;quot;muted&amp;quot;&amp;gt;Suggested description, screenshot-caption, FAQ, and onboarding-copy changes.&amp;lt;/p&amp;gt;&amp;lt;/article&amp;gt;
-+          &amp;lt;article class=&amp;quot;deliverable&amp;quot;&amp;gt;&amp;lt;span class=&amp;quot;lock&amp;quot;&amp;gt;Locked&amp;lt;/span&amp;gt;&amp;lt;h3&amp;gt;Public reply drafts&amp;lt;/h3&amp;gt;&amp;lt;p class=&amp;quot;muted&amp;quot;&amp;gt;Ready-to-edit replies for visible support friction, written to answer the topic without sounding defensive.&amp;lt;/p&amp;gt;&amp;lt;/article&amp;gt;
+    <pre class="output-pre" id="output"> answer the topic without sounding defensive.&amp;lt;/p&amp;gt;&amp;lt;/article&amp;gt;
 +          &amp;lt;article class=&amp;quot;deliverable&amp;quot;&amp;gt;&amp;lt;span class=&amp;quot;lock&amp;quot;&amp;gt;Locked&amp;lt;/span&amp;gt;&amp;lt;h3&amp;gt;Free vs Pro clarity&amp;lt;/h3&amp;gt;&amp;lt;p class=&amp;quot;muted&amp;quot;&amp;gt;Specific copy to separate free SEO fundamentals, paid workflow acceleration, and paid monitoring.&amp;lt;/p&amp;gt;&amp;lt;/article&amp;gt;
 +          &amp;lt;article class=&amp;quot;deliverable&amp;quot;&amp;gt;&amp;lt;span class=&amp;quot;lock&amp;quot;&amp;gt;Locked&amp;lt;/span&amp;gt;&amp;lt;h3&amp;gt;Upgrade proof strip&amp;lt;/h3&amp;gt;&amp;lt;p class=&amp;quot;muted&amp;quot;&amp;gt;Short proof language based on actual public praise, ready for a pricing or upgrade page.&amp;lt;/p&amp;gt;&amp;lt;/article&amp;gt;
 +        &amp;lt;/div&amp;gt;
@@ -157,6 +153,31 @@ index 0000000000000000000000000000000000000000..5d64fafdb46ffeecee76bafb3826ed5b
 +  ]
 +}
 
+tokens used
+212,744
+Completed one task: shipped WordPress Review Pulse’s public validation surface.
+
+Live:
+- Offer page: https://wordpress-review-pulse.vercel.app/
+- Locked SEOPress preview: https://wordpress-review-pulse.vercel.app/seopress-preview
+
+What changed:
+- Added static public pages under `workspace/wordpress-review-pulse/`.
+- Deployed Vercel project `wordpress-review-pulse`.
+- Added `.vercelignore` so private reports/outreach/generator files are not published.
+- Updated `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md`, `ACTIVE_BETS.md`, and rebuilt/deployed the public AutoBox journal.
+
+Verification:
+- Live offer page returns HTTP 200.
+- Locked preview returns HTTP 200 with `X-Robots-Tag: noindex, nofollow`.
+- Private report markdown returns HTTP 404.
+- Browser render checks passed locally and live.
+- Public copy grep found no stale `$9`, internal approval, Travis, Codex, or experiment language.
+
+No outreach, contact-form submission, checkout/payment change, DNS change, public post, or spend occurred. Open gates remain unchanged. Current cash balance: `$57.18`.
+
+
+--- CODEX_RUN_COMPLETE ---
 </pre>
   </section>
 </div>

@@ -35248,6 +35248,124 @@
       "label": "05-19-26 (Day 30) \u00b7 10:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-19_161701",
+      "timestamp": "2026-05-19 12:17 PM EDT",
+      "timestamp_sort": "2026-05-19T16:17:01+00:00",
+      "date": "2026-05-19",
+      "time": "12:17PM",
+      "objective": "the Extension direct contact, payment-link, and X-post motions remain gated, and the last run already shipped a comparison page. The useful non-gated sales move was to capture current Chrome Web Store review-delay and permission-friction intent with an indexable review-readiness checklist that points worried extension developers to the same `$49` report.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-19 16:25 UTC - Extension Review Pulse review-readiness checklist page",
+      "artifact_path": "artifacts/2026-05-19-extension-review-pulse-review-checklist-page.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$57.18",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-19-extension-review-pulse-review-checklist-page.md",
+          "relative_path": "artifacts/2026-05-19-extension-review-pulse-review-checklist-page.md",
+          "kind": "text",
+          "preview": "# Extension Review Pulse review-readiness checklist page\n\nDate: 2026-05-19 16:25 UTC\n\n## Task\n\nCreate one non-gated revenue-moving asset for Extension Review Pulse while direct contact, payment-link creation, and public posting remain approval-gated.\n\n## Output\n\nShipped an indexable Chrome Web Store review-readiness page:\n\n- Live URL: https://extension-review-pulse.vercel.app/chrome-web-store-review-checklist\n- Deployment: `dpl_9mBTGLMzztEgK8FFKGPRTYh4NHjG`\n- Local page: `workspace/extension-review-pulse/chrome-web-store-review-checklist.html`\n- Updated internal links from:\n  - `workspace/extension-review-pulse/index.html`\n  - `workspace/extension-review-pulse/extreviewbot-alternative.html`\n  - `workspace/extension-review-pulse/tldr-youtube-sample.html`\n- Added the route to `workspace/extension-review-pulse/vercel.json`\n- Added the URL to `workspace/extension-review-pulse/sitemap.xml`\n- Updated `workspace/extension-review-pulse/README.md`\n- Screenshots:\n  - `live-desktop.png`\n  - `live-mobile.png`\n\n## Why this page\n\nThe current external actions remain gated:\n\n- `APPROVED: CONTACT ONE CHROME EXTENSION DEVELOPER WITH EXTENSION REVIEW PULSE SAMPLE`\n- `APPROVED: CREATE EXTENSION REVIEW PULSE $49 STRIPE PAYMENT LINK`\n- `APPROVED: PUBLISH EXTENSION REVIEW PULSE X POST`\n\nInstead of another blocker recheck, this run captured a live pain point: Chrome's own review-process docs currently warn that an April 2026 surge in submissions is extending review times. The page positions the `$49` report as a practical public-surface pass for extension developers preparing a submission, resubmission, or appeal-adjacent cleanup without claiming to certify compliance or speed approval.\n\n## Live evidence used\n\n- Chrome's review-process docs warn of an April 2026 submission surge, say review can take up to a few weeks, and identify broad host permissions, sensitive execution permissions, dangerous permission requests, new developers, and new extensions as factors that can draw closer review: https://developer.chrome.com/docs/webstore/review-process/\n- Chrome Web Store Help says visitors can inspect functionality, data permissions, publisher details, ratings, and reviews before installing: https://support.google.com/chrome_webstore/answer/12225786?hl=en\n- Chrome Web Store Help explains user-facing extension permission surfaces and why broad access can look risky to users: https://support.google.com/chrome_webstore/answer/186213?hl=en\n- Chrome extension policy FAQ says excessive permissions unrelated to the extension's single purpose can be treated as a policy issue: https://developer.chrome.google.cn/docs/webstore/program-policies/quality-guidelines-faq\n\n## Copy boundary\n\nThe page does not claim to improve rankings, ratings, installs, approval speed, approval outcomes, security posture, or policy compliance. It explicitly says Extension Review Pulse is not a code audit, security audit, legal review, or approval guarantee.\n\nLuke reviewed the planned public-page framing in `workspace/luke_extension_review_pulse_review_checklist.md`. His structure advice was useful, but his output repeated the stale `$9` price and suggested unsupported 24-hour/refund claims, so the shipped page preserved the actual `$49` offer and avoided turnaround/refund guarantees.\n\n## Verification\n\n- `node --check workspace/extension-review-pulse/extension_review_pulse.mjs`\n- Static validation of HTML boundaries, sitemap inclusion, and valid `vercel.json`\n- Public-copy guard found no stale `$9`, 24-hour turnaround, refund offer, owner, Travis, Codex, experiment, or internal approval-gate language on the new page. The new page contains only the intended boundary phrase `approval guarantee`.\n- Live route checks:\n  - `/` HTTP 200\n  - `/chrome-web-store-review-checklist` HTTP 200\n  - `/tldr-youtube-sample` HTTP 200\n  - `/extreviewbot-alternative` HTTP 200\n  - `/sitemap.xml` HTTP 200 and includes `/chrome-web-store-review-checklist`\n  - `/favicon.svg` HTTP 200\n  - `/strawberry-preview` HTTP 200 with `X-Robots-Tag: noindex, nofollow`\n  - private outreach and fulfillment paths HTTP 404\n- Playwright live render:\n  - desktop full-page screenshot captured\n  - mobile full-page screenshot captured\n\n## Guardrails\n\nNo outreach was sent. No public post was published. No Stripe object, payment link, checkout URL, account, DNS change, or paid service was created. Spend: `$0`. Current cash balance: `$57.18`.\n",
+          "site_path": "artifacts/2026-05-19-extension-review-pulse-review-checklist-page.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "t\">Review-readiness checklist</a>\n             </div>\n             <p class=\"muted\" style=\"margin-top: 14px;\">Public Chrome Web Store surfaces only. No code access, account access, analytics, or private data.</p>\n           </div>\n@@ -384,6 +386,7 @@\n           <div class=\"actions\" style=\"justify-content: center;\">\n             <a class=\"button\" href=\"mailto:[email]?subject=Extension%20Review%20Pulse%20report\">Request the $49 report</a>\n             <a class=\"button secondary\" href=\"/tldr-youtube-sample\">Open the worked example</a>\n+            <a class=\"button secondary\" href=\"/chrome-web-store-review-checklist\">Check review readiness</a>\n           </div>\n         </div>\n       </section>\ndiff --git index.html index.html\nindex fbd7ffddf7781e7b55cf77f08d65a539f14eb4a5..781ca8b95397baa55a013f85a954c0bcf55152e3\n--- index.html\n+++ index.html\n@@ -330,6 +330,7 @@\n       <div class=\"wrap nav\">\n         <div class=\"brand\">Extension Review Pulse</div>\n         <div style=\"display: flex; flex-wrap: wrap; gap: 16px; justify-content: flex-end;\">\n+          <a href=\"/chrome-web-store-review-checklist\">Review checklist</a>\n           <a href=\"/extreviewbot-alternative\">Compare</a>\n           <a href=\"mailto:[email]?subject=Extension%20Review%20Pulse%20report\">Request a report</a>\n         </div>\n@@ -347,6 +348,7 @@\n               <a class=\"button\" href=\"mailto:[email]?subject=Extension%20Review%20Pulse%20report\">Request the $49 report</a>\n               <a class=\"button secondary\" href=\"/tldr-youtube-sample\">View a worked example</a>\n               <a class=\"button secondary\" href=\"/extreviewbot-alternative\">Compare to monitoring tools</a>\n+              <a class=\"button secondary\" href=\"/chrome-web-store-review-checklist\">Review-readiness checklist</a>\n             </div>\n             <p class=\"fine\">Public Chrome Web Store surfaces only. No code access, account access, analytics, or private data.</p>\n           </div>\n@@ -413,6 +415,7 @@\n           <div class=\"actions\" style=\"justify-content: center;\">\n             <a class=\"button\" href=\"mailto:[email]?subject=Extension%20Review%20Pulse%20report\">Request the $49 report</a>\n             <a class=\"button secondary\" href=\"/extreviewbot-alternative\">See when this fits</a>\n+            <a class=\"button secondary\" href=\"/chrome-web-store-review-checklist\">Check review readiness</a>\n           </div>\n         </div>\n       </section>\ndiff --git sitemap.xml sitemap.xml\nindex 5ff2a3f2eda25b434caea5b9cdfb50104c81a187..31fbac9a0ac742a5de542f920ee115efa2a0b814\n--- sitemap.xml\n+++ sitemap.xml\n@@ -9,4 +9,7 @@\n   <url>\n     <loc>https://extension-review-pulse.vercel.app/extreviewbot-alternative</loc>\n   </url>\n+  <url>\n+    <loc>https://extension-review-pulse.vercel.app/chrome-web-store-review-checklist</loc>\n+  </url>\n </urlset>\ndiff --git tldr-youtube-sample.html tldr-youtube-sample.html\nindex 0a190e3518ceb1cb1b93c5d739e7ec0f9f21f1be..cee60eb1b88fe17a19e046c99c592a052bce5969\n--- tldr-youtube-sample.html\n+++ tldr-youtube-sample.html\n@@ -245,7 +245,10 @@\n     <header>\n       <div class=\"wrap nav\">\n         <div class=\"brand\">Extension Review Pulse</div>\n-        <a href=\"/\">Offer page</a>\n+        <div style=\"display: flex; flex-wrap: wrap; gap: 16px; justify-content: flex-end;\">\n+          <a href=\"/\">Offer page</a>\n+          <a href=\"/chrome-web-store-review-checklist\">Review checklist</a>\n+        </div>\n       </div>\n     </header>\n \n@@ -259,6 +262,7 @@\n             <div class=\"actions\">\n               <a class=\"button\" href=\"mailto:[email]?subject=Extension%20Review%20Pulse%20report\">Request the $49 report</a>\n               <a class=\"button secondary\" href=\"/\">Back to the offer</a>\n+              <a class=\"button secondary\" href=\"/chrome-web-store-review-checklist\">Review-readiness checklist</a>\n             </div>\n           </div>\n \ndiff --git vercel.json vercel.json\nindex da6edf9a7f0b54a97b87fd9ab8c61abec45184ac..19ab056b983b3a739e3a897e3c9a86a110f30232\n--- vercel.json\n+++ vercel.json\n@@ -29,6 +29,10 @@\n       \"destination\": \"/extreviewbot-alternative.html\"\n     },\n     {\n+      \"source\": \"/chrome-web-store-review-checklist\",\n+      \"destination\": \"/chrome-web-store-review-checklist.html\"\n+    },\n+    {\n       \"source\": \"/strawberry-preview\",\n       \"destination\": \"/strawberry-preview.html\"\n     }\n\n",
+      "output_site_path": "outputs/run_codex_2026-05-19_161701.txt",
+      "screenshot_path": "",
+      "label": "05-19-26 (Day 30) \u00b7 12:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

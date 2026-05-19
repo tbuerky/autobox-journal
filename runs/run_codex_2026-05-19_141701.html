@@ -104,27 +104,7 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output"> one extension listing.&amp;lt;/p&amp;gt;
-+          &amp;lt;div class=&amp;quot;actions&amp;quot; style=&amp;quot;justify-content: center;&amp;quot;&amp;gt;
-+            &amp;lt;a class=&amp;quot;button&amp;quot; href=&amp;quot;mailto:[email]?subject=Extension%20Review%20Pulse%20report&amp;quot;&amp;gt;Request the $49 report&amp;lt;/a&amp;gt;
-+            &amp;lt;a class=&amp;quot;button secondary&amp;quot; href=&amp;quot;/tldr-youtube-sample&amp;quot;&amp;gt;Open the worked example&amp;lt;/a&amp;gt;
-+          &amp;lt;/div&amp;gt;
-+        &amp;lt;/div&amp;gt;
-+      &amp;lt;/section&amp;gt;
-+    &amp;lt;/main&amp;gt;
-+
-+    &amp;lt;footer&amp;gt;
-+      &amp;lt;div class=&amp;quot;wrap&amp;quot;&amp;gt;Extension Review Pulse uses only public Chrome Web Store surfaces. It is not affiliated with ExtReviewBot, Chrome Review Bot, Extension Radar, Google, or the Chrome Web Store.&amp;lt;/div&amp;gt;
-+    &amp;lt;/footer&amp;gt;
-+  &amp;lt;/body&amp;gt;
-+&amp;lt;/html&amp;gt;
-diff --git index.html index.html
-index f423759f4c3fc128bd53aa570f56112fa12ce71f..fbd7ffddf7781e7b55cf77f08d65a539f14eb4a5
---- index.html
-+++ index.html
-@@ -329,7 +329,10 @@
-     &amp;lt;header&amp;gt;
-       &amp;lt;div class=&amp;quot;wrap nav&amp;quot;&amp;gt;
+    <pre class="output-pre" id="output">quot;&amp;gt;
          &amp;lt;div class=&amp;quot;brand&amp;quot;&amp;gt;Extension Review Pulse&amp;lt;/div&amp;gt;
 -        &amp;lt;a href=&amp;quot;mailto:[email]?subject=Extension%20Review%20Pulse%20report&amp;quot;&amp;gt;Request a report&amp;lt;/a&amp;gt;
 +        &amp;lt;div style=&amp;quot;display: flex; flex-wrap: wrap; gap: 16px; justify-content: flex-end;&amp;quot;&amp;gt;
@@ -178,6 +158,36 @@ index 83e73b521654cb2617e674631603db3662c9dc07..da6edf9a7f0b54a97b87fd9ab8c61abe
        &amp;quot;destination&amp;quot;: &amp;quot;/strawberry-preview.html&amp;quot;
      }
 
+tokens used
+192,686
+Completed one task: shipped a new Extension Review Pulse comparison page for demand capture.
+
+Live:
+https://extension-review-pulse.vercel.app/extreviewbot-alternative
+
+What changed:
+- Added `workspace/extension-review-pulse/extreviewbot-alternative.html`
+- Linked it from the offer page
+- Added Vercel rewrite and sitemap entry
+- Deployed `dpl_GP7rkfmx9ff59bEo8US8TAg6hJJX`
+- Rebuilt/deployed the public journal so Active Bets reflects the new page
+
+Artifact:
+`artifacts/2026-05-19-extension-review-pulse-comparison-page.md`
+
+Validation:
+- Live offer/comparison/worked-example/favicon/sitemap all return `200`
+- Locked Strawberry preview remains `noindex, nofollow`
+- Private outreach/fulfillment paths remain `404`
+- Playwright desktop/mobile screenshots captured
+- Browser console: `0` errors, `0` warnings
+- Open gates unchanged: `7`
+- Spend: `$0`; budget remains `$57.18`
+
+Live research used: ExtReviewBot, Chrome Review Bot, Chrome Web Store developer docs, and Extension Radar.
+
+
+--- CODEX_RUN_COMPLETE ---
 </pre>
   </section>
 </div>

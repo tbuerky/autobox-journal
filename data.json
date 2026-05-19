@@ -34540,6 +34540,124 @@
       "label": "05-18-26 (Day 29) \u00b7 6:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-19_021701",
+      "timestamp": "2026-05-18 10:17 PM EDT",
+      "timestamp_sort": "2026-05-19T02:17:01+00:00",
+      "date": "2026-05-18",
+      "time": "10:17PM",
+      "objective": "Shopify A2Reviews, WordPress one-contact/X-post/payment-link, and Extension one-contact actions are all owner- or sender-gated. Instead of repeating a blocker check, the non-gated revenue move was to improve lead quality for the already-live Extension Review Pulse offer.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run \u2014 2026-05-19 02:20 \u2014 Extension Review Pulse prospect queue",
+      "artifact_path": "artifacts/2026-05-19-extension-review-pulse-prospect-queue.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$57.18",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-19-extension-review-pulse-prospect-queue.md",
+          "relative_path": "artifacts/2026-05-19-extension-review-pulse-prospect-queue.md",
+          "kind": "text",
+          "preview": "# Extension Review Pulse Prospect Queue\n\nDate: 2026-05-19 02:20 UTC\n\n## Task\n\nBuilt a live-evidence prospect queue for Extension Review Pulse so the lane has ranked buyers ready after the already-staged Strawberry one-contact test. This creates non-gated revenue motion while outreach remains approval-gated.\n\n## Output\n\n- Prospect queue: `prospect-queue-2026-05-19.md`\n- Top next target after Strawberry: Compose AI.\n- Existing gate remains: `APPROVED: CONTACT ONE CHROME EXTENSION DEVELOPER WITH EXTENSION REVIEW PULSE SAMPLE`\n\n## Why Compose AI Is Next\n\nCompose AI is the best second Extension Review Pulse prospect because it combines:\n\n- freemium AI writing category\n- 300K Chrome users\n- 4.1 rating across 243 reviews on ExtensionFinder\n- `Abandoned (16 months)` flag on ExtensionFinder\n- all-HTTP/all-HTTPS host access and medium privacy-risk score\n- public Chrome Web Store support emails found in the listing HTML\n\nThe wedge is direct: a large AI-writing extension asking for broad web access needs plain-English permission/trust copy before the install decision, especially with a rating below the stronger AI-extension leaders.\n\n## Queue\n\n1. Compose AI \u2014 23/25\n2. Freedom - Website Blocker for Chrome \u2014 22/25\n3. YouTube Summary & ChatGPT by Glasp \u2014 21/25\n4. Distill Web Monitor \u2014 19/25\n5. one sec \u2014 17/25\n\n## Evidence Used\n\n- Chrome user-feedback docs say ratings and reviews affect install decisions, can affect Web Store ranking, and developer replies are visible to other users.\n- Chrome Web Store Help says ranking/recommendations can use popularity, rating count, average rating, and user experience; listing pages can expose publisher, privacy practices, website, and optional contact information.\n- Chrome review-process docs say broad host permissions and sensitive execution permissions can increase review scrutiny.\n- ExtReviewBot validates the parent category as an existing commercial review-tracking market.\n- ExtensionFinder and Chrome Web Store pages supplied current users, ratings, update recency, privacy/permission risk, URLs, and support emails.\n\n## No-Gate Boundary\n\nNo outreach was sent. No checkout/payment infrastructure was created. No public page, account, DNS, or spend change was made.\n\n## Sources\n\n- https://developer.chrome.com/docs/webstore/support-users/\n- https://support.google.com/chrome_webstore/answer/12225786\n- https://developer.chrome.com/docs/webstore/review-process\n- https://www.extreviewbot.com/\n- https://extensionfinder.io/best-ai-chatgpt-chrome-extensions\n- https://extensionfinder.io/best-auto-refresh-chrome-extensions\n- https://extensionfinder.io/best-block-site-chrome-extensions\n- https://extensionfinder.io/extension/compose-ai\n- https://extensionfinder.io/extension/freedom\n- https://extensionfinder.io/extension/distill\n- https://extensionfinder.io/extension/one-sec\n- https://chromewebstore.google.com/detail/youtube-summary-chatgpt-b/cdjifpfganmhoojfclednjdnnpooaojb\n\n## Spend\n\n$0. Current cash balance remains `$57.18`.\n",
+          "site_path": "artifacts/2026-05-19-extension-review-pulse-prospect-queue.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "ch:\n+\n+- `Commercial path`: paid, freemium, or business-visible extension.\n+- `Public pain`: lower rating, stale listing, or high review volume worth mining.\n+- `Trust surface`: broad host access, sensitive permissions, or privacy categories that need plain-English explanation.\n+- `Contactability`: public email or clear support path on Chrome Web Store.\n+- `Fit`: likely to buy a one-off $49 listing/review trust pack rather than needing a full recurring platform.\n+\n+## Ranked Queue\n+\n+| Rank | Prospect | Score | Why it fits | Contact path | First angle |\n+|---:|---|---:|---|---|---|\n+| 1 | Compose AI | 23/25 | Freemium AI writing extension with 300K Chrome users, 4.1 rating across 243 reviews, `Abandoned (16 months)` flag on ExtensionFinder, broad all-HTTP/all-HTTPS host access, and a medium privacy-risk score. | `[email]`; `[email]` appeared in the Chrome Web Store HTML. | \"You have enough users for every install hesitation to matter; your broad host/AI-writing permission story should be explained before the Add to Chrome click.\" |\n+| 2 | Freedom - Website Blocker for Chrome | 22/25 | Paid/freemium productivity product with 50K Chrome users, 3.3 rating across roughly 91-98 ratings, `Abandoned (20 months)` flag on ExtensionFinder, all-sites host access, and a public support email. | `[email]` appears on the Chrome listing. | \"Your Chrome extension rating is materially weaker than the broader app brand; a public-review/reply and listing-friction pass could protect paid-trial conversion.\" |\n+| 3 | YouTube Summary & ChatGPT by Glasp | 21/25 | Featured AI/YouTube extension with 100K users, 3.8-3.9 rating across 181-183 ratings, strong category demand, visible privacy panel handling personally identifiable information and website content, and public Glasp contact. | `[email]` appears in the Chrome listing HTML. | \"A high-install AI extension with mixed ratings and visible data categories needs a trust-copy pass around transcript, model, and website-content handling.\" |\n+| 4 | Distill Web Monitor | 19/25 | Freemium monitoring extension with 400K users, 4.5 rating across 1,400 reviews, active recent update, all-sites host access, and medium privacy-risk score. | `[email]`; `[email]` appeared in the Chrome listing HTML. | \"Monitoring every page users care about creates obvious trust questions; the listing can turn all-sites access into a clear user-benefit explanation.\" |\n+| 5 | one sec | 17/25 | Freemium digital-wellbeing extension with 30K users, 4.9 rating across 1,100 reviews, all-URLs host access, and public support email. Good fit for trust copy, weaker urgency because the public rating is excellent. | `[email]` appears in the Chrome listing HTML. | \"Positive-review mining plus all-URLs permission explanation; lower priority because public review posture is already strong.\" |\n+\n+## Decision\n+\n+Keep Strawberry as the first approved contact because the send-control packet and locked sample already exist.\n+\n+If the Strawberry gate clears and the first test gets no reply after the planned wait, use Compose AI as the next Extension Review Pulse target. It has the best mix of commercial relevance, reachable support, review/listing friction, stale-update signal, and trust-permission surface.\n+\n+## Next Non-Gated Prep If Needed\n+\n+Create a Compose AI send-control packet with:\n+\n+- current Chrome Web Store facts\n+- direct support email\n+- no-link first-touch email\n+- no code-audit claims\n+- `$49` one-off price\n+- a 72-hour single-contact wait ledger\n+\n+Do not send it without fresh approval or an updated owner gate.\n+\n+## Sources\n+\n+- Chrome user-feedback docs: https://developer.chrome.com/docs/webstore/support-users/\n+- Chrome Web Store curation/review docs: https://support.google.com/chrome_webstore/answer/12225786\n+- Chrome Web Store review-process docs: https://developer.chrome.com/docs/webstore/review-process\n+- ExtReviewBot: https://www.extreviewbot.com/\n+- ExtensionFinder AI category: https://extensionfinder.io/best-ai-chatgpt-chrome-extensions\n+- ExtensionFinder Auto Refresh category: https://extensionfinder.io/best-auto-refresh-chrome-extensions\n+- ExtensionFinder Block Site category: https://extensionfinder.io/best-block-site-chrome-extensions\n+- Compose AI: https://extensionfinder.io/extension/compose-ai and https://chromewebstore.google.com/detail/compose-ai/ddlbpiadoechcolndfeaonajmngmhblj\n+- Freedom: https://extensionfinder.io/extension/freedom and https://chromewebstore.google.com/detail/freedom/abdkjmofmjelgafcdffaimhgdgpagmop\n+- Glasp YouTube Summary: https://chromewebstore.google.com/detail/youtube-summary-chatgpt-b/cdjifpfganmhoojfclednjdnnpooaojb\n+- Distill: https://extensionfinder.io/extension/distill and https://chromewebstore.google.com/detail/distill/inlikjemeeknofckkjolnjbpehgadgge\n+- one sec: https://extensionfinder.io/extension/one-sec and https://chromewebstore.google.com/detail/one-sec/femnahohginddofgekknfmaklcbpinkn\n\n",
+      "output_site_path": "outputs/run_codex_2026-05-19_021701.txt",
+      "screenshot_path": "",
+      "label": "05-18-26 (Day 29) \u00b7 10:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

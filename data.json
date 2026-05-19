@@ -35012,6 +35012,124 @@
       "label": "05-19-26 (Day 30) \u00b7 6:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_codex_2026-05-19_121701",
+      "timestamp": "2026-05-19 08:17 AM EDT",
+      "timestamp_sort": "2026-05-19T12:17:01+00:00",
+      "date": "2026-05-19",
+      "time": "8:17AM",
+      "objective": "the Extension Review Pulse direct contact, payment-link, and public-post moves remain gated, and the last run already produced the X-post approval packet. The useful non-gated sales move was to make the live offer more convincing by shipping an indexable worked-example page.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-19 12:26 UTC - Extension Review Pulse TLDR sample page",
+      "artifact_path": "artifacts/2026-05-19-extension-review-pulse-tldr-sample-page.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$57.18",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-19-extension-review-pulse-tldr-sample-page.md",
+          "relative_path": "artifacts/2026-05-19-extension-review-pulse-tldr-sample-page.md",
+          "kind": "text",
+          "preview": "# Extension Review Pulse TLDR Sample Page\n\nRun: 2026-05-19 12:26 UTC\n\n## Task\n\nShip one non-gated sales asset for Extension Review Pulse: an indexable worked-example page that shows what a `$49` Chrome Web Store trust report looks like without contacting anyone, creating payment infrastructure, or publishing under Travis's identity.\n\n## Why this task\n\nThe Extension Review Pulse offer, locked Strawberry preview, Strawberry fulfillment package, Stripe Payment Link approval packet, and X post packet are already ready. The direct revenue moves remain gated:\n\n- `APPROVED: CONTACT ONE CHROME EXTENSION DEVELOPER WITH EXTENSION REVIEW PULSE SAMPLE`\n- `APPROVED: CREATE EXTENSION REVIEW PULSE $49 STRIPE PAYMENT LINK`\n- `APPROVED: PUBLISH EXTENSION REVIEW PULSE X POST`\n\nThe useful non-gated move was to make the offer easier to evaluate if approved traffic arrives. A public worked example is better than another blocked-action packet because it gives visitors proof of the report shape before they email.\n\n## Live validation used\n\n- Chrome Web Store Help says users can inspect an item's functionality, data permissions, publisher, ratings, and reviews before installing, and says rating count plus average rating factor into prioritization: https://support.google.com/chrome_webstore/answer/12225786?hl=en\n- Chrome Web Store Help explains that extension permissions can trigger user-facing access warnings, including site-data access: https://support.google.com/chrome_webstore/answer/186213?hl=en\n- Chrome Web Store Program Policies require accurate metadata and transparent user-data handling disclosures: https://developer.chrome.google.cn/docs/webstore/program-policies\n- ExtReviewBot, Chrome Review Bot, and Extension Radar show active demand around browser-extension review monitoring and analysis:\n  - https://www.extreviewbot.com/\n  - https://chromereviewbot.com/\n  - https://www.extensionradar.com/\n\n## Output\n\n- Live worked example: https://extension-review-pulse.vercel.app/tldr-youtube-sample\n- Live offer page now links to the worked example: https://extension-review-pulse.vercel.app/\n- Deployment: `dpl_G7MKGVBDHue1ZMG7DkXKiVhHFv1j`\n- Screenshots: `workspace/artifacts/2026-05-19-extension-review-pulse-tldr-sample/`\n\nFiles changed:\n\n- `workspace/extension-review-pulse/tldr-youtube-sample.html`\n- `workspace/extension-review-pulse/index.html`\n- `workspace/extension-review-pulse/sitemap.xml`\n- `workspace/extension-review-pulse/vercel.json`\n- `workspace/extension-review-pulse/favicon.svg`\n- `workspace/extension-review-pulse/strawberry-preview.html`\n- `workspace/extension-review-pulse/extension_review_pulse.mjs`\n- `workspace/extension-review-pulse/sample-tldr-youtube-report.md`\n- `workspace/extension-review-pulse/README.md`\n\n## Verification\n\n- `node workspace/extension-review-pulse/extension_review_pulse.mjs ... --out workspace/extension-review-pulse/sample-tldr-youtube-report.md` refreshed the TLDR sample from live Chrome Web Store HTML at `4.5/5` across `8` ratings and `27` visible users.\n- `node --check workspace/extension-review-pulse/extension_review_pulse.mjs` passed.\n- Python standard-library HTML parser accepted all public HTML files.\n- Python XML parser accepted `sitemap.xml` and `favicon.svg`.\n- Public-copy grep found no stale `$9`, approval/process/owner language, guarantee language, or private-deliverable language in the public files.\n- Local Playwright screenshots were captured for desktop and mobile.\n- Live checks confirmed:\n  - offer HTTP 200\n  - worked example HTTP 200\n  - favicon HTTP 200\n  - sitemap HTTP 200 and lists `/` plus `/tldr-youtube-sample`\n  - locked Strawberry preview HTTP 200 with `X-Robots-Tag: noindex, nofollow`\n  - private prospect and fulfillment paths HTTP 404\n  - live worked-example browser console has 0 errors and 0 warnings\n\n## Luke review note\n\nThe required Luke review command was started for the public page framing, but the `claude --print` process produced no output after a reasonable wait and had to be killed. I proceeded with conservative local copy using the same constraints: keep `$49`, preserve the public-surface-only boundary, avoid guarantees, avoid fake security-audit language, and avoid unsupported turnaround claims.\n\n## Gates and budget\n\n`the project's OPEN_GATES.md config` remains unchanged with seven active gates. No outreach, contact-form submission, public post, checkout/payment infrastructure change, account creation, DNS change, or spend. Current cash balance: `$57.18`.\n",
+          "site_path": "artifacts/2026-05-19-extension-review-pulse-tldr-sample-page.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "script, send it to ChatGPT with a prompt, get a clean summary, then return later to ask deeper questions.</p>\n+            <p class=\"quote\">\"This extension saves me a lot of time. It takes the YT transcript, sends it straight to ChatGPT with a prompt, and I get a clean summary right away.\"</p>\n+          </article>\n+\n+          <article class=\"card\">\n+            <span class=\"label\">Listing direction</span>\n+            <h3>Use the concrete workflow above the fold.</h3>\n+            <p class=\"muted\">A cautious installer should understand the job before they process the permission warning. \"Summarize YouTube transcripts in ChatGPT\" is clearer than broad AI assistant language because it names the source, the destination, and the outcome.</p>\n+            <div class=\"stack\" style=\"margin-top: 18px;\">\n+              <p><strong>Rewrite angle:</strong> Turn any YouTube transcript into a ChatGPT summary you can revisit and question later.</p>\n+              <p><strong>First screenshot caption:</strong> Pull the transcript, send the prompt, and keep a clean summary for the video you are watching.</p>\n+            </div>\n+          </article>\n+        </div>\n+      </section>\n+\n+      <section class=\"content sample-strip\">\n+        <div class=\"wrap two\">\n+          <article class=\"card\">\n+            <span class=\"label\">Install-risk surface</span>\n+            <h2>Permissions need a plain-English job description.</h2>\n+            <p class=\"muted\">The listing exposes a trust surface that includes YouTube, ChatGPT, Googlevideo, activeTab, storage, and tabs. Those signals may be reasonable for the product, but a visitor still has to decide whether they understand them well enough to install.</p>\n+          </article>\n+\n+          <article class=\"card\">\n+            <span class=\"label\">Example explainer</span>\n+            <h3>Before: permission names without context.</h3>\n+            <p class=\"quote\">activeTab, storage, tabs, YouTube host access, ChatGPT host access, Googlevideo host access.</p>\n+            <h3 style=\"margin-top: 22px;\">After: connect each surface to the user benefit.</h3>\n+            <p class=\"quote\">The extension reads the current YouTube page so it can work with the transcript, opens the summary flow in ChatGPT, and stores your preferences so the same setup does not repeat on every video.</p>\n+          </article>\n+        </div>\n+      </section>\n+\n+      <section class=\"content\">\n+        <div class=\"wrap\">\n+          <h2>What the finished report would ship.</h2>\n+          <p class=\"muted\">The paid version is not another dashboard. It is a small pack of public copy and response assets a developer can paste, test, or adapt.</p>\n+          <div class=\"fix-list\">\n+            <article class=\"fix\"><b>01. Store description rewrite</b><p class=\"muted\">Lead with the proven workflow: YouTube transcript to ChatGPT summary, with a saved path back into the topic.</p></article>\n+            <article class=\"fix\"><b>02. Permission explanations</b><p class=\"muted\">Translate each visible permission or host access into the user benefit and the data boundary that matters.</p></article>\n+            <article class=\"fix\"><b>03. Screenshot captions</b><p class=\"muted\">Use captions to answer \"what happens after I click install?\" instead of repeating feature names.</p></article>\n+            <article class=\"fix\"><b>04. Public review replies</b><p class=\"muted\">Draft calm replies for praise, confusion, privacy concern, and \"doesn't work\" style feedback.</p></article>\n+          </div>\n+        </div>\n+      </section>\n+\n+      <section class=\"content cta\">\n+        <div class=\"wrap\">\n+          <h2>Want this pass on your own extension?</h2>\n+          <p class=\"muted\">Send one Chrome Web Store URL. Extension Review Pulse uses public listing, review, permission, publisher, privacy, and support surfaces only. No code access, security audit, account access, or private analytics.</p>\n+          <div class=\"actions\" style=\"justify-content: center;\">\n+            <a class=\"button\" href=\"mailto:[email]?subject=Extension%20Review%20Pulse%20report\">Request the $49 report</a>\n+          </div>\n+        </div>\n+      </section>\n+    </main>\n+\n+    <footer>\n+      <div class=\"wrap\">Extension Review Pulse uses only public Chrome Web Store surfaces. It is not a code audit, security audit, legal review, or policy certification.</div>\n+    </footer>\n+  </body>\n+</html>\ndiff --git vercel.json vercel.json\nindex 279ce7faf845e2681fd9f5025c81510162c7a037..83e73b521654cb2617e674631603db3662c9dc07\n--- vercel.json\n+++ vercel.json\n@@ -21,6 +21,10 @@\n   ],\n   \"rewrites\": [\n     {\n+      \"source\": \"/tldr-youtube-sample\",\n+      \"destination\": \"/tldr-youtube-sample.html\"\n+    },\n+    {\n       \"source\": \"/strawberry-preview\",\n       \"destination\": \"/strawberry-preview.html\"\n     }\n\n",
+      "output_site_path": "outputs/run_codex_2026-05-19_121701.txt",
+      "screenshot_path": "",
+      "label": "05-19-26 (Day 30) \u00b7 8:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

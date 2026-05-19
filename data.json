@@ -34776,6 +34776,124 @@
       "label": "05-19-26 (Day 30) \u00b7 2:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-19_081701",
+      "timestamp": "2026-05-19 04:17 AM EDT",
+      "timestamp_sort": "2026-05-19T08:17:01+00:00",
+      "date": "2026-05-19",
+      "time": "4:17AM",
+      "objective": "the Extension Review Pulse public offer, locked Strawberry preview, send-control packet, prospect queue, and paid-delivery package are ready, while contact is still owner-gated. The useful non-gated revenue move was to remove the next payment bottleneck before any positive Strawberry reply.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-19 08:17 UTC - Extension Review Pulse Stripe link approval",
+      "artifact_path": "artifacts/2026-05-19-extension-review-pulse-stripe-link-approval.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$57.18",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-19-extension-review-pulse-stripe-link-approval.md",
+          "relative_path": "artifacts/2026-05-19-extension-review-pulse-stripe-link-approval.md",
+          "kind": "text",
+          "preview": "# Extension Review Pulse Stripe Link Approval\n\nDate: 2026-05-19 08:17 UTC\n\n## Task\n\nDocument the payment-closing blocker for Extension Review Pulse and raise the exact approval needed for one reusable `$49` Stripe Payment Link.\n\n## Why This Was The Right One-Task Move\n\nAll direct revenue motions are still gated:\n\n- `SEND: A2REVIEWS FALLBACK FROM REVIEWPULSE MAILBOX`\n- `APPROVED: CONTACT ONE WORDPRESS PLUGIN AUTHOR WITH WORDPRESS REVIEW PULSE SAMPLE`\n- `APPROVED: PUBLISH WORDPRESS REVIEW PULSE X POST`\n- `APPROVED: CREATE WORDPRESS REVIEW PULSE $49 STRIPE PAYMENT LINK`\n- `APPROVED: CONTACT ONE CHROME EXTENSION DEVELOPER WITH EXTENSION REVIEW PULSE SAMPLE`\n\nThe Extension Review Pulse public offer, locked Strawberry preview, send-control packet, prospect queue, and Strawberry paid-delivery package are already ready. If Strawberry replies yes after an approved send, the current blocker becomes payment collection. The non-gated move is to define the smallest Stripe setup before the reply arrives.\n\n## Live Evidence Used\n\n- Stripe's current Payment Links docs say a Payment Link creates a Stripe-hosted payment page that can be shared with customers and supports fixed-price products.\n- Stripe's pricing page lists Payment Links as included with Payments for businesses on standard pricing, with the normal successful-transaction fee applying.\n- Stripe's Payment Links product page says links can be shared over email and support one-time payments.\n\nSources:\n\n- https://docs.stripe.com/payment-links/create\n- https://stripe.com/pricing\n- https://stripe.com/payments/payment-links\n\n## Recommendation\n\nCreate one reusable Stripe Payment Link:\n\n- Product name: `Extension Review Pulse - one extension report`\n- Price: `$49.00`\n- Currency: `USD`\n- Type: one-time flat-rate product\n- Quantity: fixed at `1`\n- Customer information: collect email\n- Tax/shipping: no shipping; no physical goods\n- Custom domain: do not enable for this validation stage\n- Post-payment invoice: do not enable unless Travis wants the optional extra Stripe invoice fee\n- Coupon/discount: none\n- Subscription, retainer, upsell, and customer portal: none\n\n## Exact Approval Needed\n\n`APPROVED: CREATE EXTENSION REVIEW PULSE $49 STRIPE PAYMENT LINK`\n\n## What Happens Immediately After Approval\n\n1. Create the Payment Link in the existing Stripe account.\n2. Update `reply-drafts.txt` so the \"Interest before payment link exists\" script contains the live link.\n3. Update `delivery-email.md` if it references payment flow language.\n4. Add the link to `workspace/extension-review-pulse/README.md` as the approved payment path.\n5. Do not put the live payment link on the public offer page until there is a reason to accept anonymous buyers or Travis explicitly approves a public buy button.\n\n## Options Considered\n\n- Reuse the WordPress Review Pulse Payment Link: rejected. Same price, but separate product naming keeps buyer receipts and manual fulfillment clean.\n- Create a full public checkout CTA now: rejected. There is no approved traffic/public-sale motion yet, and the current validation is one-contact.\n- Invoice manually after positive reply: acceptable fallback, but slower than a reusable link and requires more owner/manual handling.\n- Wait until Strawberry replies: rejected. The report is already staged; a positive reply should move to payment without another planning run.\n\n## Permission Boundaries\n\nNo Stripe product, price, Payment Link, checkout URL, invoice, coupon, public CTA, outreach, contact form, account, DNS change, deploy, public post, or spend was created in this run.\n\n## Budget\n\nCurrent cash balance remains `$57.18`. Creating the recommended Payment Link should add no fixed monthly charge under standard Stripe Payments pricing, but each successful payment will incur Stripe's normal transaction fee.\n",
+          "site_path": "artifacts/2026-05-19-extension-review-pulse-stripe-link-approval.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": " PULSE SAMPLE`; no outreach, checkout/payment infrastructure, account, DNS, public post, or spend) 2026-05-18 - artifact `artifacts/2026-05-18-extension-review-pulse-public-pages.md`\n@@ -28,6 +29,7 @@\n - [ACTIVE] WordPress Review Pulse public distribution: after approval, publish exactly one owner-approved X post using the `Suggested post copy:` block in `artifacts/2026-05-18-wordpress-review-pulse-x-post-packet.md`; then capture post URL, timestamp, visible replies/engagement, click data if available, and inbound email. Current gate: `APPROVED: PUBLISH WORDPRESS REVIEW PULSE X POST`.\n - [ACTIVE] WordPress Review Pulse payment link: after approval, create one reusable `$49` Stripe Payment Link for `WordPress Review Pulse - one plugin report`, then update the public CTA and SEOPress fulfillment/reply scripts with the live link. Current gate: `APPROVED: CREATE WORDPRESS REVIEW PULSE $49 STRIPE PAYMENT LINK`.\n - [ACTIVE] Extension Review Pulse one-contact validation: after approval, send exactly one message to the Strawberry developer using `strawberry-send-control.md`, pointing to `https://extension-review-pulse.vercel.app/` and the locked sample `https://extension-review-pulse.vercel.app/strawberry-preview`. Current gate: `APPROVED: CONTACT ONE CHROME EXTENSION DEVELOPER WITH EXTENSION REVIEW PULSE SAMPLE`.\n+- [ACTIVE] Extension Review Pulse payment link: after approval, create one reusable `$49` Stripe Payment Link for `Extension Review Pulse - one extension report`, then update `reply-drafts.txt`, `delivery-email.md` if needed, and `workspace/extension-review-pulse/README.md` with the live payment path. Current gate: `APPROVED: CREATE EXTENSION REVIEW PULSE $49 STRIPE PAYMENT LINK`.\n - [ACTIVE] Extension Review Pulse next-target queue: if Strawberry is sent and gets no reply after the planned single-contact wait, use `prospect-queue-2026-05-19.md` to prepare a Compose AI send-control packet before any second Extension Review Pulse contact. Do not send without a cleared owner gate.\n - [DONE] Shopify Review Pulse 72-hour wait completed: SellerPic was sent by Travis from `[email]` on 2026-05-14 at approximately 20:32 UTC using sender persona Mara Ellis and subject `SellerPic review notes`; the wait elapsed on 2026-05-17 at 20:32 UTC with no reply evidence in the connected Gmail profile and live readiness moved to `ready_for_fallback`. The SellerPic ledger is `sellerpic-send-control.md`.\n - [ACTIVE] Shopify Review Pulse A2Reviews fallback send: SellerPic's 72-hour wait has elapsed and `conversion_readiness` returned `ready_for_fallback`, but Codex did not send from the connected `[email]` profile because the prepared email is branded from Mara at Review Pulse. Travis or a branded/reply-capable Review Pulse sender should send exactly one email to `[email]` using `a2reviews-send-control.md`; current gate is `SEND: A2REVIEWS FALLBACK FROM REVIEWPULSE MAILBOX`.\ndiff --git README.md README.md\nindex 69527d47e138aadf3f808d2809b43c08d93f9b79..9ea36e2d06d60224671a84037493d1480ab90157\n--- README.md\n+++ README.md\n@@ -40,6 +40,10 @@\n \n Private paid-delivery package for the first target: `workspace/extension-review-pulse/fulfillment/strawberry-delivery-2026-05-19/`. This directory is excluded from Vercel deploys.\n \n+Payment-link approval packet: `artifacts/2026-05-19-extension-review-pulse-stripe-link-approval.md`.\n+\n No outreach has been sent. The next external action is one manually approved email or public reply to a single Chrome extension developer with the sample report.\n \n Current gate: `APPROVED: CONTACT ONE CHROME EXTENSION DEVELOPER WITH EXTENSION REVIEW PULSE SAMPLE`.\n+\n+Payment gate: `APPROVED: CREATE EXTENSION REVIEW PULSE $49 STRIPE PAYMENT LINK`.\n\ntokens used\n154,484\nCompleted one task: created the Extension Review Pulse payment-link approval packet and updated state.\n\nArtifact: [artifacts/2026-05-19-extension-review-pulse-stripe-link-approval.md](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-19-extension-review-pulse-stripe-link-approval.md)\n\nNew gate added to `the project's OPEN_GATES.md config`:\n\n`APPROVED: CREATE EXTENSION REVIEW PULSE $49 STRIPE PAYMENT LINK`\n\nUpdated `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md`, `ACTIVE_BETS.md`, and `workspace/extension-review-pulse/README.md`. No Stripe object, payment link, outreach, deploy, public post, DNS/account change, or spend occurred. Cash remains `$57.18`.\n\nLive Stripe sources used:\n- https://docs.stripe.com/payment-links/create\n- https://stripe.com/pricing\n- https://stripe.com/payments/payment-links\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-19_081701.txt",
+      "screenshot_path": "",
+      "label": "05-19-26 (Day 30) \u00b7 4:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

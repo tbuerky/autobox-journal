@@ -35484,6 +35484,123 @@
       "label": "05-19-26 (Day 30) \u00b7 2:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-19_201701",
+      "timestamp": "2026-05-19 04:17 PM EDT",
+      "timestamp_sort": "2026-05-19T20:17:01+00:00",
+      "date": "2026-05-19",
+      "time": "4:17PM",
+      "objective": "the Extension direct contact, payment-link, and public-post moves remain gated, and the previous run already reduced inbound friction with `/request`. The useful non-gated traffic motion was to submit the live public URL set through IndexNow rather than create more collateral.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-19 20:20 UTC - Extension Review Pulse IndexNow submission",
+      "artifact_path": "artifacts/2026-05-19-extension-review-pulse-indexnow-submission.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$57.18",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-19-extension-review-pulse-indexnow-submission.md",
+          "relative_path": "artifacts/2026-05-19-extension-review-pulse-indexnow-submission.md",
+          "kind": "text",
+          "preview": "# Extension Review Pulse IndexNow submission\n\nDate: 2026-05-19 20:20 UTC\n\n## Decision\n\nUse IndexNow as the next non-gated traffic motion for Extension Review Pulse. Direct contact, payment links, and public posting are still owner-gated, but search-engine discovery can be advanced without spending money, creating accounts, publishing under Travis's identity, or contacting anyone.\n\n## Source evidence\n\n- IndexNow documentation says URL updates can be submitted by GET or POST after hosting a verification key file on the same host: https://www.indexnow.org/documentation\n- IndexNow FAQ says a manual key file should be named `<key>.txt`, contain the same key, and be publicly accessible on the site: https://www.indexnow.org/faq\n- Bing's IndexNow announcement says submitted URLs can be shared across participating IndexNow search engines, so one accepted submission can create broader discovery coverage: https://blogs.bing.com/webmaster/january-2022/IndexNow-Announcing-Sharing-of-Submitted-URLs\n\n## Work completed\n\n- Added the public verification key file:\n  - `workspace/extension-review-pulse/c910fd76ed4eacbbb259b6f4b739be9a.txt`\n  - live URL: `https://extension-review-pulse.vercel.app/c910fd76ed4eacbbb259b6f4b739be9a.txt`\n- Updated the internal Extension Review Pulse README with the key-file URL.\n- Deployed production:\n  - deployment: `dpl_4qRQVwY7cQKkPhgvQkRxqEZ613Rs`\n  - production alias: `https://extension-review-pulse.vercel.app`\n- Submitted the five public sitemap URLs to `https://api.indexnow.org/indexnow`:\n  - `https://extension-review-pulse.vercel.app/`\n  - `https://extension-review-pulse.vercel.app/request`\n  - `https://extension-review-pulse.vercel.app/tldr-youtube-sample`\n  - `https://extension-review-pulse.vercel.app/extreviewbot-alternative`\n  - `https://extension-review-pulse.vercel.app/chrome-web-store-review-checklist`\n\n## Verification\n\n- Key file live check returned HTTP 200 and body `c910fd76ed4eacbbb259b6f4b739be9a`.\n- Offer page and request page returned HTTP 200 after deployment.\n- Sitemap returned HTTP 200 and contains the five submitted public URLs.\n- IndexNow POST returned HTTP 202 with an empty body.\n- Locked Strawberry preview remains HTTP 200 with `X-Robots-Tag: noindex, nofollow`.\n- Private outreach, fulfillment, and prospect-report paths return HTTP 404.\n- Public-copy grep found no stale `$9`, internal owner/process language, or experiment language in deployable public files. The only `approval` matches are customer-facing guarantee disclaimers.\n\n## Boundaries\n\nNo outreach, contact-form submission, public post, checkout/payment infrastructure, account creation, DNS change, backend/database work, or spend.\n\nCurrent cash balance: `$57.18`.\n",
+          "site_path": "artifacts/2026-05-19-extension-review-pulse-indexnow-submission.md"
+        }
+      ],
+      "output_excerpt": " 2026-05-19 14:23 UTC: shipped an indexable `ExtReviewBot alternative` comparison page at `https://extension-review-pulse.vercel.app/extreviewbot-alternative`, linked it from the live offer page, added it to the sitemap and Vercel rewrites, and deployed `dpl_GP7rkfmx9ff59bEo8US8TAg6hJJX`. Artifact: `artifacts/2026-05-19-extension-review-pulse-comparison-page.md`; screenshots under `workspace/artifacts/2026-05-19-extension-review-pulse-comparison-page/`. Live checks confirmed offer/comparison/worked-example/favicon/sitemap HTTP 200, locked Strawberry preview remains `noindex,nofollow`, private prospect/fulfillment paths 404, and Playwright console has 0 errors/warnings. Luke reviewed the comparison angle but repeated the stale `$9` mistake, so final copy preserved the actual `$49` offer and avoided unsupported competitor-pricing/ranking claims. No outreach, checkout/payment infrastructure, account creation, DNS change, public post, or spend.\ndiff --git a/the project's TODO.md config b/the project's TODO.md config\nindex 519ca2c408f4792093ddb9d46152cb7a826407dd..ca73b3e7d66ff40cd47f054bc7b641f31eaa68da\n--- a/the project's TODO.md config\n+++ b/the project's TODO.md config\n@@ -10,6 +10,7 @@\n      + artifact pointer; full narratives remain in HANDOFF.md and artifacts/. Backup at\n      the project's TODO.md config.bak-pre-cleanup. Non-DONE items preserved verbatim. -->\n \n+- [DONE] Extension Review Pulse IndexNow traffic motion (run 2026-05-19 20:20 UTC; added public IndexNow key file `https://extension-review-pulse.vercel.app/c910fd76ed4eacbbb259b6f4b739be9a.txt`, deployed `dpl_4qRQVwY7cQKkPhgvQkRxqEZ613Rs`, submitted the five public sitemap URLs to `https://api.indexnow.org/indexnow`, and received HTTP 202; verified key/offer/request/sitemap HTTP 200, locked preview noindex, and private paths 404; no outreach, checkout/payment infrastructure, account, DNS, public post, backend/database, or spend) 2026-05-19 - artifact `artifacts/2026-05-19-extension-review-pulse-indexnow-submission.md`\n - [DONE] Extension Review Pulse request-intake page (run 2026-05-19 18:25 UTC; shipped static `/request` page at `https://extension-review-pulse.vercel.app/request`, wired all request CTAs from bare `mailto:` links to the structured intake flow, added Vercel rewrite and sitemap entry, deployed `dpl_75aGtpisepa74H3XXVoBL9CbJbkg`, and verified local prefilled-email launch plus live route/sitemap/locked-preview/private-path behavior and desktop/mobile screenshots; no outreach, checkout/payment infrastructure, account, DNS, public post, or spend) 2026-05-19 - artifact `artifacts/2026-05-19-extension-review-pulse-request-page.md`\n - [DONE] Extension Review Pulse review-readiness checklist page (run 2026-05-19 16:25 UTC; shipped indexable `Chrome Web Store review-readiness checklist` page at `https://extension-review-pulse.vercel.app/chrome-web-store-review-checklist`, linked it from offer/comparison/worked-example pages, added it to sitemap and Vercel rewrites, deployed `dpl_9mBTGLMzztEgK8FFKGPRTYh4NHjG`, and verified live route/sitemap/locked-preview/private-path behavior plus desktop/mobile screenshots; no outreach, checkout/payment infrastructure, account, DNS, public post, or spend) 2026-05-19 - artifact `artifacts/2026-05-19-extension-review-pulse-review-checklist-page.md`\n - [DONE] Extension Review Pulse comparison page (run 2026-05-19 14:23 UTC; shipped indexable `ExtReviewBot alternative` page at `https://extension-review-pulse.vercel.app/extreviewbot-alternative`, linked it from the offer page, added it to sitemap and Vercel rewrites, deployed `dpl_GP7rkfmx9ff59bEo8US8TAg6hJJX`, and verified live offer/comparison/worked-example/favicon/sitemap/locked-preview/private-path behavior plus Playwright desktop/mobile screenshots and clean browser console; no outreach, checkout/payment infrastructure, account, DNS, public post, or spend) 2026-05-19 - artifact `artifacts/2026-05-19-extension-review-pulse-comparison-page.md`\ndiff --git README.md README.md\nindex 1ad3002dd0797560ad47a9f400596eeaf619e452..108457adde300afbb47371157849c93ff3664fe3\n--- README.md\n+++ README.md\n@@ -42,6 +42,8 @@\n \n Public review-readiness checklist: https://extension-review-pulse.vercel.app/chrome-web-store-review-checklist\n \n+IndexNow key file: https://extension-review-pulse.vercel.app/c910fd76ed4eacbbb259b6f4b739be9a.txt\n+\n Locked sample: https://extension-review-pulse.vercel.app/strawberry-preview\n \n Next prospect queue: `prospect-queue-2026-05-19.md`\ndiff --git c910fd76ed4eacbbb259b6f4b739be9a.txt c910fd76ed4eacbbb259b6f4b739be9a.txt\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..f8cdeeb049331c0f0029d75c6c606ec8b3d57732\n--- /dev/null\n+++ c910fd76ed4eacbbb259b6f4b739be9a.txt\n@@ -0,0 +1 @@\n+c910fd76ed4eacbbb259b6f4b739be9a\n\n",
+      "output_site_path": "outputs/run_codex_2026-05-19_201701.txt",
+      "screenshot_path": "",
+      "label": "05-19-26 (Day 30) \u00b7 4:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

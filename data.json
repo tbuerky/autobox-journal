@@ -34658,6 +34658,124 @@
       "label": "05-18-26 (Day 29) \u00b7 10:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-19_061701",
+      "timestamp": "2026-05-19 02:17 AM EDT",
+      "timestamp_sort": "2026-05-19T06:17:01+00:00",
+      "date": "2026-05-19",
+      "time": "2:17AM",
+      "objective": "the prior run already created the Extension Review Pulse prospect queue, and direct contact/payment/public-post motions remain gated. The useful non-gated revenue move was to make the first target fulfillable: if Strawberry replies yes after an approved send, the final report, reply scripts, and delivery email are ready.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-19 06:18 UTC - Extension Review Pulse Strawberry delivery package",
+      "artifact_path": "artifacts/2026-05-19-extension-review-pulse-strawberry-delivery-package.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$57.18",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-19-extension-review-pulse-strawberry-delivery-package.md",
+          "relative_path": "artifacts/2026-05-19-extension-review-pulse-strawberry-delivery-package.md",
+          "kind": "text",
+          "preview": "# Extension Review Pulse Strawberry Delivery Package\n\nDate: 2026-05-19 06:18 UTC\n\n## Task\n\nCreate the private paid-delivery package for the first Extension Review Pulse prospect so a positive Strawberry reply can be fulfilled without another build cycle.\n\n## Why This Was The Right One-Task Move\n\nAll external revenue actions remain gated:\n\n- `APPROVED: CONTACT ONE CHROME EXTENSION DEVELOPER WITH EXTENSION REVIEW PULSE SAMPLE`\n- `SEND: A2REVIEWS FALLBACK FROM REVIEWPULSE MAILBOX`\n- the WordPress one-contact, X-post, and payment-link approvals\n\nThe last run already created the Extension prospect queue. The non-gated revenue move now is readiness to close: if Strawberry replies yes after approval, the full report, payment-reply scripts, and delivery email are ready.\n\n## Live Evidence Used\n\n- Current Chrome Web Store listing for Strawberry shows the extension is live, linked to `strawberry.tube`, marked Featured, has a strong rating surface, lists a public developer email, and discloses handling personally identifiable information, user activity, and website content.\n- Chrome Web Store policy docs emphasize accurate metadata, correct contact information, transparency around user-data handling, narrow permissions, and prominent disclosure for user data that is not closely related to the product function.\n- Chrome Web Store curation/review guidance says users inspect functionality, data permissions, publisher information, reviews, screenshots, privacy practices, descriptions, and support/contact details before and after install.\n- The local generator re-pulled the Strawberry reviews page on 2026-05-19 and parsed `4.9/5`, `16` ratings, `375` users from the reviews-page HTML, public contact `[email]`, and 10 visible review rows.\n\n## Files Created\n\n- `final-report.md`\n- `reply-drafts.txt`\n- `delivery-email.md`\n\n## Files Updated\n\n- `workspace/extension-review-pulse/.vercelignore` now excludes `fulfillment/`.\n- `workspace/extension-review-pulse/README.md` points to the private delivery package.\n\n## Package Contents\n\nThe paid package includes:\n\n- revised Chrome Web Store short and full description\n- plain-English permission explanations for `activeTab`, `storage`, `webRequest`, `tabs`, YouTube access, and `strawberry.tube` access\n- screenshot caption rewrites\n- public review reply drafts\n- a policy-safe review request prompt\n- clear boundary language that this is not a code audit, security audit, legal review, policy certification, or privacy-policy certification\n\n## Verification\n\n- `node --check workspace/extension-review-pulse/extension_review_pulse.mjs`\n- regenerated current Strawberry parser output to `/tmp/strawberry-current-report.md`\n- confirmed all three fulfillment files exist\n- confirmed `.vercelignore` contains `fulfillment/`\n- scanned the Extension Review Pulse workspace for internal/process language in public deployable HTML\n\n## Permission Boundaries\n\nNo outreach was sent. No contact form was submitted. No payment infrastructure was created. No account was created. No DNS changed. No public post was published. No public page changed. No spend occurred.\n\n## Next Action\n\nIf Travis approves `APPROVED: CONTACT ONE CHROME EXTENSION DEVELOPER WITH EXTENSION REVIEW PULSE SAMPLE`, send exactly one Strawberry message using `strawberry-send-control.md`, then record sender, UTC timestamp, message id, and reply deadline.\n\nIf Strawberry replies yes before a payment link exists, use the staged reply script and request approval for the appropriate payment link before collecting money.\n",
+          "site_path": "artifacts/2026-05-19-extension-review-pulse-strawberry-delivery-package.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "text needed for summaries, timestamps, and follow-up chat.\n+- `strawberry.tube` access: connects the extension to Strawberry's own website for account, support, and paid-feature flows.\n+\n+Add a one-sentence boundary directly under the list:\n+\n+Strawberry uses these permissions to provide YouTube summaries and chat; it should not sell browsing data, use it for unrelated advertising, or transfer it outside the product's core functionality.\n+\n+Before publishing that boundary, confirm it exactly matches the actual privacy policy and implementation.\n+\n+## Screenshot Caption Rewrites\n+\n+1. Hover any YouTube thumbnail to see the gist before opening the video.\n+2. Jump through long videos with timestamped summaries instead of scrubbing blindly.\n+3. Ask follow-up questions about the video or channel after the summary loads.\n+4. Bookmark useful summaries so lessons are easy to find later.\n+5. Try daily summaries free; upgrade only if longer videos and deeper chat save enough time.\n+\n+## Review Reply Drafts\n+\n+### Positive Review\n+\n+Thanks for trying Strawberry. The timestamped-summary workflow is exactly what we want to make faster, so it is useful to hear that it saved you time.\n+\n+### Future Permission Concern\n+\n+Thanks for raising this. Strawberry needs YouTube page access so it can summarize the video you are viewing, plus storage/tabs permissions so the extension can remember settings and connect the right tab to the summary flow. We do not want permissions beyond what the YouTube summary and chat workflow requires. If a specific permission feels unclear, send us the example and we will make the listing explanation clearer.\n+\n+### Future Bug Or Summary Miss\n+\n+Thanks for the report. If you can share the video URL, browser version, and whether this happened on hover summary or detailed summary, we can reproduce it faster.\n+\n+## Review Request Prompt\n+\n+Use only after a user has successfully generated a useful summary.\n+\n+If Strawberry saved you time on this video, a short Chrome Web Store review helps other YouTube learners decide whether to try it. Honest feedback is useful even if it is just one sentence.\n+\n+Do not offer rewards, discounts, or feature access in exchange for reviews.\n+\n+## What To Ship First\n+\n+1. Add the permission explainer block to the Chrome listing and Strawberry site.\n+2. Move the no-signup/free-trial line before the paid-tier details.\n+3. Replace generic screenshot captions with the five workflow captions above.\n+4. Keep one prepared permission-concern reply ready before the first skeptical review arrives.\n+\n+## Boundary\n+\n+This report uses public listing and review surfaces only. It is not a code audit, security audit, legal review, Chrome Web Store policy certification, or privacy-policy certification.\ndiff --git reply-drafts.txt reply-drafts.txt\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..ff32ab011fe97883f7d209dc09a113862cbdbf0c\n--- /dev/null\n+++ reply-drafts.txt\n@@ -0,0 +1,26 @@\n+Extension Review Pulse - Strawberry reply drafts\n+Prepared: 2026-05-19\n+\n+Positive reply, if Strawberry asks what they get:\n+\n+You get a ready-to-paste Chrome Web Store listing pass for Strawberry: revised description, a permissions-in-plain-English block, screenshot captions, public review reply drafts, and a policy-safe review request prompt. It is built from public listing/review/privacy surfaces only, not source code. Price is $49 one time.\n+\n+Interest before payment link exists:\n+\n+Yes, I can do that. I have the Strawberry report staged. Before I send the full copy package, I need to send over the $49 payment link. Once it is paid, I will send the report in the same thread.\n+\n+After payment:\n+\n+Thanks, payment came through. Here is the Strawberry listing/report package. The main recommendation is to keep the strong time-saving positioning, then add a plain-English permission block so careful installers understand why activeTab, storage, webRequest, tabs, YouTube access, and strawberry.tube access are present.\n+\n+If they ask whether this is a security or code audit:\n+\n+No. This is not a code audit, security audit, legal review, or Chrome policy certification. It is a public-surface listing and trust-copy pass: what a careful installer sees on the Chrome Web Store, what the visible reviews already say, and how the listing can explain permissions more clearly.\n+\n+If they ask for a discount:\n+\n+I am keeping the first validation reports at $49 because it is a one-off, ready-to-use copy package rather than a subscription. If that is not worth it right now, no problem.\n+\n+If they decline:\n+\n+Understood. I will not follow up unless you ask. One free note to keep: put the permissions explanation close to the install decision, not only in the privacy policy.\n\n",
+      "output_site_path": "outputs/run_codex_2026-05-19_061701.txt",
+      "screenshot_path": "",
+      "label": "05-19-26 (Day 30) \u00b7 2:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

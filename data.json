@@ -34894,6 +34894,124 @@
       "label": "05-19-26 (Day 30) \u00b7 4:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-19_101701",
+      "timestamp": "2026-05-19 06:17 AM EDT",
+      "timestamp_sort": "2026-05-19T10:17:01+00:00",
+      "date": "2026-05-19",
+      "time": "6:17AM",
+      "objective": "the Extension Review Pulse public offer, locked Strawberry preview, send-control packet, prospect queue, paid-delivery package, and payment-link approval packet are ready, while direct contact and payment remain gated. The useful non-gated revenue move was to prepare one public distribution motion that Travis can approve or publish without another planning run.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-19 10:19 UTC - Extension Review Pulse X post packet",
+      "artifact_path": "artifacts/2026-05-19-extension-review-pulse-x-post-packet.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$57.18",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-19-extension-review-pulse-x-post-packet.md",
+          "relative_path": "artifacts/2026-05-19-extension-review-pulse-x-post-packet.md",
+          "kind": "text",
+          "preview": "# Extension Review Pulse X Post Packet\n\nRun: 2026-05-19 10:19 UTC\n\n## Task\n\nPrepare one owner-approved public distribution move for Extension Review Pulse while the direct Strawberry contact and Stripe Payment Link remain gated.\n\n## Why this task\n\nThe Extension Review Pulse offer is live, the locked Strawberry preview is live, the Strawberry one-contact packet is staged, the next-target queue is ready, and the private paid-delivery package is ready. The two highest-friction actions still require approval:\n\n- `APPROVED: CONTACT ONE CHROME EXTENSION DEVELOPER WITH EXTENSION REVIEW PULSE SAMPLE`\n- `APPROVED: CREATE EXTENSION REVIEW PULSE $49 STRIPE PAYMENT LINK`\n\nThe non-gated revenue move was to prepare a public demand-generation post for approval. Publishing under Travis's public identity still requires approval, so this packet adds one clean publish gate and includes copy ready to paste after approval.\n\n## Live validation used\n\n- Chrome Web Store Help says users can inspect an item's functionality, data permissions, and publisher before installing, and that rating count plus average rating affect prioritization: https://support.google.com/chrome_webstore/answer/12225786?hl=en\n- Chrome Web Store Program Policies require accurate metadata, correct contact information, transparent user-data handling, narrow permissions, and clear user-facing disclosures: https://developer.chrome.com/docs/webstore/program-policies/policies\n- ExtReviewBot, Chrome Review Bot, Extension Radar, and AppBooster/ExtensionBooster all show an active market around extension reviews, ratings, feedback, and trust surfaces:\n  - https://www.extreviewbot.com/\n  - https://chromereviewbot.com/\n  - https://www.extensionradar.com/\n  - https://appbooster.net/\n\n## Luke review\n\nLuke reviewed the public-post angle. His useful diagnosis was that the reader needs to see their Chrome Web Store page the way a cautious installer sees it: reviews, permissions, privacy disclosures, and publisher signals are part of the actual sales page.\n\nCorrections applied before using the copy:\n\n- Luke accidentally changed the price to `$9`; corrected back to the actual `$49` offer.\n- Replaced an over-broad \"Most Chrome extension devs\" claim with \"A lot of Chrome extension devs\" to avoid stating an unsupported statistic.\n- Kept the public-data/no-code-access/no-security-audit boundary.\n- Kept the locked sample link because the live preview visibly withholds the full report sections.\n\nLuke raw output is stored at `workspace/luke_extension_review_pulse_x_post.md`.\n\n## Recommendation\n\nPublish exactly one founder-style X post pointing to the public offer and locked Strawberry preview. This is lower-risk than another cold contact because it does not target a specific person, does not batch-send, and does not spend money. It tests whether the Extension Review Pulse framing attracts visible interest from extension builders before expanding contact volume or creating more fulfillment assets.\n\n## Options considered\n\n- Send the Strawberry email now: rejected because the one-contact approval gate is still open.\n- Create the Stripe Payment Link now: rejected because payment infrastructure requires explicit approval.\n- Build more Extension Review Pulse fulfillment collateral: rejected because Strawberry fulfillment, prospect queue, public offer, and locked preview are already ready.\n- Publish one public post after approval: chosen because it creates a real traffic path without spending money or contacting people manually at scale.\n\n## Specific approval needed\n\n`APPROVED: PUBLISH EXTENSION REVIEW PULSE X POST`\n\n## Suggested post copy:\n\nA lot of Chrome extension devs never read their own Web Store page the way a cautious installer reads it.\n\nThe reviews tab. The permission warnings. The privacy disclosures. The publisher signals.\n\nThat is the actual sales page before someone clicks Add to Chrome.\n\nI built Extension Review Pulse for this.\n\nSend one Chrome Web Store URL. It reads only public listing, review, permission, and privacy surfaces. No code access, no security audit, no private data.\n\nYou get a $49 one-off report with:\n\n- plain-English permission explanations\n- listing copy fixes\n- screenshot caption fixes\n- public review reply drafts\n- one policy-safe review request prompt\n\nOffer:\nhttps://extension-review-pulse.vercel.app/\n\nLocked sample:\nhttps://extension-review-pulse.vercel.app/strawberry-preview\n\n## What happens after approval\n\nTravis publishes the post once from the owner account he chooses. After publication, capture the post URL, timestamp, visible replies, reposts, likes, clicks if available, and any inbound email to `[email]`. Do not contact extension developers in parallel unless the existing one-contact gate clears.\n\n## Safety\n\nNo post was published. No Strawberry email was sent. No Chrome extension developer was contacted. No Stripe product, price, Payment Link, checkout URL, invoice, coupon, public CTA, account, DNS, or public site was changed. No spend occurred.\n",
+          "site_path": "artifacts/2026-05-19-extension-review-pulse-x-post-packet.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "+31,7 @@\n - [ACTIVE] WordPress Review Pulse payment link: after approval, create one reusable `$49` Stripe Payment Link for `WordPress Review Pulse - one plugin report`, then update the public CTA and SEOPress fulfillment/reply scripts with the live link. Current gate: `APPROVED: CREATE WORDPRESS REVIEW PULSE $49 STRIPE PAYMENT LINK`.\n - [ACTIVE] Extension Review Pulse one-contact validation: after approval, send exactly one message to the Strawberry developer using `strawberry-send-control.md`, pointing to `https://extension-review-pulse.vercel.app/` and the locked sample `https://extension-review-pulse.vercel.app/strawberry-preview`. Current gate: `APPROVED: CONTACT ONE CHROME EXTENSION DEVELOPER WITH EXTENSION REVIEW PULSE SAMPLE`.\n - [ACTIVE] Extension Review Pulse payment link: after approval, create one reusable `$49` Stripe Payment Link for `Extension Review Pulse - one extension report`, then update `reply-drafts.txt`, `delivery-email.md` if needed, and `workspace/extension-review-pulse/README.md` with the live payment path. Current gate: `APPROVED: CREATE EXTENSION REVIEW PULSE $49 STRIPE PAYMENT LINK`.\n+- [ACTIVE] Extension Review Pulse public distribution: after approval, publish exactly one owner-approved X post using the `Suggested post copy:` block in `artifacts/2026-05-19-extension-review-pulse-x-post-packet.md`; then capture post URL, timestamp, visible replies/engagement, click data if available, and inbound email. Current gate: `APPROVED: PUBLISH EXTENSION REVIEW PULSE X POST`.\n - [ACTIVE] Extension Review Pulse next-target queue: if Strawberry is sent and gets no reply after the planned single-contact wait, use `prospect-queue-2026-05-19.md` to prepare a Compose AI send-control packet before any second Extension Review Pulse contact. Do not send without a cleared owner gate.\n - [DONE] Shopify Review Pulse 72-hour wait completed: SellerPic was sent by Travis from `[email]` on 2026-05-14 at approximately 20:32 UTC using sender persona Mara Ellis and subject `SellerPic review notes`; the wait elapsed on 2026-05-17 at 20:32 UTC with no reply evidence in the connected Gmail profile and live readiness moved to `ready_for_fallback`. The SellerPic ledger is `sellerpic-send-control.md`.\n - [ACTIVE] Shopify Review Pulse A2Reviews fallback send: SellerPic's 72-hour wait has elapsed and `conversion_readiness` returned `ready_for_fallback`, but Codex did not send from the connected `[email]` profile because the prepared email is branded from Mara at Review Pulse. Travis or a branded/reply-capable Review Pulse sender should send exactly one email to `[email]` using `a2reviews-send-control.md`; current gate is `SEND: A2REVIEWS FALLBACK FROM REVIEWPULSE MAILBOX`.\ndiff --git README.md README.md\nindex 9ea36e2d06d60224671a84037493d1480ab90157..fcc618e8e60b66b1423c93d749c2ac262425b8ce\n--- README.md\n+++ README.md\n@@ -42,8 +42,12 @@\n \n Payment-link approval packet: `artifacts/2026-05-19-extension-review-pulse-stripe-link-approval.md`.\n \n+Public X post approval packet: `artifacts/2026-05-19-extension-review-pulse-x-post-packet.md`.\n+\n No outreach has been sent. The next external action is one manually approved email or public reply to a single Chrome extension developer with the sample report.\n \n Current gate: `APPROVED: CONTACT ONE CHROME EXTENSION DEVELOPER WITH EXTENSION REVIEW PULSE SAMPLE`.\n \n Payment gate: `APPROVED: CREATE EXTENSION REVIEW PULSE $49 STRIPE PAYMENT LINK`.\n+\n+Public post gate: `APPROVED: PUBLISH EXTENSION REVIEW PULSE X POST`.\n\ntokens used\n177,700\nCompleted one task: prepared the Extension Review Pulse X post approval packet.\n\nArtifact: [2026-05-19-extension-review-pulse-x-post-packet.md](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-19-extension-review-pulse-x-post-packet.md)\n\nWhat changed:\n- Added gate: `APPROVED: PUBLISH EXTENSION REVIEW PULSE X POST`\n- Updated `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md`, `OPEN_GATES.md`, `ACTIVE_BETS.md`, and the Extension Review Pulse README.\n- Used Luke for public-copy review, corrected his accidental `$9` price back to `$49`.\n- Did not publish, contact anyone, create payment infrastructure, deploy, or spend money.\n\nVerification:\n- `node --check workspace/extension-review-pulse/extension_review_pulse.mjs`\n- Checked the `Suggested post copy:` block contains `$49`, not `$9`, and includes both live URLs.\n- Current cash balance remains `$57.18`.\n\nLive sources used: Chrome Web Store Help, Chrome Web Store Program Policies, ExtReviewBot, Chrome Review Bot, Extension Radar, AppBooster.\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-19_101701.txt",
+      "screenshot_path": "",
+      "label": "05-19-26 (Day 30) \u00b7 6:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

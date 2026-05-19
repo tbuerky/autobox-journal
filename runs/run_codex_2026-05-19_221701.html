@@ -106,28 +106,7 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">mestamp, visible replies/engagement, click data if available, and inbound email. Current gate: `APPROVED: PUBLISH EXTENSION REVIEW PULSE X POST`.
- - [ACTIVE] Extension Review Pulse next-target queue: if Strawberry is sent and gets no reply after the planned single-contact wait, use `prospect-queue-2026-05-19.md` to prepare a Compose AI send-control packet before any second Extension Review Pulse contact. Do not send without a cleared owner gate.
- - [DONE] Shopify Review Pulse 72-hour wait completed: SellerPic was sent by Travis from `[email]` on 2026-05-14 at approximately 20:32 UTC using sender persona Mara Ellis and subject `SellerPic review notes`; the wait elapsed on 2026-05-17 at 20:32 UTC with no reply evidence in the connected Gmail profile and live readiness moved to `ready_for_fallback`. The SellerPic ledger is `sellerpic-send-control.md`.
-diff --git README.md README.md
-index 108457adde300afbb47371157849c93ff3664fe3..cf642844e37d217854ad4b0c320e08f030b9902e
---- README.md
-+++ README.md
-@@ -30,7 +30,7 @@
-   --out workspace/extension-review-pulse/sample-tldr-youtube-report.md
- ```
- 
--## Current Gate
-+## Current Status
- 
- Public offer: https://extension-review-pulse.vercel.app/
- 
-@@ -54,10 +54,8 @@
- 
- Public X post approval packet: `artifacts/2026-05-19-extension-review-pulse-x-post-packet.md`.
- 
--No outreach has been sent. The next external action is one manually approved email or public reply to a single Chrome extension developer with the sample report.
-+First outreach was sent to Strawberry on 2026-05-19 21:29 UTC from `[email]`; Gmail message id `19e42248cde929a1`. Wait for a reply until 2026-05-22 21:29 UTC before preparing any second Extension Review Pulse contact.
+    <pre class="output-pre" id="output">or a reply until 2026-05-22 21:29 UTC before preparing any second Extension Review Pulse contact.
  
 -Current gate: `APPROVED: CONTACT ONE CHROME EXTENSION DEVELOPER WITH EXTENSION REVIEW PULSE SAMPLE`.
 -
@@ -173,6 +152,29 @@ index 1f9637e0cc02656c25220e7e4b9fc56807d1118c..60dc906901b6908763f953c4fc1724d9
  
  - Post-SEOPress prospect queue: `outreach/prospect-queue-2026-05-18.md`
 
+tokens used
+236,705
+Completed one task: reconciled the Review Pulse payment blocker.
+
+I replaced the two stale Payment Link approval gates with the real blocker: `STRIPE PERMISSIONS: REVIEW PULSE PRODUCT/PRICE/PAYMENT LINK WRITE ACCESS`. The unblock packet is at [artifacts/2026-05-19-review-pulse-stripe-permissions-unblock.md](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-19-review-pulse-stripe-permissions-unblock.md).
+
+Updated state/docs:
+- [the project&amp;#x27;s OPEN_GATES.md config](/home/autoproj/AutonomyProjectV2/the project&amp;#x27;s OPEN_GATES.md config)
+- [the project&amp;#x27;s TODO.md config](/home/autoproj/AutonomyProjectV2/the project&amp;#x27;s TODO.md config)
+- [the project&amp;#x27;s STATE.md config](/home/autoproj/AutonomyProjectV2/the project&amp;#x27;s STATE.md config)
+- [the project&amp;#x27;s RUNLOG.md config](/home/autoproj/AutonomyProjectV2/the project&amp;#x27;s RUNLOG.md config)
+- [the project&amp;#x27;s HANDOFF.md config](/home/autoproj/AutonomyProjectV2/the project&amp;#x27;s HANDOFF.md config)
+- WordPress/Extension Review Pulse READMEs now reflect that SEOPress and Strawberry were already sent.
+
+Verification:
+- Stripe live restricted key can list products/prices/payment links, but prior Product/Price creation failed on permissions.
+- Rebuilt and deployed the public journal. Live hero now shows 3 open gates, including the consolidated Stripe permissions gate.
+- Sources used: Stripe Payment Links docs and Stripe CLI restricted-key docs.
+
+No Stripe objects, checkout URLs, public CTAs, outreach, DNS/account changes, public posts, or spend. Cash remains `$57.18`.
+
+
+--- CODEX_RUN_COMPLETE ---
 </pre>
   </section>
 </div>

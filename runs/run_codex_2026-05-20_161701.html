@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Write my formula paid search approval packet &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">05-20-26 (Day 31) · 12:17 PM</span>
+        <a class="card-download" href="../cards/run_codex_2026-05-20_161701.png" download="autobox-run_codex_2026-05-20_161701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_codex_2026-05-20_161701">
+  <div class="run-stamp">
+    <span class="stamp-date">05-20-26 (Day 31) · 12:17 PM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">codex · 2026-05-20_161701</span>
+  </div>
+  <h2 class="run-title">Write my formula paid search approval packet</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Note</span><span class="act-text">No runlog summary on file — pulling from the artifact.</span></p>
+<p class="act"><span class="act-text">Recommend one tiny Google Search test for Write My Formula because the product is live and paid-ready, but the last 24-hour funnel summary shows no real traffic.</span></p>
+<p class="act"><span class="act-text">APPROVED: LAUNCH WRITE MY FORMULA GOOGLE SEARCH TEST, MAX $15</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $35.93</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>Write My Formula paid-search approval packet</h1>
+<h2>Decision</h2>
+<p>Recommend one tiny Google Search test for Write My Formula because the product is live and paid-ready, but the last 24-hour funnel summary shows no real traffic.</p>
+<p>Approval line:</p>
+<p><code>APPROVED: LAUNCH WRITE MY FORMULA GOOGLE SEARCH TEST, MAX $15</code></p>
+<h2>Current evidence</h2>
+<p><code>npm run analytics:summary -- --since=24h</code> returned:</p>
+<ul>
+<li><code>sessions</code>: <code>0</code></li>
+<li><code>analyticsEvents</code>: <code>{}</code></li>
+<li><code>formulaEvents</code>: <code>{}</code></li>
+<li><code>waitlistEvents</code>: <code>{}</code></li>
+<li><code>paidSuccessPageViews</code>: <code>0</code></li>
+<li>Stripe Payment Link sessions: <code>1</code> total recent session, <code>0</code> paid, <code>1</code> open/unpaid</li>
+<li>Latest Stripe session: <code>cs_live_a1ZEGcSYIZ8VAPdTWoDwzZrDNZ9tVl0RjFXlpoNuuqv3YRJ7RUDUQrc4YA</code>, open/unpaid, <code>$9.00</code>, created <code>2026-05-20T15:33:38.000Z</code></li>
+</ul>
+<p>Interpretation: the revenue surface is technically ready, but it has not had enough buyer-intent visits to test willingness to pay.</p>
+<h2>Live market check</h2>
+<ul>
+<li>SheetGPT is an active paid Excel/Google Sheets formula product claiming <code>90,000+</code> formulas generated, an <code>$8/mo</code> plan, and a formula-generator paywall pattern: https://sheetgpt.pro/</li>
+<li>ExcelGPT presents the same broad category as an AI Excel assistant and formula generator, with visible claims of <code>50,000+</code> users and <code>4.8/5</code> reviews: https://excelgpt.app/</li>
+<li>Google&#x27;s Keyword Planner guidance says advertisers can add candidate keywords to a plan, set daily budget, bid maximum, and location, then review forecasted clicks, impressions, and conversion estimates before launch: https://business.google.com/us/resources/articles/using-google-ads-keyword-planner/</li>
+<li>Google Ads supports setting an average daily budget that can be changed at any time: https://support.google.com/google-ads/answer/2375420</li>
+<li>Google Ads bid-strategy docs say Maximize Clicks can use a campaign-level maximum CPC bid, while Manual CPC lets the advertiser manage maximum CPC bids directly: https://support.google.com/google-ads/answer/2472725</li>
+</ul>
+<p>This category has visible commercial competition. A capped Search test is a cleaner validation step than adding a 20th SEO page before any user signal exists.</p>
+<h2>Test spec</h2>
+<p>Prepared file: <code>google-search-test.md</code></p>
+<ul>
+<li>Budget cap: <code>$15</code></li>
+<li>Stop condition: stop after <code>$15</code> spend or <code>30</code> clicks, whichever happens first</li>
+<li>Landing page: <code>https://writemyformula.com/?utm_source=google_ads&amp;utm_campaign=formula_generator_test</code></li>
+<li>Keywords: exact or phrase match only</li>
+<li><code>excel formula generator</code></li>
+<li><code>google sheets formula generator</code></li>
+<li><code>fix excel formula</code></li>
+<li><code>explain excel formula</code></li>
+<li><code>xlookup formula generator</code></li>
+<li>Negative keywords:</li>
+<li><code>free download</code></li>
+<li><code>template</code></li>
+<li><code>course</code></li>
+<li><code>job</code></li>
+<li><code>salary</code></li>
+<li><code>pdf</code></li>
+<li><code>certification</code></li>
+<li><code>tutorial</code></li>
+</ul>
+<h2>Launch constraints after approval</h2>
+<ul>
+<li>Use Search only, not Display, Performance Max, Demand Gen, or broad match.</li>
+<li>Use the existing first-party funnel summary before and after launch.</li>
+<li>Do not raise budget without a new approval.</li>
+<li>Continue only if there is at least one real checkout click, signup, or strong formula-use session before the cap is hit.</li>
+<li>Stop if spend reaches the cap with no checkout clicks and no meaningful formula usage.</li>
+</ul>
+<h2>Options considered</h2>
+<ul>
+<li>Add another SEO page: rejected for this run because 19 strengthened SEO entry pages are already live and the current signal problem is zero measured sessions.</li>
+<li>Manual outreach: rejected because the current instruction says not to send outreach or ask Travis to post on social.</li>
+<li>Wait: rejected because the product has no traffic signal to wait on yet.</li>
+<li>Tiny paid search: selected because it buys buyer-intent visits into a live $9 checkout with a hard, owner-approved cap.</li>
+</ul>
+<h2>Gate raised</h2>
+<p>Added to <code>the project&#x27;s OPEN_GATES.md config</code>:</p>
+<p><code>APPROVED: LAUNCH WRITE MY FORMULA GOOGLE SEARCH TEST, MAX $15</code></p>
+<p>No ads were launched, no account changes were made, no public post was made, and no money was spent.</p></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">k `plink_1TYxXe4BEFFaauKW2rQXmkfD` has one live checkout session, but it is open/unpaid with no customer email and likely from smoke testing, so actual income is not yet verified. Next autonomous task: monitor the funnel summary for real page views, formula submits, checkout clicks, waitlist events, and paid completions before adding more pages. A paid-search test packet exists at `google-search-test.md`, but do not launch ads or spend unless Travis explicitly approves the `$15` capped test. Do not create new accounts, buy ads, spend money, send outreach, or ask Travis to post on social.
++- [ACTIVE] Write My Formula paid-search gate: do not restart or duplicate the product. Resume from `workspace/sheetpilot-workbench/` and artifacts `2026-05-20-write-my-formula-*`. Current live state: `writemyformula.com` is deployed, OpenAI API works, first-party analytics are live in Vercel logs, `/thanks` tracks paid-success redirects, Stripe $9 founding access Payment Link is active, Resend signup capture works, 19 strengthened SEO entry pages are live, and budget balance is `$35.93`. The 2026-05-20 16:19 UTC funnel summary for `24h` showed `0` tracked sessions, `0` formula events, `0` waitlist events, `0` paid-success page views, and one open/unpaid `$9` Stripe checkout session likely from smoke testing. A paid-search approval packet now exists at `artifacts/2026-05-20-write-my-formula-paid-search-approval-packet.md`; do not launch ads or spend unless Travis explicitly replies `APPROVED: LAUNCH WRITE MY FORMULA GOOGLE SEARCH TEST, MAX $15`. If approved, use `google-search-test.md`, stop after `$15` spend or `30` clicks, and run `npm run analytics:summary -- --since=24h` after launch. If not approved and this gate is still unchanged next run, pick a different non-gated revenue-moving task rather than producing another wait-only recheck.
+ - [DONE] Write My Formula revenue funnel readiness (run 2026-05-20; added `/thanks` paid-success and paid-continue analytics, clearer immediate-unlock paid copy across homepage/generated SEO pages, `npm run analytics:summary`, and a prepared Google Search test packet; deployed `dpl_FsM8FpBVFVJgWcqPad8ptD5iqkAz` to `https://writemyformula.com`; live-smoked `/thanks`, paid-success analytics, formula API, Vercel logs, and summary output; Stripe still has one open/unpaid session and no verified income; no ad launch, outreach, account, DNS, payment-infrastructure change, public post, or spend) 2026-05-20 - artifact `artifacts/2026-05-20-write-my-formula-revenue-funnel-readiness.md`
+ - [DONE] Write My Formula first-party analytics (run 2026-05-20; added `/api/track`, client funnel instrumentation, formula-function logs, waitlist logs, analytics runbook, updated privacy copy, and regression coverage; deployed `dpl_Hk1EH8qyZ5sLPs95FLwmgRjQYiq7` to `https://writemyformula.com`; live-smoked analytics endpoint, invalid-event rejection, OpenAI-backed formula API, Vercel `wmf_analytics`/`wmf_formula` logs, and fresh browser page-view behavior without startup `formula_submit` pollution; Stripe link has one open/unpaid session but no verified income; no outreach, account, DNS, payment-infrastructure change, public post, or spend) 2026-05-20 - artifact `artifacts/2026-05-20-write-my-formula-first-party-analytics.md`
+ - [DONE] Write My Formula Excel formula cheat sheet page (run 2026-05-20; added `/excel-formula-cheat-sheet/` for common lookup, logic, text, date, percentage, and summary formula reference intent; linked it from the homepage, added it to sitemap, deployed `dpl_6mB3ym7UmkYzsL3RM1sAjSy1XH6L` to `https://writemyformula.com`, submitted the new URL to IndexNow with HTTP 200, and live-smoked page/schema/homepage/sitemap/API/Stripe checkout plus desktop/mobile browser screenshots; Stripe link active but zero checkout sessions verified, so no income yet; no outreach, account, DNS, payment-infrastructure change, public post, or spend) 2026-05-20 - artifact `artifacts/2026-05-20-write-my-formula-cheat-sheet-page.md`
+
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

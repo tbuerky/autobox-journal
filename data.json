@@ -40647,11 +40647,11 @@
       "timestamp_sort": "2026-05-20T14:17:01+00:00",
       "date": "2026-05-20",
       "time": "10:17AM",
-      "objective": "the active Write My Formula lane already has a live paid product, API, checkout, signup capture, and 11 strengthened SEO pages. The highest-leverage non-gated TODO item was to add one more buyer-intent formula page only after live research validated an uncovered search pattern.",
+      "objective": "",
       "decision_made": "",
       "next_step": "",
-      "heading": "Run - 2026-05-20 14:27 UTC - Write My Formula conditional formatting formula page",
-      "artifact_path": "artifacts/2026-05-20-write-my-formula-conditional-formatting-page.md",
+      "heading": "Run - 2026-05-20 15:43 UTC - Write My Formula first-party analytics",
+      "artifact_path": "artifacts/2026-05-20-write-my-formula-data-validation-page.md",
       "budget": {
         "starting_budget": "$200.00",
         "current_balance": "$35.93",
@@ -40758,6 +40758,30 @@
       },
       "artifacts": [
         {
+          "name": "2026-05-20-write-my-formula-data-validation-page.md",
+          "relative_path": "artifacts/2026-05-20-write-my-formula-data-validation-page.md",
+          "kind": "text",
+          "preview": "# Write My Formula data validation page - 2026-05-20\n\n## Result\n\n- Shipped `https://writemyformula.com/data-validation-formula-generator/`.\n- Deployed Vercel production `dpl_E5ya9A1ay8AXykmNGWeqDkMMHXrR`, aliased to `https://writemyformula.com`.\n- Submitted the new URL to IndexNow; API returned HTTP 200.\n- Spend: `$0`. Budget balance remains `$35.93`.\n\n## Why this page\n\nFresh source validation supported this as a distinct buyer-intent formula pattern:\n\n- Microsoft Support documents Excel data validation with the Custom option for formulas, including the exact product-ID example `=AND(LEFT(C2,3)=\"ID-\",LEN(C2)>9)`, unique-value checks, email checks, and minimum-age checks.\n- Google Sheets Help documents `REGEXMATCH` as a logical TRUE/FALSE function, useful for Sheets validation rules that need pattern checks.\n- Google Sheets' function list also lists `REGEXMATCH`, `REGEXEXTRACT`, and `REGEXREPLACE`, confirming the Sheets-side formula vocabulary for validation-like text rules.\n\nThis page is differentiated from the existing text page and conditional-formatting page: data validation formulas block invalid future entries, while text formulas transform data and conditional formatting highlights existing data.\n\n## Changed files\n\n- `build-seo-pages.mjs`\n  - Added `data-validation-formula-generator` page metadata, preset, custom detail section, and worked example.\n- `workspace/sheetpilot-workbench/index.html`\n  - Added homepage Common formulas link for data validation formulas.\n- `content.test.js`\n  - Added route, sitemap, homepage, and page-specific assertions.\n- Generated:\n  - `index.html`\n  - `workspace/sheetpilot-workbench/sitemap.xml`\n\n## Verification\n\n- `npm run build:seo && npm test` passed `21/21`.\n- Final `npm test` passed `21/21`.\n- Live new page returned HTTP 200 and contains:\n  - title `Data Validation Formula Generator for Excel and Sheets | Write My Formula`\n  - headline `Write the custom formula for a data validation rule.`\n  - schema JSON-LD\n  - worked example `=AND(LEFT(C2,3)=\"ID-\",LEN(C2)>9)`\n  - `window.WMF_PAGE_PRESET`\n- Live homepage links to `/data-validation-formula-generator/`.\n- Live sitemap includes `/data-validation-formula-generator/`.\n- Live API returned OpenAI-backed validation formula output:\n  - `=AND(LEFT(C2,3)=\"ID-\", LEN(C2)>=10)`\n  - `source: \"openai\"`\n  - `X-RateLimit-Limit: 30`\n- Live Stripe checkout returned HTTP 200.\n- Desktop and mobile browser screenshots captured:\n  - `desktop-data-validation-after-api.png`\n  - `mobile-data-validation-after-api.png`\n\n## No-go confirmations\n\n- No outreach sent.\n- No accounts created.\n- No DNS changes.\n- No checkout or payment-infrastructure changes.\n- No public posts.\n- No spend.\n- No verified paid conversion yet, so the income goal remains open.\n",
+          "site_path": "artifacts/2026-05-20-write-my-formula-data-validation-page.md",
+          "has_redactions": true
+        },
+        {
+          "name": "2026-05-20-write-my-formula-text-page.md",
+          "relative_path": "artifacts/2026-05-20-write-my-formula-text-page.md",
+          "kind": "text",
+          "preview": "# Write My Formula text formula page\n\nDate: 2026-05-20 14:38 UTC\n\n## Result\n\nShipped one additional buyer-intent Write My Formula page:\n\n- Live URL: https://writemyformula.com/text-formula-generator/\n- Deployment: `dpl_8FffYC9QBcnpABtPnssMtqdmy34m`\n- Production alias: https://writemyformula.com\n\nThe page targets spreadsheet users who need formulas to split, extract, join, trim, clean, normalize, and replace text from imported or messy cells.\n\n## Live validation\n\nLive research supported this as a proven spreadsheet formula pattern:\n\n- Microsoft Support's current text-functions reference lists first-class Excel text functions such as `LEFT`, `RIGHT`, `TEXTJOIN`, and `TEXTSPLIT`: https://support.microsoft.com/en-au/office/text-functions-reference-cccd86ad-547d-4ea9-a065-7bb697c2a56e\n- Microsoft Support documents splitting text into columns with functions such as `LEFT`, `MID`, `RIGHT`, `SEARCH`, and `LEN`: https://support.microsoft.com/en-gb/office/split-text-into-different-columns-with-functions-49ec57f9-3d5a-44b2-82da-50dded6e4a68\n- Google Sheets Help lists text functions including `LEFT`, `RIGHT`, `SPLIT`, `REGEXEXTRACT`, `REGEXREPLACE`, and `SEARCH`: https://support.google.com/docs/table/25273\n- Current search results show active demand around text extraction, splitting, and formula-generation tools, including examples for extracting text before or after delimiters.\n\n## What changed\n\n- Added `text-formula-generator` to `build-seo-pages.mjs`.\n- Fixed `replaceOnce` in the SEO generator so replacement strings containing `$` are inserted literally. This prevents regex formulas such as `@(.+)$` from being corrupted by JavaScript replacement-token behavior.\n- Generated `index.html`.\n- Added a homepage Common formulas link to `/text-formula-generator/`.\n- Regenerated `workspace/sheetpilot-workbench/sitemap.xml`.\n- Added regression coverage in `content.test.js`.\n\n## Verification\n\n- `npm run build:seo && npm test` passed `20/20`.\n- Public-copy grep found no internal/process language or unsupported guarantee language.\n- Live text page returned HTTP 200 and contains:\n  - `Text Formula Generator for Excel and Sheets`\n  - `Clean and extract text without hand-building string formulas.`\n  - worked example `=REGEXEXTRACT(A2,\"@(.+)$\")`\n  - `SoftwareApplication` and breadcrumb JSON-LD\n  - page preset with `REGEXEXTRACT`\n- Live homepage links to `/text-formula-generator/`.\n- Live sitemap includes `/text-formula-generator/`.\n- Live API returned an OpenAI-backed `REGEXEXTRACT` formula with `X-RateLimit-Limit: 30`.\n- Live Stripe checkout returned HTTP 200.\n- IndexNow submission for the new URL returned HTTP 200.\n- Browser screenshots captured:\n  - `desktop-text-after-api.png`\n  - `mobile-text-after-api.png`\n\n## Boundaries\n\nNo outreach, account creation, DNS change, checkout/payment-infrastructure change, public post, or spend.\n\nCurrent cash balance remains `$35.93`.\n",
+          "site_path": "artifacts/2026-05-20-write-my-formula-text-page.md",
+          "has_redactions": true
+        },
+        {
+          "name": "2026-05-20-write-my-formula-filter-page.md",
+          "relative_path": "artifacts/2026-05-20-write-my-formula-filter-page.md",
+          "kind": "text",
+          "preview": "# Write My Formula FILTER formula page\n\nDate: 2026-05-20 14:32 UTC\n\n## Result\n\nShipped one additional buyer-intent Write My Formula page:\n\n- Live URL: https://writemyformula.com/filter-formula-generator/\n- Deployment: `dpl_2bRWrDtzKQAbRWHM6SeT4dZbt7Dz`\n- Production alias: https://writemyformula.com\n\nThe page targets spreadsheet users who need `FILTER` formulas that return matching rows for status, region, date, text, and threshold conditions.\n\n## Live validation\n\nLive research supported this as a proven spreadsheet formula pattern:\n\n- Microsoft Support documents Excel's `FILTER` function as a dynamic-array function for filtering a range based on criteria: https://support.microsoft.com/en-gb/office/filter-function-f4f7cb66-82eb-4767-8f7c-4877ad80c759\n- Current search results include live FILTER-function tutorial and formula-reference pages, including Spreadsheet Center's FILTER page and Google Sheets FILTER examples. This validates a demand pool around FILTER syntax, spill behavior, multiple criteria, and empty-result handling.\n- Existing competitor/category results include formula-generator products that explicitly mention `FILTER`, supporting the search-intent fit for a focused Write My Formula landing page.\n\n## What changed\n\n- Added `filter-formula-generator` to `build-seo-pages.mjs`.\n- Generated `index.html`.\n- Added a homepage Common formulas link to `/filter-formula-generator/`.\n- Regenerated `workspace/sheetpilot-workbench/sitemap.xml`.\n- Added regression coverage in `content.test.js`.\n\n## Verification\n\n- `npm run build:seo && npm test` passed `19/19`.\n- Public-copy grep found no internal/process language or unsupported guarantee language.\n- Live FILTER page returned HTTP 200 and contains:\n  - `FILTER Formula Generator for Excel and Sheets`\n  - `Return the rows that match your conditions.`\n  - worked example `=FILTER(A2:D500,(B2:B500=\"West\")*(C2:C500=\"Open\")*(D2:D500>5000),\"No matching rows\")`\n  - `SoftwareApplication` and breadcrumb JSON-LD\n  - page preset with `FILTER`\n- Live homepage links to `/filter-formula-generator/`.\n- Live sitemap includes `/filter-formula-generator/`.\n- Live API returned an OpenAI-backed `FILTER` formula with `X-RateLimit-Limit: 30`.\n- Live Stripe checkout returned HTTP 200.\n- IndexNow submission for the new URL returned HTTP 200.\n- Browser screenshots captured:\n  - `desktop-filter-after-api.png`\n  - `mobile-filter-after-api.png`\n\n## Boundaries\n\nNo outreach, account creation, DNS change, checkout/payment-infrastructure change, public post, or spend.\n\nCurrent cash balance remains `$35.93`.\n",
+          "site_path": "artifacts/2026-05-20-write-my-formula-filter-page.md",
+          "has_redactions": true
+        },
+        {
           "name": "2026-05-20-write-my-formula-conditional-formatting-page.md",
           "relative_path": "artifacts/2026-05-20-write-my-formula-conditional-formatting-page.md",
           "kind": "text",
@@ -40772,6 +40796,138 @@
       "label": "05-20-26 (Day 31) \u00b7 10:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_codex_2026-05-20_161701",
+      "timestamp": "2026-05-20 12:17 PM EDT",
+      "timestamp_sort": "2026-05-20T16:17:01+00:00",
+      "date": "2026-05-20",
+      "time": "12:17PM",
+      "objective": "",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-20 16:12 UTC - Write My Formula revenue funnel readiness",
+      "artifact_path": "artifacts/2026-05-20-write-my-formula-paid-search-approval-packet.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$35.93",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          },
+          {
+            "date": "2026-05-20",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$45.93",
+            "note": "`writemyformula.com` domain purchase, reported by Travis"
+          },
+          {
+            "date": "2026-05-20",
+            "type": "expense",
+            "amount": "-$10.00",
+            "balance_after": "$35.93",
+            "note": "OpenAI API credits for Write My Formula, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-20-write-my-formula-paid-search-approval-packet.md",
+          "relative_path": "artifacts/2026-05-20-write-my-formula-paid-search-approval-packet.md",
+          "kind": "text",
+          "preview": "# Write My Formula paid-search approval packet\n\nDate: 2026-05-20 16:19 UTC\n\n## Decision\n\nRecommend one tiny Google Search test for Write My Formula because the product is live and paid-ready, but the last 24-hour funnel summary shows no real traffic.\n\nApproval line:\n\n`APPROVED: LAUNCH WRITE MY FORMULA GOOGLE SEARCH TEST, MAX $15`\n\n## Current evidence\n\n`npm run analytics:summary -- --since=24h` returned:\n\n- `sessions`: `0`\n- `analyticsEvents`: `{}`\n- `formulaEvents`: `{}`\n- `waitlistEvents`: `{}`\n- `paidSuccessPageViews`: `0`\n- Stripe Payment Link sessions: `1` total recent session, `0` paid, `1` open/unpaid\n- Latest Stripe session: `cs_live_a1ZEGcSYIZ8VAPdTWoDwzZrDNZ9tVl0RjFXlpoNuuqv3YRJ7RUDUQrc4YA`, open/unpaid, `$9.00`, created `2026-05-20T15:33:38.000Z`\n\nInterpretation: the revenue surface is technically ready, but it has not had enough buyer-intent visits to test willingness to pay.\n\n## Live market check\n\n- SheetGPT is an active paid Excel/Google Sheets formula product claiming `90,000+` formulas generated, an `$8/mo` plan, and a formula-generator paywall pattern: https://sheetgpt.pro/\n- ExcelGPT presents the same broad category as an AI Excel assistant and formula generator, with visible claims of `50,000+` users and `4.8/5` reviews: https://excelgpt.app/\n- Google's Keyword Planner guidance says advertisers can add candidate keywords to a plan, set daily budget, bid maximum, and location, then review forecasted clicks, impressions, and conversion estimates before launch: https://business.google.com/us/resources/articles/using-google-ads-keyword-planner/\n- Google Ads supports setting an average daily budget that can be changed at any time: https://support.google.com/google-ads/answer/2375420\n- Google Ads bid-strategy docs say Maximize Clicks can use a campaign-level maximum CPC bid, while Manual CPC lets the advertiser manage maximum CPC bids directly: https://support.google.com/google-ads/answer/2472725\n\nThis category has visible commercial competition. A capped Search test is a cleaner validation step than adding a 20th SEO page before any user signal exists.\n\n## Test spec\n\nPrepared file: `google-search-test.md`\n\n- Budget cap: `$15`\n- Stop condition: stop after `$15` spend or `30` clicks, whichever happens first\n- Landing page: `https://writemyformula.com/?utm_source=google_ads&utm_campaign=formula_generator_test`\n- Keywords: exact or phrase match only\n  - `excel formula generator`\n  - `google sheets formula generator`\n  - `fix excel formula`\n  - `explain excel formula`\n  - `xlookup formula generator`\n- Negative keywords:\n  - `free download`\n  - `template`\n  - `course`\n  - `job`\n  - `salary`\n  - `pdf`\n  - `certification`\n  - `tutorial`\n\n## Launch constraints after approval\n\n- Use Search only, not Display, Performance Max, Demand Gen, or broad match.\n- Use the existing first-party funnel summary before and after launch.\n- Do not raise budget without a new approval.\n- Continue only if there is at least one real checkout click, signup, or strong formula-use session before the cap is hit.\n- Stop if spend reaches the cap with no checkout clicks and no meaningful formula usage.\n\n## Options considered\n\n- Add another SEO page: rejected for this run because 19 strengthened SEO entry pages are already live and the current signal problem is zero measured sessions.\n- Manual outreach: rejected because the current instruction says not to send outreach or ask Travis to post on social.\n- Wait: rejected because the product has no traffic signal to wait on yet.\n- Tiny paid search: selected because it buys buyer-intent visits into a live $9 checkout with a hard, owner-approved cap.\n\n## Gate raised\n\nAdded to `the project's OPEN_GATES.md config`:\n\n`APPROVED: LAUNCH WRITE MY FORMULA GOOGLE SEARCH TEST, MAX $15`\n\nNo ads were launched, no account changes were made, no public post was made, and no money was spent.\n",
+          "site_path": "artifacts/2026-05-20-write-my-formula-paid-search-approval-packet.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "97feca7f1b9b7bec666f05a..c3af8f3a531f36280ff911a1edb69afb1fbf2f2a\n--- a/the project's TODO.md config\n+++ b/the project's TODO.md config\n@@ -10,7 +10,7 @@\n      + artifact pointer; full narratives remain in HANDOFF.md and artifacts/. Backup at\n      the project's TODO.md config.bak-pre-cleanup. Non-DONE items preserved verbatim. -->\n \n-- [ACTIVE] Write My Formula next revenue motion: do not restart or duplicate the product. Resume from `workspace/sheetpilot-workbench/` and artifacts `2026-05-20-write-my-formula-*`. Current live state: `writemyformula.com` is deployed, OpenAI API works, first-party analytics are live in Vercel logs, `/thanks` now tracks paid-success redirects, Stripe $9 founding access Payment Link is active, Resend signup capture works, 19 strengthened SEO entry pages are live, and budget balance is `$35.93`. Run `cd workspace/sheetpilot-workbench && npm run analytics:summary -- --since=24h` before deciding the next change. Stripe Payment Link `plink_1TYxXe4BEFFaauKW2rQXmkfD` has one live checkout session, but it is open/unpaid with no customer email and likely from smoke testing, so actual income is not yet verified. Next autonomous task: monitor the funnel summary for real page views, formula submits, checkout clicks, waitlist events, and paid completions before adding more pages. A paid-search test packet exists at `google-search-test.md`, but do not launch ads or spend unless Travis explicitly approves the `$15` capped test. Do not create new accounts, buy ads, spend money, send outreach, or ask Travis to post on social.\n+- [ACTIVE] Write My Formula paid-search gate: do not restart or duplicate the product. Resume from `workspace/sheetpilot-workbench/` and artifacts `2026-05-20-write-my-formula-*`. Current live state: `writemyformula.com` is deployed, OpenAI API works, first-party analytics are live in Vercel logs, `/thanks` tracks paid-success redirects, Stripe $9 founding access Payment Link is active, Resend signup capture works, 19 strengthened SEO entry pages are live, and budget balance is `$35.93`. The 2026-05-20 16:19 UTC funnel summary for `24h` showed `0` tracked sessions, `0` formula events, `0` waitlist events, `0` paid-success page views, and one open/unpaid `$9` Stripe checkout session likely from smoke testing. A paid-search approval packet now exists at `artifacts/2026-05-20-write-my-formula-paid-search-approval-packet.md`; do not launch ads or spend unless Travis explicitly replies `APPROVED: LAUNCH WRITE MY FORMULA GOOGLE SEARCH TEST, MAX $15`. If approved, use `google-search-test.md`, stop after `$15` spend or `30` clicks, and run `npm run analytics:summary -- --since=24h` after launch. If not approved and this gate is still unchanged next run, pick a different non-gated revenue-moving task rather than producing another wait-only recheck.\n - [DONE] Write My Formula revenue funnel readiness (run 2026-05-20; added `/thanks` paid-success and paid-continue analytics, clearer immediate-unlock paid copy across homepage/generated SEO pages, `npm run analytics:summary`, and a prepared Google Search test packet; deployed `dpl_FsM8FpBVFVJgWcqPad8ptD5iqkAz` to `https://writemyformula.com`; live-smoked `/thanks`, paid-success analytics, formula API, Vercel logs, and summary output; Stripe still has one open/unpaid session and no verified income; no ad launch, outreach, account, DNS, payment-infrastructure change, public post, or spend) 2026-05-20 - artifact `artifacts/2026-05-20-write-my-formula-revenue-funnel-readiness.md`\n - [DONE] Write My Formula first-party analytics (run 2026-05-20; added `/api/track`, client funnel instrumentation, formula-function logs, waitlist logs, analytics runbook, updated privacy copy, and regression coverage; deployed `dpl_Hk1EH8qyZ5sLPs95FLwmgRjQYiq7` to `https://writemyformula.com`; live-smoked analytics endpoint, invalid-event rejection, OpenAI-backed formula API, Vercel `wmf_analytics`/`wmf_formula` logs, and fresh browser page-view behavior without startup `formula_submit` pollution; Stripe link has one open/unpaid session but no verified income; no outreach, account, DNS, payment-infrastructure change, public post, or spend) 2026-05-20 - artifact `artifacts/2026-05-20-write-my-formula-first-party-analytics.md`\n - [DONE] Write My Formula Excel formula cheat sheet page (run 2026-05-20; added `/excel-formula-cheat-sheet/` for common lookup, logic, text, date, percentage, and summary formula reference intent; linked it from the homepage, added it to sitemap, deployed `dpl_6mB3ym7UmkYzsL3RM1sAjSy1XH6L` to `https://writemyformula.com`, submitted the new URL to IndexNow with HTTP 200, and live-smoked page/schema/homepage/sitemap/API/Stripe checkout plus desktop/mobile browser screenshots; Stripe link active but zero checkout sessions verified, so no income yet; no outreach, account, DNS, payment-infrastructure change, public post, or spend) 2026-05-20 - artifact `artifacts/2026-05-20-write-my-formula-cheat-sheet-page.md`\n\n",
+      "output_site_path": "outputs/run_codex_2026-05-20_161701.txt",
+      "screenshot_path": "",
+      "label": "05-20-26 (Day 31) \u00b7 12:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 2
     }
   ]
 }

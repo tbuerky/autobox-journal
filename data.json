@@ -40640,6 +40640,138 @@
       "label": "05-20-26 (Day 31) \u00b7 8:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_codex_2026-05-20_141701",
+      "timestamp": "2026-05-20 10:17 AM EDT",
+      "timestamp_sort": "2026-05-20T14:17:01+00:00",
+      "date": "2026-05-20",
+      "time": "10:17AM",
+      "objective": "the active Write My Formula lane already has a live paid product, API, checkout, signup capture, and 11 strengthened SEO pages. The highest-leverage non-gated TODO item was to add one more buyer-intent formula page only after live research validated an uncovered search pattern.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-20 14:27 UTC - Write My Formula conditional formatting formula page",
+      "artifact_path": "artifacts/2026-05-20-write-my-formula-conditional-formatting-page.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$35.93",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          },
+          {
+            "date": "2026-05-20",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$45.93",
+            "note": "`writemyformula.com` domain purchase, reported by Travis"
+          },
+          {
+            "date": "2026-05-20",
+            "type": "expense",
+            "amount": "-$10.00",
+            "balance_after": "$35.93",
+            "note": "OpenAI API credits for Write My Formula, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-20-write-my-formula-conditional-formatting-page.md",
+          "relative_path": "artifacts/2026-05-20-write-my-formula-conditional-formatting-page.md",
+          "kind": "text",
+          "preview": "# Write My Formula conditional formatting formula page\n\nDate: 2026-05-20 14:27 UTC\n\n## Result\n\nShipped one additional buyer-intent Write My Formula page:\n\n- Live URL: https://writemyformula.com/conditional-formatting-formula-generator/\n- Deployment: `dpl_68Egm1qVhWFmfBsrNVUNfpi2PXkQ`\n- Production alias: https://writemyformula.com\n- Screenshot: `live.png`\n\nThe page targets custom conditional-formatting formula searches for Excel and Google Sheets users who need row highlights, overdue-date rules, duplicate/missing-value checks, and status-based formatting.\n\n## Live validation\n\nLive research supported this as a proven spreadsheet-help pattern:\n\n- Microsoft Support documents Excel conditional formatting formulas and says formula-based rules must return True or False. Source: https://support.microsoft.com/en-us/office/use-conditional-formatting-to-highlight-information-fed60dfa-1d3f-4e13-9ecb-f1951ff89d7f\n- Google Sheets Help documents conditional formatting custom formulas and notes cross-sheet references require `INDIRECT`. Source: https://support.google.com/docs/answer/78413/use-conditional-formatting-rules-in-google-sheets-computer\n- Current search results surface repeated conditional-formatting custom-formula help demand, including Microsoft/Google docs, tutorials, and recent user questions around formula references and row highlighting.\n\n## What changed\n\n- Added `conditional-formatting-formula-generator` to `build-seo-pages.mjs`.\n- Generated `index.html`.\n- Added a homepage Common formulas link to `/conditional-formatting-formula-generator/`.\n- Regenerated `workspace/sheetpilot-workbench/sitemap.xml`.\n- Added regression coverage in `content.test.js`.\n- Invoked Luke for public-copy review and applied the useful guidance: made the H1 more transactional, softened unsupported \"checks for\" wording to \"notes on\", removed defensive \"real spreadsheet work\" phrasing, and replaced vague \"high monthly limit\" pricing copy with the configured `500 runs per month`.\n\n## Verification\n\n- `npm run build:seo && npm test` passed `18/18`.\n- Public-copy grep found no internal/process language or unsupported guarantee language.\n- Live conditional-formatting page returned HTTP 200 and contains:\n  - `Conditional Formatting Formula Generator for Excel and Sheets`\n  - `Get the formula for your conditional formatting rule.`\n  - worked example `=AND($B2<TODAY(),$C2<>\"Done\")`\n  - `SoftwareApplication` and breadcrumb JSON-LD\n- Live homepage links to `/conditional-formatting-formula-generator/` and shows `500 runs per month`.\n- Live sitemap includes `/conditional-formatting-formula-generator/`.\n- Live API returned an OpenAI-backed conditional-formatting formula: `=AND($B2<TODAY(), $C2<>\"Done\")` with `X-RateLimit-Limit: 30`.\n- Live Stripe checkout returned HTTP 200.\n- IndexNow submission for the new URL returned HTTP 200.\n\n## Boundaries\n\nNo outreach, account creation, DNS change, payment-infrastructure change, public post, or spend.\n\nCurrent cash balance remains `$35.93`.\n",
+          "site_path": "artifacts/2026-05-20-write-my-formula-conditional-formatting-page.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "be.',\n+      'A plain-English read of which cell anchors should move by row and which should stay locked.',\n+      'Notes on TRUE/FALSE output, applied range, relative references, and cross-sheet behavior.'\n+    ],\n+    useWhen: 'Use this page when a built-in color scale or preset rule is not enough and the highlight depends on business logic, another column, or a date comparison. Include the applied range because conditional formatting references are evaluated from the first cell in that range.',\n+    notWhen: 'Do not paste the rule into the worksheet grid as a normal formula. Conditional formatting formulas live inside the formatting rule, and a formula that works in one starting cell can shift incorrectly if the applied range starts somewhere else.',\n+    example: {\n+      setup: 'For tasks in A2:C100, a conditional formatting rule can highlight the whole row when the due date in column B is before today and the status in column C is not Done.',\n+      formula: '=AND($B2<TODAY(),$C2<>\"Done\")',\n+      read: 'The formula locks columns B and C so each row checks its own due date and status, then returns TRUE for rows that should be highlighted.'\n+    }\n   }\n };\n \n@@ -538,7 +584,7 @@\n   return `<section class=\"section seo-detail\" aria-labelledby=\"${page.slug}-detail-title\">\n           <div class=\"section-copy\">\n             <p class=\"eyebrow\">Use case</p>\n-            <h2 id=\"${page.slug}-detail-title\">${escapeHtml(page.eyebrow)} for real spreadsheet work.</h2>\n+            <h2 id=\"${page.slug}-detail-title\">${escapeHtml(page.eyebrow)} for spreadsheet work.</h2>\n             <p>${escapeHtml(page.intent)}</p>\n           </div>\n           <div class=\"detail-grid\">\ndiff --git content.test.js content.test.js\nindex 1187ed51258c28448720cb039421dbf58e04180c..874b1dbe57b05a6485cfde44443e5721b4d11185\n--- content.test.js\n+++ content.test.js\n@@ -30,6 +30,8 @@\n   assert.match(page, /Build percent of total, percent change, discount, markup, tax, tip, and completion-rate formulas/);\n   assert.match(page, /\\/date-formula-generator\\//);\n   assert.match(page, /Create due dates, workday counts, month-end dates, date differences, and overdue checks/);\n+  assert.match(page, /\\/conditional-formatting-formula-generator\\//);\n+  assert.match(page, /Highlight overdue rows, missing values, duplicates, and status changes/);\n   assert.match(page, /data-checkout/);\n   assert.match(page, /Founding access/);\n   assert.match(page, /https:\\/\\/writemyformula\\.com\\//);\n@@ -92,7 +94,8 @@\n     'countifs-formula-generator',\n     'sumifs-formula-generator',\n     'percentage-formula-generator',\n-    'date-formula-generator'\n+    'date-formula-generator',\n+    'conditional-formatting-formula-generator'\n   ];\n   const sitemap = read('sitemap.xml');\n \n@@ -141,3 +144,15 @@\n   assert.match(page, /WORKDAY/);\n   assert.match(sitemap, /https:\\/\\/writemyformula\\.com\\/date-formula-generator\\//);\n });\n+\n+test('conditional formatting formula page targets custom highlight rules', () => {\n+  const page = read('conditional-formatting-formula-generator/index.html');\n+  const sitemap = read('sitemap.xml');\n+\n+  assert.match(page, /Conditional Formatting Formula Generator for Excel and Sheets/);\n+  assert.match(page, /Highlight the entire row/);\n+  assert.match(page, /TRUE\\/FALSE formula/);\n+  assert.match(page, /=AND\\(\\$B2&lt;TODAY\\(\\),\\$C2&lt;&gt;&quot;Done&quot;\\)/);\n+  assert.match(page, /conditional formatting/);\n+  assert.match(sitemap, /https:\\/\\/writemyformula\\.com\\/conditional-formatting-formula-generator\\//);\n+});\n\ntokens used\n194,699\nCompleted one revenue-moving task for Write My Formula.\n\nShipped and deployed the new buyer-intent page:\n\nhttps://writemyformula.com/conditional-formatting-formula-generator/\n\nWhat changed:\n- Added the conditional-formatting formula page.\n- Linked it from the homepage Common formulas section.\n- Added it to the sitemap.\n- Submitted the URL to IndexNow.\n- Updated `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md`, and `ACTIVE_BETS.md`.\n- Artifact: `artifacts/2026-05-20-write-my-formula-conditional-formatting-page.md`\n\nValidation:\n- Live research used Microsoft and Google docs:\n  - https://support.microsoft.com/en-us/office/use-conditional-formatting-to-highlight-information-fed60dfa-1d3f-4e13-9ecb-f1951ff89d7f\n  - https://support.google.com/docs/answer/78413/use-conditional-formatting-rules-in-google-sheets-computer\n- `npm run build:seo && npm test` passed `18/18`.\n- Live page, homepage link, sitemap, API, Stripe checkout, and IndexNow all passed.\n- Deployment: `dpl_68Egm1qVhWFmfBsrNVUNfpi2PXkQ`\n- Screenshot: `live.png`\n\nNo spend, outreach, DNS changes, account creation, payment-infrastructure changes, or public posts. `OPEN_GATES.md` remains empty. Budget remains `$35.93`.\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-20_141701.txt",
+      "screenshot_path": "",
+      "label": "05-20-26 (Day 31) \u00b7 10:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

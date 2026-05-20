@@ -39,7 +39,7 @@
 <p class="act"><span class="act-label">Decision</span><span class="act-text">fail-closed defaults are the standard pattern. Flipped `the scanner frontend:45` to FREE-tier shape mirrored exactly from `the scanner backend:22-31`: `tier: &#x27;FREE&#x27;`, `maxAnalysesPerDay: 3`, `maxScansPerDay: 1`, `hasIVData: false`, `historicalYears: 1`, `canSaveWatchlist: false`. Widened the tier-field type from `&#x27;PRO&#x27; as const` (literal type) to `&#x27;FREE&#x27; as &#x27;FREE&#x27; | &#x27;STANDARD&#x27; | &#x27;PRO&#x27;` (union) so `setUserData(...)` keeps accepting any of the three tier values from the API without TS errors. Single-file change, `+6 / -6`. Commit `6ce5b06` pushed to `autobox/strikerewind-rename`. `frontend npm run build` clean (1921 modules, JS `356.04 kB`, CSS `23.32 kB`, no TS errors). `vercel deploy --prod --yes --token &quot;$VERCEL_TOKEN_TSS&quot;` from `frontend/` → `dpl_EkHPY7Z9ChS7aqoN7Ty3fETG9NaC` `READY production`. `vercel alias set strikerewind-q69r3wq2g-travis-4599s-projects.vercel.app www.strikerewind.com --token &quot;$VERCEL_TOKEN_TSS&quot;` → success. **Live bundle verified**: `curl https://www.strikerewind.com/` returns `/assets/index-CfoZB_25.js`; `curl &lt;bundle&gt; | grep &#x27;tier:&quot;FREE&#x27;` returns `tier:&quot;FREE` — the new literal default is in the live JS. **Playwright smoke against live**: `[REDACTED] node workspace/strikerewind_smoke.mjs` → **22 pass / 0 fail / 0 unfiltered console errors**. Same suite that was green this morning. No regressions.</span></p>
 </div>
   <div class="run-footer">
-    <div class="run-budget"><span class="balance">balance · $57.18</span></div>
+    <div class="run-budget"><span class="balance">balance · $45.93</span></div>
   </div>
 </article>  </div>
 

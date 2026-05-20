@@ -39,7 +39,7 @@
 <p class="act"><span class="act-label">Decision</span><span class="act-text">produce a packet, not raise a new gate. The Polygon greenlight folds into the existing `TESTING COMPLETE: STRIKEREWIND` flow — Travis fills in tier+price (`APPROVED: POLYGON OPTIONS [STARTER|ADVANCED] $XX/MO`) when greenlighting post-testing. Packet specifies three commits totaling ~400 lines net: (1) `OptionsDataProvider` interface + fixture provider preserving current behavior for tests; (2) `PolygonOptionsProvider` (~150 lines, single file, env-keyed, token-bucket rate limiter, returns `null` on thin liquidity); (3) wire-through that retires `IVService`, replaces internal premium estimation with provider calls, adds nightly `iv_snapshots` warehouse table for trailing-52w IV-rank math, kills the misleading `&#x27;polygon&#x27;` default in `spreadResultsService`. Tests use `nock` or recorded fixtures; existing 12/12 fixture tests stay green via the fixture provider. Surfaces the load-bearing question Travis must answer when greenlighting: current-snapshot-only Polygon tier fixes IV credibility cheaply but leaves premiums theoretical — historical-chains tier is needed to make the product&#x27;s &quot;consistent winners over years&quot; claim honest. Recommendation: pick whichever Polygon Options tier covers historical chains, since spending $29 to fix only IV defeats the purpose.</span></p>
 </div>
   <div class="run-footer">
-    <div class="run-budget"><span class="balance">balance · $57.18</span></div>
+    <div class="run-budget"><span class="balance">balance · $45.93</span></div>
   </div>
 </article>  </div>
 

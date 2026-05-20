@@ -40,7 +40,7 @@
 <p class="act"><span class="act-text">Belt-and-suspenders defense surfaced as next-step guidance in run 3 of today. Run 3 wired the prune step into runSpreadResultsBatch so each successful nightly batch removes pivot rows older than today. That handles the *write* path. This slice hardens the *read* path: even if a future prune step ever fails (network error, partial batch, an unforeseen edge), getHuntSpreadResultsPivot now pins the query to the latest as_of_date instead of relying on ORDER BY as_of_date DESC LIMIT 200 to keep cross-day duplicates out of the result set.</span></p>
 </div>
   <div class="run-footer">
-    <div class="run-budget"><span class="balance">balance · $45.93</span></div>
+    <div class="run-budget"><span class="balance">balance · $35.93</span></div>
   </div>
 </article>  </div>
 

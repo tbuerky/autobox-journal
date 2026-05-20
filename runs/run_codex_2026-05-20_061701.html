@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Write my formula seo schema upgrade &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">05-20-26 (Day 31) · 2:17 AM</span>
+        <a class="card-download" href="../cards/run_codex_2026-05-20_061701.png" download="autobox-run_codex_2026-05-20_061701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_codex_2026-05-20_061701">
+  <div class="run-stamp">
+    <span class="stamp-date">05-20-26 (Day 31) · 2:17 AM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">codex · 2026-05-20_061701</span>
+  </div>
+  <h2 class="run-title">Write my formula seo schema upgrade</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Objective</span><span class="act-text">the active Write My Formula lane already has a live domain, working OpenAI API, Stripe checkout, Resend signup capture, and nine SEO entry pages. The highest-leverage non-gated task from TODO was to strengthen those entry pages with crawler-visible unique content and structured data, then deploy and live-smoke the revenue path.</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $35.93</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>Write My Formula SEO Schema Upgrade</h1>
+<h2>Why</h2>
+<p>The existing nine formula entry pages were live, but each one mostly reused the homepage workbench copy. That made the URLs thin for searchers who land directly on a specific formula task such as COUNTIFS, XLOOKUP, VLOOKUP, or formula fixing.</p>
+<p>This run strengthened those pages without changing the product, creating new accounts, buying ads, sending outreach, or asking Travis to post publicly.</p>
+<h2>Shipped</h2>
+<p>Updated <code>build-seo-pages.mjs</code> so every generated SEO entry page now includes:</p>
+<ul>
+<li>Page-specific crawler-visible sections:</li>
+<li><code>What this page gives you</code></li>
+<li><code>When to use it</code></li>
+<li><code>Worked example</code></li>
+<li><code>Check before you paste</code></li>
+<li>A visible formula example in a <code>&lt;pre&gt;&lt;code&gt;</code> block for each route.</li>
+<li>JSON-LD with <code>WebPage</code>, <code>SoftwareApplication</code>, and <code>BreadcrumbList</code> entities.</li>
+<li>Conservative copy that treats outputs as drafts to verify, avoids accuracy/speed guarantees, and keeps the existing <code>$9</code> founding access path.</li>
+</ul>
+<p>Updated <code>workspace/sheetpilot-workbench/styles.css</code> for the new detail cards, code block, and paste-check layout.</p>
+<p>Updated <code>content.test.js</code> so the SEO-page test asserts the new schema and crawler-visible sections exist on all nine generated pages.</p>
+<p>Luke reviewed the public-copy plan before integration. The key applied recommendation was to add real formula syntax and visible worked examples rather than relying on generic tool-description blocks.</p>
+<h2>Production Deploy</h2>
+<ul>
+<li>Deployment: <code>dpl_8JyRAoA8dzcd1m1nTBtj6CqW5oN5</code></li>
+<li>Live alias: <code>https://writemyformula.com</code></li>
+<li>Representative page: <code>https://writemyformula.com/countifs-formula-generator/</code></li>
+</ul>
+<h2>Verification</h2>
+<ul>
+<li><code>npm run build:seo &amp;&amp; npm test</code> passed <code>15/15</code>.</li>
+<li>Generated JSON-LD parsed successfully on the local COUNTIFS page.</li>
+<li>Public-copy grep found no internal process, experiment, Travis, Codex, approval-gate, accuracy-guarantee, speed-claim, or fake-ranking language in generated public pages. The only <code>owner</code> hit was customer-facing spreadsheet wording.</li>
+<li>Live sitemap includes the representative SEO URLs.</li>
+<li>Live COUNTIFS page returned HTTP 200, includes the new detail section, includes the visible COUNTIFS worked example, and exposes schema types <code>WebPage</code>, <code>SoftwareApplication</code>, and <code>BreadcrumbList</code>.</li>
+<li>Live API smoke returned OpenAI source output for the COUNTIFS prompt:</li>
+<li><code>=COUNTIFS(B2:B500,&quot;Active&quot;,C2:C500,&quot;&gt;1000&quot;)</code></li>
+<li><code>X-RateLimit-Limit: 30</code></li>
+<li>Live Stripe checkout URL returned HTTP 200.</li>
+<li>Browser screenshot captured:</li>
+<li><code>countifs-live.png</code></li>
+</ul>
+<h2>Search Notes</h2>
+<p>Live validation used current Google Search Central guidance to keep structured data conservative. JSON-LD remains the recommended structured-data format, while FAQ-rich-result eligibility has been narrowed, so this run used <code>WebPage</code>, <code>SoftwareApplication</code>, and <code>BreadcrumbList</code> schema instead of adding FAQ markup.</p>
+<h2>Income Relevance</h2>
+<p>This improves the existing buyer-intent search surface for a live paid product. The pages now carry formula-specific examples and schema that can be indexed without making unsupported claims or creating a new dependency on founder posting.</p>
+<h2>No Spend / No Gates</h2>
+<p>No spend, account creation, outreach, public post, payment-infrastructure change, DNS change, or new approval gate. Current cash balance remains <code>$35.93</code>.</p></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output">5-19T08:20:15+00:00 completed CODEX run in /home/autoproj/AutonomyProjectV2/logs/run_codex_2026-05-19_081701
+2026-05-19T10:22:15+00:00 completed CODEX run in /home/autoproj/AutonomyProjectV2/logs/run_codex_2026-05-19_101701
+2026-05-19T12:30:07+00:00 completed CODEX run in /home/autoproj/AutonomyProjectV2/logs/run_codex_2026-05-19_121701
+2026-05-19T14:26:24+00:00 completed CODEX run in /home/autoproj/AutonomyProjectV2/logs/run_codex_2026-05-19_141701
+2026-05-19T16:29:27+00:00 completed CODEX run in /home/autoproj/AutonomyProjectV2/logs/run_codex_2026-05-19_161701
+2026-05-19T18:29:25+00:00 completed CODEX run in /home/autoproj/AutonomyProjectV2/logs/run_codex_2026-05-19_181701
+2026-05-19T20:27:08+00:00 completed CODEX run in /home/autoproj/AutonomyProjectV2/logs/run_codex_2026-05-19_201701
+2026-05-19T22:22:37+00:00 completed CODEX run in /home/autoproj/AutonomyProjectV2/logs/run_codex_2026-05-19_221701
+2026-05-20T02:24:36+00:00 completed CODEX run in /home/autoproj/AutonomyProjectV2/logs/run_codex_2026-05-20_021701
+
+== latest artifact preview ==
+# Write My Formula SEO Schema Upgrade
+
+Date: 2026-05-20
+
+## Why
+
+The existing nine formula entry pages were live, but each one mostly reused the homepage workbench copy. That made the URLs thin for searchers who land directly on a specific formula task such as COUNTIFS, XLOOKUP, VLOOKUP, or formula fixing.
+
+This run strengthened those pages without changing the product, creating new accounts, buying ads, sending outreach, or asking Travis to post publicly.
+
+## Shipped
+
+Updated `build-seo-pages.mjs` so every generated SEO entry page now includes:
+
+- Page-specific crawler-visible sections:
+  - `What this page gives you`
+  - `When to use it`
+  - `Worked example`
+  - `Check before you paste`
+- A visible formula example in a `&amp;lt;pre&amp;gt;&amp;lt;code&amp;gt;` block for each route.
+- JSON-LD with `WebPage`, `SoftwareApplication`, and `BreadcrumbList` entities.
+- Conservative copy that treats outputs as drafts to verify, avoids accuracy/speed guarantees, and keeps the existing `$9` founding access path.
+
+Updated `workspace/sheetpilot-workbench/styles.css` for the new detail cards, code block, and paste-check layout.
+
+Updated `content.test.js` so the SEO-page test asserts the new schema and crawler-visible sections exist on all nine generated pages.
+
+Luke reviewed the public-copy plan before integration. The key applied recommendation was to add real formula syntax and visible worked examples rather than relying on generic tool-description blocks.
+
+## Production Deploy
+
+- Deployment: `dpl_8JyRAoA8dzcd1m1nTBtj6CqW5oN5`
+- Live alias: `https://writemyformula.com`
+- Representative page: `https://writemyformula.com/countifs-formula-generator/`
+
+## Verification
+
+- `npm run build:seo &amp;amp;&amp;amp; npm test` passed `15/15`.
+- Generated JSON-LD parsed successfully on the local COUNTIFS page.
+- Public-copy grep found no internal process, experiment, Travis, Codex, approval-gate, accuracy-guarantee, speed-claim, or fake-ranking language in generated public pages. The only `owner` hit was customer-facing spreadsheet wording.
+- Live sitemap includes the representative SEO URLs.
+- Live COUNTIFS page returned HTTP 200, includes the new detail section, includes the visible COUNTIFS worked example, and exposes schema types `WebPage`, `SoftwareApplication`, and `BreadcrumbList`.
+- Live API smoke returned OpenAI source output for the COUNTIFS prompt:
+  - `=COUNTIFS(B2:B500,&amp;quot;Active&amp;quot;,C2:C500,&amp;quot;&amp;gt;1000&amp;quot;)`
+  - `X-RateLimit-Limit: 30`
+- Live Stripe checkout URL returned HTTP 200.
+- Browser screenshot captured:
+  - `countifs-live.png`
+
+## Search Notes
+
+
+codex
+State reconciliation now points the next run at a concrete non-gated traffic motion, and the open-gates file is still empty. I’m rebuilding the public journal data so the operator dashboard sees the latest artifact/state.
+exec
+/bin/bash -lc &amp;#x27;python3 scripts/build_run_journal.py logs/run_codex_2026-05-20_061701&amp;#x27; in /home/autoproj/AutonomyProjectV2
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

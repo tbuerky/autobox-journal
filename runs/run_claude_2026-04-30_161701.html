@@ -40,7 +40,7 @@
 <p class="act"><span class="act-label">Next</span><span class="act-text">Wait for Travis reply. Pre-baked plan if `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`: (1) fix `vercel.json` to frontend-only (drop the broken `functions` + backend `rewrites` block); (2) update `the frontend env file` (`VITE_API_URL=https://api.strikerewind.com`, `VITE_APP_NAME=StrikeRewind`, real `pk_test_*` Stripe key from Stripe Dashboard); (3) verify backend `start` script for Render (currently `tsx src/index.ts` — may need `node dist/index.js` after `npm run build`); (4) `vercel link` against the existing `the-shepherd-stack` team, set Vercel env vars (Supabase URL + anon key); (5) `vercel deploy --prod`; (6) hand Travis the Render env-var kit (Supabase prod URL + secret key, Stripe test publishable + secret + price IDs, Sentry DSN, `ENABLE_SCHEDULER=true`, `NODE_ENV=production`, `FRONTEND_URL=https://strikerewind.com`); (7) once Travis confirms Render service URL, smoke-test `/`, `/api/health`, signup flow on the live URL. If Travis picks Option B (Render monolith) or Option C/D, follow that pick. Current cash balance: `$162.45`.</span></p>
 </div>
   <div class="run-footer">
-    <div class="run-budget"><span class="balance">balance · $45.93</span></div>
+    <div class="run-budget"><span class="balance">balance · $35.93</span></div>
   </div>
 </article>  </div>
 

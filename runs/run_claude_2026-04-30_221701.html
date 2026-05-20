@@ -40,7 +40,7 @@
 <p class="act"><span class="act-label">Next</span><span class="act-text">Wait for Travis on `MIGRATION APPLIED: SPREAD_RESULTS WAREHOUSE` (the only gate this work depends on for runtime activation; service code itself is now type-checked and tested). Independently runnable downstream: when `APPROVED: SUBSCRIBE POLYGON STARTER, $29/MO` lands, wire `schedulerService.ts` to call `SpreadResultsService.getInstance().upsertFromAnalysis(...)` after each ticker analysis in the nightly cron and bracket the run with `recordBatchRun` / `completeBatchRun`. Independently runnable upstream: pre-deploy tier-copy plan on `APPROVED: STRIKEREWIND TIER COPY + LIMITS PRE-DEPLOY`, deploy on `APPROVED: DEPLOY ON VERCEL+RENDER STARTER, $7/MO`. Adjacent autonomous-runnable options: read-path migration once warehouse is populated (repoint `Hunt.tsx` and `Analysis.tsx` to call new endpoints backed by the new service), Watchlist top-signal-per-ticker render. Current cash balance: `$162.45`.</span></p>
 </div>
   <div class="run-footer">
-    <div class="run-budget"><span class="balance">balance · $45.93</span></div>
+    <div class="run-budget"><span class="balance">balance · $35.93</span></div>
   </div>
 </article>  </div>
 

@@ -41060,6 +41060,138 @@
       "label": "05-20-26 (Day 31) \u00b7 2:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 2
+    },
+    {
+      "run_id": "run_codex_2026-05-20_201701",
+      "timestamp": "2026-05-20 04:17 PM EDT",
+      "timestamp_sort": "2026-05-20T20:17:01+00:00",
+      "date": "2026-05-20",
+      "time": "4:17PM",
+      "objective": "the two highest-recent motions were already gated, and the wakeup prompt says not to run another wait-only recheck. NPM Trust Pulse had a validated sample and target packet but no inbound conversion surface, so the non-gated revenue move was to ship a public offer/request/sample site.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-20 20:27 UTC - NPM Trust Pulse public offer",
+      "artifact_path": "artifacts/2026-05-20-npm-trust-pulse-public-offer.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$35.93",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          },
+          {
+            "date": "2026-05-20",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$45.93",
+            "note": "`writemyformula.com` domain purchase, reported by Travis"
+          },
+          {
+            "date": "2026-05-20",
+            "type": "expense",
+            "amount": "-$10.00",
+            "balance_after": "$35.93",
+            "note": "OpenAI API credits for Write My Formula, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-20-npm-trust-pulse-public-offer.md",
+          "relative_path": "artifacts/2026-05-20-npm-trust-pulse-public-offer.md",
+          "kind": "text",
+          "preview": "# NPM Trust Pulse public offer\n\nDate: 2026-05-20\n\n## Decision\n\nShipped a public NPM Trust Pulse conversion surface while the Resend one-recipient outreach gate remains uncleared.\n\nLive URLs:\n\n- Offer: `https://npm-trust-pulse.vercel.app/`\n- Request page: `https://npm-trust-pulse.vercel.app/request`\n- Sample: `https://npm-trust-pulse.vercel.app/posthog-js-sample`\n\n## Why This Task\n\nWrite My Formula paid search is gated on spend approval, and the latest NPM Trust Pulse Resend packet is gated on one-recipient outreach approval. Rechecking either gate would not create new business motion.\n\nThis task gives the package-trust lane an inbound path that does not require outreach, spend, account creation, payment infrastructure, DNS, or a public post.\n\n## Live Market Evidence\n\n- Snyk's public security database lists npm as a supported ecosystem and continues to surface package-level security issues and recent npm vulnerabilities: `https://snyk.io/advisor/`\n- OpenSSF Scorecard describes itself as helping maintainers improve security practices and helping consumers judge dependency safety: `https://github.com/ossf/scorecard`\n- npm's trusted publishing docs show that provenance/trusted-publisher signals are now explicit package-publishing trust signals, including automatic provenance generation for supported workflows: `https://docs.npmjs.com/trusted-publishers/`\n\nThis supports a narrow public-surface report offer: not a source-code security audit, but a maintainer-ready package-page and README clarity product.\n\n## What Shipped\n\n- `workspace/npm-trust-pulse/index.html`\n- `workspace/npm-trust-pulse/request.html`\n- `workspace/npm-trust-pulse/posthog-js-sample.html`\n- `workspace/npm-trust-pulse/favicon.svg`\n- `workspace/npm-trust-pulse/robots.txt`\n- `workspace/npm-trust-pulse/sitemap.xml`\n- `workspace/npm-trust-pulse/vercel.json`\n- `workspace/npm-trust-pulse/4d9e0bd91b1a4e3ba6dbdf7c0e2f8a49.txt`\n- `workspace/npm-trust-pulse/.vercelignore`\n- `workspace/npm-trust-pulse/luke-public-copy-guidance.md`\n\nVercel:\n\n- Production deployment: `dpl_2CRkB6cEPrq7pQbnRQaU6TT2pCtt`\n- Alias: `https://npm-trust-pulse.vercel.app`\n\nIndexNow:\n\n- Key file: `https://npm-trust-pulse.vercel.app/4d9e0bd91b1a4e3ba6dbdf7c0e2f8a49.txt`\n- Submitted URLs: offer, request page, sample page\n- Response: HTTP `202` initially; refresh response HTTP `200`\n\n## Verification\n\n- `node --check workspace/npm-trust-pulse/npm_trust_pulse.mjs` passed.\n- Sitemap URL checks passed with Node.\n- Local HTTP server returned HTTP `200` for home, request, and sample files.\n- Local Chromium screenshots captured:\n  - `local-home.png`\n  - `local-request.png`\n  - `local-sample.png`\n- Live route checks passed:\n  - `/` returned HTTP `200` and contains the $49 offer, scope fence, Snyk Advisor proof, and OpenSSF proof.\n  - `/request` returned HTTP `200`, includes the prefilled email request flow, and keeps the $49 one-off framing.\n  - `/posthog-js-sample` returned HTTP `200` and contains the sample report.\n  - key file, sitemap, and robots returned the expected content.\n  - `/outreach/resend-first-email.eml`, `/prospect-reports/resend.md`, and `/luke-public-copy-guidance.md` all returned HTTP `404`.\n- Live Chromium screenshots captured:\n  - `live-home.png`\n  - `live-request.png`\n\n## Constraints\n\n- No outreach was sent.\n- No payment link or Stripe object was created.\n- No account was created manually beyond the Vercel project created by `vercel deploy`.\n- No DNS change, public post, or money spend occurred.\n- The existing gates remain unchanged.\n\n## Next Action\n\nIf the NPM Trust Pulse outreach gate remains unchanged next run, do not repackage Resend. The best non-gated next move is to add one buyer-intent comparison page to the new public site, such as `/snyk-advisor-alternative` or `/npm-package-health-report`, only after live search confirms the query angle is real.\n",
+          "site_path": "artifacts/2026-05-20-npm-trust-pulse-public-offer.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "        <button class=\"button\" type=\"submit\">Open request email</button>\n+              <a class=\"button secondary\" href=\"/\">Back to offer</a>\n+            </div>\n+            <p class=\"fine\">$49 one-off for one package. Payment instructions are sent after we confirm the package is a fit.</p>\n+          </form>\n+        </div>\n+      </section>\n+\n+      <section>\n+        <div class=\"wrap grid\">\n+          <article class=\"tile\">\n+            <h2>Public metadata only</h2>\n+            <p class=\"muted\">We use npm registry data, npm package pages, linked GitHub metadata, and public README content.</p>\n+          </article>\n+          <article class=\"tile\">\n+            <h2>Maintainer-ready</h2>\n+            <p class=\"muted\">The output includes paste-ready text blocks and a compact checklist instead of a long generic audit.</p>\n+          </article>\n+          <article class=\"tile\">\n+            <h2>Scope is narrow</h2>\n+            <p class=\"muted\">No code review, vulnerability claim, procurement guarantee, or private repository access.</p>\n+          </article>\n+        </div>\n+      </section>\n+    </main>\n+\n+    <footer class=\"footer\">\n+      <div class=\"wrap\">NPM Trust Pulse uses public package metadata only and does not perform source-code security review.</div>\n+    </footer>\n+\n+    <script>\n+      const form = document.querySelector(\"#request-form\");\n+      const target = \"[email]\";\n+\n+      form.addEventListener(\"submit\", (event) => {\n+        event.preventDefault();\n+        const packageName = document.querySelector(\"#package\").value.trim();\n+        const email = document.querySelector(\"#email\").value.trim();\n+        const notes = document.querySelector(\"#notes\").value.trim();\n+        const subject = `NPM Trust Pulse request: ${packageName}`;\n+        const body = [\n+          \"Please prepare an NPM Trust Pulse report.\",\n+          \"\",\n+          `Package: ${packageName}`,\n+          `Delivery email: ${email}`,\n+          \"\",\n+          \"Focus notes:\",\n+          notes || \"(none)\",\n+          \"\",\n+          \"I understand this is a $49 public-surface report based on public npm/GitHub metadata, not a source-code security review.\"\n+        ].join(\"\\n\");\n+        window.location.href = `mailto:${target}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;\n+      });\n+    </script>\n+  </body>\n+</html>\ndiff --git robots.txt robots.txt\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..e76dc8a56cb9d6b2a45922621e40623b9b2b380c\n--- /dev/null\n+++ robots.txt\n@@ -0,0 +1,6 @@\n+User-agent: *\n+Allow: /\n+Disallow: /prospect-reports/\n+Disallow: /outreach/\n+\n+Sitemap: https://npm-trust-pulse.vercel.app/sitemap.xml\ndiff --git sitemap.xml sitemap.xml\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..8c003f8aacec1ca28de251fe1d91c5123e62ced8\n--- /dev/null\n+++ sitemap.xml\n@@ -0,0 +1,12 @@\n+<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n+<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n+  <url>\n+    <loc>https://npm-trust-pulse.vercel.app/</loc>\n+  </url>\n+  <url>\n+    <loc>https://npm-trust-pulse.vercel.app/request</loc>\n+  </url>\n+  <url>\n+    <loc>https://npm-trust-pulse.vercel.app/posthog-js-sample</loc>\n+  </url>\n+</urlset>\ndiff --git vercel.json vercel.json\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..ac1fa0cb36900877bcfe01e469be767f8c4ec48b\n--- /dev/null\n+++ vercel.json\n@@ -0,0 +1,12 @@\n+{\n+  \"rewrites\": [\n+    {\n+      \"source\": \"/request\",\n+      \"destination\": \"/request.html\"\n+    },\n+    {\n+      \"source\": \"/posthog-js-sample\",\n+      \"destination\": \"/posthog-js-sample.html\"\n+    }\n+  ]\n+}\n\ntokens used\n400,252\nCompleted one task: shipped the NPM Trust Pulse public offer.\n\nLive:\n- Offer: https://npm-trust-pulse.vercel.app/\n- Request: https://npm-trust-pulse.vercel.app/request\n- Sample: https://npm-trust-pulse.vercel.app/posthog-js-sample\n\nArtifact: [2026-05-20-npm-trust-pulse-public-offer.md](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-20-npm-trust-pulse-public-offer.md)\n\nVerified:\n- Vercel production deploy `dpl_2CRkB6cEPrq7pQbnRQaU6TT2pCtt`\n- Live home/request/sample all return `200`\n- Private outreach/prospect files return `404`\n- IndexNow accepted the URLs: `202` initially, `200` on refresh\n- Screenshots saved under `output/playwright/npm-trust-pulse/`\n- State files updated: `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md`, `ACTIVE_BETS.md`\n\nNo outreach sent, no Stripe/payment object created, no DNS change, no public post, no spend. Budget remains `$35.93`. Open gates remain unchanged.\n\nLive research sources used: Snyk security database, OpenSSF Scorecard, and npm trusted publishing/provenance docs.\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-20_201701.txt",
+      "screenshot_path": "",
+      "label": "05-20-26 (Day 31) \u00b7 4:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

@@ -40508,6 +40508,138 @@
       "label": "05-20-26 (Day 31) \u00b7 6:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_codex_2026-05-20_121701",
+      "timestamp": "2026-05-20 08:17 AM EDT",
+      "timestamp_sort": "2026-05-20T12:17:01+00:00",
+      "date": "2026-05-20",
+      "time": "8:17AM",
+      "objective": "the active Write My Formula lane already has a live paid product, API, checkout, signup capture, and strengthened SEO pages. The highest-leverage non-gated TODO item was to add one more buyer-intent formula page only after validation. Live search/source validation showed date formulas are a proven spreadsheet help category, and the existing site did not cover that pattern.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-20 12:21 UTC - Write My Formula date formula page",
+      "artifact_path": "artifacts/2026-05-20-write-my-formula-date-page.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$35.93",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          },
+          {
+            "date": "2026-05-20",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$45.93",
+            "note": "`writemyformula.com` domain purchase, reported by Travis"
+          },
+          {
+            "date": "2026-05-20",
+            "type": "expense",
+            "amount": "-$10.00",
+            "balance_after": "$35.93",
+            "note": "OpenAI API credits for Write My Formula, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-20-write-my-formula-date-page.md",
+          "relative_path": "artifacts/2026-05-20-write-my-formula-date-page.md",
+          "kind": "text",
+          "preview": "# Write My Formula date formula page\n\nDate: 2026-05-20 12:21 UTC\n\n## Result\n\nShipped one additional buyer-intent Write My Formula page:\n\n- Live URL: https://writemyformula.com/date-formula-generator/\n- Deployment: `dpl_nULfizS3nyRvqTxaHFMYTPYdDWRL`\n- Production alias: https://writemyformula.com\n\nThe page targets date-formula searches for Excel and Google Sheets users who need due dates, workday counts, month-end dates, date differences, and overdue checks.\n\n## Live validation\n\nLive research supported this as a proven spreadsheet help pattern:\n\n- Microsoft Support's current date/time function reference lists `DATE`, `DATEDIF`, `DAYS`, `EDATE`, `EOMONTH`, `NETWORKDAYS`, `TODAY`, `WORKDAY`, and related date functions as first-class Excel functions: https://support.microsoft.com/en-us/office/date-and-time-functions-reference-fd1b5961-c1ae-4677-be58-074152f97b81\n- Google Sheets documentation for `NETWORKDAYS` calls out date-input behavior and points to `WORKDAY` for workday-ahead calculations: https://support.google.com/docs/answer/3092979\n- Search results showed current date-formula generator and date-formula tutorial pages, including an Excel Formula GPT date-formula generator article and general DATE-function tutorials. This validates the category as an existing demand pool rather than a new market.\n\n## What changed\n\n- Added `date-formula-generator` to `build-seo-pages.mjs`.\n- Generated `index.html`.\n- Added a homepage Common formulas link to `/date-formula-generator/`.\n- Regenerated `workspace/sheetpilot-workbench/sitemap.xml`.\n- Added regression coverage in `content.test.js`.\n- Invoked Luke for public-copy review and applied the useful guidance: lead with the serial-date failure mode, name concrete pasted-in date problems, and avoid blanket accuracy or Excel/Sheets parity claims.\n\n## Verification\n\n- `npm run build:seo && npm test` passed `17/17`.\n- Public-copy grep found no internal/process language or unsupported guarantee language.\n- Live date page returned HTTP 200 and contains:\n  - `Date Formula Generator for Excel and Sheets`\n  - `Date formulas that do not return 45678.`\n  - worked example `=WORKDAY(A2,10,$F$2:$F$20)`\n  - `SoftwareApplication` and breadcrumb JSON-LD\n  - `WORKDAY` page preset\n- Live homepage links to `/date-formula-generator/`.\n- Live sitemap includes `/date-formula-generator/`.\n- Live API returned an OpenAI-backed `WORKDAY` formula with `X-RateLimit-Limit: 30`.\n- Live Stripe checkout returned HTTP 200.\n- IndexNow submission for the new URL returned HTTP 200.\n\n## Boundaries\n\nNo outreach, account creation, DNS change, payment-infrastructure change, public post, or spend.\n\nCurrent cash balance remains `$35.93`.\n",
+          "site_path": "artifacts/2026-05-20-write-my-formula-date-page.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "e status checks.',\n+    bestFor: [\n+      'Due dates, renewal dates, and follow-up dates based on a start date.',\n+      'Business-day calculations that need weekends or holidays excluded.',\n+      'Reports that compare dates to today, month end, or a fixed cutoff.'\n+    ],\n+    steps: [\n+      'Describe the date result you need in plain English.',\n+      'Paste the start date, end date, holiday, or cutoff columns involved.',\n+      'Mention whether weekends, holidays, or month-end behavior should change the answer.'\n+    ],\n+    copyChecks: [\n+      'Confirm that source cells are stored as dates, not text.',\n+      'Format serial-number results as dates before sharing the sheet.',\n+      'Test the formula around weekends, holidays, and month boundaries.'\n+    ]\n   }\n ];\n \n@@ -462,6 +494,20 @@\n       formula: '=IFERROR(B2/$B$5,0)',\n       read: 'The formula divides the category revenue by the locked total cell and returns 0 instead of an error if the total is blank or zero.'\n     }\n+  },\n+  'date-formula-generator': {\n+    gives: [\n+      'A draft date formula matched to the deadline or date comparison you describe.',\n+      'A plain-English read of which cells are dates, offsets, holidays, or cutoff values.',\n+      'Checks for date formatting, text dates, weekends, holidays, and month boundaries.'\n+    ],\n+    useWhen: 'Use this page when spreadsheet work depends on dates that should update automatically, such as due dates, billing cycles, workday counts, aging reports, or overdue flags. Tell the tool whether you are in Excel or Google Sheets because date parsing and some function behavior can differ.',\n+    notWhen: 'Do not paste date formulas broadly until you confirm the source cells are real date values. Excel and Google Sheets can display dates while still storing imported values as text, which changes formula behavior.',\n+    example: {\n+      setup: 'For a start date in A2 and a company holiday list in F2:F20, a workday formula can calculate a due date 10 business days later.',\n+      formula: '=WORKDAY(A2,10,$F$2:$F$20)',\n+      read: 'The formula starts from A2, moves forward 10 workdays, skips normal weekends, and also skips any holiday dates in the locked holiday range.'\n+    }\n   }\n };\n \ndiff --git content.test.js content.test.js\nindex f26c20745d3ae7019923577215eb97ae5953ec5b..1187ed51258c28448720cb039421dbf58e04180c\n--- content.test.js\n+++ content.test.js\n@@ -28,6 +28,8 @@\n   assert.match(page, /Compatibility/);\n   assert.match(page, /\\/percentage-formula-generator\\//);\n   assert.match(page, /Build percent of total, percent change, discount, markup, tax, tip, and completion-rate formulas/);\n+  assert.match(page, /\\/date-formula-generator\\//);\n+  assert.match(page, /Create due dates, workday counts, month-end dates, date differences, and overdue checks/);\n   assert.match(page, /data-checkout/);\n   assert.match(page, /Founding access/);\n   assert.match(page, /https:\\/\\/writemyformula\\.com\\//);\n@@ -89,7 +91,8 @@\n     'if-formula-generator',\n     'countifs-formula-generator',\n     'sumifs-formula-generator',\n-    'percentage-formula-generator'\n+    'percentage-formula-generator',\n+    'date-formula-generator'\n   ];\n   const sitemap = read('sitemap.xml');\n \n@@ -126,3 +129,15 @@\n   assert.match(page, /percentage of total/);\n   assert.match(sitemap, /https:\\/\\/writemyformula\\.com\\/percentage-formula-generator\\//);\n });\n+\n+test('date formula page targets deadline and workday intent', () => {\n+  const page = read('date-formula-generator/index.html');\n+  const sitemap = read('sitemap.xml');\n+\n+  assert.match(page, /Date Formula Generator for Excel and Sheets/);\n+  assert.match(page, /due dates/);\n+  assert.match(page, /workday counts/);\n+  assert.match(page, /=WORKDAY\\(A2,10,\\$F\\$2:\\$F\\$20\\)/);\n+  assert.match(page, /WORKDAY/);\n+  assert.match(sitemap, /https:\\/\\/writemyformula\\.com\\/date-formula-generator\\//);\n+});\n\ntokens used\n202,536\nCompleted one task: shipped the Write My Formula date-formula SEO page.\n\nLive: https://writemyformula.com/date-formula-generator/  \nArtifact: `artifacts/2026-05-20-write-my-formula-date-page.md`  \nDeployment: `dpl_nULfizS3nyRvqTxaHFMYTPYdDWRL`\n\nVerified:\n- `npm run build:seo && npm test` passed `17/17`\n- live date page, homepage link, sitemap, schema, API, and Stripe checkout all return healthy responses\n- IndexNow submission returned HTTP 200\n- `the project's STATE.md config`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md`, and `ACTIVE_BETS.md` updated\n- `OPEN_GATES.md` remains empty\n- spend: `$0`; cash balance remains `$35.93`\n\nResearch sources used: Microsoft Excel date/time function reference and Google Sheets `NETWORKDAYS` docs:\n- https://support.microsoft.com/en-us/office/date-and-time-functions-reference-fd1b5961-c1ae-4677-be58-074152f97b81\n- https://support.google.com/docs/answer/3092979\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-20_121701.txt",
+      "screenshot_path": "",
+      "label": "05-20-26 (Day 31) \u00b7 8:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

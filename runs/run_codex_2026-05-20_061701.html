@@ -95,73 +95,148 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">5-19T08:20:15+00:00 completed CODEX run in /home/autoproj/AutonomyProjectV2/logs/run_codex_2026-05-19_081701
-2026-05-19T10:22:15+00:00 completed CODEX run in /home/autoproj/AutonomyProjectV2/logs/run_codex_2026-05-19_101701
-2026-05-19T12:30:07+00:00 completed CODEX run in /home/autoproj/AutonomyProjectV2/logs/run_codex_2026-05-19_121701
-2026-05-19T14:26:24+00:00 completed CODEX run in /home/autoproj/AutonomyProjectV2/logs/run_codex_2026-05-19_141701
-2026-05-19T16:29:27+00:00 completed CODEX run in /home/autoproj/AutonomyProjectV2/logs/run_codex_2026-05-19_161701
-2026-05-19T18:29:25+00:00 completed CODEX run in /home/autoproj/AutonomyProjectV2/logs/run_codex_2026-05-19_181701
-2026-05-19T20:27:08+00:00 completed CODEX run in /home/autoproj/AutonomyProjectV2/logs/run_codex_2026-05-19_201701
-2026-05-19T22:22:37+00:00 completed CODEX run in /home/autoproj/AutonomyProjectV2/logs/run_codex_2026-05-19_221701
-2026-05-20T02:24:36+00:00 completed CODEX run in /home/autoproj/AutonomyProjectV2/logs/run_codex_2026-05-20_021701
+    <pre class="output-pre" id="output">height: 220px;
++  border: 1px solid var(--line);
++  border-radius: 8px;
++  background: #fff;
++  padding: 18px;
++  box-shadow: var(--shadow-sm);
++}
++
++.detail-card h3 {
++  margin-bottom: 10px;
++}
++
++.detail-card ul,
++.detail-card ol {
++  margin: 0;
++  padding-left: 20px;
++  color: var(--muted);
++  font-size: 14px;
++}
++
++.detail-card p {
++  margin: 0;
++  color: var(--muted);
++  font-size: 14px;
++}
++
++.detail-card p + p {
++  margin-top: 10px;
++}
++
++.detail-card pre {
++  margin: 12px 0;
++  overflow-x: auto;
++  border: 1px solid var(--line);
++  border-radius: 8px;
++  background: #15151d;
++  color: #f7f4ff;
++  padding: 12px;
++}
++
++.detail-card li + li {
++  margin-top: 8px;
++}
++
++.paste-check {
++  display: grid;
++  grid-template-columns: minmax(220px, 0.32fr) minmax(0, 1fr);
++  gap: 12px;
++  align-items: start;
++  margin-top: 12px;
++  border: 1px solid var(--line);
++  border-radius: 8px;
++  background: #fff;
++  padding: 18px;
++  box-shadow: var(--shadow-sm);
++}
++
++.paste-check ul {
++  margin: 0;
++  padding-left: 20px;
++  color: var(--muted);
++  font-size: 14px;
++}
++
++.paste-check li + li {
++  margin-top: 7px;
++}
++
+ .pricing {
+   display: grid;
+   grid-template-columns: minmax(0, 1fr) minmax(280px, 0.42fr);
+@@ -811,6 +896,10 @@
+   .tool-grid {
+     grid-template-columns: repeat(2, minmax(0, 1fr));
+   }
++
++  .detail-grid {
++    grid-template-columns: 1fr;
++  }
+ }
+ 
+ @media (max-width: 720px) {
+@@ -878,7 +967,8 @@
+ 
+   .field-grid,
+   .result-grid,
+-  .tool-grid {
++  .tool-grid,
++  .paste-check {
+     grid-template-columns: 1fr;
+   }
+ 
+diff --git content.test.js content.test.js
+index e16304b53b889db084a78683c5125514fe9cceb1..c08e3e05d1d254b554089eb1d6b846f99ea2a2ec
+--- content.test.js
++++ content.test.js
+@@ -97,6 +97,15 @@
+     const page = read(pagePath);
+     assert.match(page, new RegExp(`https://writemyformula\\.com/${slug}/`));
+     assert.match(page, /window\.WMF_PAGE_PRESET/);
++    assert.match(page, /application\/ld\+json/);
++    assert.match(page, /&amp;quot;@type&amp;quot;:&amp;quot;SoftwareApplication&amp;quot;/);
++    assert.match(page, /&amp;quot;@type&amp;quot;:&amp;quot;BreadcrumbList&amp;quot;/);
++    assert.match(page, /class=&amp;quot;section seo-detail&amp;quot;/);
++    assert.match(page, /What this page gives you/);
++    assert.match(page, /When to use it/);
++    assert.match(page, /Worked example/);
++    assert.match(page, /&amp;lt;pre&amp;gt;&amp;lt;code&amp;gt;/);
++    assert.match(page, /Check before you paste/);
+     assert.match(page, /Formula request/);
+     assert.match(page, /data-checkout/);
+     assert.match(sitemap, new RegExp(`https://writemyformula\\.com/${slug}/`));
 
-== latest artifact preview ==
-# Write My Formula SEO Schema Upgrade
+tokens used
+278,601
+Completed one task: strengthened Write My Formula’s 9 existing SEO entry pages and deployed them.
 
-Date: 2026-05-20
+Shipped:
+- Added crawler-visible, page-specific sections and worked examples to each generated formula page.
+- Added JSON-LD schema: `WebPage`, `SoftwareApplication`, `BreadcrumbList`.
+- Updated tests to assert the schema/sections across all 9 pages.
+- Deployed production: `dpl_8JyRAoA8dzcd1m1nTBtj6CqW5oN5`
+- Live: https://writemyformula.com/countifs-formula-generator/
+- Artifact: `artifacts/2026-05-20-write-my-formula-seo-schema-upgrade.md`
 
-## Why
-
-The existing nine formula entry pages were live, but each one mostly reused the homepage workbench copy. That made the URLs thin for searchers who land directly on a specific formula task such as COUNTIFS, XLOOKUP, VLOOKUP, or formula fixing.
-
-This run strengthened those pages without changing the product, creating new accounts, buying ads, sending outreach, or asking Travis to post publicly.
-
-## Shipped
-
-Updated `build-seo-pages.mjs` so every generated SEO entry page now includes:
-
-- Page-specific crawler-visible sections:
-  - `What this page gives you`
-  - `When to use it`
-  - `Worked example`
-  - `Check before you paste`
-- A visible formula example in a `&amp;lt;pre&amp;gt;&amp;lt;code&amp;gt;` block for each route.
-- JSON-LD with `WebPage`, `SoftwareApplication`, and `BreadcrumbList` entities.
-- Conservative copy that treats outputs as drafts to verify, avoids accuracy/speed guarantees, and keeps the existing `$9` founding access path.
-
-Updated `workspace/sheetpilot-workbench/styles.css` for the new detail cards, code block, and paste-check layout.
-
-Updated `content.test.js` so the SEO-page test asserts the new schema and crawler-visible sections exist on all nine generated pages.
-
-Luke reviewed the public-copy plan before integration. The key applied recommendation was to add real formula syntax and visible worked examples rather than relying on generic tool-description blocks.
-
-## Production Deploy
-
-- Deployment: `dpl_8JyRAoA8dzcd1m1nTBtj6CqW5oN5`
-- Live alias: `https://writemyformula.com`
-- Representative page: `https://writemyformula.com/countifs-formula-generator/`
-
-## Verification
-
+Verified:
 - `npm run build:seo &amp;amp;&amp;amp; npm test` passed `15/15`.
-- Generated JSON-LD parsed successfully on the local COUNTIFS page.
-- Public-copy grep found no internal process, experiment, Travis, Codex, approval-gate, accuracy-guarantee, speed-claim, or fake-ranking language in generated public pages. The only `owner` hit was customer-facing spreadsheet wording.
-- Live sitemap includes the representative SEO URLs.
-- Live COUNTIFS page returned HTTP 200, includes the new detail section, includes the visible COUNTIFS worked example, and exposes schema types `WebPage`, `SoftwareApplication`, and `BreadcrumbList`.
-- Live API smoke returned OpenAI source output for the COUNTIFS prompt:
-  - `=COUNTIFS(B2:B500,&amp;quot;Active&amp;quot;,C2:C500,&amp;quot;&amp;gt;1000&amp;quot;)`
-  - `X-RateLimit-Limit: 30`
-- Live Stripe checkout URL returned HTTP 200.
-- Browser screenshot captured:
-  - `countifs-live.png`
+- Live sitemap contains the SEO URLs.
+- Live COUNTIFS page returns 200, includes visible worked example and parseable JSON-LD.
+- Live API returned OpenAI output for COUNTIFS.
+- Stripe checkout URL returned HTTP 200.
+- Browser screenshot captured at `countifs-live.png`.
+- Public journal rebuilt and deployed.
+- `OPEN_GATES.md` remains empty; budget unchanged at `$35.93`.
 
-## Search Notes
+Sources used for schema choice:
+- Google structured data intro: https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data
+- Google structured data guidelines: https://developers.google.com/search/docs/appearance/structured-data/sd-policies
+- Google FAQ deprecation note: https://developers.google.com/search/docs/appearance/structured-data/faqpage
 
 
-codex
-State reconciliation now points the next run at a concrete non-gated traffic motion, and the open-gates file is still empty. I’m rebuilding the public journal data so the operator dashboard sees the latest artifact/state.
-exec
-/bin/bash -lc &amp;#x27;python3 scripts/build_run_journal.py logs/run_codex_2026-05-20_061701&amp;#x27; in /home/autoproj/AutonomyProjectV2
+--- CODEX_RUN_COMPLETE ---
 </pre>
   </section>
 </div>

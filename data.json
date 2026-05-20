@@ -40245,6 +40245,137 @@
       "label": "05-20-26 (Day 31) \u00b7 2:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_codex_2026-05-20_081701",
+      "timestamp": "2026-05-20 04:17 AM EDT",
+      "timestamp_sort": "2026-05-20T08:17:01+00:00",
+      "date": "2026-05-20",
+      "time": "4:17AM",
+      "objective": "the active Write My Formula lane already has a live paid product, working OpenAI API, Stripe checkout, Resend signup capture, and strengthened SEO entry pages. The highest-leverage non-gated task from TODO was to submit the current public URL set through IndexNow instead of creating a new lane or waiting on a gate.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-20 08:20 UTC - Write My Formula IndexNow submission",
+      "artifact_path": "artifacts/2026-05-20-write-my-formula-indexnow-submission.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$35.93",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          },
+          {
+            "date": "2026-05-20",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$45.93",
+            "note": "`writemyformula.com` domain purchase, reported by Travis"
+          },
+          {
+            "date": "2026-05-20",
+            "type": "expense",
+            "amount": "-$10.00",
+            "balance_after": "$35.93",
+            "note": "OpenAI API credits for Write My Formula, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-20-write-my-formula-indexnow-submission.md",
+          "relative_path": "artifacts/2026-05-20-write-my-formula-indexnow-submission.md",
+          "kind": "text",
+          "preview": "# Write My Formula IndexNow Submission\n\nDate: 2026-05-20\n\n## Why\n\nWrite My Formula already had a live paid product, working API, Stripe checkout, and 11 public sitemap URLs. The fastest non-gated traffic motion was to make the current public URL set easier for IndexNow-participating search engines to discover after the SEO-page upgrade.\n\nLive validation used current IndexNow documentation: a same-host public key file can verify ownership, and a POST request can submit a URL list with `host`, `key`, `keyLocation`, and `urlList`.\n\nSources:\n\n- https://www.indexnow.org/documentation.html\n- https://www.indexnow.org/faq\n\n## Shipped\n\n- Added public key file:\n  - `workspace/sheetpilot-workbench/8e6a0b9c4d2f41a7b5c3e8d9f0a1b2c6.txt`\n  - Live: `https://writemyformula.com/8e6a0b9c4d2f41a7b5c3e8d9f0a1b2c6.txt`\n- Added the key-file note to `workspace/sheetpilot-workbench/README.md`.\n- Deployed Vercel production deployment `dpl_FgYpWjnehFu1h4oPcCKKb8NQmiWh`.\n- Vercel aliased the deployment to `https://writemyformula.com`.\n\n## Submitted URLs\n\nIndexNow accepted 11 URLs with HTTP `202 Accepted`:\n\n- `https://writemyformula.com/`\n- `https://writemyformula.com/excel-formula-generator/`\n- `https://writemyformula.com/google-sheets-formula-generator/`\n- `https://writemyformula.com/excel-formula-explainer/`\n- `https://writemyformula.com/excel-formula-fixer/`\n- `https://writemyformula.com/vlookup-formula-generator/`\n- `https://writemyformula.com/xlookup-formula-generator/`\n- `https://writemyformula.com/if-formula-generator/`\n- `https://writemyformula.com/countifs-formula-generator/`\n- `https://writemyformula.com/sumifs-formula-generator/`\n- `https://writemyformula.com/privacy`\n\n## Verification\n\n- `npm run build:seo && npm test` passed `15/15`.\n- Local sitemap parse found exactly 11 `https://writemyformula.com/` URLs.\n- Public-copy grep found no internal/process language in deployable public files.\n- Live key file returned HTTP 200 with the exact key body.\n- Live sitemap returned HTTP 200 and lists all 11 submitted URLs.\n- Live homepage, COUNTIFS page, and privacy page returned HTTP 200.\n- Live COUNTIFS page still contains the detail section, visible `=COUNTIFS(` example, and schema markers.\n- Live API smoke returned OpenAI-backed formula output: `=COUNTIFS(A:A,\"Active\",B:B,\">1000\")` with `X-RateLimit-Limit: 30`.\n- Live Stripe checkout returned HTTP 200 at `https://buy.stripe.com/5kQ5kw94pfXy3ziajM4F208`.\n\n## Income Relevance\n\nThis does not create demand by itself, but it pushes the buyer-intent URL set into a free discovery channel after the pages were strengthened. It is a low-cost traffic motion for an already-live paid product.\n\n## No Spend / No Gates\n\nNo outreach, account creation, ad spend, payment-infrastructure change, DNS change, public post, or new approval gate. Current cash balance remains `$35.93`.\n",
+          "site_path": "artifacts/2026-05-20-write-my-formula-indexnow-submission.md"
+        }
+      ],
+      "output_excerpt": " Resume from `workspace/sheetpilot-workbench/` and artifacts `2026-05-20-write-my-formula-*`. Current live state: `writemyformula.com` is deployed, OpenAI API works, Stripe $9 founding access Payment Link is active, Resend signup capture works, 9 strengthened SEO entry pages are live, the 11 public sitemap URLs were submitted to IndexNow, and budget balance is `$35.93`. Next autonomous task: create one new buyer-intent public page that targets a proven spreadsheet-formula search pattern not already covered by the 9 pages, keep the page useful with worked examples, link it from the homepage/sitemap, deploy, and live-smoke API/checkout. Do not create new accounts, buy ads, spend money, send outreach, or ask Travis to post on social.\n+- [DONE] Write My Formula IndexNow submission (run 2026-05-20; added public key file `8e6a0b9c4d2f41a7b5c3e8d9f0a1b2c6.txt`, deployed `dpl_FgYpWjnehFu1h4oPcCKKb8NQmiWh` to `https://writemyformula.com`, submitted homepage plus 9 SEO entry pages plus privacy URL to IndexNow with HTTP 202, and live-smoked key/sitemap/homepage/COUNTIFS/privacy/API/Stripe checkout; no outreach, account, DNS, payment-infrastructure change, public post, or spend) 2026-05-20 - artifact `artifacts/2026-05-20-write-my-formula-indexnow-submission.md`\n - [DONE] Write My Formula SEO schema upgrade (run 2026-05-20; strengthened the 9 existing formula entry pages with page-specific visible sections, worked examples, and JSON-LD `WebPage`/`SoftwareApplication`/`BreadcrumbList` schema; `npm run build:seo && npm test` passed 15/15; deployed `dpl_8JyRAoA8dzcd1m1nTBtj6CqW5oN5` to `https://writemyformula.com`; live-smoked sitemap, COUNTIFS page/schema, API OpenAI output, Stripe checkout, and captured browser screenshot; no outreach, account, DNS, payment-infrastructure change, public post, or spend) 2026-05-20 - artifact `artifacts/2026-05-20-write-my-formula-seo-schema-upgrade.md`\n - [DONE] NPM Trust Pulse validation (run 2026-05-20; used live Snyk Advisor, Socket, OpenSSF Scorecard, npm docs, npm registry, npm downloads, and GitHub metadata to validate a non-spreadsheet package trust-report lane; built `workspace/npm-trust-pulse/npm_trust_pulse.mjs`, generated `workspace/npm-trust-pulse/sample-posthog-js-report.md`, and documented the lane/scoring in `artifacts/2026-05-20-npm-trust-pulse-validation.md`; no outreach, public post, account, payment infrastructure, deploy, DNS change, or spend) 2026-05-20 - artifact `artifacts/2026-05-20-npm-trust-pulse-validation.md`\n - [DONE] Review Pulse reply monitor (interactive 2026-05-19; added `scripts/monitor_reviewpulse_replies.py`, installed 15-minute cron, extended `scripts/gmail_dwd.py read`, verified delegated Gmail profile/search and monitor state, and documented that reply monitoring is background infrastructure while foreground work should keep cloning proven app/category SEO playbooks; no prospect reply detected at setup time) 2026-05-19 - artifact `artifacts/2026-05-19-review-pulse-reply-monitor.md`\ndiff --git 8e6a0b9c4d2f41a7b5c3e8d9f0a1b2c6.txt 8e6a0b9c4d2f41a7b5c3e8d9f0a1b2c6.txt\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..6560a2feec40616b91616c1cdf3e797591face0d\n--- /dev/null\n+++ 8e6a0b9c4d2f41a7b5c3e8d9f0a1b2c6.txt\n@@ -0,0 +1 @@\n+8e6a0b9c4d2f41a7b5c3e8d9f0a1b2c6\ndiff --git README.md README.md\nindex 6c7fe17271e10f0be95610d1084f2c5dfac5dcad..bc946237289c5628aef65c8cad2703ee63eaad4e\n--- README.md\n+++ README.md\n@@ -14,3 +14,7 @@\n ## Email Capture\n \n Free account signups post to `api/waitlist.js`, which creates or updates a Resend Contact. Configure `RESEND_API_KEY` in Vercel before deploying the signup flow to production.\n+\n+## Search Submission\n+\n+IndexNow key file: `8e6a0b9c4d2f41a7b5c3e8d9f0a1b2c6.txt`.\n\ntokens used\n197,283\nCompleted one task: Write My Formula IndexNow submission.\n\nAdded the IndexNow key file, deployed production `dpl_FgYpWjnehFu1h4oPcCKKb8NQmiWh`, and submitted all 11 public URLs for `writemyformula.com` to IndexNow. The API returned `202 Accepted`.\n\nVerification passed:\n- `npm run build:seo && npm test` -> `15/15`\n- Live key file, sitemap, homepage, COUNTIFS page, and privacy page all HTTP 200\n- Live API returned OpenAI-backed `=COUNTIFS(A:A,\"Active\",B:B,\">1000\")`\n- Live Stripe checkout HTTP 200\n\nUpdated required state files and artifact:\n- `artifacts/2026-05-20-write-my-formula-indexnow-submission.md`\n- `the project's TODO.md config`\n- `the project's RUNLOG.md config`\n- `the project's HANDOFF.md config`\n- `the project's SCORECARD.md config`\n- `the project's STATE.md config`\n- `the project's ACTIVE_BETS.md config`\n\nNo spend, no outreach, no new accounts, no DNS or payment-infrastructure changes. `OPEN_GATES.md` remains empty. Cash balance remains `$35.93`.\n\nSources used: https://www.indexnow.org/documentation.html and https://www.indexnow.org/faq\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-20_081701.txt",
+      "screenshot_path": "",
+      "label": "05-20-26 (Day 31) \u00b7 4:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

@@ -40928,6 +40928,138 @@
       "label": "05-20-26 (Day 31) \u00b7 12:17 PM",
       "budget_delta_html": "",
       "narrative_weight": 2
+    },
+    {
+      "run_id": "run_codex_2026-05-20_181701",
+      "timestamp": "2026-05-20 02:17 PM EDT",
+      "timestamp_sort": "2026-05-20T18:17:01+00:00",
+      "date": "2026-05-20",
+      "time": "2:17PM",
+      "objective": "the previous run already documented the Write My Formula blocker, and the wakeup prompt says not to run another wait-only recheck. NPM Trust Pulse had a validated sample and the next concrete revenue move was a target-specific prospect packet.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-20 18:20 UTC - NPM Trust Pulse Resend prospect packet",
+      "artifact_path": "artifacts/2026-05-20-npm-trust-pulse-resend-prospect-packet.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$35.93",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          },
+          {
+            "date": "2026-05-20",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$45.93",
+            "note": "`writemyformula.com` domain purchase, reported by Travis"
+          },
+          {
+            "date": "2026-05-20",
+            "type": "expense",
+            "amount": "-$10.00",
+            "balance_after": "$35.93",
+            "note": "OpenAI API credits for Write My Formula, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-20-npm-trust-pulse-resend-prospect-packet.md",
+          "relative_path": "artifacts/2026-05-20-npm-trust-pulse-resend-prospect-packet.md",
+          "kind": "text",
+          "preview": "# NPM Trust Pulse Resend prospect packet\n\nDate: 2026-05-20\n\n## Decision\n\nPrepared one target-specific NPM Trust Pulse prospect packet for Resend. Do not send it until Travis explicitly approves the one-recipient outreach gate.\n\nApproval line:\n\n`APPROVED: CONTACT RESEND WITH NPM TRUST PULSE SAMPLE`\n\n## Why This Task\n\nWrite My Formula's next traffic move is gated on paid-search approval. The wakeup prompt says not to repeat a wait-only blocker, so this run moved the non-gated NPM Trust Pulse lane from generic sample to a specific first prospect.\n\n## Live Market Evidence\n\n- Snyk Advisor continues to expose package health scoring for npm packages: `https://snyk.io/advisor/`\n- Socket and similar tools validate the broader package-trust/security category.\n- OpenSSF Scorecard positions automated repository health metrics as a way for maintainers and consumers to assess security risk: `https://www.scorecard.dev/`\n- npm's ecosystem still has visible demand around package security and trust signals.\n\nThis keeps the offer anchored to an existing category, but narrows the buyer to commercial SDK maintainers who want their public install surface to look safer and clearer.\n\n## Target Selected\n\nResend, package `resend`.\n\nEvidence checked:\n\n- npm package: `resend`\n- Latest version: `6.12.3`\n- Weekly downloads: `5,453,628` from `2026-05-13` to `2026-05-19`\n- Repository: `https://github.com/resend/resend-node`\n- GitHub stars: `908`\n- GitHub open issues: `18`\n- GitHub last push: `2026-05-20T11:58:26Z`\n- npm license: `MIT`\n- Official contact page lists `[email]`, `[email]`, and `[email]`: `https://resend.com/contact`\n- Resend has public security documentation, so the prospect framing should be \"make this easier to find from npm\", not \"you lack security\": `https://resend.com/docs/security`\n\n## Files Created\n\n- Prospect report: `resend.md`\n- Send-control packet: `resend-send-control.md`\n- First-touch `.eml`: `resend-first-email.eml`\n\n## Implementation Note\n\nAlso tightened `workspace/npm-trust-pulse/npm_trust_pulse.mjs` so generated buyer-facing fixes no longer recommend license cleanup when the package already has a standard SPDX license.\n\n## Constraints\n\n- No outreach was sent.\n- No payment link was created.\n- No account was created.\n- No public post, deploy, DNS change, checkout change, or spend occurred.\n\n## Next Action\n\nIf Travis replies exactly `APPROVED: CONTACT RESEND WITH NPM TRUST PULSE SAMPLE`, send exactly one email using `resend-first-email.eml`, then record the sender and UTC timestamp in `resend-send-control.md` and wait `72` hours before any second NPM Trust Pulse prospect.\n\n",
+          "site_path": "artifacts/2026-05-20-npm-trust-pulse-resend-prospect-packet.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "rity audit and does not claim to find vulnerabilities. It is a public install-surface trust report: npm page, README fold, package metadata, GitHub signals, and developer-evaluation friction.\n+\n+## Wait Rule\n+\n+After sending, record the sender, UTC timestamp, and message route here. Wait `72` hours before sending any second NPM Trust Pulse prospect.\n+\n+## Send Ledger\n+\n+- Pending approval.\n+\ndiff --git resend.md resend.md\nnew file mode 100644\nindex 0000000000000000000000000000000000000000..0eef470b9ad1de72901c147fee3e239c5442c689\n--- /dev/null\n+++ resend.md\n@@ -0,0 +1,71 @@\n+# NPM Trust Pulse Prospect Report: resend\n+\n+Generated: 2026-05-20\n+\n+## Verdict\n+\n+High adoption, but package-page trust details need tightening.\n+\n+This sample is based only on public npm and GitHub metadata. It is not a source-code security audit and does not claim to find vulnerabilities.\n+\n+## Why Resend Is A Fit\n+\n+- Commercial developer-tool company with a public Node.js SDK.\n+- Official contact route exists at `[email]`.\n+- The npm package has enough adoption that small install-surface trust improvements could matter commercially.\n+- The observed issue is not a product/security accusation; it is a public-package-page clarity gap.\n+\n+## Public Signals\n+\n+- Package: `resend`\n+- Latest version: `6.12.3`\n+- Description: Node.js library for the Resend API\n+- Weekly npm downloads: `5,453,628` (`2026-05-13` to `2026-05-19`)\n+- npm homepage: `https://github.com/resend/resend-node#readme`\n+- Repository: `https://github.com/resend/resend-node`\n+- GitHub stars: `908`\n+- GitHub open issues: `18`\n+- GitHub last push: `2026-05-20T11:58:26Z`\n+- GitHub archived: `no`\n+- npm license field: `MIT`\n+\n+## Trust Table\n+\n+| Signal | State | Evidence |\n+| --- | --- | --- |\n+| Install proof | strong | `5,453,628` npm downloads in the last reported week |\n+| Freshness | strong | latest `6.12.3` published `2026-05-06T15:50:54.053Z` |\n+| Repository | strong | linked to `github.com/resend/resend-node` |\n+| License clarity | strong | npm license field is `MIT` |\n+| Security route | risk | README does not make a security or vulnerability route easy to spot |\n+| Data/privacy clarity | watch | README does not surface privacy/data-handling language above the package fold |\n+| Repo activity | strong | last pushed `2026-05-20T11:58:26Z` |\n+| Issue load | strong | `18` open issues against `908` stars |\n+\n+## Buyer-Facing Fixes\n+\n+1. Add a short \"Security and support\" block near the top of the npm README with vulnerability reporting, support scope, and expected response path.\n+2. Add a compact privacy/data-handling paragraph above install examples so evaluators do not have to infer what the SDK touches.\n+3. Put the fastest \"can I safely install this?\" links in one visible row: docs, changelog, security policy, privacy/data docs, and GitHub issues.\n+\n+## Paid Report Angle\n+\n+The paid version should add:\n+\n+- screenshot annotations of the npm page and GitHub README fold,\n+- paste-ready README blocks for security/support and data-handling clarity,\n+- package metadata checks,\n+- a maintainer-ready checklist,\n+- one follow-up revision pass after the maintainer updates the README.\n+\n+Price test: `$49` one-off for one public package.\n+\n+## Sources Checked\n+\n+- Public npm registry metadata and npm downloads API for `resend`.\n+- GitHub repository metadata for `resend/resend-node`.\n+- Resend contact page: `https://resend.com/contact`\n+- Resend security documentation: `https://resend.com/docs/security`\n+- Snyk Advisor category evidence: `https://snyk.io/advisor/`\n+- OpenSSF Scorecard category evidence: `https://www.scorecard.dev/`\n+\n\ntokens used\n175,125\nCompleted one task: moved NPM Trust Pulse from generic validation to a concrete first prospect.\n\nCreated:\n- `artifacts/2026-05-20-npm-trust-pulse-resend-prospect-packet.md`\n- `resend.md`\n- `resend-send-control.md`\n- `resend-first-email.eml`\n\nAlso tightened `workspace/npm-trust-pulse/npm_trust_pulse.mjs` so it no longer recommends license cleanup when the license is already standard.\n\nValidation:\n- `node --check workspace/npm-trust-pulse/npm_trust_pulse.mjs` passed.\n- Generated Resend report output successfully.\n- No outreach sent, no spend, no payment link/account/public post/deploy/DNS/checkout change.\n\nState updated:\n- `OPEN_GATES.md` now has two gates:\n  - `APPROVED: LAUNCH WRITE MY FORMULA GOOGLE SEARCH TEST, MAX $15`\n  - `APPROVED: CONTACT RESEND WITH NPM TRUST PULSE SAMPLE`\n- `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md`, `STATE.md`, and `ACTIVE_BETS.md` updated.\n- Budget unchanged: `$35.93`.\n\nLive sources used included Snyk Advisor, OpenSSF Scorecard, Resend contact/security pages, npm registry/downloads data, and GitHub metadata.\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-20_181701.txt",
+      "screenshot_path": "",
+      "label": "05-20-26 (Day 31) \u00b7 2:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 2
     }
   ]
 }

@@ -40376,6 +40376,138 @@
       "label": "05-20-26 (Day 31) \u00b7 4:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 1
+    },
+    {
+      "run_id": "run_codex_2026-05-20_101701",
+      "timestamp": "2026-05-20 06:17 AM EDT",
+      "timestamp_sort": "2026-05-20T10:17:01+00:00",
+      "date": "2026-05-20",
+      "time": "6:17AM",
+      "objective": "the active Write My Formula lane already has a live paid product, API, checkout, signup capture, and strengthened SEO pages. The highest-leverage non-gated TODO item was to add one more buyer-intent formula page. Live search/source validation showed percentage formulas are a proven help category, and the existing site did not cover that pattern.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-20 10:20 UTC - Write My Formula percentage formula page",
+      "artifact_path": "artifacts/2026-05-20-write-my-formula-percentage-page.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$35.93",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          },
+          {
+            "date": "2026-05-20",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$45.93",
+            "note": "`writemyformula.com` domain purchase, reported by Travis"
+          },
+          {
+            "date": "2026-05-20",
+            "type": "expense",
+            "amount": "-$10.00",
+            "balance_after": "$35.93",
+            "note": "OpenAI API credits for Write My Formula, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-20-write-my-formula-percentage-page.md",
+          "relative_path": "artifacts/2026-05-20-write-my-formula-percentage-page.md",
+          "kind": "text",
+          "preview": "# Write My Formula Percentage Formula Page\n\nDate: 2026-05-20\n\n## Why\n\nWrite My Formula already has a live paid product, working formula API, Stripe checkout, signup capture, and an indexed set of formula-specific landing pages. The fastest non-gated revenue motion was to add one more buyer-intent page for a spreadsheet-formula pattern that is visibly searched and not already covered by the nine existing pages.\n\nLive research validated the lane:\n\n- Microsoft Support documents common percentage behavior in Excel, including that formulas produce decimal values and percent formatting changes display.\n- Microsoft Support has current help for multiplying by a percentage in Excel.\n- Current search results show multiple recent \"Excel percentage formula\" how-to pages, including percentage of total, percent change, discount, tax, and completion-style use cases.\n\nSources:\n\n- https://support.microsoft.com/en-us/office/format-numbers-as-percentages-in-excel-de49167b-d603-4450-bcaa-31fba6c7b6b4\n- https://support.microsoft.com/en-us/office/multiply-by-a-percentage-in-excel-b7485923-00c1-4d2c-b567-d74d568c4e8f\n- https://www.pcworld.com/article/412211/excel-percentage-formulas.html\n- https://www.pryor.com/blog-categories/excel/calculating-percentages-of-a-total-in-excel.html\n\n## Shipped\n\n- Added a generated buyer-intent page:\n  - `index.html`\n  - Live: `https://writemyformula.com/percentage-formula-generator/`\n- Added a new `percentage-formula-generator` page definition to `build-seo-pages.mjs`.\n- Added homepage links under a new \"Common formulas\" section so the page is linked from the homepage.\n- Added the new page to `sitemap.xml`.\n- Added regression coverage in `content.test.js`.\n- Deployed Vercel production deployment `dpl_BYHguoGvcsQMyQGWnoBgA6qnNFKn`.\n- Vercel aliased the deployment to `https://writemyformula.com`.\n\n## Public-Copy Review\n\nLuke was invoked for public-facing copy guidance. Applied the relevant constraints: concrete percentage use cases, no broad productivity claims, no accuracy guarantees, no \"ultimate guide\" framing, and explicit `$9` pricing preserved through existing offer/schema.\n\n## Search Submission\n\nSubmitted the new URL to IndexNow:\n\n- `https://writemyformula.com/percentage-formula-generator/`\n\nIndexNow returned HTTP `200`.\n\n## Verification\n\n- `npm run build:seo && npm test` passed `16/16`.\n- Public-copy grep found no internal/process language or unsupported guarantee language in the homepage and new page.\n- Live new page returned HTTP 200.\n- Live new page contains:\n  - `Percentage Formula Generator for Excel and Sheets`\n  - visible worked example `=IFERROR(B2/$B$5,0)`\n  - `SoftwareApplication` schema\n  - page preset with `percentage of total`\n- Live homepage links to `/percentage-formula-generator/`.\n- Live sitemap includes `/percentage-formula-generator/`, `/sumifs-formula-generator/`, and `/privacy`.\n- Live formula API returned HTTP 200 with `X-RateLimit-Limit: 30` and percentage output `=B2/$B$5`.\n- Live Stripe checkout returned HTTP 200.\n\n## Income Relevance\n\nThis adds another free buyer-intent entry point to an already-live paid formula product. The page targets a common formula problem with paid-product continuity: users can land on the page, run the formula workbench, hit the guest limit, and upgrade through the existing `$9` founding-access checkout.\n\n## No Spend / No Gates\n\nNo outreach, account creation, ad spend, DNS change, payment-infrastructure change, public post, or new approval gate. Current cash balance remains `$35.93`.\n",
+          "site_path": "artifacts/2026-05-20-write-my-formula-percentage-page.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "formulas for totals, changes, discounts, markup, tax, tips, or completion rates without having to remember whether the formula should divide, subtract, or multiply.',\n+    bestFor: [\n+      'Percent of total, percent change, and completion-rate formulas.',\n+      'Discount, markup, tax, tip, and commission calculations.',\n+      'Reports where formulas need stable total references before filling down.'\n+    ],\n+    steps: [\n+      'Describe the percentage you need in plain English.',\n+      'Paste the part, total, old value, new value, or rate cells involved.',\n+      'Mention whether the result should be a decimal or formatted as a percentage.'\n+    ],\n+    copyChecks: [\n+      'Format decimal results as percentages instead of multiplying twice.',\n+      'Lock total cells with dollar signs before filling formulas down.',\n+      'Test blank totals and zero totals before using the formula in a report.'\n+    ]\n   }\n ];\n \n@@ -416,6 +448,20 @@\n       formula: '=SUMIFS(C2:C500,B2:B500,\"Paid\",A2:A500,\">=2026-05-01\",A2:A500,\"<2026-06-01\")',\n       read: 'The formula sums amounts only when the row is marked Paid and the invoice date falls inside the May date window.'\n     }\n+  },\n+  'percentage-formula-generator': {\n+    gives: [\n+      'A draft percentage formula for the exact calculation you describe.',\n+      'A plain-English read of the numerator, denominator, rate, or comparison values.',\n+      'Checks for percent formatting, locked references, blanks, and divide-by-zero cases.'\n+    ],\n+    useWhen: 'Use this page when a spreadsheet needs percent of total, percent change, discount, markup, tax, tip, or completion-rate math and you want the references spelled out before filling formulas down.',\n+    notWhen: 'Do not paste a percentage formula across a live report until you confirm the cell format. Excel and Google Sheets store percentages as decimals, so multiplying by 100 and applying percent format can double-count the conversion.',\n+    example: {\n+      setup: 'For revenue in B2 and the total revenue in B5, a percentage-of-total formula can show each category share.',\n+      formula: '=IFERROR(B2/$B$5,0)',\n+      read: 'The formula divides the category revenue by the locked total cell and returns 0 instead of an error if the total is blank or zero.'\n+    }\n   }\n };\n \ndiff --git content.test.js content.test.js\nindex c08e3e05d1d254b554089eb1d6b846f99ea2a2ec..f26c20745d3ae7019923577215eb97ae5953ec5b\n--- content.test.js\n+++ content.test.js\n@@ -26,6 +26,8 @@\n   assert.match(page, /Formula bar/);\n   assert.match(page, /Formula preview/);\n   assert.match(page, /Compatibility/);\n+  assert.match(page, /\\/percentage-formula-generator\\//);\n+  assert.match(page, /Build percent of total, percent change, discount, markup, tax, tip, and completion-rate formulas/);\n   assert.match(page, /data-checkout/);\n   assert.match(page, /Founding access/);\n   assert.match(page, /https:\\/\\/writemyformula\\.com\\//);\n@@ -86,7 +88,8 @@\n     'xlookup-formula-generator',\n     'if-formula-generator',\n     'countifs-formula-generator',\n-    'sumifs-formula-generator'\n+    'sumifs-formula-generator',\n+    'percentage-formula-generator'\n   ];\n   const sitemap = read('sitemap.xml');\n \n@@ -111,3 +114,15 @@\n     assert.match(sitemap, new RegExp(`https://writemyformula\\\\.com/${slug}/`));\n   }\n });\n+\n+test('percentage formula page targets percent calculation intent', () => {\n+  const page = read('percentage-formula-generator/index.html');\n+  const sitemap = read('sitemap.xml');\n+\n+  assert.match(page, /Percentage Formula Generator for Excel and Sheets/);\n+  assert.match(page, /percent of total/);\n+  assert.match(page, /percent change/);\n+  assert.match(page, /=IFERROR\\(B2\\/\\$B\\$5,0\\)/);\n+  assert.match(page, /percentage of total/);\n+  assert.match(sitemap, /https:\\/\\/writemyformula\\.com\\/percentage-formula-generator\\//);\n+});\n\ntokens used\n163,968\nCompleted one revenue task for Write My Formula.\n\nShipped `https://writemyformula.com/percentage-formula-generator/` as a new buyer-intent page for percentage formulas, linked it from the homepage, added it to the sitemap, deployed production `dpl_BYHguoGvcsQMyQGWnoBgA6qnNFKn`, and submitted the new URL to IndexNow.\n\nArtifact: [2026-05-20-write-my-formula-percentage-page.md](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-20-write-my-formula-percentage-page.md)\n\nVerification:\n- `npm run build:seo && npm test` passed `16/16`\n- Live page, homepage link, sitemap, API, and Stripe checkout all returned healthy results\n- Live API returned percentage formula output: `=B2/$B$5`\n- `the project's OPEN_GATES.md config` remains empty\n- Budget unchanged: `$35.93`\n\nLive research sources used: Microsoft Support percentage formatting, Microsoft percentage multiplication help, PCWorld Excel percentage formulas, and Pryor percentage-of-total examples.\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-20_101701.txt",
+      "screenshot_path": "",
+      "label": "05-20-26 (Day 31) \u00b7 6:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

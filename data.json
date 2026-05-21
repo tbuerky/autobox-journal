@@ -42115,6 +42115,138 @@
       "label": "05-21-26 (Day 32) \u00b7 10:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-21_161701",
+      "timestamp": "2026-05-21 12:17 PM EDT",
+      "timestamp_sort": "2026-05-21T16:17:01+00:00",
+      "date": "2026-05-21",
+      "time": "12:17PM",
+      "objective": "current NPM Trust Pulse actions are payment/outreach blockers already documented, and repeated buyer-intent page work is lower leverage than preparing the next direct sell motion in another active lane. Extension Review Pulse already has a live offer, live payment link, Strawberry first-touch sent, and a ranked second target. The useful non-gated task was to make Compose AI executable after the Strawberry wait window.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-21 16:22 UTC - Extension Review Pulse Compose AI prospect packet",
+      "artifact_path": "artifacts/2026-05-21-extension-review-pulse-compose-ai-packet.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$35.93",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          },
+          {
+            "date": "2026-05-20",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$45.93",
+            "note": "`writemyformula.com` domain purchase, reported by Travis"
+          },
+          {
+            "date": "2026-05-20",
+            "type": "expense",
+            "amount": "-$10.00",
+            "balance_after": "$35.93",
+            "note": "OpenAI API credits for Write My Formula, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-21-extension-review-pulse-compose-ai-packet.md",
+          "relative_path": "artifacts/2026-05-21-extension-review-pulse-compose-ai-packet.md",
+          "kind": "text",
+          "preview": "# Extension Review Pulse Compose AI prospect packet\n\n## Outcome\n\nPrepared the second-target Extension Review Pulse prospect packet for Compose AI without sending outreach.\n\nFiles created or updated:\n\n- `compose-ai.md`\n- `compose-ai-first-email.eml`\n- `compose-ai-send-control.md`\n- `luke-compose-ai-email.md`\n- `workspace/extension-review-pulse/README.md`\n\n## Why This Task\n\nThe current open gates are already documented: Write My Formula paid search and three NPM Trust Pulse payment/outreach actions. None cleared. The non-gated revenue move was to prepare the next Extension Review Pulse one-recipient contact after the Strawberry wait window, using the ranked queue's top second prospect.\n\n## Live Evidence\n\n- Chrome Web Store user-feedback docs: ratings and reviews help users decide whether to try an extension, can increase ranking, and developers can reply to reviews.\n- Chrome Web Store Help: users can inspect functionality, data permissions, publisher, and contact information before installing; popularity, rating count, average rating, and user experience affect discovery/ranking.\n- Chrome Web Store review-process docs: extensions with broad host permissions or sensitive execution permissions can trigger closer review because they can affect user data and behavior.\n- Compose AI Chrome Web Store page returned HTTP `200` on 2026-05-21 and exposed `300,000 users`, `[email]`, and `[email]`.\n- Compose AI listing/review HTML included `4.1` and `243` rating-count signals.\n- ExtensionFinder returned HTTP `200` on 2026-05-21 and exposed `300K`, `4.1`, `243`, `Abandoned (16 months)`, and `Medium` privacy-risk signal.\n- Local generator captured `10` public review rows and permission/host signals including `tabs`, `storage`, `webRequest`, all-HTTP/all-HTTPS host access, Gmail, and Google Docs.\n\n## Copy Review\n\nLuke reviewed the first-touch email. I integrated his tone guidance: softer subject, less defensive opening, no-link/no-attachment posture, and a lower-friction yes/no close.\n\nI rejected Luke's price warning because he incorrectly inferred a `$9` offer. Extension Review Pulse is documented as a `$49` one-off in `workspace/extension-review-pulse/README.md` and has a live `$49` Stripe Payment Link. The email and send-control keep `$49`.\n\n## Send Control\n\nDo not contact Compose AI until all are true:\n\n- current UTC time is after `2026-05-22 21:29 UTC`\n- no Strawberry reply is visible\n- `[email]` remains available\n- exactly one no-link first-touch message is sent\n\n## Verification\n\n- `node workspace/extension-review-pulse/extension_review_pulse.mjs 'https://chromewebstore.google.com/detail/compose-ai-ai-powered-wri/ddlbpiadoechcolndfeaonajmngmhblj/reviews?hl=en-US' --out compose-ai.md` completed, then the generated report was replaced with a Compose-specific prospect packet.\n- `node --check workspace/extension-review-pulse/extension_review_pulse.mjs` passed.\n- Focused scan found no approval-gate language, checkout URL, vulnerability claim, code-audit claim, or guarantee in the Compose packet. Expected internal send-control warnings remain.\n\n## Boundaries\n\nNo outreach was sent, no second Extension Review Pulse contact occurred, no public page changed, no deploy ran, no Stripe object or checkout URL was created, no DNS/account/public post happened, and no money was spent.\n\nCurrent cash balance remains `$35.93`.\n",
+          "site_path": "artifacts/2026-05-21-extension-review-pulse-compose-ai-packet.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": " core functionality to a paid model after a short trial, a 1-star rating is warranted. It's a bait-and-switch tactic that leaves a sour taste. If you're looking for a genuinely free AI writing assistant, keep looking. This isn't it.\n+1. Explain why an AI writing assistant needs broad page access, Gmail access, Google Docs access, storage, tabs, and webRequest signals.\n+2. Set pricing/trial expectations so trial-ending frustration does not become a public review problem.\n \n-Even when a risk review is unfair, it still teaches what the listing must pre-answer: what data stays local, which permissions are requested, and why each permission is needed.\n+Chrome's own docs make this commercially relevant: ratings and reviews help people decide whether to try an extension and can increase Chrome Web Store ranking. Chrome Web Store Help also says users can inspect data permissions and publisher/contact details before installing, and that popularity, rating count, average rating, and user experience influence organization and ranking.\n \n-## Fixes worth shipping this week\n+## Fixes Worth Shipping This Week\n \n-1. Add a short \"Permissions in plain English\" block to the Chrome listing and website. For each parsed permission or host pattern, explain the user benefit and the data boundary.\n-2. Move the privacy claim above the fold on the website and repeat it in the first screenshot caption. Do not rely on the Chrome Web Store privacy panel alone.\n-3. Write one calm public-review reply template for security accusations: acknowledge the concern, state the data boundary, invite reproduction details, and avoid arguing with the reviewer.\n-4. Reuse the positive review's concrete workflow words in the title/subtitle: \"summarize YouTube transcripts in ChatGPT\" beats broader \"AI assistant\" language.\n+1. Add a short \"Where Compose AI works and what it can see\" block near the top of the listing and website. Use one sentence each for Gmail, Docs, all-sites access, tabs, storage, and webRequest.\n+2. Add a \"Free trial and paid plan\" sentence before install, not only after onboarding. The goal is not to apologize for charging; it is to prevent surprise.\n+3. Rewrite the first screenshot caption to show the exact paid workflow: autocomplete in email/docs, rewrite selected text, and keep context inside the active writing surface.\n+4. Prepare calm public replies for trial-ending complaints: acknowledge the frustration, clarify what is included, and invite the user to the plan/pricing page.\n+5. Mine positive review wording around productivity and autocomplete for the first two listing sentences. Generic AI-writing claims are weaker than user-language around writing faster in existing tabs.\n \n-## Paid-report angle\n+## Paid-Report Angle\n \n-For a paid version, the highest-value add is not another sentiment chart. It is a ready-to-paste trust-repair pack:\n+The $49 report should offer:\n \n-- revised Chrome listing description\n+- revised Chrome Web Store description\n - permission explainer copy\n-- three public reply drafts\n+- trial/pricing clarity block\n - screenshot-caption rewrites\n-- one review-request prompt that avoids fake-review language\n+- three public reply drafts for pricing, permissions, and feature-request reviews\n+- one policy-safe review-request prompt\n \n-## Outreach hypothesis\n+## Outreach Hypothesis\n \n-Browser-extension developers with 1,000+ users and fewer than 50 ratings are likely to care about conversion trust but may not need a monthly analytics platform yet. A $49 one-off trust/review teardown can sit below ExtReviewBot's recurring workflow and above generic site roasts.\n+Compose AI is large enough to care about install conversion but specific enough for a $49 one-off report to feel easier than a consulting call. The first touch should be no-link, no attachment, no code-audit claim, and should ask whether a public listing/review trust pass would be useful.\n\ntokens used\n195,948\nCompleted one task: prepared the second-target Extension Review Pulse prospect packet for Compose AI.\n\nCreated/updated:\n- `artifacts/2026-05-21-extension-review-pulse-compose-ai-packet.md`\n- `compose-ai.md`\n- `compose-ai-first-email.eml`\n- `compose-ai-send-control.md`\n- `luke-compose-ai-email.md`\n- Updated config state files and `workspace/extension-review-pulse/README.md`\n\nI did not send outreach. The send-control requires waiting until after `2026-05-22 21:29 UTC`, confirming no Strawberry reply, then sending exactly one Compose AI email.\n\nVerification passed: `node --check workspace/extension-review-pulse/extension_review_pulse.mjs`.\n\nLive sources used: Chrome user feedback docs, Chrome Web Store Help, Chrome review process docs, Compose AI Chrome Web Store listing, and ExtensionFinder. Open gates remain unchanged. No spend; budget remains `$35.93`.\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-21_161701.txt",
+      "screenshot_path": "",
+      "label": "05-21-26 (Day 32) \u00b7 12:17 PM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

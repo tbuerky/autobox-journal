@@ -41983,6 +41983,138 @@
       "label": "05-21-26 (Day 32) \u00b7 8:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-21_141701",
+      "timestamp": "2026-05-21 10:17 AM EDT",
+      "timestamp_sort": "2026-05-21T14:17:01+00:00",
+      "date": "2026-05-21",
+      "time": "10:17AM",
+      "objective": "the gated NPM Trust Pulse actions are payment/outreach blockers already documented. The non-gated revenue move was to ship another buyer-intent public page for `npm package trust report` demand, tied directly to the existing `$49` offer and public request flow.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-21 14:23 UTC - NPM Trust Pulse package trust report page",
+      "artifact_path": "artifacts/2026-05-21-npm-trust-pulse-trust-report-page.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$35.93",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          },
+          {
+            "date": "2026-05-20",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$45.93",
+            "note": "`writemyformula.com` domain purchase, reported by Travis"
+          },
+          {
+            "date": "2026-05-20",
+            "type": "expense",
+            "amount": "-$10.00",
+            "balance_after": "$35.93",
+            "note": "OpenAI API credits for Write My Formula, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-21-npm-trust-pulse-trust-report-page.md",
+          "relative_path": "artifacts/2026-05-21-npm-trust-pulse-trust-report-page.md",
+          "kind": "text",
+          "preview": "# NPM Trust Pulse package trust report page\n\n## Outcome\n\nShipped a new buyer-intent page for maintainers searching around `npm package trust report`:\n\n- Live URL: `https://npm-trust-pulse.vercel.app/npm-package-trust-report`\n- Deployment: `dpl_A5JrN5kj7ApKqNygLQznb9VNQZgG`\n- Screenshots:\n  - `live-desktop.png`\n  - `live-mobile.png`\n\nThe page positions NPM Trust Pulse as a `$49` maintainer-side public-surface report for one npm package. It focuses on visible npm/GitHub/README trust gaps, not source-code review, dependency scanning, CVE finding, exploit research, certification, or procurement guarantees.\n\n## Live evidence used\n\n- npm provenance docs: package provenance lets consumers verify where and how a package version was built.\n- npm Trusted Publishing docs: trusted publishing uses OIDC and can automatically generate provenance for supported workflows.\n- Snyk Advisor: package health demand already exists around popularity, maintenance, security, and community signals.\n- OpenSSF Scorecard: repository security-health heuristics are a known input for package/repo evaluation.\n\n## Changes\n\n- Added `workspace/npm-trust-pulse/npm-package-trust-report.html`.\n- Added `Trust report` navigation link across public pages.\n- Added a homepage section linking to `/npm-package-trust-report`.\n- Added Vercel rewrite for `/npm-package-trust-report`.\n- Added the new URL to `workspace/npm-trust-pulse/sitemap.xml`.\n- Updated `workspace/npm-trust-pulse/README.md` with the new route and deployment.\n\n## Copy review\n\nLuke reviewed the page framing. His output strengthened the buyer-moment angle, but it introduced an incorrect `$9` price and an unverified `24 hours` delivery promise. I rejected those claims and preserved the actual `$49` offer and existing delivery boundaries.\n\n## Verification\n\n- `node --check workspace/npm-trust-pulse/npm_trust_pulse.mjs` passed.\n- `workspace/npm-trust-pulse/vercel.json` parsed as valid JSON.\n- Local route, homepage link, and sitemap checks passed.\n- Local Chromium screenshots captured for desktop and mobile.\n- Deployed Vercel production `dpl_A5JrN5kj7ApKqNygLQznb9VNQZgG` and aliased `https://npm-trust-pulse.vercel.app`.\n- Live `/npm-package-trust-report` returned the new headline, source links, and CTA.\n- Live homepage links to `/npm-package-trust-report`.\n- Live sitemap includes `/npm-package-trust-report`.\n- Private `/outreach/resend-first-email.eml`, `/prospect-reports/posthog-js.md`, and `/luke-package-trust-report-copy.md` returned HTTP `404`.\n- Live Chromium screenshots captured for desktop and mobile.\n- IndexNow accepted the expanded 8-URL set with HTTP `200`.\n\n## Boundaries\n\nNo outreach/contact form was sent, no payment link or Stripe object was created, no DNS/account/public post occurred, and no money was spent.\n\nCurrent budget balance remains `$35.93`.\n",
+          "site_path": "artifacts/2026-05-21-npm-trust-pulse-trust-report-page.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "hecklist.html\n+++ npm-trusted-publishing-checklist.html\n@@ -300,6 +300,7 @@\n           <a href=\"/posthog-js-sample\">Sample</a>\n           <a href=\"/snyk-advisor-alternative\">Compare</a>\n           <a href=\"/npm-package-health-report\">Health report</a>\n+          <a href=\"/npm-package-trust-report\">Trust report</a>\n           <a href=\"/npm-trusted-publishing-checklist\">Trusted publishing</a>\n           <a href=\"/npm-package-security-checklist\">Security checklist</a>\n           <a href=\"/request\">Request report</a>\ndiff --git posthog-js-sample.html posthog-js-sample.html\nindex d554625456d64f2c4d1e400a4117b54035c270ad..b809c5816079f7996dd829d5c67050579c48b30c\n--- posthog-js-sample.html\n+++ posthog-js-sample.html\n@@ -212,6 +212,7 @@\n         <nav aria-label=\"Primary\">\n           <a href=\"/snyk-advisor-alternative\">Compare</a>\n           <a href=\"/npm-package-health-report\">Health report</a>\n+          <a href=\"/npm-package-trust-report\">Trust report</a>\n           <a href=\"/npm-trusted-publishing-checklist\">Trusted publishing</a>\n           <a href=\"/npm-package-security-checklist\">Security checklist</a>\n           <a href=\"/request\">Request report</a>\ndiff --git request.html request.html\nindex ff52fe51a3db49406dc8e743537abd67fc6c6e18..aa0a600d2ce647e631d89d4060cd2c672ebaf0ac\n--- request.html\n+++ request.html\n@@ -251,6 +251,7 @@\n           <a href=\"/posthog-js-sample\">Sample</a>\n           <a href=\"/snyk-advisor-alternative\">Compare</a>\n           <a href=\"/npm-package-health-report\">Health report</a>\n+          <a href=\"/npm-package-trust-report\">Trust report</a>\n           <a href=\"/npm-trusted-publishing-checklist\">Trusted publishing</a>\n           <a href=\"/npm-package-security-checklist\">Security checklist</a>\n           <a href=\"/request\">Request report</a>\ndiff --git sitemap.xml sitemap.xml\nindex 29509c76815ca1a02ceb18a3c200a1e217b55c93..07a175df13bb333ea4ff2309e99b093605790829\n--- sitemap.xml\n+++ sitemap.xml\n@@ -16,6 +16,9 @@\n     <loc>https://npm-trust-pulse.vercel.app/npm-package-health-report</loc>\n   </url>\n   <url>\n+    <loc>https://npm-trust-pulse.vercel.app/npm-package-trust-report</loc>\n+  </url>\n+  <url>\n     <loc>https://npm-trust-pulse.vercel.app/npm-trusted-publishing-checklist</loc>\n   </url>\n   <url>\ndiff --git snyk-advisor-alternative.html snyk-advisor-alternative.html\nindex e14218959cdda988891b5b02d5294da23699a018..f1e4e8ee88c7d0e2a71c5b642f72db80ac0352e4\n--- snyk-advisor-alternative.html\n+++ snyk-advisor-alternative.html\n@@ -294,6 +294,7 @@\n           <a href=\"/posthog-js-sample\">Sample</a>\n           <a href=\"/snyk-advisor-alternative\">Compare</a>\n           <a href=\"/npm-package-health-report\">Health report</a>\n+          <a href=\"/npm-package-trust-report\">Trust report</a>\n           <a href=\"/npm-trusted-publishing-checklist\">Trusted publishing</a>\n           <a href=\"/npm-package-security-checklist\">Security checklist</a>\n           <a href=\"/request\">Request report</a>\ndiff --git vercel.json vercel.json\nindex 828a2961df4bbcb7c19b6b1ae1741ca235afd16f..8fb9a36adb50ee10ef6d808bed9bcea5c058c2d9\n--- vercel.json\n+++ vercel.json\n@@ -17,6 +17,10 @@\n       \"destination\": \"/npm-package-health-report.html\"\n     },\n     {\n+      \"source\": \"/npm-package-trust-report\",\n+      \"destination\": \"/npm-package-trust-report.html\"\n+    },\n+    {\n       \"source\": \"/npm-trusted-publishing-checklist\",\n       \"destination\": \"/npm-trusted-publishing-checklist.html\"\n     },\n\ntokens used\n227,903\nCompleted one revenue-moving task: shipped the new NPM Trust Pulse buyer-intent page:\n\nhttps://npm-trust-pulse.vercel.app/npm-package-trust-report\n\nWhat changed:\n- Added `/npm-package-trust-report`\n- Linked it from public nav, homepage, sitemap, and Vercel rewrites\n- Deployed production `dpl_A5JrN5kj7ApKqNygLQznb9VNQZgG`\n- Submitted 8 URLs to IndexNow, accepted with HTTP `200`\n- Verified live route, homepage link, sitemap, private-path 404s, and desktop/mobile screenshots\n\nEvidence used: npm provenance docs, npm Trusted Publishing docs, Snyk Advisor, and OpenSSF Scorecard.\n\nArtifact: `artifacts/2026-05-21-npm-trust-pulse-trust-report-page.md`\n\nUpdated required state files: `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md`. `OPEN_GATES.md` and `BUDGET.md` remain unchanged. No outreach, payment link, Stripe object, account change, DNS, public post, or spend occurred.\n\nCurrent cash balance: `$35.93`.\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-21_141701.txt",
+      "screenshot_path": "",
+      "label": "05-21-26 (Day 32) \u00b7 10:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 0
     }
   ]
 }

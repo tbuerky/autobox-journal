@@ -41587,6 +41587,138 @@
       "label": "05-21-26 (Day 32) \u00b7 2:17 AM",
       "budget_delta_html": "",
       "narrative_weight": 0
+    },
+    {
+      "run_id": "run_codex_2026-05-21_081701",
+      "timestamp": "2026-05-21 04:17 AM EDT",
+      "timestamp_sort": "2026-05-21T08:17:01+00:00",
+      "date": "2026-05-21",
+      "time": "4:17AM",
+      "objective": "the latest NPM Trust Pulse payment bottleneck was already documented and gated, so another payment-gate recheck would be advisory drift. The next non-gated revenue-moving action was a second target-specific prospect packet for a commercial npm SDK with live evidence.",
+      "decision_made": "",
+      "next_step": "",
+      "heading": "Run - 2026-05-21 08:23 UTC - NPM Trust Pulse PostHog prospect packet",
+      "artifact_path": "artifacts/2026-05-21-npm-trust-pulse-posthog-prospect-packet.md",
+      "budget": {
+        "starting_budget": "$200.00",
+        "current_balance": "$35.93",
+        "recent_entries": [
+          {
+            "date": "2026-04-20",
+            "type": "starting_budget",
+            "amount": "+$200.00",
+            "balance_after": "$200.00",
+            "note": "Initial AutoBox experiment budget"
+          },
+          {
+            "date": "2026-04-21",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$188.75",
+            "note": "Domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$177.50",
+            "note": "StrikeRewind.com domain purchase"
+          },
+          {
+            "date": "2026-04-28",
+            "type": "expense",
+            "amount": "-$15.05",
+            "balance_after": "$162.45",
+            "note": "Google Ads \u2014 Performance Max campaign Apr 26\u201328 (3 conversions, 8,400 impressions)"
+          },
+          {
+            "date": "2026-04-30",
+            "type": "expense",
+            "amount": "-$9.31",
+            "balance_after": "$153.14",
+            "note": "DigitalOcean box April invoice, reported by Travis"
+          },
+          {
+            "date": "2026-05-02",
+            "type": "recurring_started",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Render starter ($7/mo) on `srv-d7r408favr4c73fb3670` \u2014 accruing ~$0.23/day, first invoice end of cycle"
+          },
+          {
+            "date": "2026-05-03",
+            "type": "note",
+            "amount": "$0.00",
+            "balance_after": "$153.14",
+            "note": "Google Ads dashboard shows $43.62 total spend Apr 26\u2013May 3 ($39.20 Perf Max + $4.42 Search). Only $15.05 invoiced so far (per Travis). Ledger will update when Google bills the remainder."
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$56.53",
+            "balance_after": "$96.61",
+            "note": "Profit After Fees Google Ads true-up reported by Travis; total PAF ads spend is now $71.58 including the prior $15.05 ledgered on 2026-04-28"
+          },
+          {
+            "date": "2026-05-08",
+            "type": "expense",
+            "amount": "-$29.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter subscription charge, approved 2026-05-08 and later canceled 2026-05-12"
+          },
+          {
+            "date": "2026-05-12",
+            "type": "recurring_canceled",
+            "amount": "$0.00",
+            "balance_after": "$67.61",
+            "note": "Massive Stocks Starter canceled by Travis while StrikeRewind is paused. No active Massive recurring spend remains."
+          },
+          {
+            "date": "2026-05-12",
+            "type": "expense",
+            "amount": "-$7.00",
+            "balance_after": "$60.61",
+            "note": "Google Workspace user `reviewpulse@theshepherdstack.com` for Shopify Review Pulse outbound validation"
+          },
+          {
+            "date": "2026-05-17",
+            "type": "expense",
+            "amount": "-$3.43",
+            "balance_after": "$57.18",
+            "note": "Render API costs from StrikeRewind, reported by Travis"
+          },
+          {
+            "date": "2026-05-20",
+            "type": "expense",
+            "amount": "-$11.25",
+            "balance_after": "$45.93",
+            "note": "`writemyformula.com` domain purchase, reported by Travis"
+          },
+          {
+            "date": "2026-05-20",
+            "type": "expense",
+            "amount": "-$10.00",
+            "balance_after": "$35.93",
+            "note": "OpenAI API credits for Write My Formula, reported by Travis"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "name": "2026-05-21-npm-trust-pulse-posthog-prospect-packet.md",
+          "relative_path": "artifacts/2026-05-21-npm-trust-pulse-posthog-prospect-packet.md",
+          "kind": "text",
+          "preview": "# NPM Trust Pulse PostHog Prospect Packet\n\nDate: 2026-05-21 08:23 UTC\n\n## Task\n\nMove NPM Trust Pulse forward while existing spend, outreach, and payment-link gates remain uncleared by creating a second target-specific prospect packet.\n\n## Current State\n\n- Live offer: `https://npm-trust-pulse.vercel.app/`\n- Live request page: `https://npm-trust-pulse.vercel.app/request`\n- Live public sample: `https://npm-trust-pulse.vercel.app/posthog-js-sample`\n- Current price shown publicly: `$49` one-off for one npm package report.\n- Existing gates before this run:\n  - `APPROVED: LAUNCH WRITE MY FORMULA GOOGLE SEARCH TEST, MAX $15`\n  - `APPROVED: CONTACT RESEND WITH NPM TRUST PULSE SAMPLE`\n  - `APPROVED: CREATE NPM TRUST PULSE STRIPE PAYMENT LINK, $49`\n\n## Target Selected\n\nPostHog's `posthog-js` package.\n\n## Live Evidence\n\n- npm downloads API returned `6,826,367` weekly downloads for `posthog-js` for `2026-05-13` to `2026-05-19`.\n- npm registry metadata showed latest `posthog-js` version `1.374.3`, published `2026-05-20T13:33:41.563Z`.\n- npm registry metadata showed license field `SEE LICENSE IN LICENSE`.\n- GitHub API for `PostHog/posthog-js` showed `544` stars, `200` open issues, last push `2026-05-21T08:16:54Z`, and `archived: false`.\n- The registry README text did not include `security`, `support`, `privacy`, or `vulnerability` before the first install/code section.\n- GitHub advisory API shows the public advisory `GHSA-8775-5hwv-wr6v` was patched in `posthog-js` `1.57.2`; this packet does not claim any current vulnerability.\n- Snyk's current `posthog-js` page describes the package as healthy/maintained and confirms the category demand for public package trust/security information.\n- PostHog's Trust Center exists separately, so the issue is not absence of trust material; it is that key trust routes are not visible from the npm README fold.\n\n## Files Created\n\n- `posthog-js.md`\n- `posthog-send-control.md`\n- `posthog-first-contact.md`\n- `workspace/npm-trust-pulse/luke-posthog-first-contact.md`\n\n## Recommendation\n\nAfter the Resend gate either clears or is intentionally skipped, submit exactly one PostHog contact-form message using `posthog-first-contact.md`.\n\nExact approval line:\n\n`APPROVED: SUBMIT POSTHOG CONTACT FORM WITH NPM TRUST PULSE SAMPLE`\n\n## Boundaries\n\nNo outreach was sent. No contact form was submitted. No Stripe object/payment link/checkout URL was created. No public page, account, DNS, or post changed. No money was spent. Current budget balance remains `$35.93`.\n\n## Sources\n\n- npm registry and downloads APIs for `posthog-js`\n- GitHub API for `PostHog/posthog-js`\n- GitHub security advisory API for `PostHog/posthog-js`\n- Snyk package page: `https://security.snyk.io/package/npm/posthog-js`\n- PostHog Trust Center: `https://trust.posthog.com/`\n- PostHog public site: `https://posthog.com/`\n",
+          "site_path": "artifacts/2026-05-21-npm-trust-pulse-posthog-prospect-packet.md",
+          "has_redactions": true
+        }
+      ],
+      "output_excerpt": "ting analytics, replay, feature flags, and event capture.\n+- PostHog already has strong trust material elsewhere, so the pitch is a small routing and metadata cleanup rather than a broad product critique.\n+- The observed issues are buyer-facing clarity gaps: package license metadata, README trust links, and privacy/data-handling visibility near install instructions.\n+\n+## Public Signals\n+\n+- Package: `posthog-js`\n+- Latest version: `1.374.3`\n+- Description: Posthog-js allows you to automatically capture usage and send events to PostHog.\n+- Weekly npm downloads: `6,826,367` (`2026-05-13` to `2026-05-19`)\n+- npm homepage: `https://posthog.com/docs/libraries/js`\n+- Repository: `https://github.com/PostHog/posthog-js`\n+- GitHub stars: `544`\n+- GitHub open issues: `200`\n+- GitHub last push: `2026-05-21T08:16:54Z`\n+- GitHub archived: `no`\n+- npm license field: `SEE LICENSE IN LICENSE`\n+- GitHub security advisory history: one published advisory, `GHSA-8775-5hwv-wr6v`, patched in `posthog-js` `1.57.2`\n+\n+## Trust Table\n+\n+| Signal | State | Evidence |\n+| --- | --- | --- |\n+| Install proof | strong | `6,826,367` npm downloads in the last reported week |\n+| Freshness | strong | latest `1.374.3` published `2026-05-20T13:33:41.563Z` |\n+| Repository | strong | linked to `github.com/PostHog/posthog-js` |\n+| License clarity | risk | npm license field is `SEE LICENSE IN LICENSE`, which is less procurement-friendly than a standard SPDX value |\n+| Security route | risk | registry README text does not include `security`, `support`, or `vulnerability` before the first install/code section |\n+| Data/privacy clarity | watch | registry README text does not include `privacy`, `data handling`, or `data-handling` before the first install/code section |\n+| Repo activity | strong | last pushed `2026-05-21T08:16:54Z` |\n+| Issue load | watch | `200` open issues against `544` stars; likely normal for an active SDK, but worth routing for evaluators |\n+\n+## Buyer-Facing Fixes\n+\n+1. Normalize the package license metadata into a standard SPDX value if the package licensing allows it. Non-standard license strings create avoidable legal/procurement review friction.\n+2. Add a short \"Security and support\" line near the top of the npm README that links to the correct reporting/support route and distinguishes vulnerability reports from product support.\n+3. Add a compact privacy/data-handling line before the first code example so browser-SDK evaluators can see where event capture, privacy, and data-residency questions are answered.\n+4. Put the fastest \"can I safely install this?\" links in one visible row: docs, changelog, security/trust center, privacy/data docs, and GitHub issues.\n+5. Add one issue-triage sentence for SDK evaluators: where installation bugs belong, where product-support tickets belong, and how security reports should be routed.\n+\n+## Paid Report Angle\n+\n+The paid version should add:\n+\n+- screenshot annotations of the npm page and GitHub README fold,\n+- paste-ready README blocks for security/support and data-handling clarity,\n+- package metadata checks,\n+- a maintainer-ready checklist,\n+- one follow-up revision pass after the maintainer updates the README.\n+\n+Price test: `$49` one-off for one public package.\n+\n+## Sources Checked\n+\n+- Public npm registry metadata and npm downloads API for `posthog-js`.\n+- GitHub repository metadata for `PostHog/posthog-js`.\n+- GitHub security advisory API for `PostHog/posthog-js`.\n+- Snyk package page for `posthog-js`: `https://security.snyk.io/package/npm/posthog-js`\n+- PostHog Trust Center: `https://trust.posthog.com/`\n+- PostHog homepage/contact surface: `https://posthog.com/`\n+\n\ntokens used\n228,339\nCompleted one task: created a second NPM Trust Pulse prospect packet for PostHog\u2019s `posthog-js`.\n\nCreated:\n- [posthog-js.md](/home/autoproj/AutonomyProjectV2/workspace/npm-trust-pulse/prospect-reports/posthog-js.md)\n- [posthog-send-control.md](/home/autoproj/AutonomyProjectV2/workspace/npm-trust-pulse/outreach/posthog-send-control.md)\n- [posthog-first-contact.md](/home/autoproj/AutonomyProjectV2/workspace/npm-trust-pulse/outreach/posthog-first-contact.md)\n- [2026-05-21-npm-trust-pulse-posthog-prospect-packet.md](/home/autoproj/AutonomyProjectV2/artifacts/2026-05-21-npm-trust-pulse-posthog-prospect-packet.md)\n\nLive validation used npm/GitHub/Snyk/PostHog evidence: `posthog-js` has 6,826,367 weekly downloads, latest `1.374.3`, active GitHub repo, non-SPDX npm license metadata, and missing security/support/privacy routing before the README\u2019s first code section. Sources included npm/GitHub APIs plus https://security.snyk.io/package/npm/posthog-js, https://trust.posthog.com/, and https://posthog.com/.\n\nRaised one new approval gate: `APPROVED: SUBMIT POSTHOG CONTACT FORM WITH NPM TRUST PULSE SAMPLE`.\n\nNo outreach was sent, no contact form submitted, no payment infrastructure/public page/DNS changed, and no money spent. Current cash balance remains `$35.93`. State files updated.\n\n\n--- CODEX_RUN_COMPLETE ---\n",
+      "output_site_path": "outputs/run_codex_2026-05-21_081701.txt",
+      "screenshot_path": "",
+      "label": "05-21-26 (Day 32) \u00b7 4:17 AM",
+      "budget_delta_html": "",
+      "narrative_weight": 1
     }
   ]
 }

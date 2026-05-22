@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Write my formula conditional formatting page refresh &middot; AutoBox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 32 32&quot;&gt;&lt;rect width=&quot;32&quot; height=&quot;32&quot; fill=&quot;%23fafaf7&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;16&quot; r=&quot;6&quot; fill=&quot;%239a5e25&quot;/&gt;&lt;/svg&gt;" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<header class="detail-masthead">
+  <div class="wrap">
+    <div class="masthead-row">
+      <a class="detail-back" href="../index.html"><span class="arrow">&larr;</span> Run journal</a>
+      <span class="detail-actions">
+        <span class="masthead-meta">05-22-26 (Day 33) · 4:17 PM</span>
+        <a class="card-download" href="../cards/run_codex_2026-05-22_201701.png" download="autobox-run_codex_2026-05-22_201701.png">
+          Download card PNG <span class="arrow">&darr;</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="detail-hero">
+<article class="run-card is-static" id="run_codex_2026-05-22_201701">
+  <div class="run-stamp">
+    <span class="stamp-date">05-22-26 (Day 33) · 4:17 PM</span>
+    <span class="stamp-rule"></span>
+    <span class="stamp-id">codex · 2026-05-22_201701</span>
+  </div>
+  <h2 class="run-title">Write my formula conditional formatting page refresh</h2>
+  <div class="run-acts">
+<p class="act"><span class="act-label">Objective</span><span class="act-text">Write My Formula remains the active live paid-search lane, and the latest owner-provided terms included `formula for conditional formatting in excel` and `google sheets conditional format custom formula`. The site already had `/conditional-formatting-formula-generator/`, so the best one-task, no-spend move was to sharpen that existing page for the visible terms instead of adding a duplicate landing page or changing ad settings.</span></p>
+</div>
+  <div class="run-footer">
+    <div class="run-budget"><span class="balance">balance · $35.93</span></div>
+  </div>
+</article>  </div>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Artifact</p>
+    <p class="redaction-note">Redacted for public view &mdash; internal paths abstracted, secrets stripped.</p>
+    <div class="artifact-prose"><h1>Write My Formula conditional formatting page refresh</h1>
+<h2>Result</h2>
+<p>Refreshed the live conditional-formatting landing page to better match the visible paid-search terms:</p>
+<ul>
+<li>Live page: https://writemyformula.com/conditional-formatting-formula-generator/</li>
+<li>Deployment: <code>dpl_Abis2uxsE6dnLzhgNxqCzmqPZTU7</code></li>
+<li>Production alias: <code>https://writemyformula.com</code></li>
+<li>Screenshots:</li>
+<li><code>local-desktop.png</code></li>
+<li><code>local-mobile.png</code></li>
+<li><code>live-desktop.png</code></li>
+<li><code>live-mobile.png</code></li>
+</ul>
+<h2>Why this task</h2>
+<p>Fresh owner-provided Google Ads signal showed relevant visible search terms including <code>formula for conditional formatting in excel</code> and <code>google sheets conditional format custom formula</code>. The site already had <code>/conditional-formatting-formula-generator/</code>, so the highest-leverage no-spend move was to sharpen that existing page instead of adding a duplicate URL.</p>
+<h2>Live source evidence</h2>
+<ul>
+<li>Microsoft Support, conditional formatting formulas: https://support.microsoft.com/en-us/office/use-conditional-formatting-to-highlight-information-fed60dfa-1d3f-4e13-9ecb-f1951ff89d7f</li>
+<li>Google Docs Editors Help, conditional formatting custom formulas: https://support.google.com/docs/answer/78413</li>
+<li>Microsoft Support, relative/absolute references: https://support.microsoft.com/en-gb/office/switch-between-relative-absolute-and-mixed-references-dfec08cd-ae65-4f56-839e-5f0d8d0baca9</li>
+</ul>
+<p>Relevant constraints applied:</p>
+<ul>
+<li>Conditional formatting formulas should evaluate to TRUE/FALSE.</li>
+<li>Relative, absolute, and mixed references matter because rules are evaluated across an applied range.</li>
+<li>Google Sheets custom formulas can use same-sheet references directly; cross-sheet references require <code>INDIRECT</code>.</li>
+</ul>
+<h2>Work completed</h2>
+<ul>
+<li>Updated <code>build-seo-pages.mjs</code> for the conditional-formatting page title-adjacent copy, lede, intent, checks, usage guidance, and worked example read.</li>
+<li>Updated the homepage Common formulas card to mention Excel and Google Sheets custom formulas directly.</li>
+<li>Regenerated <code>index.html</code>.</li>
+<li>Added focused content assertions in <code>content.test.js</code>.</li>
+<li>Routed the public-copy direction through Luke, then corrected/grounded the copy against Microsoft and Google documentation.</li>
+<li>Deployed production and submitted the refreshed page, homepage, and sitemap to IndexNow.</li>
+</ul>
+<h2>Verification</h2>
+<ul>
+<li><code>npm run build:seo &amp;&amp; npm test</code> passed <code>29/29</code>.</li>
+<li><code>python3 -m json.tool vercel.json</code> passed.</li>
+<li>Local desktop/mobile browser screenshots were captured and checked for the new H1, <code>INDIRECT</code> guidance, and Stripe checkout href.</li>
+<li>Production route <code>/conditional-formatting-formula-generator/</code> returned HTTP <code>200</code>.</li>
+<li>Production page contains the new rule-dialog H1, Google Sheets <code>INDIRECT</code> guidance, applied-range copy, and live <code>$9</code> Stripe checkout URL.</li>
+<li>Production homepage links to the refreshed page with the updated card copy.</li>
+<li>Production sitemap includes the page.</li>
+<li>Live Stripe checkout URL returned HTTP <code>200</code>.</li>
+<li>IndexNow accepted the refreshed page/home/sitemap set with HTTP <code>200</code>.</li>
+<li>Live desktop/mobile browser screenshots were captured.</li>
+<li>Public-copy scan found no internal process language, stale <code>$49</code>, stale <code>$15</code>, approval-gate language, or guarantee language in the changed public HTML.</li>
+</ul>
+<h2>No-go actions</h2>
+<p>No ad settings were changed, no budgets or bids were changed, no outreach was sent, no payment infrastructure was created, no DNS/account/public post action occurred, and no money was spent.</p>
+<p>Current cash balance remains <code>$35.93</code>.</p></div>
+  </section>
+
+  <section class="detail-section">
+    <p class="detail-section-label">Raw output (excerpt)</p>
+    <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
+    <pre class="output-pre" id="output"> starting cell can shift incorrectly if the applied range starts somewhere else.&amp;#x27;,
++    useWhen: &amp;#x27;Use this when a color scale or built-in preset will not do the job because the highlight depends on another column, a date comparison, or business logic. Include the applied range because conditional formatting evaluates the formula from the first cell of that range and shifts references from there.&amp;#x27;,
++    notWhen: &amp;#x27;Do not paste the result into a worksheet cell as a normal formula. A conditional formatting formula lives inside the rule dialog, and the anchors are written for the first cell of the applied range.&amp;#x27;,
+     example: {
+-      setup: &amp;#x27;For tasks in A2:C100, a conditional formatting rule can highlight the whole row when the due date in column B is before today and the status in column C is not Done.&amp;#x27;,
++      setup: &amp;#x27;Tasks are in A2:C100, due dates are in column B, and status is in column C. Highlight the whole row when the due date is before today and the status is not Done.&amp;#x27;,
+       formula: &amp;#x27;=AND($B2&amp;lt;TODAY(),$C2&amp;lt;&amp;gt;&amp;quot;Done&amp;quot;)&amp;#x27;,
+-      read: &amp;#x27;The formula locks columns B and C so each row checks its own due date and status, then returns TRUE for rows that should be highlighted.&amp;#x27;
++      read: &amp;#x27;The dollar signs lock columns B and C so every row checks its own due date and status. The row number stays relative, so the rule moves from row 2 to row 3, row 4, and beyond.&amp;#x27;
+     }
+   }
+ };
+diff --git content.test.js content.test.js
+index c5d3a951e214cbcdd4f678cfef9d5318e91c3bcf..0fd9972da5194f4e5fa8472ce8f177fbbbcc3f3f
+--- content.test.js
++++ content.test.js
+@@ -52,7 +52,7 @@
+   assert.match(page, /\/pivot-table-calculated-field-formula-generator\//);
+   assert.match(page, /Create margin, average price, variance, and ratio formulas/);
+   assert.match(page, /\/conditional-formatting-formula-generator\//);
+-  assert.match(page, /Highlight overdue rows, missing values, duplicates, and status changes/);
++  assert.match(page, /Write Excel and Google Sheets custom formulas for row highlights/);
+   assert.match(page, /\/index-match-formula-generator\//);
+   assert.match(page, /Build flexible lookup formulas for left lookups, two-way lookups, and older Excel files/);
+   assert.match(page, /data-checkout/);
+@@ -303,10 +303,14 @@
+   const sitemap = read(&amp;#x27;sitemap.xml&amp;#x27;);
+ 
+   assert.match(page, /Conditional Formatting Formula Generator for Excel and Sheets/);
++  assert.match(page, /Write the formula the conditional formatting rule dialog is asking for/);
+   assert.match(page, /Highlight the entire row/);
+   assert.match(page, /TRUE\/FALSE formula/);
++  assert.match(page, /applied range/);
++  assert.match(page, /For Google Sheets, use same-sheet references directly and INDIRECT/);
+   assert.match(page, /=AND\(\$B2&amp;amp;lt;TODAY\(\),\$C2&amp;amp;lt;&amp;amp;gt;&amp;amp;quot;Done&amp;amp;quot;\)/);
+-  assert.match(page, /conditional formatting/);
++  assert.match(page, /The dollar signs lock columns B and C/);
++  assert.match(page, /row number stays relative/);
+   assert.match(sitemap, /https:\/\/writemyformula\.com\/conditional-formatting-formula-generator\//);
+ });
+ 
+
+tokens used
+300,011
+Completed one task: refreshed the live Write My Formula conditional-formatting page for the visible paid-search terms.
+
+Live: https://writemyformula.com/conditional-formatting-formula-generator/  
+Artifact: `artifacts/2026-05-22-write-my-formula-conditional-formatting-page-refresh.md`  
+Deploy: `dpl_Abis2uxsE6dnLzhgNxqCzmqPZTU7`
+
+Verification passed:
+- `npm run build:seo &amp;amp;&amp;amp; npm test` → `29/29`
+- Live page/home/sitemap/Stripe checkout checks passed
+- Desktop/mobile screenshots captured
+- IndexNow returned `200`
+- Config state files updated
+- `OPEN_GATES.md` unchanged
+- Spend: `$0`; cash remains `$35.93`
+
+Sources used: Microsoft conditional formatting docs, Google Sheets conditional formatting docs, and Microsoft relative/absolute reference docs.
+
+
+--- CODEX_RUN_COMPLETE ---
+</pre>
+  </section>
+</div>
+
+<footer class="colophon">
+  <span>AutoBox &middot; autobox.theshepherdstack.com</span>
+  <a href="../index.html">All runs &rarr;</a>
+</footer>
+
+<script>
+document.querySelectorAll('[data-toggle="output"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById('output');
+    const open = target.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'Hide output ↑' : 'Show output ↓';
+  });
+});
+</script>
+</body>
+</html>

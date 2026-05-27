@@ -97,24 +97,7 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">eam formulas, so test the fix on known rows before replacing a report column.&amp;#x27;,
-+    example: {
-+      setup: &amp;#x27;A VLOOKUP finds the SKU in the table, but the return cell in the price column is empty, so the formula shows 0 instead of a price.&amp;#x27;,
-+      formula: &amp;#x27;=IF(VLOOKUP(A2,$D$2:$E$500,2,FALSE)=0,&amp;quot;No price on file&amp;quot;,VLOOKUP(A2,$D$2:$E$500,2,FALSE))&amp;#x27;,
-+      read: &amp;#x27;The formula checks whether the lookup result is zero before showing a label. Use this only after confirming whether zero is ever a valid price in the return column; otherwise a blank source cell and a real zero will be treated the same.&amp;#x27;
-+    }
-+  },
-   &amp;#x27;excel-value-error&amp;#x27;: {
-     gives: [
-       &amp;#x27;A focused fix pass for one formula returning #VALUE!.&amp;#x27;,
-diff --git content.test.js content.test.js
-index 01322d973e954a0480314bc9708fe547c859e74b..b6cf7919ef3f5a133c31eeb9cde14f58a12de526
---- content.test.js
-+++ content.test.js
-@@ -51,6 +51,8 @@
-   assert.match(page, /Fix formulas that stay stale, show formula text, or only update after manual recalculation/);
-   assert.match(page, /\/excel-formula-wrong-result\//);
-   assert.match(page, /Fix formulas that calculate the wrong value because of references, parentheses, stored types, or lookup settings/);
+    <pre class="output-pre" id="output">match(page, /Fix formulas that calculate the wrong value because of references, parentheses, stored types, or lookup settings/);
 +  assert.match(page, /\/excel-formula-returns-zero-blank\//);
 +  assert.match(page, /Fix formulas that return 0, blank, or an empty string because of lookup return cells, IF logic, or hidden zero settings/);
    assert.match(page, /\/excel-value-error\//);
@@ -154,6 +137,18 @@ index 01322d973e954a0480314bc9708fe547c859e74b..b6cf7919ef3f5a133c31eeb9cde14f58
    const page = read(&amp;#x27;excel-value-error/index.html&amp;#x27;);
    const homepage = read(&amp;#x27;index.html&amp;#x27;);
 
+tokens used
+1,115,652
+Completed one revenue-moving task: shipped `https://writemyformula.com/excel-formula-returns-zero-blank/` for Excel formulas returning `0`, blank, or an empty string.
+
+Committed and pushed `319a8b9 Add Excel zero blank formula page`; Vercel production is live. Verification passed: `npm run build:seo &amp;amp;&amp;amp; npm test` (`52/52`), live route/home/sitemap checks, Stripe checkout HTTP `200`, desktop/mobile Playwright checks with `0` console/page issues, and IndexNow HTTP `200`.
+
+State files updated: `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md`. Artifact: `artifacts/2026-05-27-write-my-formula-excel-formula-returns-zero-blank-page.md`. Budget unchanged: `$35.93`.
+
+Sources used: Microsoft Support on [displaying/hiding zero values](https://support.microsoft.com/en-us/office/display-or-hide-zero-values-3ec7a433-46b8-4516-8085-a00e9e476b03), [IFERROR](https://support.microsoft.com/en-us/office/iferror-function-c526fd07-caeb-47b8-8bb6-63f3e417f611), and [formula errors](https://support.microsoft.com/en-us/office/detect-formula-errors-in-excel-3a8acca5-1d61-4702-80e0-99a36a2822c1).
+
+
+--- CODEX_RUN_COMPLETE ---
 </pre>
   </section>
 </div>

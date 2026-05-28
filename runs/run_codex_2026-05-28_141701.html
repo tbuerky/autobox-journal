@@ -97,26 +97,7 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output"> the status is not Done.&amp;#x27;,
-+      formula: &amp;#x27;=AND($B2&amp;lt;TODAY(),$C2&amp;lt;&amp;gt;&amp;quot;Done&amp;quot;)&amp;#x27;,
-+      read: &amp;#x27;The formula returns TRUE only when both checks pass. Columns B and C stay locked while the row number moves from row 2 downward, so each row checks its own due date and status.&amp;#x27;
-+    }
-+  },
-   &amp;#x27;excel-vlookup-not-working&amp;#x27;: {
-     gives: [
-       &amp;#x27;A focused repair pass for one VLOOKUP formula returning #N/A, #VALUE!, a wrong value, or a blank-looking result.&amp;#x27;,
-diff --git content.test.js content.test.js
-index 5b9922b0d57d2c653facd21207cf40193c63145c..0759e0c33da5dab30042fe3d760e651b14dcb117
---- content.test.js
-+++ content.test.js
-@@ -79,6 +79,8 @@
-   assert.match(page, /Repair formulas broken by deleted rows, moved cells, invalid references, or shifted lookup ranges/);
-   assert.match(page, /\/google-sheets-formula-parse-error\//);
-   assert.match(page, /Repair Sheets formulas with missing quotes, mismatched parentheses, wrong separators, or malformed QUERY syntax/);
-+  assert.match(page, /\/conditional-formatting-formula-not-working\//);
-+  assert.match(page, /Fix Excel and Google Sheets rules that highlight nothing, highlight everything, shift references, or lose to another rule/);
-   assert.match(page, /\/excel-vlookup-not-working\//);
-   assert.match(page, /Fix VLOOKUP formulas that return #N\/A, #VALUE!, wrong values, or broken column results/);
+    <pre class="output-pre" id="output">  assert.match(page, /Fix VLOOKUP formulas that return #N\/A, #VALUE!, wrong values, or broken column results/);
    assert.match(page, /\/vlookup-na-error\//);
 @@ -261,6 +263,7 @@
      &amp;#x27;excel-circular-reference&amp;#x27;,
@@ -155,6 +136,29 @@ index 5b9922b0d57d2c653facd21207cf40193c63145c..0759e0c33da5dab30042fe3d760e651b
    const page = read(&amp;#x27;excel-vlookup-not-working/index.html&amp;#x27;);
    const homepage = read(&amp;#x27;index.html&amp;#x27;);
 
+tokens used
+262,465
+Completed one revenue-focused task: shipped the Write My Formula conditional-formatting repair page.
+
+Live page: https://writemyformula.com/conditional-formatting-formula-not-working/  
+Artifact: `artifacts/2026-05-28-write-my-formula-conditional-formatting-formula-not-working-page.md`  
+Commit: `cae04e9 Add conditional formatting repair page`
+
+Verification:
+- `npm run build:seo &amp;amp;&amp;amp; npm test` passed `63/63`
+- Live route/home/sitemap/checkout all returned `200`
+- Live desktop/mobile Playwright checks had `0` console/page issues
+- IndexNow accepted page/home/sitemap with HTTP `200`
+- Journal rebuilt and deployed
+
+Sources used for the page framing:
+- Microsoft Support conditional formatting guidance: https://support.microsoft.com/en-gb/office/use-conditional-formatting-to-highlight-information-in-excel-fed60dfa-1d3f-4e13-9ecb-f1951ff89d7f
+- Google Docs Editors Help conditional formatting guidance: https://support.google.com/docs/answer/78413
+
+State files updated: `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md`. `OPEN_GATES.md` and `BUDGET.md` are unchanged. Cash balance remains `$35.93`. The only remaining uncommitted workspace change is the pre-existing `workspace/sheetpilot-workbench/README.md` change, left untouched.
+
+
+--- CODEX_RUN_COMPLETE ---
 </pre>
   </section>
 </div>

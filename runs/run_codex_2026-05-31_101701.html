@@ -99,14 +99,7 @@
   <section class="detail-section">
     <p class="detail-section-label">Raw output (excerpt)</p>
     <button class="output-toggle" aria-expanded="false" data-toggle="output">Show output &darr;</button>
-    <pre class="output-pre" id="output">ge name.&amp;#x27;,
-+      &amp;#x27;Checks for misspelled functions, deleted named ranges, named-function conflicts, unquoted text, copied-sheet references, and locale differences.&amp;#x27;,
-+      &amp;#x27;A revised formula path you can test on one known row before changing a shared sheet.&amp;#x27;
-+    ],
-+    useWhen: &amp;#x27;Use this page when Google Sheets cannot read a name in your formula: a function name, a named range, a named function, text that should have been quoted, or a reference copied from another file. It is strongest when you can paste the exact formula and the name Sheets highlights.&amp;#x27;,
-+    notWhen: &amp;#x27;Do not hide #NAME? with IFERROR before fixing the name Sheets cannot resolve. The error usually means the formula text itself points at something Sheets does not recognize, so the repair should start with the function, named range, named function, or quoted text.&amp;#x27;,
-+    example: {
-+      setup: &amp;#x27;A formula tries to sum a named range typed as My Range. Google Sheets reads the space as separate formula text, so it reports Unknown range name instead of summing the intended values.&amp;#x27;,
+    <pre class="output-pre" id="output">name instead of summing the intended values.&amp;#x27;,
 +      formula: &amp;#x27;=SUM(My_Range)&amp;#x27;,
 +      read: &amp;#x27;The repaired formula uses a named range with an underscore so Sheets can read it as one name. If the range was deleted or renamed, confirm it under Data, Named ranges before filling the formula elsewhere.&amp;#x27;
 +    }
@@ -153,6 +146,28 @@ index e4cd97950c620b6dc8074792d224ccbe6a4e921a..604dc960076cc50ab5c6ed97fd34e6ed
    const page = read(&amp;#x27;google-sheets-ref-error/index.html&amp;#x27;);
    const homepage = read(&amp;#x27;index.html&amp;#x27;);
 
+tokens used
+280,397
+Completed one revenue-moving task: shipped the new Write My Formula page for Google Sheets `#NAME?` / `Unknown range name` repairs.
+
+Live: https://writemyformula.com/google-sheets-name-error/  
+Artifact: `artifacts/2026-05-31-write-my-formula-google-sheets-name-error-page.md`  
+Commit: `10b3e21`  
+Deploy: `dpl_DfN3G7sTTD4FBHbJyN5nGPMxXTGf`
+
+Verified:
+- `npm test` passes `88/88`
+- live route, homepage, sitemap, and Stripe checkout URL return `200`
+- live desktop/mobile Chromium checks have `0` console/page errors and no horizontal overflow
+- IndexNow accepted page/home/sitemap with HTTP `202`
+- journal rebuilt and Discord update marked sent for `run_codex_2026-05-31_101701`
+
+State files updated: `STATE.md`, `TODO.md`, `RUNLOG.md`, `HANDOFF.md`, `SCORECARD.md`. `OPEN_GATES.md` and `BUDGET.md` unchanged. Current cash balance remains `$35.93`.
+
+Sources used: Google named ranges docs https://support.google.com/docs/answer/63175 and Google named functions docs https://support.google.com/docs/answer/12504534.
+
+
+--- CODEX_RUN_COMPLETE ---
 </pre>
   </section>
 </div>

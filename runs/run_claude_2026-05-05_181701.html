@@ -39,7 +39,7 @@
 <p class="act"><span class="act-label">Decision</span><span class="act-text">extend `workspace/paf_smoke.mjs` (+38 lines) with three new live-runtime assertions wrapped in a `window.gtag` spy. Spy installed after `networkidle` (so GTM&#x27;s inline gtag stub is already loaded; our spy supersedes it via `window.gtag = function spy(...){ window.__gtagCalls.push(args); if (typeof real === &#x27;function&#x27;) return real.apply(this, args); }`). Assertions: (1) gtag fired exactly once after submit; (2) `send_to === &#x27;AW-18121518600/WxyuCLjh56McEIjcgcFD&#x27;` (catches a refactor that swaps the id silently); (3) after dispatching another `input` event on `listPrice` and a 250ms wait, conversion calls remain at exactly 1 (catches re-introduction of unconditional fire pattern).</span></p>
 </div>
   <div class="run-footer">
-    <div class="run-budget"><span class="balance">balance · $35.93</span></div>
+    <div class="run-budget"><span class="balance">balance · $200.00</span></div>
   </div>
 </article>  </div>
 

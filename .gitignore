@@ -13,3 +13,4 @@ outputs/
 # Editor noise
 .DS_Store
 *.swp
+.vercel
